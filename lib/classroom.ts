@@ -38,8 +38,18 @@ export type CadreRole = {
   duty: string;
 };
 
+export type RosterClass = {
+  id: string;
+  name: string;
+  grade: string;
+  term: string;
+  students: Student[];
+};
+
 export type ClassroomData = {
   students: Student[];
+  activeClassId?: string;
+  rosterClasses?: RosterClass[];
   dutyOffset: number;
   records: { id: string; student: string; type: string; content: string; date: string }[];
   courses: string[][];
@@ -74,6 +84,49 @@ export const defaultClassroomData: ClassroomData = {
     parentPhone: `1380000${(1000 + index).toString().slice(-4)}`,
     note: index % 6 === 3 ? "近期需要关注作业订正" : "",
   })),
+  activeClassId: "class-1",
+  rosterClasses: [
+    {
+      id: "class-1",
+      name: "三年级2班",
+      grade: "三年级",
+      term: "2026—2027学年第一学期",
+      students: names.map((name, index) => ({
+        id: `s${index + 1}`,
+        studentNo: `${index + 1}`.padStart(2, "0"),
+        name,
+        gender: index % 2 === 0 ? "女" : "男",
+        group: Math.floor(index / 4) + 1,
+        seat: index + 1,
+        points: [18, 14, 21, 9, 16, 12][index % 6],
+        homework: (["已交", "已交", "待订正", "已交", "未交"] as const)[index % 5],
+        attendance: (["正常", "正常", "正常", "迟到", "正常", "请假"] as const)[index % 6],
+        score: [92, 86, 95, 78, 89, 83][index % 6],
+        parentPhone: `1380000${(1000 + index).toString().slice(-4)}`,
+        note: index % 6 === 3 ? "近期需要关注作业订正" : "",
+      })),
+    },
+    {
+      id: "class-2",
+      name: "四年级1班",
+      grade: "四年级",
+      term: "2026—2027学年第一学期",
+      students: names.slice(0, 18).map((name, index) => ({
+        id: `c2-s${index + 1}`,
+        studentNo: `${index + 1}`.padStart(2, "0"),
+        name: `${name}${index % 3 === 0 ? "" : ""}`,
+        gender: index % 2 === 0 ? "女" : "男",
+        group: Math.floor(index / 4) + 1,
+        seat: index + 1,
+        points: [15, 17, 12, 20, 11, 18][index % 6],
+        homework: (["已交", "待订正", "已交", "未交"] as const)[index % 4],
+        attendance: (["正常", "正常", "迟到", "正常"] as const)[index % 4],
+        score: [88, 91, 76, 84, 93, 79][index % 6],
+        parentPhone: `1390000${(2000 + index).toString().slice(-4)}`,
+        note: index % 5 === 0 ? "新接班，需完善备注" : "",
+      })),
+    },
+  ],
   dutyOffset: 0,
   records: [
     { id: "r1", student: "周雨桐", type: "成长记录", content: "主动帮助同桌整理错题，课堂表达清晰。", date: "今天 10:20" },

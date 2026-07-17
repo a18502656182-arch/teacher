@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import type { ReactNode } from "react";
-import type { CadreRole, ClassroomData, HomeworkTask, PointEvent, Student } from "@/lib/classroom";
+import type { CadreRole, ClassroomData, HomeworkTask, PointEvent, RosterClass, Student } from "@/lib/classroom";
 
 type Workspace = { className: string; grade: string; term: string; expiresAt: string; data: ClassroomData };
 type ModuleId = "dashboard" | "students" | "homework" | "points" | "rules" | "growth" | "weekly" | "schedule" | "seating" | "duty" | "cadres" | "records" | "scores" | "reflection" | "comments" | "certificates" | "license";
@@ -57,12 +57,28 @@ function today() {
 }
 
 function normalizeData(data: ClassroomData): ClassroomData {
-  const students = data.students.map((student, index) => ({
+  const fallbackStudents = data.students.map((student, index) => ({
     studentNo: student.studentNo ?? `${index + 1}`.padStart(2, "0"),
     parentPhone: student.parentPhone ?? "",
     note: student.note ?? "",
     ...student,
   }));
+  const rosterClasses: RosterClass[] = data.rosterClasses?.length
+    ? data.rosterClasses.map((item, classIndex) => ({
+      id: item.id || `class-${classIndex + 1}`,
+      name: item.name || `班级${classIndex + 1}`,
+      grade: item.grade || "",
+      term: item.term || "",
+      students: item.students.map((student, index) => ({
+        studentNo: student.studentNo ?? `${index + 1}`.padStart(2, "0"),
+        parentPhone: student.parentPhone ?? "",
+        note: student.note ?? "",
+        ...student,
+      })),
+    }))
+    : [{ id: "class-1", name: "当前班级", grade: "", term: "", students: fallbackStudents }];
+  const activeClassId = data.activeClassId && rosterClasses.some((item) => item.id === data.activeClassId) ? data.activeClassId : rosterClasses[0].id;
+  const students = rosterClasses.find((item) => item.id === activeClassId)?.students ?? fallbackStudents;
   const firstTask: HomeworkTask = {
     id: "h-default",
     date: today(),
@@ -72,6 +88,8 @@ function normalizeData(data: ClassroomData): ClassroomData {
   };
   return {
     ...data,
+    activeClassId,
+    rosterClasses,
     students,
     homeworkTasks: data.homeworkTasks?.length ? data.homeworkTasks : [firstTask],
     pointEvents: data.pointEvents ?? [],
@@ -194,10 +212,27 @@ function Students({ data, update }: { data: ClassroomData; update: (fn: (d: Clas
   const [bulk, setBulk] = useState("张三 13800000001 备注可不填\n李四 13800000002\n王五 13800000003");
   const [filter, setFilter] = useState("");
   const [message, setMessage] = useState("");
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(20);
+  const classes = data.rosterClasses?.length ? data.rosterClasses : [{ id: "class-1", name: "当前班级", grade: "", term: "", students: data.students }];
+  const activeClassId = data.activeClassId ?? classes[0].id;
+  const activeClass = classes.find((item) => item.id === activeClassId) ?? classes[0];
+  const classStudents = activeClass.students;
   const keyword = filter.trim().toLocaleLowerCase("zh-CN");
-  const shown = data.students.filter((s) => `${s.name}${s.studentNo}${s.parentPhone}${s.note}${s.group}${s.seat}`.toLocaleLowerCase("zh-CN").includes(keyword));
-  const groups = new Set(data.students.map((s) => s.group)).size;
-  const withPhone = data.students.filter((s) => s.parentPhone?.trim()).length;
+  const shown = classStudents.filter((s) => `${s.name}${s.studentNo}${s.parentPhone}${s.note}${s.group}${s.seat}`.toLocaleLowerCase("zh-CN").includes(keyword));
+  const groups = new Set(classStudents.map((s) => s.group)).size;
+  const withPhone = classStudents.filter((s) => s.parentPhone?.trim()).length;
+  const totalPages = Math.max(1, Math.ceil(shown.length / pageSize));
+  const safePage = Math.min(page, totalPages);
+  const pageItems = shown.slice((safePage - 1) * pageSize, safePage * pageSize);
+
+  useEffect(() => setPage(1), [filter, activeClassId, pageSize]);
+
+  function syncActiveClass(current: ClassroomData, nextStudents: Student[], patch?: Partial<RosterClass>): ClassroomData {
+    const currentClasses = current.rosterClasses?.length ? current.rosterClasses : classes;
+    const rosterClasses = currentClasses.map((item) => item.id === activeClassId ? { ...item, ...patch, students: nextStudents } : item);
+    return { ...current, rosterClasses, activeClassId, students: nextStudents };
+  }
 
   function makeStudent(row: string, index: number, baseIndex: number): Student {
     const parts = row.split(/[\s,，、\t]+/).filter(Boolean);
@@ -219,7 +254,23 @@ function Students({ data, update }: { data: ClassroomData; update: (fn: (d: Clas
   }
 
   function edit(id: string, patch: Partial<Student>) {
-    update((d) => ({ ...d, students: d.students.map((s) => s.id === id ? { ...s, ...patch } : s) }));
+    update((d) => syncActiveClass(d, classStudents.map((s) => s.id === id ? { ...s, ...patch } : s)));
+  }
+  function editClass(patch: Partial<RosterClass>) {
+    update((d) => syncActiveClass(d, classStudents, patch));
+    setMessage("班级信息已更新，记得保存。");
+  }
+  function switchClass(id: string) {
+    const nextClass = classes.find((item) => item.id === id);
+    if (!nextClass) return;
+    update((d) => ({ ...d, activeClassId: id, students: nextClass.students }));
+    setMessage(`已切换到 ${nextClass.name}。`);
+  }
+  function addClass() {
+    const id = `class-${Date.now()}`;
+    const newClass: RosterClass = { id, name: `新班级${classes.length + 1}`, grade: "", term: "", students: [] };
+    update((d) => ({ ...d, rosterClasses: [...classes, newClass], activeClassId: id, students: [] }));
+    setMessage("已创建新班级，可以开始导入名单。");
   }
   function rowsFromBulk() {
     const rows = bulk.split(/\n+/).map((row) => row.trim()).filter(Boolean);
@@ -230,11 +281,10 @@ function Students({ data, update }: { data: ClassroomData; update: (fn: (d: Clas
     if (!rows.length) return setMessage("请先粘贴学生姓名。");
     const students = rows.map((row, index) => makeStudent(row, index, 0));
     update((d) => ({
-      ...d,
-      students,
+      ...syncActiveClass(d, students),
       homeworkTasks: d.homeworkTasks?.map((task) => ({ ...task, statuses: Object.fromEntries(students.map((student) => [student.id, "已交"])) })),
       pointEvents: [],
-      cadres: [],
+      cadres: d.cadres?.filter((role) => students.some((student) => student.id === role.studentId)) ?? [],
     }));
     setMessage(`已导入 ${students.length} 名学生，并重新生成学号、座位和小组。`);
   }
@@ -242,23 +292,22 @@ function Students({ data, update }: { data: ClassroomData; update: (fn: (d: Clas
     const rows = rowsFromBulk();
     if (!rows.length) return setMessage("请先粘贴学生姓名。");
     update((d) => {
-      const added = rows.map((row, index) => makeStudent(row, index, d.students.length));
+      const added = rows.map((row, index) => makeStudent(row, index, classStudents.length));
+      const nextStudents = [...classStudents, ...added];
       return {
-        ...d,
-        students: [...d.students, ...added],
+        ...syncActiveClass(d, nextStudents),
         homeworkTasks: d.homeworkTasks?.map((task) => ({ ...task, statuses: { ...task.statuses, ...Object.fromEntries(added.map((student) => [student.id, "已交"])) } })),
       };
     });
     setMessage(`已追加 ${rows.length} 名学生。`);
   }
   function addStudent() {
-    update((d) => ({ ...d, students: [...d.students, makeStudent("新同学", 0, d.students.length)] }));
+    update((d) => syncActiveClass(d, [...classStudents, makeStudent("新同学", 0, classStudents.length)]));
     setMessage("已新增 1 名学生，请直接编辑姓名和资料。");
   }
   function removeStudent(id: string) {
     update((d) => ({
-      ...d,
-      students: d.students.filter((s) => s.id !== id).map((s, index) => ({ ...s, seat: index + 1, group: Math.floor(index / 4) + 1 })),
+      ...syncActiveClass(d, classStudents.filter((s) => s.id !== id).map((s, index) => ({ ...s, seat: index + 1, group: Math.floor(index / 4) + 1 }))),
       homeworkTasks: d.homeworkTasks?.map((task) => {
         const statuses = { ...task.statuses };
         delete statuses[id];
@@ -270,19 +319,30 @@ function Students({ data, update }: { data: ClassroomData; update: (fn: (d: Clas
     setMessage("已删除学生，并重新整理座位和小组。");
   }
   return <>
-    <ToolHeading kicker="学生名单" title="先把全班学生整理成一张可保存花名册" text="这一页只做名单底座：批量导入、追加、搜索、编辑、删除。保存后刷新仍会保留。" action={<button className="primary-small" onClick={addStudent}>新增学生</button>} />
+    <ToolHeading kicker="学生名单" title="按班级分别管理花名册" text="一个班主任可以管理多个班；每个班都有独立名单、分页、搜索、导入和手机卡片。" action={<button className="primary-small" onClick={addStudent}>新增学生</button>} />
+    <section className="class-manager">
+      <div className="class-tabs">
+        {classes.map((item) => <button className={item.id === activeClassId ? "active" : ""} key={item.id} onClick={() => switchClass(item.id)}><b>{item.name}</b><span>{item.students.length}人</span></button>)}
+        <button className="add-class" onClick={addClass}>＋ 新建班级</button>
+      </div>
+      <div className="class-fields">
+        <label>班级名称<input value={activeClass.name} onChange={(e) => editClass({ name: e.target.value })} /></label>
+        <label>年级<input value={activeClass.grade} onChange={(e) => editClass({ grade: e.target.value })} /></label>
+        <label>学期<input value={activeClass.term} onChange={(e) => editClass({ term: e.target.value })} /></label>
+      </div>
+    </section>
     <section className="roster-summary">
-      <div><span>学生总数</span><b>{data.students.length}</b></div>
+      <div><span>当前班级</span><b>{classStudents.length}</b></div>
       <div><span>学习小组</span><b>{groups}</b></div>
       <div><span>已填电话</span><b>{withPhone}</b></div>
       <div><span>当前筛选</span><b>{shown.length}</b></div>
     </section>
     <section className="import-card roster-import"><div><h3>批量导入名单</h3><p>每行一个学生，格式建议：姓名 手机号 备注。可以“替换当前名单”，也可以“追加到末尾”。</p></div><textarea value={bulk} onChange={(e) => setBulk(e.target.value)} /><div className="import-actions"><button onClick={replaceNames}>替换当前名单</button><button className="soft-action" onClick={appendNames}>追加学生</button></div></section>
     {message && <div className="inline-alert roster-message" onClick={() => setMessage("")}>{message}<span>×</span></div>}
-    <div className="roster-toolbar"><div className="resource-search compact-search"><span>⌕</span><input value={filter} onChange={(e) => setFilter(e.target.value)} placeholder="搜索姓名、学号、电话、备注、小组或座位" /></div><small>电脑端编辑表格；手机端编辑下方学生卡片。</small></div>
+    <div className="roster-toolbar"><div className="resource-search compact-search"><span>⌕</span><input value={filter} onChange={(e) => setFilter(e.target.value)} placeholder="搜索姓名、学号、电话、备注、小组或座位" /></div><select value={pageSize} onChange={(e) => setPageSize(Number(e.target.value))}><option value={10}>每页10人</option><option value={20}>每页20人</option><option value={50}>每页50人</option></select><small>电脑端编辑表格；手机端编辑下方学生卡片。</small></div>
     <section className="editable-student-table roster-table">
       <div className="student-edit-head roster"><span>学号</span><span>姓名</span><span>性别</span><span>小组</span><span>座位</span><span>家长电话</span><span>备注</span><span>操作</span></div>
-      {shown.map((s) => <div className="student-edit-line full" key={s.id}>
+      {pageItems.map((s) => <div className="student-edit-line full" key={s.id}>
         <input value={s.studentNo ?? ""} onChange={(e) => edit(s.id, { studentNo: e.target.value })} />
         <input value={s.name} onChange={(e) => edit(s.id, { name: e.target.value })} />
         <select value={s.gender} onChange={(e) => edit(s.id, { gender: e.target.value as Student["gender"] })}><option>女</option><option>男</option></select>
@@ -294,7 +354,7 @@ function Students({ data, update }: { data: ClassroomData; update: (fn: (d: Clas
       </div>)}
     </section>
     <section className="roster-mobile-list">
-      {shown.map((s) => <article className="roster-mobile-card" key={s.id}>
+      {pageItems.map((s) => <article className="roster-mobile-card" key={s.id}>
         <header><i>{s.name.slice(0,1)}</i><div><input value={s.name} onChange={(e) => edit(s.id, { name: e.target.value })} /><span>学号 {s.studentNo || "未填"} · 第{s.group}组 · 座位{s.seat}</span></div></header>
         <div className="mobile-fields">
           <label>学号<input value={s.studentNo ?? ""} onChange={(e) => edit(s.id, { studentNo: e.target.value })} /></label>
@@ -307,6 +367,11 @@ function Students({ data, update }: { data: ClassroomData; update: (fn: (d: Clas
         <button className="danger-small" onClick={() => removeStudent(s.id)}>删除这名学生</button>
       </article>)}
     </section>
+    <div className="roster-pagination">
+      <button disabled={safePage <= 1} onClick={() => setPage((value) => Math.max(1, value - 1))}>上一页</button>
+      <span>第 {safePage} / {totalPages} 页，显示 {pageItems.length} / {shown.length} 人</span>
+      <button disabled={safePage >= totalPages} onClick={() => setPage((value) => Math.min(totalPages, value + 1))}>下一页</button>
+    </div>
   </>;
 }
 
