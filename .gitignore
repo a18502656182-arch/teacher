@@ -6,3 +6,4 @@ dist
 !.env.example
 *.log
 publish-site.mjs
+export_knowledge.py

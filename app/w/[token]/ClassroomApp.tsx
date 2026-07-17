@@ -77,9 +77,10 @@ export default function ClassroomApp({ token }: { token: string }) {
       <main className="app-main">
         <header className="topbar"><div><p>{workspace.grade} · {workspace.term}</p><h1>{nav.find((item) => item.id === active)?.label}</h1></div><div className="top-actions"><button className="ghost-btn">打印 / 导出</button><button className="save-btn" disabled={!dirty || saving} onClick={save}>{saving ? "正在保存…" : dirty ? "保存更改" : "已保存"}</button><span className="avatar">林</span></div></header>
         {error && workspace && <div className="inline-alert" onClick={() => setError("")}>{error}<span>×</span></div>}
+        {(["schedule", "seating", "duty", "homework", "points", "records", "comments", "certificates"] as ModuleId[]).includes(active) && <div className="edit-mode-banner"><b>✎ 当前页面可以编辑</b><span>带浅绿色边框、输入框或操作按钮的内容都能修改；完成后点击右上角“保存更改”。</span></div>}
         <div className="page-content">
           {active === "dashboard" && <Dashboard data={workspace.data} open={setActive} />}
-          {active === "schedule" && <Schedule data={workspace.data} />}
+          {active === "schedule" && <Schedule data={workspace.data} update={updateData} />}
           {active === "seating" && <Seating data={workspace.data} update={updateData} />}
           {active === "duty" && <Duty data={workspace.data} update={updateData} />}
           {active === "homework" && <Homework data={workspace.data} update={updateData} />}
@@ -88,7 +89,7 @@ export default function ClassroomApp({ token }: { token: string }) {
           {active === "records" && <Records data={workspace.data} update={updateData} />}
           {active === "comments" && <Comments data={workspace.data} />}
           {active === "certificates" && <Certificates data={workspace.data} />}
-          {active === "resources" && <Resources />}
+          {active === "resources" && <Resources token={token} />}
         </div>
       </main>
     </div>
@@ -111,15 +112,29 @@ function ToolHeading({ kicker, title, text, action }: { kicker: string; title: s
   return <div className="tool-heading"><div><span>{kicker}</span><h2>{title}</h2><p>{text}</p></div>{action}</div>;
 }
 
-function Schedule({ data }: { data: ClassroomData }) {
+function Schedule({ data, update }: { data: ClassroomData; update: (fn: (d: ClassroomData) => ClassroomData) => void }) {
   const days = ["星期一", "星期二", "星期三", "星期四", "星期五"];
-  return <><ToolHeading kicker="课程与日程" title="一张表同步班级每周安排" text="课程表不再是孤立图片，后续可与作业、值日和提醒联动。" action={<button className="primary-small">更换样式</button>} /><div className="paper-card"><div className="schedule-grid"><div className="schedule-corner">节次</div>{days.map((d) => <b key={d}>{d}</b>)}{[0,1,2,3,4].map((period) => <div className="schedule-row" key={period}><span>第{period + 1}节</span>{days.map((_, day) => <div key={day}>{data.courses[day][period]}</div>)}</div>)}</div><div className="style-strip"><b>打印样式</b>{["清新绿", "黑板风", "低年级", "简约蓝", "护眼版"].map((s, i) => <button className={i === 0 ? "selected" : ""} key={s}><i></i>{s}</button>)}</div></div></>;
+  function changeCourse(day: number, period: number, value: string) {
+    update((current) => ({ ...current, courses: current.courses.map((row, rowIndex) => rowIndex === day ? row.map((course, colIndex) => colIndex === period ? value : course) : row) }));
+  }
+  return <><ToolHeading kicker="课程与日程" title="一张表同步班级每周安排" text="直接点击每个课程格修改名称，修改后会保存到当前班级。" action={<button className="primary-small">更换样式</button>} /><div className="paper-card"><div className="field-legend"><b>✎ 可编辑课程格</b><span>点击下面带绿色边框的格子直接输入</span></div><div className="schedule-grid"><div className="schedule-corner">节次</div>{days.map((d) => <b key={d}>{d}</b>)}{[0,1,2,3,4].map((period) => <div className="schedule-row" key={period}><span>第{period + 1}节</span>{days.map((_, day) => <div className="editable-cell" key={day}><input aria-label={`${days[day]}第${period + 1}节`} value={data.courses[day][period]} onChange={(event) => changeCourse(day, period, event.target.value)} /></div>)}</div>)}</div><div className="style-strip"><b>打印样式</b>{["清新绿", "黑板风", "低年级", "简约蓝", "护眼版"].map((s, i) => <button className={i === 0 ? "selected" : ""} key={s}><i></i>{s}</button>)}</div></div></>;
 }
 
 function Seating({ data, update }: { data: ClassroomData; update: (fn: (d: ClassroomData) => ClassroomData) => void }) {
+  const [selected, setSelected] = useState<string | null>(null);
   function shuffle() { update((d) => ({ ...d, students: [...d.students].sort(() => Math.random() - .5).map((s, i) => ({ ...s, seat: i + 1 })) })); }
+  function choose(student: Student) {
+    if (!selected) { setSelected(student.id); return; }
+    if (selected === student.id) { setSelected(null); return; }
+    update((current) => {
+      const first = current.students.find((item) => item.id === selected);
+      if (!first) return current;
+      return { ...current, students: current.students.map((item) => item.id === first.id ? { ...item, seat: student.seat } : item.id === student.id ? { ...item, seat: first.seat } : item) };
+    });
+    setSelected(null);
+  }
   const seated = [...data.students].sort((a, b) => a.seat - b.seat);
-  return <><ToolHeading kicker="座位与分组" title="兼顾公平，也保留老师的判断" text="自动生成方案后仍可手动调整；每次轮换都能保留记录。" action={<button className="primary-small" onClick={shuffle}>重新智能排座</button>} /><div className="seating-wrap"><div className="blackboard">黑 板</div><div className="seat-grid">{seated.map((s) => <button key={s.id} title={`${s.name} · 第${s.group}组`}><span>{s.name}</span><small>{s.score}分 · {s.points}积分</small></button>)}</div><div className="teacher-desk">讲台</div></div></>;
+  return <><ToolHeading kicker="座位与分组" title="兼顾公平，也保留老师的判断" text="点击两名学生即可互换座位，也可以一键重新排座。" action={<button className="primary-small" onClick={shuffle}>重新智能排座</button>} /><div className="seat-instruction"><b>{selected ? "已选择第一名学生" : "手动换座"}</b><span>{selected ? "现在再点击另一名学生，两人将立即互换座位" : "先点击一名学生，再点击另一名学生"}</span></div><div className="seating-wrap"><div className="blackboard">黑 板</div><div className="seat-grid">{seated.map((s) => <button className={selected === s.id ? "selected" : ""} onClick={() => choose(s)} key={s.id} title={`${s.name} · 第${s.group}组`}><span>{s.name}</span><small>{s.score}分 · {s.points}积分</small><em>点击换座</em></button>)}</div><div className="teacher-desk">讲台</div></div></>;
 }
 
 function Duty({ data, update }: { data: ClassroomData; update: (fn: (d: ClassroomData) => ClassroomData) => void }) {
@@ -157,7 +172,9 @@ function Comments({ data }: { data: ClassroomData }) {
   const [id, setId] = useState(data.students[0]?.id ?? ""); const student = data.students.find(s=>s.id===id) ?? data.students[0];
   const evidence = data.records.filter(r=>r.student===student.name);
   const comment = `${student.name}同学本学期学习态度${student.score >= 90 ? "认真主动，基础扎实" : "较为踏实，能够按要求完成学习任务"}。在班级生活中${student.points >= 15 ? "积极参与集体活动，乐于帮助同学" : "能够遵守班级约定，并在提醒下不断进步"}。${evidence[0]?.content ? `老师特别注意到：${evidence[0].content}` : "期待你继续积累每一次小进步。"}希望下学期${student.homework === "已交" ? "继续保持好习惯，勇于表达自己的想法" : "进一步提高作业的及时性，养成检查和订正的习惯"}。`;
-  return <><ToolHeading kicker="期末评语" title="每一句评价，都能找到日常依据" text="系统根据成绩、作业、积分和成长记录生成草稿，老师最后审核修改。" /><div className="comment-layout"><div className="student-picker"><h3>选择学生</h3>{data.students.map(s=><button className={s.id===id?"selected":""} onClick={()=>setId(s.id)} key={s.id}><i>{s.name.slice(0,1)}</i><span>{s.name}<small>{data.records.filter(r=>r.student===s.name).length}条成长证据</small></span></button>)}</div><div className="comment-paper"><div className="comment-head"><span>评语草稿</span><button>换一种语气</button></div><h2>{student.name}</h2><textarea value={comment} readOnly /><div className="evidence-row"><span>引用依据</span><em>成绩 {student.score}</em><em>积分 {student.points}</em><em>{student.homework}</em></div><button className="primary-small">复制评语</button></div></div></>;
+  const [draft, setDraft] = useState(comment);
+  useEffect(() => setDraft(comment), [id, comment]);
+  return <><ToolHeading kicker="期末评语" title="每一句评价，都能找到日常依据" text="系统生成草稿后，可以直接在绿色编辑框里修改。" /><div className="comment-layout"><div className="student-picker"><h3>选择学生</h3>{data.students.map(s=><button className={s.id===id?"selected":""} onClick={()=>setId(s.id)} key={s.id}><i>{s.name.slice(0,1)}</i><span>{s.name}<small>{data.records.filter(r=>r.student===s.name).length}条成长证据</small></span></button>)}</div><div className="comment-paper"><div className="comment-head"><span>✎ 可编辑评语草稿</span><button onClick={() => setDraft(comment)}>重新生成</button></div><h2>{student.name}</h2><textarea aria-label="可编辑评语草稿" value={draft} onChange={(event) => setDraft(event.target.value)} /><div className="evidence-row"><span>引用依据</span><em>成绩 {student.score}</em><em>积分 {student.points}</em><em>{student.homework}</em></div><button className="primary-small" onClick={() => navigator.clipboard?.writeText(draft)}>复制评语</button></div></div></>;
 }
 
 function Certificates({ data }: { data: ClassroomData }) {
@@ -165,20 +182,30 @@ function Certificates({ data }: { data: ClassroomData }) {
   return <><ToolHeading kicker="奖状生成" title="名单选好，几十份奖状一次生成" text="原资料中的奖状图片成为样式库，姓名、奖项和日期自动填充。" /><div className="certificate-layout"><div className="certificate-controls"><label>获奖学生<select value={id} onChange={e=>setId(e.target.value)}>{data.students.map(s=><option value={s.id} key={s.id}>{s.name}</option>)}</select></label><label>荣誉称号<select value={award} onChange={e=>setAward(e.target.value)}>{["进步之星","文明礼仪之星","优秀班干部","阅读小明星","劳动小能手","三好学生"].map(a=><option key={a}>{a}</option>)}</select></label><label>模板样式<div className="template-picks">{[1,2,3,4].map((n)=><button className={n===1?"selected":""} key={n}>样式{n}</button>)}</div></label><button className="primary-small">批量生成并导出</button></div><div className="certificate"><span>荣 誉 证 书</span><p><b>{student.name}</b> 同学：</p><p>在本学期班级学习与生活中表现优秀，荣获</p><h2>“{award}”</h2><p>特发此证，以资鼓励。</p><footer><span>向阳小学三年级2班</span><span>2026年7月</span></footer></div></div></>;
 }
 
-function Resources() {
+type KnowledgeResult = { id: string; title: string; category: string; extension: string; path: string; excerpt: string; content?: string };
+
+function Resources({ token }: { token: string }) {
   const [query,setQuery]=useState("");
-  const cats=[
-    ["积分评价与奖励",248,"积分表、评价标准、班级评比、奖状证书"],
-    ["值日与班级分工",192,"值日轮换、卫生安排、岗位职责、班干部"],
-    ["座位与分组",147,"座位布局、学习小组、考场座次"],
-    ["作业提交与检查",131,"作业登记、缺交追踪、订正复查"],
-    ["成绩与考试分析",93,"成绩登记、质量分析、分层帮扶"],
-    ["家校沟通与家访",92,"家访记录、家长会、沟通话术"],
-    ["班级常规与纪律",89,"考勤纪律、班级公约、行为记录"],
-    ["课程表与日程",71,"课程表、周计划、日程安排"],
-    ["学生谈话与帮扶",39,"谈心谈话、个别辅导、转化记录"],
-    ["课堂表达与教学",37,"课堂观察、教学表达、辅助材料"],
-  ];
-  const filtered=cats.filter(c=>`${c[0]}${c[2]}`.includes(query));
-  return <><ToolHeading kicker="资料知识库" title="不再翻文件夹，用问题找到答案" text="已整理1,183个原始文件；相同用途合并为工具，文字内容进入可搜索知识库。" /><div className="resource-search"><span>⌕</span><input value={query} onChange={e=>setQuery(e.target.value)} placeholder="搜索：家访怎么记录、座位如何轮换、期末评语…" /><button>搜索</button></div><div className="resource-metrics"><span><b>1,183</b>原始文件</span><span><b>528万</b>可检索文字</span><span><b>10</b>高频主题</span><span><b>37组</b>重复内容已合并</span></div><div className="resource-grid">{filtered.map(([name,count,desc])=><article key={String(name)}><span>{count}份相关资料</span><h3>{name}</h3><p>{desc}</p><button>进入专题 →</button></article>)}</div><div className="rights-note">教师荐书等出版物将根据实际授权范围开放；班级管理表格、指南和工具功能不受影响。</div></>;
+  const [category,setCategory]=useState("");
+  const [results,setResults]=useState<KnowledgeResult[]>([]);
+  const [categories,setCategories]=useState<{name:string;count:number}[]>([]);
+  const [loading,setLoading]=useState(true);
+  const [selected,setSelected]=useState<KnowledgeResult|null>(null);
+  const [total,setTotal]=useState(0);
+
+  async function search(nextQuery=query,nextCategory=category) {
+    setLoading(true); setSelected(null);
+    const params=new URLSearchParams(); if(nextQuery.trim())params.set("q",nextQuery.trim()); if(nextCategory)params.set("category",nextCategory);
+    const response=await fetch(`/api/knowledge/${token}?${params}`);
+    const body=await response.json() as {items?:KnowledgeResult[];categories?:{name:string;count:number}[];total?:number};
+    setResults(body.items??[]); setCategories(body.categories??[]); setTotal(body.total??0); setLoading(false);
+  }
+  async function openItem(item:KnowledgeResult) {
+    const response=await fetch(`/api/knowledge/${token}?id=${encodeURIComponent(item.id)}`);
+    const body=await response.json() as {item?:KnowledgeResult};
+    if(body.item)setSelected(body.item);
+  }
+  useEffect(()=>{ search("",""); },[]);
+
+  return <><ToolHeading kicker="资料知识库" title="真实资料已经接入，可以搜索和阅读全文" text="当前收录620份能够稳定解析的资料正文；搜索会同时匹配标题和全文内容。" /><div className="resource-search"><span>⌕</span><input value={query} onChange={e=>setQuery(e.target.value)} onKeyDown={e=>e.key==="Enter"&&search()} placeholder="搜索：家访记录、座位轮换、期末评语、成绩分析…" /><button onClick={()=>search()}>搜索正文</button></div><div className="resource-metrics"><span><b>620</b>份真实正文</span><span><b>500万+</b>可检索文字</span><span><b>{categories.length}</b>资料分类</span><span><b>{total}</b>条当前结果</span></div><div className="knowledge-layout"><aside className="knowledge-categories"><h3>资料分类</h3><button className={!category?"active":""} onClick={()=>{setCategory("");search(query,"")}}>全部资料 <span>620</span></button>{categories.map(cat=><button className={category===cat.name?"active":""} key={cat.name} onClick={()=>{setCategory(cat.name);search(query,cat.name)}}>{cat.name}<span>{cat.count}</span></button>)}</aside><section className="knowledge-results"><div className="results-head"><b>{loading?"正在检索真实资料…":`找到 ${total} 份相关资料`}</b><span>点击标题查看完整正文</span></div>{!loading&&results.length===0&&<div className="empty-result"><b>没有找到完全匹配的资料</b><span>可以缩短关键词，例如把“怎么和家长沟通”改为“家长沟通”</span></div>}{results.map(item=><button className="knowledge-item" key={item.id} onClick={()=>openItem(item)}><span className="file-type">{item.extension||"资料"}</span><div><h3>{item.title}</h3><p>{item.excerpt}</p><small>{item.category} · {item.path}</small></div><em>阅读全文 →</em></button>)}</section></div>{selected&&<div className="document-overlay" onClick={()=>setSelected(null)}><article className="document-reader" onClick={e=>e.stopPropagation()}><header><div><span>{selected.extension} · {selected.category}</span><h2>{selected.title}</h2></div><button aria-label="关闭正文" onClick={()=>setSelected(null)}>×</button></header><div className="document-path">来源：{selected.path}</div><pre>{selected.content}</pre></article></div>}<div className="rights-note">49份无法稳定还原排版的旧版Word没有直接展示，避免出现乱码；教师荐书等出版物仍需根据商业授权范围开放。</div></>;
 }
