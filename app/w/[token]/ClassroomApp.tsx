@@ -87,7 +87,7 @@ function normalizeData(data: ClassroomData): ClassroomData {
 
 export default function ClassroomApp({ token }: { token: string }) {
   const [workspace, setWorkspace] = useState<Workspace | null>(null);
-  const [active, setActive] = useState<ModuleId>("dashboard");
+  const [active, setActive] = useState<ModuleId>("students");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [dirty, setDirty] = useState(false);
@@ -191,38 +191,121 @@ function Dashboard({ data, open }: { data: ClassroomData; open: (id: ModuleId) =
 }
 
 function Students({ data, update }: { data: ClassroomData; update: (fn: (d: ClassroomData) => ClassroomData) => void }) {
-  const [bulk, setBulk] = useState("张三 13800000001\n李四 13800000002\n王五 13800000003");
+  const [bulk, setBulk] = useState("张三 13800000001 备注可不填\n李四 13800000002\n王五 13800000003");
   const [filter, setFilter] = useState("");
-  const shown = data.students.filter((s) => `${s.name}${s.studentNo}${s.parentPhone}${s.note}`.includes(filter.trim()));
+  const [message, setMessage] = useState("");
+  const keyword = filter.trim().toLocaleLowerCase("zh-CN");
+  const shown = data.students.filter((s) => `${s.name}${s.studentNo}${s.parentPhone}${s.note}${s.group}${s.seat}`.toLocaleLowerCase("zh-CN").includes(keyword));
+  const groups = new Set(data.students.map((s) => s.group)).size;
+  const withPhone = data.students.filter((s) => s.parentPhone?.trim()).length;
+
+  function makeStudent(row: string, index: number, baseIndex: number): Student {
+    const parts = row.split(/[\s,，、\t]+/).filter(Boolean);
+    const name = parts[0] ?? `学生${baseIndex + index + 1}`;
+    return {
+      id: `s${Date.now()}-${baseIndex}-${index}`,
+      studentNo: `${baseIndex + index + 1}`.padStart(2, "0"),
+      name,
+      gender: index % 2 === 0 ? "女" : "男",
+      group: Math.floor((baseIndex + index) / 4) + 1,
+      seat: baseIndex + index + 1,
+      points: 60,
+      homework: "已交",
+      attendance: "正常",
+      score: 85,
+      parentPhone: parts.find((part) => /^1\d{10}$/.test(part)) ?? "",
+      note: parts.filter((part, partIndex) => partIndex > 0 && !/^1\d{10}$/.test(part)).join(" "),
+    };
+  }
+
   function edit(id: string, patch: Partial<Student>) {
     update((d) => ({ ...d, students: d.students.map((s) => s.id === id ? { ...s, ...patch } : s) }));
   }
-  function importNames() {
+  function rowsFromBulk() {
     const rows = bulk.split(/\n+/).map((row) => row.trim()).filter(Boolean);
-    if (!rows.length) return;
-    const students = rows.map((row, index) => {
-      const parts = row.split(/[\s,，、]+/).filter(Boolean);
-      return { id: `s${Date.now()}-${index}`, studentNo: `${index + 1}`.padStart(2, "0"), name: parts[0] ?? `学生${index + 1}`, parentPhone: parts[1] ?? "", gender: index % 2 === 0 ? "女" as const : "男" as const, group: Math.floor(index / 4) + 1, seat: index + 1, points: 60, homework: "已交" as const, attendance: "正常" as const, score: 85, note: "" };
+    return rows;
+  }
+  function replaceNames() {
+    const rows = rowsFromBulk();
+    if (!rows.length) return setMessage("请先粘贴学生姓名。");
+    const students = rows.map((row, index) => makeStudent(row, index, 0));
+    update((d) => ({
+      ...d,
+      students,
+      homeworkTasks: d.homeworkTasks?.map((task) => ({ ...task, statuses: Object.fromEntries(students.map((student) => [student.id, "已交"])) })),
+      pointEvents: [],
+      cadres: [],
+    }));
+    setMessage(`已导入 ${students.length} 名学生，并重新生成学号、座位和小组。`);
+  }
+  function appendNames() {
+    const rows = rowsFromBulk();
+    if (!rows.length) return setMessage("请先粘贴学生姓名。");
+    update((d) => {
+      const added = rows.map((row, index) => makeStudent(row, index, d.students.length));
+      return {
+        ...d,
+        students: [...d.students, ...added],
+        homeworkTasks: d.homeworkTasks?.map((task) => ({ ...task, statuses: { ...task.statuses, ...Object.fromEntries(added.map((student) => [student.id, "已交"])) } })),
+      };
     });
-    update((d) => ({ ...d, students }));
+    setMessage(`已追加 ${rows.length} 名学生。`);
+  }
+  function addStudent() {
+    update((d) => ({ ...d, students: [...d.students, makeStudent("新同学", 0, d.students.length)] }));
+    setMessage("已新增 1 名学生，请直接编辑姓名和资料。");
+  }
+  function removeStudent(id: string) {
+    update((d) => ({
+      ...d,
+      students: d.students.filter((s) => s.id !== id).map((s, index) => ({ ...s, seat: index + 1, group: Math.floor(index / 4) + 1 })),
+      homeworkTasks: d.homeworkTasks?.map((task) => {
+        const statuses = { ...task.statuses };
+        delete statuses[id];
+        return { ...task, statuses };
+      }),
+      pointEvents: d.pointEvents?.filter((event) => event.studentId !== id),
+      cadres: d.cadres?.filter((role) => role.studentId !== id),
+    }));
+    setMessage("已删除学生，并重新整理座位和小组。");
   }
   return <>
-    <ToolHeading kicker="学生名单" title="所有页面共用的班级数据底座" text="支持批量导入、逐个编辑、筛选。后续作业、座位、值日、评语、奖状都复用这里的数据。" action={<button className="primary-small" onClick={() => update((d) => ({ ...d, students: [...d.students, { id: crypto.randomUUID(), studentNo: `${d.students.length + 1}`.padStart(2, "0"), name: "新同学", gender: "女", group: Math.floor(d.students.length / 4) + 1, seat: d.students.length + 1, points: 60, homework: "已交", attendance: "正常", score: 85, parentPhone: "", note: "" }] }))}>新增学生</button>} />
-    <section className="import-card"><div><h3>批量导入名单</h3><p>每行一个学生，可附家长电话。导入后自动生成学号、座位、小组和初始档案。</p></div><textarea value={bulk} onChange={(e) => setBulk(e.target.value)} /><button onClick={importNames}>导入并替换</button></section>
-    <div className="resource-search compact-search"><span>⌕</span><input value={filter} onChange={(e) => setFilter(e.target.value)} placeholder="搜索姓名、学号、电话、备注" /></div>
-    <section className="editable-student-table">
-      <div className="student-edit-head full"><span>学号</span><span>姓名</span><span>性别</span><span>小组</span><span>座位</span><span>积分</span><span>成绩</span><span>电话</span><span>备注</span></div>
+    <ToolHeading kicker="学生名单" title="先把全班学生整理成一张可保存花名册" text="这一页只做名单底座：批量导入、追加、搜索、编辑、删除。保存后刷新仍会保留。" action={<button className="primary-small" onClick={addStudent}>新增学生</button>} />
+    <section className="roster-summary">
+      <div><span>学生总数</span><b>{data.students.length}</b></div>
+      <div><span>学习小组</span><b>{groups}</b></div>
+      <div><span>已填电话</span><b>{withPhone}</b></div>
+      <div><span>当前筛选</span><b>{shown.length}</b></div>
+    </section>
+    <section className="import-card roster-import"><div><h3>批量导入名单</h3><p>每行一个学生，格式建议：姓名 手机号 备注。可以“替换当前名单”，也可以“追加到末尾”。</p></div><textarea value={bulk} onChange={(e) => setBulk(e.target.value)} /><div className="import-actions"><button onClick={replaceNames}>替换当前名单</button><button className="soft-action" onClick={appendNames}>追加学生</button></div></section>
+    {message && <div className="inline-alert roster-message" onClick={() => setMessage("")}>{message}<span>×</span></div>}
+    <div className="roster-toolbar"><div className="resource-search compact-search"><span>⌕</span><input value={filter} onChange={(e) => setFilter(e.target.value)} placeholder="搜索姓名、学号、电话、备注、小组或座位" /></div><small>电脑端编辑表格；手机端编辑下方学生卡片。</small></div>
+    <section className="editable-student-table roster-table">
+      <div className="student-edit-head roster"><span>学号</span><span>姓名</span><span>性别</span><span>小组</span><span>座位</span><span>家长电话</span><span>备注</span><span>操作</span></div>
       {shown.map((s) => <div className="student-edit-line full" key={s.id}>
         <input value={s.studentNo ?? ""} onChange={(e) => edit(s.id, { studentNo: e.target.value })} />
         <input value={s.name} onChange={(e) => edit(s.id, { name: e.target.value })} />
         <select value={s.gender} onChange={(e) => edit(s.id, { gender: e.target.value as Student["gender"] })}><option>女</option><option>男</option></select>
         <input type="number" value={s.group} onChange={(e) => edit(s.id, { group: Number(e.target.value) || 1 })} />
         <input type="number" value={s.seat} onChange={(e) => edit(s.id, { seat: Number(e.target.value) || 1 })} />
-        <input type="number" value={s.points} onChange={(e) => edit(s.id, { points: Number(e.target.value) || 0 })} />
-        <input type="number" value={s.score} onChange={(e) => edit(s.id, { score: Number(e.target.value) || 0 })} />
         <input value={s.parentPhone ?? ""} onChange={(e) => edit(s.id, { parentPhone: e.target.value })} />
         <input value={s.note ?? ""} onChange={(e) => edit(s.id, { note: e.target.value })} />
+        <button className="danger-small" onClick={() => removeStudent(s.id)}>删除</button>
       </div>)}
+    </section>
+    <section className="roster-mobile-list">
+      {shown.map((s) => <article className="roster-mobile-card" key={s.id}>
+        <header><i>{s.name.slice(0,1)}</i><div><input value={s.name} onChange={(e) => edit(s.id, { name: e.target.value })} /><span>学号 {s.studentNo || "未填"} · 第{s.group}组 · 座位{s.seat}</span></div></header>
+        <div className="mobile-fields">
+          <label>学号<input value={s.studentNo ?? ""} onChange={(e) => edit(s.id, { studentNo: e.target.value })} /></label>
+          <label>性别<select value={s.gender} onChange={(e) => edit(s.id, { gender: e.target.value as Student["gender"] })}><option>女</option><option>男</option></select></label>
+          <label>小组<input type="number" value={s.group} onChange={(e) => edit(s.id, { group: Number(e.target.value) || 1 })} /></label>
+          <label>座位<input type="number" value={s.seat} onChange={(e) => edit(s.id, { seat: Number(e.target.value) || 1 })} /></label>
+          <label className="wide">家长电话<input value={s.parentPhone ?? ""} onChange={(e) => edit(s.id, { parentPhone: e.target.value })} /></label>
+          <label className="wide">备注<input value={s.note ?? ""} onChange={(e) => edit(s.id, { note: e.target.value })} /></label>
+        </div>
+        <button className="danger-small" onClick={() => removeStudent(s.id)}>删除这名学生</button>
+      </article>)}
     </section>
   </>;
 }
