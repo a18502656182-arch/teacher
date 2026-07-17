@@ -1,5 +1,6 @@
 export type Student = {
   id: string;
+  studentNo?: string;
   name: string;
   gender: "男" | "女";
   group: number;
@@ -8,6 +9,33 @@ export type Student = {
   homework: "已交" | "待订正" | "未交";
   attendance: "正常" | "迟到" | "请假";
   score: number;
+  parentPhone?: string;
+  note?: string;
+  avoidWith?: string;
+};
+
+export type HomeworkTask = {
+  id: string;
+  date: string;
+  subject: string;
+  title: string;
+  statuses: Record<string, "已交" | "未交" | "待订正" | "已复查">;
+};
+
+export type PointEvent = {
+  id: string;
+  studentId: string;
+  scene: string;
+  reason: string;
+  delta: number;
+  date: string;
+};
+
+export type CadreRole = {
+  id: string;
+  role: string;
+  studentId: string;
+  duty: string;
 };
 
 export type ClassroomData = {
@@ -15,6 +43,11 @@ export type ClassroomData = {
   dutyOffset: number;
   records: { id: string; student: string; type: string; content: string; date: string }[];
   courses: string[][];
+  homeworkTasks?: HomeworkTask[];
+  pointEvents?: PointEvent[];
+  cadres?: CadreRole[];
+  weeklyPlan?: { day: string; focus: string; event: string }[];
+  license?: { tier: "基础版" | "高级版"; canExport: boolean; expiresAt: string };
 };
 
 const names = [
@@ -29,6 +62,7 @@ const names = [
 export const defaultClassroomData: ClassroomData = {
   students: names.map((name, index) => ({
     id: `s${index + 1}`,
+    studentNo: `${index + 1}`.padStart(2, "0"),
     name,
     gender: index % 2 === 0 ? "女" : "男",
     group: Math.floor(index / 4) + 1,
@@ -37,6 +71,8 @@ export const defaultClassroomData: ClassroomData = {
     homework: (["已交", "已交", "待订正", "已交", "未交"] as const)[index % 5],
     attendance: (["正常", "正常", "正常", "迟到", "正常", "请假"] as const)[index % 6],
     score: [92, 86, 95, 78, 89, 83][index % 6],
+    parentPhone: `1380000${(1000 + index).toString().slice(-4)}`,
+    note: index % 6 === 3 ? "近期需要关注作业订正" : "",
   })),
   dutyOffset: 0,
   records: [
@@ -54,4 +90,27 @@ export const defaultClassroomData: ClassroomData = {
     ["语文", "体育", "数学", "英语", "信息"],
     ["数学", "语文", "劳动", "阅读", "社团"],
   ],
+  homeworkTasks: [
+    { id: "h1", date: "2026-07-17", subject: "数学", title: "计算练习第3页", statuses: Object.fromEntries(names.map((_, index) => [`s${index + 1}`, (["已交", "已交", "待订正", "已复查", "未交"] as const)[index % 5]])) },
+    { id: "h2", date: "2026-07-17", subject: "语文", title: "阅读摘抄一页", statuses: Object.fromEntries(names.map((_, index) => [`s${index + 1}`, (["已交", "已交", "已复查", "待订正"] as const)[index % 4]])) },
+  ],
+  pointEvents: [
+    { id: "p1", studentId: "s3", scene: "课堂", reason: "主动分享解题思路", delta: 2, date: "今天" },
+    { id: "p2", studentId: "s10", scene: "作业", reason: "作业未按时提交", delta: -2, date: "今天" },
+    { id: "p3", studentId: "s13", scene: "卫生", reason: "主动整理卫生角", delta: 1, date: "昨天" },
+  ],
+  cadres: [
+    { id: "c1", role: "班长", studentId: "s3", duty: "协助班主任管理自习、值日班长和班级常规。" },
+    { id: "c2", role: "学习委员", studentId: "s1", duty: "组织早读，汇总作业缺交名单，联系课代表。" },
+    { id: "c3", role: "纪律委员", studentId: "s9", duty: "记录课间和自习纪律，提醒同学遵守班级公约。" },
+    { id: "c4", role: "劳动委员", studentId: "s13", duty: "安排卫生岗位，检查桌椅、地面、黑板和门窗。" },
+  ],
+  weeklyPlan: [
+    { day: "周一", focus: "班级公约", event: "晨会强调作业提交与课前准备" },
+    { day: "周二", focus: "作业闭环", event: "复查待订正学生" },
+    { day: "周三", focus: "家校沟通", event: "联系连续未交作业家长" },
+    { day: "周四", focus: "积分表扬", event: "公布小组积分榜" },
+    { day: "周五", focus: "周报生成", event: "整理进步学生和待跟进名单" },
+  ],
+  license: { tier: "高级版", canExport: true, expiresAt: "2099-12-31" },
 };
