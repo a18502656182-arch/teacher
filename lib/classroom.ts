@@ -22,6 +22,8 @@ const names = [
   "沈佳宁", "许嘉树", "顾安然", "李明轩", "叶可欣", "张景行",
   "唐语柔", "吴承泽", "陆星辰", "宋芷若", "江予安", "何书瑶",
   "徐嘉言", "郑清越", "程念初", "梁宇航", "谢知微", "罗浩然",
+  "韩亦辰", "高若溪", "马远航", "林沐阳", "秦子墨", "董思涵",
+  "潘奕然", "夏知予",
 ];
 
 export const defaultClassroomData: ClassroomData = {
@@ -41,6 +43,9 @@ export const defaultClassroomData: ClassroomData = {
     { id: "r1", student: "周雨桐", type: "成长记录", content: "主动帮助同桌整理错题，课堂表达清晰。", date: "今天 10:20" },
     { id: "r2", student: "王子谦", type: "作业跟进", content: "数学订正已完成，明天复查同类题。", date: "昨天 16:45" },
     { id: "r3", student: "苏沐晴", type: "家校沟通", content: "与家长确认近期作息调整方案。", date: "周一 19:10" },
+    { id: "r4", student: "李明轩", type: "谈心记录", content: "近期课堂举手减少，约定每天至少主动表达一次观点，周五复盘。", date: "周二 12:35" },
+    { id: "r5", student: "陈思远", type: "家访准备", content: "家长反馈晚间作业拖拉，建议先固定20分钟专注时段，再逐步延长。", date: "周三 18:20" },
+    { id: "r6", student: "唐语柔", type: "表扬记录", content: "卫生角整理到位，被生活委员和同学共同推荐为本周劳动小能手。", date: "周四 09:15" },
   ],
   courses: [
     ["语文", "数学", "英语", "体育", "科学"],
