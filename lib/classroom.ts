@@ -16,6 +16,7 @@ export type Student = {
 
 export type HomeworkTask = {
   id: string;
+  classId?: string;
   date: string;
   subject: string;
   title: string;
@@ -144,8 +145,8 @@ export const defaultClassroomData: ClassroomData = {
     ["数学", "语文", "劳动", "阅读", "社团"],
   ],
   homeworkTasks: [
-    { id: "h1", date: "2026-07-17", subject: "数学", title: "计算练习第3页", statuses: Object.fromEntries(names.map((_, index) => [`s${index + 1}`, (["已交", "已交", "待订正", "已复查", "未交"] as const)[index % 5]])) },
-    { id: "h2", date: "2026-07-17", subject: "语文", title: "阅读摘抄一页", statuses: Object.fromEntries(names.map((_, index) => [`s${index + 1}`, (["已交", "已交", "已复查", "待订正"] as const)[index % 4]])) },
+    { id: "h1", classId: "class-1", date: "2026-07-17", subject: "数学", title: "计算练习第3页", statuses: Object.fromEntries(names.map((_, index) => [`s${index + 1}`, (["已交", "已交", "待订正", "已复查", "未交"] as const)[index % 5]])) },
+    { id: "h2", classId: "class-1", date: "2026-07-17", subject: "语文", title: "阅读摘抄一页", statuses: Object.fromEntries(names.map((_, index) => [`s${index + 1}`, (["已交", "已交", "已复查", "待订正"] as const)[index % 4]])) },
   ],
   pointEvents: [
     { id: "p1", studentId: "s3", scene: "课堂", reason: "主动分享解题思路", delta: 2, date: "今天" },
