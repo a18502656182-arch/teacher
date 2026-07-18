@@ -31,6 +31,31 @@ export type PointEvent = {
   reason: string;
   delta: number;
   date: string;
+  operator?: string;
+};
+
+export type GrowthEvidence = {
+  id: string;
+  studentId: string;
+  date: string;
+  type: string;
+  title: string;
+  content: string;
+  followUp?: string;
+  source?: string;
+  createdAt?: number;
+};
+
+export type PointRule = {
+  id: string;
+  scene: string;
+  title: string;
+  reason: string;
+  delta: number;
+  owner: string;
+  enabled: boolean;
+  level: "小学版" | "初中版" | "温和版" | "严格版" | "自定义";
+  detail?: string;
 };
 
 export type CadreRole = {
@@ -48,6 +73,18 @@ export type RosterClass = {
   students: Student[];
 };
 
+export type WeeklyReport = {
+  id: string;
+  classId: string;
+  weekStart: string;
+  weekEnd: string;
+  edition: "家长版" | "教师版";
+  content: string;
+  nextFocus: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
 export type ClassroomData = {
   students: Student[];
   activeClassId?: string;
@@ -57,8 +94,11 @@ export type ClassroomData = {
   courses: string[][];
   homeworkTasks?: HomeworkTask[];
   pointEvents?: PointEvent[];
+  growthEvidence?: GrowthEvidence[];
+  pointRules?: PointRule[];
   cadres?: CadreRole[];
   weeklyPlan?: { day: string; focus: string; event: string }[];
+  weeklyReports?: WeeklyReport[];
   license?: { tier: "基础版" | "高级版"; canExport: boolean; expiresAt: string };
 };
 
