@@ -53,7 +53,10 @@ const homeworkOrder: HomeworkTask["statuses"][string][] = ["已交", "未交", "
 const days = ["星期一", "星期二", "星期三", "星期四", "星期五"];
 
 function today() {
-  return new Date().toISOString().slice(0, 10);
+  const now = new Date();
+  const month = `${now.getMonth() + 1}`.padStart(2, "0");
+  const day = `${now.getDate()}`.padStart(2, "0");
+  return `${now.getFullYear()}-${month}-${day}`;
 }
 
 function normalizeData(data: ClassroomData): ClassroomData {
@@ -384,10 +387,17 @@ function Homework({ data, update }: { data: ClassroomData; update: (fn: (d: Clas
   const [selectedTaskId, setSelectedTaskId] = useState("");
   const [detailOpen, setDetailOpen] = useState(false);
   const [createOpen, setCreateOpen] = useState(false);
+  const [editOpen, setEditOpen] = useState(false);
   const [draftDate, setDraftDate] = useState("");
   const [draftSubject, setDraftSubject] = useState("");
   const [draftTitle, setDraftTitle] = useState("");
   const [createError, setCreateError] = useState("");
+  const [editDate, setEditDate] = useState("");
+  const [editSubject, setEditSubject] = useState("");
+  const [editTitle, setEditTitle] = useState("");
+  const [editError, setEditError] = useState("");
+  const [selectedStudentIds, setSelectedStudentIds] = useState<string[]>([]);
+  const [copyMessage, setCopyMessage] = useState("");
   const [advancedOpen, setAdvancedOpen] = useState(false);
   const [selectedMonth, setSelectedMonth] = useState("全部月份");
   const [listPage, setListPage] = useState(1);
@@ -469,7 +479,7 @@ function Homework({ data, update }: { data: ClassroomData; update: (fn: (d: Clas
     update((d) => ({ ...d, homeworkTasks: d.homeworkTasks?.map((item) => item.id === taskId ? { ...item, ...patch } : item) ?? [] }));
   }
   function openCreateTask() {
-    setDraftDate("");
+    setDraftDate(today());
     setDraftSubject("");
     setDraftTitle("");
     setCreateError("");
@@ -503,9 +513,27 @@ function Homework({ data, update }: { data: ClassroomData; update: (fn: (d: Clas
   function openTask(id: string) {
     setSelectedTaskId(id);
     setDetailOpen(true);
+    setSelectedStudentIds([]);
+    setCopyMessage("");
     setDetailStudentKeyword("");
     setDetailStatusFilter("全部");
     setDetailGroupFilter("全部");
+  }
+  function openEditTask() {
+    if (!task) return;
+    setEditDate(task.date);
+    setEditSubject(task.subject);
+    setEditTitle(task.title);
+    setEditError("");
+    setEditOpen(true);
+  }
+  function confirmEditTask() {
+    if (!editDate || !editSubject.trim() || !editTitle.trim()) {
+      setEditError("请完整填写日期、学科和作业内容。");
+      return;
+    }
+    setTask({ date: editDate, subject: editSubject.trim(), title: editTitle.trim() });
+    setEditOpen(false);
   }
   function setStatus(student: Student, next: HomeworkTask["statuses"][string]) {
     if (!taskId) return;
@@ -521,9 +549,18 @@ function Homework({ data, update }: { data: ClassroomData; update: (fn: (d: Clas
     const next = homeworkOrder[(homeworkOrder.indexOf(current) + 1) % homeworkOrder.length];
     setStatus(student, next);
   }
-  function bulkSet(next: HomeworkTask["statuses"][string], scope: "全部学生" | "当前筛选") {
+  function toggleStudentSelection(id: string) {
+    setSelectedStudentIds((current) => current.includes(id) ? current.filter((item) => item !== id) : [...current, id]);
+  }
+  function toggleCurrentPage() {
+    const pageIds = pagedStudents.map((student) => student.id);
+    const allSelected = pageIds.length > 0 && pageIds.every((id) => selectedStudentIds.includes(id));
+    setSelectedStudentIds((current) => allSelected ? current.filter((id) => !pageIds.includes(id)) : Array.from(new Set([...current, ...pageIds])));
+  }
+  function bulkSet(next: HomeworkTask["statuses"][string]) {
     if (!taskId) return;
-    const target = scope === "全部学生" ? data.students : visibleStudents;
+    const target = data.students.filter((student) => selectedStudentIds.includes(student.id));
+    if (!target.length) return;
     const ids = new Set(target.map((student) => student.id));
     update((d) => ({
       ...d,
@@ -531,15 +568,51 @@ function Homework({ data, update }: { data: ClassroomData; update: (fn: (d: Clas
       homeworkTasks: d.homeworkTasks?.map((item) => item.id === taskId ? { ...item, statuses: { ...item.statuses, ...Object.fromEntries(target.map((student) => [student.id, next])) } } : item),
     }));
   }
-  function copyFollowList() {
-    const list = data.students
+  function setStudentNote(studentId: string, note: string) {
+    update((d) => ({
+      ...d,
+      students: d.students.map((student) => student.id === studentId ? { ...student, note } : student),
+      rosterClasses: d.rosterClasses?.map((item) => item.id === activeClassId ? { ...item, students: item.students.map((student) => student.id === studentId ? { ...student, note } : student) } : item),
+    }));
+  }
+  async function copyFollowList() {
+    const followStudents = data.students
       .filter((student) => {
         const status = task?.statuses[student.id] ?? student.homework;
         return status === "未交" || status === "待订正";
-      })
-      .map((student) => `${student.name}（第${student.group}组：${task?.statuses[student.id] ?? student.homework}）`)
+      });
+    if (!followStudents.length) {
+      setCopyMessage("当前没有未交或待订正的学生");
+      return;
+    }
+    const list = `${task?.date ?? ""} ${task?.subject ?? ""} · ${task?.title ?? ""}\n` + followStudents
+      .map((student, index) => `${index + 1}. ${student.name}（第${student.group}组：${task?.statuses[student.id] ?? student.homework}）`)
       .join("\n");
-    navigator.clipboard?.writeText(list || "今天没有需要跟进的作业。");
+    try {
+      let copied = false;
+      if (navigator.clipboard?.writeText) {
+        try {
+          await navigator.clipboard.writeText(list);
+          copied = true;
+        } catch {
+          copied = false;
+        }
+      }
+      if (!copied) {
+        const textarea = document.createElement("textarea");
+        textarea.value = list;
+        textarea.style.position = "fixed";
+        textarea.style.opacity = "0";
+        document.body.appendChild(textarea);
+        textarea.select();
+        copied = document.execCommand("copy");
+        textarea.remove();
+        if (!copied) throw new Error("copy failed");
+      }
+      setCopyMessage(`已复制 ${followStudents.length} 名待跟进学生`);
+    } catch {
+      setCopyMessage("浏览器未允许复制，请检查复制权限后重试");
+    }
   }
   function resetTaskFilters() {
     setTaskKeyword("");
@@ -569,11 +642,24 @@ function Homework({ data, update }: { data: ClassroomData; update: (fn: (d: Clas
       text={`${task.date}｜这里专门处理这一项作业，返回后仍停留在原来的归档和页码。`}
       action={<button className="primary-small homework-back" onClick={() => setDetailOpen(false)}>← 返回作业台账</button>}
     />
+    {editOpen && <div className="homework-modal-backdrop" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) setEditOpen(false); }}>
+      <section className="homework-create-modal" role="dialog" aria-modal="true" aria-labelledby="edit-homework-title">
+        <header><div><span>编辑作业</span><h3 id="edit-homework-title">修改作业信息</h3><p>较长的作业内容可以在下面完整编写。</p></div><button aria-label="关闭" onClick={() => setEditOpen(false)}>×</button></header>
+        <div className="homework-create-fields">
+          <label>日期<input type="date" value={editDate} onChange={(e) => { setEditDate(e.target.value); setEditError(""); }} /></label>
+          <label>学科<input value={editSubject} onChange={(e) => { setEditSubject(e.target.value); setEditError(""); }} placeholder="请输入学科" /></label>
+          <label className="wide">作业内容<textarea value={editTitle} onChange={(e) => { setEditTitle(e.target.value); setEditError(""); }} placeholder="请输入具体作业内容，可换行编写" rows={8} autoFocus /></label>
+        </div>
+        {editError && <p className="homework-create-error">{editError}</p>}
+        <footer><button className="cancel" onClick={() => setEditOpen(false)}>取消</button><button className="confirm" onClick={confirmEditTask}>确认保存</button></footer>
+      </section>
+    </div>}
     <section className="homework-detail-page">
-      <section className="task-editor rich-task-editor">
-        <label>日期<input type="date" value={task.date} onChange={(e) => setTask({ date: e.target.value })} /></label>
-        <label>科目<input value={task.subject} onChange={(e) => setTask({ subject: e.target.value })} /></label>
-        <label>作业内容<input value={task.title} onChange={(e) => setTask({ title: e.target.value })} /></label>
+      <section className="homework-detail-summary">
+        <div><span>日期</span><b>{task.date}</b></div>
+        <div><span>学科</span><b>{task.subject}</b></div>
+        <div className="content"><span>作业内容</span><p>{task.title}</p></div>
+        <button onClick={openEditTask}>编辑作业信息</button>
       </section>
       <section className="homework-stats">
         <div><span>完成率</span><b>{completionRate}%</b></div>
@@ -588,20 +674,22 @@ function Homework({ data, update }: { data: ClassroomData; update: (fn: (d: Clas
         <select value={detailGroupFilter} onChange={(e) => setDetailGroupFilter(e.target.value)}><option>全部</option>{groups.map((group) => <option value={group} key={group}>第{group}组</option>)}</select>
       </section>
       <section className="homework-bulk">
-        <span>当前筛选 {visibleStudents.length} 人</span>
-        <button onClick={() => bulkSet("已交", "当前筛选")}>设为已交</button>
-        <button onClick={() => bulkSet("待订正", "当前筛选")}>设为待订正</button>
-        <button onClick={() => bulkSet("已复查", "当前筛选")}>设为已复查</button>
+        <span>已选择 <b>{selectedStudentIds.length}</b> 人</span>
+        <button onClick={toggleCurrentPage}>{pagedStudents.length > 0 && pagedStudents.every((student) => selectedStudentIds.includes(student.id)) ? "取消本页全选" : "全选本页"}</button>
+        <button disabled={!selectedStudentIds.length} onClick={() => bulkSet("已交")}>选中设为已交</button>
+        <button disabled={!selectedStudentIds.length} onClick={() => bulkSet("待订正")}>选中设为待订正</button>
+        <button disabled={!selectedStudentIds.length} onClick={() => bulkSet("已复查")}>选中设为已复查</button>
         <button onClick={copyFollowList}>复制待跟进名单</button>
       </section>
+      {copyMessage && <p className={`homework-copy-message ${copyMessage.startsWith("已复制") ? "success" : ""}`}>{copyMessage}</p>}
       <section className="homework-table">
-        <div className="homework-head"><span>学生</span><span>小组</span><span>状态</span><span>快速操作</span><span>备注</span></div>
+        <div className="homework-head"><span className="student-select-head"><input type="checkbox" aria-label="全选本页学生" checked={pagedStudents.length > 0 && pagedStudents.every((student) => selectedStudentIds.includes(student.id))} onChange={toggleCurrentPage} />学生</span><span>小组</span><span>状态</span><span>快速操作</span><span>备注（可编辑）</span></div>
         {pagedStudents.map((student) => {
           const status = task.statuses[student.id] ?? student.homework;
-          return <div className="homework-line" key={student.id}><b><i>{student.name.slice(0,1)}</i>{student.name}</b><span>第{student.group}组</span><em className={`homework-pill ${status}`}>{status}</em><div>{statusOptions.map((next) => <button className={next === status ? "active" : ""} key={next} onClick={() => setStatus(student, next)}>{next}</button>)}</div><small>{student.note || "无备注"}</small></div>;
+          return <div className={`homework-line ${selectedStudentIds.includes(student.id) ? "selected" : ""}`} key={student.id}><b><input type="checkbox" aria-label={`选择${student.name}`} checked={selectedStudentIds.includes(student.id)} onChange={() => toggleStudentSelection(student.id)} /><i>{student.name.slice(0,1)}</i>{student.name}</b><span>第{student.group}组</span><em className={`homework-pill ${status}`}>{status}</em><div>{statusOptions.map((next) => <button className={next === status ? "active" : ""} key={next} onClick={() => setStatus(student, next)}>{next}</button>)}</div><input className="homework-note-input" value={student.note ?? ""} onChange={(e) => setStudentNote(student.id, e.target.value)} placeholder="点击填写备注" /></div>;
         })}
       </section>
-      <section className="student-card-grid homework-mobile-grid">{pagedStudents.map((student) => { const status = task.statuses[student.id] ?? student.homework; return <button className={`student-status-card ${status}`} key={student.id} onClick={() => toggle(student)}><i>{student.name.slice(0,1)}</i><b>{student.name}</b><span>{status}</span><small>第{student.group}组 · 点击切换</small></button>; })}</section>
+      <section className="homework-mobile-grid">{pagedStudents.map((student) => { const status = task.statuses[student.id] ?? student.homework; return <article className={`homework-mobile-student ${selectedStudentIds.includes(student.id) ? "selected" : ""}`} key={student.id}><header><label><input type="checkbox" checked={selectedStudentIds.includes(student.id)} onChange={() => toggleStudentSelection(student.id)} /><i>{student.name.slice(0,1)}</i><b>{student.name}</b></label><span>第{student.group}组</span></header><button className={`student-status-card ${status}`} onClick={() => toggle(student)}><span>{status}</span><small>点击切换状态</small></button><label className="mobile-note">备注<input value={student.note ?? ""} onChange={(e) => setStudentNote(student.id, e.target.value)} placeholder="点击填写备注" /></label></article>; })}</section>
       <div className="homework-pagination">
         <button disabled={safeStudentPage <= 1} onClick={() => setStudentPage((page) => Math.max(1, page - 1))}>上一页</button>
         <span>学生第 {safeStudentPage} / {studentTotalPages} 页，共 {visibleStudents.length} 人</span>
