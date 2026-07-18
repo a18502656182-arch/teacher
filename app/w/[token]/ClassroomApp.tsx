@@ -380,17 +380,38 @@ function Homework({ data, update }: { data: ClassroomData; update: (fn: (d: Clas
   const [selectedTaskId, setSelectedTaskId] = useState(tasks[0]?.id ?? "");
   const [statusFilter, setStatusFilter] = useState<"全部" | HomeworkTask["statuses"][string]>("全部");
   const [groupFilter, setGroupFilter] = useState("全部");
-  const [keyword, setKeyword] = useState("");
-  const task = tasks.find((item) => item.id === selectedTaskId) ?? tasks[0];
-  const taskId = task?.id ?? "";
+  const [studentKeyword, setStudentKeyword] = useState("");
+  const [taskKeyword, setTaskKeyword] = useState("");
+  const [subjectFilter, setSubjectFilter] = useState("全部");
+  const [dateFrom, setDateFrom] = useState("");
+  const [dateTo, setDateTo] = useState("");
   const statusOptions: HomeworkTask["statuses"][string][] = ["已交", "未交", "待订正", "已复查"];
   const groups = Array.from(new Set(data.students.map((s) => s.group))).sort((a, b) => a - b);
+  const subjects = Array.from(new Set(tasks.map((item) => item.subject).filter(Boolean))).sort((a, b) => a.localeCompare(b, "zh-CN"));
+  const filteredTasks = tasks.filter((item) => {
+    const taskText = `${item.date}${item.subject}${item.title}`.toLocaleLowerCase("zh-CN");
+    const matchTask = taskText.includes(taskKeyword.trim().toLocaleLowerCase("zh-CN"));
+    const matchSubject = subjectFilter === "全部" || item.subject === subjectFilter;
+    const matchFrom = !dateFrom || item.date >= dateFrom;
+    const matchTo = !dateTo || item.date <= dateTo;
+    const matchStudent = !studentKeyword.trim() || data.students.some((student) => {
+      const status = item.statuses[student.id] ?? student.homework;
+      const text = `${student.name}${student.studentNo}${student.parentPhone}${student.note}${student.group}${status}`.toLocaleLowerCase("zh-CN");
+      return text.includes(studentKeyword.trim().toLocaleLowerCase("zh-CN"));
+    });
+    const matchStatus = statusFilter === "全部" || data.students.some((student) => (item.statuses[student.id] ?? student.homework) === statusFilter);
+    const matchGroup = groupFilter === "全部" || data.students.some((student) => student.group === Number(groupFilter));
+    return matchTask && matchSubject && matchFrom && matchTo && matchStudent && matchStatus && matchGroup;
+  }).sort((a, b) => b.date.localeCompare(a.date) || a.subject.localeCompare(b.subject, "zh-CN"));
+  const selectedTask = tasks.find((item) => item.id === selectedTaskId);
+  const task = selectedTask && filteredTasks.some((item) => item.id === selectedTask.id) ? selectedTask : filteredTasks[0] ?? tasks[0];
+  const taskId = task?.id ?? "";
   const visibleStudents = data.students.filter((student) => {
     const status = task?.statuses[student.id] ?? student.homework;
     const matchStatus = statusFilter === "全部" || status === statusFilter;
     const matchGroup = groupFilter === "全部" || student.group === Number(groupFilter);
     const text = `${student.name}${student.studentNo}${student.parentPhone}${student.note}`.toLocaleLowerCase("zh-CN");
-    return matchStatus && matchGroup && text.includes(keyword.trim().toLocaleLowerCase("zh-CN"));
+    return matchStatus && matchGroup && text.includes(studentKeyword.trim().toLocaleLowerCase("zh-CN"));
   });
   const counts = statusOptions.reduce((acc, status) => ({ ...acc, [status]: data.students.filter((student) => (task?.statuses[student.id] ?? student.homework) === status).length }), {} as Record<HomeworkTask["statuses"][string], number>);
   const completionRate = data.students.length ? Math.round(((counts["已交"] + counts["已复查"]) / data.students.length) * 100) : 0;
@@ -454,22 +475,43 @@ function Homework({ data, update }: { data: ClassroomData; update: (fn: (d: Clas
       .join("\n");
     navigator.clipboard?.writeText(list || "今天没有需要跟进的作业。");
   }
+  function resetTaskFilters() {
+    setTaskKeyword("");
+    setSubjectFilter("全部");
+    setDateFrom("");
+    setDateTo("");
+    setStudentKeyword("");
+    setStatusFilter("全部");
+    setGroupFilter("全部");
+  }
+  function taskSummary(item: HomeworkTask) {
+    const total = data.students.length || 1;
+    const done = data.students.filter((student) => {
+      const status = item.statuses[student.id] ?? student.homework;
+      return status === "已交" || status === "已复查";
+    }).length;
+    const missing = data.students.filter((student) => (item.statuses[student.id] ?? student.homework) === "未交").length;
+    const fixing = data.students.filter((student) => (item.statuses[student.id] ?? student.homework) === "待订正").length;
+    return { done, missing, fixing, rate: Math.round(done / total * 100) };
+  }
   return <>
     <ToolHeading kicker="作业追踪" title="每天真正要用的是未交、订正、复查闭环" text="参考作业完成登记表：先选作业任务，再批量处理或逐个点学生状态。电脑端看表，手机端点卡片。" action={<button className="primary-small" onClick={addTask}>新增作业</button>} />
-    <section className="homework-layout">
-      <aside className="homework-task-list">
-        <div className="homework-side-head"><b>作业任务</b><span>{tasks.length}项</span></div>
-        {tasks.length === 0 && <div className="empty-result"><b>还没有作业</b><span>点击右上角“新增作业”开始记录。</span></div>}
-        {tasks.map((item) => {
-          const total = data.students.length || 1;
-          const done = data.students.filter((student) => {
-            const status = item.statuses[student.id] ?? student.homework;
-            return status === "已交" || status === "已复查";
-          }).length;
-          return <button className={item.id === taskId ? "active" : ""} key={item.id} onClick={() => setSelectedTaskId(item.id)}><b>{item.subject} · {item.title}</b><span>{item.date}</span><em>{Math.round(done / total * 100)}%完成</em></button>;
-        })}
-      </aside>
-      <section className="homework-main">
+    <section className="homework-query-panel">
+      <div className="resource-search compact-search"><span>⌕</span><input value={taskKeyword} onChange={(e) => setTaskKeyword(e.target.value)} placeholder="搜作业内容、科目、日期，例如：数学 计算 第3页" /></div>
+      <select value={subjectFilter} onChange={(e) => setSubjectFilter(e.target.value)}><option value="全部">全部学科</option>{subjects.map((subject) => <option key={subject}>{subject}</option>)}</select>
+      <input type="date" value={dateFrom} onChange={(e) => setDateFrom(e.target.value)} />
+      <input type="date" value={dateTo} onChange={(e) => setDateTo(e.target.value)} />
+      <button onClick={resetTaskFilters}>清空筛选</button>
+    </section>
+    <section className="homework-ledger">
+      <div className="homework-ledger-head"><b>作业台账</b><span>找到 {filteredTasks.length} / {tasks.length} 项作业</span></div>
+      {filteredTasks.length === 0 && <div className="empty-result"><b>没有找到符合条件的作业</b><span>可以清空筛选，或点击“新增作业”。</span></div>}
+      {filteredTasks.map((item) => {
+        const summary = taskSummary(item);
+        return <button className={item.id === taskId ? "active" : ""} key={item.id} onClick={() => setSelectedTaskId(item.id)}><span>{item.date}</span><b>{item.subject} · {item.title}</b><em>{summary.rate}%完成</em><small>未交 {summary.missing} · 待订正 {summary.fixing}</small></button>;
+      })}
+    </section>
+    <section className="homework-main">
         {task ? <>
           <section className="task-editor rich-task-editor">
             <label>日期<input type="date" value={task.date} onChange={(e) => setTask({ date: e.target.value })} /></label>
@@ -485,7 +527,7 @@ function Homework({ data, update }: { data: ClassroomData; update: (fn: (d: Clas
             <div><span>已复查</span><b>{counts["已复查"]}</b></div>
           </section>
           <section className="homework-controls">
-            <div className="resource-search compact-search"><span>⌕</span><input value={keyword} onChange={(e) => setKeyword(e.target.value)} placeholder="搜索学生、学号、电话、备注" /></div>
+            <div className="resource-search compact-search"><span>⌕</span><input value={studentKeyword} onChange={(e) => setStudentKeyword(e.target.value)} placeholder="搜索学生、学号、电话、备注" /></div>
             <select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value as typeof statusFilter)}><option>全部</option>{statusOptions.map((item) => <option key={item}>{item}</option>)}</select>
             <select value={groupFilter} onChange={(e) => setGroupFilter(e.target.value)}><option>全部</option>{groups.map((group) => <option value={group} key={group}>第{group}组</option>)}</select>
           </section>
@@ -504,7 +546,6 @@ function Homework({ data, update }: { data: ClassroomData; update: (fn: (d: Clas
           </section>
           <section className="student-card-grid homework-mobile-grid">{visibleStudents.map((student) => { const status = task.statuses[student.id] ?? student.homework; return <button className={`student-status-card ${status}`} key={student.id} onClick={() => toggle(student)}><i>{student.name.slice(0,1)}</i><b>{student.name}</b><span>{status}</span><small>第{student.group}组 · 点击切换</small></button>; })}</section>
         </> : <div className="empty-result"><b>还没有作业任务</b><span>点击“新增作业”后，就能开始记录全班提交情况。</span></div>}
-      </section>
     </section>
   </>;
 }
