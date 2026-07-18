@@ -105,7 +105,7 @@ function normalizeData(data: ClassroomData): ClassroomData {
 
 export default function ClassroomApp({ token }: { token: string }) {
   const [workspace, setWorkspace] = useState<Workspace | null>(null);
-  const [active, setActive] = useState<ModuleId>("students");
+  const [active, setActive] = useState<ModuleId>("homework");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [dirty, setDirty] = useState(false);
@@ -376,17 +376,137 @@ function Students({ data, update }: { data: ClassroomData; update: (fn: (d: Clas
 }
 
 function Homework({ data, update }: { data: ClassroomData; update: (fn: (d: ClassroomData) => ClassroomData) => void }) {
-  const task = data.homeworkTasks?.[0];
+  const tasks = data.homeworkTasks?.length ? data.homeworkTasks : [];
+  const [selectedTaskId, setSelectedTaskId] = useState(tasks[0]?.id ?? "");
+  const [statusFilter, setStatusFilter] = useState<"全部" | HomeworkTask["statuses"][string]>("全部");
+  const [groupFilter, setGroupFilter] = useState("全部");
+  const [keyword, setKeyword] = useState("");
+  const task = tasks.find((item) => item.id === selectedTaskId) ?? tasks[0];
+  const taskId = task?.id ?? "";
+  const statusOptions: HomeworkTask["statuses"][string][] = ["已交", "未交", "待订正", "已复查"];
+  const groups = Array.from(new Set(data.students.map((s) => s.group))).sort((a, b) => a - b);
+  const visibleStudents = data.students.filter((student) => {
+    const status = task?.statuses[student.id] ?? student.homework;
+    const matchStatus = statusFilter === "全部" || status === statusFilter;
+    const matchGroup = groupFilter === "全部" || student.group === Number(groupFilter);
+    const text = `${student.name}${student.studentNo}${student.parentPhone}${student.note}`.toLocaleLowerCase("zh-CN");
+    return matchStatus && matchGroup && text.includes(keyword.trim().toLocaleLowerCase("zh-CN"));
+  });
+  const counts = statusOptions.reduce((acc, status) => ({ ...acc, [status]: data.students.filter((student) => (task?.statuses[student.id] ?? student.homework) === status).length }), {} as Record<HomeworkTask["statuses"][string], number>);
+  const completionRate = data.students.length ? Math.round(((counts["已交"] + counts["已复查"]) / data.students.length) * 100) : 0;
+
+  useEffect(() => {
+    if (!selectedTaskId && tasks[0]?.id) setSelectedTaskId(tasks[0].id);
+    if (selectedTaskId && tasks.length && !tasks.some((item) => item.id === selectedTaskId)) setSelectedTaskId(tasks[0].id);
+  }, [selectedTaskId, tasks]);
+
   function setTask(patch: Partial<HomeworkTask>) {
-    update((d) => ({ ...d, homeworkTasks: d.homeworkTasks?.map((item, i) => i === 0 ? { ...item, ...patch } : item) ?? [] }));
+    if (!taskId) return;
+    update((d) => ({ ...d, homeworkTasks: d.homeworkTasks?.map((item) => item.id === taskId ? { ...item, ...patch } : item) ?? [] }));
+  }
+  function addTask() {
+    const newTask: HomeworkTask = {
+      id: crypto.randomUUID(),
+      date: today(),
+      subject: "数学",
+      title: "新作业",
+      statuses: Object.fromEntries(data.students.map((s) => [s.id, "已交"])),
+    };
+    update((d) => ({ ...d, homeworkTasks: [newTask, ...(d.homeworkTasks ?? [])] }));
+    setSelectedTaskId(newTask.id);
+  }
+  function deleteTask() {
+    if (!taskId) return;
+    update((d) => ({ ...d, homeworkTasks: (d.homeworkTasks ?? []).filter((item) => item.id !== taskId) }));
+    setSelectedTaskId("");
+  }
+  function setStatus(student: Student, next: HomeworkTask["statuses"][string]) {
+    if (!taskId) return;
+    update((d) => ({
+      ...d,
+      students: d.students.map((s) => s.id === student.id ? { ...s, homework: next === "已复查" ? "已交" : next } : s),
+      homeworkTasks: d.homeworkTasks?.map((item) => item.id === taskId ? { ...item, statuses: { ...item.statuses, [student.id]: next } } : item),
+    }));
   }
   function toggle(student: Student) {
     if (!task) return;
     const current = task.statuses[student.id] ?? student.homework;
     const next = homeworkOrder[(homeworkOrder.indexOf(current) + 1) % homeworkOrder.length];
-    update((d) => ({ ...d, students: d.students.map((s) => s.id === student.id ? { ...s, homework: next === "已复查" ? "已交" : next } : s), homeworkTasks: d.homeworkTasks?.map((item, i) => i === 0 ? { ...item, statuses: { ...item.statuses, [student.id]: next } } : item) }));
+    setStatus(student, next);
   }
-  return <><ToolHeading kicker="作业追踪" title="按日期和科目形成提交、订正、复查闭环" text="参考作业完成登记表，电脑端批量查看，手机端点学生即可切换状态。" action={<button className="primary-small" onClick={() => update((d) => ({ ...d, homeworkTasks: [{ id: crypto.randomUUID(), date: today(), subject: "新科目", title: "新作业", statuses: Object.fromEntries(d.students.map((s) => [s.id, "已交"])) }, ...(d.homeworkTasks ?? [])] }))}>新增作业</button>} />{task && <section className="task-editor"><input type="date" value={task.date} onChange={(e) => setTask({ date: e.target.value })} /><input value={task.subject} onChange={(e) => setTask({ subject: e.target.value })} /><input value={task.title} onChange={(e) => setTask({ title: e.target.value })} /></section>}<section className="student-card-grid">{data.students.map((s) => { const status = task?.statuses[s.id] ?? s.homework; return <button className={`student-status-card ${status}`} key={s.id} onClick={() => toggle(s)}><i>{s.name.slice(0,1)}</i><b>{s.name}</b><span>{status}</span><small>第{s.group}组 · 点击切换</small></button>; })}</section></>;
+  function bulkSet(next: HomeworkTask["statuses"][string], scope: "全部学生" | "当前筛选") {
+    if (!taskId) return;
+    const target = scope === "全部学生" ? data.students : visibleStudents;
+    const ids = new Set(target.map((student) => student.id));
+    update((d) => ({
+      ...d,
+      students: d.students.map((s) => ids.has(s.id) ? { ...s, homework: next === "已复查" ? "已交" : next } : s),
+      homeworkTasks: d.homeworkTasks?.map((item) => item.id === taskId ? { ...item, statuses: { ...item.statuses, ...Object.fromEntries(target.map((student) => [student.id, next])) } } : item),
+    }));
+  }
+  function copyFollowList() {
+    const list = data.students
+      .filter((student) => {
+        const status = task?.statuses[student.id] ?? student.homework;
+        return status === "未交" || status === "待订正";
+      })
+      .map((student) => `${student.name}（第${student.group}组：${task?.statuses[student.id] ?? student.homework}）`)
+      .join("\n");
+    navigator.clipboard?.writeText(list || "今天没有需要跟进的作业。");
+  }
+  return <>
+    <ToolHeading kicker="作业追踪" title="每天真正要用的是未交、订正、复查闭环" text="参考作业完成登记表：先选作业任务，再批量处理或逐个点学生状态。电脑端看表，手机端点卡片。" action={<button className="primary-small" onClick={addTask}>新增作业</button>} />
+    <section className="homework-layout">
+      <aside className="homework-task-list">
+        <div className="homework-side-head"><b>作业任务</b><span>{tasks.length}项</span></div>
+        {tasks.length === 0 && <div className="empty-result"><b>还没有作业</b><span>点击右上角“新增作业”开始记录。</span></div>}
+        {tasks.map((item) => {
+          const total = data.students.length || 1;
+          const done = data.students.filter((student) => {
+            const status = item.statuses[student.id] ?? student.homework;
+            return status === "已交" || status === "已复查";
+          }).length;
+          return <button className={item.id === taskId ? "active" : ""} key={item.id} onClick={() => setSelectedTaskId(item.id)}><b>{item.subject} · {item.title}</b><span>{item.date}</span><em>{Math.round(done / total * 100)}%完成</em></button>;
+        })}
+      </aside>
+      <section className="homework-main">
+        {task ? <>
+          <section className="task-editor rich-task-editor">
+            <label>日期<input type="date" value={task.date} onChange={(e) => setTask({ date: e.target.value })} /></label>
+            <label>科目<input value={task.subject} onChange={(e) => setTask({ subject: e.target.value })} /></label>
+            <label>作业内容<input value={task.title} onChange={(e) => setTask({ title: e.target.value })} /></label>
+            <button className="danger-small" onClick={deleteTask}>删除作业</button>
+          </section>
+          <section className="homework-stats">
+            <div><span>完成率</span><b>{completionRate}%</b></div>
+            <div><span>已交</span><b>{counts["已交"]}</b></div>
+            <div><span>未交</span><b>{counts["未交"]}</b></div>
+            <div><span>待订正</span><b>{counts["待订正"]}</b></div>
+            <div><span>已复查</span><b>{counts["已复查"]}</b></div>
+          </section>
+          <section className="homework-controls">
+            <div className="resource-search compact-search"><span>⌕</span><input value={keyword} onChange={(e) => setKeyword(e.target.value)} placeholder="搜索学生、学号、电话、备注" /></div>
+            <select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value as typeof statusFilter)}><option>全部</option>{statusOptions.map((item) => <option key={item}>{item}</option>)}</select>
+            <select value={groupFilter} onChange={(e) => setGroupFilter(e.target.value)}><option>全部</option>{groups.map((group) => <option value={group} key={group}>第{group}组</option>)}</select>
+          </section>
+          <section className="homework-bulk">
+            <button onClick={() => bulkSet("已交", "当前筛选")}>筛选结果设为已交</button>
+            <button onClick={() => bulkSet("待订正", "当前筛选")}>筛选结果设为待订正</button>
+            <button onClick={() => bulkSet("已复查", "当前筛选")}>筛选结果设为已复查</button>
+            <button onClick={copyFollowList}>复制待跟进名单</button>
+          </section>
+          <section className="homework-table">
+            <div className="homework-head"><span>学生</span><span>小组</span><span>状态</span><span>快速操作</span><span>备注</span></div>
+            {visibleStudents.map((student) => {
+              const status = task.statuses[student.id] ?? student.homework;
+              return <div className="homework-line" key={student.id}><b><i>{student.name.slice(0,1)}</i>{student.name}</b><span>第{student.group}组</span><em className={`homework-pill ${status}`}>{status}</em><div>{statusOptions.map((next) => <button className={next === status ? "active" : ""} key={next} onClick={() => setStatus(student, next)}>{next}</button>)}</div><small>{student.note || "无备注"}</small></div>;
+            })}
+          </section>
+          <section className="student-card-grid homework-mobile-grid">{visibleStudents.map((student) => { const status = task.statuses[student.id] ?? student.homework; return <button className={`student-status-card ${status}`} key={student.id} onClick={() => toggle(student)}><i>{student.name.slice(0,1)}</i><b>{student.name}</b><span>{status}</span><small>第{student.group}组 · 点击切换</small></button>; })}</section>
+        </> : <div className="empty-result"><b>还没有作业任务</b><span>点击“新增作业”后，就能开始记录全班提交情况。</span></div>}
+      </section>
+    </section>
+  </>;
 }
 
 function Points({ data, update }: { data: ClassroomData; update: (fn: (d: ClassroomData) => ClassroomData) => void }) {
