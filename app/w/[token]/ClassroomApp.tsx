@@ -85,6 +85,7 @@ function normalizeData(data: ClassroomData): ClassroomData {
   const firstTask: HomeworkTask = {
     id: "h-default",
     classId: activeClassId,
+    followUpStudentIds: [],
     date: today(),
     subject: "数学",
     title: "今日作业",
@@ -95,7 +96,7 @@ function normalizeData(data: ClassroomData): ClassroomData {
     activeClassId,
     rosterClasses,
     students,
-    homeworkTasks: data.homeworkTasks?.length ? data.homeworkTasks.map((task) => ({ ...task, classId: task.classId ?? rosterClasses[0].id })) : [firstTask],
+    homeworkTasks: data.homeworkTasks?.length ? data.homeworkTasks.map((task) => ({ ...task, classId: task.classId ?? rosterClasses[0].id, followUpStudentIds: task.followUpStudentIds ?? [] })) : [firstTask],
     pointEvents: data.pointEvents ?? [],
     cadres: data.cadres?.length ? data.cadres : [
       { id: "c1", role: "班长", studentId: students[0]?.id ?? "", duty: "协助班主任管理班级常规。" },
@@ -447,12 +448,12 @@ function Homework({ data, update }: { data: ClassroomData; update: (fn: (d: Clas
   const pagedTasks = filteredTasks.slice((safePage - 1) * pageSize, safePage * pageSize);
   const task = tasks.find((item) => item.id === selectedTaskId);
   const taskId = task?.id ?? "";
-  const followStudents = task ? data.students.filter((student) => {
-    const status = task.statuses[student.id] ?? student.homework;
-    return status === "未交" || status === "待订正";
-  }) : [];
+  const followStudents = task ? (task.followUpStudentIds ?? [])
+    .map((id) => data.students.find((student) => student.id === id))
+    .filter((student): student is Student => Boolean(student)) : [];
   const followMissingCount = followStudents.filter((student) => (task?.statuses[student.id] ?? student.homework) === "未交").length;
   const followFixingCount = followStudents.filter((student) => (task?.statuses[student.id] ?? student.homework) === "待订正").length;
+  const followDoneCount = followStudents.length - followMissingCount - followFixingCount;
   const visibleStudents = data.students.filter((student) => {
     const status = task?.statuses[student.id] ?? student.homework;
     const matchStatus = detailStatusFilter === "全部" || status === detailStatusFilter;
@@ -500,6 +501,7 @@ function Homework({ data, update }: { data: ClassroomData; update: (fn: (d: Clas
     const newTask: HomeworkTask = {
       id: crypto.randomUUID(),
       classId: activeClassId,
+      followUpStudentIds: [],
       date: draftDate,
       subject: draftSubject.trim(),
       title: draftTitle.trim(),
@@ -565,6 +567,17 @@ function Homework({ data, update }: { data: ClassroomData; update: (fn: (d: Clas
     const allSelected = pageIds.length > 0 && pageIds.every((id) => selectedStudentIds.includes(id));
     setSelectedStudentIds((current) => allSelected ? current.filter((id) => !pageIds.includes(id)) : Array.from(new Set([...current, ...pageIds])));
   }
+  function addSelectedToFollowList() {
+    if (!task || !selectedStudentIds.length) return;
+    setTask({ followUpStudentIds: Array.from(new Set([...(task.followUpStudentIds ?? []), ...selectedStudentIds])) });
+    setCopyMessage("");
+    setFollowOpen(true);
+  }
+  function removeFromFollowList(studentId: string) {
+    if (!task) return;
+    setTask({ followUpStudentIds: (task.followUpStudentIds ?? []).filter((id) => id !== studentId) });
+    setCopyMessage("");
+  }
   function bulkSet(next: HomeworkTask["statuses"][string]) {
     if (!taskId) return;
     const target = data.students.filter((student) => selectedStudentIds.includes(student.id));
@@ -585,7 +598,7 @@ function Homework({ data, update }: { data: ClassroomData; update: (fn: (d: Clas
   }
   async function copyFollowList() {
     if (!followStudents.length) {
-      setCopyMessage("当前没有未交或待订正的学生");
+      setCopyMessage("待跟进名单为空，请先勾选学生加入名单");
       return;
     }
     const list = `${task?.date ?? ""} ${task?.subject ?? ""} · ${task?.title ?? ""}\n` + followStudents
@@ -659,14 +672,14 @@ function Homework({ data, update }: { data: ClassroomData; update: (fn: (d: Clas
     </div>}
     {followOpen && <div className="homework-modal-backdrop" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) setFollowOpen(false); }}>
       <section className="homework-follow-modal" role="dialog" aria-modal="true" aria-labelledby="follow-list-title">
-        <header><div><span>作业待跟进名单</span><h3 id="follow-list-title">{task.subject} · {task.title}</h3><p>{task.date}｜名单根据“未交”和“待订正”状态自动生成。</p></div><button aria-label="关闭" onClick={() => setFollowOpen(false)}>×</button></header>
-        <div className="homework-follow-stats"><div><span>待跟进总人数</span><b>{followStudents.length}</b></div><div><span>未交</span><b>{followMissingCount}</b></div><div><span>待订正</span><b>{followFixingCount}</b></div></div>
+        <header><div><span>作业待跟进名单</span><h3 id="follow-list-title">{task.subject} · {task.title}</h3><p>{task.date}｜名单由老师勾选加入，可随时移除；学生状态用于辅助判断。</p></div><button aria-label="关闭" onClick={() => setFollowOpen(false)}>×</button></header>
+        <div className="homework-follow-stats"><div><span>名单总人数</span><b>{followStudents.length}</b></div><div><span>未交</span><b>{followMissingCount}</b></div><div><span>待订正</span><b>{followFixingCount}</b></div><div><span>已交/复查</span><b>{followDoneCount}</b></div></div>
         <div className="homework-follow-list">
           {followStudents.map((student, index) => {
             const status = task.statuses[student.id] ?? student.homework;
-            return <article key={student.id}><span>{index + 1}</span><i>{student.name.slice(0, 1)}</i><div><b>{student.name}</b><small>第{student.group}组{student.note ? ` · ${student.note}` : ""}</small></div><em className={`homework-pill ${status}`}>{status}</em></article>;
+            return <article key={student.id}><span>{index + 1}</span><i>{student.name.slice(0, 1)}</i><div><b>{student.name}</b><small>第{student.group}组{student.note ? ` · ${student.note}` : ""}</small></div><em className={`homework-pill ${status}`}>{status}</em><button className="remove" onClick={() => removeFromFollowList(student.id)}>移除</button></article>;
           })}
-          {!followStudents.length && <div className="empty-result"><b>目前没有需要跟进的学生</b><span>所有学生均已交或已复查。</span></div>}
+          {!followStudents.length && <div className="empty-result"><b>待跟进名单还是空的</b><span>关闭窗口，在学生列表中勾选学生，再点击“选中加入待跟进名单”。</span></div>}
         </div>
         {copyMessage && <p className={`homework-copy-message ${copyMessage.startsWith("已复制") ? "success" : ""}`}>{copyMessage}</p>}
         <footer><button className="cancel" onClick={() => setFollowOpen(false)}>关闭</button><button className="confirm" disabled={!followStudents.length} onClick={copyFollowList}>复制完整名单</button></footer>
@@ -698,7 +711,8 @@ function Homework({ data, update }: { data: ClassroomData; update: (fn: (d: Clas
         <button disabled={!selectedStudentIds.length} onClick={() => bulkSet("未交")}>选中设为未交</button>
         <button disabled={!selectedStudentIds.length} onClick={() => bulkSet("待订正")}>选中设为待订正</button>
         <button disabled={!selectedStudentIds.length} onClick={() => bulkSet("已复查")}>选中设为已复查</button>
-        <button onClick={() => { setCopyMessage(""); setFollowOpen(true); }}>查看待跟进名单</button>
+        <button className="follow-add" disabled={!selectedStudentIds.length} onClick={addSelectedToFollowList}>选中加入待跟进名单</button>
+        <button onClick={() => { setCopyMessage(""); setFollowOpen(true); }}>查看待跟进名单（{followStudents.length}）</button>
       </section>
       <section className="homework-table">
         <div className="homework-head"><span className="student-select-head"><input type="checkbox" aria-label="全选本页学生" checked={pagedStudents.length > 0 && pagedStudents.every((student) => selectedStudentIds.includes(student.id))} onChange={toggleCurrentPage} />学生</span><span>小组</span><span>状态</span><span>快速操作</span><span>备注（可编辑）</span></div>

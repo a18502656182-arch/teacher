@@ -17,6 +17,7 @@ export type Student = {
 export type HomeworkTask = {
   id: string;
   classId?: string;
+  followUpStudentIds?: string[];
   date: string;
   subject: string;
   title: string;
