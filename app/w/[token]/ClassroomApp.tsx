@@ -383,6 +383,11 @@ function Homework({ data, update }: { data: ClassroomData; update: (fn: (d: Clas
   const tasks = (data.homeworkTasks ?? []).filter((item) => item.classId === activeClassId);
   const [selectedTaskId, setSelectedTaskId] = useState("");
   const [detailOpen, setDetailOpen] = useState(false);
+  const [createOpen, setCreateOpen] = useState(false);
+  const [draftDate, setDraftDate] = useState("");
+  const [draftSubject, setDraftSubject] = useState("");
+  const [draftTitle, setDraftTitle] = useState("");
+  const [createError, setCreateError] = useState("");
   const [advancedOpen, setAdvancedOpen] = useState(false);
   const [selectedMonth, setSelectedMonth] = useState("全部月份");
   const [listPage, setListPage] = useState(1);
@@ -444,10 +449,6 @@ function Homework({ data, update }: { data: ClassroomData; update: (fn: (d: Clas
   const counts = statusOptions.reduce((acc, status) => ({ ...acc, [status]: data.students.filter((student) => (task?.statuses[student.id] ?? student.homework) === status).length }), {} as Record<HomeworkTask["statuses"][string], number>);
   const completionRate = data.students.length ? Math.round(((counts["已交"] + counts["已复查"]) / data.students.length) * 100) : 0;
   const todayTasks = tasks.filter((item) => item.date === today()).sort((a, b) => taskSummary(b).missing - taskSummary(a).missing);
-  const attentionTasks = tasks.filter((item) => {
-    const summary = taskSummary(item);
-    return summary.missing + summary.fixing > 0;
-  }).sort((a, b) => taskSummary(b).missing + taskSummary(b).fixing - taskSummary(a).missing - taskSummary(a).fixing).slice(0, 4);
   const unresolvedTasks = tasks.filter((item) => {
     const summary = taskSummary(item);
     return summary.missing + summary.fixing > 0;
@@ -467,27 +468,37 @@ function Homework({ data, update }: { data: ClassroomData; update: (fn: (d: Clas
     if (!taskId) return;
     update((d) => ({ ...d, homeworkTasks: d.homeworkTasks?.map((item) => item.id === taskId ? { ...item, ...patch } : item) ?? [] }));
   }
-  function addTask() {
+  function openCreateTask() {
+    setDraftDate("");
+    setDraftSubject("");
+    setDraftTitle("");
+    setCreateError("");
+    setCreateOpen(true);
+  }
+  function confirmAddTask() {
+    if (!draftDate || !draftSubject.trim() || !draftTitle.trim()) {
+      setCreateError("请填写日期、学科和作业内容后再确认。");
+      return;
+    }
     const newTask: HomeworkTask = {
       id: crypto.randomUUID(),
       classId: activeClassId,
-      date: today(),
-      subject: "数学",
-      title: "新作业",
+      date: draftDate,
+      subject: draftSubject.trim(),
+      title: draftTitle.trim(),
       statuses: Object.fromEntries(data.students.map((s) => [s.id, "已交"])),
     };
     update((d) => ({ ...d, homeworkTasks: [newTask, ...(d.homeworkTasks ?? [])] }));
-    setSelectedTaskId(newTask.id);
-    setDetailOpen(true);
-    setDetailStudentKeyword("");
-    setDetailStatusFilter("全部");
-    setDetailGroupFilter("全部");
+    setCreateOpen(false);
   }
-  function deleteTask() {
-    if (!taskId) return;
-    update((d) => ({ ...d, homeworkTasks: (d.homeworkTasks ?? []).filter((item) => item.id !== taskId) }));
-    setSelectedTaskId("");
-    setDetailOpen(false);
+  function deleteTaskById(id: string) {
+    const target = tasks.find((item) => item.id === id);
+    if (!target || !window.confirm(`确认删除“${target.subject} · ${target.title}”吗？删除后无法恢复。`)) return;
+    update((d) => ({ ...d, homeworkTasks: (d.homeworkTasks ?? []).filter((item) => item.id !== id) }));
+    if (selectedTaskId === id) {
+      setSelectedTaskId("");
+      setDetailOpen(false);
+    }
   }
   function openTask(id: string) {
     setSelectedTaskId(id);
@@ -563,7 +574,6 @@ function Homework({ data, update }: { data: ClassroomData; update: (fn: (d: Clas
         <label>日期<input type="date" value={task.date} onChange={(e) => setTask({ date: e.target.value })} /></label>
         <label>科目<input value={task.subject} onChange={(e) => setTask({ subject: e.target.value })} /></label>
         <label>作业内容<input value={task.title} onChange={(e) => setTask({ title: e.target.value })} /></label>
-        <button className="danger-small" onClick={deleteTask}>删除这项作业</button>
       </section>
       <section className="homework-stats">
         <div><span>完成率</span><b>{completionRate}%</b></div>
@@ -601,7 +611,19 @@ function Homework({ data, update }: { data: ClassroomData; update: (fn: (d: Clas
   </>;
 
   return <>
-    <ToolHeading kicker="作业追踪" title="每天记录，按月归档，需要时再查" text={`${activeClass?.name ?? "当前班级"}的作业独立保存。首页每页只显示 10 项，作业再多也不会变成长页面。`} action={<button className="primary-small" onClick={addTask}>＋ 新增作业</button>} />
+    <ToolHeading kicker="作业追踪" title="每天记录，按月归档，需要时再查" text={`${activeClass?.name ?? "当前班级"}的作业独立保存。首页每页只显示 10 项，作业再多也不会变成长页面。`} action={<button className="primary-small" onClick={openCreateTask}>＋ 新增作业</button>} />
+    {createOpen && <div className="homework-modal-backdrop" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) setCreateOpen(false); }}>
+      <section className="homework-create-modal" role="dialog" aria-modal="true" aria-labelledby="create-homework-title">
+        <header><div><span>新增作业</span><h3 id="create-homework-title">填写一项作业</h3><p>不预填任何内容，确认后才会加入台账。</p></div><button aria-label="关闭" onClick={() => setCreateOpen(false)}>×</button></header>
+        <div className="homework-create-fields">
+          <label>日期<input type="date" value={draftDate} onChange={(e) => { setDraftDate(e.target.value); setCreateError(""); }} /></label>
+          <label>学科<input value={draftSubject} onChange={(e) => { setDraftSubject(e.target.value); setCreateError(""); }} placeholder="请输入学科" autoFocus /></label>
+          <label className="wide">作业内容<textarea value={draftTitle} onChange={(e) => { setDraftTitle(e.target.value); setCreateError(""); }} placeholder="请输入具体作业内容" rows={4} /></label>
+        </div>
+        {createError && <p className="homework-create-error">{createError}</p>}
+        <footer><button className="cancel" onClick={() => setCreateOpen(false)}>取消</button><button className="confirm" onClick={confirmAddTask}>确认新增</button></footer>
+      </section>
+    </div>}
     <section className="homework-overview">
       <article><span>今日新增</span><b>{todayTasks.length}</b><p>今天布置的作业</p></article>
       <article><span>仍需跟进</span><b>{unresolvedTasks}</b><p>存在未交或待订正的作业</p></article>
@@ -609,13 +631,13 @@ function Homework({ data, update }: { data: ClassroomData; update: (fn: (d: Clas
       <article><span>归档月份</span><b>{archiveMonths.length}</b><p>按月份快速定位</p></article>
     </section>
     <section className="homework-today-board">
-      <header><div><b>今天</b><span>{todayTasks.length ? `共 ${todayTasks.length} 项，只显示今天，不混入历史作业` : "今天还没有记录作业"}</span></div><button onClick={addTask}>新增今日作业</button></header>
+      <header><div><b>今天</b><span>{todayTasks.length ? `共 ${todayTasks.length} 项，只显示今天，不混入历史作业` : "今天还没有记录作业"}</span></div></header>
       <div>
-        {(todayTasks.length ? todayTasks.slice(0, 4) : attentionTasks).map((item) => {
+        {todayTasks.slice(0, 4).map((item) => {
           const summary = taskSummary(item);
-          return <button key={item.id} onClick={() => openTask(item.id)}><span>{item.date}</span><b>{item.subject} · {item.title}</b><em>{summary.missing ? `未交 ${summary.missing}` : "无未交"}</em><small>待订正 {summary.fixing} · 完成率 {summary.rate}%</small></button>;
+          return <article className="homework-today-item" key={item.id}><button className="homework-today-open" onClick={() => openTask(item.id)}><span>{item.date}</span><b>{item.subject} · {item.title}</b><em>{summary.missing ? `未交 ${summary.missing}` : "无未交"}</em><small>待订正 {summary.fixing} · 完成率 {summary.rate}%</small></button><button className="homework-card-delete" onClick={() => deleteTaskById(item.id)}>删除</button></article>;
         })}
-        {!todayTasks.length && !attentionTasks.length && <div className="empty-result"><b>暂无待处理作业</b><span>点“新增今日作业”开始记录。</span></div>}
+        {!todayTasks.length && <div className="empty-result"><b>今天还没有作业</b><span>使用页面右上角“新增作业”进行记录。</span></div>}
       </div>
     </section>
     <section className="homework-ledger">
@@ -636,13 +658,16 @@ function Homework({ data, update }: { data: ClassroomData; update: (fn: (d: Clas
       {dateFrom && dateTo && dateFrom > dateTo && <p className="homework-hint">日期顺序已自动调整为 {normalizedFrom} 至 {normalizedTo}。</p>}
       <div className="homework-result-bar"><b>{selectedMonth === "全部月份" ? "全部归档" : `${selectedMonth.replace("-", "年")}月`}</b><span>找到 {filteredTasks.length} 项 · 当前第 {safePage} / {totalPages} 页</span></div>
       {filteredTasks.length === 0 && <div className="empty-result"><b>没有找到符合条件的作业</b><span>建议先清空条件，或新增一项作业。</span></div>}
-      <div className="homework-clean-list">
+      <div className="homework-history-table">
+        <div className="homework-history-head"><span>日期</span><span>学科</span><span>作业内容</span><span>完成情况</span><span>操作</span></div>
       {pagedTasks.map((item) => {
         const summary = taskSummary(item);
-        return <article key={item.id}>
+        return <article className="homework-history-row" key={item.id}>
           <time>{item.date}</time>
-          <div><b>{item.subject} · {item.title}</b><span>完成率 {summary.rate}% · 已交/复查 {summary.done} 人 · 未交 {summary.missing} 人 · 待订正 {summary.fixing} 人</span></div>
-          <button onClick={() => openTask(item.id)}>处理这项</button>
+          <b className="homework-subject-badge">{item.subject}</b>
+          <div className="homework-history-title"><b>{item.title}</b><small>已交/复查 {summary.done} 人</small></div>
+          <div className="homework-history-status"><strong>{summary.rate}%</strong><span className={summary.missing ? "warning" : ""}>未交 {summary.missing}</span><span className={summary.fixing ? "fixing" : ""}>待订正 {summary.fixing}</span></div>
+          <div className="homework-history-actions"><button className="open" onClick={() => openTask(item.id)}>处理</button><button className="delete" onClick={() => deleteTaskById(item.id)}>删除</button></div>
         </article>;
       })}
       </div>
