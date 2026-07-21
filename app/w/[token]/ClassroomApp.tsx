@@ -139,6 +139,23 @@ export default function ClassroomApp({ token }: { token: string }) {
     }).catch((err) => setError(err instanceof Error ? err.message : "链接读取失败")).finally(() => setLoading(false));
   }, [token]);
 
+  useEffect(() => {
+    function syncPageFromUrl() {
+      const page = new URLSearchParams(window.location.search).get("page");
+      if (page && nav.some((item) => item.id === page)) setActive(page as ModuleId);
+    }
+    syncPageFromUrl();
+    window.addEventListener("popstate", syncPageFromUrl);
+    return () => window.removeEventListener("popstate", syncPageFromUrl);
+  }, []);
+
+  function openModule(id: ModuleId) {
+    setActive(id);
+    const url = new URL(window.location.href);
+    url.searchParams.set("page", id);
+    window.history.replaceState({}, "", url);
+  }
+
   function updateData(updater: (current: ClassroomData) => ClassroomData) {
     setWorkspace((current) => current ? { ...current, data: normalizeData(updater(current.data)) } : current);
     setDirty(true);
@@ -170,7 +187,7 @@ export default function ClassroomApp({ token }: { token: string }) {
       <aside className="sidebar">
         <a className="brand sidebar-brand" href="/"><span className="brand-mark">班</span><span>云工具箱</span></a>
         <div className="class-switch"><small>当前班级</small><b>{workspace.className}</b><span>{workspace.term}</span></div>
-        <nav className="side-nav" aria-label="班级工具">{nav.map((item) => <button key={item.id} className={active === item.id ? "active" : ""} onClick={() => setActive(item.id)}><span>{item.icon}</span>{item.label}</button>)}</nav>
+        <nav className="side-nav" aria-label="班级工具">{nav.map((item) => <button key={item.id} className={active === item.id ? "active" : ""} onClick={() => openModule(item.id)}><span>{item.icon}</span>{item.label}</button>)}</nav>
         <div className="license-card"><span className="live-dot"></span><div><b>{workspace.data.license?.tier ?? "基础版"}</b><small>有效期至 {workspace.expiresAt}</small></div></div>
       </aside>
       <main className="app-main">
@@ -181,7 +198,7 @@ export default function ClassroomApp({ token }: { token: string }) {
         {error && workspace && <div className="inline-alert" onClick={() => setError("")}>{error}<span>×</span></div>}
         {editable.includes(active) && <div className="edit-mode-banner"><b>✎ 当前页面可以编辑</b><span>电脑端适合批量整理，手机端可快速点选记录；修改后点右上角保存。</span></div>}
         <div className="page-content">
-          {active === "dashboard" && <Dashboard data={workspace.data} open={setActive} />}
+          {active === "dashboard" && <Dashboard data={workspace.data} open={openModule} />}
           {active === "students" && <Students data={workspace.data} update={updateData} />}
           {active === "homework" && <Homework data={workspace.data} update={updateData} />}
           {active === "points" && <Points data={workspace.data} update={updateData} />}
