@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import type { ReactNode } from "react";
-import type { CadreRole, ClassroomData, GrowthEvidence, HomeworkTask, PointEvent, PointRule, RosterClass, Student } from "@/lib/classroom";
+import type { CadreRole, ClassroomData, GrowthEvidence, HomeworkTask, PointEvent, PointRule, RosterClass, SeatingConfig, Student } from "@/lib/classroom";
 
 type Workspace = { className: string; grade: string; term: string; expiresAt: string; data: ClassroomData };
 type ModuleId = "dashboard" | "students" | "homework" | "points" | "rules" | "growth" | "weekly" | "schedule" | "seating" | "duty" | "cadres" | "records" | "scores" | "reflection" | "comments" | "certificates" | "license";
@@ -77,6 +77,10 @@ function normalizeData(data: ClassroomData): ClassroomData {
     parentPhone: student.parentPhone ?? "",
     note: student.note ?? "",
     ...student,
+    avoidWith: student.avoidWith ?? "",
+    seatNeed: student.seatNeed ?? "无",
+    seatFixed: student.seatFixed ?? false,
+    groupLeader: student.groupLeader ?? false,
   }));
   const rosterClasses: RosterClass[] = data.rosterClasses?.length
     ? data.rosterClasses.map((item, classIndex) => ({
@@ -89,11 +93,22 @@ function normalizeData(data: ClassroomData): ClassroomData {
         parentPhone: student.parentPhone ?? "",
         note: student.note ?? "",
         ...student,
+        avoidWith: student.avoidWith ?? "",
+        seatNeed: student.seatNeed ?? "无",
+        seatFixed: student.seatFixed ?? false,
+        groupLeader: student.groupLeader ?? false,
       })),
     }))
     : [{ id: "class-1", name: "当前班级", grade: "", term: "", students: fallbackStudents }];
   const activeClassId = data.activeClassId && rosterClasses.some((item) => item.id === data.activeClassId) ? data.activeClassId : rosterClasses[0].id;
   const students = rosterClasses.find((item) => item.id === activeClassId)?.students ?? fallbackStudents;
+  const columns = Math.max(2, Math.min(10, data.seatingConfig?.columns ?? 6));
+  const rows = Math.max(1, Math.min(12, Math.max(data.seatingConfig?.rows ?? 6, Math.ceil(students.length / columns))));
+  const existingGroupCount = Math.max(1, ...students.map((student) => student.group || 1));
+  const groupCount = Math.max(1, Math.min(12, data.seatingConfig?.groupCount ?? existingGroupCount));
+  const aisleAfter = (data.seatingConfig?.aisleAfter ?? Array.from({ length: Math.floor((columns - 1) / 2) }, (_, index) => (index + 1) * 2))
+    .filter((column, index, values) => column > 0 && column < columns && values.indexOf(column) === index)
+    .sort((a, b) => a - b);
   const firstTask: HomeworkTask = {
     id: "h-default",
     classId: activeClassId,
@@ -119,6 +134,7 @@ function normalizeData(data: ClassroomData): ClassroomData {
     ],
     weeklyPlan: data.weeklyPlan ?? days.map((day) => ({ day: day.replace("星期", "周"), focus: "班级常规", event: "记录作业、积分、沟通事项" })),
     weeklyReports: data.weeklyReports ?? [],
+    seatingConfig: { rows, columns, groupCount, aisleAfter },
     license: data.license ?? { tier: "基础版", canExport: true, expiresAt: "2099-12-31" },
   };
 }
@@ -1372,18 +1388,263 @@ function Schedule({ data, update }: { data: ClassroomData; update: (fn: (d: Clas
 
 function Seating({ data, update }: { data: ClassroomData; update: (fn: (d: ClassroomData) => ClassroomData) => void }) {
   const [selected, setSelected] = useState<string | null>(null);
-  function shuffle() { update((d) => ({ ...d, students: [...d.students].sort(() => Math.random() - .5).map((s, i) => ({ ...s, seat: i + 1, group: Math.floor(i / 4) + 1 })) })); }
-  function choose(student: Student) {
-    if (!selected) { setSelected(student.id); return; }
-    if (selected === student.id) { setSelected(null); return; }
+  const [dragged, setDragged] = useState<string | null>(null);
+  const [message, setMessage] = useState("");
+  const [lastStudents, setLastStudents] = useState<Student[] | null>(null);
+  const [needsOpen, setNeedsOpen] = useState(false);
+  const config: SeatingConfig = data.seatingConfig ?? { rows: 6, columns: 6, groupCount: Math.max(1, ...data.students.map((student) => student.group || 1)), aisleAfter: [2, 4] };
+  const capacity = config.rows * config.columns;
+  const sortedStudents = [...data.students].sort((a, b) => a.seat - b.seat);
+  const studentBySeat = new Map(sortedStudents.map((student) => [student.seat, student]));
+  const needs = ["无", "前排", "后排", "靠窗", "靠过道"] as const;
+
+  function groupForSeat(seat: number, nextConfig = config) {
+    const column = (seat - 1) % nextConfig.columns;
+    if (nextConfig.groupCount <= nextConfig.columns) return Math.min(nextConfig.groupCount, Math.floor(column * nextConfig.groupCount / nextConfig.columns) + 1);
+    return Math.min(nextConfig.groupCount, Math.floor((seat - 1) * nextConfig.groupCount / (nextConfig.rows * nextConfig.columns)) + 1);
+  }
+
+  function syncStudents(current: ClassroomData, students: Student[]): ClassroomData {
+    const activeClassId = current.activeClassId ?? current.rosterClasses?.[0]?.id;
+    return {
+      ...current,
+      students,
+      rosterClasses: current.rosterClasses?.map((item) => item.id === activeClassId ? { ...item, students } : item),
+    };
+  }
+
+  function remember() {
+    setLastStudents(data.students.map((student) => ({ ...student })));
+  }
+
+  function updateConfig(patch: Partial<SeatingConfig>) {
     update((current) => {
-      const first = current.students.find((item) => item.id === selected);
-      if (!first) return current;
-      return { ...current, students: current.students.map((item) => item.id === first.id ? { ...item, seat: student.seat } : item.id === student.id ? { ...item, seat: first.seat } : item) };
+      const currentConfig = current.seatingConfig ?? config;
+      const columns = Math.max(2, Math.min(10, patch.columns ?? currentConfig.columns));
+      const rows = Math.max(Math.ceil(current.students.length / columns), Math.max(1, Math.min(12, patch.rows ?? currentConfig.rows)));
+      const groupCount = Math.max(1, Math.min(12, patch.groupCount ?? currentConfig.groupCount));
+      const aisleAfter = (patch.aisleAfter ?? currentConfig.aisleAfter).filter((column) => column > 0 && column < columns);
+      const seatingConfig = { rows, columns, groupCount, aisleAfter };
+      const students = current.students.map((student) => ({ ...student, group: groupForSeat(student.seat, seatingConfig) }));
+      return syncStudents({ ...current, seatingConfig }, students);
+    });
+    setMessage("教室布局已更新，现有座位保持不变。超出容量时会自动补足排数。");
+  }
+
+  function swapStudentTo(studentId: string, targetSeat: number) {
+    if (targetSeat < 1 || targetSeat > capacity) return;
+    remember();
+    update((current) => {
+      const first = current.students.find((item) => item.id === studentId);
+      const second = current.students.find((item) => item.seat === targetSeat);
+      if (!first || first.seat === targetSeat) return current;
+      const students = current.students.map((item) => {
+        if (item.id === first.id) return { ...item, seat: targetSeat, group: groupForSeat(targetSeat) };
+        if (second && item.id === second.id) return { ...item, seat: first.seat, group: groupForSeat(first.seat) };
+        return item;
+      });
+      return syncStudents(current, students);
     });
     setSelected(null);
+    setMessage("座位已调整，可继续换座或使用“撤销上一步”。");
   }
-  return <><ToolHeading kicker="座位与分组" title="自动排座，也能手动换座" text="参考座位表模板，保留讲台/黑板方位；手机端用列表式座位卡操作。" action={<button className="primary-small" onClick={shuffle}>重新排座</button>} /><div className="seat-instruction"><b>{selected ? "已选择第一名学生" : "手动换座"}</b><span>{selected ? "再点另一名学生即可互换" : "先点一名学生，再点另一名学生"}</span></div><div className="seating-wrap"><div className="blackboard">黑 板</div><div className="seat-grid">{[...data.students].sort((a, b) => a.seat - b.seat).map((s) => <button className={selected === s.id ? "selected" : ""} onClick={() => choose(s)} key={s.id}><span>{s.name}</span><small>第{s.group}组 · 座{s.seat}</small><em>{s.note || "点击换座"}</em></button>)}</div><div className="teacher-desk">讲台</div></div></>;
+
+  function chooseSeat(seat: number, student?: Student) {
+    if (!selected) {
+      if (!student) return setMessage("这是一个空座位，请先选择要移动的学生。");
+      setSelected(student.id);
+      setMessage(`已选择 ${student.name}，再点学生或空座位即可调整。`);
+      return;
+    }
+    if (selected === student?.id) {
+      setSelected(null);
+      setMessage("已取消选择。");
+      return;
+    }
+    swapStudentTo(selected, seat);
+  }
+
+  function isAisleSeat(seat: number, nextConfig = config) {
+    const column = (seat - 1) % nextConfig.columns + 1;
+    return nextConfig.aisleAfter.some((after) => column === after || column === after + 1);
+  }
+
+  function mateSeat(seat: number, nextConfig = config) {
+    const column = (seat - 1) % nextConfig.columns;
+    if (column % 2 === 0) return column + 1 < nextConfig.columns ? seat + 1 : 0;
+    return seat - 1;
+  }
+
+  function smartArrange() {
+    remember();
+    update((current) => {
+      const nextConfig = current.seatingConfig ?? config;
+      const maxSeat = nextConfig.rows * nextConfig.columns;
+      const allSeats = Array.from({ length: maxSeat }, (_, index) => index + 1);
+      const fixedSeats = new Set<number>();
+      const fixedIds = new Set<string>();
+      const placed = new Map<number, Student>();
+      for (const student of current.students) {
+        if (student.seatFixed && student.seat >= 1 && student.seat <= maxSeat && !fixedSeats.has(student.seat)) {
+          fixedSeats.add(student.seat);
+          fixedIds.add(student.id);
+          placed.set(student.seat, student);
+        }
+      }
+      const candidates = allSeats.filter((seat) => !fixedSeats.has(seat));
+      for (let index = candidates.length - 1; index > 0; index -= 1) {
+        const pick = Math.floor(Math.random() * (index + 1));
+        [candidates[index], candidates[pick]] = [candidates[pick], candidates[index]];
+      }
+      const movable = current.students.filter((student) => !fixedIds.has(student.id)).sort((a, b) => {
+        const aPriority = a.seatNeed && a.seatNeed !== "无" ? 1 : 0;
+        const bPriority = b.seatNeed && b.seatNeed !== "无" ? 1 : 0;
+        return bPriority - aPriority || (b.height ?? 0) - (a.height ?? 0);
+      });
+      const assigned = new Map<string, number>();
+      for (const student of movable) {
+        const valid = candidates.filter((seat) => {
+          const mate = placed.get(mateSeat(seat, nextConfig));
+          return !mate || (student.avoidWith !== mate.id && mate.avoidWith !== student.id);
+        });
+        const pool = valid.length ? valid : candidates;
+        const ranked = pool.map((seat) => {
+          const row = Math.floor((seat - 1) / nextConfig.columns) + 1;
+          const column = (seat - 1) % nextConfig.columns;
+          let score = Math.random();
+          if (student.seatNeed === "前排") score += (nextConfig.rows - row + 1) * 20;
+          if (student.seatNeed === "后排") score += row * 20;
+          if (student.seatNeed === "靠窗") score += column === 0 || column === nextConfig.columns - 1 ? 120 : 0;
+          if (student.seatNeed === "靠过道") score += isAisleSeat(seat, nextConfig) ? 120 : 0;
+          if (student.height) score += row * student.height / 20;
+          return { seat, score };
+        }).sort((a, b) => b.score - a.score);
+        const chosen = ranked[0]?.seat;
+        if (!chosen) continue;
+        assigned.set(student.id, chosen);
+        placed.set(chosen, student);
+        candidates.splice(candidates.indexOf(chosen), 1);
+      }
+      const students = current.students.map((student) => {
+        const seat = assigned.get(student.id) ?? student.seat;
+        return { ...student, seat, group: groupForSeat(seat, nextConfig) };
+      });
+      return syncStudents(current, students);
+    });
+    setSelected(null);
+    setMessage("智能排座已完成：固定座保留，并优先处理特殊座位和不能同桌要求。");
+  }
+
+  function rotateRows() {
+    remember();
+    update((current) => {
+      const fixedSeats = new Set(current.students.filter((student) => student.seatFixed).map((student) => student.seat));
+      const movable = [...current.students].filter((student) => !student.seatFixed).sort((a, b) => a.seat - b.seat);
+      const targetSeats = movable.map((student) => student.seat).filter((seat) => !fixedSeats.has(seat));
+      const shift = Math.min(config.columns, Math.max(1, targetSeats.length - 1));
+      const targetById = new Map(movable.map((student, index) => [student.id, targetSeats[(index - shift + targetSeats.length) % targetSeats.length]]));
+      const students = current.students.map((student) => {
+        const seat = targetById.get(student.id) ?? student.seat;
+        return { ...student, seat, group: groupForSeat(seat) };
+      });
+      return syncStudents(current, students);
+    });
+    setSelected(null);
+    setMessage("已完成一轮前后排轮换，固定座位未移动。");
+  }
+
+  function undo() {
+    if (!lastStudents) return;
+    update((current) => syncStudents(current, lastStudents));
+    setLastStudents(null);
+    setSelected(null);
+    setMessage("已撤销上一步座位调整。");
+  }
+
+  function editStudent(id: string, patch: Partial<Student>) {
+    update((current) => syncStudents(current, current.students.map((student) => student.id === id ? { ...student, ...patch } : student)));
+  }
+
+  function setLeader(student: Student) {
+    update((current) => syncStudents(current, current.students.map((item) => item.group === student.group ? { ...item, groupLeader: item.id === student.id } : item)));
+    setMessage(`${student.name} 已设为第${student.group}组组长。`);
+  }
+
+  function regroupBySeat() {
+    remember();
+    update((current) => syncStudents(current, current.students.map((student) => ({ ...student, group: groupForSeat(student.seat) }))));
+    setMessage("已按当前座位列重新分组，每组人数会随座位自动变化。");
+  }
+
+  const groups = Array.from({ length: config.groupCount }, (_, index) => {
+    const number = index + 1;
+    return { number, students: sortedStudents.filter((student) => student.group === number) };
+  });
+  const specialCount = data.students.filter((student) => student.seatFixed || (student.seatNeed && student.seatNeed !== "无") || student.avoidWith).length;
+
+  return <>
+    <ToolHeading kicker="座位与分组" title="把真实教室排成一张能调整、能打印的座位表" text="名单自动带入；电脑端可拖动或点选换座，手机端用学生卡片操作。" action={<div className="seat-heading-actions"><button className="soft-action" onClick={rotateRows}>前后排轮换</button><button className="primary-small" onClick={smartArrange}>智能排座</button></div>} />
+    <section className="seat-summary">
+      <article><span>当前学生</span><b>{data.students.length}</b><small>来自当前班级名单</small></article>
+      <article><span>教室容量</span><b>{capacity}</b><small>{config.rows}排 × {config.columns}列</small></article>
+      <article><span>学习小组</span><b>{config.groupCount}</b><small>按座位列自动分组</small></article>
+      <article><span>特殊安排</span><b>{specialCount}</b><small>固定座 / 座位需求 / 避让</small></article>
+    </section>
+    <section className="seat-controls paper-card">
+      <div className="seat-control-fields">
+        <label>教室排数<input type="number" min={1} max={12} value={config.rows} onChange={(event) => updateConfig({ rows: Number(event.target.value) || 1 })} /></label>
+        <label>每排列数<input type="number" min={2} max={10} value={config.columns} onChange={(event) => updateConfig({ columns: Number(event.target.value) || 2 })} /></label>
+        <label>小组数量<input type="number" min={1} max={12} value={config.groupCount} onChange={(event) => updateConfig({ groupCount: Number(event.target.value) || 1 })} /></label>
+      </div>
+      <div className="aisle-control"><b>过道位置</b>{Array.from({ length: config.columns - 1 }, (_, index) => index + 1).map((column) => <label key={column}><input type="checkbox" checked={config.aisleAfter.includes(column)} onChange={() => updateConfig({ aisleAfter: config.aisleAfter.includes(column) ? config.aisleAfter.filter((item) => item !== column) : [...config.aisleAfter, column] })} />第{column}列后</label>)}</div>
+      <div className="seat-control-actions"><button onClick={regroupBySeat}>按座位重新分组</button><button disabled={!lastStudents} onClick={undo}>撤销上一步</button><button onClick={() => window.print()}>打印完整座位表</button></div>
+    </section>
+    {message && <div className="inline-alert seat-message" onClick={() => setMessage("")}>{message}<span>×</span></div>}
+    <div className="seat-instruction"><b>{selected ? `已选择 ${data.students.find((student) => student.id === selected)?.name ?? "学生"}` : "手动调整座位"}</b><span>{selected ? "再点另一名学生或空座位即可移动；电脑端也可以直接拖动" : "先点一名学生，再点目标座位；固定座只限制自动排座"}</span></div>
+    <section className="seating-workspace">
+      <div className="seating-wrap seating-advanced">
+        <div className="blackboard">黑 板</div>
+        <div className="classroom-orientation"><span>前门</span><b>面向黑板</b><span>窗户</span></div>
+        <div className="seat-grid advanced-grid" style={{ gridTemplateColumns: `repeat(${config.columns}, minmax(76px, 1fr))` }}>
+          {Array.from({ length: capacity }, (_, index) => index + 1).map((seat) => {
+            const student = studentBySeat.get(seat);
+            const column = (seat - 1) % config.columns + 1;
+            const row = Math.floor((seat - 1) / config.columns) + 1;
+            const aisleEdge = config.aisleAfter.includes(column);
+            return <button
+              className={`seat-slot ${student ? "occupied" : "empty"} ${student && selected === student.id ? "selected" : ""} ${student?.seatFixed ? "fixed" : ""} ${aisleEdge ? "aisle-edge" : ""}`}
+              aria-label={`${student?.name ?? "空座"} 座位${seat}`}
+              draggable={Boolean(student)}
+              onDragStart={() => { if (student) setDragged(student.id); }}
+              onDragEnd={() => setDragged(null)}
+              onDragOver={(event) => event.preventDefault()}
+              onDrop={(event) => { event.preventDefault(); if (dragged) swapStudentTo(dragged, seat); setDragged(null); }}
+              onClick={() => chooseSeat(seat, student)}
+              key={seat}
+            >
+              <small>{row}排{column}列 · 座{seat}</small>
+              {student ? <><span>{student.name}{student.groupLeader ? <i>组长</i> : null}</span><em>第{student.group}组 · {student.studentNo || "未填学号"}</em><strong>{student.seatFixed ? "固定座" : student.seatNeed && student.seatNeed !== "无" ? student.seatNeed : student.avoidWith ? "需避让" : "可调整"}</strong></> : <><span>空座</span><em>可移动学生到这里</em></>}
+            </button>;
+          })}
+        </div>
+        <div className="teacher-desk">讲 台</div>
+        <div className="classroom-back"><span>后门</span><b>教室后方</b><span>卫生角</span></div>
+      </div>
+      <aside className="seat-groups-panel">
+        <header><div><span>分组管理</span><h3>当前小组</h3></div><button onClick={regroupBySeat}>按座位更新</button></header>
+        {groups.map((group) => <article key={group.number}><div><b>第{group.number}组</b><span>{group.students.length}人</span></div><p>{group.students.map((student) => <button className={student.groupLeader ? "leader" : ""} aria-label={`将${student.name}设为第${student.group}组组长`} onClick={() => setLeader(student)} title="点击设为组长" key={student.id}>{student.name}{student.groupLeader ? " · 组长" : ""}</button>)}</p></article>)}
+        <small>点击组员姓名可设为本组组长。小组信息会供值日轮换和积分统计复用。</small>
+      </aside>
+    </section>
+    <section className="mobile-seat-list">
+      <header><b>手机调整座位</b><span>先点学生，再点目标学生或空座</span></header>
+      {Array.from({ length: capacity }, (_, index) => index + 1).map((seat) => { const student = studentBySeat.get(seat); return <button aria-label={`${student?.name ?? "空座"} 座位${seat}`} className={`${selected === student?.id ? "selected" : ""} ${student ? "" : "empty"}`} onClick={() => chooseSeat(seat, student)} key={seat}><i>{student?.name.slice(0, 1) ?? "空"}</i><span><b>{student?.name ?? "空座位"}</b><small>座{seat} · {student ? `第${student.group}组` : "可移动到此处"}</small></span><em>{student?.seatFixed ? "固定座" : student?.seatNeed && student.seatNeed !== "无" ? student.seatNeed : "调整"}</em></button>; })}
+    </section>
+    <section className="seat-needs-card">
+      <header><div><span>排座条件</span><h3>特殊座位与不能同桌</h3><p>智能排座会优先满足这些条件；固定座在自动排座和前后轮换时保持不动。</p></div><button onClick={() => setNeedsOpen((open) => !open)}>{needsOpen ? "收起设置" : `展开设置（${specialCount}项）`}</button></header>
+      {needsOpen && <div className="seat-needs-table"><div className="seat-needs-head"><span>学生</span><span>身高(cm)</span><span>座位需求</span><span>不能同桌</span><span>固定座</span><span>小组</span></div>{sortedStudents.map((student) => <div className="seat-needs-row" key={student.id}><b>{student.name}<small>当前座{student.seat}</small></b><input aria-label={`${student.name}身高`} type="number" min={80} max={220} value={student.height ?? ""} placeholder="选填" onChange={(event) => editStudent(student.id, { height: event.target.value ? Number(event.target.value) : undefined })} /><select aria-label={`${student.name}座位需求`} value={student.seatNeed ?? "无"} onChange={(event) => editStudent(student.id, { seatNeed: event.target.value as Student["seatNeed"] })}>{needs.map((need) => <option key={need}>{need}</option>)}</select><select aria-label={`${student.name}不能同桌`} value={student.avoidWith ?? ""} onChange={(event) => editStudent(student.id, { avoidWith: event.target.value })}><option value="">无</option>{data.students.filter((item) => item.id !== student.id).map((item) => <option value={item.id} key={item.id}>{item.name}</option>)}</select><label className="fixed-check"><input aria-label={`${student.name}固定座`} type="checkbox" checked={Boolean(student.seatFixed)} onChange={(event) => editStudent(student.id, { seatFixed: event.target.checked })} />{student.seatFixed ? "已固定" : "不固定"}</label><select aria-label={`${student.name}小组`} value={student.group} onChange={(event) => editStudent(student.id, { group: Number(event.target.value) })}>{groups.map((group) => <option value={group.number} key={group.number}>第{group.number}组</option>)}</select></div>)}</div>}
+    </section>
+  </>;
 }
 
 function Duty({ data, update }: { data: ClassroomData; update: (fn: (d: ClassroomData) => ClassroomData) => void }) {

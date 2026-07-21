@@ -12,6 +12,17 @@ export type Student = {
   parentPhone?: string;
   note?: string;
   avoidWith?: string;
+  seatNeed?: "无" | "前排" | "后排" | "靠窗" | "靠过道";
+  seatFixed?: boolean;
+  height?: number;
+  groupLeader?: boolean;
+};
+
+export type SeatingConfig = {
+  rows: number;
+  columns: number;
+  groupCount: number;
+  aisleAfter: number[];
 };
 
 export type HomeworkTask = {
@@ -65,6 +76,50 @@ export type CadreRole = {
   duty: string;
 };
 
+export type SchedulePeriod = {
+  label: string;
+  time?: string;
+};
+
+export type ScheduleConfig = {
+  schoolYear: string;
+  term: string;
+  termStartMonth?: string;
+  termEndMonth?: string;
+  termNote?: string;
+  days: string[];
+  periods: SchedulePeriod[];
+};
+
+export type ScheduleEvent = {
+  id: string;
+  date: string;
+  title: string;
+  type: "班会" | "活动" | "考试" | "放假" | "家校" | "其他";
+  detail: string;
+};
+
+export type DailyFocus = {
+  id: string;
+  date: string;
+  focus: string;
+  todo: string;
+  status: "待处理" | "进行中" | "已完成";
+};
+
+export type ScheduleWeek = {
+  id: string;
+  month: string;
+  weekOfMonth: number;
+  label: string;
+  startDate: string;
+  endDate: string;
+  config: ScheduleConfig;
+  courses: string[][];
+  events: ScheduleEvent[];
+  focuses: DailyFocus[];
+};
+
 export type RosterClass = {
   id: string;
   name: string;
@@ -99,6 +154,11 @@ export type ClassroomData = {
   cadres?: CadreRole[];
   weeklyPlan?: { day: string; focus: string; event: string }[];
   weeklyReports?: WeeklyReport[];
+  scheduleConfig?: ScheduleConfig;
+  scheduleEvents?: ScheduleEvent[];
+  dailyFocus?: DailyFocus[];
+  scheduleWeeks?: ScheduleWeek[];
+  seatingConfig?: SeatingConfig;
   license?: { tier: "基础版" | "高级版"; canExport: boolean; expiresAt: string };
 };
 
@@ -207,5 +267,6 @@ export const defaultClassroomData: ClassroomData = {
     { day: "周四", focus: "积分表扬", event: "公布小组积分榜" },
     { day: "周五", focus: "周报生成", event: "整理进步学生和待跟进名单" },
   ],
+  seatingConfig: { rows: 6, columns: 6, groupCount: 8, aisleAfter: [2, 4] },
   license: { tier: "高级版", canExport: true, expiresAt: "2099-12-31" },
 };
