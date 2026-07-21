@@ -1189,31 +1189,63 @@ function Growth({ data, update }: { data: ClassroomData; update: (fn: (d: Classr
 }
 
 function Weekly({ data, update }: { data: ClassroomData; update: (fn: (d: ClassroomData) => ClassroomData) => void }) {
+  type WeeklyView = "overview" | "editor" | "archive";
+  type DetailPanel = "stars" | "progress" | "follow" | "groups" | "records" | null;
+  const classes = data.rosterClasses?.length ? data.rosterClasses : [{ id: data.activeClassId ?? "class-1", name: "当前班级", grade: "", term: "", students: data.students }];
+  const currentClassId = data.activeClassId ?? classes[0].id;
+  const [view, setView] = useState<WeeklyView>("overview");
+  const [selectedClassId, setSelectedClassId] = useState(currentClassId);
+  const [weekOffset, setWeekOffset] = useState(0);
   const [edition, setEdition] = useState<"家长版" | "教师版">("家长版");
-  const [copied, setCopied] = useState(false);
-  const [saved, setSaved] = useState(false);
+  const [detailPanel, setDetailPanel] = useState<DetailPanel>(null);
   const [followFilter, setFollowFilter] = useState<"全部" | "作业" | "成绩" | "考勤">("全部");
+  const [copied, setCopied] = useState(false);
+  const [savedState, setSavedState] = useState("");
   const [customDraft, setCustomDraft] = useState("");
   const [draftTouched, setDraftTouched] = useState(false);
-  const [nextFocus, setNextFocus] = useState(() => (data.weeklyPlan ?? []).map((item) => `${item.day}：${item.focus} · ${item.event}`).join("\n"));
-  const now = new Date();
-  const monday = new Date(now);
-  const day = monday.getDay() || 7;
-  monday.setDate(monday.getDate() - day + 1);
-  monday.setHours(0, 0, 0, 0);
+  const [reportTitle, setReportTitle] = useState("班级周报");
+  const [nextFocus, setNextFocus] = useState("");
+  const [archiveClass, setArchiveClass] = useState("全部班级");
+  const [archiveEdition, setArchiveEdition] = useState("全部版本");
+  const [archiveSearch, setArchiveSearch] = useState("");
+  const [archivePage, setArchivePage] = useState(1);
+  const [previewReportId, setPreviewReportId] = useState<string | null>(null);
+
+  const currentMonday = new Date();
+  const currentDay = currentMonday.getDay() || 7;
+  currentMonday.setDate(currentMonday.getDate() - currentDay + 1);
+  currentMonday.setHours(0, 0, 0, 0);
+  const monday = new Date(currentMonday);
+  monday.setDate(monday.getDate() + weekOffset * 7);
   const sunday = new Date(monday);
   sunday.setDate(sunday.getDate() + 6);
   sunday.setHours(23, 59, 59, 999);
-  const iso = (date: Date) => `${date.getFullYear()}-${`${date.getMonth() + 1}`.padStart(2, "0")}-${`${date.getDate()}`.padStart(2, "0")}`;
-  const shortDate = (date: Date) => `${date.getMonth() + 1}月${date.getDate()}日`;
-  const activeClassId = data.activeClassId ?? data.rosterClasses?.[0]?.id;
-  const weekTasks = (data.homeworkTasks ?? []).filter((task) => (!activeClassId || task.classId === activeClassId) && task.date >= iso(monday) && task.date <= iso(sunday));
-  const totalChecks = weekTasks.length * data.students.length;
+  const iso = (date: Date) => date.getFullYear() + "-" + String(date.getMonth() + 1).padStart(2, "0") + "-" + String(date.getDate()).padStart(2, "0");
+  const shortDate = (date: Date) => (date.getMonth() + 1) + "月" + date.getDate() + "日";
+  const weekStart = iso(monday);
+  const weekEnd = iso(sunday);
+  const weekNumber = Math.ceil((((monday.getTime() - new Date(monday.getFullYear(), 0, 1).getTime()) / 86400000) + new Date(monday.getFullYear(), 0, 1).getDay() + 1) / 7);
+  const weekChoices = Array.from({ length: 13 }, (_, index) => {
+    const offset = -index;
+    const optionMonday = new Date(currentMonday);
+    optionMonday.setDate(optionMonday.getDate() + offset * 7);
+    const optionSunday = new Date(optionMonday);
+    optionSunday.setDate(optionSunday.getDate() + 6);
+    const label = shortDate(optionMonday) + "—" + shortDate(optionSunday);
+    return { offset, label };
+  });
+  const selectedClass = classes.find((item) => item.id === selectedClassId) ?? classes[0];
+  const students = selectedClass.students;
+  const studentIds = new Set(students.map((student) => student.id));
+  const studentNames = new Set(students.map((student) => student.name));
+  const className = selectedClass.name;
+  const weekTasks = (data.homeworkTasks ?? []).filter((task) => task.classId === selectedClassId && task.date >= weekStart && task.date <= weekEnd);
+  const totalChecks = weekTasks.length * students.length;
   let submitted = 0;
   let missing = 0;
   let fixing = 0;
   for (const task of weekTasks) {
-    for (const student of data.students) {
+    for (const student of students) {
       const status = task.statuses[student.id] ?? student.homework;
       if (status === "已交" || status === "已复查") submitted += 1;
       if (status === "未交") missing += 1;
@@ -1221,168 +1253,254 @@ function Weekly({ data, update }: { data: ClassroomData; update: (fn: (d: Classr
     }
   }
   const completionRate = totalChecks ? Math.round(submitted / totalChecks * 100) : 0;
-  const averageScore = data.students.length ? Math.round(data.students.reduce((sum, student) => sum + student.score, 0) / data.students.length) : 0;
-  const pointEvents = data.pointEvents ?? [];
-  const hasDatedPointEvents = pointEvents.some((event) => /^\d{4}-\d{2}-\d{2}/.test(event.date));
-  const reportPointEvents = hasDatedPointEvents ? pointEvents.filter((event) => event.date >= weekStartValue() && event.date <= weekEndValue()) : pointEvents;
+  const averageScore = students.length ? Math.round(students.reduce((sum, student) => sum + student.score, 0) / students.length) : 0;
+  const classPointEvents = (data.pointEvents ?? []).filter((event) => studentIds.has(event.studentId));
+  const hasDatedPointEvents = classPointEvents.some((event) => /^\d{4}-\d{2}-\d{2}/.test(event.date));
+  const reportPointEvents = hasDatedPointEvents ? classPointEvents.filter((event) => event.date >= weekStart && event.date <= weekEnd) : classPointEvents;
   const positiveEvents = reportPointEvents.filter((event) => event.delta > 0);
-  const ranked = [...data.students].sort((a, b) => b.points - a.points);
-  const stars = ranked.slice(0, 4);
+  const stars = [...students].sort((a, b) => b.points - a.points).slice(0, 8);
   const progressMap = new Map<string, { student: Student; delta: number; evidence: string }>();
   for (const event of positiveEvents) {
-    const student = data.students.find((item) => item.id === event.studentId);
+    const student = students.find((item) => item.id === event.studentId);
     if (!student) continue;
     const current = progressMap.get(student.id);
     progressMap.set(student.id, { student, delta: (current?.delta ?? 0) + event.delta, evidence: current?.evidence ?? event.reason });
   }
-  const progress = [...progressMap.values()].sort((a, b) => b.delta - a.delta).slice(0, 4);
-  const follow = data.students.map((student) => {
+  const progress = [...progressMap.values()].sort((a, b) => b.delta - a.delta).slice(0, 8);
+  const follow = students.map((student) => {
     const unresolved = weekTasks.reduce((count, task) => {
       const status = task.statuses[student.id] ?? student.homework;
       return count + (status === "未交" || status === "待订正" ? 1 : 0);
     }, 0);
     const reasons = [
-      student.score < 80 ? { kind: "成绩", text: `成绩 ${student.score} 分` } : null,
-      unresolved ? { kind: "作业", text: `${unresolved} 项作业待处理` } : null,
+      student.score < 80 ? { kind: "成绩", text: "成绩 " + student.score + " 分" } : null,
+      unresolved ? { kind: "作业", text: unresolved + " 项作业待处理" } : null,
       student.attendance !== "正常" ? { kind: "考勤", text: student.attendance } : null,
     ].filter((item): item is { kind: string; text: string } => Boolean(item));
     return { student, reasons };
-  }).filter((item) => item.reasons.length).sort((a, b) => b.reasons.length - a.reasons.length).slice(0, 6);
+  }).filter((item) => item.reasons.length).sort((a, b) => b.reasons.length - a.reasons.length);
   const filteredFollow = follow.filter((item) => followFilter === "全部" || item.reasons.some((reason) => reason.kind === followFilter));
-  const groupStats = [...new Set(data.students.map((student) => student.group))].sort((a, b) => a - b).map((group) => {
-    const students = data.students.filter((student) => student.group === group);
-    const points = students.reduce((sum, student) => sum + student.points, 0);
-    const unresolved = weekTasks.reduce((count, task) => count + students.filter((student) => {
+  const groupStats = [...new Set(students.map((student) => student.group))].sort((a, b) => a - b).map((group) => {
+    const groupStudents = students.filter((student) => student.group === group);
+    const points = groupStudents.reduce((sum, student) => sum + student.points, 0);
+    const unresolved = weekTasks.reduce((count, task) => count + groupStudents.filter((student) => {
       const status = task.statuses[student.id] ?? student.homework;
       return status === "未交" || status === "待订正";
     }).length, 0);
-    return { group, students: students.length, points, average: students.length ? Math.round(points / students.length) : 0, unresolved };
+    return { group, students: groupStudents.length, points, average: groupStudents.length ? Math.round(points / groupStudents.length) : 0, unresolved };
   }).sort((a, b) => b.average - a.average);
-  const hasDatedRecords = data.records.some((record) => /^\d{4}-\d{2}-\d{2}/.test(record.date));
-  const reportRecords = hasDatedRecords ? data.records.filter((record) => record.date >= weekStartValue() && record.date <= weekEndValue()) : data.records;
-  const latestRecords = reportRecords.slice(0, 4);
-  const reportText = useMemo(() => {
-    const title = `班级周报｜${shortDate(monday)}—${shortDate(sunday)}`;
-    const overview = `本周共记录 ${weekTasks.length} 项作业，整体完成率 ${completionRate}%；班级当前平均分 ${averageScore} 分，累计记录 ${positiveEvents.length} 次正向表现。`;
-    const praise = stars.length ? `优秀学生：${stars.map((student) => `${student.name}（${student.points}积分）`).join("、")}。` : "优秀学生：暂无数据。";
-    const improvement = progress.length ? `进步学生：${progress.map((item) => `${item.student.name}（${item.evidence}）`).join("、")}。` : "进步学生：本周还没有足够的正向记录。";
-    const attention = edition === "家长版"
-      ? `温馨提醒：仍有 ${missing} 人次未交、${fixing} 人次待订正，请家长协助孩子及时完成学习闭环。`
-      : `重点跟进：${follow.length ? follow.map(({ student, reasons }) => `${student.name}（${reasons.map((reason) => reason.text).join("、")}）`).join("；") : "暂无重点跟进学生"}。`;
-    const plan = nextFocus.trim() ? `下周安排：\n${nextFocus.trim()}` : "下周安排：继续关注作业习惯、课堂参与和自我管理。";
-    return [title, overview, praise, improvement, attention, plan].join("\n\n");
-  }, [averageScore, completionRate, edition, fixing, follow, missing, nextFocus, positiveEvents.length, progress, stars, weekTasks.length]);
-  const activeClassKey = activeClassId ?? "class-1";
-  const weekStart = iso(monday);
-  const weekEnd = iso(sunday);
-  const reports = (data.weeklyReports ?? []).filter((report) => report.classId === activeClassKey).sort((a, b) => b.updatedAt.localeCompare(a.updatedAt));
-  const currentSavedReport = reports.find((report) => report.weekStart === weekStart && report.edition === edition);
-  const draftContent = draftTouched ? customDraft : currentSavedReport?.content ?? reportText;
+  const classRecords = data.records.filter((record) => studentNames.has(record.student));
+  const hasDatedRecords = classRecords.some((record) => /^\d{4}-\d{2}-\d{2}/.test(record.date));
+  const reportRecords = hasDatedRecords ? classRecords.filter((record) => record.date >= weekStart && record.date <= weekEnd) : weekOffset === 0 ? classRecords : [];
+  const defaultPlan = (data.weeklyPlan ?? []).map((item) => item.day + "：" + item.focus + " · " + item.event).join("\n");
+  const allReports = [...(data.weeklyReports ?? [])].sort((a, b) => b.weekStart.localeCompare(a.weekStart) || b.updatedAt.localeCompare(a.updatedAt));
+  const currentSavedReport = allReports.find((report) => report.classId === selectedClassId && report.weekStart === weekStart && report.edition === edition);
+  const defaultTitle = className + " · 第" + weekNumber + "周班级周报";
 
-  function weekStartValue() { return iso(monday); }
-  function weekEndValue() { return iso(sunday); }
-
-  async function copyReport() {
-    await navigator.clipboard?.writeText(draftContent);
-    setCopied(true);
-    window.setTimeout(() => setCopied(false), 1800);
-  }
-
-  function changeEdition(next: "家长版" | "教师版") {
-    setEdition(next);
-    setDraftTouched(false);
+  useEffect(() => {
+    const saved = (data.weeklyReports ?? []).find((report) => report.classId === selectedClassId && report.weekStart === weekStart && report.edition === edition);
+    setReportTitle(saved?.title ?? defaultTitle);
+    setNextFocus(saved?.nextFocus ?? defaultPlan);
     setCustomDraft("");
-    setSaved(false);
+    setDraftTouched(false);
+    setSavedState("");
+  }, [selectedClassId, weekStart, edition]);
+
+  const generatedText = [
+    reportTitle || defaultTitle,
+    shortDate(monday) + "—" + shortDate(sunday),
+    "【本周概况】",
+    "本周记录 " + weekTasks.length + " 项作业，整体完成率 " + completionRate + "%；班级当前平均分 " + averageScore + " 分，记录 " + positiveEvents.length + " 次正向表现。",
+    "【值得表扬】",
+    stars.length ? stars.slice(0, 4).map((student) => student.name + "（" + student.points + "积分）").join("、") + "。" : "本周暂无足够数据。",
+    "【持续进步】",
+    progress.length ? progress.slice(0, 4).map((item) => item.student.name + "（" + item.evidence + "）").join("、") + "。" : "本周还没有足够的正向记录。",
+    edition === "家长版" ? "【温馨提醒】\n仍有 " + missing + " 人次未交、" + fixing + " 人次待订正，请家长协助孩子及时完成学习闭环。" : "【重点跟进】\n" + (follow.length ? follow.map((item) => item.student.name + "（" + item.reasons.map((reason) => reason.text).join("、") + "）").join("；") + "。" : "暂无重点跟进学生。"),
+    "【下周行动】",
+    nextFocus.trim() || "继续关注作业习惯、课堂参与和自我管理。",
+  ].join("\n\n");
+  const draftContent = draftTouched ? customDraft : currentSavedReport?.content ?? generatedText;
+  const filteredReports = allReports.filter((report) => {
+    const targetClass = classes.find((item) => item.id === report.classId);
+    const keyword = archiveSearch.trim().toLowerCase();
+    return (archiveClass === "全部班级" || report.classId === archiveClass)
+      && (archiveEdition === "全部版本" || report.edition === archiveEdition)
+      && (!keyword || (report.title ?? "").toLowerCase().includes(keyword) || (targetClass?.name ?? "").toLowerCase().includes(keyword) || report.content.toLowerCase().includes(keyword));
+  });
+  const pageSize = 6;
+  const pageCount = Math.max(1, Math.ceil(filteredReports.length / pageSize));
+  const safeArchivePage = Math.min(archivePage, pageCount);
+  const pageReports = filteredReports.slice((safeArchivePage - 1) * pageSize, safeArchivePage * pageSize);
+  const previewReport = allReports.find((report) => report.id === previewReportId);
+  const previewClass = previewReport ? classes.find((item) => item.id === previewReport.classId) : undefined;
+
+  function shiftWeek(delta: number) {
+    setWeekOffset((current) => current + delta);
   }
 
-  function saveReport() {
+  async function copyText(text: string) {
+    await navigator.clipboard?.writeText(text);
+    setCopied(true);
+    window.setTimeout(() => setCopied(false), 1600);
+  }
+
+  function saveReport(status: "草稿" | "已归档") {
     const nowText = new Date().toISOString();
     const report = {
       id: currentSavedReport?.id ?? crypto.randomUUID(),
-      classId: activeClassKey,
+      classId: selectedClassId,
       weekStart,
       weekEnd,
       edition,
+      title: reportTitle.trim() || defaultTitle,
+      status,
       content: draftContent,
       nextFocus,
       createdAt: currentSavedReport?.createdAt ?? nowText,
       updatedAt: nowText,
+      archivedAt: status === "已归档" ? nowText : currentSavedReport?.archivedAt,
     };
     update((current) => ({ ...current, weeklyReports: [...(current.weeklyReports ?? []).filter((item) => item.id !== report.id), report] }));
     setDraftTouched(false);
-    setSaved(true);
+    setSavedState(status === "已归档" ? "已归档" : "草稿已保存");
   }
 
-  return <div className="weekly-report-page">
-    <ToolHeading kicker="班级周报" title="一周班情，自动汇成一张可读周报" text="参考每周积分表、班级日志和家校联系本，把值得表扬、进步、提醒和共性问题汇成可修改周报。" action={<div className="weekly-heading-actions"><button className="weekly-secondary-btn" onClick={() => window.print()}>打印 / 导出</button><button className="weekly-secondary-btn" onClick={saveReport}>{saved ? "已加入保存" : "保存本周"}</button><button className="primary-small" onClick={copyReport}>{copied ? "已复制" : "复制周报"}</button></div>} />
+  function openSavedReport(report: NonNullable<ClassroomData["weeklyReports"]>[number]) {
+    const offset = Math.round((new Date(report.weekStart + "T00:00:00").getTime() - currentMonday.getTime()) / 604800000);
+    setSelectedClassId(report.classId);
+    setWeekOffset(offset);
+    setEdition(report.edition);
+    setView("editor");
+    setPreviewReportId(null);
+  }
 
-    <section className="weekly-report-hero">
-      <div>
-        <span>第 {Math.ceil((((monday.getTime() - new Date(monday.getFullYear(), 0, 1).getTime()) / 86400000) + new Date(monday.getFullYear(), 0, 1).getDay() + 1) / 7)} 周</span>
-        <h2>{shortDate(monday)}—{shortDate(sunday)}</h2>
-        <p>已根据当前班级数据生成本周概览，切换版本后可以直接复制发送。</p>
-      </div>
-      <div className="weekly-edition-switch" aria-label="周报版本">
-        {(["家长版", "教师版"] as const).map((item) => <button className={edition === item ? "active" : ""} key={item} onClick={() => changeEdition(item)}><b>{item}</b><span>{item === "家长版" ? "简洁、积极、适合班级群" : "显示学生姓名和跟进原因"}</span></button>)}
+  const detailTitles: Record<Exclude<DetailPanel, null>, string> = {
+    stars: "优秀学生排行榜",
+    progress: "持续进步学生",
+    follow: "需要跟进的学生",
+    groups: "小组表现明细",
+    records: "本周成长记录",
+  };
+
+  return <div className="weekly2-page">
+    <ToolHeading kicker="班级周报" title="把每一周都沉淀成可回看的班级记录" text="按班级、周次和版本管理周报；先看概览，再编辑正文，需要时打开详细数据。" action={<button className="primary-small weekly2-new" onClick={() => { setWeekOffset(0); setView("editor"); }}>＋ 新建本周周报</button>} />
+
+    <section className="weekly3-controlbar">
+      <nav className="weekly3-view-nav" aria-label="周报页面">
+        <button className={view === "overview" ? "active" : ""} onClick={() => setView("overview")}><i>览</i><span><b>本周概览</b><small>班级数据摘要</small></span></button>
+        <button className={view === "editor" ? "active" : ""} onClick={() => setView("editor")}><i>写</i><span><b>编辑周报</b><small>正文与行动计划</small></span></button>
+        <button className={view === "archive" ? "active" : ""} onClick={() => setView("archive")}><i>库</i><span><b>周报库</b><small>{allReports.length} 份历史周报</small></span></button>
+      </nav>
+      <div className="weekly3-filters">
+        <label><i>班</i><span><small>管理班级</small><select value={selectedClassId} onChange={(event) => setSelectedClassId(event.target.value)}>{classes.map((item) => <option key={item.id} value={item.id}>{item.name}</option>)}</select></span></label>
+        <label className="weekly3-date-filter"><i>日</i><span><small>查看周次</small><select value={weekOffset} onChange={(event) => setWeekOffset(Number(event.target.value))}>{weekChoices.map((item) => <option key={item.offset} value={item.offset}>{item.label}</option>)}</select></span></label>
       </div>
     </section>
 
-    <section className="weekly-metrics" aria-label="本周核心数据">
-      <article><span>本周作业</span><b>{weekTasks.length}<small>项</small></b><p>{totalChecks ? `${submitted}/${totalChecks} 人次完成` : "本周暂无作业记录"}</p></article>
-      <article><span>作业完成率</span><b>{completionRate}<small>%</small></b><p>{missing} 人次未交 · {fixing} 人次待订正</p></article>
-      <article><span>正向表现</span><b>{positiveEvents.length}<small>次</small></b><p>{hasDatedPointEvents ? "按本周积分记录统计" : "日期待完善，暂按当前记录"}</p></article>
-      <article><span>班级平均分</span><b>{averageScore}<small>分</small></b><p>{data.students.filter((student) => student.score >= 90).length} 人达到优秀</p></article>
-    </section>
-
-    <div className="weekly-report-layout">
-      <section className="weekly-report-main">
-        <article className="weekly-section-card weekly-praise-card">
-          <header><div><span>值得表扬</span><h3>优秀学生排行榜</h3></div><em>{stars.length} 名候选</em></header>
-          <div className="weekly-star-list">{stars.map((student, index) => {
-            const evidence = reportPointEvents.find((event) => event.studentId === student.id && event.delta > 0);
-            return <div key={student.id}><i>{index + 1}</i><b>{student.name}</b><span>{evidence?.reason ?? (student.score >= 90 ? "学习表现稳定优秀" : "班级积分表现突出")}</span><strong>{student.points} 积分</strong></div>;
-          })}{!stars.length && <p className="weekly-empty">导入学生并记录积分后，这里会自动生成优秀学生排行榜。</p>}</div>
+    {view === "overview" && <div className="weekly2-overview">
+      <section className="weekly2-summary">
+        <div><span>第 {weekNumber} 周</span><h2>{className}</h2><p>{currentSavedReport ? (currentSavedReport.status ?? "草稿") + " · 更新于 " + new Date(currentSavedReport.updatedAt).toLocaleString("zh-CN", { month: "numeric", day: "numeric", hour: "2-digit", minute: "2-digit" }) : "尚未保存周报，数据概览已自动准备"}</p></div>
+        <button onClick={() => setView("editor")}>{currentSavedReport ? "继续编辑" : "开始写周报"}<span>→</span></button>
+      </section>
+      <section className="weekly2-metrics">
+        <article><i>作</i><div><span>本周作业</span><b>{weekTasks.length}<small>项</small></b><p>{totalChecks ? submitted + "/" + totalChecks + " 人次完成" : "暂无作业记录"}</p></div></article>
+        <article><i>✓</i><div><span>完成率</span><b>{completionRate}<small>%</small></b><p>{missing} 未交 · {fixing} 待订正</p></div></article>
+        <article><i>＋</i><div><span>正向表现</span><b>{positiveEvents.length}<small>次</small></b><p>{progress.length} 名学生持续进步</p></div></article>
+        <article><i>分</i><div><span>班级平均分</span><b>{averageScore}<small>分</small></b><p>{students.filter((student) => student.score >= 90).length} 人达到优秀</p></div></article>
+      </section>
+      <section className="weekly2-insight-grid">
+        <article className="weekly2-insight weekly2-praise">
+          <header><div><span>值得表扬</span><h3>优秀学生</h3></div><button onClick={() => setDetailPanel("stars")}>查看全部</button></header>
+          <div className="weekly2-person-list">{stars.slice(0, 3).map((student, index) => <div key={student.id}><i>{index + 1}</i><span><b>{student.name}</b><small>{reportPointEvents.find((event) => event.studentId === student.id && event.delta > 0)?.reason ?? "综合表现突出"}</small></span><strong>{student.points}</strong></div>)}{!stars.length && <p className="weekly2-empty">暂无学生数据</p>}</div>
         </article>
-
-        <article className="weekly-section-card weekly-progress-card">
-          <header><div><span>持续进步</span><h3>有真实正向记录的学生</h3></div><em>{progress.length} 名学生</em></header>
-          <div className="weekly-progress-list">{progress.length ? progress.map((item) => <div key={item.student.id}><i>↗</i><span><b>{item.student.name}</b><small>{item.evidence}</small></span><strong>+{item.delta}</strong></div>) : <p className="weekly-empty">积分评价中还没有正向记录，暂时无法生成进步学生名单。</p>}</div>
+        <article className="weekly2-insight weekly2-progress">
+          <header><div><span>持续进步</span><h3>本周进步学生</h3></div><button onClick={() => setDetailPanel("progress")}>查看全部</button></header>
+          <div className="weekly2-person-list">{progress.slice(0, 3).map((item) => <div key={item.student.id}><i>↗</i><span><b>{item.student.name}</b><small>{item.evidence}</small></span><strong>+{item.delta}</strong></div>)}{!progress.length && <p className="weekly2-empty">记录正向积分后自动生成</p>}</div>
         </article>
-
-        <article className="weekly-section-card weekly-group-card">
-          <header><div><span>分组统计</span><h3>小组表现与作业闭环</h3></div><em>{groupStats.length} 个小组</em></header>
-          {groupStats.length ? <div className="weekly-group-table"><div className="weekly-group-head"><span>排名</span><span>小组</span><span>人数</span><span>人均积分</span><span>作业待办</span></div>{groupStats.map((item, index) => <div key={item.group}><b>{index + 1}</b><span>第{item.group}组</span><span>{item.students}人</span><strong>{item.average}</strong><em className={item.unresolved ? "warn" : ""}>{item.unresolved ? `${item.unresolved}人次` : "已清零"}</em></div>)}</div> : <p className="weekly-empty">学生名单完成分组后，这里会自动生成小组统计。</p>}
-        </article>
-
-        <article className="weekly-section-card">
-          <header><div><span>成长片段</span><h3>本周留下的具体证据</h3></div><em>{reportRecords.length} 条记录</em></header>
-          <div className="weekly-record-list">{latestRecords.length ? latestRecords.map((record) => <div key={record.id}><i>{record.student.slice(0, 1)}</i><div><b>{record.student}<small>{record.type}</small></b><p>{record.content}</p></div><time>{record.date}</time></div>) : <p className="weekly-empty">还没有成长记录，可从家校沟通或积分评价中积累。</p>}</div>
-        </article>
-
-        <article className="weekly-section-card weekly-plan-card">
-          <header><div><span>下周行动</span><h3>把计划写成可以执行的事项</h3></div><em>会进入复制内容</em></header>
-          <textarea aria-label="下周重点安排" value={nextFocus} onChange={(event) => setNextFocus(event.target.value)} placeholder="例如：周一检查订正，周三联系重点学生家长……" />
+        <article className="weekly2-insight weekly2-attention">
+          <header><div><span>需要关注</span><h3>待跟进事项</h3></div><button onClick={() => setDetailPanel("follow")}>查看名单</button></header>
+          <div className="weekly2-follow-summary"><div><b>{follow.length}</b><span>名学生</span></div><ul><li><i></i>作业待办 {follow.filter((item) => item.reasons.some((reason) => reason.kind === "作业")).length} 人</li><li><i></i>成绩关注 {follow.filter((item) => item.reasons.some((reason) => reason.kind === "成绩")).length} 人</li><li><i></i>考勤提醒 {follow.filter((item) => item.reasons.some((reason) => reason.kind === "考勤")).length} 人</li></ul></div>
         </article>
       </section>
+      <section className="weekly2-lower-grid">
+        <article className="weekly2-compact-card">
+          <header><div><span>小组表现</span><h3>按人均积分排序</h3></div><button onClick={() => setDetailPanel("groups")}>完整统计</button></header>
+          <div className="weekly2-group-preview">{groupStats.slice(0, 4).map((item, index) => <div key={item.group}><b>{index + 1}</b><span>第{item.group}组<small>{item.students} 人</small></span><strong>{item.average}<small>人均分</small></strong><em className={item.unresolved ? "warn" : ""}>{item.unresolved ? item.unresolved + " 待办" : "已清零"}</em></div>)}</div>
+        </article>
+        <article className="weekly2-compact-card">
+          <header><div><span>成长记录 · 来自家校沟通</span><h3>最近记录</h3></div><button onClick={() => setDetailPanel("records")}>查看记录</button></header>
+          <div className="weekly2-record-preview">{reportRecords.slice(0, 3).map((record) => <div key={record.id}><i>{record.student.slice(0, 1)}</i><span><b>{record.student}<small>{record.type}</small></b><p>{record.content}</p></span></div>)}{!reportRecords.length && <p className="weekly2-empty">暂无成长记录</p>}</div>
+        </article>
+      </section>
+    </div>}
 
-      <aside className="weekly-report-side">
-        <section className="weekly-section-card weekly-follow-card">
-          <header><div><span>需要关注</span><h3>{edition === "家长版" ? "班级共性提醒" : "重点学生清单"}</h3></div><em>{follow.length} 人</em></header>
-          {edition === "家长版" ? <div className="weekly-class-reminder"><b>本周共性问题</b><p>仍有 {missing} 人次作业未交、{fixing} 人次等待订正。建议周末完成查漏补缺，下周一带齐学习用品。</p><span>只呈现班级整体情况，不公开学生姓名</span></div> : <><div className="weekly-follow-filters">{(["全部", "作业", "成绩", "考勤"] as const).map((item) => <button className={followFilter === item ? "active" : ""} key={item} onClick={() => setFollowFilter(item)}>{item}</button>)}</div><div className="weekly-follow-list">{filteredFollow.length ? filteredFollow.map(({ student, reasons }) => <div key={student.id}><i>{student.name.slice(0, 1)}</i><span><b>{student.name}</b><small>{reasons.map((reason) => reason.text).join(" · ")}</small></span></div>) : <p className="weekly-empty">当前条件下没有需要跟进的学生。</p>}</div></>}
-        </section>
-
-        <section className="weekly-copy-preview weekly-draft-editor">
-          <header><span>周报正文 · 可修改</span><div><button onClick={() => { setCustomDraft(reportText); setDraftTouched(true); setSaved(false); }}>重新生成</button><b>{edition}</b></div></header>
-          <textarea aria-label="可编辑周报正文" value={draftContent} onChange={(event) => { setCustomDraft(event.target.value); setDraftTouched(true); setSaved(false); }} />
-          <button className="weekly-copy-action" onClick={copyReport}>{copied ? "✓ 已复制到剪贴板" : "复制后发送到班级群"}</button>
-        </section>
-
-        <section className="weekly-section-card weekly-archive-card">
-          <header><div><span>历史归档</span><h3>已保存的周报</h3></div><em>{reports.length} 份</em></header>
-          <div className="weekly-archive-list">{reports.length ? reports.slice(0, 5).map((report) => <div key={report.id}><span><b>{report.weekStart}—{report.weekEnd}</b><small>{report.edition} · {new Date(report.updatedAt).toLocaleString("zh-CN", { month: "numeric", day: "numeric", hour: "2-digit", minute: "2-digit" })}</small></span><button onClick={() => navigator.clipboard?.writeText(report.content)}>复制</button></div>) : <p className="weekly-empty">保存本周周报后，会在这里形成历史记录。</p>}</div>
-        </section>
+    {view === "editor" && <div className="weekly2-editor">
+      <aside className="weekly2-editor-side">
+        <div className="weekly2-editor-status"><span>当前编辑</span><h3>{className}</h3><p>{shortDate(monday)}—{shortDate(sunday)}</p><em className={currentSavedReport?.status === "已归档" ? "done" : ""}>{currentSavedReport?.status ?? "未保存"}</em></div>
+        <section><span>周报版本</span><div className="weekly2-edition">{(["家长版", "教师版"] as const).map((item) => <button className={edition === item ? "active" : ""} key={item} onClick={() => setEdition(item)}><b>{item}</b><small>{item === "家长版" ? "适合班级群，不公开名单" : "保留详细跟进信息"}</small></button>)}</div></section>
+        <section className="weekly2-source-check"><span>自动汇总来源</span><p><i>✓</i>作业记录 <b>{weekTasks.length} 项</b></p><p><i>✓</i>积分记录 <b>{reportPointEvents.length} 条</b></p><p><i>✓</i>成长记录 <b>{reportRecords.length} 条</b></p><p><i>✓</i>成绩与考勤 <b>{students.length} 人</b></p></section>
+        <button className="weekly2-regenerate" onClick={() => { setCustomDraft(generatedText); setDraftTouched(true); setSavedState(""); }}>↻ 按当前数据重新生成</button>
       </aside>
-    </div>
+      <main className="weekly2-editor-main">
+        <section className="weekly2-edit-card weekly2-title-card">
+          <label><span>周报标题</span><input value={reportTitle} onChange={(event) => { setReportTitle(event.target.value); setSavedState(""); }} /></label>
+          <div><span>{draftContent.length} 字</span><span>{edition}</span></div>
+        </section>
+        <section className="weekly2-edit-card weekly2-body-card">
+          <header><div><span>周报正文</span><h3>像写文档一样完整编辑</h3></div><small>自动生成只是起点，老师可以自由增删和调整语气</small></header>
+          <textarea aria-label="周报正文" value={draftContent} onChange={(event) => { setCustomDraft(event.target.value); setDraftTouched(true); setSavedState(""); }} />
+        </section>
+        <section className="weekly2-edit-card weekly2-action-card">
+          <header><div><span>下周行动</span><h3>单独规划，不再挤在小输入框里</h3></div><small>建议写清时间、对象、动作和复查节点</small></header>
+          <textarea aria-label="下周行动计划" value={nextFocus} onChange={(event) => { setNextFocus(event.target.value); setSavedState(""); }} placeholder={"周一｜检查上周订正完成情况\n周三｜联系重点学生家长并记录沟通结果\n周五｜复盘小组积分与本周行动"} />
+          <div className="weekly2-action-tips"><span>写法参考</span><button onClick={() => setNextFocus("周一｜检查作业订正，重点关注未完成学生\n周三｜与重点学生进行一次简短谈话并记录\n周五｜复盘小组表现，确定下周表扬与跟进名单")}>插入行动模板</button></div>
+        </section>
+        <footer className="weekly2-editor-footer">
+          <div>{savedState ? <b>✓ {savedState}</b> : <span>{draftTouched ? "正文有未保存修改" : currentSavedReport ? "内容已保存" : "尚未保存"}</span>}</div>
+          <div><button onClick={() => copyText(draftContent)}>{copied ? "已复制" : "复制正文"}</button><button onClick={() => window.print()}>打印 / 导出</button><button className="weekly2-save" onClick={() => saveReport("草稿")}>保存草稿</button><button className="weekly2-archive" onClick={() => saveReport("已归档")}>完成并归档</button></div>
+        </footer>
+      </main>
+    </div>}
+
+    {view === "archive" && <div className="weekly2-archive">
+      <section className="weekly2-library-hero">
+        <div><span>长期周报库</span><h2>{allReports.length} 份周报，覆盖 {new Set(allReports.map((report) => report.classId)).size || classes.length} 个班级</h2><p>按班级、版本和关键词查找，随时回看、复制或继续编辑。</p></div>
+        <button onClick={() => setView("editor")}>＋ 新建周报</button>
+      </section>
+      <section className="weekly2-library-filters">
+        <label><span>搜索</span><input value={archiveSearch} onChange={(event) => { setArchiveSearch(event.target.value); setArchivePage(1); }} placeholder="搜索标题、班级或正文内容" /></label>
+        <label><span>班级</span><select value={archiveClass} onChange={(event) => { setArchiveClass(event.target.value); setArchivePage(1); }}><option>全部班级</option>{classes.map((item) => <option key={item.id} value={item.id}>{item.name}</option>)}</select></label>
+        <label><span>版本</span><select value={archiveEdition} onChange={(event) => { setArchiveEdition(event.target.value); setArchivePage(1); }}><option>全部版本</option><option>家长版</option><option>教师版</option></select></label>
+      </section>
+      {pageReports.length ? <section className="weekly2-library-grid">{pageReports.map((report) => {
+        const targetClass = classes.find((item) => item.id === report.classId);
+        return <article key={report.id}>
+          <header><span className={report.status === "已归档" ? "done" : ""}>{report.status ?? "草稿"}</span><em>{report.edition}</em></header>
+          <h3>{report.title ?? (targetClass?.name ?? "班级") + "班级周报"}</h3>
+          <p>{report.weekStart}—{report.weekEnd}</p>
+          <div>{report.content.replace(/\s+/g, " ").slice(0, 92)}{report.content.length > 92 ? "…" : ""}</div>
+          <footer><span>{targetClass?.name ?? "未知班级"}<small>更新于 {new Date(report.updatedAt).toLocaleDateString("zh-CN")}</small></span><div><button onClick={() => copyText(report.content)}>复制</button><button onClick={() => setPreviewReportId(report.id)}>预览</button><button onClick={() => openSavedReport(report)}>编辑</button></div></footer>
+        </article>;
+      })}</section> : <section className="weekly2-library-empty"><i>周</i><h3>还没有符合条件的周报</h3><p>选择班级和周次，先完成第一份周报；以后每周都会在这里沉淀。</p><button onClick={() => setView("editor")}>开始写第一份周报</button></section>}
+      {filteredReports.length > pageSize && <nav className="weekly2-pagination" aria-label="周报分页"><button disabled={safeArchivePage <= 1} onClick={() => setArchivePage((page) => Math.max(1, page - 1))}>上一页</button><span>第 {safeArchivePage} / {pageCount} 页</span><button disabled={safeArchivePage >= pageCount} onClick={() => setArchivePage((page) => Math.min(pageCount, page + 1))}>下一页</button></nav>}
+    </div>}
+
+    {detailPanel && <div className="weekly2-modal-backdrop" onMouseDown={() => setDetailPanel(null)}><section className="weekly2-modal" role="dialog" aria-modal="true" aria-label={detailTitles[detailPanel]} onMouseDown={(event) => event.stopPropagation()}>
+      <header><div><span>{detailPanel === "records" ? "来源：家校沟通页面保存到成长档案的记录" : className + " · " + shortDate(monday) + "—" + shortDate(sunday)}</span><h2>{detailTitles[detailPanel]}</h2></div><button aria-label="关闭" onClick={() => setDetailPanel(null)}>×</button></header>
+      <div className="weekly2-modal-body">
+        {detailPanel === "stars" && <div className="weekly2-detail-list">{stars.map((student, index) => <div key={student.id}><i>{index + 1}</i><span><b>{student.name}</b><small>{reportPointEvents.find((event) => event.studentId === student.id && event.delta > 0)?.reason ?? "综合表现突出"}</small></span><strong>{student.points} 积分</strong></div>)}</div>}
+        {detailPanel === "progress" && <div className="weekly2-detail-list">{progress.length ? progress.map((item) => <div key={item.student.id}><i>↗</i><span><b>{item.student.name}</b><small>{item.evidence}</small></span><strong>+{item.delta}</strong></div>) : <p className="weekly2-empty">本周还没有足够的进步记录。</p>}</div>}
+        {detailPanel === "follow" && <><div className="weekly2-modal-filters">{(["全部", "作业", "成绩", "考勤"] as const).map((item) => <button className={followFilter === item ? "active" : ""} key={item} onClick={() => setFollowFilter(item)}>{item}</button>)}</div><div className="weekly2-detail-list">{filteredFollow.length ? filteredFollow.map((item) => <div key={item.student.id}><i>{item.student.name.slice(0, 1)}</i><span><b>{item.student.name}</b><small>{item.reasons.map((reason) => reason.text).join(" · ")}</small></span><strong>{item.reasons.length} 项</strong></div>) : <p className="weekly2-empty">当前条件下没有需要跟进的学生。</p>}</div></>}
+        {detailPanel === "groups" && <div className="weekly2-detail-table"><div><b>排名</b><b>小组</b><b>人数</b><b>总积分</b><b>人均积分</b><b>作业待办</b></div>{groupStats.map((item, index) => <div key={item.group}><span>{index + 1}</span><strong>第{item.group}组</strong><span>{item.students}</span><span>{item.points}</span><b>{item.average}</b><em>{item.unresolved ? item.unresolved + " 人次" : "已清零"}</em></div>)}</div>}
+        {detailPanel === "records" && <div className="weekly2-record-detail">{reportRecords.length ? reportRecords.map((record) => <article key={record.id}><i>{record.student.slice(0, 1)}</i><div><h3>{record.student}<span>{record.type}</span></h3><p>{record.content}</p><time>{record.date}</time></div></article>) : <p className="weekly2-empty">本周暂无成长记录。</p>}</div>}
+      </div>
+    </section></div>}
+
+    {previewReport && <div className="weekly2-modal-backdrop" onMouseDown={() => setPreviewReportId(null)}><section className="weekly2-modal weekly2-preview-modal" role="dialog" aria-modal="true" aria-label="周报预览" onMouseDown={(event) => event.stopPropagation()}>
+      <header><div><span>{previewClass?.name} · {previewReport.edition}</span><h2>{previewReport.title ?? "班级周报"}</h2></div><button aria-label="关闭" onClick={() => setPreviewReportId(null)}>×</button></header>
+      <div className="weekly2-preview-content"><pre>{previewReport.content}</pre><section><span>下周行动</span><p>{previewReport.nextFocus || "未填写"}</p></section></div>
+      <footer><button onClick={() => copyText(previewReport.content)}>复制正文</button><button className="weekly2-save" onClick={() => openSavedReport(previewReport)}>打开编辑</button></footer>
+    </section></div>}
   </div>;
 }
 
