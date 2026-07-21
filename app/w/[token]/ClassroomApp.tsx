@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import type { ReactNode } from "react";
 import type { CadreRole, ClassroomData, GrowthEvidence, HomeworkTask, PointEvent, PointRule, RosterClass, SeatingConfig, Student } from "@/lib/classroom";
+import { CourseSchedule } from "./CourseSchedule";
 
 type Workspace = { className: string; grade: string; term: string; expiresAt: string; data: ClassroomData };
 type ModuleId = "dashboard" | "students" | "homework" | "points" | "rules" | "growth" | "weekly" | "schedule" | "seating" | "duty" | "cadres" | "records" | "scores" | "reflection" | "comments" | "certificates" | "license";
@@ -221,7 +222,7 @@ export default function ClassroomApp({ token }: { token: string }) {
           {active === "rules" && <Rules data={workspace.data} update={updateData} />}
           {active === "growth" && <Growth data={workspace.data} update={updateData} />}
           {active === "weekly" && <Weekly data={workspace.data} update={updateData} />}
-          {active === "schedule" && <Schedule data={workspace.data} update={updateData} />}
+          {active === "schedule" && <CourseSchedule data={workspace.data} update={updateData} />}
           {active === "seating" && <Seating data={workspace.data} update={updateData} />}
           {active === "duty" && <Duty data={workspace.data} update={updateData} />}
           {active === "cadres" && <Cadres data={workspace.data} update={updateData} />}
