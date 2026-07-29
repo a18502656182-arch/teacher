@@ -74,6 +74,76 @@ export type CadreRole = {
   role: string;
   studentId: string;
   duty: string;
+  scope?: string;
+  term?: string;
+  status?: "在任" | "试用" | "轮换";
+  weeklyScore?: number;
+  summary?: string;
+};
+
+export type DutyJob = {
+  id: string;
+  name: string;
+  area: string;
+  standard: string;
+  studentIds?: string[];
+  enabled: boolean;
+};
+
+export type DutyRecord = {
+  id: string;
+  classId?: string;
+  date: string;
+  day: string;
+  jobId: string;
+  studentIds: string[];
+  status: "待检查" | "已完成" | "需返工" | "已替换";
+  note: string;
+  checkedBy: string;
+  createdAt: number;
+};
+
+export type CommunicationRecord = {
+  id: string;
+  student: string;
+  type: string;
+  content: string;
+  date: string;
+  channel?: string;
+  followUp?: string;
+  status?: "待跟进" | "已跟进" | "已归档";
+  parentFeedback?: string;
+};
+
+export type ScoreExam = {
+  id: string;
+  classId?: string;
+  title: string;
+  date: string;
+  subjects: string[];
+  scores: Record<string, Record<string, number>>;
+};
+
+export type ExamReflection = {
+  id: string;
+  studentId: string;
+  examId?: string;
+  date: string;
+  problem: string;
+  reason: string;
+  action: string;
+  familyMessage: string;
+  teacherNote: string;
+  status: "草稿" | "已完成";
+};
+
+export type TermComment = {
+  id: string;
+  studentId: string;
+  term: string;
+  style: "温和鼓励" | "客观正式" | "家长可读";
+  content: string;
+  updatedAt: string;
 };
 
 export type SchedulePeriod = {
@@ -145,13 +215,18 @@ export type ClassroomData = {
   activeClassId?: string;
   rosterClasses?: RosterClass[];
   dutyOffset: number;
-  records: { id: string; student: string; type: string; content: string; date: string }[];
+  dutyJobs?: DutyJob[];
+  dutyRecords?: DutyRecord[];
+  records: CommunicationRecord[];
   courses: string[][];
   homeworkTasks?: HomeworkTask[];
   pointEvents?: PointEvent[];
   growthEvidence?: GrowthEvidence[];
   pointRules?: PointRule[];
   cadres?: CadreRole[];
+  scoreExams?: ScoreExam[];
+  examReflections?: ExamReflection[];
+  termComments?: TermComment[];
   weeklyPlan?: { day: string; focus: string; event: string }[];
   weeklyReports?: WeeklyReport[];
   scheduleConfig?: ScheduleConfig;
@@ -230,13 +305,24 @@ export const defaultClassroomData: ClassroomData = {
     },
   ],
   dutyOffset: 0,
+  dutyJobs: [
+    { id: "dj-floor", name: "地面保洁", area: "教室地面、桌椅间", standard: "无明显纸屑，桌椅摆正，放学前复查一次。", enabled: true },
+    { id: "dj-board", name: "黑板讲台", area: "黑板、粉笔槽、讲台", standard: "课间擦净黑板，粉笔和教具归位。", enabled: true },
+    { id: "dj-corridor", name: "走廊门窗", area: "走廊、门窗、窗台", standard: "走廊无杂物，窗台不堆放个人物品。", enabled: true },
+    { id: "dj-corner", name: "卫生角", area: "扫把、拖把、垃圾桶", standard: "工具摆放整齐，垃圾桶及时清理。", enabled: true },
+    { id: "dj-books", name: "图书角", area: "图书角、阅读柜", standard: "图书按类归位，破损图书单独放置。", enabled: true },
+  ],
+  dutyRecords: [
+    { id: "dr1", classId: "class-1", date: "2026-07-21", day: "星期二", jobId: "dj-board", studentIds: ["s5"], status: "已完成", note: "黑板和讲台整理到位。", checkedBy: "劳动委员", createdAt: 1784600000000 },
+    { id: "dr2", classId: "class-1", date: "2026-07-21", day: "星期二", jobId: "dj-corner", studentIds: ["s8"], status: "需返工", note: "拖把未拧干，放学前再检查。", checkedBy: "班主任", createdAt: 1784600060000 },
+  ],
   records: [
-    { id: "r1", student: "周雨桐", type: "成长记录", content: "主动帮助同桌整理错题，课堂表达清晰。", date: "今天 10:20" },
-    { id: "r2", student: "王子谦", type: "作业跟进", content: "数学订正已完成，明天复查同类题。", date: "昨天 16:45" },
-    { id: "r3", student: "苏沐晴", type: "家校沟通", content: "与家长确认近期作息调整方案。", date: "周一 19:10" },
-    { id: "r4", student: "李明轩", type: "谈心记录", content: "近期课堂举手减少，约定每天至少主动表达一次观点，周五复盘。", date: "周二 12:35" },
-    { id: "r5", student: "陈思远", type: "家访准备", content: "家长反馈晚间作业拖拉，建议先固定20分钟专注时段，再逐步延长。", date: "周三 18:20" },
-    { id: "r6", student: "唐语柔", type: "表扬记录", content: "卫生角整理到位，被生活委员和同学共同推荐为本周劳动小能手。", date: "周四 09:15" },
+    { id: "r1", student: "周雨桐", type: "成长记录", channel: "面谈", content: "主动帮助同桌整理错题，课堂表达清晰。", followUp: "周五班会表扬", status: "已归档", date: "今天 10:20" },
+    { id: "r2", student: "王子谦", type: "作业跟进", channel: "电话", content: "数学订正已完成，明天复查同类题。", followUp: "明天复查计算题", status: "待跟进", date: "昨天 16:45" },
+    { id: "r3", student: "苏沐晴", type: "家校沟通", channel: "微信", content: "与家长确认近期作息调整方案。", parentFeedback: "家长愿意配合早睡打卡。", followUp: "三天后看早读状态", status: "已跟进", date: "周一 19:10" },
+    { id: "r4", student: "李明轩", type: "谈心记录", channel: "面谈", content: "近期课堂举手减少，约定每天至少主动表达一次观点，周五复盘。", followUp: "周五课后谈心", status: "待跟进", date: "周二 12:35" },
+    { id: "r5", student: "陈思远", type: "家访准备", channel: "电话", content: "家长反馈晚间作业拖拉，建议先固定20分钟专注时段，再逐步延长。", parentFeedback: "家长希望老师给出每日反馈。", followUp: "连续三天检查作业提交", status: "待跟进", date: "周三 18:20" },
+    { id: "r6", student: "唐语柔", type: "表扬记录", channel: "班级群", content: "卫生角整理到位，被生活委员和同学共同推荐为本周劳动小能手。", followUp: "纳入周报亮点", status: "已归档", date: "周四 09:15" },
   ],
   courses: [
     ["语文", "数学", "英语", "体育", "科学"],
@@ -323,10 +409,30 @@ export const defaultClassroomData: ClassroomData = {
     { id: "p3", studentId: "s13", scene: "卫生", reason: "主动整理卫生角", delta: 1, date: "昨天" },
   ],
   cadres: [
-    { id: "c1", role: "班长", studentId: "s3", duty: "协助班主任管理自习、值日班长和班级常规。" },
-    { id: "c2", role: "学习委员", studentId: "s1", duty: "组织早读，汇总作业缺交名单，联系课代表。" },
-    { id: "c3", role: "纪律委员", studentId: "s9", duty: "记录课间和自习纪律，提醒同学遵守班级公约。" },
-    { id: "c4", role: "劳动委员", studentId: "s13", duty: "安排卫生岗位，检查桌椅、地面、黑板和门窗。" },
+    { id: "c1", role: "班长", studentId: "s3", duty: "协助班主任管理自习、值日班长和班级常规。", scope: "班级常规", term: "本学期", status: "在任", weeklyScore: 5, summary: "能主动提醒同学，适合继续培养组织能力。" },
+    { id: "c2", role: "学习委员", studentId: "s1", duty: "组织早读，汇总作业缺交名单，联系课代表。", scope: "学习管理", term: "本学期", status: "在任", weeklyScore: 4, summary: "作业反馈及时，早读组织还可以更大胆。" },
+    { id: "c3", role: "纪律委员", studentId: "s9", duty: "记录课间和自习纪律，提醒同学遵守班级公约。", scope: "纪律管理", term: "本学期", status: "试用", weeklyScore: 3, summary: "提醒方式需要更温和，适合配合班长一起做。" },
+    { id: "c4", role: "劳动委员", studentId: "s13", duty: "安排卫生岗位，检查桌椅、地面、黑板和门窗。", scope: "卫生值日", term: "本学期", status: "在任", weeklyScore: 5, summary: "检查细致，能把值日问题及时反馈给老师。" },
+  ],
+  scoreExams: [
+    {
+      id: "exam-mid",
+      classId: "class-1",
+      title: "期中学情检测",
+      date: "2026-07-18",
+      subjects: ["语文", "数学", "英语"],
+      scores: Object.fromEntries(names.map((_, index) => [`s${index + 1}`, {
+        语文: [91, 85, 94, 77, 88, 82][index % 6],
+        数学: [96, 88, 92, 74, 90, 79][index % 6],
+        英语: [89, 84, 97, 81, 86, 87][index % 6],
+      }])),
+    },
+  ],
+  examReflections: [
+    { id: "er1", studentId: "s4", examId: "exam-mid", date: "2026-07-19", problem: "数学计算题失分较多，检查不够细。", reason: "草稿纸步骤不清楚，做完后没有复算。", action: "每天完成5道口算和2道竖式计算，错题当天订正。", familyMessage: "希望家长每天帮我看一次错题本签字。", teacherNote: "先抓计算准确率，下一次小测看进步。", status: "已完成" },
+  ],
+  termComments: [
+    { id: "tc1", studentId: "s3", term: "2026—2027学年第一学期", style: "家长可读", content: "周雨桐同学本学期表现稳定，课堂上愿意主动表达，也能在小组合作中帮助同学。希望下阶段继续保持整理错题和课前准备的好习惯，在表达时尝试说得更完整、更有条理。", updatedAt: "2026-07-21" },
   ],
   weeklyPlan: [
     { day: "周一", focus: "班级公约", event: "晨会强调作业提交与课前准备" },

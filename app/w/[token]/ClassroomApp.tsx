@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import type { ReactNode } from "react";
-import type { CadreRole, ClassroomData, GrowthEvidence, HomeworkTask, PointEvent, PointRule, RosterClass, SeatingConfig, Student } from "@/lib/classroom";
+import type { CadreRole, ClassroomData, CommunicationRecord, DutyJob, DutyRecord, ExamReflection, GrowthEvidence, HomeworkTask, PointEvent, PointRule, RosterClass, ScoreExam, SeatingConfig, Student, TermComment } from "@/lib/classroom";
 import { CourseSchedule } from "./CourseSchedule";
 
 type Workspace = { className: string; grade: string; term: string; expiresAt: string; data: ClassroomData };
@@ -64,12 +64,35 @@ const ruleSets = {
 const awardOptions = ["进步之星", "文明礼仪之星", "优秀班干部", "阅读小明星", "劳动小能手", "三好学生", "作业标兵", "课堂表达之星"];
 const homeworkOrder: HomeworkTask["statuses"][string][] = ["已交", "未交", "待订正", "已复查"];
 const days = ["星期一", "星期二", "星期三", "星期四", "星期五"];
+const shortDays = ["周一", "周二", "周三", "周四", "周五"];
+const defaultDutyJobs: DutyJob[] = [
+  { id: "dj-floor", name: "地面保洁", area: "教室地面、桌椅间", standard: "无明显纸屑，桌椅摆正，放学前复查一次。", enabled: true },
+  { id: "dj-board", name: "黑板讲台", area: "黑板、粉笔槽、讲台", standard: "课间擦净黑板，粉笔和教具归位。", enabled: true },
+  { id: "dj-corridor", name: "走廊门窗", area: "走廊、门窗、窗台", standard: "走廊无杂物，窗台不堆放个人物品。", enabled: true },
+  { id: "dj-corner", name: "卫生角", area: "扫把、拖把、垃圾桶", standard: "工具摆放整齐，垃圾桶及时清理。", enabled: true },
+  { id: "dj-books", name: "图书角", area: "图书角、阅读柜", standard: "图书按类归位，破损图书单独放置。", enabled: true },
+];
 
 function today() {
   const now = new Date();
   const month = `${now.getMonth() + 1}`.padStart(2, "0");
   const day = `${now.getDate()}`.padStart(2, "0");
   return `${now.getFullYear()}-${month}-${day}`;
+}
+
+function defaultScoreExam(students: Student[], classId: string): ScoreExam {
+  return {
+    id: "exam-default",
+    classId,
+    title: "最近一次学情检测",
+    date: today(),
+    subjects: ["语文", "数学", "英语"],
+    scores: Object.fromEntries(students.map((student, index) => [student.id, {
+      语文: Math.max(0, Math.min(100, student.score + [-2, 1, 0, -4, 3][index % 5])),
+      数学: Math.max(0, Math.min(100, student.score + [3, -1, 2, -6, 0][index % 5])),
+      英语: Math.max(0, Math.min(100, student.score + [0, 2, -3, 1, -2][index % 5])),
+    }])),
+  };
 }
 
 function normalizeData(data: ClassroomData): ClassroomData {
@@ -128,11 +151,17 @@ function normalizeData(data: ClassroomData): ClassroomData {
     pointEvents: data.pointEvents ?? [],
     growthEvidence: data.growthEvidence ?? [],
     pointRules: data.pointRules?.length ? data.pointRules.map((rule) => ({ ...rule, enabled: rule.enabled !== false })) : defaultPointRules,
-    cadres: data.cadres?.length ? data.cadres : [
-      { id: "c1", role: "班长", studentId: students[0]?.id ?? "", duty: "协助班主任管理班级常规。" },
-      { id: "c2", role: "学习委员", studentId: students[1]?.id ?? "", duty: "组织早读，记录作业缺交。" },
-      { id: "c3", role: "劳动委员", studentId: students[2]?.id ?? "", duty: "安排和检查卫生岗位。" },
+    dutyJobs: data.dutyJobs?.length ? data.dutyJobs.map((job) => ({ ...job, enabled: job.enabled !== false })) : defaultDutyJobs,
+    dutyRecords: data.dutyRecords ?? [],
+    records: (data.records ?? []).map((record) => ({ ...record, channel: record.channel ?? "面谈", followUp: record.followUp ?? "", status: record.status ?? "待跟进" })),
+    cadres: data.cadres?.length ? data.cadres.map((role) => ({ ...role, scope: role.scope ?? "班级管理", term: role.term ?? "本学期", status: role.status ?? "在任", weeklyScore: role.weeklyScore ?? 4, summary: role.summary ?? "填写本周履职表现。" })) : [
+      { id: "c1", role: "班长", studentId: students[0]?.id ?? "", duty: "协助班主任管理班级常规。", scope: "班级常规", term: "本学期", status: "在任", weeklyScore: 5, summary: "能主动提醒同学，适合继续培养组织能力。" },
+      { id: "c2", role: "学习委员", studentId: students[1]?.id ?? "", duty: "组织早读，记录作业缺交。", scope: "学习管理", term: "本学期", status: "在任", weeklyScore: 4, summary: "作业反馈及时，早读组织还可以更大胆。" },
+      { id: "c3", role: "劳动委员", studentId: students[2]?.id ?? "", duty: "安排和检查卫生岗位。", scope: "卫生值日", term: "本学期", status: "在任", weeklyScore: 5, summary: "检查细致，能把值日问题及时反馈给老师。" },
     ],
+    scoreExams: data.scoreExams?.length ? data.scoreExams : [defaultScoreExam(students, activeClassId)],
+    examReflections: data.examReflections ?? [],
+    termComments: data.termComments ?? [],
     weeklyPlan: data.weeklyPlan ?? days.map((day) => ({ day: day.replace("星期", "周"), focus: "班级常规", event: "记录作业、积分、沟通事项" })),
     weeklyReports: data.weeklyReports ?? [],
     seatingConfig: { rows, columns, groupCount, aisleAfter },
@@ -228,8 +257,8 @@ export default function ClassroomApp({ token }: { token: string }) {
           {active === "cadres" && <Cadres data={workspace.data} update={updateData} />}
           {active === "records" && <Records data={workspace.data} update={updateData} />}
           {active === "scores" && <Scores data={workspace.data} update={updateData} />}
-          {active === "reflection" && <Reflection data={workspace.data} />}
-          {active === "comments" && <Comments data={workspace.data} />}
+          {active === "reflection" && <Reflection data={workspace.data} update={updateData} />}
+          {active === "comments" && <Comments data={workspace.data} update={updateData} />}
           {active === "certificates" && <Certificates data={workspace.data} />}
           {active === "license" && <LicensePanel workspace={workspace} />}
         </div>
@@ -1891,58 +1920,294 @@ function Seating({ data, update }: { data: ClassroomData; update: (fn: (d: Class
 }
 
 function Duty({ data, update }: { data: ClassroomData; update: (fn: (d: ClassroomData) => ClassroomData) => void }) {
-  const [customJob, setCustomJob] = useState("图书角");
-  const jobs = ["地面", "黑板", "讲台", "走廊", "门窗", customJob].filter(Boolean);
-  const maxGroup = Math.max(1, ...data.students.map((s) => s.group));
+  const [selectedDay, setSelectedDay] = useState(days[Math.max(0, Math.min(4, new Date().getDay() - 1))]);
+  const [keyword, setKeyword] = useState("");
+  const [message, setMessage] = useState("");
+  const activeClassId = data.activeClassId ?? data.rosterClasses?.[0]?.id ?? "class-1";
+  const allJobs = data.dutyJobs?.length ? data.dutyJobs : defaultDutyJobs;
+  const jobs = allJobs.filter((job) => job.enabled !== false);
+  const maxGroup = Math.max(1, ...data.students.map((s) => s.group || 1));
   const groups = Array.from({ length: maxGroup }, (_, group) => data.students.filter((s) => s.group === group + 1));
-  return <><ToolHeading kicker="值日与岗位" title="按小组轮换，把岗位落到人" text="参考值日表和岗位职责表，可加入自定义岗位。" action={<button className="primary-small" onClick={() => update((d) => ({ ...d, dutyOffset: (d.dutyOffset + 1) % maxGroup }))}>轮换一周</button>} /><section className="quick-scorebar"><input value={customJob} onChange={(e)=>setCustomJob(e.target.value)} /><span>自定义岗位名称</span></section><div className="duty-board">{days.map((day, i) => { const groupIndex = (i + data.dutyOffset) % groups.length; const group = groups[groupIndex] ?? []; return <article key={day}><header><span>{day}</span><b>第{groupIndex + 1}组</b></header>{jobs.map((job, j) => <div key={job}><span>{job}</span><b>{group[j % Math.max(1, group.length)]?.name ?? "待安排"}</b></div>)}</article>; })}</div></>;
+  const records = (data.dutyRecords ?? []).filter((record) => !record.classId || record.classId === activeClassId);
+  const selectedDayIndex = days.indexOf(selectedDay) >= 0 ? days.indexOf(selectedDay) : 0;
+  const todayRecords = records.filter((record) => record.date === today());
+  const pendingCount = jobs.filter((job) => {
+    const record = todayRecords.find((item) => item.day === selectedDay && item.jobId === job.id);
+    return !record || record.status === "待检查" || record.status === "需返工";
+  }).length;
+
+  function assignedStudents(dayIndex: number, job: DutyJob, jobIndex: number) {
+    const fixed = (job.studentIds ?? []).map((id) => data.students.find((student) => student.id === id)).filter(Boolean) as Student[];
+    if (fixed.length) return fixed;
+    const group = groups[(dayIndex + data.dutyOffset) % groups.length] ?? [];
+    return group.length ? [group[jobIndex % group.length]] : [];
+  }
+
+  function editJob(id: string, patch: Partial<DutyJob>) {
+    update((current) => ({ ...current, dutyJobs: allJobs.map((job) => job.id === id ? { ...job, ...patch } : job) }));
+  }
+
+  function addJob() {
+    update((current) => ({ ...current, dutyJobs: [...allJobs, { id: crypto.randomUUID(), name: "新岗位", area: "填写负责区域", standard: "填写检查标准", enabled: true }] }));
+  }
+
+  function mark(day: string, job: DutyJob, jobIndex: number, status: DutyRecord["status"]) {
+    const students = assignedStudents(days.indexOf(day), job, jobIndex);
+    const existing = records.find((record) => record.date === today() && record.day === day && record.jobId === job.id);
+    const next: DutyRecord = {
+      id: existing?.id ?? crypto.randomUUID(),
+      classId: activeClassId,
+      date: today(),
+      day,
+      jobId: job.id,
+      studentIds: students.map((student) => student.id),
+      status,
+      note: existing?.note ?? "",
+      checkedBy: existing?.checkedBy ?? "劳动委员",
+      createdAt: existing?.createdAt ?? Date.now(),
+    };
+    update((current) => ({ ...current, dutyRecords: [next, ...(current.dutyRecords ?? []).filter((record) => record.id !== next.id)] }));
+    setMessage(`${day} ${job.name} 已记录为${status}`);
+  }
+
+  const dutyText = days.map((day, dayIndex) => {
+    const groupIndex = (dayIndex + data.dutyOffset) % groups.length;
+    return `${day} 第${groupIndex + 1}组：` + jobs.map((job, jobIndex) => `${job.name}-${assignedStudents(dayIndex, job, jobIndex).map((student) => student.name).join("、") || "待安排"}`).join("；");
+  }).join("\n");
+
+  const filteredRecords = records.filter((record) => {
+    const job = allJobs.find((item) => item.id === record.jobId);
+    const names = record.studentIds.map((id) => data.students.find((student) => student.id === id)?.name).filter(Boolean).join("、");
+    const text = `${record.date}${record.day}${job?.name}${names}${record.status}${record.note}`;
+    return !keyword.trim() || text.includes(keyword.trim());
+  }).slice(0, 20);
+
+  return <>
+    <ToolHeading kicker="值日与岗位" title="一周排班、每日检查、返工记录放在一页" text="先按小组公平轮换，也可以给岗位固定学生；检查结果会进入台账，方便周报和家校沟通引用。" action={<div className="heading-actions"><button className="primary-small" onClick={() => update((d) => ({ ...d, dutyOffset: (d.dutyOffset + 1) % maxGroup }))}>轮换一周</button><button className="weekly-secondary-btn" onClick={() => navigator.clipboard?.writeText(dutyText)}>复制值日表</button></div>} />
+    {message && <button className="inline-alert duty-message" onClick={() => setMessage("")}>{message}<span>点击关闭</span></button>}
+    <section className="duty-summary">
+      <article><span>启用岗位</span><b>{jobs.length}</b><small>岗位可新增、停用、固定人</small></article>
+      <article><span>轮值小组</span><b>{maxGroup}</b><small>来自学生名单小组数据</small></article>
+      <article><span>{selectedDay}待检查</span><b>{pendingCount}</b><small>含未记录和需返工</small></article>
+      <article><span>今日已记录</span><b>{todayRecords.length}</b><small>保存后可复盘</small></article>
+    </section>
+    <section className="duty-layout">
+      <div className="duty-main">
+        <div className="duty-tabs">{days.map((day) => <button className={selectedDay === day ? "active" : ""} onClick={() => setSelectedDay(day)} key={day}>{day}</button>)}</div>
+        <article className="duty-day-card">
+          <header><div><span>{selectedDay}</span><h3>第{((selectedDayIndex + data.dutyOffset) % groups.length) + 1}组轮值</h3></div><button onClick={() => window.print()}>打印公示</button></header>
+          {jobs.map((job, jobIndex) => {
+            const students = assignedStudents(selectedDayIndex, job, jobIndex);
+            const record = todayRecords.find((item) => item.day === selectedDay && item.jobId === job.id);
+            return <div className="duty-task-line" key={job.id}>
+              <span><b>{job.name}</b><small>{job.area}｜{job.standard}</small></span>
+              <strong>{students.map((student) => student.name).join("、") || "待安排"}</strong>
+              <em className={`duty-status ${record?.status ?? "待检查"}`}>{record?.status ?? "待检查"}</em>
+              <button onClick={() => mark(selectedDay, job, jobIndex, "已完成")}>完成</button>
+              <button onClick={() => mark(selectedDay, job, jobIndex, "需返工")}>返工</button>
+            </div>;
+          })}
+        </article>
+        <div className="duty-week-board">{days.map((day, dayIndex) => <article className={day === selectedDay ? "active" : ""} key={day}><b>{day}</b><span>第{((dayIndex + data.dutyOffset) % groups.length) + 1}组</span><p>{jobs.slice(0, 4).map((job, jobIndex) => `${job.name}：${assignedStudents(dayIndex, job, jobIndex).map((student) => student.name).join("、") || "待安排"}`).join("；")}</p></article>)}</div>
+      </div>
+      <aside className="duty-side">
+        <section><header><div><span>岗位设置</span><h3>岗位、区域、标准</h3></div><button onClick={addJob}>新增岗位</button></header><div className="duty-job-editor">{allJobs.map((job) => <article key={job.id}><label><span>岗位名</span><input value={job.name} onChange={(e) => editJob(job.id, { name: e.target.value })} /></label><label><span>区域</span><input value={job.area} onChange={(e) => editJob(job.id, { area: e.target.value })} /></label><label><span>检查标准</span><textarea value={job.standard} onChange={(e) => editJob(job.id, { standard: e.target.value })} /></label><label><span>固定学生</span><select value={job.studentIds?.[0] ?? ""} onChange={(e) => editJob(job.id, { studentIds: e.target.value ? [e.target.value] : [] })}><option value="">按小组自动轮换</option>{data.students.map((student) => <option value={student.id} key={student.id}>{student.name}</option>)}</select></label><button className={job.enabled === false ? "" : "enabled"} onClick={() => editJob(job.id, { enabled: job.enabled === false })}>{job.enabled === false ? "已停用，点击启用" : "启用中，点击停用"}</button></article>)}</div></section>
+        <section><header><div><span>检查台账</span><h3>最近记录</h3></div><button onClick={() => navigator.clipboard?.writeText(filteredRecords.map((record) => `${record.date} ${record.day} ${record.status} ${record.note}`).join("\n"))}>复制</button></header><input className="duty-search" value={keyword} onChange={(e) => setKeyword(e.target.value)} placeholder="搜岗位、学生、备注" /><div className="duty-record-list">{filteredRecords.length ? filteredRecords.map((record) => { const job = allJobs.find((item) => item.id === record.jobId); return <article key={record.id}><b>{record.date} {record.day}｜{job?.name ?? "值日岗位"}｜{record.status}</b><textarea value={record.note} placeholder="补充检查备注" onChange={(e) => update((current) => ({ ...current, dutyRecords: (current.dutyRecords ?? []).map((item) => item.id === record.id ? { ...item, note: e.target.value } : item) }))} /></article>; }) : <p>还没有符合条件的值日记录。</p>}</div></section>
+      </aside>
+    </section>
+  </>;
 }
 
 function Cadres({ data, update }: { data: ClassroomData; update: (fn: (d: ClassroomData) => ClassroomData) => void }) {
+  const [status, setStatus] = useState("全部");
+  const [keyword, setKeyword] = useState("");
   function edit(id: string, patch: Partial<CadreRole>) {
     update((d) => ({ ...d, cadres: (d.cadres ?? []).map((c) => c.id === id ? { ...c, ...patch } : c) }));
   }
-  return <><ToolHeading kicker="班干部" title="职位、学生、职责、聘任书连在一起" text="参考班干部职责表和班委聘任书，先完成可编辑任命和预览。" action={<button className="primary-small" onClick={() => update((d) => ({ ...d, cadres: [...(d.cadres ?? []), { id: crypto.randomUUID(), role: "新岗位", studentId: d.students[0]?.id ?? "", duty: "填写岗位职责" }] }))}>新增岗位</button>} /><section className="cadre-grid">{(data.cadres ?? []).map((role) => <article key={role.id}><input value={role.role} onChange={(e)=>edit(role.id,{role:e.target.value})} /><select value={role.studentId} onChange={(e)=>edit(role.id,{studentId:e.target.value})}>{data.students.map(s=><option value={s.id} key={s.id}>{s.name}</option>)}</select><textarea value={role.duty} onChange={(e)=>edit(role.id,{duty:e.target.value})} /><div className="appointment"><b>班委聘任书</b><p>兹聘任 {data.students.find(s=>s.id===role.studentId)?.name || "某同学"} 为本班 {role.role}，负责：{role.duty}</p></div></article>)}</section></>;
+  function add() {
+    update((d) => ({ ...d, cadres: [...(d.cadres ?? []), { id: crypto.randomUUID(), role: "新岗位", studentId: d.students[0]?.id ?? "", duty: "填写岗位职责", scope: "班级管理", term: "本学期", status: "试用", weeklyScore: 3, summary: "填写本周履职表现。" }] }));
+  }
+  const roles = data.cadres ?? [];
+  const filtered = roles.filter((role) => {
+    const student = data.students.find((item) => item.id === role.studentId);
+    const text = `${role.role}${student?.name}${role.duty}${role.scope}${role.summary}`;
+    return (status === "全部" || role.status === status) && (!keyword.trim() || text.includes(keyword.trim()));
+  });
+  const appointmentText = filtered.map((role) => {
+    const student = data.students.find((item) => item.id === role.studentId);
+    return `兹聘任 ${student?.name ?? "某同学"} 为本班 ${role.role}，负责：${role.duty}`;
+  }).join("\n");
+  return <>
+    <ToolHeading kicker="班干部" title="任命、职责、履职评价和聘任书连在一起" text="能新增岗位、选择学生、写职责、记录每周履职表现，也能复制聘任书文字。" action={<div className="heading-actions"><button className="primary-small" onClick={add}>新增岗位</button><button className="weekly-secondary-btn" onClick={() => navigator.clipboard?.writeText(appointmentText)}>复制聘任书</button></div>} />
+    <section className="cadre-summary"><article><span>岗位数</span><b>{roles.length}</b><small>班委、课代表、岗位长都可管理</small></article><article><span>在任</span><b>{roles.filter((role) => role.status === "在任").length}</b><small>可用于班干部名单</small></article><article><span>试用/轮换</span><b>{roles.filter((role) => role.status !== "在任").length}</b><small>适合阶段调整</small></article><article><span>平均履职</span><b>{Math.round(roles.reduce((sum, role) => sum + (role.weeklyScore ?? 0), 0) / Math.max(1, roles.length))}</b><small>满分5分</small></article></section>
+    <section className="cadre-toolbar"><input value={keyword} onChange={(e) => setKeyword(e.target.value)} placeholder="搜岗位、学生、职责" /><select value={status} onChange={(e) => setStatus(e.target.value)}><option>全部</option><option>在任</option><option>试用</option><option>轮换</option></select></section>
+    <section className="cadre-grid detailed">{filtered.map((role) => {
+      const student = data.students.find((item) => item.id === role.studentId);
+      return <article key={role.id}><div className="cadre-card-head"><input value={role.role} onChange={(e) => edit(role.id, { role: e.target.value })} /><select value={role.status ?? "在任"} onChange={(e) => edit(role.id, { status: e.target.value as CadreRole["status"] })}><option>在任</option><option>试用</option><option>轮换</option></select></div><label><span>任职学生</span><select value={role.studentId} onChange={(e) => edit(role.id, { studentId: e.target.value })}>{data.students.map((s) => <option value={s.id} key={s.id}>{s.name}</option>)}</select></label><label><span>管理范围</span><input value={role.scope ?? ""} onChange={(e) => edit(role.id, { scope: e.target.value })} /></label><label><span>岗位职责</span><textarea value={role.duty} onChange={(e) => edit(role.id, { duty: e.target.value })} /></label><label><span>本周履职评价</span><textarea value={role.summary ?? ""} onChange={(e) => edit(role.id, { summary: e.target.value })} /></label><label><span>履职分</span><input type="range" min={1} max={5} value={role.weeklyScore ?? 3} onChange={(e) => edit(role.id, { weeklyScore: Number(e.target.value) })} /><b>{role.weeklyScore ?? 3} / 5</b></label><div className="appointment"><b>班委聘任书</b><p>兹聘任 {student?.name || "某同学"} 为本班 {role.role}，负责：{role.duty}</p></div><button className="text-danger" onClick={() => update((d) => ({ ...d, cadres: (d.cadres ?? []).filter((item) => item.id !== role.id) }))}>删除岗位</button></article>;
+    })}</section>
+  </>;
 }
 
 function Records({ data, update }: { data: ClassroomData; update: (fn: (d: ClassroomData) => ClassroomData) => void }) {
   const [student, setStudent] = useState(data.students[0]?.name ?? "");
   const [type, setType] = useState("家访登记");
+  const [channel, setChannel] = useState("微信");
   const [purpose, setPurpose] = useState("了解学生在家学习与作息情况");
   const [home, setHome] = useState("家长工作较忙，孩子作业需要更多陪伴和提醒。");
   const [content, setContent] = useState("反馈学生在校表现，约定本周先从按时完成作业开始。");
   const [opinion, setOpinion] = useState("家长愿意配合，周五再次反馈。");
+  const [followUp, setFollowUp] = useState("周五再次反馈执行情况。");
+  const [filter, setFilter] = useState("全部类型");
+  const [recordStatus, setRecordStatus] = useState("全部状态");
+  const [keyword, setKeyword] = useState("");
   function add() {
-    const text = `目的：${purpose}｜家庭情况：${home}｜沟通内容：${content}｜家长意见：${opinion}`;
-    update((d) => ({ ...d, records: [{ id: crypto.randomUUID(), student, type, content: text, date: "刚刚" }, ...d.records] }));
+    const text = `目的：${purpose}｜家庭情况：${home}｜沟通内容：${content}`;
+    const selectedStudent = data.students.find((item) => item.name === student);
+    const record: CommunicationRecord = { id: crypto.randomUUID(), student, type, channel, content: text, parentFeedback: opinion, followUp, status: "待跟进", date: "刚刚" };
+    const evidence: GrowthEvidence | null = selectedStudent ? { id: crypto.randomUUID(), studentId: selectedStudent.id, date: today(), type, title: `${student} ${type}`, content: text, followUp, source: "家校沟通", createdAt: Date.now() } : null;
+    update((d) => ({ ...d, records: [record, ...d.records], growthEvidence: evidence ? [evidence, ...(d.growthEvidence ?? [])] : d.growthEvidence }));
   }
-  return <><ToolHeading kicker="家校沟通" title="家访、谈心、作业跟进都按结构记录" text="参考家访登记表，补齐目的、家庭情况、沟通内容、家长意见和下次跟进。" /><div className="visit-form"><select value={student} onChange={(e)=>setStudent(e.target.value)}>{data.students.map(s=><option key={s.id}>{s.name}</option>)}</select><select value={type} onChange={(e)=>setType(e.target.value)}>{["家访登记","谈心记录","作业跟进","纪律表现","表扬记录"].map(t=><option key={t}>{t}</option>)}</select><input value={purpose} onChange={(e)=>setPurpose(e.target.value)} /><textarea value={home} onChange={(e)=>setHome(e.target.value)} /><textarea value={content} onChange={(e)=>setContent(e.target.value)} /><textarea value={opinion} onChange={(e)=>setOpinion(e.target.value)} /><button onClick={add}>保存到成长档案</button></div><div className="timeline">{data.records.map((r) => <article key={r.id}><i>{r.student.slice(0,1)}</i><div><header><b>{r.student}</b><span>{r.type}</span><time>{r.date}</time></header><p>{r.content}</p></div></article>)}</div></>;
+  const types = ["全部类型", ...Array.from(new Set(data.records.map((record) => record.type)))];
+  const visibleRecords = data.records.filter((record) => {
+    const text = `${record.student}${record.type}${record.channel}${record.content}${record.parentFeedback}${record.followUp}`;
+    return (filter === "全部类型" || record.type === filter) && (recordStatus === "全部状态" || record.status === recordStatus) && (!keyword.trim() || text.includes(keyword.trim()));
+  });
+  const followCount = data.records.filter((record) => record.status === "待跟进").length;
+  return <>
+    <ToolHeading kicker="家校沟通" title="家访、谈心、作业跟进都按结构记录" text="每条记录包含沟通方式、目的、过程、家长反馈和下一步跟进，并同步沉淀到成长档案。" />
+    <section className="records-dashboard"><article><span>沟通记录</span><b>{data.records.length}</b><small>可筛选检索</small></article><article><span>待跟进</span><b>{followCount}</b><small>建议优先处理</small></article><article><span>涉及学生</span><b>{new Set(data.records.map((record) => record.student)).size}</b><small>避免只关注少数学生</small></article></section>
+    <section className="visit-form rich"><div className="visit-grid"><label><span>学生</span><select value={student} onChange={(e) => setStudent(e.target.value)}>{data.students.map((s) => <option key={s.id}>{s.name}</option>)}</select></label><label><span>类型</span><select value={type} onChange={(e) => setType(e.target.value)}>{["家访登记", "谈心记录", "作业跟进", "纪律表现", "表扬记录", "心理关注"].map((t) => <option key={t}>{t}</option>)}</select></label><label><span>方式</span><select value={channel} onChange={(e) => setChannel(e.target.value)}>{["微信", "电话", "面谈", "家访", "班级群"].map((item) => <option key={item}>{item}</option>)}</select></label><label><span>沟通目的</span><input value={purpose} onChange={(e) => setPurpose(e.target.value)} /></label><label><span>家庭/在校情况</span><textarea value={home} onChange={(e) => setHome(e.target.value)} /></label><label><span>沟通内容</span><textarea value={content} onChange={(e) => setContent(e.target.value)} /></label><label><span>家长反馈</span><textarea value={opinion} onChange={(e) => setOpinion(e.target.value)} /></label><label><span>下一步跟进</span><textarea value={followUp} onChange={(e) => setFollowUp(e.target.value)} /></label></div><button onClick={add}>保存记录并同步成长档案</button></section>
+    <section className="record-filters"><input value={keyword} onChange={(e) => setKeyword(e.target.value)} placeholder="搜学生、内容、反馈、跟进" /><select value={filter} onChange={(e) => setFilter(e.target.value)}>{types.map((item) => <option key={item}>{item}</option>)}</select><select value={recordStatus} onChange={(e) => setRecordStatus(e.target.value)}><option>全部状态</option><option>待跟进</option><option>已跟进</option><option>已归档</option></select></section>
+    <div className="timeline records-list">{visibleRecords.map((r) => <article key={r.id}><i>{r.student.slice(0,1)}</i><div><header><b>{r.student}</b><span>{r.type}</span><em>{r.channel ?? "面谈"}</em><time>{r.date}</time></header><p>{r.content}</p>{r.parentFeedback && <small>家长反馈：{r.parentFeedback}</small>}{r.followUp && <small>下一步：{r.followUp}</small>}<footer><select value={r.status ?? "待跟进"} onChange={(e) => update((d) => ({ ...d, records: d.records.map((item) => item.id === r.id ? { ...item, status: e.target.value as CommunicationRecord["status"] } : item) }))}><option>待跟进</option><option>已跟进</option><option>已归档</option></select><button onClick={() => navigator.clipboard?.writeText(`${r.student}｜${r.type}｜${r.content}｜${r.followUp ?? ""}`)}>复制</button><button onClick={() => update((d) => ({ ...d, records: d.records.filter((item) => item.id !== r.id) }))}>删除</button></footer></div></article>)}</div>
+  </>;
 }
 
 function Scores({ data, update }: { data: ClassroomData; update: (fn: (d: ClassroomData) => ClassroomData) => void }) {
-  const average = Math.round(data.students.reduce((sum, s) => sum + s.score, 0) / Math.max(1, data.students.length));
-  const sorted = [...data.students].sort((a,b) => a.score - b.score);
-  return <><ToolHeading kicker="成绩分析" title="导入或编辑成绩后，自动找出重点学生" text="先支持逐个编辑和自动分析，后续再接 Excel 批量导入。" /><div className="score-summary"><div><span>平均分</span><b>{average}</b><small>当前考试</small></div><div><span>优秀率</span><b>{Math.round(data.students.filter((s) => s.score >= 90).length / Math.max(1, data.students.length) * 100)}%</b><small>90分以上</small></div><div><span>临界/低分</span><b>{data.students.filter((s) => s.score < 80).length}</b><small>优先帮扶</small></div></div><section className="editable-student-table"><div className="student-edit-head score"><span>学生</span><span>当前分数</span><span>帮扶建议</span></div>{sorted.map(s=><div className="student-edit-line score" key={s.id}><b>{s.name}</b><input type="number" value={s.score} onChange={(e)=>update(d=>({...d,students:d.students.map(item=>item.id===s.id?{...item,score:Number(e.target.value)||0}:item)}))} /><span>{s.score < 80 ? "安排谈心+错题复盘" : s.score < 90 ? "关注临界突破" : "推荐表扬"}</span></div>)}</section></>;
+  const [examId, setExamId] = useState(data.scoreExams?.[0]?.id ?? "");
+  const [keyword, setKeyword] = useState("");
+  const [band, setBand] = useState("全部");
+  const activeClassId = data.activeClassId ?? data.rosterClasses?.[0]?.id ?? "class-1";
+  const exams = data.scoreExams?.length ? data.scoreExams : [defaultScoreExam(data.students, activeClassId)];
+  const exam = exams.find((item) => item.id === examId) ?? exams[0];
+  const subjects = exam.subjects.length ? exam.subjects : ["总分"];
+  const averageForExam = (sourceExam: ScoreExam, student: Student) => {
+    const sourceSubjects = sourceExam.subjects.length ? sourceExam.subjects : ["总分"];
+    return Math.round(sourceSubjects.reduce((sum, subject) => sum + (sourceExam.scores[student.id]?.[subject] ?? student.score), 0) / Math.max(1, sourceSubjects.length));
+  };
+  const averageFor = (student: Student) => averageForExam(exam, student);
+  const ranked = [...data.students].map((student) => ({ student, average: averageFor(student) })).sort((a, b) => a.average - b.average);
+  const visible = ranked.filter(({ student, average }) => {
+    const text = `${student.name}${student.studentNo}${student.group}`;
+    const bandOk = band === "全部" || (band === "优秀" && average >= 90) || (band === "临界" && average >= 80 && average < 90) || (band === "帮扶" && average < 80);
+    return bandOk && (!keyword.trim() || text.includes(keyword.trim()));
+  });
+  const average = Math.round(ranked.reduce((sum, item) => sum + item.average, 0) / Math.max(1, ranked.length));
+  function updateExam(nextExam: ScoreExam) {
+    const nextStudents = data.students.map((student) => ({ ...student, score: nextExam.id === exam.id ? averageForExam(nextExam, student) : student.score }));
+    update((current) => ({ ...current, students: nextStudents, rosterClasses: current.rosterClasses?.map((item) => item.id === activeClassId ? { ...item, students: nextStudents } : item), scoreExams: exams.map((item) => item.id === nextExam.id ? nextExam : item) }));
+  }
+  function setScore(studentId: string, subject: string, score: number) {
+    const nextExam = { ...exam, scores: { ...exam.scores, [studentId]: { ...(exam.scores[studentId] ?? {}), [subject]: score } } };
+    updateExam(nextExam);
+  }
+  function addExam() {
+    const next = defaultScoreExam(data.students, activeClassId);
+    next.id = crypto.randomUUID(); next.title = "新考试"; next.date = today();
+    update((current) => ({ ...current, scoreExams: [next, ...exams] }));
+    setExamId(next.id);
+  }
+  return <>
+    <ToolHeading kicker="成绩分析" title="多科成绩、临界学生、帮扶建议先跑起来" text="支持新建考试、逐科录分、按优秀/临界/帮扶筛选，并自动生成班级分析与学生建议。" action={<button className="primary-small" onClick={addExam}>新增考试</button>} />
+    <section className="score-summary"><div><span>平均分</span><b>{average}</b><small>{exam.title}</small></div><div><span>优秀率</span><b>{Math.round(ranked.filter((item) => item.average >= 90).length / Math.max(1, ranked.length) * 100)}%</b><small>平均90分以上</small></div><div><span>临界/帮扶</span><b>{ranked.filter((item) => item.average < 90).length}</b><small>需要分层关注</small></div></section>
+    <section className="score-toolbar"><label><span>考试</span><select value={exam.id} onChange={(e) => setExamId(e.target.value)}>{exams.map((item) => <option value={item.id} key={item.id}>{item.title}</option>)}</select></label><label><span>名称</span><input value={exam.title} onChange={(e) => updateExam({ ...exam, title: e.target.value })} /></label><label><span>日期</span><input type="date" value={exam.date} onChange={(e) => updateExam({ ...exam, date: e.target.value })} /></label><label><span>筛选</span><select value={band} onChange={(e) => setBand(e.target.value)}><option>全部</option><option>优秀</option><option>临界</option><option>帮扶</option></select></label><input value={keyword} onChange={(e) => setKeyword(e.target.value)} placeholder="搜姓名/学号/小组" /></section>
+    <section className="score-layout"><div className="score-table-wrap"><div className="score-table" style={{ gridTemplateColumns: `90px repeat(${subjects.length}, 76px) 76px 1.4fr` }}><b>学生</b>{subjects.map((subject) => <b key={subject}>{subject}</b>)}<b>平均</b><b>建议</b>{visible.map(({ student, average }) => <div className="score-row" key={student.id} style={{ display: "contents" }}><span>{student.name}<small>第{student.group}组</small></span>{subjects.map((subject) => <input aria-label={`${student.name}${subject}成绩`} type="number" min={0} max={100} value={exam.scores[student.id]?.[subject] ?? student.score} onChange={(e) => setScore(student.id, subject, Number(e.target.value) || 0)} key={subject} />)}<strong>{average}</strong><em>{average < 80 ? "安排谈心+错题复盘" : average < 90 ? "临界突破，盯薄弱科" : "推荐表扬，可做经验分享"}</em></div>)}</div></div><aside className="score-insight"><h3>班级诊断</h3><p>低于80分的学生优先进入帮扶名单；80-89分学生适合做临界突破；90分以上可沉淀为表扬和经验分享。</p><h3>重点名单</h3>{ranked.slice(0, 8).map(({ student, average }) => <button key={student.id} onClick={() => setKeyword(student.name)}><b>{student.name}</b><span>{average}分</span><em>{average < 80 ? "帮扶" : average < 90 ? "临界" : "优秀"}</em></button>)}</aside></section>
+  </>;
 }
 
-function Reflection({ data }: { data: ClassroomData }) {
+function Reflection({ data, update }: { data: ClassroomData; update: (fn: (d: ClassroomData) => ClassroomData) => void }) {
   const [id, setId] = useState(data.students[0]?.id ?? "");
+  const [examId, setExamId] = useState(data.scoreExams?.[0]?.id ?? "");
+  const [savedState, setSavedState] = useState("");
   const student = data.students.find(s=>s.id===id) ?? data.students[0];
   if (!student) return null;
-  const checks = ["是否完成课前预习和课后巩固", "作业是否第一时间独立完成", "错题是否真正订正到会做", "考试时是否审题清楚、书写规范", "下一次要挑战的目标是谁"];
-  return <><ToolHeading kicker="考试反思" title="把考试后反思表变成学生个人复盘单" text="错因、目标、写给家人和班主任的话都能打印。" /><div className="reflection-layout"><aside className="student-picker">{data.students.map(s=><button className={s.id===id?"selected":""} key={s.id} onClick={()=>setId(s.id)}><i>{s.name.slice(0,1)}</i><span>{s.name}<small>{s.score}分</small></span></button>)}</aside><section className="paper-card"><h2>{student.name} 的考试反思</h2>{checks.map(item=><label className="check-line" key={item}><input type="checkbox" />{item}</label>)}<textarea className="reflection-text" defaultValue={`本次考试我的主要问题是：\n下一步改进措施：\n写给家人的话：\n写给班主任的话：`} /></section></div></>;
+  const exams = data.scoreExams?.length ? data.scoreExams : [defaultScoreExam(data.students, data.activeClassId ?? "class-1")];
+  const exam = exams.find((item) => item.id === examId) ?? exams[0];
+  const existing = (data.examReflections ?? []).find((item) => item.studentId === id && item.examId === exam.id);
+  const scoreMap = exam.scores[student.id] ?? {};
+  const weakSubject = exam.subjects.length ? [...exam.subjects].sort((a, b) => (scoreMap[a] ?? student.score) - (scoreMap[b] ?? student.score))[0] : "薄弱学科";
+  const [draft, setDraft] = useState<ExamReflection>({
+    id: crypto.randomUUID(),
+    studentId: id,
+    examId: exam.id,
+    date: today(),
+    problem: "",
+    reason: "",
+    action: "",
+    familyMessage: "",
+    teacherNote: "",
+    status: "草稿",
+  });
+  useEffect(() => {
+    setDraft(existing ?? {
+      id: crypto.randomUUID(),
+      studentId: id,
+      examId: exam.id,
+      date: today(),
+      problem: `${weakSubject}失分较多，需要先把错题类型分清楚。`,
+      reason: "审题、计算或知识点迁移还不够稳定。",
+      action: `本周每天整理1道${weakSubject}错题，并向同桌讲清订正思路。`,
+      familyMessage: "希望家长提醒我按计划订正错题，不只看分数。",
+      teacherNote: "先抓一个最明显的问题，下一次小测看变化。",
+      status: "草稿",
+    });
+    setSavedState("");
+  }, [id, exam.id, existing, weakSubject]);
+  function save(status: ExamReflection["status"]) {
+    const next = { ...draft, id: existing?.id ?? draft.id, studentId: id, examId: exam.id, status };
+    const record: CommunicationRecord = { id: crypto.randomUUID(), student: student.name, type: "考试反思", channel: "学生复盘", content: `问题：${next.problem}｜原因：${next.reason}｜行动：${next.action}`, followUp: next.teacherNote, status: status === "已完成" ? "已归档" : "待跟进", date: "刚刚" };
+    update((current) => ({ ...current, examReflections: [next, ...(current.examReflections ?? []).filter((item) => item.id !== next.id)], records: status === "已完成" ? [record, ...current.records] : current.records }));
+    setSavedState(status === "已完成" ? "已保存，并同步到家校沟通记录" : "草稿已保存");
+  }
+  return <>
+    <ToolHeading kicker="考试反思" title="把分数后面的错因和行动计划保存下来" text="选择学生和考试后，系统会带出薄弱学科提示，老师可编辑问题、原因、行动、家长话术和跟进意见。" action={<button className="primary-small" onClick={() => window.print()}>打印反思单</button>} />
+    {savedState && <button className="inline-alert duty-message" onClick={() => setSavedState("")}>{savedState}<span>点击关闭</span></button>}
+    <div className="reflection-layout rich"><aside className="student-picker"><h3>选择学生</h3>{data.students.map(s=><button className={s.id===id?"selected":""} key={s.id} onClick={()=>setId(s.id)}><i>{s.name.slice(0,1)}</i><span>{s.name}<small>{s.score}分 · {s.homework}</small></span></button>)}</aside><section className="reflection-paper"><header><div><span>个人复盘单</span><h2>{student.name} 的考试反思</h2></div><select value={exam.id} onChange={(e) => setExamId(e.target.value)}>{exams.map((item) => <option value={item.id} key={item.id}>{item.title}</option>)}</select></header><div className="reflection-score-strip">{exam.subjects.map((subject) => <span key={subject}>{subject}<b>{scoreMap[subject] ?? student.score}</b></span>)}<em>薄弱：{weakSubject}</em></div><div className="reflection-form"><label><span>主要问题</span><textarea value={draft.problem} onChange={(e) => setDraft({ ...draft, problem: e.target.value })} /></label><label><span>原因分析</span><textarea value={draft.reason} onChange={(e) => setDraft({ ...draft, reason: e.target.value })} /></label><label><span>下一步行动</span><textarea value={draft.action} onChange={(e) => setDraft({ ...draft, action: e.target.value })} /></label><label><span>写给家长的话</span><textarea value={draft.familyMessage} onChange={(e) => setDraft({ ...draft, familyMessage: e.target.value })} /></label><label className="wide"><span>班主任跟进</span><textarea value={draft.teacherNote} onChange={(e) => setDraft({ ...draft, teacherNote: e.target.value })} /></label></div><footer><button onClick={() => save("草稿")}>保存草稿</button><button className="primary-small" onClick={() => save("已完成")}>完成并归档</button><button onClick={() => navigator.clipboard?.writeText(`${student.name}考试反思\n问题：${draft.problem}\n原因：${draft.reason}\n行动：${draft.action}\n家长：${draft.familyMessage}\n老师：${draft.teacherNote}`)}>复制反思</button></footer></section></div>
+  </>;
 }
 
-function Comments({ data }: { data: ClassroomData }) {
+function Comments({ data, update }: { data: ClassroomData; update: (fn: (d: ClassroomData) => ClassroomData) => void }) {
   const [id, setId] = useState(data.students[0]?.id ?? "");
+  const [style, setStyle] = useState<TermComment["style"]>("家长可读");
+  const [term, setTerm] = useState("2026—2027学年第一学期");
+  const [savedState, setSavedState] = useState("");
   const student = data.students.find(s=>s.id===id) ?? data.students[0];
   const evidence = data.records.filter(r=>r.student===student?.name);
   const events = (data.pointEvents ?? []).filter(e=>e.studentId===student?.id);
-  const comment = useMemo(() => student ? `${student.name}同学本学期整体表现${student.score >= 90 ? "稳定优秀，学习主动性较强" : student.score >= 80 ? "较为踏实，能够按要求完成多数学习任务" : "仍需要老师和家长共同陪伴"}。${events[0] ? `在日常表现中，${events[0].reason}，体现出持续进步的可能。` : ""}${evidence[0] ? `老师也关注到：${evidence[0].content}` : "希望你继续积累每一次小进步。"}下学期建议继续在作业习惯、课堂表达和自我管理上设定更清晰目标。` : "", [student, evidence, events]);
-  const [draft, setDraft] = useState(comment);
-  useEffect(() => setDraft(comment), [comment]);
+  const reflections = (data.examReflections ?? []).filter((item) => item.studentId === student?.id);
+  const saved = (data.termComments ?? []).find((item) => item.studentId === student?.id && item.term === term && item.style === style);
+  const comment = useMemo(() => {
+    if (!student) return "";
+    const opening = style === "客观正式" ? `${student.name}同学本学期能遵守班级常规，整体学习状态` : style === "温和鼓励" ? `${student.name}同学，这一学期老师看到了你的努力，整体表现` : `${student.name}同学本学期在校表现`;
+    const level = student.score >= 90 ? "稳定优秀，学习主动性较强" : student.score >= 80 ? "较为踏实，能够完成多数学习任务" : "还需要老师和家长共同陪伴，逐步建立稳定习惯";
+    const eventText = events[0] ? `在日常记录中，${events[0].reason}，说明他/她具备继续进步的基础。` : "平时能够参与班级活动，也在逐步积累自己的小进步。";
+    const evidenceText = evidence[0] ? `近期记录显示：${evidence[0].content}` : "接下来可以继续多积累课堂表达、作业订正和自我管理方面的具体表现。";
+    const reflectionText = reflections[0] ? `考试后能看到自己的问题：${reflections[0].problem}，并已经形成改进计划。` : "";
+    const advice = student.homework === "未交" ? "下阶段建议重点抓作业提交和订正闭环，把每天的小任务落实到位。" : student.score < 80 ? "下阶段建议先从薄弱知识点和错题复盘入手，建立信心。" : "下阶段希望继续保持主动表达和稳定复盘，把优势坚持下去。";
+    return `${opening}${level}。${eventText}${evidenceText}${reflectionText}${advice}`;
+  }, [student, style, evidence, events, reflections]);
+  const [draft, setDraft] = useState(saved?.content ?? comment);
+  useEffect(() => { setDraft(saved?.content ?? comment); setSavedState(""); }, [saved?.content, comment]);
   if (!student) return null;
-  return <><ToolHeading kicker="期末评语" title="结合成绩、积分、作业和成长记录生成草稿" text="不是空泛套话，能引用平时真实证据。" /><div className="comment-layout"><div className="student-picker">{data.students.map(s=><button className={s.id===id?"selected":""} onClick={()=>setId(s.id)} key={s.id}><i>{s.name.slice(0,1)}</i><span>{s.name}<small>{data.records.filter(r=>r.student===s.name).length}条证据</small></span></button>)}</div><div className="comment-paper"><div className="comment-head"><span>✎ 可编辑评语草稿</span><button onClick={() => setDraft(comment)}>重新生成</button></div><h2>{student.name}</h2><textarea value={draft} onChange={(event) => setDraft(event.target.value)} /><div className="evidence-row"><span>引用依据</span><em>成绩 {student.score}</em><em>积分 {student.points}</em><em>{student.homework}</em></div><button className="primary-small" onClick={() => navigator.clipboard?.writeText(draft)}>复制评语</button></div></div></>;
+  function save() {
+    const item: TermComment = { id: saved?.id ?? crypto.randomUUID(), studentId: student.id, term, style, content: draft, updatedAt: today() };
+    update((current) => ({ ...current, termComments: [item, ...(current.termComments ?? []).filter((commentItem) => commentItem.id !== item.id)] }));
+    setSavedState("评语已保存");
+  }
+  return <>
+    <ToolHeading kicker="期末评语" title="从成绩、积分、沟通和反思中生成可编辑评语" text="先生成一版可用草稿，老师可切换语气、补充证据、保存和复制；后续再做批量生成。" action={<button className="primary-small" onClick={() => window.print()}>打印当前评语</button>} />
+    {savedState && <button className="inline-alert duty-message" onClick={() => setSavedState("")}>{savedState}<span>点击关闭</span></button>}
+    <div className="comment-layout rich"><div className="student-picker"><h3>选择学生</h3>{data.students.map(s=><button className={s.id===id?"selected":""} onClick={()=>setId(s.id)} key={s.id}><i>{s.name.slice(0,1)}</i><span>{s.name}<small>{data.records.filter(r=>r.student===s.name).length}条证据 · {s.score}分</small></span></button>)}</div><div className="comment-paper rich"><div className="comment-head"><span>可编辑评语草稿</span><div><select value={style} onChange={(e) => setStyle(e.target.value as TermComment["style"])}><option>家长可读</option><option>温和鼓励</option><option>客观正式</option></select><input value={term} onChange={(e) => setTerm(e.target.value)} /><button onClick={() => setDraft(comment)}>重新生成</button></div></div><h2>{student.name}</h2><textarea value={draft} onChange={(event) => setDraft(event.target.value)} /><div className="evidence-row wrap"><span>引用依据</span><em>成绩 {student.score}</em><em>积分 {student.points}</em><em>{student.homework}</em><em>{evidence.length}条沟通/成长记录</em><em>{reflections.length}条考试反思</em></div><section className="comment-evidence"><h3>可引用证据</h3>{evidence.slice(0, 4).map((item) => <button key={item.id} onClick={() => setDraft(`${draft}${draft.endsWith("。") ? "" : "。"}平时记录中还可以看到：${item.content}`)}><b>{item.type}</b><span>{item.content}</span></button>)}{!evidence.length && <p>暂无记录，可先到家校沟通或成长档案补充证据。</p>}</section><footer><button className="primary-small" onClick={save}>保存评语</button><button onClick={() => navigator.clipboard?.writeText(draft)}>复制评语</button></footer></div></div>
+  </>;
 }
 
 function Certificates({ data }: { data: ClassroomData }) {
