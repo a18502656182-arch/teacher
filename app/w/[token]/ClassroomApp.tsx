@@ -974,10 +974,11 @@ function Points({ data, update }: { data: ClassroomData; update: (fn: (d: Classr
   const [ruleId, setRuleId] = useState(rules[0]?.id ?? "");
   const [keyword, setKeyword] = useState("");
   const [operator, setOperator] = useState("班主任");
+  const [note, setNote] = useState("");
+  const [customDelta, setCustomDelta] = useState(rules[0]?.delta ?? 1);
   const [selected, setSelected] = useState<string[]>([]);
-  const [studentIdForHistory, setStudentIdForHistory] = useState("");
   const [page, setPage] = useState(1);
-  const pageSize = 8;
+  const pageSize = 12;
 
   const classes = data.rosterClasses?.length
     ? data.rosterClasses
@@ -986,10 +987,9 @@ function Points({ data, update }: { data: ClassroomData; update: (fn: (d: Classr
   const activeClass = classes.find((item) => item.id === activeClassId) ?? classes[0];
   const students = activeClass?.students?.length ? activeClass.students : data.students;
   const rule = rules.find((item) => item.id === ruleId) ?? rules[0] ?? defaultPointRules[0];
-  const ruleDelta = rule?.delta ?? 1;
-  const absDelta = Math.max(1, Math.abs(ruleDelta));
-  const actionText = (ruleDelta >= 0 ? "加" : "扣") + absDelta;
-  const actionClass = ruleDelta >= 0 ? "plus" : "minus";
+  const value = Number(customDelta) || 0;
+  const absDelta = Math.max(1, Math.abs(value));
+  const actionText = (value >= 0 ? "加" : "扣") + absDelta;
   const groups = Array.from(new Set(students.map((student) => student.group))).sort((a, b) => a - b);
   const filtered = students.filter((student) => (student.name + (student.studentNo ?? "") + "第" + student.group + "组").includes(keyword.trim()));
   const totalPages = Math.max(1, Math.ceil(filtered.length / pageSize));
@@ -999,21 +999,31 @@ function Points({ data, update }: { data: ClassroomData; update: (fn: (d: Classr
   const pageAllSelected = pageStudentIds.length > 0 && pageStudentIds.every((id) => selected.includes(id));
   const events = data.pointEvents ?? [];
   const selectedNames = students.filter((student) => selected.includes(student.id)).map((student) => student.name);
-  const activeHistoryStudent = students.find((student) => student.id === studentIdForHistory) ?? pageStudents[0] ?? students[0];
-  const studentHistory = activeHistoryStudent ? events.filter((event) => event.studentId === activeHistoryStudent.id) : [];
-  const positiveCount = events.filter((event) => event.delta > 0).length;
-  const negativeCount = events.filter((event) => event.delta < 0).length;
+  const studentIds = new Set(students.map((student) => student.id));
+  const classEvents = events.filter((event) => studentIds.has(event.studentId));
+  const positiveTotal = classEvents.filter((event) => event.delta > 0).reduce((sum, event) => sum + event.delta, 0);
+  const negativeTotal = classEvents.filter((event) => event.delta < 0).reduce((sum, event) => sum + Math.abs(event.delta), 0);
+  const participants = new Set(classEvents.map((event) => event.studentId)).size;
+  const timelineGroups = classEvents.slice(0, 30).reduce((result, event) => {
+    const date = event.date.slice(0, 10).replace(/\//g, "-");
+    if (!result[date]) result[date] = [];
+    result[date].push(event);
+    return result;
+  }, {} as Record<string, PointEvent[]>);
 
   useEffect(() => {
     setPage(1);
   }, [keyword, activeClassId]);
+
+  useEffect(() => {
+    setCustomDelta(rule?.delta ?? 1);
+  }, [rule?.id]);
 
   function switchClass(id: string) {
     const nextClass = classes.find((item) => item.id === id);
     if (!nextClass) return;
     update((d) => ({ ...d, activeClassId: id, students: nextClass.students }));
     setSelected([]);
-    setStudentIdForHistory("");
   }
 
   function toggleStudent(id: string) {
@@ -1033,14 +1043,13 @@ function Points({ data, update }: { data: ClassroomData; update: (fn: (d: Classr
   }
 
   function applyScore(studentIds: string[]) {
-    if (!studentIds.length || !rule) return;
-    const value = ruleDelta;
+    if (!studentIds.length || !rule || value === 0) return;
     const stamp = new Date().toLocaleString("zh-CN", { year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit" });
     const newEvents: PointEvent[] = studentIds.map((studentId) => ({
       id: crypto.randomUUID(),
       studentId,
       scene: rule.scene,
-      reason: rule.reason || rule.title,
+      reason: note.trim() ? `${rule.reason || rule.title}｜${note.trim()}` : rule.reason || rule.title,
       delta: value,
       date: stamp,
       operator: operator.trim() || "班主任",
@@ -1052,108 +1061,100 @@ function Points({ data, update }: { data: ClassroomData; update: (fn: (d: Classr
       const nextClasses: RosterClass[] | undefined = d.rosterClasses?.map((item) => item.id === activeClassId ? { ...item, students: updateStudents(item.students) } : item);
       return { ...d, students: nextStudents, rosterClasses: nextClasses, pointEvents: [...newEvents, ...(d.pointEvents ?? [])] };
     });
-    if (studentIds.length === 1) setStudentIdForHistory(studentIds[0]);
     setSelected([]);
+    setNote("");
+  }
+
+  function undoEvent(event: PointEvent) {
+    update((d) => {
+      const nextStudents = d.students.map((student) => student.id === event.studentId ? { ...student, points: student.points - event.delta } : student);
+      const nextClasses = d.rosterClasses?.map((item) => item.id === activeClassId ? { ...item, students: item.students.map((student) => student.id === event.studentId ? { ...student, points: student.points - event.delta } : student) } : item);
+      return { ...d, students: nextStudents, rosterClasses: nextClasses, pointEvents: (d.pointEvents ?? []).filter((item) => item.id !== event.id) };
+    });
   }
 
   return <>
-    <ToolHeading kicker="积分评价" title="先选规则，再选学生，系统自动记录原因和时间" text="页面只做一件事：按已启用规则给学生加分或扣分。正分规则只出现加分按钮，负分规则只出现扣分按钮，避免误操作。" />
-    <section className="simple-guide compact">
-      <article><b>1</b><span>先选规则</span><p>规则决定这次是加分还是扣分。</p></article>
-      <article><b>2</b><span>再选学生</span><p>支持勾选、多选小组和单个学生操作。</p></article>
-      <article><b>3</b><span>自动留痕</span><p>系统记录原因、时间和操作人。</p></article>
+    <ToolHeading kicker="积分事件" title="快速记录日常加减分，并自动沉淀时间轴" text="先选学生，再选规则；可以按小组批量选择，也可以用自定义分数微调。" />
+    <section className="class-tabs points-class-tabs">{classes.map((item) => <button className={activeClassId === item.id ? "active" : ""} key={item.id} onClick={() => switchClass(item.id)}><b>{item.name}</b><span>{item.students.length}人</span></button>)}</section>
+    <section className="points-summary stat-row">
+      <div><span>本周总加分</span><b>{positiveTotal}</b><small className="good">正向事件累计</small></div>
+      <div><span>本周总减分</span><b>{negativeTotal}</b><small className="warn">提醒事件累计</small></div>
+      <div><span>参与人次</span><b>{participants}</b><small>有积分记录的学生</small></div>
+      <div><span>启用规则</span><b>{rules.length}</b><small>来自积分规则库</small></div>
     </section>
-    <section className="points-simple-panel polished">
-      <div className="class-mini-tabs">
-        <span>管理班级</span>
-        {classes.map((item) => <button className={activeClassId === item.id ? "active" : ""} key={item.id} onClick={() => switchClass(item.id)}>{item.name}<small>{item.students.length}人</small></button>)}
-      </div>
-      <div className="score-setup-card aligned">
-        <label className="rule-select-box">
-          <span>本次使用哪条规则？</span>
-          <select value={rule?.id ?? ""} onChange={(event) => setRuleId(event.target.value)}>
-            {rules.map((item) => <option key={item.id} value={item.id}>{item.scene}｜{item.title}｜{item.delta > 0 ? "+" : ""}{item.delta}分</option>)}
-          </select>
-        </label>
-        <article className={ruleDelta >= 0 ? "chosen-rule aligned plus" : "chosen-rule aligned minus"}>
-          <span>{rule?.scene}</span>
-          <b>{rule?.title}</b>
-          <p>{rule?.reason}</p>
-          <em className={ruleDelta >= 0 ? "good-text" : "bad-text"}>{ruleDelta > 0 ? "+" : ""}{ruleDelta} 分</em>
-        </article>
-        <label className="operator-box">
-          <span>操作人</span>
-          <input value={operator} onChange={(event) => setOperator(event.target.value)} placeholder="例如：班主任" />
-        </label>
-      </div>
-      <div className="student-pick-toolbar polished">
-        <input value={keyword} onChange={(event) => setKeyword(event.target.value)} placeholder="搜索姓名、学号、小组" />
-        <div>{groups.map((group) => <button key={group} onClick={() => selectGroup(group)}>选第{group}组</button>)}</div>
-      </div>
-      <div className="batch-scorebar clear polished">
-        <div><b>已选择 {selected.length} 人</b><span>{selectedNames.join("、") || "可勾选学生批量处理，也可直接点单个学生右侧按钮。"}</span></div>
-        <button className={actionClass} onClick={() => applyScore(selected)} disabled={!selected.length}>批量{actionText}</button>
-        <button onClick={() => setSelected([])} disabled={!selected.length}>清空</button>
-      </div>
-      <div className="points-work-grid">
-        <section className="student-score-table">
-          <div className="student-score-head">
-            <label><input type="checkbox" checked={pageAllSelected} onChange={toggleCurrentPage} />全选</label>
-            <span>学生</span>
-            <span>小组/学号</span>
-            <span>当前积分</span>
-            <span>操作</span>
-          </div>
-          {pageStudents.map((student) => <div className={selected.includes(student.id) ? "student-score-line selected" : "student-score-line"} key={student.id}>
-            <label><input type="checkbox" checked={selected.includes(student.id)} onChange={() => toggleStudent(student.id)} /></label>
-            <button className="student-name-link" onClick={() => setStudentIdForHistory(student.id)}>{student.name}</button>
-            <small>第{student.group}组 · 学号{student.studentNo}</small>
-            <b>{student.points}分</b>
-            <div><button className={actionClass} onClick={() => applyScore([student.id])}>{actionText}</button></div>
-          </div>)}
-          <div className="points-pagination">
-            <button disabled={safePage <= 1} onClick={() => setPage(1)}>首页</button>
-            <button disabled={safePage <= 1} onClick={() => setPage(safePage - 1)}>上一页</button>
-            <span>第 {safePage} / {totalPages} 页 · 共 {filtered.length} 人</span>
-            <button disabled={safePage >= totalPages} onClick={() => setPage(safePage + 1)}>下一页</button>
-            <button disabled={safePage >= totalPages} onClick={() => setPage(totalPages)}>末页</button>
-          </div>
-        </section>
-        <aside className="student-history-card">
-          <header><span>学生积分记录</span><h3>{activeHistoryStudent?.name ?? "请选择学生"}</h3><p>点击左侧学生姓名，可查看他每次加扣分的原因和操作时间。</p></header>
-          <div className="student-history-list">
-            {!studentHistory.length && <p className="empty-history">暂无积分增减记录。</p>}
-            {studentHistory.slice(0, 12).map((event) => <article key={event.id}>
-              <b className={event.delta > 0 ? "good-text" : "bad-text"}>{event.delta > 0 ? "+" : ""}{event.delta}</b>
-              <div><span>{event.scene} · {event.reason}</span><small>操作时间：{event.date} · 操作人：{event.operator ?? "班主任"}</small></div>
-            </article>)}
-          </div>
-        </aside>
-      </div>
-    </section>
-    <section className="points-bottom-grid">
-      <article className="paper-card"><h3>本页目前做什么？</h3><p>只做日常记录：谁因为哪条规则加/扣了几分。排行榜、周报、评语后面会读取这些记录。</p></article>
-      <article className="paper-card"><h3>今日记录</h3><p>表扬 {positiveCount} 条，提醒 {negativeCount} 条。</p>{events.slice(0, 5).map((event) => <div className="mini-event" key={event.id}><b className={event.delta > 0 ? "good-text" : "bad-text"}>{event.delta > 0 ? "+" : ""}{event.delta}</b><span>{students.find((student) => student.id === event.studentId)?.name ?? "其他班学生"} · {event.reason} · {event.date}</span></div>)}</article>
+    <section className="points-split">
+      <aside className="points-input-panel">
+        <h3><span>＋</span>快速录入</h3>
+        <div className="form-section"><label>学生多选</label><div className="batch-actions"><button onClick={toggleCurrentPage}>{pageAllSelected ? "取消本页" : "选择本页"}</button><button onClick={() => setSelected(students.map((student) => student.id))}>全班</button><button onClick={() => setSelected([])}>清空</button></div><div className="batch-actions">{groups.slice(0, 4).map((group) => <button key={group} onClick={() => selectGroup(group)}>第{group}组</button>)}</div><div className="resource-search compact-search"><span>⌕</span><input value={keyword} onChange={(event) => setKeyword(event.target.value)} placeholder="搜索姓名、学号、小组" /></div><div className="student-picker points-picker">{pageStudents.map((student) => <button className={selected.includes(student.id) ? "selected" : ""} key={student.id} onClick={() => toggleStudent(student.id)}>{student.name}</button>)}</div></div>
+        <div className="form-section"><label>规则快选</label><div className="rule-picker">{rules.slice(0, 6).map((item) => <button className={item.id === rule?.id ? "selected" : ""} key={item.id} onClick={() => setRuleId(item.id)}><span className="rule-name">{item.scene} · {item.title}</span><span className={item.delta >= 0 ? "rule-score positive" : "rule-score negative"}>{item.delta > 0 ? "+" : ""}{item.delta}</span></button>)}</div></div>
+        <div className="form-section"><label>自定义分数</label><div className="custom-score-input"><input type="range" min={-10} max={10} value={customDelta} onChange={(event) => setCustomDelta(Number(event.target.value))} /><span className="score-display">{value > 0 ? "+" : ""}{value}</span></div></div>
+        <div className="form-section"><label>备注</label><textarea value={note} onChange={(event) => setNote(event.target.value)} placeholder="可补充具体事实，如：主动帮同学讲题" rows={3} /></div>
+        <label className="operator-box"><span>操作人</span><input value={operator} onChange={(event) => setOperator(event.target.value)} placeholder="例如：班主任" /></label>
+        <button className="points-submit-btn" disabled={!selected.length || value === 0} onClick={() => applyScore(selected)}><span>{value >= 0 ? "＋" : "－"}</span>{selected.length ? `给 ${selected.length} 人${actionText}` : "请选择学生"}</button>
+        <p className="points-selected-names">{selectedNames.join("、") || "还未选择学生"}</p>
+      </aside>
+      <section className="points-timeline"><h3><span>本周积分事件时间轴</span><small>{classEvents.length} 条</small></h3>
+        {Object.keys(timelineGroups).map((date) => <div className="timeline-date-group" key={date}><div className="timeline-date-header"><span>{date}</span></div>{timelineGroups[date].map((event) => { const student = students.find((item) => item.id === event.studentId); return <article className={event.delta > 0 ? "point-event positive" : "point-event negative"} key={event.id}><div className="point-event-score">{event.delta > 0 ? "+" : ""}{event.delta}</div><div className="point-event-body"><div className="student-names">{student?.name ?? "其他班学生"}</div><div className="rule-label">{event.scene} · {event.reason}</div><div className="point-event-meta"><span>记</span>{event.operator ?? "班主任"} · {event.date}</div></div><div className="point-event-actions"><button onClick={() => undoEvent(event)}>撤销</button></div></article>; })}</div>)}
+        {!classEvents.length && <div className="timeline-empty"><span>分</span><p>还没有积分事件，左侧提交后会立刻出现在这里。</p></div>}
+      </section>
     </section>
   </>;
 }
 
 
 function Rules({ data, update }: { data: ClassroomData; update: (fn: (d: ClassroomData) => ClassroomData) => void }) {
-  const [current, setCurrent] = useState<keyof typeof ruleSets>("小学温和版");
-  const rule = ruleSets[current];
+  const [category, setCategory] = useState("全部");
+  const [showForm, setShowForm] = useState(false);
+  const [draft, setDraft] = useState({ scene: "学习", title: "", reason: "", delta: 1, owner: "班主任", level: "自定义" as PointRule["level"] });
   const rules = data.pointRules?.length ? data.pointRules : defaultPointRules;
-  const visibleRules = rules.filter((item) => rule.levels.includes(item.level));
-  const sceneNames = Array.from(new Set(visibleRules.map((item) => item.scene)));
+  const categories = ["全部", ...Array.from(new Set(rules.map((item) => item.scene)))];
+  const visibleRules = rules.filter((item) => category === "全部" || item.scene === category);
+  const activeRules = rules.filter((item) => item.enabled !== false);
+  const positiveRules = rules.filter((item) => item.delta > 0).length;
+  const negativeRules = rules.filter((item) => item.delta < 0).length;
+  const usageFor = (item: PointRule) => (data.pointEvents ?? []).filter((event) => event.scene === item.scene && (event.reason.includes(item.title) || event.reason.includes(item.reason) || item.reason.includes(event.reason))).length;
   function editRule(id: string, patch: Partial<PointRule>) {
     update((d) => ({ ...d, pointRules: (d.pointRules?.length ? d.pointRules : defaultPointRules).map((item) => item.id === id ? { ...item, ...patch } : item) }));
   }
   function addRule() {
-    const newRule: PointRule = { id: crypto.randomUUID(), scene: "自定义", title: "新规则", reason: "填写评价口径", delta: 1, owner: "班主任", enabled: true, level: "自定义", detail: "根据班级需要补充。" };
+    if (!draft.title.trim() || !draft.reason.trim()) return;
+    const newRule: PointRule = { id: crypto.randomUUID(), scene: draft.scene.trim() || "其他", title: draft.title.trim(), reason: draft.reason.trim(), delta: Number(draft.delta) || 0, owner: draft.owner.trim() || "班主任", enabled: true, level: draft.level, detail: "由班主任自定义添加。" };
     update((d) => ({ ...d, pointRules: [newRule, ...(d.pointRules?.length ? d.pointRules : defaultPointRules)] }));
-    setCurrent("班级精细版");
+    setDraft({ scene: "学习", title: "", reason: "", delta: 1, owner: "班主任", level: "自定义" });
+    setCategory(newRule.scene);
+    setShowForm(false);
   }
-  return <><ToolHeading kicker="积分规则" title="规则可编辑，积分评价才有据可依" text="严格按照计划：小学版、初中版、温和版、严格版都可启用、停用、改分值和自定义。" action={<button className="primary-small" onClick={addRule}>＋ 新增规则</button>} /><section className="rules-hero"><div><span>当前方案</span><h2>{current}</h2><p>{rule.focus}</p></div><aside>{rule.rhythm.map((item) => <b key={item}>{item}</b>)}</aside></section><div className="segmented">{(Object.keys(ruleSets) as Array<keyof typeof ruleSets>).map((name) => <button className={current === name ? "active" : ""} key={name} onClick={() => setCurrent(name)}>{name}</button>)}</div><section className="rule-scene-tabs">{sceneNames.map((scene) => <span key={scene}>{scene}</span>)}</section><section className="rules-editor"><div className="rules-editor-head"><span>启用</span><span>版本</span><span>场景</span><span>规则名称</span><span>评价口径</span><span>分值</span><span>负责人</span></div>{visibleRules.map((item) => <div className={item.enabled ? "rule-edit-line" : "rule-edit-line disabled"} key={item.id}><label><input type="checkbox" checked={item.enabled} onChange={(e)=>editRule(item.id,{enabled:e.target.checked})} />{item.enabled ? "启用" : "停用"}</label><select value={item.level} onChange={(e)=>editRule(item.id,{level:e.target.value as PointRule["level"]})}>{["小学版","初中版","温和版","严格版","自定义"].map((level)=><option key={level}>{level}</option>)}</select><input value={item.scene} onChange={(e)=>editRule(item.id,{scene:e.target.value})} /><input value={item.title} onChange={(e)=>editRule(item.id,{title:e.target.value})} /><input value={item.reason} onChange={(e)=>editRule(item.id,{reason:e.target.value})} /><input type="number" value={item.delta} onChange={(e)=>editRule(item.id,{delta:Number(e.target.value)||0})} /><input value={item.owner} onChange={(e)=>editRule(item.id,{owner:e.target.value})} /><textarea value={item.detail ?? ""} onChange={(e)=>editRule(item.id,{detail:e.target.value})} /></div>)}</section><section className="rule-workflow"><article><b>1</b><span>先定规则</span><p>班主任选一个方案，明确每类事项由谁记录。</p></article><article><b>2</b><span>课堂即时记</span><p>积分评价页会读取已启用规则，作为快捷原因。</p></article><article><b>3</b><span>周末再复盘</span><p>用积分榜、成长档案和周报判断谁该表扬、谁要跟进。</p></article></section></>;
+  function copyRule(item: PointRule) {
+    const copied: PointRule = { ...item, id: crypto.randomUUID(), title: `${item.title} 副本`, enabled: true, level: "自定义" };
+    update((d) => ({ ...d, pointRules: [copied, ...(d.pointRules?.length ? d.pointRules : defaultPointRules)] }));
+  }
+  function deleteRule(id: string) {
+    const target = rules.find((item) => item.id === id);
+    if (!target || !window.confirm(`确认删除规则“${target.title}”吗？历史积分记录不会删除。`)) return;
+    update((d) => ({ ...d, pointRules: (d.pointRules?.length ? d.pointRules : defaultPointRules).filter((item) => item.id !== id) }));
+  }
+  return <>
+    <ToolHeading kicker="积分规则" title="管理班级常用加减分规则库" text="规则会同步到积分事件页，班主任可以按纪律、学习、卫生、活动等分类维护。" action={<button className="primary-small" onClick={() => setShowForm((value) => !value)}>{showForm ? "收起表单" : "＋ 添加规则"}</button>} />
+    <section className="rules-summary stat-row">
+      <div><span>总规则数</span><b>{rules.length}</b><small>{activeRules.length} 条已启用</small></div>
+      <div><span>加分规则</span><b>{positiveRules}</b><small className="good">正向激励</small></div>
+      <div><span>减分规则</span><b>{negativeRules}</b><small className="warn">提醒约束</small></div>
+      <div><span>本周使用</span><b>{data.pointEvents?.length ?? 0}</b><small>积分事件记录</small></div>
+    </section>
+    {showForm && <section className="rule-form"><h3><span>＋</span>添加规则</h3><div className="form-row half"><label>分类<input value={draft.scene} onChange={(event) => setDraft({ ...draft, scene: event.target.value })} /></label><label>分值<input type="number" value={draft.delta} onChange={(event) => setDraft({ ...draft, delta: Number(event.target.value) })} /></label></div><div className="form-row"><label>规则名称<input value={draft.title} onChange={(event) => setDraft({ ...draft, title: event.target.value })} placeholder="如：主动讲题" /></label></div><div className="form-row"><label>评价口径<textarea value={draft.reason} onChange={(event) => setDraft({ ...draft, reason: event.target.value })} placeholder="写清楚什么时候可以使用这条规则" rows={3} /></label></div><div className="form-row half"><label>负责人<input value={draft.owner} onChange={(event) => setDraft({ ...draft, owner: event.target.value })} /></label><label>版本<select value={draft.level} onChange={(event) => setDraft({ ...draft, level: event.target.value as PointRule["level"] })}>{["小学版","初中版","温和版","严格版","自定义"].map((level)=><option key={level}>{level}</option>)}</select></label></div><footer className="form-actions"><button className="ghost-btn" onClick={() => setShowForm(false)}>取消</button><button className="primary-small" disabled={!draft.title.trim() || !draft.reason.trim()} onClick={addRule}>保存规则</button></footer></section>}
+    <section className="rules-toolbar"><div className="category-filter">{categories.map((item) => <button className={category === item ? "active" : ""} key={item} onClick={() => setCategory(item)}>{item}</button>)}</div><span className="spacer" /><button className="ghost-btn" onClick={() => setCategory("全部")}>显示全部</button></section>
+    <section className="rules-grid cards">
+      {visibleRules.map((item) => <article className={`rule-card ${item.delta >= 0 ? "positive" : "negative"} ${item.enabled === false ? "disabled" : ""}`} key={item.id}>
+        <header className="rule-card-header"><input className="rule-card-category" value={item.scene} onChange={(event) => editRule(item.id, { scene: event.target.value })} /><input className="rule-card-score" type="number" value={item.delta} onChange={(event) => editRule(item.id, { delta: Number(event.target.value) || 0 })} /></header>
+        <input className="rule-card-title-input" value={item.title} onChange={(event) => editRule(item.id, { title: event.target.value })} />
+        <textarea className="rule-card-desc" value={item.reason} onChange={(event) => editRule(item.id, { reason: event.target.value })} />
+        <div className="rule-card-stats"><span>本周使用</span><b>{usageFor(item)} 次</b><span>{item.level}</span></div>
+        <label className="rule-owner-line">负责人<input value={item.owner} onChange={(event) => editRule(item.id, { owner: event.target.value })} /></label>
+        <div className="rule-card-actions"><button onClick={() => editRule(item.id, { enabled: item.enabled === false })}>{item.enabled === false ? "启用" : "停用"}</button><button onClick={() => copyRule(item)}>复制</button><button className="danger" onClick={() => deleteRule(item.id)}>删除</button></div>
+      </article>)}
+      {!visibleRules.length && <div className="rules-empty"><span>规</span><h3>当前分类没有规则</h3><p>可以切回全部，或添加一条新规则。</p></div>}
+    </section>
+  </>;
 }
 
 type GrowthKind = "沟通记录" | "积分表现" | "作业记录" | "老师补充";
@@ -1250,6 +1251,16 @@ function Growth({ data, update }: { data: ClassroomData; update: (fn: (d: Classr
     records.length + manual.length === 0 ? "补充一次谈心、家访、表扬或课堂观察记录。" : "根据最近一条证据安排下次观察或回访。",
   ];
   const summary = `${student.name}：当前${status}。成绩${student.score}分，积分${student.points}分，作业完成率${homeworkRate}%，已沉淀${evidence.length}条成长证据。优势：${strengths.join("；")}。下一步：${followUps[0]}`;
+  const monthStart = new Date();
+  monthStart.setDate(1);
+  monthStart.setHours(0, 0, 0, 0);
+  const monthlyEvidence = evidence.filter((item) => item.timestamp && item.timestamp >= monthStart.getTime()).length;
+  const studentsWithEvidence = data.students.filter((item) => {
+    const hasManual = (data.growthEvidence ?? []).some((record) => record.studentId === item.id);
+    const hasPoints = (data.pointEvents ?? []).some((event) => event.studentId === item.id);
+    const hasRecords = data.records.some((record) => record.student === item.name);
+    return hasManual || hasPoints || hasRecords;
+  }).length;
 
   function selectStudent(studentId: string) {
     setId(studentId); setPage(1); setShowComposer(false); setFormError("");
@@ -1268,21 +1279,38 @@ function Growth({ data, update }: { data: ClassroomData; update: (fn: (d: Classr
   }
 
   return <>
-    <ToolHeading kicker="成长档案" title="让每一条日常记录都成为成长证据" text="自动归集作业、积分、成绩、考勤、沟通和表扬记录，也可以由班主任补充具体事实与后续措施。" action={<div className="growth-heading-actions"><button className="ghost-btn" onClick={() => window.print()}>打印学生档案</button><button className="primary-small" onClick={() => setShowComposer(true)}>＋ 补充成长证据</button></div>} />
-    <div className="growth-layout">
-      <aside className="growth-student-panel">
-        <div className="growth-student-head"><div><span>学生目录</span><b>{data.students.length} 名学生</b></div><small>搜索并选择一名学生</small></div>
-        <label className="growth-search"><span>⌕</span><input value={keyword} onChange={(event) => setKeyword(event.target.value)} placeholder="搜索姓名、学号或小组" /></label>
-        <div className="growth-student-list">{shownStudents.map((item) => { const needsAttention = item.score < 80 || item.homework !== "已交" || item.attendance !== "正常"; return <button className={item.id === student.id ? "selected" : ""} key={item.id} onClick={() => selectStudent(item.id)}><i>{item.name.slice(0, 1)}</i><span><b>{item.name}</b><small>学号 {item.studentNo || "未填"} · 第{item.group}组</small></span><em className={needsAttention ? "attention" : ""}>{needsAttention ? "待关注" : `${item.points}分`}</em></button>; })}{!shownStudents.length && <div className="growth-empty-students">没有找到匹配的学生</div>}</div>
+    <ToolHeading kicker="成长记录" title="按学生沉淀成长轨迹和家长会素材" text="从积分、作业、沟通记录中自动汇入，也可以手动补充学习、活动、荣誉、日常和进步事实。" action={<div className="growth-heading-actions"><button className="ghost-btn" onClick={copySummary}>{copyState}</button><button className="primary-small" onClick={() => window.print()}>导出素材</button></div>} />
+    <section className="growth-summary stat-row">
+      <div><span>总记录数</span><b>{evidence.length}</b><small>当前学生</small></div>
+      <div><span>本月新增</span><b>{monthlyEvidence}</b><small>最近沉淀</small></div>
+      <div><span>有记录学生</span><b>{studentsWithEvidence}</b><small>全班覆盖</small></div>
+      <div><span>照片数</span><b>0</b><small>照片上传后续接入</small></div>
+    </section>
+    <section className="growth-student-selector">
+      <label>选择学生</label>
+      <select value={student.id} onChange={(event) => selectStudent(event.target.value)}>{data.students.map((item) => <option key={item.id} value={item.id}>{item.name} · 学号 {item.studentNo || "未填"}</option>)}</select>
+      <div className="student-avatar">{student.name.slice(0, 1)}</div>
+      <div className="student-info"><b>{student.name}</b><small>第{student.group}组 · {status} · 作业完成率 {homeworkRate}%</small></div>
+    </section>
+    <section className="growth-split">
+      <aside className="growth-input-panel">
+        <h3><span>＋</span>添加记录</h3>
+        <div className="form-section"><label>日期</label><input type="date" value={draft.date} onChange={(event) => setDraft({ ...draft, date: event.target.value })} /></div>
+        <div className="form-section"><label>标题</label><input value={draft.title} maxLength={40} onChange={(event) => setDraft({ ...draft, title: event.target.value })} placeholder="如：作文获奖" /></div>
+        <div className="form-section"><label>内容描述</label><textarea value={draft.content} maxLength={500} onChange={(event) => setDraft({ ...draft, content: event.target.value })} placeholder="记录具体事实、作品表现或老师观察。" /></div>
+        <div className="form-section"><label>照片 / 作品扫描</label><div className="photo-upload-zone"><span>图</span><p>点击上传照片</p><small>当前先保留入口，后续接入真实图片存储</small></div></div>
+        <div className="form-section"><label>标签</label><div className="tag-selector">{["学习","活动","荣誉","日常","进步"].map((tag) => <button className={draft.type === tag ? "selected" : ""} key={tag} onClick={() => setDraft({ ...draft, type: tag })}>{tag}</button>)}</div></div>
+        <div className="form-section"><label>后续观察点</label><textarea value={draft.followUp} maxLength={300} onChange={(event) => setDraft({ ...draft, followUp: event.target.value })} placeholder="如：下周继续观察课堂发言。" rows={3} /></div>
+        {formError && <p className="growth-form-error">{formError}</p>}
+        <button className="points-submit-btn" onClick={saveEvidence}>保存成长记录</button>
       </aside>
-      <div className="growth-main">
-        <section className="growth-hero-card"><div className="growth-identity"><i>{student.name.slice(0, 1)}</i><div><span>学生成长档案</span><h2>{student.name}</h2><p>学号 {student.studentNo || "未填写"} · 第{student.group}组 · {student.gender}生{cadre ? ` · ${cadre.role}` : ""}</p></div></div><div className={`growth-status ${statusTone}`}><span>当前状态</span><b>{status}</b><small>{student.note || "暂无特别备注"}</small></div></section>
-        <section className="growth-metrics"><article><span>当前成绩</span><b>{student.score}<small>分</small></b><em>{student.score >= 90 ? "优秀" : student.score >= 80 ? "稳定" : "需帮扶"}</em></article><article><span>班级积分</span><b>{student.points}<small>分</small></b><em>{positiveEvents.length} 条正向记录</em></article><article><span>作业完成率</span><b>{homeworkRate}<small>%</small></b><em>{homeworkDone}/{homework.length || 0} 项完成</em></article><article><span>成长证据</span><b>{evidence.length}<small>条</small></b><em>沟通 {records.length} · 补充 {manual.length}</em></article></section>
-        <div className="growth-insight-grid"><section className="growth-insight-card strengths"><header><div><span>学生画像</span><h3>由事实归纳的优势与基础</h3></div><b>画像</b></header><ul>{strengths.map((item) => <li key={item}>{item}</li>)}</ul><div className="growth-tags"><span>{student.attendance}</span><span>{student.homework}</span>{cadre && <span>{cadre.role}</span>}</div></section><section className="growth-insight-card follow"><header><div><span>下一步</span><h3>可以执行的跟进建议</h3></div><b>行动</b></header><ol>{followUps.map((item, index) => <li key={item}><i>{index + 1}</i><span>{item}</span></li>)}</ol></section></div>
-        {showComposer && <section className="growth-composer"><header><div><span>班主任补充</span><h3>为 {student.name} 添加成长证据</h3><p>按参考表单保留“时间—具体事实—后续措施”，避免只写笼统评价。</p></div><button onClick={() => setShowComposer(false)} aria-label="关闭">×</button></header><div className="growth-form-grid"><label><span>发生日期 *</span><input type="date" value={draft.date} onChange={(event) => setDraft({ ...draft, date: event.target.value })} /></label><label><span>记录类型 *</span><select value={draft.type} onChange={(event) => setDraft({ ...draft, type: event.target.value })}>{["表扬记录", "课堂表现", "学习进步", "问题与反思", "谈心跟进", "家校沟通", "活动与劳动", "其他"].map((item) => <option key={item}>{item}</option>)}</select></label><label className="wide"><span>简短标题 *</span><input value={draft.title} maxLength={40} onChange={(event) => setDraft({ ...draft, title: event.target.value })} placeholder="如：第一次主动上台讲题" /></label><label className="wide"><span>具体事实 / 事情经过 *</span><textarea value={draft.content} maxLength={500} onChange={(event) => setDraft({ ...draft, content: event.target.value })} placeholder="记录看见、听见或核实到的具体行为，不贴标签。" /></label><label className="wide"><span>后续措施 / 下次观察点</span><textarea value={draft.followUp} maxLength={300} onChange={(event) => setDraft({ ...draft, followUp: event.target.value })} placeholder="如：下周继续观察课堂发言，并在周五反馈。" /></label></div>{formError && <p className="growth-form-error">{formError}</p>}<footer><span>添加后需点击页面右上角“保存更改”，记录才会长期保留。</span><div><button className="ghost-btn" onClick={() => setShowComposer(false)}>取消</button><button className="primary-small" onClick={saveEvidence}>添加到档案</button></div></footer></section>}
-        <section className="growth-evidence-card"><header className="growth-evidence-head"><div><span>成长证据</span><h3>按时间与类型查看记录</h3><p>来源包括作业追踪、积分评价、家校沟通和班主任补充。</p></div><button onClick={copySummary}>{copyState}</button></header><div className="growth-filter-row"><label><span>时间范围</span><select value={range} onChange={(event) => { setRange(event.target.value as GrowthTime); setPage(1); }}>{["全部时间", "近7天", "近30天", "本学期"].map((item) => <option key={item}>{item}</option>)}</select></label><label><span>记录类型</span><select value={kind} onChange={(event) => { setKind(event.target.value as "全部类型" | GrowthKind); setPage(1); }}>{["全部类型", "沟通记录", "积分表现", "作业记录", "老师补充"].map((item) => <option key={item}>{item}</option>)}</select></label><span className="growth-result-count">筛选到 {filteredEvidence.length} 条</span></div><div className="growth-timeline">{visibleEvidence.map((item) => <article className={item.tone} key={item.id}><div className="growth-timeline-mark"><i></i></div><div className="growth-evidence-content"><header><span>{item.kind} · {item.label}</span><time>{item.date}</time></header><h4>{item.title}</h4><p>{item.content}</p>{item.followUp && <div className="growth-followup-note"><b>后续措施</b><span>{item.followUp}</span></div>}</div></article>)}{!visibleEvidence.length && <div className="growth-empty-evidence"><b>{evidence.length ? "当前筛选条件下没有记录" : "还没有成长证据"}</b><span>{evidence.length ? "可以放宽时间或记录类型。" : "先补充一条具体事实，后续作业、积分和沟通记录也会自动汇入。"}</span>{!evidence.length && <button className="primary-small" onClick={() => setShowComposer(true)}>补充第一条证据</button>}</div>}</div>{filteredEvidence.length > pageSize && <div className="growth-pagination"><button disabled={safePage <= 1} onClick={() => setPage((current) => Math.max(1, current - 1))}>上一页</button><span>第 {safePage} / {pageCount} 页</span><button disabled={safePage >= pageCount} onClick={() => setPage((current) => Math.min(pageCount, current + 1))}>下一页</button></div>}</section>
-      </div>
-    </div>
+      <section className="growth-timeline spec"><h3><span>成长时间轴</span>{filteredEvidence.length > 0 && <small>{filteredEvidence.length} 条</small>}</h3>
+        <div className="growth-filter-row"><label><span>时间范围</span><select value={range} onChange={(event) => { setRange(event.target.value as GrowthTime); setPage(1); }}>{["全部时间", "近7天", "近30天", "本学期"].map((item) => <option key={item}>{item}</option>)}</select></label><label><span>记录类型</span><select value={kind} onChange={(event) => { setKind(event.target.value as "全部类型" | GrowthKind); setPage(1); }}>{["全部类型", "沟通记录", "积分表现", "作业记录", "老师补充"].map((item) => <option key={item}>{item}</option>)}</select></label></div>
+        {visibleEvidence.map((item) => <article className="growth-record" key={item.id}><div className="growth-record-date">{item.date}</div><div className="growth-record-title">{item.title}</div><div className="growth-record-tags"><span>{item.kind}</span><span>{item.label}</span></div><div className="growth-record-content">{item.content}</div>{item.followUp && <div className="growth-followup-note"><b>后续措施</b><span>{item.followUp}</span></div>}<div className="growth-record-meta"><span>记</span>{student.name} · {item.tone === "attention" ? "需关注" : item.tone === "positive" ? "正向记录" : "日常记录"}</div></article>)}
+        {!visibleEvidence.length && <div className="growth-empty"><span>档</span><p>{evidence.length ? "当前筛选条件下没有记录。" : "还没有成长记录，先从左侧添加第一条。"}</p></div>}
+        {filteredEvidence.length > pageSize && <div className="growth-pagination"><button disabled={safePage <= 1} onClick={() => setPage((current) => Math.max(1, current - 1))}>上一页</button><span>第 {safePage} / {pageCount} 页</span><button disabled={safePage >= pageCount} onClick={() => setPage((current) => Math.min(pageCount, current + 1))}>下一页</button></div>}
+      </section>
+    </section>
   </>;
 }
 
