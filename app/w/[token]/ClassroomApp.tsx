@@ -1759,6 +1759,7 @@ function Seating({ data, update }: { data: ClassroomData; update: (fn: (d: Class
   const [selected, setSelected] = useState<string | null>(null);
   const [dragged, setDragged] = useState<string | null>(null);
   const [message, setMessage] = useState("");
+  const [layoutMode, setLayoutMode] = useState<"秧田式" | "小组式" | "U型">("秧田式");
   const [lastStudents, setLastStudents] = useState<Student[] | null>(null);
   const [needsOpen, setNeedsOpen] = useState(false);
   const config: SeatingConfig = data.seatingConfig ?? { rows: 6, columns: 6, groupCount: Math.max(1, ...data.students.map((student) => student.group || 1)), aisleAfter: [2, 4] };
@@ -1950,14 +1951,23 @@ function Seating({ data, update }: { data: ClassroomData; update: (fn: (d: Class
     return { number, students: sortedStudents.filter((student) => student.group === number) };
   });
   const specialCount = data.students.filter((student) => student.seatFixed || (student.seatNeed && student.seatNeed !== "无") || student.avoidWith).length;
+  const assignedCount = sortedStudents.filter((student) => student.seat >= 1 && student.seat <= capacity).length;
+  const unassignedCount = Math.max(0, data.students.length - assignedCount);
 
   return <>
     <ToolHeading kicker="座位与分组" title="把真实教室排成一张能调整、能打印的座位表" text="名单自动带入；电脑端可拖动或点选换座，手机端用学生卡片操作。" action={<div className="seat-heading-actions"><button className="soft-action" onClick={rotateRows}>前后排轮换</button><button className="primary-small" onClick={smartArrange}>智能排座</button></div>} />
     <section className="seat-summary">
-      <article><span>当前学生</span><b>{data.students.length}</b><small>来自当前班级名单</small></article>
-      <article><span>教室容量</span><b>{capacity}</b><small>{config.rows}排 × {config.columns}列</small></article>
-      <article><span>学习小组</span><b>{config.groupCount}</b><small>按座位列自动分组</small></article>
-      <article><span>特殊安排</span><b>{specialCount}</b><small>固定座 / 座位需求 / 避让</small></article>
+      <article><span>总座位</span><b>{capacity}</b><small>{config.rows}排 × {config.columns}列</small></article>
+      <article><span>已分配</span><b>{assignedCount}</b><small>来自当前班级名单</small></article>
+      <article><span>未分配</span><b>{unassignedCount}</b><small>超过容量时需增排</small></article>
+      <article><span>本学期调整</span><b>{specialCount}</b><small>固定座 / 座位需求 / 避让</small></article>
+    </section>
+    <section className="seating-toolbar">
+      <div className="layout-mode-selector">{(["秧田式", "小组式", "U型"] as const).map((mode) => <button className={layoutMode === mode ? "active" : ""} key={mode} onClick={() => setLayoutMode(mode)}>{mode}</button>)}</div>
+      <button className="ghost-btn" onClick={smartArrange}>自动排座</button>
+      <button className="ghost-btn" disabled={!lastStudents} onClick={undo}>历史版本/撤销</button>
+      <span className="spacer" />
+      <button className="primary-small" onClick={() => window.print()}>保存/打印</button>
     </section>
     <section className="seat-controls paper-card">
       <div className="seat-control-fields">
@@ -1970,18 +1980,18 @@ function Seating({ data, update }: { data: ClassroomData; update: (fn: (d: Class
     </section>
     {message && <div className="inline-alert seat-message" onClick={() => setMessage("")}>{message}<span>×</span></div>}
     <div className="seat-instruction"><b>{selected ? `已选择 ${data.students.find((student) => student.id === selected)?.name ?? "学生"}` : "手动调整座位"}</b><span>{selected ? "再点另一名学生或空座位即可移动；电脑端也可以直接拖动" : "先点一名学生，再点目标座位；固定座只限制自动排座"}</span></div>
-    <section className="seating-workspace">
-      <div className="seating-wrap seating-advanced">
-        <div className="blackboard">黑 板</div>
+    <section className={`seating-workspace seating-mode-${layoutMode}`}>
+      <div className="seating-wrap seating-advanced seating-canvas">
+        <div className="blackboard podium"><span>讲</span>讲 台</div>
         <div className="classroom-orientation"><span>前门</span><b>面向黑板</b><span>窗户</span></div>
-        <div className="seat-grid advanced-grid" style={{ gridTemplateColumns: `repeat(${config.columns}, minmax(76px, 1fr))` }}>
+        <div className={`seat-grid advanced-grid seats-grid rows-${config.rows}`} style={{ gridTemplateColumns: `repeat(${config.columns}, minmax(76px, 1fr))` }}>
           {Array.from({ length: capacity }, (_, index) => index + 1).map((seat) => {
             const student = studentBySeat.get(seat);
             const column = (seat - 1) % config.columns + 1;
             const row = Math.floor((seat - 1) / config.columns) + 1;
             const aisleEdge = config.aisleAfter.includes(column);
             return <button
-              className={`seat-slot ${student ? "occupied" : "empty"} ${student && selected === student.id ? "selected" : ""} ${student?.seatFixed ? "fixed" : ""} ${aisleEdge ? "aisle-edge" : ""}`}
+              className={`seat-slot seat-card ${student ? "occupied" : "empty"} ${student && selected === student.id ? "selected" : ""} ${student?.seatFixed ? "fixed" : ""} ${aisleEdge ? "aisle-edge" : ""}`}
               aria-label={`${student?.name ?? "空座"} 座位${seat}`}
               draggable={Boolean(student)}
               onDragStart={() => { if (student) setDragged(student.id); }}
@@ -1991,8 +2001,8 @@ function Seating({ data, update }: { data: ClassroomData; update: (fn: (d: Class
               onClick={() => chooseSeat(seat, student)}
               key={seat}
             >
-              <small>{row}排{column}列 · 座{seat}</small>
-              {student ? <><span>{student.name}{student.groupLeader ? <i>组长</i> : null}</span><em>第{student.group}组 · {student.studentNo || "未填学号"}</em><strong>{student.seatFixed ? "固定座" : student.seatNeed && student.seatNeed !== "无" ? student.seatNeed : student.avoidWith ? "需避让" : "可调整"}</strong></> : <><span>空座</span><em>可移动学生到这里</em></>}
+              <small className="seat-number">{seat}</small>
+              {student ? <><i className="seat-avatar">{student.name.slice(0, 1)}</i><span className="seat-name">{student.name}{student.groupLeader ? <em className="seat-badge">长</em> : null}</span><em>第{student.group}组 · {student.studentNo || "未填学号"}</em><strong>{student.seatFixed ? "固定座" : student.seatNeed && student.seatNeed !== "无" ? student.seatNeed : student.avoidWith ? "需避让" : "可调整"}</strong></> : <><span>空座</span><em>可移动学生到这里</em></>}
             </button>;
           })}
         </div>

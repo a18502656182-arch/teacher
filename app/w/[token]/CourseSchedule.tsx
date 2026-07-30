@@ -57,6 +57,9 @@ export function CourseSchedule({ data, update }: { data: ClassroomData; update: 
   const todayIndex = Math.max(0, Math.min(viewConfig.days.length - 1, new Date().getDay() - 1));
   const todayCourses = viewCourses[todayIndex] ?? [];
   const filledCells = viewCourses.flat().filter((item) => item.trim()).length;
+  const totalSlots = Math.max(1, viewConfig.days.length * viewConfig.periods.length);
+  const coreHours = viewCourses.flat().filter((item) => ["语文", "数学", "英语", "物理", "化学", "生物"].some((subject) => item.includes(subject))).length;
+  const freeSlots = totalSlots - filledCells;
   const hasScheduleData = storedWeeks.length > 0 || filledCells > 0 || viewEvents.length > 0 || viewFocuses.length > 0;
   const firstColumnWidth = isEditing ? 270 : 150;
   const dayColumnWidth = isEditing ? 150 : 130;
@@ -176,8 +179,22 @@ export function CourseSchedule({ data, update }: { data: ClassroomData; update: 
   }
 
   return <>
-    <ToolHeading kicker="课程与日程" title="长期查看和编辑每月每周课表" text="日历只负责定位年月周；学期范围、开学时间和学校说明都由老师自己填写，适合全国不同地区使用。" />
+    <ToolHeading kicker="课程表" title="长期查看和编辑每月每周课表" text="日历只负责定位年月周；学期范围、开学时间和学校说明都由老师自己填写，适合全国不同地区使用。" action={<button className="primary-small" onClick={() => setIsEditing(true)}>编辑模式</button>} />
     {!hasScheduleData && <section className="schedule-empty-guide"><div><span>首次使用引导</span><h3>先选择月份和周次，再保存该周课表</h3><p>每一周都能拥有自己的课表和日程。调课周、考试周、补课周都可以单独保存。</p></div><ol><li>切换年份或跳转任意月份。</li><li>选择该月第几周，点击“编辑本周”。</li><li>保存后形成可回看的历史课表。</li></ol></section>}
+    <section className="schedule-summary stat-row">
+      <div><span>总课时</span><b>{filledCells}</b><small>已填写课程格</small></div>
+      <div><span>主科课时</span><b>{coreHours}</b><small>语数英理化生</small></div>
+      <div><span>本周课程数</span><b>{topSubjects.length}</b><small>学科种类</small></div>
+      <div><span>空闲节次</span><b>{freeSlots}</b><small>可继续补充</small></div>
+    </section>
+    <section className="schedule-toolbar">
+      <button className={`toggle-edit ${isEditing ? "active" : ""}`} onClick={() => setIsEditing((value) => !value)}><span>{isEditing ? "✓" : "✎"}</span>{isEditing ? "编辑中" : "编辑模式"}</button>
+      <button className="ghost-btn" onClick={applyPrimaryTemplate}>导入模板</button>
+      <button className="ghost-btn" onClick={() => window.print()}>导出/打印</button>
+      <button className="time-settings-btn" onClick={() => setIsEditing(true)}><span>时</span>作息时间设置</button>
+      <span className="spacer" />
+      {isEditing && <button className="primary-small" onClick={saveWeek}>保存本周</button>}
+    </section>
     <section className="schedule-workbench">
       <div className="schedule-main-card">
         <div className="schedule-card-head"><div><span>{isEditing ? "正在编辑本周" : "本周课表"}</span><h3>{weekDates.label}课表</h3><p>{isEditing ? "可修改学期档案、星期、节次、时间和课程；模板不会覆盖老师填写的学期信息。" : "查看态保持干净，需要调整时再进入编辑。"}</p></div><div className="schedule-actions">{isEditing ? <><button onClick={saveWeek}>保存本周</button><button className="soft" onClick={() => setIsEditing(false)}>取消编辑</button></> : <><button onClick={() => setIsEditing(true)}>编辑本周</button><button className="soft" onClick={() => window.print()}>打印</button></>}</div></div>
