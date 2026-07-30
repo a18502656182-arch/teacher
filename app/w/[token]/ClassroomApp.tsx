@@ -272,21 +272,47 @@ function ToolHeading({ kicker, title, text, action }: { kicker: string; title: s
 }
 
 function Dashboard({ data, open }: { data: ClassroomData; open: (id: ModuleId) => void }) {
-  const notDone = data.homeworkTasks?.[0] ? Object.values(data.homeworkTasks[0].statuses).filter((s) => s !== "已交" && s !== "已复查").length : 0;
+  const activeClass = data.rosterClasses?.find((item) => item.id === data.activeClassId) ?? data.rosterClasses?.[0];
+  const classStudents = activeClass?.students?.length ? activeClass.students : data.students;
+  const tasks = data.homeworkTasks?.filter((item) => !item.classId || item.classId === (activeClass?.id ?? data.activeClassId)) ?? [];
+  const notDone = tasks.reduce((count, task) => count + Object.values(task.statuses).filter((s) => s !== "已交" && s !== "已复查").length, 0);
   const attention = data.students.filter((s) => s.score < 80 || s.attendance !== "正常" || s.homework !== "已交");
-  const top = [...data.students].sort((a, b) => b.points - a.points).slice(0, 3);
+  const top = [...classStudents].sort((a, b) => b.points - a.points).slice(0, 10);
+  const now = new Date();
+  const todayLabel = now.toLocaleDateString("zh-CN", { month: "long", day: "numeric", weekday: "long" });
+  const todayTasks = tasks.filter((item) => item.date === today()).length;
+  const doneCount = tasks.reduce((count, task) => count + classStudents.filter((student) => {
+    const status = task.statuses[student.id] ?? student.homework;
+    return status === "已交" || status === "已复查";
+  }).length, 0);
+  const totalChecks = Math.max(1, tasks.length * classStudents.length);
+  const dutyJobs = (data.dutyJobs?.length ? data.dutyJobs : defaultDutyJobs).filter((job) => job.enabled).slice(0, 4);
+  const dutyStudents = dutyJobs.map((job, index) => {
+    const assigned = job.studentIds?.map((id) => classStudents.find((student) => student.id === id)).find(Boolean);
+    return { job, student: assigned ?? classStudents[index % Math.max(1, classStudents.length)] };
+  });
   return <>
-    <section className="welcome"><div><span className="eyebrow">1分钟看懂班级状态</span><h2>导入一次名单，所有表都自动联动。</h2><p>作业、积分、座位、值日、家访、成绩、评语和奖状共用同一套学生数据。</p></div><div className="date-badge"><b>{new Date().getDate()}</b><span>今日 · 工作台</span></div></section>
-    <section className="stat-row"><div><span>学生档案</span><b>{data.students.length}</b><small>已连接所有页面</small></div><div><span>今日待办</span><b>{notDone}</b><small className="warn">作业待处理</small></div><div><span>重点关注</span><b>{attention.length}</b><small>成绩/考勤/作业综合</small></div><div><span>本周记录</span><b>{data.records.length}</b><small className="good">可生成评语</small></div></section>
+    <section className="welcome"><div><span className="eyebrow">{activeClass?.name ?? "当前班级"} · 每日工作台</span><h2>{todayLabel}，先看待办再进功能。</h2><p>把学生名单、作业、积分、值日、沟通和评语串在一起，班主任每天打开后能迅速知道今天先处理什么。</p></div><div className="date-badge"><b>{now.getDate()}</b><span>{now.toLocaleDateString("zh-CN", { month: "long" })}</span></div></section>
     <section className="daily-grid">
-      <button onClick={() => open("students")}><b>名单底座</b><span>批量导入、编辑家长电话和备注</span></button>
-      <button onClick={() => open("homework")}><b>作业闭环</b><span>未交、待订正、已复查一键切换</span></button>
-      <button onClick={() => open("points")}><b>课堂加分</b><span>手机端快速给学生加扣分</span></button>
-      <button onClick={() => open("records")}><b>家访谈心</b><span>按登记表结构保存沟通记录</span></button>
+      <button onClick={() => open("students")}><b>学生名单</b><span>批量导入、编辑电话和备注</span></button>
+      <button onClick={() => open("homework")}><b>作业管理</b><span>发布、批改、跟进未交作业</span></button>
+      <button onClick={() => open("points")}><b>积分事件</b><span>快速记录表扬和提醒</span></button>
+      <button onClick={() => open("scores")}><b>成绩管理</b><span>录入考试并查看波动</span></button>
     </section>
     <div className="workbench-split">
-      <section className="paper-card"><div className="section-title"><div><span>今日提醒</span><h2>建议优先处理</h2></div></div>{attention.slice(0, 5).map((s) => <div className="todo-line" key={s.id}><i>{s.name.slice(0,1)}</i><span><b>{s.name}</b><small>{s.score < 80 ? "成绩需跟进" : s.homework !== "已交" ? "作业需复查" : "考勤异常"}</small></span><button onClick={() => open("records")}>记录</button></div>)}</section>
-      <section className="paper-card"><div className="section-title"><div><span>积分榜</span><h2>本周表扬候选</h2></div><button onClick={() => open("certificates")}>生成奖状 →</button></div>{top.map((s, index) => <div className="rank-line" key={s.id}><b>{index + 1}</b><span>{s.name}</span><em>{s.points}分</em></div>)}</section>
+      <section className="todo-section"><h3><span>!</span>待办事项</h3>
+        <div className="todo-line"><i>{notDone}</i><div><b>作业状态待处理</b><small>未交、待订正、未复查都汇总在这里</small></div><button onClick={() => open("homework")}>处理</button></div>
+        <div className="todo-line"><i>{attention.length}</i><div><b>重点关注学生</b><small>成绩、考勤或作业出现异常</small></div><button onClick={() => open("growth")}>查看</button></div>
+        <div className="todo-line"><i>{data.records.length}</i><div><b>本周沟通记录</b><small>可沉淀到成长档案和期末评语</small></div><button onClick={() => open("records")}>记录</button></div>
+      </section>
+      <section className="weekly-stats"><h3><span>▦</span>本周数据看板</h3><div className="stat-mini-grid">
+        <article><span>学生总数</span><b>{classStudents.length}</b><small>{activeClass?.name ?? "当前班级"}</small></article>
+        <article><span>今日作业</span><b>{todayTasks}</b><small>今天布置的任务</small></article>
+        <article><span>完成率</span><b>{Math.round(doneCount / totalChecks * 100)}%</b><small>已交与已复查占比</small></article>
+        <article><span>待跟进</span><b>{attention.length}</b><small>建议优先沟通</small></article>
+      </div></section>
+      <section className="duty-today"><h3><span>值</span>今日值日</h3>{dutyStudents.map(({ job, student }) => <div className="duty-card" key={job.id}><i className="avatar-mini">{student?.name.slice(0, 1) ?? "待"}</i><div><b>{student?.name ?? "待安排"}</b><small>{job.name} · {job.area}</small></div></div>)}</section>
+      <section className="rank-section"><h3><span>积分排行榜</span><small>TOP 10</small></h3>{top.map((s, index) => <div className="rank-line" key={s.id}><b className="rank-badge">{index + 1}</b><span>{s.name}</span><strong>{s.points}</strong><small>分</small></div>)}</section>
     </div>
   </>;
 }
@@ -295,6 +321,7 @@ function Students({ data, update }: { data: ClassroomData; update: (fn: (d: Clas
   const [bulk, setBulk] = useState("张三 13800000001 备注可不填\n李四 13800000002\n王五 13800000003");
   const [filter, setFilter] = useState("");
   const [message, setMessage] = useState("");
+  const [editMode, setEditMode] = useState(false);
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(20);
   const classes = data.rosterClasses?.length ? data.rosterClasses : [{ id: "class-1", name: "当前班级", grade: "", term: "", students: data.students }];
@@ -305,6 +332,8 @@ function Students({ data, update }: { data: ClassroomData; update: (fn: (d: Clas
   const shown = classStudents.filter((s) => `${s.name}${s.studentNo}${s.parentPhone}${s.note}${s.group}${s.seat}`.toLocaleLowerCase("zh-CN").includes(keyword));
   const groups = new Set(classStudents.map((s) => s.group)).size;
   const withPhone = classStudents.filter((s) => s.parentPhone?.trim()).length;
+  const boys = classStudents.filter((s) => s.gender === "男").length;
+  const girls = classStudents.filter((s) => s.gender === "女").length;
   const totalPages = Math.max(1, Math.ceil(shown.length / pageSize));
   const safePage = Math.min(page, totalPages);
   const pageItems = shown.slice((safePage - 1) * pageSize, safePage * pageSize);
@@ -389,6 +418,8 @@ function Students({ data, update }: { data: ClassroomData; update: (fn: (d: Clas
     setMessage("已新增 1 名学生，请直接编辑姓名和资料。");
   }
   function removeStudent(id: string) {
+    const target = classStudents.find((student) => student.id === id);
+    if (target && !window.confirm(`确认删除 ${target.name} 吗？删除后该学生的作业状态、积分记录和班干部岗位会同步清理。`)) return;
     update((d) => ({
       ...syncActiveClass(d, classStudents.filter((s) => s.id !== id).map((s, index) => ({ ...s, seat: index + 1, group: Math.floor(index / 4) + 1 }))),
       homeworkTasks: d.homeworkTasks?.map((task) => {
@@ -401,6 +432,30 @@ function Students({ data, update }: { data: ClassroomData; update: (fn: (d: Clas
       cadres: d.cadres?.filter((role) => role.studentId !== id),
     }));
     setMessage("已删除学生，并重新整理座位和小组。");
+  }
+  function exportRoster() {
+    const header = ["学号", "姓名", "性别", "小组", "座位", "家长电话", "备注"];
+    const rows = classStudents.map((student) => [
+      student.studentNo ?? "",
+      student.name,
+      student.gender,
+      `第${student.group}组`,
+      `${student.seat}`,
+      student.parentPhone ?? "",
+      student.note ?? "",
+    ]);
+    const escapeCell = (value: string) => `"${value.replace(/"/g, '""')}"`;
+    const csv = [header, ...rows].map((row) => row.map(escapeCell).join(",")).join("\n");
+    const blob = new Blob(["\ufeff" + csv], { type: "text/csv;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `${activeClass.name || "学生名单"}-${today()}.csv`;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    URL.revokeObjectURL(url);
+    setMessage(`已导出 ${activeClass.name} 的学生名单。`);
   }
   return <>
     <ToolHeading kicker="学生名单" title="按班级分别管理花名册" text="一个班主任可以管理多个班；每个班都有独立名单、分页、搜索、导入和手机卡片。" action={<button className="primary-small" onClick={addStudent}>新增学生</button>} />
@@ -416,39 +471,40 @@ function Students({ data, update }: { data: ClassroomData; update: (fn: (d: Clas
       </div>
     </section>
     <section className="roster-summary">
-      <div><span>当前班级</span><b>{classStudents.length}</b></div>
-      <div><span>学习小组</span><b>{groups}</b></div>
-      <div><span>已填电话</span><b>{withPhone}</b></div>
-      <div><span>当前筛选</span><b>{shown.length}</b></div>
+      <article><span>总人数</span><b>{classStudents.length}</b></article>
+      <article><span>男生</span><b>{boys}</b></article>
+      <article><span>女生</span><b>{girls}</b></article>
+      <article><span>已填电话</span><b>{withPhone}</b><small>{groups} 个学习小组</small></article>
     </section>
     <section className="import-card roster-import"><div><h3>批量导入名单</h3><p>每行一个学生，格式建议：姓名 手机号 备注。可以“替换当前名单”，也可以“追加到末尾”。</p></div><textarea value={bulk} onChange={(e) => setBulk(e.target.value)} /><div className="import-actions"><button onClick={replaceNames}>替换当前名单</button><button className="soft-action" onClick={appendNames}>追加学生</button></div></section>
     {message && <div className="inline-alert roster-message" onClick={() => setMessage("")}>{message}<span>×</span></div>}
-    <div className="roster-toolbar"><div className="resource-search compact-search"><span>⌕</span><input value={filter} onChange={(e) => setFilter(e.target.value)} placeholder="搜索姓名、学号、电话、备注、小组或座位" /></div><select value={pageSize} onChange={(e) => setPageSize(Number(e.target.value))}><option value={10}>每页10人</option><option value={20}>每页20人</option><option value={50}>每页50人</option></select><small>电脑端编辑表格；手机端编辑下方学生卡片。</small></div>
+    <div className="roster-toolbar"><div className="resource-search compact-search"><span>⌕</span><input value={filter} onChange={(e) => setFilter(e.target.value)} placeholder="搜索姓名、学号、电话、备注、小组或座位" /></div><select value={pageSize} onChange={(e) => setPageSize(Number(e.target.value))}><option value={10}>每页10人</option><option value={20}>每页20人</option><option value={50}>每页50人</option></select><button className="soft-action" onClick={exportRoster}>导出Excel</button><button className={`toggle-edit ${editMode ? "active" : ""}`} onClick={() => setEditMode((value) => !value)}><span>{editMode ? "✓" : "✎"}</span>{editMode ? "编辑中" : "编辑模式"}</button><small>{editMode ? "现在可以直接修改表格。" : "当前为只读展示，打开编辑模式后再改资料。"}</small></div>
     <section className="editable-student-table roster-table">
       <div className="student-edit-head roster"><span>学号</span><span>姓名</span><span>性别</span><span>小组</span><span>座位</span><span>家长电话</span><span>备注</span><span>操作</span></div>
       {pageItems.map((s) => <div className="student-edit-line full" key={s.id}>
-        <input value={s.studentNo ?? ""} onChange={(e) => edit(s.id, { studentNo: e.target.value })} />
-        <input value={s.name} onChange={(e) => edit(s.id, { name: e.target.value })} />
-        <select value={s.gender} onChange={(e) => edit(s.id, { gender: e.target.value as Student["gender"] })}><option>女</option><option>男</option></select>
-        <input type="number" value={s.group} onChange={(e) => edit(s.id, { group: Number(e.target.value) || 1 })} />
-        <input type="number" value={s.seat} onChange={(e) => edit(s.id, { seat: Number(e.target.value) || 1 })} />
-        <input value={s.parentPhone ?? ""} onChange={(e) => edit(s.id, { parentPhone: e.target.value })} />
-        <input value={s.note ?? ""} onChange={(e) => edit(s.id, { note: e.target.value })} />
-        <button className="danger-small" onClick={() => removeStudent(s.id)}>删除</button>
+        <input disabled={!editMode} value={s.studentNo ?? ""} onChange={(e) => edit(s.id, { studentNo: e.target.value })} />
+        <input disabled={!editMode} value={s.name} onChange={(e) => edit(s.id, { name: e.target.value })} />
+        <select disabled={!editMode} value={s.gender} onChange={(e) => edit(s.id, { gender: e.target.value as Student["gender"] })}><option>女</option><option>男</option></select>
+        <input disabled={!editMode} type="number" value={s.group} onChange={(e) => edit(s.id, { group: Number(e.target.value) || 1 })} />
+        <input disabled={!editMode} type="number" value={s.seat} onChange={(e) => edit(s.id, { seat: Number(e.target.value) || 1 })} />
+        <input disabled={!editMode} value={s.parentPhone ?? ""} onChange={(e) => edit(s.id, { parentPhone: e.target.value })} />
+        <input disabled={!editMode} value={s.note ?? ""} onChange={(e) => edit(s.id, { note: e.target.value })} />
+        <button className="danger-small" disabled={!editMode} onClick={() => removeStudent(s.id)}>删除</button>
       </div>)}
+      {!pageItems.length && <div className="empty-roster"><span>名</span><p>当前没有学生，先粘贴名单导入，或切换到其他班级。</p></div>}
     </section>
     <section className="roster-mobile-list">
       {pageItems.map((s) => <article className="roster-mobile-card" key={s.id}>
-        <header><i>{s.name.slice(0,1)}</i><div><input value={s.name} onChange={(e) => edit(s.id, { name: e.target.value })} /><span>学号 {s.studentNo || "未填"} · 第{s.group}组 · 座位{s.seat}</span></div></header>
+        <header><i>{s.name.slice(0,1)}</i><div><input disabled={!editMode} value={s.name} onChange={(e) => edit(s.id, { name: e.target.value })} /><span>学号 {s.studentNo || "未填"} · 第{s.group}组 · 座位{s.seat}</span></div></header>
         <div className="mobile-fields">
-          <label>学号<input value={s.studentNo ?? ""} onChange={(e) => edit(s.id, { studentNo: e.target.value })} /></label>
-          <label>性别<select value={s.gender} onChange={(e) => edit(s.id, { gender: e.target.value as Student["gender"] })}><option>女</option><option>男</option></select></label>
-          <label>小组<input type="number" value={s.group} onChange={(e) => edit(s.id, { group: Number(e.target.value) || 1 })} /></label>
-          <label>座位<input type="number" value={s.seat} onChange={(e) => edit(s.id, { seat: Number(e.target.value) || 1 })} /></label>
-          <label className="wide">家长电话<input value={s.parentPhone ?? ""} onChange={(e) => edit(s.id, { parentPhone: e.target.value })} /></label>
-          <label className="wide">备注<input value={s.note ?? ""} onChange={(e) => edit(s.id, { note: e.target.value })} /></label>
+          <label>学号<input disabled={!editMode} value={s.studentNo ?? ""} onChange={(e) => edit(s.id, { studentNo: e.target.value })} /></label>
+          <label>性别<select disabled={!editMode} value={s.gender} onChange={(e) => edit(s.id, { gender: e.target.value as Student["gender"] })}><option>女</option><option>男</option></select></label>
+          <label>小组<input disabled={!editMode} type="number" value={s.group} onChange={(e) => edit(s.id, { group: Number(e.target.value) || 1 })} /></label>
+          <label>座位<input disabled={!editMode} type="number" value={s.seat} onChange={(e) => edit(s.id, { seat: Number(e.target.value) || 1 })} /></label>
+          <label className="wide">家长电话<input disabled={!editMode} value={s.parentPhone ?? ""} onChange={(e) => edit(s.id, { parentPhone: e.target.value })} /></label>
+          <label className="wide">备注<input disabled={!editMode} value={s.note ?? ""} onChange={(e) => edit(s.id, { note: e.target.value })} /></label>
         </div>
-        <button className="danger-small" onClick={() => removeStudent(s.id)}>删除这名学生</button>
+        <button className="danger-small" disabled={!editMode} onClick={() => removeStudent(s.id)}>删除这名学生</button>
       </article>)}
     </section>
     <div className="roster-pagination">
@@ -550,6 +606,10 @@ function Homework({ data, update }: { data: ClassroomData; update: (fn: (d: Clas
     const summary = taskSummary(item);
     return summary.missing + summary.fixing > 0;
   }).length;
+  const totalTaskChecks = Math.max(1, tasks.length * data.students.length);
+  const finishedTaskChecks = tasks.reduce((count, item) => count + taskSummary(item).done, 0);
+  const overallRate = Math.round(finishedTaskChecks / totalTaskChecks * 100);
+  const excellentRate = tasks.length ? Math.round(tasks.filter((item) => taskSummary(item).rate >= 90).length / tasks.length * 100) : 0;
 
   useEffect(() => {
     if (selectedTaskId && tasks.length && !tasks.some((item) => item.id === selectedTaskId)) {
@@ -843,10 +903,10 @@ function Homework({ data, update }: { data: ClassroomData; update: (fn: (d: Clas
       </section>
     </div>}
     <section className="homework-overview">
-      <article><span>今日新增</span><b>{todayTasks.length}</b><p>今天布置的作业</p></article>
-      <article><span>仍需跟进</span><b>{unresolvedTasks}</b><p>存在未交或待订正的作业</p></article>
-      <article><span>本班累计</span><b>{tasks.length}</b><p>全部历史作业</p></article>
-      <article><span>归档月份</span><b>{archiveMonths.length}</b><p>按月份快速定位</p></article>
+      <article><span>总任务</span><b>{tasks.length}</b><p>当前班级全部作业</p></article>
+      <article><span>待批改</span><b>{unresolvedTasks}</b><p>存在未交或待订正</p></article>
+      <article><span>完成率</span><b>{overallRate}%</b><p>已交和已复查占比</p></article>
+      <article><span>优秀率</span><b>{excellentRate}%</b><p>完成率 90% 以上任务</p></article>
     </section>
     <section className="homework-today-board">
       <header><div><b>今天</b><span>{todayTasks.length ? `共 ${todayTasks.length} 项，只显示今天，不混入历史作业` : "今天还没有记录作业"}</span></div></header>
@@ -860,32 +920,41 @@ function Homework({ data, update }: { data: ClassroomData; update: (fn: (d: Clas
     </section>
     <section className="homework-ledger">
       <header className="homework-ledger-head"><div><b>历史作业台账</b><span>按月归档、按条件查找，每页固定 10 项</span></div><button onClick={resetTaskFilters}>重置查询</button></header>
-      <div className="homework-primary-filters">
+      <div className="homework-toolbar homework-primary-filters">
         <label className="wide">搜索作业内容<input value={taskKeyword} onChange={(e) => setTaskKeyword(e.target.value)} placeholder="输入学科、页码、练习名称等" /></label>
         <label>归档月份<select value={selectedMonth} onChange={(e) => setSelectedMonth(e.target.value)}><option>全部月份</option>{archiveMonths.map((month) => <option key={month} value={month}>{month.replace("-", "年")}月（{monthCounts[month]}项）</option>)}</select></label>
         <label>学科<select value={subjectFilter} onChange={(e) => setSubjectFilter(e.target.value)}><option value="全部">全部学科</option>{subjects.map((subject) => <option key={subject}>{subject}</option>)}</select></label>
+        <label>状态<select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value as typeof statusFilter)}><option>全部</option>{statusOptions.map((item) => <option key={item}>{item}</option>)}</select></label>
         <button className="advanced-toggle" onClick={() => setAdvancedOpen((open) => !open)}>{advancedOpen ? "收起高级查询" : "更多查询条件"}</button>
       </div>
       {advancedOpen && <div className="homework-advanced-filters">
         <label>开始日期<input type="date" value={dateFrom} onChange={(e) => setDateFrom(e.target.value)} /></label>
         <label>结束日期<input type="date" value={dateTo} onChange={(e) => setDateTo(e.target.value)} /></label>
         <label>查某个学生<input value={studentKeyword} onChange={(e) => setStudentKeyword(e.target.value)} placeholder="姓名或学号" /></label>
-        <label>该生状态<select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value as typeof statusFilter)}><option>全部</option>{statusOptions.map((item) => <option key={item}>{item}</option>)}</select></label>
         <label>学生小组<select value={groupFilter} onChange={(e) => setGroupFilter(e.target.value)}><option>全部</option>{groups.map((group) => <option value={group} key={group}>第{group}组</option>)}</select></label>
       </div>}
       {dateFrom && dateTo && dateFrom > dateTo && <p className="homework-hint">日期顺序已自动调整为 {normalizedFrom} 至 {normalizedTo}。</p>}
       <div className="homework-result-bar"><b>{selectedMonth === "全部月份" ? "全部归档" : `${selectedMonth.replace("-", "年")}月`}</b><span>找到 {filteredTasks.length} 项 · 当前第 {safePage} / {totalPages} 页</span></div>
       {filteredTasks.length === 0 && <div className="empty-result"><b>没有找到符合条件的作业</b><span>建议先清空条件，或新增一项作业。</span></div>}
-      <div className="homework-history-table">
-        <div className="homework-history-head"><span>日期</span><span>学科</span><span>作业内容</span><span>完成情况</span><span>操作</span></div>
+      <div className="homework-list">
       {pagedTasks.map((item) => {
         const summary = taskSummary(item);
-        return <article className="homework-history-row" key={item.id}>
-          <time>{item.date}</time>
-          <b className="homework-subject-badge">{item.subject}</b>
-          <div className="homework-history-title"><b>{item.title}</b><small>已交/复查 {summary.done} 人</small></div>
-          <div className="homework-history-status"><strong>{summary.rate}%</strong><span className={summary.missing ? "warning" : ""}>未交 {summary.missing}</span><span className={summary.fixing ? "fixing" : ""}>待订正 {summary.fixing}</span></div>
-          <div className="homework-history-actions"><button className="open" onClick={() => openTask(item.id)}>处理</button><button className="delete" onClick={() => deleteTaskById(item.id)}>删除</button></div>
+        const overdue = item.date < today() && summary.missing > 0;
+        const done = summary.rate === 100;
+        const badgeClass = overdue ? "overdue" : done ? "done" : summary.fixing ? "grading" : "pending";
+        const badgeText = overdue ? "已逾期" : done ? "已完成" : summary.fixing ? "待批改" : "进行中";
+        return <article className={`homework-card ${overdue ? "overdue" : done ? "completed" : ""}`} key={item.id}>
+          <header className="homework-card-header">
+            <div className="homework-card-title"><span className="subject-tag">{item.subject}</span><h4>{item.title}</h4><p>截止：{item.date} · 已交/复查 {summary.done}/{data.students.length || 0} · 未交 {summary.missing} · 待订正 {summary.fixing}</p></div>
+            <div className="homework-card-status"><span className={`status-badge ${badgeClass}`}>{badgeText}</span><small>{summary.rate}%</small></div>
+          </header>
+          <div className="homework-card-meta">
+            <div className="meta-item"><span>日</span><b>{item.date}</b></div>
+            <div className="meta-item"><span>交</span><b>{summary.done}</b>人</div>
+            <div className="meta-item"><span>补</span><b>{summary.fixing}</b>人</div>
+          </div>
+          <div className="homework-progress"><div className="progress-bar"><div className="progress-fill" style={{ width: `${summary.rate}%` }} /></div><div className="progress-label"><span>提交进度</span><b>{summary.rate}%</b></div></div>
+          <div className="homework-card-actions"><button onClick={() => openTask(item.id)}><span>查</span>查看详情</button><button className="primary" onClick={() => openTask(item.id)}><span>改</span>批改处理</button><button onClick={() => deleteTaskById(item.id)}><span>删</span>删除</button></div>
         </article>;
       })}
       </div>
