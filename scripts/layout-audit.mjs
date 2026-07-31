@@ -29,6 +29,8 @@ function runStaticAudit() {
   assert(/\.page-content>\*\{[^}]*max-width:none!important/i.test(css), "Missing direct-child max-width reset for app pages.", failures);
   assert(/\.weekly2-page,.seating-wrap,.seat-instruction,.rule-form\{[^}]*max-width:none!important/i.test(css), "Known page-level max-width containers are not reset.", failures);
   assert(/@media\(max-width:1240px\)\{[^}]*\.points-workbench\{grid-template-columns:1fr!important/i.test(css), "Points page does not collapse before it can overlap.", failures);
+  assert(/\.points-filter-bar \.resource-search,\.points-filter-bar select,\.points-filter-bar button\{[^}]*height:56px!important/i.test(css), "Points filter controls are not locked to a shared visual height.", failures);
+  assert(/\.student-score-head,\.student-score-row\{[^}]*grid-template-columns:72px minmax\(180px,1fr\) 86px 88px 96px!important/i.test(css), "Points score table columns are not using the audited alignment grid.", failures);
   return { name: "static-css", failures };
 }
 
@@ -225,11 +227,33 @@ async function runRuntimeAudit(url) {
               const r = el.getBoundingClientRect();
               return { left:r.left, top:r.top, right:r.right, bottom:r.bottom, width:r.width, height:r.height };
             };
+            const boxes = (selector) => [...document.querySelectorAll(selector)].filter((el) => {
+              const style = getComputedStyle(el);
+              const r = el.getBoundingClientRect();
+              return style.display !== 'none' && style.visibility !== 'hidden' && r.width > 0 && r.height > 0;
+            }).map((el) => {
+              const r = el.getBoundingClientRect();
+              return { left:r.left, top:r.top, right:r.right, bottom:r.bottom, width:r.width, height:r.height };
+            });
+            const spread = (items, key) => {
+              const values = items.map((item) => item[key]).filter((value) => Number.isFinite(value));
+              if (values.length < 2) return 0;
+              return Math.max(...values) - Math.min(...values);
+            };
+            const centerX = (item) => item ? item.left + item.width / 2 : 0;
             const overlap = (a, b) => {
               const ra = box(a), rb = box(b);
               if (!ra || !rb) return false;
               return !(ra.right <= rb.left || rb.right <= ra.left || ra.bottom <= rb.top || rb.bottom <= ra.top);
             };
+            const pointsFilterItems = boxes('.points-filter-bar > *');
+            const statCards = boxes('.stat-row > *');
+            const firstStatRow = statCards.length ? statCards.filter((item) => Math.abs(item.top - statCards[0].top) < 8) : [];
+            const headCheckbox = box('.student-score-head input');
+            const firstRowCheckbox = box('.student-score-row input');
+            const filterBar = box('.points-filter-bar');
+            const groupStrip = box('.points-group-strip');
+            const scoreTable = box('.student-score-table');
             return {
               label: ${JSON.stringify(label)},
               readyState: document.readyState,
@@ -240,6 +264,15 @@ async function runRuntimeAudit(url) {
               appMain: box('.app-main'),
               pointsFilterActionOverlap: overlap('.points-filter-bar', '.points-action-panel'),
               pointsWorkbench: box('.points-workbench'),
+              pointsAesthetic: {
+                filterHeightSpread: spread(pointsFilterItems, 'height'),
+                filterTopSpread: spread(pointsFilterItems, 'top'),
+                filterToGroupGap: filterBar && groupStrip ? groupStrip.top - filterBar.bottom : null,
+                groupToTableGap: groupStrip && scoreTable ? scoreTable.top - groupStrip.bottom : null,
+                selectColumnWidth: box('.student-score-head label')?.width ?? null,
+                checkboxCenterDelta: headCheckbox && firstRowCheckbox ? Math.abs(centerX(headCheckbox) - centerX(firstRowCheckbox)) : null,
+                firstStatRowHeightSpread: spread(firstStatRow, 'height'),
+              },
               visibleText: document.body.innerText.slice(0, 200),
             };
           })()`,
@@ -258,7 +291,17 @@ async function runRuntimeAudit(url) {
         } else {
           failures.push("Missing .page-content.");
         }
-        if (label === "积分评价" && data.pointsFilterActionOverlap) failures.push("Points filter controls overlap the action panel.");
+        if (data.pointsWorkbench && data.pointsFilterActionOverlap) failures.push("Points filter controls overlap the action panel.");
+        if (data.pointsWorkbench && data.pointsAesthetic && viewport.width >= 1000) {
+          const aesthetic = data.pointsAesthetic;
+          if (aesthetic.filterHeightSpread > 2) failures.push(`Points filter controls have uneven heights (${Math.round(aesthetic.filterHeightSpread)}px spread).`);
+          if (aesthetic.filterTopSpread > 2) failures.push(`Points filter controls are not top-aligned (${Math.round(aesthetic.filterTopSpread)}px spread).`);
+          if (aesthetic.filterToGroupGap !== null && (aesthetic.filterToGroupGap < 8 || aesthetic.filterToGroupGap > 16)) failures.push(`Points filter-to-group spacing is irregular (${Math.round(aesthetic.filterToGroupGap)}px).`);
+          if (aesthetic.groupToTableGap !== null && (aesthetic.groupToTableGap < 8 || aesthetic.groupToTableGap > 18)) failures.push(`Points group-to-table spacing is irregular (${Math.round(aesthetic.groupToTableGap)}px).`);
+          if (aesthetic.selectColumnWidth !== null && aesthetic.selectColumnWidth > 76) failures.push(`Points select-all column is too wide (${Math.round(aesthetic.selectColumnWidth)}px).`);
+          if (aesthetic.checkboxCenterDelta !== null && aesthetic.checkboxCenterDelta > 4) failures.push(`Points header checkbox is not aligned with row checkboxes (${Math.round(aesthetic.checkboxCenterDelta)}px).`);
+          if (aesthetic.firstStatRowHeightSpread > 6) failures.push(`Summary cards in the first row have uneven heights (${Math.round(aesthetic.firstStatRowHeightSpread)}px spread).`);
+        }
         results.push({ name: `${viewport.name}:${label}`, data, failures });
       }
     }

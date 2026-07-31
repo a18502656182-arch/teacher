@@ -1568,4 +1568,36 @@ label{display:flex;flex-direction:column;gap:5px;font-size:12px;font-weight:600;
 .weekly2-page,.seating-wrap,.seat-instruction,.rule-form{max-width:none!important;margin-left:0!important;margin-right:0!important}
 @media(max-width:760px){.app-main{width:100%!important;overflow-x:hidden}.page-content{max-width:none!important;width:100%!important}}
 
+/* Visual QA hardening: keep the points recorder aligned and measurable. */
+.points-recorder{padding:18px!important}
+.points-recorder-head{margin-bottom:14px!important;padding-bottom:14px!important}
+.points-main-grid{gap:18px!important}
+.student-select-system{display:grid!important;gap:12px!important;align-content:start!important}
+.points-filter-bar{display:grid!important;grid-template-columns:minmax(280px,1fr) 128px 128px 112px 112px!important;gap:10px!important;align-items:stretch!important;margin:0!important}
+.points-filter-bar .resource-search,.points-filter-bar select,.points-filter-bar button{height:56px!important;min-height:56px!important;box-sizing:border-box!important;border-radius:12px!important}
+.points-filter-bar .resource-search{display:flex!important;align-items:center!important;padding:0 14px!important}
+.points-filter-bar .resource-search input{height:100%!important;padding:0!important;min-width:0!important}
+.points-filter-bar select{padding:0 12px!important}
+.points-filter-bar button{display:flex!important;align-items:center!important;justify-content:center!important;text-align:center!important;line-height:1.2!important;padding:0 12px!important}
+.points-group-strip{align-items:center!important;min-height:32px!important;margin:0!important;padding:0!important}
+.points-group-strip button{height:28px!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;padding:0 12px!important}
+.student-score-table{margin-top:0!important;border-radius:14px!important}
+.student-score-head,.student-score-row{grid-template-columns:72px minmax(180px,1fr) 86px 88px 96px!important;column-gap:12px!important;align-items:center!important;min-width:620px!important}
+.student-score-head{min-height:64px!important;padding:0 14px!important}
+.student-score-head label{height:100%!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:7px!important;text-align:center!important;margin:0!important}
+.student-score-row{min-height:60px!important;padding:0 14px!important}
+.student-score-row>input{justify-self:center!important}
+.student-score-head span,.student-score-row em,.student-score-row strong,.student-score-row i{justify-self:start!important}
+.student-score-row strong{font-variant-numeric:tabular-nums!important}
+@media(max-width:1480px){.points-filter-bar{grid-template-columns:minmax(260px,1fr) repeat(4,minmax(108px,1fr))!important}}
+@media(max-width:980px){.points-filter-bar{grid-template-columns:1fr 1fr!important}.points-filter-bar .resource-search{grid-column:1/-1!important}}
+@media(max-width:620px){.points-filter-bar{grid-template-columns:1fr!important}.student-score-head,.student-score-row{min-width:560px!important}}
+
+/* Wide desktop balance: keep the recorder dominant and prevent rail pressure. */
+.points-workbench{grid-template-columns:minmax(0,1fr) 240px!important}
+.points-main-grid{grid-template-columns:minmax(0,1fr) 280px!important}
+.points-action-panel,.points-timeline.compact{min-width:0!important}
+.points-filter-bar{grid-template-columns:minmax(220px,1fr) 118px 118px 96px 96px!important}
+@media(max-width:1480px){.points-main-grid{grid-template-columns:1fr!important}.points-action-panel{grid-template-columns:repeat(2,minmax(0,1fr))!important;align-items:start!important}.points-action-panel .points-submit-btn,.points-selected-box{grid-column:1/-1!important}}
+
 
