@@ -1549,4 +1549,23 @@ label{display:flex;flex-direction:column;gap:5px;font-size:12px;font-weight:600;
 @media(max-width:1180px){.points-workbench,.points-main-grid{grid-template-columns:1fr}.points-timeline.compact{position:static;max-height:none}.points-filter-bar{grid-template-columns:1fr 140px 1fr 1fr 1fr}}
 @media(max-width:760px){.points-filter-bar{grid-template-columns:1fr}.points-recorder-head{display:grid}.student-score-table{max-height:460px!important}.points-recorder{padding:14px}.points-timeline.compact .point-event{grid-template-columns:1fr}.points-timeline.compact .point-event-score{width:100%;height:36px}}
 
+/* Points layout correction after visual QA: no hidden controls, no wasted right rail. */
+.page-content{max-width:none!important}
+.points-workbench{grid-template-columns:minmax(0,1fr) 280px!important}
+.points-main-grid{grid-template-columns:minmax(720px,1fr) 300px!important}
+.points-filter-bar{grid-template-columns:minmax(220px,1fr) 128px repeat(3,minmax(96px,108px))!important;overflow:visible}
+.points-filter-bar button{white-space:nowrap;min-width:0}
+.points-timeline.compact{min-width:0}
+@media(max-width:1480px){.points-main-grid{grid-template-columns:1fr!important}.points-action-panel{grid-template-columns:repeat(2,minmax(0,1fr));align-items:start}.points-action-panel .points-submit-btn,.points-selected-box{grid-column:1/-1}}
+@media(max-width:1240px){.points-workbench{grid-template-columns:1fr!important}.points-timeline.compact{position:static;max-height:none}.points-filter-bar{grid-template-columns:1fr 140px 1fr 1fr 1fr!important}}
+@media(max-width:860px){.points-filter-bar,.points-action-panel{grid-template-columns:1fr!important}.points-action-panel .points-submit-btn,.points-selected-box{grid-column:auto}}
+
+/* Global app-width correction: use the whole workspace, not a narrow centered column. */
+.app-main{width:calc(100vw - 240px)!important;max-width:none!important;overflow-x:hidden}
+.topbar,.page-content,.edit-mode-banner{width:100%!important;max-width:none!important;box-sizing:border-box}
+.page-content{align-self:stretch!important}
+.page-content>*{max-width:none!important}
+.weekly2-page,.seating-wrap,.seat-instruction,.rule-form{max-width:none!important;margin-left:0!important;margin-right:0!important}
+@media(max-width:760px){.app-main{width:100%!important;overflow-x:hidden}.page-content{max-width:none!important;width:100%!important}}
+
 
