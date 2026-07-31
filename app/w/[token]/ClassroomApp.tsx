@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useMemo, useState } from "react";
 import type { ReactNode } from "react";
@@ -1630,131 +1630,6 @@ function Weekly({ data, update }: { data: ClassroomData; update: (fn: (d: Classr
   </div>;
 }
 
-function Schedule({ data, update }: { data: ClassroomData; update: (fn: (d: ClassroomData) => ClassroomData) => void }) {
-  const periodLabels = ["早读", "第1节", "第2节", "第3节", "第4节", "第5节", "午间", "延时"];
-  const templateCourses = ["语文", "数学", "英语", "科学", "体育", "音乐", "美术", "劳动", "阅读", "班会", "信息"];
-  const savedWeekPlan = data.weeklyPlan ?? [];
-  const weekPlan = days.map((day, index) => savedWeekPlan[index] ?? { day: day.replace("星期", "周"), focus: "班级常规", event: "记录作业、积分、沟通事项" });
-  const courseRows = Math.max(6, ...data.courses.map((row) => row.length), 0);
-  const todayIndex = Math.max(0, Math.min(4, new Date().getDay() - 1));
-  const todayCourses = data.courses[todayIndex] ?? [];
-  const filledCells = data.courses.flat().filter((item) => item.trim()).length;
-  const filledPlans = savedWeekPlan.filter((item) => item.focus.trim() || item.event.trim()).length;
-  const hasScheduleData = filledCells > 0 || filledPlans > 0;
-  const upcomingArrangements = weekPlan
-    .map((item, index) => ({ ...item, index, courses: data.courses[index]?.filter(Boolean) ?? [] }))
-    .filter((item) => item.event.trim() || item.focus.trim() || item.courses.length)
-    .slice(todayIndex, todayIndex + 3);
-  const recentArrangements = upcomingArrangements.length
-    ? upcomingArrangements
-    : weekPlan.slice(todayIndex, todayIndex + 3).map((item, offset) => ({ ...item, index: todayIndex + offset, courses: data.courses[todayIndex + offset]?.filter(Boolean) ?? [] }));
-  const subjectStats = data.courses.flat().filter(Boolean).reduce((result, subject) => {
-    result[subject] = (result[subject] ?? 0) + 1;
-    return result;
-  }, {} as Record<string, number>);
-  const topSubjects = Object.entries(subjectStats).sort((a, b) => b[1] - a[1]).slice(0, 4);
-
-  function normalizeCourses(courses: string[][]) {
-    return days.map((_, dayIndex) => Array.from({ length: courseRows }, (__, period) => courses[dayIndex]?.[period] ?? ""));
-  }
-  function changeCourse(day: number, period: number, value: string) {
-    update((current) => ({ ...current, courses: normalizeCourses(current.courses).map((row, rowIndex) => rowIndex === day ? row.map((course, colIndex) => colIndex === period ? value : course) : row) }));
-  }
-  function changePlan(index: number, patch: Partial<{ day: string; focus: string; event: string }>) {
-    update((current) => ({ ...current, weeklyPlan: weekPlan.map((item, itemIndex) => itemIndex === index ? { ...item, ...patch } : item) }));
-  }
-  function applyPrimaryTemplate() {
-    update((current) => ({
-      ...current,
-      courses: [
-        ["语文", "数学", "英语", "体育", "阅读", "班会"],
-        ["数学", "语文", "科学", "音乐", "劳动", "写字"],
-        ["英语", "数学", "语文", "美术", "信息", "社团"],
-        ["语文", "体育", "数学", "科学", "阅读", "综合"],
-        ["数学", "语文", "英语", "劳动", "班会", "社团"],
-      ],
-    }));
-  }
-  function clearSchedule() {
-    if (!window.confirm("确认清空当前课程表吗？周计划不会被清空。")) return;
-    update((current) => ({ ...current, courses: days.map(() => Array.from({ length: courseRows }, () => "")) }));
-  }
-  return <>
-    <ToolHeading
-      kicker="课程与日程"
-      title="把课程表、周重点和课前提醒放在一页"
-      text="课程表可直接编辑；每天的重点和事件会进入班级周报，适合打印、手机查看和周一快速调整。"
-      action={<button className="primary-small" onClick={() => window.print()}>打印课程日程</button>}
-    />
-    {!hasScheduleData && <section className="schedule-empty-guide">
-      <div>
-        <span>首次使用引导</span>
-        <h3>先把一周框架搭起来，再每天微调</h3>
-        <p>参考课程表模板的“周一到周五、上午下午、节次/午间/延时”结构，建议先套用模板，再补班会、活动和每天重点。</p>
-      </div>
-      <ol>
-        <li>套用小学模板，得到可编辑的五天课程表。</li>
-        <li>把“午餐、午睡、延时、班会”等真实日程也填进节次。</li>
-        <li>在周计划里写每天重点和班会/活动安排，周报会同步读取。</li>
-      </ol>
-    </section>}
-    <section className="schedule-overview">
-      <article><span>本周课程格</span><b>{filledCells}</b><p>已填写的课程安排</p></article>
-      <article><span>今日课程</span><b>{todayCourses.filter(Boolean).length}</b><p>{days[todayIndex]}需要提前准备</p></article>
-      <article><span>周重点</span><b>{filledPlans}</b><p>同步到班级周报</p></article>
-      <article><span>高频学科</span><b>{topSubjects[0]?.[0] ?? "待填"}</b><p>{topSubjects[0] ? `本周 ${topSubjects[0][1]} 次` : "填写后自动统计"}</p></article>
-    </section>
-    <section className="schedule-workbench">
-      <div className="schedule-main-card">
-        <div className="schedule-card-head">
-          <div><span>可编辑课程表</span><h3>本周课程安排</h3><p>点任意格子即可修改，右上角保存后写入当前班级数据。</p></div>
-          <div className="schedule-actions"><button onClick={applyPrimaryTemplate}>套用小学模板</button><button className="soft" onClick={clearSchedule}>清空课程</button></div>
-        </div>
-        <div className="course-palette">{[...templateCourses, "早餐", "午餐", "午睡"].map((subject) => <button key={subject} type="button">{subject}</button>)}</div>
-        <div className="schedule-scroll">
-          <div className="schedule-grid rich-schedule-grid">
-            <div className="schedule-corner">节次</div>
-            {days.map((d, dayIndex) => <b className={dayIndex === todayIndex ? "today-col" : ""} key={d}>{d}<small>{dayIndex === todayIndex ? "今天" : weekPlan[dayIndex]?.focus}</small></b>)}
-            {Array.from({ length: courseRows }, (_, period) => <div className="schedule-row" key={period}>
-              <span>{periodLabels[period] ?? `第${period + 1}节`}</span>
-              {days.map((_, day) => <div className={`editable-cell ${day === todayIndex ? "today-cell" : ""}`} key={day}><input value={data.courses[day]?.[period] ?? ""} onChange={(event) => changeCourse(day, period, event.target.value)} placeholder="填课程" /></div>)}
-            </div>)}
-          </div>
-        </div>
-      </div>
-      <aside className="today-brief">
-        <div className="today-brief-head"><span>今日课务</span><b>{days[todayIndex]}</b></div>
-        {todayCourses.filter(Boolean).length ? todayCourses.map((course, index) => course && <div className="today-course" key={`${course}-${index}`}><i>{periodLabels[index] ?? `第${index + 1}节`}</i><span><b>{course}</b><small>{course === "体育" ? "提醒学生穿运动鞋" : course === "美术" ? "检查工具材料" : course === "班会" ? "准备班级常规议题" : "确认教材、作业和课堂任务"}</small></span></div>) : <p className="empty-schedule">今天还没有填写课程。</p>}
-        <div className="today-plan-note">
-          <span>今日重点</span>
-          <b>{weekPlan[todayIndex]?.focus || "待填写"}</b>
-          <small>{weekPlan[todayIndex]?.event || "可补充班会、活动、放学提醒或特殊安排。"}</small>
-        </div>
-        <div className="subject-cloud"><b>本周学科分布</b>{topSubjects.map(([subject, count]) => <span key={subject}>{subject}<em>{count}</em></span>)}</div>
-      </aside>
-    </section>
-    <section className="schedule-arrangements">
-      <div className="schedule-card-head compact"><div><span>近期安排</span><h3>班会、活动和特殊日程</h3><p>手机端优先看这里：今天到后两天要上什么课、有什么事，一眼能确认。</p></div></div>
-      <div className="arrangement-grid">
-        {recentArrangements.map((item) => <article key={item.day}>
-          <header><b>{item.day}</b><span>{item.index === todayIndex ? "今天" : "近期"}</span></header>
-          <p>{item.event || "暂无班会或活动安排"}</p>
-          <small>{item.focus || "本日重点待补充"}</small>
-          <div>{(item.courses ?? []).slice(0, 5).map((course) => <em key={course}>{course}</em>)}</div>
-        </article>)}
-      </div>
-    </section>
-    <section className="week-plan-editor">
-      <div className="schedule-card-head compact"><div><span>周计划</span><h3>每天一个重点，一件必须处理的事</h3><p>这些内容会被班级周报读取，建议保持短句，方便周五汇总。</p></div></div>
-      <div className="week-plan-grid">{weekPlan.map((item, index) => <article key={item.day}>
-        <input value={item.day} onChange={(event) => changePlan(index, { day: event.target.value })} />
-        <label>本日重点<input value={item.focus} onChange={(event) => changePlan(index, { focus: event.target.value })} /></label>
-        <label>班会 / 活动安排<textarea value={item.event} onChange={(event) => changePlan(index, { event: event.target.value })} /></label>
-      </article>)}</div>
-    </section>
-  </>;
-}
-
 function Seating({ data, update }: { data: ClassroomData; update: (fn: (d: ClassroomData) => ClassroomData) => void }) {
   const [selected, setSelected] = useState<string | null>(null);
   const [dragged, setDragged] = useState<string | null>(null);
@@ -2352,5 +2227,6 @@ function LicensePanel({ workspace }: { workspace: Workspace }) {
   const exports = ["学生名单", "作业登记表", "积分表", "座位表", "值日表", "家访记录", "期末评语", "奖状"];
   return <><ToolHeading kicker="权限与导出" title="用于后续小红书售卖的专属链接能力" text="当前先展示授权状态和导出入口；后台创建独立付费链接后续接入管理页。" /><section className="license-dashboard"><article><span>当前链接</span><b>{workspace.className}</b><p>有效期至 {workspace.expiresAt}</p></article><article><span>版本</span><b>{workspace.data.license?.tier ?? "基础版"}</b><p>{workspace.data.license?.canExport ? "允许打印/导出" : "仅允许查看"}</p></article><article><span>公开演示</span><b>可用于小红书</b><p>购买后生成独立班级链接</p></article></section><section className="export-grid">{exports.map(item=><button key={item} onClick={()=>window.print()}><b>{item}</b><span>打印 / 导出</span></button>)}</section></>;
 }
+
 
 
