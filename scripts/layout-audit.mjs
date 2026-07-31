@@ -31,6 +31,8 @@ function runStaticAudit() {
   assert(/@media\(max-width:1240px\)\{[^}]*\.points-workbench\{grid-template-columns:1fr!important/i.test(css), "Points page does not collapse before it can overlap.", failures);
   assert(/\.points-filter-bar \.resource-search,\.points-filter-bar select,\.points-filter-bar button\{[^}]*height:56px!important/i.test(css), "Points filter controls are not locked to a shared visual height.", failures);
   assert(/\.student-score-head,\.student-score-row\{[^}]*grid-template-columns:72px minmax\(180px,1fr\) 86px 88px 96px!important/i.test(css), "Points score table columns are not using the audited alignment grid.", failures);
+  assert(/\.growth-layout\{[^}]*grid-template-columns:320px minmax\(0,1fr\)!important/i.test(css), "Growth page student panel is not wide enough for dense filtering.", failures);
+  assert(/\.growth-timeline\.spec \.growth-record\{[^}]*grid-template-columns:96px minmax\(0,1fr\)!important/i.test(css), "Growth timeline records are not locked to the audited two-column layout.", failures);
   return { name: "static-css", failures };
 }
 
@@ -254,6 +256,12 @@ async function runRuntimeAudit(url) {
             const filterBar = box('.points-filter-bar');
             const groupStrip = box('.points-group-strip');
             const scoreTable = box('.student-score-table');
+            const growthControlItems = boxes('.growth-list-controls select');
+            const growthDateBoxes = boxes('.growth-timeline.spec .growth-record-date');
+            const growthTitleBoxes = boxes('.growth-timeline.spec .growth-record-title');
+            const growthTagBoxes = boxes('.growth-timeline.spec .growth-record-tags span');
+            const firstGrowthDate = growthDateBoxes[0];
+            const firstGrowthTitle = growthTitleBoxes[0];
             return {
               label: ${JSON.stringify(label)},
               readyState: document.readyState,
@@ -272,6 +280,17 @@ async function runRuntimeAudit(url) {
                 selectColumnWidth: box('.student-score-head label')?.width ?? null,
                 checkboxCenterDelta: headCheckbox && firstRowCheckbox ? Math.abs(centerX(headCheckbox) - centerX(firstRowCheckbox)) : null,
                 firstStatRowHeightSpread: spread(firstStatRow, 'height'),
+              },
+              growthAesthetic: {
+                panel: box('.growth-student-panel'),
+                listControlsCount: growthControlItems.length,
+                listControlHeightSpread: spread(growthControlItems, 'height'),
+                listControlTopSpread: spread(growthControlItems.slice(0, 2), 'top'),
+                timeline: box('.growth-timeline.spec'),
+                firstDateAspect: firstGrowthDate ? firstGrowthDate.height / Math.max(1, firstGrowthDate.width) : null,
+                firstDateWidth: firstGrowthDate?.width ?? null,
+                firstDateTitleOverlap: firstGrowthDate && firstGrowthTitle ? !(firstGrowthDate.right <= firstGrowthTitle.left || firstGrowthTitle.right <= firstGrowthDate.left || firstGrowthDate.bottom <= firstGrowthTitle.top || firstGrowthTitle.bottom <= firstGrowthDate.top) : false,
+                maxTagHeight: growthTagBoxes.length ? Math.max(...growthTagBoxes.map((item) => item.height)) : null,
               },
               visibleText: document.body.innerText.slice(0, 200),
             };
@@ -301,6 +320,17 @@ async function runRuntimeAudit(url) {
           if (aesthetic.selectColumnWidth !== null && aesthetic.selectColumnWidth > 76) failures.push(`Points select-all column is too wide (${Math.round(aesthetic.selectColumnWidth)}px).`);
           if (aesthetic.checkboxCenterDelta !== null && aesthetic.checkboxCenterDelta > 4) failures.push(`Points header checkbox is not aligned with row checkboxes (${Math.round(aesthetic.checkboxCenterDelta)}px).`);
           if (aesthetic.firstStatRowHeightSpread > 6) failures.push(`Summary cards in the first row have uneven heights (${Math.round(aesthetic.firstStatRowHeightSpread)}px spread).`);
+        }
+        if (data.growthAesthetic?.timeline && viewport.width >= 1000) {
+          const aesthetic = data.growthAesthetic;
+          if (!aesthetic.panel || aesthetic.panel.width < 292) failures.push(`Growth student panel is too narrow (${Math.round(aesthetic.panel?.width ?? 0)}px).`);
+          if (aesthetic.listControlsCount < 4) failures.push("Growth student panel is missing dense filter controls.");
+          if (aesthetic.listControlHeightSpread > 2) failures.push(`Growth list filters have uneven heights (${Math.round(aesthetic.listControlHeightSpread)}px spread).`);
+          if (aesthetic.listControlTopSpread > 2) failures.push(`Growth list filters are not aligned (${Math.round(aesthetic.listControlTopSpread)}px spread).`);
+          if (aesthetic.firstDateWidth !== null && aesthetic.firstDateWidth < 70) failures.push(`Growth timeline date column is too narrow (${Math.round(aesthetic.firstDateWidth)}px).`);
+          if (aesthetic.firstDateAspect !== null && aesthetic.firstDateAspect > 1.2) failures.push(`Growth timeline date is wrapping vertically (${aesthetic.firstDateAspect.toFixed(2)} aspect).`);
+          if (aesthetic.firstDateTitleOverlap) failures.push("Growth timeline date overlaps the record title.");
+          if (aesthetic.maxTagHeight !== null && aesthetic.maxTagHeight > 30) failures.push(`Growth timeline tags are too tall (${Math.round(aesthetic.maxTagHeight)}px).`);
         }
         results.push({ name: `${viewport.name}:${label}`, data, failures });
       }

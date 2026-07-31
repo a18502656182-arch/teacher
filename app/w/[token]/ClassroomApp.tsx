@@ -1212,6 +1212,10 @@ function inGrowthRange(timestamp: number | null, range: GrowthTime) {
 function Growth({ data, update }: { data: ClassroomData; update: (fn: (d: ClassroomData) => ClassroomData) => void }) {
   const [id, setId] = useState(data.students[0]?.id ?? "");
   const [keyword, setKeyword] = useState("");
+  const [groupFilter, setGroupFilter] = useState("全部小组");
+  const [studentStatusFilter, setStudentStatusFilter] = useState<"全部状态" | "需要跟进" | "表现良好" | "整体稳定">("全部状态");
+  const [coverageFilter, setCoverageFilter] = useState<"全部记录" | "有记录" | "暂无记录">("全部记录");
+  const [studentSort, setStudentSort] = useState<"默认排序" | "记录多优先" | "积分低优先" | "成绩低优先">("默认排序");
   const [kind, setKind] = useState<"全部类型" | GrowthKind>("全部类型");
   const [range, setRange] = useState<GrowthTime>("全部时间");
   const [page, setPage] = useState(1);
@@ -1237,7 +1241,36 @@ function Growth({ data, update }: { data: ClassroomData; update: (fn: (d: Classr
     ? "需要跟进"
     : student.score >= 90 || student.points >= 18 ? "表现良好" : "整体稳定";
   const statusTone = status === "需要跟进" ? "attention" : status === "表现良好" ? "positive" : "steady";
-  const shownStudents = data.students.filter((item) => `${item.name}${item.studentNo ?? ""}${item.group}`.toLocaleLowerCase("zh-CN").includes(keyword.trim().toLocaleLowerCase("zh-CN")));
+  const studentEvidenceCount = (item: Student) => {
+    const hasManual = (data.growthEvidence ?? []).filter((record) => record.studentId === item.id).length;
+    const hasPoints = (data.pointEvents ?? []).filter((event) => event.studentId === item.id).length;
+    const hasRecords = data.records.filter((record) => record.student === item.name).length;
+    const homeworkCount = tasks.filter((task) => task.statuses[item.id]).length;
+    return hasManual + hasPoints + hasRecords + homeworkCount;
+  };
+  const studentStatusFor = (item: Student) => {
+    const itemEvents = (data.pointEvents ?? []).filter((event) => event.studentId === item.id);
+    const itemPositive = itemEvents.filter((event) => event.delta > 0).length;
+    const itemNegative = itemEvents.filter((event) => event.delta < 0).length;
+    if (item.score < 80 || item.homework !== "已交" || item.attendance !== "正常" || itemNegative > itemPositive) return "需要跟进";
+    if (item.score >= 90 || item.points >= 18) return "表现良好";
+    return "整体稳定";
+  };
+  const groupOptions = Array.from(new Set(data.students.map((item) => item.group))).sort((a, b) => a - b);
+  const attentionCount = data.students.filter((item) => studentStatusFor(item) === "需要跟进").length;
+  const noEvidenceCount = data.students.filter((item) => studentEvidenceCount(item) === 0).length;
+  const keywordText = keyword.trim().toLocaleLowerCase("zh-CN");
+  const shownStudents = data.students
+    .filter((item) => !keywordText || `${item.name}${item.studentNo ?? ""}${item.group}${item.score}${item.points}`.toLocaleLowerCase("zh-CN").includes(keywordText))
+    .filter((item) => groupFilter === "全部小组" || String(item.group) === groupFilter)
+    .filter((item) => studentStatusFilter === "全部状态" || studentStatusFor(item) === studentStatusFilter)
+    .filter((item) => coverageFilter === "全部记录" || (coverageFilter === "有记录" ? studentEvidenceCount(item) > 0 : studentEvidenceCount(item) === 0))
+    .sort((a, b) => {
+      if (studentSort === "记录多优先") return studentEvidenceCount(b) - studentEvidenceCount(a);
+      if (studentSort === "积分低优先") return a.points - b.points;
+      if (studentSort === "成绩低优先") return a.score - b.score;
+      return 0;
+    });
 
   const evidence: GrowthTimelineItem[] = [
     ...manual.map((item) => ({ id: `manual-${item.id}`, kind: "老师补充" as const, label: item.type, title: item.title, content: item.content, followUp: item.followUp, date: item.date, tone: item.type.includes("表扬") || item.type.includes("进步") ? "positive" as const : "neutral" as const, timestamp: growthTimestamp(item.date, item.createdAt) })),
@@ -1302,7 +1335,19 @@ function Growth({ data, update }: { data: ClassroomData; update: (fn: (d: Classr
       <aside className="growth-student-panel">
         <div className="growth-student-head"><div><b>学生列表</b><small>点击学生查看完整成长档案</small></div><span>{shownStudents.length}/{data.students.length}</span></div>
         <div className="resource-search compact-search growth-search"><span>⌕</span><input value={keyword} onChange={(event) => setKeyword(event.target.value)} placeholder="搜索姓名、学号或小组" /></div>
-        <div className="growth-student-list">{shownStudents.map((item) => <button className={item.id === student.id ? "selected" : ""} key={item.id} onClick={() => selectStudent(item.id)}><i>{item.name.slice(0, 1)}</i><span><b>{item.name}</b><small>第{item.group}组 · 学号 {item.studentNo || "未填"}</small></span></button>)}{!shownStudents.length && <p>没有匹配的学生。</p>}</div>
+        <div className="growth-quick-actions"><button onClick={() => { setStudentStatusFilter("需要跟进"); setCoverageFilter("全部记录"); }}>需跟进 {attentionCount}</button><button onClick={() => { setCoverageFilter("暂无记录"); setStudentStatusFilter("全部状态"); }}>暂无记录 {noEvidenceCount}</button><button onClick={() => { setKeyword(""); setGroupFilter("全部小组"); setStudentStatusFilter("全部状态"); setCoverageFilter("全部记录"); setStudentSort("默认排序"); }}>重置</button></div>
+        <div className="growth-list-controls">
+          <select value={groupFilter} onChange={(event) => setGroupFilter(event.target.value)}><option>全部小组</option>{groupOptions.map((group) => <option value={group} key={group}>第{group}组</option>)}</select>
+          <select value={studentStatusFilter} onChange={(event) => setStudentStatusFilter(event.target.value as typeof studentStatusFilter)}>{["全部状态", "需要跟进", "表现良好", "整体稳定"].map((item) => <option key={item}>{item}</option>)}</select>
+          <select value={coverageFilter} onChange={(event) => setCoverageFilter(event.target.value as typeof coverageFilter)}>{["全部记录", "有记录", "暂无记录"].map((item) => <option key={item}>{item}</option>)}</select>
+          <select value={studentSort} onChange={(event) => setStudentSort(event.target.value as typeof studentSort)}>{["默认排序", "记录多优先", "积分低优先", "成绩低优先"].map((item) => <option key={item}>{item}</option>)}</select>
+        </div>
+        <div className="growth-group-strip"><button className={groupFilter === "全部小组" ? "active" : ""} onClick={() => setGroupFilter("全部小组")}>全部</button>{groupOptions.map((group) => <button className={groupFilter === String(group) ? "active" : ""} key={group} onClick={() => setGroupFilter(String(group))}>第{group}组</button>)}</div>
+        <div className="growth-student-list">{shownStudents.map((item) => {
+          const itemStatus = studentStatusFor(item);
+          const itemEvidenceCount = studentEvidenceCount(item);
+          return <button className={item.id === student.id ? "selected" : ""} key={item.id} onClick={() => selectStudent(item.id)}><i>{item.name.slice(0, 1)}</i><span><b>{item.name}</b><small>第{item.group}组 · 学号 {item.studentNo || "未填"}</small><small>{item.score}分 · {item.points}积分 · {itemEvidenceCount}条记录</small></span><em className={itemStatus === "需要跟进" ? "attention" : itemStatus === "表现良好" ? "positive" : ""}>{itemStatus}</em></button>;
+        })}{!shownStudents.length && <p className="growth-empty-students">没有匹配的学生，换个筛选条件试试。</p>}</div>
       </aside>
       <div className="growth-main">
         <section className="growth-student-selector">
