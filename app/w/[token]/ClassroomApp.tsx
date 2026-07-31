@@ -978,7 +978,7 @@ function Points({ data, update }: { data: ClassroomData; update: (fn: (d: Classr
   const [customDelta, setCustomDelta] = useState(rules[0]?.delta ?? 1);
   const [selected, setSelected] = useState<string[]>([]);
   const [page, setPage] = useState(1);
-  const pageSize = 12;
+  const pageSize = 50;
 
   const classes = data.rosterClasses?.length
     ? data.rosterClasses
@@ -1085,7 +1085,7 @@ function Points({ data, update }: { data: ClassroomData; update: (fn: (d: Classr
     <section className="points-split">
       <aside className="points-input-panel">
         <h3><span>＋</span>快速录入</h3>
-        <div className="form-section"><label>学生多选</label><div className="batch-actions"><button onClick={toggleCurrentPage}>{pageAllSelected ? "取消本页" : "选择本页"}</button><button onClick={() => setSelected(students.map((student) => student.id))}>全班</button><button onClick={() => setSelected([])}>清空</button></div><div className="batch-actions">{groups.slice(0, 4).map((group) => <button key={group} onClick={() => selectGroup(group)}>第{group}组</button>)}</div><div className="resource-search compact-search"><span>⌕</span><input value={keyword} onChange={(event) => setKeyword(event.target.value)} placeholder="搜索姓名、学号、小组" /></div><div className="student-picker points-picker">{pageStudents.map((student) => <button className={selected.includes(student.id) ? "selected" : ""} key={student.id} onClick={() => toggleStudent(student.id)}>{student.name}</button>)}</div></div>
+        <div className="form-section"><label>学生多选 <span className="muted-hint">支持勾选多人批量操作</span></label><div className="batch-actions"><button onClick={toggleCurrentPage}>{pageAllSelected ? "取消本页" : "选择本页"}</button><button onClick={() => setSelected(students.map((student) => student.id))}>全选全班</button><button onClick={() => setSelected([])}>取消全选</button></div><div className="batch-actions">{groups.slice(0, 4).map((group) => <button key={group} onClick={() => selectGroup(group)}>第{group}组</button>)}</div><div className="resource-search compact-search"><span>⌕</span><input value={keyword} onChange={(event) => setKeyword(event.target.value)} placeholder="搜索姓名、学号、小组" /></div><div className="student-picker points-picker" style={{ maxHeight: "500px", overflowY: "auto" }}>{pageStudents.map((student) => <button className={selected.includes(student.id) ? "selected" : ""} key={student.id} onClick={() => toggleStudent(student.id)}>{student.name}</button>)}</div></div>
         <div className="form-section"><label>规则快选</label><div className="rule-picker">{rules.slice(0, 6).map((item) => <button className={item.id === rule?.id ? "selected" : ""} key={item.id} onClick={() => setRuleId(item.id)}><span className="rule-name">{item.scene} · {item.title}</span><span className={item.delta >= 0 ? "rule-score positive" : "rule-score negative"}>{item.delta > 0 ? "+" : ""}{item.delta}</span></button>)}</div></div>
         <div className="form-section"><label>自定义分数</label><div className="custom-score-input"><input type="range" min={-10} max={10} value={customDelta} onChange={(event) => setCustomDelta(Number(event.target.value))} /><span className="score-display">{value > 0 ? "+" : ""}{value}</span></div></div>
         <div className="form-section"><label>备注</label><textarea value={note} onChange={(event) => setNote(event.target.value)} placeholder="可补充具体事实，如：主动帮同学讲题" rows={3} /></div>
@@ -1286,13 +1286,18 @@ function Growth({ data, update }: { data: ClassroomData; update: (fn: (d: Classr
       <div><span>有记录学生</span><b>{studentsWithEvidence}</b><small>全班覆盖</small></div>
       <div><span>照片数</span><b>0</b><small>照片上传后续接入</small></div>
     </section>
-    <section className="growth-student-selector">
-      <label>选择学生</label>
-      <select value={student.id} onChange={(event) => selectStudent(event.target.value)}>{data.students.map((item) => <option key={item.id} value={item.id}>{item.name} · 学号 {item.studentNo || "未填"}</option>)}</select>
-      <div className="student-avatar">{student.name.slice(0, 1)}</div>
-      <div className="student-info"><b>{student.name}</b><small>第{student.group}组 · {status} · 作业完成率 {homeworkRate}%</small></div>
-    </section>
-    <section className="growth-split">
+    <section className="growth-layout">
+      <aside className="growth-student-panel">
+        <div className="growth-student-head"><div><b>学生列表</b><small>点击学生查看完整成长档案</small></div><span>{shownStudents.length}/{data.students.length}</span></div>
+        <div className="resource-search compact-search growth-search"><span>⌕</span><input value={keyword} onChange={(event) => setKeyword(event.target.value)} placeholder="搜索姓名、学号或小组" /></div>
+        <div className="growth-student-list">{shownStudents.map((item) => <button className={item.id === student.id ? "selected" : ""} key={item.id} onClick={() => selectStudent(item.id)}><i>{item.name.slice(0, 1)}</i><span><b>{item.name}</b><small>第{item.group}组 · 学号 {item.studentNo || "未填"}</small></span></button>)}{!shownStudents.length && <p>没有匹配的学生。</p>}</div>
+      </aside>
+      <div className="growth-main">
+        <section className="growth-student-selector">
+          <div className="student-avatar">{student.name.slice(0, 1)}</div>
+          <div className="student-info"><b>{student.name}</b><small>第{student.group}组 · {status} · 作业完成率 {homeworkRate}%</small></div>
+        </section>
+        <section className="growth-split">
       <aside className="growth-input-panel">
         <h3><span>＋</span>添加记录</h3>
         <div className="form-section"><label>日期</label><input type="date" value={draft.date} onChange={(event) => setDraft({ ...draft, date: event.target.value })} /></div>
@@ -1310,6 +1315,8 @@ function Growth({ data, update }: { data: ClassroomData; update: (fn: (d: Classr
         {!visibleEvidence.length && <div className="growth-empty"><span>档</span><p>{evidence.length ? "当前筛选条件下没有记录。" : "还没有成长记录，先从左侧添加第一条。"}</p></div>}
         {filteredEvidence.length > pageSize && <div className="growth-pagination"><button disabled={safePage <= 1} onClick={() => setPage((current) => Math.max(1, current - 1))}>上一页</button><span>第 {safePage} / {pageCount} 页</span><button disabled={safePage >= pageCount} onClick={() => setPage((current) => Math.min(pageCount, current + 1))}>下一页</button></div>}
       </section>
+        </section>
+      </div>
     </section>
   </>;
 }
@@ -1904,6 +1911,7 @@ function Seating({ data, update }: { data: ClassroomData; update: (fn: (d: Class
 function Duty({ data, update }: { data: ClassroomData; update: (fn: (d: ClassroomData) => ClassroomData) => void }) {
   const [selectedDay, setSelectedDay] = useState(days[Math.max(0, Math.min(4, new Date().getDay() - 1))]);
   const [dutyView, setDutyView] = useState<"today" | "schedule" | "jobs" | "records">("today");
+  const [editingJobId, setEditingJobId] = useState<string | null>(null);
   const [keyword, setKeyword] = useState("");
   const [message, setMessage] = useState("");
   const activeClassId = data.activeClassId ?? data.rosterClasses?.[0]?.id ?? "class-1";
@@ -1968,7 +1976,8 @@ function Duty({ data, update }: { data: ClassroomData; update: (fn: (d: Classroo
   }).slice(0, 20);
 
   return <>
-    <ToolHeading kicker="值日与岗位" title="一周排班、每日检查、返工记录放在一页" text="先按小组公平轮换，也可以给岗位固定学生；检查结果会进入台账，方便周报和家校沟通引用。" action={<div className="heading-actions"><button className="primary-small" onClick={() => update((d) => ({ ...d, dutyOffset: (d.dutyOffset + 1) % maxGroup }))}>轮换一周</button><button className="weekly-secondary-btn" onClick={() => navigator.clipboard?.writeText(dutyText)}>复制值日表</button></div>} />
+    <ToolHeading kicker="值日与岗位" title="一周排班、每日检查、返工记录放在一页" text="先按小组公平轮换，也可以给岗位固定学生；检查结果会进入台账，方便周报和家校沟通引用。" action={<div className="heading-actions"><button className="primary-small" onClick={() => update((d) => ({ ...d, dutyOffset: (d.dutyOffset + 1) % maxGroup }))}>轮换一周</button><button className="weekly-secondary-btn" onClick={addJob}>新增岗位</button><button className="weekly-secondary-btn" onClick={() => navigator.clipboard?.writeText(dutyText)}>复制值日表</button></div>} />
+    <p className="edit-hint">点击每行的“编辑岗位”可修改岗位名称、区域和检查标准；点击“新增岗位”可自由添加岗位。</p>
     {message && <button className="inline-alert duty-message" onClick={() => setMessage("")}>{message}<span>点击关闭</span></button>}
     <section className="duty-summary">
       <article><span>启用岗位</span><b>{jobs.length}</b><small>岗位可新增、停用、固定人</small></article>
@@ -1990,13 +1999,24 @@ function Duty({ data, update }: { data: ClassroomData; update: (fn: (d: Classroo
           {jobs.map((job, jobIndex) => {
             const students = assignedStudents(selectedDayIndex, job, jobIndex);
             const record = todayRecords.find((item) => item.day === selectedDay && item.jobId === job.id);
-            return <div className="duty-task-line" key={job.id}>
-              <span><b>{job.name}</b><small>{job.area}｜{job.standard}</small></span>
-              <strong>{students.map((student) => student.name).join("、") || "待安排"}</strong>
-              <em className={`duty-status ${record?.status ?? "待检查"}`}>{record?.status ?? "待检查"}</em>
-              <button onClick={() => mark(selectedDay, job, jobIndex, "已完成")}>完成</button>
-              <button onClick={() => mark(selectedDay, job, jobIndex, "需返工")}>返工</button>
-            </div>;
+            return <article className="duty-task-item" key={job.id}>
+              <div className="duty-task-line">
+                <span><b>{job.name}</b><small>{job.area}｜{job.standard}</small></span>
+                <strong>{students.map((student) => student.name).join("、") || "待安排"}</strong>
+                <em className={`duty-status ${record?.status ?? "待检查"}`}>{record?.status ?? "待检查"}</em>
+                <button onClick={() => mark(selectedDay, job, jobIndex, "已完成")}>完成</button>
+                <button onClick={() => mark(selectedDay, job, jobIndex, "需返工")}>返工</button>
+                <button className="job-edit-btn" onClick={() => setEditingJobId(editingJobId === job.id ? null : job.id)}>编辑岗位</button>
+              </div>
+              {editingJobId === job.id && <div className="duty-inline-editor">
+                <label><span>岗位名</span><input value={job.name} onChange={(e) => editJob(job.id, { name: e.target.value })} /></label>
+                <label><span>负责区域</span><input value={job.area} onChange={(e) => editJob(job.id, { area: e.target.value })} /></label>
+                <label className="wide"><span>检查标准</span><textarea value={job.standard} onChange={(e) => editJob(job.id, { standard: e.target.value })} /></label>
+                <label><span>固定学生</span><select value={job.studentIds?.[0] ?? ""} onChange={(e) => editJob(job.id, { studentIds: e.target.value ? [e.target.value] : [] })}><option value="">按小组自动轮换</option>{data.students.map((student) => <option value={student.id} key={student.id}>{student.name}</option>)}</select></label>
+                <label><span>岗位状态</span><button className={job.enabled === false ? "" : "enabled"} onClick={() => editJob(job.id, { enabled: job.enabled === false })}>{job.enabled === false ? "已停用，点击启用" : "启用中，点击停用"}</button></label>
+                <div className="duty-inline-actions"><button className="primary-small" onClick={() => setEditingJobId(null)}>保存并关闭</button></div>
+              </div>}
+            </article>;
           })}
         </article>
         <div className="duty-week-board">{days.map((day, dayIndex) => <article className={day === selectedDay ? "active" : ""} key={day}><b>{day}</b><span>第{((dayIndex + data.dutyOffset) % groups.length) + 1}组</span><p>{jobs.slice(0, 4).map((job, jobIndex) => `${job.name}：${assignedStudents(dayIndex, job, jobIndex).map((student) => student.name).join("、") || "待安排"}`).join("；")}</p></article>)}</div>
@@ -2006,7 +2026,6 @@ function Duty({ data, update }: { data: ClassroomData; update: (fn: (d: Classroo
         </div>
       </div>
       <aside className="duty-side">
-        <section><header><div><span>岗位设置</span><h3>岗位、区域、标准</h3></div><button onClick={addJob}>新增岗位</button></header><div className="duty-job-editor">{allJobs.map((job) => <article key={job.id}><label><span>岗位名</span><input value={job.name} onChange={(e) => editJob(job.id, { name: e.target.value })} /></label><label><span>区域</span><input value={job.area} onChange={(e) => editJob(job.id, { area: e.target.value })} /></label><label><span>检查标准</span><textarea value={job.standard} onChange={(e) => editJob(job.id, { standard: e.target.value })} /></label><label><span>固定学生</span><select value={job.studentIds?.[0] ?? ""} onChange={(e) => editJob(job.id, { studentIds: e.target.value ? [e.target.value] : [] })}><option value="">按小组自动轮换</option>{data.students.map((student) => <option value={student.id} key={student.id}>{student.name}</option>)}</select></label><button className={job.enabled === false ? "" : "enabled"} onClick={() => editJob(job.id, { enabled: job.enabled === false })}>{job.enabled === false ? "已停用，点击启用" : "启用中，点击停用"}</button></article>)}</div></section>
         <section><header><div><span>检查台账</span><h3>最近记录</h3></div><button onClick={() => navigator.clipboard?.writeText(filteredRecords.map((record) => `${record.date} ${record.day} ${record.status} ${record.note}`).join("\n"))}>复制</button></header><input className="duty-search" value={keyword} onChange={(e) => setKeyword(e.target.value)} placeholder="搜岗位、学生、备注" /><div className="duty-record-list">{filteredRecords.length ? filteredRecords.map((record) => { const job = allJobs.find((item) => item.id === record.jobId); return <article key={record.id}><b>{record.date} {record.day}｜{job?.name ?? "值日岗位"}｜{record.status}</b><textarea value={record.note} placeholder="补充检查备注" onChange={(e) => update((current) => ({ ...current, dutyRecords: (current.dutyRecords ?? []).map((item) => item.id === record.id ? { ...item, note: e.target.value } : item) }))} /></article>; }) : <p>还没有符合条件的值日记录。</p>}</div></section>
       </aside>
     </section>
@@ -2014,35 +2033,60 @@ function Duty({ data, update }: { data: ClassroomData; update: (fn: (d: Classroo
 }
 
 function Cadres({ data, update }: { data: ClassroomData; update: (fn: (d: ClassroomData) => ClassroomData) => void }) {
-  const [cadreView, setCadreView] = useState<"班委" | "小组长" | "任期记录">("班委");
-  const [status, setStatus] = useState("全部");
-  const [keyword, setKeyword] = useState("");
-  function edit(id: string, patch: Partial<CadreRole>) {
-    update((d) => ({ ...d, cadres: (d.cadres ?? []).map((c) => c.id === id ? { ...c, ...patch } : c) }));
-  }
-  function add() {
-    update((d) => ({ ...d, cadres: [...(d.cadres ?? []), { id: crypto.randomUUID(), role: "新岗位", studentId: d.students[0]?.id ?? "", duty: "填写岗位职责", scope: "班级管理", term: "本学期", status: "试用", weeklyScore: 3, summary: "填写本周履职表现。" }] }));
-  }
+  const [tab, setTab] = useState<"班委" | "小组长" | "任期记录">("班委");
+  const [termFilter, setTermFilter] = useState("全部学期");
   const roles = data.cadres ?? [];
-  const filtered = roles.filter((role) => {
-    const student = data.students.find((item) => item.id === role.studentId);
-    const text = `${role.role}${student?.name}${role.duty}${role.scope}${role.summary}`;
-    return (status === "全部" || role.status === status) && (!keyword.trim() || text.includes(keyword.trim()));
-  });
-  const viewFiltered = filtered.filter((role) => cadreView === "任期记录" || (cadreView === "小组长" ? role.role.includes("组长") : !role.role.includes("组长")));
-  const appointmentText = filtered.map((role) => {
+  const committeeRoles = roles.filter((role) => (role.scope ?? "班级管理") === "班级管理" && !role.role.includes("组长"));
+  const groupRoles = roles.filter((role) => (role.scope ?? "") === "小组管理" || role.role.includes("组长"));
+  const groupNumbers = Array.from(new Set(data.students.map((student) => student.group))).sort((a, b) => a - b);
+  const termOptions = ["全部学期", ...Array.from(new Set(roles.map((role) => role.term || "本学期")))];
+  const tenureRoles = roles.filter((role) => termFilter === "全部学期" || (role.term || "本学期") === termFilter);
+  const appointmentText = roles.map((role) => {
     const student = data.students.find((item) => item.id === role.studentId);
     return `兹聘任 ${student?.name ?? "某同学"} 为本班 ${role.role}，负责：${role.duty}`;
   }).join("\n");
+
+  function edit(id: string, patch: Partial<CadreRole>) {
+    update((d) => ({ ...d, cadres: (d.cadres ?? []).map((c) => c.id === id ? { ...c, ...patch } : c) }));
+  }
+
+  function addRole(scope: "班级管理" | "小组管理", group?: number) {
+    const candidates = group ? data.students.filter((student) => student.group === group) : data.students;
+    const firstStudent = candidates[0] ?? data.students[0];
+    const roleName = scope === "小组管理" ? `第${group ?? groupNumbers[0] ?? 1}组组长` : "新班委岗位";
+    update((d) => ({ ...d, cadres: [...(d.cadres ?? []), { id: crypto.randomUUID(), role: roleName, studentId: firstStudent?.id ?? "", duty: scope === "小组管理" ? "负责本组纪律、作业提醒和小组协作。" : "填写岗位职责", scope, term: "本学期", status: "试用", weeklyScore: 3, summary: "填写本周履职表现。" }] }));
+  }
+
+  function removeRole(id: string) {
+    update((d) => ({ ...d, cadres: (d.cadres ?? []).filter((item) => item.id !== id) }));
+  }
+
+  function renderRoleCard(role: CadreRole, candidates: Student[]) {
+    const student = data.students.find((item) => item.id === role.studentId);
+    const options = candidates.length ? candidates : data.students;
+    return <article className="cadre-card" key={role.id}>
+      <div className="cadre-card-head cadre-role-bar"><input value={role.role} onChange={(e) => edit(role.id, { role: e.target.value })} /><select value={role.status ?? "在任"} onChange={(e) => edit(role.id, { status: e.target.value as CadreRole["status"] })}><option>在任</option><option>试用</option><option>轮换</option></select></div>
+      <div className="cadre-holder"><i className="holder-avatar">{student?.name.slice(0, 1) ?? "岗"}</i><span><b>{student?.name || "待任命"}</b><small>{role.term || "本学期"} · {role.scope ?? "班级管理"}</small></span><em>{role.weeklyScore ?? 3}/5</em></div>
+      <label><span>任职学生</span><select value={role.studentId} onChange={(e) => edit(role.id, { studentId: e.target.value })}><option value="">待选择</option>{options.map((s) => <option value={s.id} key={s.id}>{s.name}</option>)}</select></label>
+      <label><span>岗位职责</span><textarea value={role.duty} onChange={(e) => edit(role.id, { duty: e.target.value })} /></label>
+      <label><span>本周履职评价</span><textarea value={role.summary ?? ""} onChange={(e) => edit(role.id, { summary: e.target.value })} /></label>
+      <label><span>履职评分</span><input type="range" min={1} max={5} value={role.weeklyScore ?? 3} onChange={(e) => edit(role.id, { weeklyScore: Number(e.target.value) })} /><b>{role.weeklyScore ?? 3} / 5</b></label>
+      <div className="appointment"><b>聘任书预览</b><p>兹聘任 {student?.name || "某同学"} 为本班 {role.role}，负责：{role.duty}</p></div>
+      <button className="text-danger" onClick={() => removeRole(role.id)}>删除岗位</button>
+    </article>;
+  }
+
   return <>
-    <ToolHeading kicker="班干部" title="任命、职责、履职评价和聘任书连在一起" text="能新增岗位、选择学生、写职责、记录每周履职表现，也能复制聘任书文字。" action={<div className="heading-actions"><button className="primary-small" onClick={add}>新增岗位</button><button className="weekly-secondary-btn" onClick={() => navigator.clipboard?.writeText(appointmentText)}>复制聘任书</button></div>} />
-    <section className="cadre-summary"><article><span>总职位</span><b>{roles.length}</b><small>班委、课代表、岗位长都可管理</small></article><article><span>已填充</span><b>{roles.filter((role) => Boolean(role.studentId)).length}</b><small>可用于班干部名单</small></article><article><span>在任学期</span><b>{new Set(roles.map((role) => role.term)).size}</b><small>方便后续看任期</small></article><article><span>平均履职</span><b>{Math.round(roles.reduce((sum, role) => sum + (role.weeklyScore ?? 0), 0) / Math.max(1, roles.length))}</b><small>满分5分</small></article></section>
-    <section className="duty-tabs cadre-view-tabs">{(["班委", "小组长", "任期记录"] as const).map((item) => <button className={cadreView === item ? "active" : ""} onClick={() => setCadreView(item)} key={item}>{item}</button>)}</section>
-    <section className="cadre-toolbar"><input value={keyword} onChange={(e) => setKeyword(e.target.value)} placeholder="搜岗位、学生、职责" /><select value={status} onChange={(e) => setStatus(e.target.value)}><option>全部</option><option>在任</option><option>试用</option><option>轮换</option></select></section>
-    <section className="cadres-grid cadre-grid detailed">{viewFiltered.map((role) => {
-      const student = data.students.find((item) => item.id === role.studentId);
-      return <article className="cadre-card" key={role.id}><div className="cadre-card-head cadre-role-bar"><input value={role.role} onChange={(e) => edit(role.id, { role: e.target.value })} /><select value={role.status ?? "在任"} onChange={(e) => edit(role.id, { status: e.target.value as CadreRole["status"] })}><option>在任</option><option>试用</option><option>轮换</option></select></div><div className="cadre-holder"><i className="holder-avatar">{student?.name.slice(0, 1) ?? "岗"}</i><span><b>{student?.name || "待任命"}</b><small>{role.term} · {role.scope ?? "班级管理"}</small></span><em>{"★".repeat(role.weeklyScore ?? 3)}{"☆".repeat(5 - (role.weeklyScore ?? 3))}</em></div><label><span>任职学生</span><select value={role.studentId} onChange={(e) => edit(role.id, { studentId: e.target.value })}>{data.students.map((s) => <option value={s.id} key={s.id}>{s.name}</option>)}</select></label><label><span>管理范围</span><input value={role.scope ?? ""} onChange={(e) => edit(role.id, { scope: e.target.value })} /></label><label><span>岗位职责</span><textarea value={role.duty} onChange={(e) => edit(role.id, { duty: e.target.value })} /></label><label><span>本周履职评价</span><textarea value={role.summary ?? ""} onChange={(e) => edit(role.id, { summary: e.target.value })} /></label><label><span>履职分</span><input type="range" min={1} max={5} value={role.weeklyScore ?? 3} onChange={(e) => edit(role.id, { weeklyScore: Number(e.target.value) })} /><b>{role.weeklyScore ?? 3} / 5</b></label><div className="appointment"><b>班委聘任书</b><p>兹聘任 {student?.name || "某同学"} 为本班 {role.role}，负责：{role.duty}</p></div><button className="text-danger" onClick={() => update((d) => ({ ...d, cadres: (d.cadres ?? []).filter((item) => item.id !== role.id) }))}>删除岗位</button></article>;
-    })}</section>
+    <ToolHeading kicker="班干部" title="记录班委任命、职责和每周履职表现" text="按班委、小组长和任期记录分别管理，岗位职责、学生任命、履职评价和聘任书文字都可直接编辑。" action={<div className="heading-actions"><button className="primary-small" onClick={() => addRole(tab === "小组长" ? "小组管理" : "班级管理", tab === "小组长" ? groupNumbers[0] : undefined)}>{tab === "小组长" ? "＋新增小组长" : "＋新增班委岗位"}</button><button className="weekly-secondary-btn" onClick={() => navigator.clipboard?.writeText(appointmentText)}>复制聘任书</button></div>} />
+    <section className="cadre-summary"><article><span>班委岗位</span><b>{committeeRoles.length}</b><small>班级管理岗位</small></article><article><span>小组长</span><b>{groupRoles.length}</b><small>小组管理岗位</small></article><article><span>任期数</span><b>{new Set(roles.map((role) => role.term || "本学期")).size}</b><small>可按学期筛选</small></article><article><span>平均履职</span><b>{Math.round(roles.reduce((sum, role) => sum + (role.weeklyScore ?? 0), 0) / Math.max(1, roles.length))}</b><small>满分5分</small></article></section>
+    <section className="cadre-tabs">{(["班委", "小组长", "任期记录"] as const).map((item) => <button className={tab === item ? "active" : ""} onClick={() => setTab(item)} key={item}>{item}</button>)}</section>
+    {tab === "班委" && (committeeRoles.length ? <section className="cadre-role-grid">{committeeRoles.map((role) => renderRoleCard(role, data.students))}</section> : <div className="cadre-empty"><b>还没有班委</b><p>点击“新增班委岗位”，选好学生和职责，就能生成聘任书文字。</p><button onClick={() => addRole("班级管理")}>新增第一个班委</button></div>)}
+    {tab === "小组长" && <section className="cadre-role-grid">{groupNumbers.length ? groupNumbers.map((group) => {
+      const candidates = data.students.filter((student) => student.group === group);
+      const role = groupRoles.find((item) => item.role.includes(`第${group}组`) || item.studentId && candidates.some((student) => student.id === item.studentId));
+      return role ? renderRoleCard(role, candidates) : <article className="cadre-empty compact" key={group}><b>第{group}组还没有组长</b><p>从本组学生中任命一名小组长，用于纪律、作业和小组协作管理。</p><button onClick={() => addRole("小组管理", group)}>新增第{group}组组长</button></article>;
+    }) : <div className="cadre-empty"><b>还没有小组数据</b><p>先在学生名单里填写小组，再来任命小组长。</p></div>}</section>}
+    {tab === "任期记录" && <section className="cadre-tenure"><div className="record-filters"><select value={termFilter} onChange={(e) => setTermFilter(e.target.value)}>{termOptions.map((item) => <option key={item}>{item}</option>)}</select></div><div className="cadre-tenure-list"><div className="cadre-tenure-head"><span>学期</span><span>岗位</span><span>学生姓名</span><span>最终评分</span></div>{tenureRoles.map((role) => { const student = data.students.find((item) => item.id === role.studentId); return <div className="cadre-tenure-row" key={role.id}><span>{role.term || "本学期"}</span><b>{role.role}</b><span>{student?.name || "待任命"}</span><strong>{role.weeklyScore ?? 3} / 5</strong></div>; })}{!tenureRoles.length && <p>当前学期还没有任期记录。</p>}</div></section>}
   </>;
 }
 
@@ -2085,6 +2129,12 @@ function Scores({ data, update }: { data: ClassroomData; update: (fn: (d: Classr
   const [examId, setExamId] = useState(data.scoreExams?.[0]?.id ?? "");
   const [keyword, setKeyword] = useState("");
   const [band, setBand] = useState("全部");
+  const [showExamSetup, setShowExamSetup] = useState(false);
+  const [newExamTitle, setNewExamTitle] = useState("新考试");
+  const [newExamDate, setNewExamDate] = useState(today());
+  const [subjectDraft, setSubjectDraft] = useState("");
+  const [subjectEditOpen, setSubjectEditOpen] = useState(false);
+  const [newSubject, setNewSubject] = useState("");
   const activeClassId = data.activeClassId ?? data.rosterClasses?.[0]?.id ?? "class-1";
   const exams = data.scoreExams?.length ? data.scoreExams : [defaultScoreExam(data.students, activeClassId)];
   const exam = exams.find((item) => item.id === examId) ?? exams[0];
@@ -2110,15 +2160,55 @@ function Scores({ data, update }: { data: ClassroomData; update: (fn: (d: Classr
     updateExam(nextExam);
   }
   function addExam() {
+    setNewExamTitle(`新考试 ${exams.length + 1}`);
+    setNewExamDate(today());
+    setSubjectDraft(subjects.join("，"));
+    setShowExamSetup(true);
+  }
+  function confirmAddExam() {
+    const parsedSubjects = Array.from(new Set(subjectDraft.split(/[，,]/).map((item) => item.trim()).filter(Boolean)));
+    const nextSubjects = parsedSubjects.length ? parsedSubjects : ["语文", "数学", "英语"];
     const next = defaultScoreExam(data.students, activeClassId);
-    next.id = crypto.randomUUID(); next.title = "新考试"; next.date = today();
+    const scores: ScoreExam["scores"] = {};
+    data.students.forEach((student) => {
+      scores[student.id] = {};
+      nextSubjects.forEach((subject) => {
+        scores[student.id][subject] = student.score;
+      });
+    });
+    next.id = crypto.randomUUID(); next.title = newExamTitle.trim() || "新考试"; next.date = newExamDate || today(); next.subjects = nextSubjects; next.scores = scores;
     update((current) => ({ ...current, scoreExams: [next, ...exams] }));
     setExamId(next.id);
+    setShowExamSetup(false);
+    setSubjectEditOpen(false);
+  }
+  function removeSubject(subject: string) {
+    if (subjects.length <= 1) return;
+    const nextSubjects = subjects.filter((item) => item !== subject);
+    const nextScores: ScoreExam["scores"] = {};
+    Object.keys(exam.scores).forEach((studentId) => {
+      const currentScores = { ...(exam.scores[studentId] ?? {}) };
+      delete currentScores[subject];
+      nextScores[studentId] = currentScores;
+    });
+    updateExam({ ...exam, subjects: nextSubjects, scores: nextScores });
+  }
+  function addSubject() {
+    const subject = newSubject.trim();
+    if (!subject || subjects.includes(subject)) return;
+    const nextScores: ScoreExam["scores"] = { ...exam.scores };
+    data.students.forEach((student) => {
+      nextScores[student.id] = { ...(nextScores[student.id] ?? {}), [subject]: student.score };
+    });
+    updateExam({ ...exam, subjects: [...subjects, subject], scores: nextScores });
+    setNewSubject("");
   }
   return <>
     <ToolHeading kicker="成绩分析" title="多科成绩、临界学生、帮扶建议先跑起来" text="支持新建考试、逐科录分、按优秀/临界/帮扶筛选，并自动生成班级分析与学生建议。" action={<button className="primary-small" onClick={addExam}>新增考试</button>} />
     <section className="score-summary"><div><span>平均分</span><b>{average}</b><small>{exam.title}</small></div><div><span>优秀率</span><b>{Math.round(ranked.filter((item) => item.average >= 90).length / Math.max(1, ranked.length) * 100)}%</b><small>平均90分以上</small></div><div><span>临界人数</span><b>{ranked.filter((item) => item.average >= 80 && item.average < 90).length}</b><small>适合冲刺突破</small></div><div><span>帮扶人数</span><b>{ranked.filter((item) => item.average < 80).length}</b><small>需要谈心和错题复盘</small></div></section>
-    <section className="score-toolbar"><label><span>考试</span><select value={exam.id} onChange={(e) => setExamId(e.target.value)}>{exams.map((item) => <option value={item.id} key={item.id}>{item.title}</option>)}</select></label><label><span>名称</span><input value={exam.title} onChange={(e) => updateExam({ ...exam, title: e.target.value })} /></label><label><span>日期</span><input type="date" value={exam.date} onChange={(e) => updateExam({ ...exam, date: e.target.value })} /></label><label><span>筛选</span><select value={band} onChange={(e) => setBand(e.target.value)}><option>全部</option><option>优秀</option><option>临界</option><option>帮扶</option></select></label><input value={keyword} onChange={(e) => setKeyword(e.target.value)} placeholder="搜姓名/学号/小组" /></section>
+    {showExamSetup && <section className="exam-setup-card"><h3>新增考试</h3><label><span>考试名称</span><input value={newExamTitle} onChange={(e) => setNewExamTitle(e.target.value)} /></label><label><span>考试日期</span><input type="date" value={newExamDate} onChange={(e) => setNewExamDate(e.target.value)} /></label><label><span>考试科目</span><input value={subjectDraft} onChange={(e) => setSubjectDraft(e.target.value)} placeholder="用逗号分隔，如：语文,数学,英语" /></label><div><button className="primary-small" onClick={confirmAddExam}>确认新增</button><button onClick={() => setShowExamSetup(false)}>取消</button></div></section>}
+    <section className="score-toolbar"><label><span>考试</span><select value={exam.id} onChange={(e) => setExamId(e.target.value)}>{exams.map((item) => <option value={item.id} key={item.id}>{item.title}</option>)}</select></label><label><span>名称</span><input value={exam.title} onChange={(e) => updateExam({ ...exam, title: e.target.value })} /></label><label><span>日期</span><input type="date" value={exam.date} onChange={(e) => updateExam({ ...exam, date: e.target.value })} /></label><button className="subject-toggle" onClick={() => setSubjectEditOpen((open) => !open)}>{subjectEditOpen ? "收起科目" : "编辑科目"}</button><label><span>筛选</span><select value={band} onChange={(e) => setBand(e.target.value)}><option>全部</option><option>优秀</option><option>临界</option><option>帮扶</option></select></label><input value={keyword} onChange={(e) => setKeyword(e.target.value)} placeholder="搜姓名/学号/小组" />{subjectEditOpen && <div className="subject-editor"><div>{subjects.map((subject) => <span key={subject}>{subject}<button aria-label={`删除${subject}`} disabled={subjects.length <= 1} onClick={() => removeSubject(subject)}>×</button></span>)}</div><label><span>新增科目</span><input value={newSubject} onChange={(e) => setNewSubject(e.target.value)} placeholder="如：物理" /></label><button onClick={addSubject}>添加科目</button></div>}</section>
+    <p className="edit-hint">点击表格中的分数数字可以直接修改；可在上方修改考试名称、日期和科目。</p>
     <section className="score-layout"><div className="score-table-wrap"><div className="score-table" style={{ gridTemplateColumns: `90px repeat(${subjects.length}, 76px) 76px 1.4fr` }}><b>学生</b>{subjects.map((subject) => <b key={subject}>{subject}</b>)}<b>平均</b><b>建议</b>{visible.map(({ student, average }) => <div className="score-row" key={student.id} style={{ display: "contents" }}><span>{student.name}<small>第{student.group}组</small></span>{subjects.map((subject) => <input aria-label={`${student.name}${subject}成绩`} type="number" min={0} max={100} value={exam.scores[student.id]?.[subject] ?? student.score} onChange={(e) => setScore(student.id, subject, Number(e.target.value) || 0)} key={subject} />)}<strong>{average}</strong><em>{average < 80 ? "安排谈心+错题复盘" : average < 90 ? "临界突破，盯薄弱科" : "推荐表扬，可做经验分享"}</em></div>)}</div></div><aside className="score-insight"><h3>班级诊断</h3><p>低于80分的学生优先进入帮扶名单；80-89分学生适合做临界突破；90分以上可沉淀为表扬和经验分享。</p><h3>重点名单</h3>{ranked.slice(0, 8).map(({ student, average }) => <button key={student.id} onClick={() => setKeyword(student.name)}><b>{student.name}</b><span>{average}分</span><em>{average < 80 ? "帮扶" : average < 90 ? "临界" : "优秀"}</em></button>)}</aside></section>
   </>;
 }
