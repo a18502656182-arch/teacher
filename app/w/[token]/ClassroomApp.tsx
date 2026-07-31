@@ -1982,7 +1982,7 @@ function Seating({ data, update }: { data: ClassroomData; update: (fn: (d: Class
     <div className="seat-instruction"><b>{selected ? `已选择 ${data.students.find((student) => student.id === selected)?.name ?? "学生"}` : "手动调整座位"}</b><span>{selected ? "再点另一名学生或空座位即可移动；电脑端也可以直接拖动" : "先点一名学生，再点目标座位；固定座只限制自动排座"}</span></div>
     <section className={`seating-workspace seating-mode-${layoutMode}`}>
       <div className="seating-wrap seating-advanced seating-canvas">
-        <div className="blackboard podium"><span>讲</span>讲 台</div>
+        <div className="blackboard podium"><span>黑</span>黑板</div>
         <div className="classroom-orientation"><span>前门</span><b>面向黑板</b><span>窗户</span></div>
         <div className={`seat-grid advanced-grid seats-grid rows-${config.rows}`} style={{ gridTemplateColumns: `repeat(${config.columns}, minmax(76px, 1fr))` }}>
           {Array.from({ length: capacity }, (_, index) => index + 1).map((seat) => {
@@ -2006,7 +2006,7 @@ function Seating({ data, update }: { data: ClassroomData; update: (fn: (d: Class
             </button>;
           })}
         </div>
-        <div className="teacher-desk">讲 台</div>
+        <div className="teacher-desk">讲台</div>
         <div className="classroom-back"><span>后门</span><b>教室后方</b><span>卫生角</span></div>
       </div>
       <aside className="seat-groups-panel">
