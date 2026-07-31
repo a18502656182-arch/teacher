@@ -973,12 +973,11 @@ function Points({ data, update }: { data: ClassroomData; update: (fn: (d: Classr
   const rules = (data.pointRules?.length ? data.pointRules : defaultPointRules).filter((item) => item.enabled !== false);
   const [ruleId, setRuleId] = useState(rules[0]?.id ?? "");
   const [keyword, setKeyword] = useState("");
+  const [groupFilter, setGroupFilter] = useState("全部小组");
   const [operator, setOperator] = useState("班主任");
   const [note, setNote] = useState("");
   const [customDelta, setCustomDelta] = useState(rules[0]?.delta ?? 1);
   const [selected, setSelected] = useState<string[]>([]);
-  const [page, setPage] = useState(1);
-  const pageSize = 50;
 
   const classes = data.rosterClasses?.length
     ? data.rosterClasses
@@ -991,29 +990,22 @@ function Points({ data, update }: { data: ClassroomData; update: (fn: (d: Classr
   const absDelta = Math.max(1, Math.abs(value));
   const actionText = (value >= 0 ? "加" : "扣") + absDelta;
   const groups = Array.from(new Set(students.map((student) => student.group))).sort((a, b) => a - b);
-  const filtered = students.filter((student) => (student.name + (student.studentNo ?? "") + "第" + student.group + "组").includes(keyword.trim()));
-  const totalPages = Math.max(1, Math.ceil(filtered.length / pageSize));
-  const safePage = Math.min(page, totalPages);
-  const pageStudents = filtered.slice((safePage - 1) * pageSize, safePage * pageSize);
-  const pageStudentIds = pageStudents.map((student) => student.id);
-  const pageAllSelected = pageStudentIds.length > 0 && pageStudentIds.every((id) => selected.includes(id));
+  const filtered = students.filter((student) => {
+    const text = `${student.name}${student.studentNo ?? ""}第${student.group}组${student.homework}${student.attendance}${student.points}`;
+    const groupOk = groupFilter === "全部小组" || student.group === Number(groupFilter);
+    return groupOk && (!keyword.trim() || text.includes(keyword.trim()));
+  });
+  const filteredStudentIds = filtered.map((student) => student.id);
+  const filteredAllSelected = filteredStudentIds.length > 0 && filteredStudentIds.every((id) => selected.includes(id));
   const events = data.pointEvents ?? [];
-  const selectedNames = students.filter((student) => selected.includes(student.id)).map((student) => student.name);
+  const selectedStudents = students.filter((student) => selected.includes(student.id));
+  const selectedNames = selectedStudents.map((student) => student.name);
   const studentIds = new Set(students.map((student) => student.id));
   const classEvents = events.filter((event) => studentIds.has(event.studentId));
   const positiveTotal = classEvents.filter((event) => event.delta > 0).reduce((sum, event) => sum + event.delta, 0);
   const negativeTotal = classEvents.filter((event) => event.delta < 0).reduce((sum, event) => sum + Math.abs(event.delta), 0);
   const participants = new Set(classEvents.map((event) => event.studentId)).size;
-  const timelineGroups = classEvents.slice(0, 30).reduce((result, event) => {
-    const date = event.date.slice(0, 10).replace(/\//g, "-");
-    if (!result[date]) result[date] = [];
-    result[date].push(event);
-    return result;
-  }, {} as Record<string, PointEvent[]>);
-
-  useEffect(() => {
-    setPage(1);
-  }, [keyword, activeClassId]);
+  const recentEvents = classEvents.slice(0, 12);
 
   useEffect(() => {
     setCustomDelta(rule?.delta ?? 1);
@@ -1024,16 +1016,18 @@ function Points({ data, update }: { data: ClassroomData; update: (fn: (d: Classr
     if (!nextClass) return;
     update((d) => ({ ...d, activeClassId: id, students: nextClass.students }));
     setSelected([]);
+    setKeyword("");
+    setGroupFilter("全部小组");
   }
 
   function toggleStudent(id: string) {
     setSelected((list) => list.includes(id) ? list.filter((item) => item !== id) : [...list, id]);
   }
 
-  function toggleCurrentPage() {
+  function toggleFiltered() {
     setSelected((list) => {
-      if (pageAllSelected) return list.filter((id) => !pageStudentIds.includes(id));
-      return Array.from(new Set([...list, ...pageStudentIds]));
+      if (filteredAllSelected) return list.filter((id) => !filteredStudentIds.includes(id));
+      return Array.from(new Set([...list, ...filteredStudentIds]));
     });
   }
 
@@ -1074,7 +1068,7 @@ function Points({ data, update }: { data: ClassroomData; update: (fn: (d: Classr
   }
 
   return <>
-    <ToolHeading kicker="积分事件" title="快速记录日常加减分，并自动沉淀时间轴" text="先选学生，再选规则；可以按小组批量选择，也可以用自定义分数微调。" />
+    <ToolHeading kicker="积分事件" title="以批量录入为核心的班级加减分工作台" text="先用搜索、小组和表格勾选定位学生，再选择规则和分值提交；时间轴只保留最近事件作为核对。" />
     <section className="class-tabs points-class-tabs">{classes.map((item) => <button className={activeClassId === item.id ? "active" : ""} key={item.id} onClick={() => switchClass(item.id)}><b>{item.name}</b><span>{item.students.length}人</span></button>)}</section>
     <section className="points-summary stat-row">
       <div><span>本周总加分</span><b>{positiveTotal}</b><small className="good">正向事件累计</small></div>
@@ -1082,21 +1076,39 @@ function Points({ data, update }: { data: ClassroomData; update: (fn: (d: Classr
       <div><span>参与人次</span><b>{participants}</b><small>有积分记录的学生</small></div>
       <div><span>启用规则</span><b>{rules.length}</b><small>来自积分规则库</small></div>
     </section>
-    <section className="points-split">
-      <aside className="points-input-panel">
-        <h3><span>＋</span>快速录入</h3>
-        <div className="form-section"><label>学生多选 <span className="muted-hint">支持勾选多人批量操作</span></label><div className="batch-actions"><button onClick={toggleCurrentPage}>{pageAllSelected ? "取消本页" : "选择本页"}</button><button onClick={() => setSelected(students.map((student) => student.id))}>全选全班</button><button onClick={() => setSelected([])}>取消全选</button></div><div className="batch-actions">{groups.slice(0, 4).map((group) => <button key={group} onClick={() => selectGroup(group)}>第{group}组</button>)}</div><div className="resource-search compact-search"><span>⌕</span><input value={keyword} onChange={(event) => setKeyword(event.target.value)} placeholder="搜索姓名、学号、小组" /></div><div className="student-picker points-picker" style={{ maxHeight: "500px", overflowY: "auto" }}>{pageStudents.map((student) => <button className={selected.includes(student.id) ? "selected" : ""} key={student.id} onClick={() => toggleStudent(student.id)}>{student.name}</button>)}</div></div>
-        <div className="form-section"><label>规则快选</label><div className="rule-picker">{rules.slice(0, 6).map((item) => <button className={item.id === rule?.id ? "selected" : ""} key={item.id} onClick={() => setRuleId(item.id)}><span className="rule-name">{item.scene} · {item.title}</span><span className={item.delta >= 0 ? "rule-score positive" : "rule-score negative"}>{item.delta > 0 ? "+" : ""}{item.delta}</span></button>)}</div></div>
-        <div className="form-section"><label>自定义分数</label><div className="custom-score-input"><input type="range" min={-10} max={10} value={customDelta} onChange={(event) => setCustomDelta(Number(event.target.value))} /><span className="score-display">{value > 0 ? "+" : ""}{value}</span></div></div>
-        <div className="form-section"><label>备注</label><textarea value={note} onChange={(event) => setNote(event.target.value)} placeholder="可补充具体事实，如：主动帮同学讲题" rows={3} /></div>
-        <label className="operator-box"><span>操作人</span><input value={operator} onChange={(event) => setOperator(event.target.value)} placeholder="例如：班主任" /></label>
-        <button className="points-submit-btn" disabled={!selected.length || value === 0} onClick={() => applyScore(selected)}><span>{value >= 0 ? "＋" : "－"}</span>{selected.length ? `给 ${selected.length} 人${actionText}` : "请选择学生"}</button>
-        <p className="points-selected-names">{selectedNames.join("、") || "还未选择学生"}</p>
-      </aside>
-      <section className="points-timeline"><h3><span>本周积分事件时间轴</span><small>{classEvents.length} 条</small></h3>
-        {Object.keys(timelineGroups).map((date) => <div className="timeline-date-group" key={date}><div className="timeline-date-header"><span>{date}</span></div>{timelineGroups[date].map((event) => { const student = students.find((item) => item.id === event.studentId); return <article className={event.delta > 0 ? "point-event positive" : "point-event negative"} key={event.id}><div className="point-event-score">{event.delta > 0 ? "+" : ""}{event.delta}</div><div className="point-event-body"><div className="student-names">{student?.name ?? "其他班学生"}</div><div className="rule-label">{event.scene} · {event.reason}</div><div className="point-event-meta"><span>记</span>{event.operator ?? "班主任"} · {event.date}</div></div><div className="point-event-actions"><button onClick={() => undoEvent(event)}>撤销</button></div></article>; })}</div>)}
-        {!classEvents.length && <div className="timeline-empty"><span>分</span><p>还没有积分事件，左侧提交后会立刻出现在这里。</p></div>}
+    <section className="points-workbench">
+      <section className="points-recorder">
+        <header className="points-recorder-head"><div><span>快速录入</span><h3>人员筛选与批量勾选</h3><p>当前筛选 {filtered.length} 人，已选 {selected.length} 人。</p></div><button className="primary-small" disabled={!selected.length || value === 0} onClick={() => applyScore(selected)}>{selected.length ? `提交：${selected.length}人${actionText}` : "请选择学生"}</button></header>
+        <div className="points-main-grid">
+          <section className="student-select-system">
+            <div className="points-filter-bar">
+              <div className="resource-search compact-search"><span>⌕</span><input value={keyword} onChange={(event) => setKeyword(event.target.value)} placeholder="搜索姓名、学号、积分、作业状态" /></div>
+              <select value={groupFilter} onChange={(event) => setGroupFilter(event.target.value)}><option>全部小组</option>{groups.map((group) => <option value={group} key={group}>第{group}组</option>)}</select>
+              <button onClick={toggleFiltered}>{filteredAllSelected ? "取消筛选结果" : "全选筛选结果"}</button>
+              <button onClick={() => setSelected(students.map((student) => student.id))}>全选全班</button>
+              <button onClick={() => setSelected([])}>清空选择</button>
+            </div>
+            <div className="points-group-strip"><button className={groupFilter === "全部小组" ? "active" : ""} onClick={() => setGroupFilter("全部小组")}>全部</button>{groups.map((group) => <button className={groupFilter === String(group) ? "active" : ""} key={group} onClick={() => { setGroupFilter(String(group)); selectGroup(group); }}>第{group}组</button>)}</div>
+            <section className="student-score-table" style={{ maxHeight: "520px", overflowY: "auto" }}>
+              <div className="student-score-head"><label><input type="checkbox" checked={filteredAllSelected} onChange={toggleFiltered} />全选</label><span>学生</span><span>小组</span><span>当前积分</span><span>作业</span></div>
+              {filtered.map((student) => <label className={selected.includes(student.id) ? "student-score-row selected" : "student-score-row"} key={student.id}><input type="checkbox" checked={selected.includes(student.id)} onChange={() => toggleStudent(student.id)} /><span><b>{student.name}</b><small>学号 {student.studentNo || "未填"} · {student.attendance}</small></span><em>第{student.group}组</em><strong>{student.points}</strong><i>{student.homework}</i></label>)}
+              {!filtered.length && <div className="student-score-empty">没有匹配的学生，换个关键词或小组试试。</div>}
+            </section>
+          </section>
+          <aside className="points-action-panel">
+            <div className="form-section"><label>规则快选</label><div className="rule-picker">{rules.slice(0, 8).map((item) => <button className={item.id === rule?.id ? "selected" : ""} key={item.id} onClick={() => setRuleId(item.id)}><span className="rule-name">{item.scene} · {item.title}</span><span className={item.delta >= 0 ? "rule-score positive" : "rule-score negative"}>{item.delta > 0 ? "+" : ""}{item.delta}</span></button>)}</div></div>
+            <div className="form-section"><label>自定义分数</label><div className="custom-score-input"><input type="range" min={-10} max={10} value={customDelta} onChange={(event) => setCustomDelta(Number(event.target.value))} /><span className="score-display">{value > 0 ? "+" : ""}{value}</span></div></div>
+            <div className="form-section"><label>备注</label><textarea value={note} onChange={(event) => setNote(event.target.value)} placeholder="可补充具体事实，如：主动帮同学讲题" rows={3} /></div>
+            <label className="operator-box"><span>操作人</span><input value={operator} onChange={(event) => setOperator(event.target.value)} placeholder="例如：班主任" /></label>
+            <button className="points-submit-btn" disabled={!selected.length || value === 0} onClick={() => applyScore(selected)}><span>{value >= 0 ? "＋" : "－"}</span>{selected.length ? `给 ${selected.length} 人${actionText}` : "请选择学生"}</button>
+            <div className="points-selected-box"><b>已选学生</b><p>{selectedNames.slice(0, 18).join("、") || "还未选择学生"}{selectedNames.length > 18 ? ` 等 ${selectedNames.length} 人` : ""}</p></div>
+          </aside>
+        </div>
       </section>
+      <aside className="points-timeline compact"><h3><span>最近事件</span><small>{classEvents.length} 条</small></h3>
+        {recentEvents.map((event) => { const student = students.find((item) => item.id === event.studentId); return <article className={event.delta > 0 ? "point-event positive" : "point-event negative"} key={event.id}><div className="point-event-score">{event.delta > 0 ? "+" : ""}{event.delta}</div><div className="point-event-body"><div className="student-names">{student?.name ?? "其他班学生"}</div><div className="rule-label">{event.scene} · {event.reason}</div><div className="point-event-meta">{event.date}</div></div><div className="point-event-actions"><button onClick={() => undoEvent(event)}>撤销</button></div></article>; })}
+        {!classEvents.length && <div className="timeline-empty"><span>分</span><p>还没有积分事件，提交后会出现在这里。</p></div>}
+      </aside>
     </section>
   </>;
 }
