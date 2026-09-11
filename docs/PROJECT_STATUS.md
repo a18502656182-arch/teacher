@@ -13,6 +13,12 @@
 - 包内不含 `data`、`.env.local`、`node_modules`、测试报告和对话恢复资料
 - 当前记录只能证明包已生成并校验，尚不能证明它已经部署到服务器
 
+Git 记录状态：
+
+- 历史补录基线已在本地提交为 `41325fa chore(project): capture verified classroom baseline`
+- 本机最后缓存的 `origin/main` 比当前 `main` 少 15 个提交，但该远端引用可能过期
+- 2026-09-11 远端拉取和推送均因 `git.chatgpt-team.site` 凭据不可用而未完成；在成功登录并推送前，不得声称远端已同步
+
 ## 已完成并进入当前源码
 
 - 公共入口、兑换码登录、正式空白工作区、只读演示工作区和隐私页。
