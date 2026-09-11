@@ -130,12 +130,27 @@ async function run() {
     assert.equal(result.response.status, 200, JSON.stringify(result.json));
     const revision = result.json.workspace.revision;
     const data = result.json.workspace.data;
+    data.dictation = {
+      version: 1,
+      children: [{ id: "test-child-a", name: "合成孩子甲", grade: "三年级" }, { id: "test-child-b", name: "合成孩子乙", grade: "一年级" }],
+      books: [],
+      tasks: [{ id: "test-dictation", title: "隔离听写测试", date: "2026-09-11", subject: "英语", context: { kind: "family", childId: "test-child-a" }, participants: [{ id: "test-child-a", name: "合成孩子甲", number: "" }], words: [{ id: "test-word", text: "school", meaning: "学校", lesson: "第一组" }], results: {}, createdAt: "2026-09-11T00:00:00Z" }],
+    };
+    const malformed = structuredClone(data);
+    malformed.dictation.tasks[0].participants[0].id = "test-child-b";
+    result = await request(`/api/workspace/${tokenA}`, { jar: restoredJar, method: "PUT", body: { data: malformed, revision } });
+    assert.equal(result.response.status, 400, "家庭任务不得混入另一个孩子");
+    result = await request(`/api/workspace/${tokenA}`, { jar: userBJar, method: "PUT", body: { data, revision } });
+    assert.equal(result.response.status, 404, "另一账户不得写入听写记录");
     data.students = data.students.map((student, index) => index === 0 ? { ...student, note: "并发保存测试" } : student);
     const [saveA, saveB] = await Promise.all([
       request(`/api/workspace/${tokenA}`, { jar: restoredJar, method: "PUT", body: { data, revision } }),
       request(`/api/workspace/${tokenA}`, { jar: deviceB, method: "PUT", body: { data, revision } }),
     ]);
     assert.deepEqual([saveA.response.status, saveB.response.status].sort((a, b) => a - b), [200, 409]);
+    result = await request(`/api/workspace/${tokenA}`, { jar: restoredJar });
+    assert.equal(result.json.workspace.data.dictation.tasks.length, 1);
+    assert.deepEqual(result.json.workspace.data.dictation.tasks[0].results, {}, "未批改不产生全对结果");
     assert.equal((saveA.response.status === 409 ? saveA : saveB).json.code, "WORKSPACE_CONFLICT");
   } catch (error) {
     throw new Error(`${error instanceof Error ? error.stack : error}\nServer output:\n${output.value.slice(-5000)}`);

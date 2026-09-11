@@ -1,16 +1,17 @@
+import { assertDictation } from './dictation';
 import type { ClassroomData } from "./classroom";
 
 export const MAX_WORKSPACE_BACKUP_BYTES = 5 * 1024 * 1024;
 
 export type WorkspaceBackup = {
   format: "classroom-workspace-backup";
-  version: 1;
+  version: 1 | 2;
   exportedAt?: string;
   workspace?: { className?: string; grade?: string; term?: string };
   data: ClassroomData;
 };
 
-export type BackupPreview = { exportedAt: string; source: string; classes: number; students: number; records: number; exams: number };
+export type BackupPreview = { exportedAt: string; source: string; classes: number; students: number; records: number; exams: number; dictationTasks: number; familyChildren: number };
 
 function uniqueIds(rows: unknown, label: string) {
   if (!Array.isArray(rows)) throw new Error(`${label}格式不正确`);
@@ -30,7 +31,7 @@ export function parseWorkspaceBackup(text: string, byteLength: number): { backup
   try { parsed = JSON.parse(text); } catch { throw new Error("备份文件不是有效的 JSON"); }
   if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) throw new Error("这不是有效的班主任工作台备份文件");
   const backup = parsed as Partial<WorkspaceBackup>;
-  if (backup.format !== "classroom-workspace-backup" || backup.version !== 1 || !backup.data || typeof backup.data !== "object") throw new Error("这不是版本 1 的班主任工作台完整备份");
+  if (backup.format !== "classroom-workspace-backup" || ![1, 2].includes(Number(backup.version)) || !backup.data || typeof backup.data !== "object") throw new Error("这不是受支持的班主任工作台完整备份（版本1或2）");
   const data = backup.data as ClassroomData;
   uniqueIds(data.students, "当前班级学生名单");
   if (!Array.isArray(data.records) || !Array.isArray(data.courses)) throw new Error("备份缺少沟通记录或课程数据，无法安全恢复");
@@ -40,13 +41,16 @@ export function parseWorkspaceBackup(text: string, byteLength: number): { backup
     uniqueIds(classroom.students, `班级“${classroom.name || classroom.id}”学生名单`);
   }
   if (data.activeClassId && classes.length && !classes.some((item) => item.id === data.activeClassId)) throw new Error("备份的当前班级不存在，无法安全恢复");
+  assertDictation(data.dictation, data, data);
   const preview: BackupPreview = {
     exportedAt: backup.exportedAt ? new Date(backup.exportedAt).toLocaleString("zh-CN") : "未记录导出时间",
     source: backup.workspace?.className || "未命名工作台",
     classes: classes.length || 1,
-    students: data.students.length,
+    students: classes.length ? classes.reduce((total, classroom) => total + classroom.students.length, 0) : data.students.length,
     records: data.records.length,
     exams: data.scoreExams?.length ?? 0,
+    dictationTasks: data.dictation?.tasks.length ?? 0,
+    familyChildren: data.dictation?.children.length ?? 0,
   };
   return { backup: backup as WorkspaceBackup, preview };
 }

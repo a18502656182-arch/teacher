@@ -1,0 +1,34 @@
+/* Page-family bridge: preserve existing layouts, replace the old visual world via shared semantic tokens. */
+html[data-theme=campus] .roster-pro-page .roster-tools-panel,html[data-theme=campus] .roster-pro-page .roster-command-bar,html[data-theme=campus] .roster-pro-page .roster-import-drawer{border:0;border-radius:0;background:transparent;box-shadow:none}
+html[data-theme=campus] .roster-pro-page .roster-command-bar{padding:4px 0 12px}
+html[data-theme=campus] .roster-pro-page .roster-import-drawer{border-bottom:1px solid var(--campus-line);margin-bottom:12px}
+@media(max-width:900px){html[data-theme=campus] .app-shell[data-module=dictation]>.mobile-workbench{min-height:0;height:auto;padding-bottom:0;grid-template-rows:auto}}
+html[data-theme=campus] .app-shell{background:var(--campus-canvas);color:var(--campus-ink)}
+html[data-theme=campus] .app-shell .sidebar{background:var(--campus-canvas);color:var(--campus-ink);border-right:1px solid var(--campus-line);box-shadow:none}
+html[data-theme=campus] .sidebar .brand{color:var(--campus-ink);font-size:19px}
+html[data-theme=campus] .sidebar .brand-mark{background:var(--campus-blue);color:var(--campus-primary);border:0;border-radius:8px}
+html[data-theme=campus] .side-nav.grouped h2{color:var(--campus-muted);font-size:12px}
+html[data-theme=campus] .side-nav.grouped button{color:var(--campus-ink);background:transparent;border:0;border-radius:6px;min-height:40px;box-shadow:none;font-weight:500}
+html[data-theme=campus] .side-nav.grouped button>span{background:transparent;color:inherit;border:0;box-shadow:none}
+html[data-theme=campus] .side-nav.grouped button:hover,html[data-theme=campus] .side-nav.grouped button.active{background:var(--campus-blue);color:var(--campus-primary)}
+html[data-theme=campus] .side-nav.grouped button.active{font-weight:700}
+html[data-theme=campus] .global-class-switch{background:var(--campus-green);border:0;border-radius:8px;color:var(--campus-ink)}
+html[data-theme=campus] .global-class-switch :is(small,input,select,button){color:var(--campus-ink)}
+html[data-theme=campus] .global-class-switch :is(input,select){background:var(--campus-surface);border-color:var(--campus-line)}
+html[data-theme=campus] .sidebar-utility,html[data-theme=campus] .sidebar-account-entry{color:var(--campus-ink);background:transparent;border-color:var(--campus-line)}
+html[data-theme=campus] .app-main,html[data-theme=campus] .page-content{background:var(--campus-canvas)}
+html[data-theme=campus] .page-content{padding:24px}
+html[data-theme=campus] .app-shell :is(button.primary,.primary-btn){background:var(--campus-primary);color:white;border-color:var(--campus-primary);box-shadow:none}
+html[data-theme=campus] .app-shell :is(input,select,textarea){border-color:var(--campus-line);color:var(--campus-ink)}
+html[data-theme=campus] .app-shell :is(table th,thead){background:var(--campus-blue);color:var(--campus-ink)}
+html[data-theme=campus] .app-shell :is(table td,table th){border-color:var(--campus-line)}
+html[data-theme=campus] .app-shell :is(.student-profile-dialog,.mobile-bottom-sheet,.mobile-info-sheet,.workbench-confirm){background:var(--campus-surface);color:var(--campus-ink)}
+html[data-theme=campus] .mobile-workbench,html[data-theme=campus] .mobile-screen{background:var(--campus-canvas);color:var(--campus-ink)}
+html[data-theme=campus] .mobile-appbar{background:var(--campus-canvas);color:var(--campus-ink);border-color:var(--campus-line)}
+html[data-theme=campus] .mobile-appbar-marker{background:var(--campus-blue);color:var(--campus-primary)}
+html[data-theme=campus] .mobile-tabbar{background:var(--campus-surface);border-color:var(--campus-line)}
+html[data-theme=campus] .mobile-tabbar button.active{color:var(--campus-primary)}
+html[data-theme=campus] .mobile-tabbar button i{background:transparent;color:inherit}
+html[data-theme=campus] .campus-daily .campus-art{width:280px;height:160px}
+@media(min-width:901px){html[data-theme=campus] .app-shell{background:linear-gradient(to right,var(--campus-canvas) 236px,var(--campus-canvas) 236px)}}
+@media(max-width:900px){html[data-theme=campus] .page-content{padding:16px}html[data-theme=campus] .campus-daily .campus-art{width:100px;height:100px}html[data-theme=campus] .campus-daily{align-items:flex-start}html[data-theme=campus] .campus-home-links{gap:6px}html[data-theme=campus] .campus-home-links .campus-button{white-space:normal;text-align:left}html[data-theme=campus] .app-shell[data-module=dictation]>.app-main{display:block;padding:0 0 64px;margin:0}html[data-theme=campus] .app-shell[data-module=dictation] .mobile-screen{display:none}html[data-theme=campus] .app-shell[data-module=dictation]>.app-main .edit-mode-banner{display:none}}

@@ -1,3 +1,4 @@
+import type { DictationData } from './dictation';
 export type Student = {
   id: string;
   studentNo?: string;
@@ -363,6 +364,7 @@ export type WeeklyReport = {
 };
 
 export type ClassroomData = {
+  dictation?: DictationData;
   students: Student[];
   activeClassId?: string;
   rosterClasses?: RosterClass[];

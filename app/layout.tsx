@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 import "./public-entry.css";
 import "./workbench-repair.css";
+import "./components/campus/campus.css";
+import "./components/campus/legacy-theme.css";
 
 export const metadata: Metadata = {
   title: "班主任工作台",
@@ -9,5 +11,5 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="zh-CN"><body>{children}</body></html>;
+  return <html lang="zh-CN" data-theme="campus"><body>{children}</body></html>;
 }

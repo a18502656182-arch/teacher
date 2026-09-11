@@ -1,3 +1,5 @@
+import { assertDictation } from '@/lib/dictation';
+import type { ClassroomData } from '@/lib/classroom';
 import { type AppDatabase, getDatabase, withDatabaseTransaction } from "@/db";
 import { ensureAuthSchema } from "@/db/auth";
 import { ensureWorkspaceSchema } from "@/db/workspaces";
@@ -155,6 +157,9 @@ export async function PUT(request: Request, context: { params: Promise<{ token: 
       const error = accessError(row);
       if (error) return Response.json({ error }, { status: 403 });
     }
+
+    try { assertDictation((payload.data as ClassroomData).dictation, payload.data as ClassroomData, row ? JSON.parse(String(row.data)) : undefined); }
+    catch (error) { return Response.json({ error: error instanceof Error ? error.message : '听写数据无效' }, { status: 400 }); }
 
     const saved = withDatabaseTransaction((database) => {
       const current = database.prepare("SELECT id, data, revision FROM workspaces WHERE access_token = ?").get(token) as { id: number; data: string; revision: number } | undefined;

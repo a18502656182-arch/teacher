@@ -25,3 +25,6 @@ qa-audit-*/
 对话恢复-*/
 对话完整恢复-*/
 scripts/recover-codex-transcript.mjs
+
+# User-supplied design reference package stays local; ship only authored product assets.
+项目资料包-听写与双主题-20260911/

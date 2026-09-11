@@ -1,3 +1,4 @@
+import { CampusIcon, ThemeArtwork } from "@/app/components/campus/primitives";
 import type { ReactNode } from "react";
 import styles from "./WorkbenchPageHeader.module.css";
 
@@ -18,8 +19,9 @@ export function WorkbenchPageHeader({
   actions?: ReactNode;
   tone?: WorkbenchPageTone;
 }) {
-  return <header className={`${styles.header} ${styles[tone]}`}>
-    <span className={styles.marker} aria-hidden="true">{icon}</span>
+  const artwork = icon === "🎒" ? "roster" : icon === "📚" ? "homework" : undefined;
+  return <header className={`${styles.header} ${styles[tone]} ${artwork ? styles.illustrated : ""}`}>
+    <span className={styles.marker} aria-hidden="true">{artwork ? <ThemeArtwork slot={artwork}/> : <CampusIcon name={icon}/>}</span>
     <div className={styles.copy}>
       <h2>{title}</h2>
       <p>{description}</p>

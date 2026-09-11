@@ -9,7 +9,7 @@ const args = new Set(process.argv.slice(2));
 const reportDir = process.env.QA_REPORT_DIR || path.join(tmpdir(), "classroom-layout-audit");
 const reportPath = path.join(reportDir, "layout-audit.json");
 const defaultUrl = process.env.QA_URL || "http://127.0.0.1:4180/w/demo";
-const allPages = ["dashboard", "students", "attendance", "homework", "points", "rules", "growth", "health", "weekly", "schedule", "tools", "seating", "duty", "cadres", "records", "scores", "reflection", "comments"];
+const allPages = ["dictation", "dashboard", "students", "attendance", "homework", "points", "rules", "growth", "health", "weekly", "schedule", "tools", "seating", "duty", "cadres", "records", "scores", "reflection", "comments"];
 const pages = process.env.QA_PAGES ? process.env.QA_PAGES.split(",").map((value) => value.trim()).filter((value) => allPages.includes(value)) : allPages;
 const screenshotDir = process.env.QA_SCREENSHOT_DIR ? path.resolve(process.env.QA_SCREENSHOT_DIR) : "";
 const scoreView = process.env.QA_SCORES_VIEW || "";

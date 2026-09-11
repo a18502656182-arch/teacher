@@ -24,6 +24,11 @@
   line-height: 1;
 }
 
+.illustrated { grid-template-columns: 174px minmax(0, 1fr) auto; background:var(--campus-blue); padding:12px 20px; border-bottom:0; border-radius:10px; }
+.illustrated .marker { width:174px; height:90px; background:transparent; }
+.illustrated .marker img { width:174px; height:112px; max-width:none; }
+.illustrated .copy h2 { font-size:28px; }
+
 .copy {
   min-width: 0;
   max-width: 76ch;
