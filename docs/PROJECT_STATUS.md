@@ -16,8 +16,10 @@
 Git 记录状态：
 
 - 历史补录基线已在本地提交为 `41325fa chore(project): capture verified classroom baseline`
-- 本机最后缓存的 `origin/main` 比当前 `main` 少 15 个提交，但该远端引用可能过期
-- 2026-09-11 远端拉取和推送均因 `git.chatgpt-team.site` 凭据不可用而未完成；在成功登录并推送前，不得声称远端已同步
+- 2026-09-11 已新增 `github` 远端 `https://github.com/a18502656182-arch/teacher.git`，并将完整 `main` 历史首次推送成功
+- 本地 `main` 现在跟踪 `github/main`；后续默认使用 `git push` 同步 GitHub
+- 旧 `origin` 仍指向 `git.chatgpt-team.site`，因没有可用凭据只作历史保留
+- GitHub 仓库当前为公开仓库，源码、项目文档、历史部署压缩包和知识索引均可被公众读取；不得向其中提交真实学生资料、数据库或密钥
 
 ## 已完成并进入当前源码
 

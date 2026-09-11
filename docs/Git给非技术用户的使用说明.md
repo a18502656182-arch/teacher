@@ -5,7 +5,10 @@ Git 用来保存源码、文档和每次修改差异；它不会自动保存服�
 ## 当前仓库
 
 - 本地分支：`main`
-- 远端名称：`origin`
+- 默认远端：`github` → `https://github.com/a18502656182-arch/teacher.git`
+- 分支关系：本地 `main` 跟踪 `github/main`
+- 历史远端：`origin` → `git.chatgpt-team.site`，没有可用凭据，不作为默认推送目标
+- GitHub 仓库当前为公开仓库，提交内容任何人都能读取
 - 2026-07-31 后曾长期没有提交；2026-09-11 开始重新建立持续记录。
 
 ## 查看进度
@@ -30,6 +33,18 @@ git -c safe.directory="E:/文档/Codex/小红书/班主任工作台网站" statu
 4. 如果生成部署包或操作服务器，更新 `docs/DEPLOYMENT_LOG.md`。
 5. 检查 `git diff` 和待提交文件，确认没有密钥、数据库、真实学生数据和压缩包。
 6. 创建清晰提交并推送当前分支。
+
+本地 `main` 已跟踪 `github/main`，正常情况下直接运行：
+
+```powershell
+git push
+```
+
+如需明确指定远端，可运行：
+
+```powershell
+git push github main
+```
 
 后续 Codex 会按 `AGENTS.md` 自动执行这套流程；如测试、敏感文件检查或远端推送失败，会明确报告，不会强行宣称完成。
 
