@@ -1,4 +1,6 @@
-import { getD1 } from "@/db";
+import { getDatabase } from "@/db";
+import { ensureWorkspaceSchema } from "@/db/workspaces";
+import { authEnforced, AuthError, requireWorkspaceOwner } from "@/lib/auth";
 import knowledge from "@/data/knowledge-items.json";
 
 type KnowledgeItem = {
@@ -14,7 +16,8 @@ type KnowledgeItem = {
 const items = knowledge as KnowledgeItem[];
 
 async function canAccess(token: string) {
-  const db = getD1();
+  const db = getDatabase();
+  await ensureWorkspaceSchema(db);
   const row = await db.prepare("SELECT status, expires_at FROM workspaces WHERE access_token = ?").bind(token).first<{ status: string; expires_at: string }>();
   if (!row || row.status !== "active") return false;
   return new Date(row.expires_at).getTime() >= Date.now();
@@ -32,7 +35,10 @@ function makeExcerpt(content: string, query: string) {
 export async function GET(request: Request, context: { params: Promise<{ token: string }> }) {
   try {
     const { token } = await context.params;
-    if (!(await canAccess(token))) return Response.json({ error: "链接无权访问资料库" }, { status: 403 });
+    if (token !== "demo") {
+      if (authEnforced()) await requireWorkspaceOwner(request, token);
+      else if (!(await canAccess(token))) return Response.json({ error: "链接无权访问资料库" }, { status: 403 });
+    }
     const url = new URL(request.url);
     const id = url.searchParams.get("id");
     if (id) {
@@ -64,6 +70,7 @@ export async function GET(request: Request, context: { params: Promise<{ token: 
       items: ranked.slice(0, 30).map((item) => ({ id: item.id, title: item.title, category: item.category, extension: item.extension, path: item.path, excerpt: makeExcerpt(item.content, query) })),
     });
   } catch (error) {
+    if (error instanceof AuthError) return Response.json({ error: error.message, code: error.code }, { status: error.status });
     return Response.json({ error: error instanceof Error ? error.message : "资料检索失败" }, { status: 500 });
   }
 }

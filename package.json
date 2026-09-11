@@ -11,8 +11,9 @@
     "start": "vinext start",
     "qa:layout": "node scripts/layout-audit.mjs --static",
     "qa:strict": "node scripts/layout-audit.mjs --serve",
-    "test": "npm run build && node --test tests/rendered-html.test.mjs",
+    "test": "npm run build && node --test tests/rendered-html.test.mjs && node tests/auth-flow.integration.mjs",
     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
+    "backup:db": "node scripts/backup-db.mjs",
     "db:generate": "drizzle-kit generate"
   },
   "dependencies": {

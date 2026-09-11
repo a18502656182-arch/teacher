@@ -1,0 +1,296 @@
+import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
+import test from "node:test";
+
+const read = (path) => readFileSync(new URL(`../${path}`, import.meta.url), "utf8");
+const app = read("app/w/[token]/ClassroomApp.tsx");
+const workspaceRoute = read("app/api/workspace/[token]/route.ts");
+const aiRoute = read("app/api/ai/comment/route.ts");
+const auth = read("lib/auth.ts");
+const home = read("app/page.tsx");
+const adminPage = read("app/admin/page.tsx");
+const redeemRoute = read("app/api/admin/redeem-codes/route.ts");
+const adminUsersRoute = read("app/api/admin/users/route.ts");
+const authMeRoute = read("app/api/auth/me/route.ts");
+const workspaceSchema = read("db/workspaces.ts");
+const userDataRoute = read("app/api/admin/users/[id]/data/route.ts");
+const classroomTypes = read("lib/classroom.ts");
+const attendancePage = read("app/w/[token]/Attendance.tsx");
+const teacherAgenda = read("app/w/[token]/TeacherAgenda.tsx");
+const scheduleHub = read("app/w/[token]/ScheduleHub.tsx");
+const studentProfile = read("app/w/[token]/StudentProfile.tsx");
+const scoreTrends = read("app/w/[token]/ScoreTrends.tsx");
+const classroomTools = read("app/w/[token]/ClassroomTools.tsx");
+const notificationDrafts = read("app/w/[token]/NotificationDrafts.tsx");
+const scoreItemAnalysis = read("app/w/[token]/ScoreItemAnalysis.tsx");
+const workspaceBackup = read("lib/workspaceBackup.ts");
+const authSource = read("lib/auth.ts");
+const examPaperRoute = read("app/api/ai/exam-paper/route.ts");
+const healthCare = read("app/w/[token]/HealthCare.tsx");
+const workbenchRepair = read("app/workbench-repair.css");
+const idWriteSurfaces = [attendancePage, teacherAgenda, classroomTools, notificationDrafts, studentProfile, read("app/w/[token]/CourseSchedule.tsx"), app];
+
+test("public entry exposes only the two intended primary routes", () => {
+  assert.match(home, /进入我的工作台/);
+  assert.match(home, /查看演示/);
+  assert.doesNotMatch(home, /功能总览|打开演示班级|查看模块/);
+});
+
+test("formal workspace access is session-owned and demo is read-only", () => {
+  assert.match(workspaceRoute, /requireWorkspaceOwner/);
+  assert.match(workspaceRoute, /token === demoWorkspace\.token/);
+  assert.match(workspaceRoute, /演示数据不能保存/);
+  assert.match(auth, /owner_user_id = \?/);
+});
+
+test("formal workspaces start blank while demo remains the only seeded classroom", () => {
+  assert.match(classroomTypes, /export function createEmptyClassroomData/);
+  assert.match(authSource, /JSON\.stringify\(createEmptyClassroomData\(\)\)/);
+  assert.doesNotMatch(authSource, /JSON\.stringify\(defaultClassroomData\)/);
+});
+
+test("health care is a standalone, privacy-bounded operational workspace", () => {
+  assert.match(app, /id: "health", icon: "🩺", label: "健康与照护"/);
+  assert.match(app, /<HealthCare data=\{workspace\.data\} update=\{updateData\}/);
+  assert.match(app, /<HealthCare data=\{data\} update=\{update\} mobile/);
+  assert.match(classroomTypes, /actionContexts/);
+  assert.match(classroomTypes, /customCategory/);
+  assert.match(healthCare, /隐私边界/);
+  assert.match(healthCare, /输入姓名、学号或小组搜索/);
+  assert.match(healthCare, /自定义关注类型/);
+  assert.match(healthCare, /自定义场景/);
+  assert.match(healthCare, /学生名单中的主要监护人/);
+  assert.match(healthCare, /visibleScope: "班主任"/);
+  assert.doesNotMatch(healthCare, /行动提醒板|下次复核日期/);
+  assert.match(workbenchRepair, /\.health-care-page \.primary-button\s*\{[^}]*color:\s*#fff;[^}]*background:\s*#356df3;/);
+});
+
+test("authentication keeps HTTP as an explicit temporary switch", () => {
+  assert.match(auth, /AUTH_ALLOW_INSECURE_HTTP === "true"/);
+  assert.match(auth, /INSECURE_HTTP_DISABLED/);
+  assert.match(auth, /HttpOnly; SameSite=Lax/);
+  assert.match(auth, /AUTH_TRUST_PROXY_HEADERS === "true"/);
+  assert.match(auth, /trustsProxyHeaders\(\) \? request\.headers\.get\("x-forwarded-proto"\)/);
+});
+
+test("administrator password accepts the chosen eight-character minimum", () => {
+  assert.match(auth, /expected\.length >= 8/);
+});
+
+test("administrator can generate and review short redeem codes in bulk", () => {
+  assert.match(auth, /createRedeemCode\(length = 8\)/);
+  assert.match(auth, /Math\.min\(8, Math\.max\(6/);
+  assert.match(auth, /encryptRedeemCode/);
+  assert.match(redeemRoute, /Math\.min\(50, Math\.max\(1/);
+  assert.match(redeemRoute, /code_encrypted/);
+  assert.match(redeemRoute, /decryptRedeemCode/);
+  assert.match(adminPage, /生成数量/);
+  assert.match(adminPage, /复制全部/);
+  assert.match(adminPage, /历史码（尾号/);
+});
+
+test("administrator views full account data while workspace account stays concise", () => {
+  assert.match(adminUsersRoute, /phone: String\(row\.phone\)/);
+  assert.match(adminPage, /user\.phone/);
+  assert.match(adminPage, /code\.phone \|\| "未绑定"/);
+  assert.match(authMeRoute, /phone: session\.phone/);
+  assert.match(app, /mobile-account-brief/);
+  assert.doesNotMatch(app, /phoneMasked/);
+  assert.doesNotMatch(app, /退出并解绑当前浏览器/);
+});
+
+test("automatic persistence stays quiet until a save fails", () => {
+  assert.doesNotMatch(app, /已同步到工作台|修改会自动保存到当前工作台|立即同步|正在同步…/);
+  assert.match(app, /修改已保存在本机，可点击重试/);
+  assert.match(app, /"重试"/);
+  assert.match(app, /载入服务器最新版本/);
+  assert.match(app, /导出当前草稿/);
+});
+
+test("workspace saves use optimistic revisions and keep recoverable versions", () => {
+  assert.match(workspaceRoute, /WORKSPACE_CONFLICT/);
+  assert.match(workspaceRoute, /withDatabaseTransaction/);
+  assert.match(workspaceRoute, /workspace_versions/);
+  assert.match(workspaceSchema, /workspace_versions/);
+  assert.match(workspaceRoute, /LIMIT 20/);
+});
+
+test("workspace backup restore validates file size, identities and structure before replacement", () => {
+  assert.match(workspaceBackup, /MAX_WORKSPACE_BACKUP_BYTES/);
+  assert.match(workspaceBackup, /重复或空白 ID/);
+  assert.match(workspaceBackup, /班级列表/);
+  assert.match(app, /parseWorkspaceBackup\(await file\.text\(\), file\.size\)/);
+  assert.match(app, /预检通过：恢复完整备份/);
+  assert.match(app, /确认替换并同步/);
+});
+
+test("administrator can export and permanently delete user data with confirmation", () => {
+  assert.match(userDataRoute, /classroom-user-export/);
+  assert.match(userDataRoute, /payload\.confirmation !== user\.phone/);
+  assert.match(adminPage, /导出/);
+  assert.match(adminPage, /删除数据/);
+});
+
+test("desktop shell has one page title and keeps account actions in the global sidebar", () => {
+  assert.doesNotMatch(app, /<header className="topbar">/);
+  assert.match(app, /sidebar-account-entry/);
+  assert.match(app, /账户与使用期限/);
+});
+
+test("AI requires consent, quota and an owned workspace token", () => {
+  assert.match(aiRoute, /AI_CONSENT_REQUIRED/);
+  assert.match(aiRoute, /consumeAiUsage/);
+  assert.match(aiRoute, /缺少当前工作台信息/);
+  assert.match(aiRoute, /payload\.workspaceToken !== workspace\.access_token/);
+});
+
+test("mobile workflows preserve agreed interaction rules", () => {
+  assert.match(app, /statuses: Object\.fromEntries\(students\.map\(\(student\) => \[student\.id, "已交"\]\)\)/);
+  assert.match(app, /detailSelectedIds\.length > 0/);
+  assert.match(app, /selectedIds\.length > 0/);
+  assert.match(app, /批量录分/);
+  assert.match(app, /添加成长记录 · \$\{selectedGrowthStudent\.name\}/);
+  assert.match(app, /周一/);
+  assert.match(app, /周五/);
+});
+
+test("homework batch status changes clear the completed selection and keep mobile detail focused", () => {
+  assert.match(app, /function bulkSet\(next:[\s\S]*?setSelectedStudentIds\(\[\]\);/);
+  assert.match(app, /className="homework-follow-modal"/);
+  assert.match(app, /className="follow-rank"/);
+  assert.match(app, /className="follow-student"/);
+  assert.match(app, /className="homework-follow-stats" aria-label="待跟进名单统计"/);
+  assert.doesNotMatch(app, /className="mobile-task-sheet-summary"/);
+  assert.match(app, /className="mobile-homework-selection-rail"/);
+  assert.doesNotMatch(app, /点学生可多选，点状态可直接修改/);
+  assert.match(app, /function batchSetHomeworkStatus\(status:[\s\S]*?setDetailSelectedIds\(\[\]\)/);
+});
+
+test("duty timetable follows the course schedule's custom teaching days", () => {
+  assert.match(app, /const dutyDays = data\.scheduleConfig\?\.days/);
+  assert.match(app, /const mobileDutyDays = data\.scheduleConfig\?\.days/);
+  assert.match(app, /dutyDays\.map\(\(day\)/);
+  assert.match(app, /mobileDutyDays\.map\(\(day\)/);
+  assert.match(app, /gridTemplateColumns: `150px repeat\(\$\{dutyDays\.length\}/);
+  assert.match(app, /function sameDutyDay/);
+});
+
+test("attendance keeps all actions in the batch-capable main roster", () => {
+  assert.match(classroomTypes, /export type AttendanceRecord/);
+  assert.match(classroomTypes, /attendanceRecords\?: AttendanceRecord\[\]/);
+  assert.match(app, /id: "attendance", icon: "🧾", label: "考勤与请假"/);
+  assert.match(app, /active === "attendance"/);
+  assert.match(attendancePage, /一键全员正常/);
+  assert.match(attendancePage, /月度记录/);
+  assert.match(attendancePage, /无记录不等于全员正常/);
+  assert.match(attendancePage, /className="attendance-roster-controls"/);
+  assert.match(attendancePage, /className="attendance-batch-bar"/);
+  assert.match(attendancePage, /function applyBatch\(\)[\s\S]*?setSelectedIds\(\[\]\)/);
+  assert.match(attendancePage, /function setStudentStatus\([\s\S]*?setSelectedIds\(\[\]\)/);
+  assert.doesNotMatch(attendancePage, /补充请假信息|请假至|请假原因|attendance-leave-details/);
+  assert.doesNotMatch(attendancePage, /attendance-mobile-editor-backdrop/);
+});
+
+test("client write flows keep working when randomUUID is unavailable on HTTP", () => {
+  assert.match(classroomTypes, /export function makeId\(prefix = "id"\)/);
+  assert.match(classroomTypes, /typeof globalThis\.crypto\?\.randomUUID === "function"/);
+  assert.match(classroomTypes, /Math\.random\(\)\.toString\(36\)/);
+  for (const source of idWriteSurfaces) assert.doesNotMatch(source, /crypto\.randomUUID\(/);
+  assert.match(attendancePage, /makeId\("attendance"\)/);
+});
+
+test("course scheduling keeps teacher work in the same module with traceable records", () => {
+  assert.match(classroomTypes, /export type TeacherAgendaItem/);
+  assert.match(classroomTypes, /export type WorkLog/);
+  assert.match(classroomTypes, /teacherAgenda\?: TeacherAgendaItem\[\]/);
+  assert.match(classroomTypes, /workLogs\?: WorkLog\[\]/);
+  assert.match(app, /<ScheduleHub data=\{workspace\.data\} update=\{updateData\}/);
+  assert.match(app, /<TeacherAgenda data=\{data\} update=\{update\} mobile/);
+  assert.match(scheduleHub, /班级课表/);
+  assert.match(scheduleHub, /我的日程与留痕/);
+  assert.match(teacherAgenda, /完成并留痕/);
+  assert.match(teacherAgenda, /agendaId: item\.id/);
+});
+
+test("dashboard reuses dated teacher agenda instead of maintaining a second todo list", () => {
+  assert.match(app, /const todayAgenda = \(data\.teacherAgenda \?\? \[\]\)/);
+  assert.match(app, /现在与接下来/);
+  assert.match(app, /dashboard-timeline/);
+  assert.match(app, /mobile-home-agenda/);
+  assert.match(app, /attendanceExceptions/);
+});
+
+test("student profile keeps guardians and care information out of the roster list", () => {
+  assert.match(classroomTypes, /export type Guardian/);
+  assert.match(classroomTypes, /export type CareProfile/);
+  assert.match(classroomTypes, /guardians\?: Guardian\[\]/);
+  assert.match(classroomTypes, /careProfiles\?: CareProfile\[\]/);
+  assert.match(app, /<StudentProfile student=/);
+  assert.match(app, /guardians: data\.guardians\?\.filter/);
+  assert.match(studentProfile, /仅在本详情内向班主任显示/);
+  assert.match(studentProfile, /visibleScope: "班主任"/);
+  assert.match(studentProfile, /考勤历史/);
+  assert.match(studentProfile, /空白日期不代表缺勤/);
+});
+
+test("score trends compare normalized rates and preserve missing-score meaning", () => {
+  assert.match(app, /<ScoreTrends data=\{data\} classId=/);
+  assert.match(scoreTrends, /按得分率比较不同满分/);
+  assert.match(scoreTrends, /空白表示未录入，不等同于零分/);
+  assert.match(scoreTrends, /至少需要两场已保存考试/);
+});
+
+test("score analysis keeps new-exam entry visible on both desktop and mobile", () => {
+  assert.match(app, /className="score5-primary" onClick=\{addExam\}>新增考试<\/button>/);
+  assert.match(app, /onClick=\{openExamEdit\}>编辑考试<\/button>/);
+  assert.doesNotMatch(app, /<details className="score5-more-actions">/);
+  assert.match(app, /className="mobile-score-hero-actions"/);
+  assert.match(app, /className="primary" onClick=\{openNewExam\}>新增考试<\/button>/);
+});
+
+test("exam analysis separates trend and paper workflows with teacher review", () => {
+  assert.match(classroomTypes, /export type ScoreKnowledgeItem/);
+  assert.match(classroomTypes, /export type ScorePaperAnalysis/);
+  assert.match(classroomTypes, /knowledgeItems\?: ScoreKnowledgeItem\[\]/);
+  assert.match(classroomTypes, /paperAnalyses\?: ScorePaperAnalysis\[\]/);
+  assert.match(app, /score5-workspace-tabs/);
+  assert.match(app, /<ScoreItemAnalysis workspaceToken=\{workspaceToken\} exam=\{exam\} students=/);
+  assert.match(scoreItemAnalysis, /空白为未录入，不按零分计算/);
+  assert.match(scoreItemAnalysis, /不自动给学生或班级下结论/);
+  assert.match(scoreItemAnalysis, /开始 AI 识别/);
+  assert.match(scoreItemAnalysis, /确认并加入统计/);
+  assert.match(examPaperRoute, /EXAM_AI_ENDPOINT/);
+  assert.match(examPaperRoute, /EXAM_AI_API_KEY/);
+  assert.match(examPaperRoute, /仅支持 JPG、PNG、WEBP 或 PDF 试卷/);
+});
+
+test("classroom tools exclude leave and do not turn random picks into points", () => {
+  assert.match(classroomTypes, /export type ClassroomToolSession/);
+  assert.match(classroomTypes, /classroomToolSessions\?: ClassroomToolSession\[\]/);
+  assert.match(app, /id: "tools", icon: "🎲", label: "课堂工具"/);
+  assert.match(app, /active === "tools"/);
+  assert.match(classroomTools, /item\.status === "请假"/);
+  assert.match(classroomTools, /默认不写入积分/);
+  assert.match(classroomTools, /本轮所有可参与学生均已抽到/);
+});
+
+test("points table keeps bulk selection compact and accessible", () => {
+  assert.match(app, /className="pointdesk-select-all"/);
+  assert.match(app, /aria-label="全选当前筛选学生"/);
+});
+
+test("notification drafts are copyable records, never a claimed external send", () => {
+  assert.match(classroomTypes, /export type NotificationDraft/);
+  assert.match(classroomTypes, /notificationDrafts\?: NotificationDraft\[\]/);
+  assert.match(app, /<NotificationDrafts data=\{data\} update=\{update\}/);
+  assert.match(notificationDrafts, /系统不自动外发/);
+  assert.match(notificationDrafts, /navigator\.clipboard\.writeText/);
+  assert.match(notificationDrafts, /已记录回执/);
+});
+
+test("dialogs use unique titles and keyboard focus management", () => {
+  assert.match(app, /const titleId = useId\(\)/);
+  assert.match(app, /event\.key === "Escape"/);
+  assert.match(app, /previous\?\.focus/);
+  assert.doesNotMatch(app, /id="mobile-info-title"/);
+});

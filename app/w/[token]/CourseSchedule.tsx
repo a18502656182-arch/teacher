@@ -1,219 +1,506 @@
-"use client";
+﻿"use client";
 
-import { useEffect, useMemo, useState } from "react";
-import type { ReactNode } from "react";
+import { Fragment, useEffect, useMemo, useState } from "react";
+import type { CSSProperties } from "react";
+import { makeId, scheduleTermLabel } from "@/lib/classroom";
 import type { ClassroomData, DailyFocus, ScheduleConfig, ScheduleEvent, ScheduleWeek } from "@/lib/classroom";
+import { WorkbenchPageHeader } from "./WorkbenchPageHeader";
 
-function ToolHeading({ kicker, title, text, action }: { kicker: string; title: string; text: string; action?: ReactNode }) {
-  return <div className="tool-heading"><div><span className="section-kicker">{kicker}</span><h2>{title}</h2><p>{text}</p></div>{action}</div>;
+const defaultConfig: ScheduleConfig = {
+  schoolYear: "自定义学年/学段",
+  term: "自定义学期",
+  termStartMonth: "",
+  termEndMonth: "",
+  termNote: "不同地区、不同学校开学时间不同，这里由老师自己填写。",
+  days: ["周一", "周二", "周三", "周四", "周五"],
+  periods: [
+    { label: "早读", time: "08:00-08:20" },
+    { label: "第1节", time: "08:30-09:10" },
+    { label: "第2节", time: "09:20-10:00" },
+    { label: "第3节", time: "10:20-11:00" },
+    { label: "第4节", time: "11:10-11:50" },
+    { label: "午间", time: "12:00-13:30" },
+    { label: "第5节", time: "14:00-14:40" },
+    { label: "延时", time: "16:20-17:30" },
+  ],
+};
+
+const eventTypes: ScheduleEvent["type"][] = ["班会", "活动", "考试", "放假", "家校", "其他"];
+const focusStatuses: DailyFocus["status"][] = ["待处理", "进行中", "已完成"];
+
+function courseNameHue(subject: string) {
+  return Array.from(subject).reduce((hash, char) => (hash * 31 + (char.codePointAt(0) ?? 0)) % 360, 17);
+}
+
+function monthIndex(month: string) {
+  const [year, monthNumber] = month.split("-").map(Number);
+  if (!year || !monthNumber) return 0;
+  return year * 12 + monthNumber - 1;
+}
+
+function monthFromIndex(index: number) {
+  const year = Math.floor(index / 12);
+  const month = (index % 12) + 1;
+  return `${year}-${String(month).padStart(2, "0")}`;
+}
+
+function termRange(config: ScheduleConfig, fallbackYear: number) {
+  const fallbackStart = `${fallbackYear}-08`;
+  const fallbackEnd = `${fallbackYear + 1}-01`;
+  const rawStart = config.termStartMonth || fallbackStart;
+  const rawEnd = config.termEndMonth || fallbackEnd;
+  const start = monthIndex(rawStart) <= monthIndex(rawEnd) ? rawStart : rawEnd;
+  const end = monthIndex(rawStart) <= monthIndex(rawEnd) ? rawEnd : rawStart;
+  return { start, end };
+}
+
+function termMonths(config: ScheduleConfig, fallbackYear: number) {
+  const { start, end } = termRange(config, fallbackYear);
+  const startIndex = monthIndex(start);
+  const endIndex = monthIndex(end);
+  const length = Math.min(24, Math.max(1, endIndex - startIndex + 1));
+  return Array.from({ length }, (_, index) => monthFromIndex(startIndex + index));
+}
+
+function clampMonthToTerm(month: string, config: ScheduleConfig, fallbackYear: number) {
+  const { start, end } = termRange(config, fallbackYear);
+  if (monthIndex(month) < monthIndex(start)) return start;
+  if (monthIndex(month) > monthIndex(end)) return end;
+  return month;
+}
+
+function normalizeTermConfig(config: ScheduleConfig, fallbackYear: number) {
+  const { start, end } = termRange(config, fallbackYear);
+  return { ...config, termStartMonth: start, termEndMonth: end };
 }
 
 export function CourseSchedule({ data, update }: { data: ClassroomData; update: (fn: (d: ClassroomData) => ClassroomData) => void }) {
-  const defaultConfig: ScheduleConfig = {
-    schoolYear: "自定义学年/学段",
-    term: "自定义学期",
-    termStartMonth: "",
-    termEndMonth: "",
-    termNote: "不同地区、不同学校开学时间不同，这里由老师自己填写。",
-    days: ["周一", "周二", "周三", "周四", "周五"],
-    periods: [
-      { label: "早读", time: "08:00-08:20" },
-      { label: "第1节", time: "08:30-09:10" },
-      { label: "第2节", time: "09:20-10:00" },
-      { label: "第3节", time: "10:20-11:00" },
-      { label: "第4节", time: "11:10-11:50" },
-      { label: "午间", time: "12:00-13:30" },
-      { label: "第5节", time: "14:00-14:40" },
-      { label: "延时", time: "16:20-17:30" },
-    ],
-  };
-  const storedWeeks = data.scheduleWeeks ?? [];
-  const initialMonth = storedWeeks[0]?.month ?? new Date().toISOString().slice(0, 7);
-  const [selectedMonth, setSelectedMonth] = useState(() => initialMonth);
-  const [calendarYear, setCalendarYear] = useState(() => Number(initialMonth.slice(0, 4)) || new Date().getFullYear());
-  const [jumpMonth, setJumpMonth] = useState(() => initialMonth);
-  const [selectedWeek, setSelectedWeek] = useState(() => storedWeeks[0]?.weekOfMonth ?? 1);
-  const [calendarOpen, setCalendarOpen] = useState(false);
-  const [isEditing, setIsEditing] = useState(false);
+  const storedWeeks = useMemo(() => data.scheduleWeeks ?? [], [data.scheduleWeeks]);
+  const initialConfig = data.scheduleConfig ?? defaultConfig;
+  const initialBaseMonth = initialConfig.termStartMonth || storedWeeks[0]?.month || new Date().toISOString().slice(0, 7);
+  const initialYear = Number(initialBaseMonth.slice(0, 4)) || new Date().getFullYear();
+  const initialMonth = clampMonthToTerm(storedWeeks[0]?.month ?? initialBaseMonth, initialConfig, initialYear);
+  const initialStoredWeek = storedWeeks.find((item) => item.month === initialMonth);
+  const [selectedMonth, setSelectedMonth] = useState(initialMonth);
+  const [calendarYear, setCalendarYear] = useState(Number(initialMonth.slice(0, 4)) || new Date().getFullYear());
+  const [selectedWeek, setSelectedWeek] = useState(initialStoredWeek?.weekOfMonth ?? 1);
+  const [isEditingTerm, setIsEditingTerm] = useState(false);
+  const [isEditingSchedule, setIsEditingSchedule] = useState(false);
+  const [isEditingEvents, setIsEditingEvents] = useState(false);
+  const [isEditingFocuses, setIsEditingFocuses] = useState(false);
   const [draftConfig, setDraftConfig] = useState<ScheduleConfig>(defaultConfig);
   const [draftCourses, setDraftCourses] = useState<string[][]>([]);
   const [draftEvents, setDraftEvents] = useState<ScheduleEvent[]>([]);
   const [draftFocuses, setDraftFocuses] = useState<DailyFocus[]>([]);
-  const [newEvent, setNewEvent] = useState({ date: `${selectedMonth}-01`, title: "新班会/活动", type: "班会" as ScheduleEvent["type"], detail: "填写准备事项、地点、参与人和注意点。" });
-  const [newFocus, setNewFocus] = useState({ date: `${selectedMonth}-01`, focus: "本日重点", todo: "写清今天必须处理的一件事。", status: "待处理" as DailyFocus["status"] });
-  const monthOptions = useMemo(() => Array.from({ length: 12 }, (_, index) => `${calendarYear}-${String(index + 1).padStart(2, "0")}`), [calendarYear]);
-  const selectedKey = `${selectedMonth}-w${selectedWeek}`;
+  const [newEvent, setNewEvent] = useState<Omit<ScheduleEvent, "id">>({ date: `${selectedMonth}-01`, title: "", type: "班会", detail: "" });
+  const [newFocus, setNewFocus] = useState<Omit<DailyFocus, "id">>({ date: `${selectedMonth}-01`, focus: "", todo: "", status: "待处理" });
+
   const currentWeek = storedWeeks.find((item) => item.month === selectedMonth && item.weekOfMonth === selectedWeek);
   const weekDates = getWeekDates(selectedMonth, selectedWeek);
-  const viewConfig = isEditing ? draftConfig : currentWeek?.config ?? data.scheduleConfig ?? defaultConfig;
-  const viewCourses = isEditing ? draftCourses : normalizeCourses(currentWeek?.courses ?? data.courses ?? [], viewConfig);
-  const viewEvents = isEditing ? draftEvents : currentWeek?.events ?? (data.scheduleEvents ?? []).filter((item) => item.date >= weekDates.startDate && item.date <= weekDates.endDate);
-  const viewFocuses = isEditing ? draftFocuses : currentWeek?.focuses ?? (data.dailyFocus ?? []).filter((item) => item.date >= weekDates.startDate && item.date <= weekDates.endDate);
-  const monthWeeks = Array.from({ length: getWeeksInMonth(selectedMonth) }, (_, index) => {
+  const selectedKey = `${selectedMonth}-w${selectedWeek}`;
+  const calendarConfig = isEditingTerm ? draftConfig : data.scheduleConfig ?? currentWeek?.config ?? defaultConfig;
+  const monthOptions = useMemo(() => termMonths(calendarConfig, calendarYear), [calendarConfig, calendarYear]);
+  const monthWeeks = useMemo(() => Array.from({ length: getWeeksInMonth(selectedMonth) }, (_, index) => {
     const week = index + 1;
     const stored = storedWeeks.find((item) => item.month === selectedMonth && item.weekOfMonth === week);
-    const range = getWeekDates(selectedMonth, week);
-    return { week, stored, ...range };
-  });
+    return { week, stored, ...getWeekDates(selectedMonth, week) };
+  }), [selectedMonth, storedWeeks]);
+
+  const viewConfig = isEditingSchedule ? draftConfig : currentWeek?.config ?? data.scheduleConfig ?? defaultConfig;
+  const viewCourses = isEditingSchedule ? draftCourses : normalizeCourses(currentWeek?.courses ?? data.courses ?? [], viewConfig);
+  const storedEvents = currentWeek?.events ?? (data.scheduleEvents ?? []).filter((item) => item.date >= weekDates.startDate && item.date <= weekDates.endDate);
+  const storedFocuses = currentWeek?.focuses ?? (data.dailyFocus ?? []).filter((item) => item.date >= weekDates.startDate && item.date <= weekDates.endDate);
+  const viewEvents = (isEditingSchedule || isEditingEvents) ? draftEvents : storedEvents;
+  const viewFocuses = (isEditingSchedule || isEditingFocuses) ? draftFocuses : storedFocuses;
   const todayIndex = Math.max(0, Math.min(viewConfig.days.length - 1, new Date().getDay() - 1));
   const todayCourses = viewCourses[todayIndex] ?? [];
   const filledCells = viewCourses.flat().filter((item) => item.trim()).length;
   const totalSlots = Math.max(1, viewConfig.days.length * viewConfig.periods.length);
-  const coreHours = viewCourses.flat().filter((item) => ["语文", "数学", "英语", "物理", "化学", "生物"].some((subject) => item.includes(subject))).length;
-  const freeSlots = totalSlots - filledCells;
-  const hasScheduleData = storedWeeks.length > 0 || filledCells > 0 || viewEvents.length > 0 || viewFocuses.length > 0;
-  const firstColumnWidth = isEditing ? 270 : 150;
-  const dayColumnWidth = isEditing ? 150 : 130;
-  const scheduleMinWidth = firstColumnWidth + viewConfig.days.length * dayColumnWidth;
-  const topSubjects = Object.entries(viewCourses.flat().filter(Boolean).reduce((result, subject) => {
-    result[subject] = (result[subject] ?? 0) + 1;
-    return result;
-  }, {} as Record<string, number>)).sort((a, b) => b[1] - a[1]).slice(0, 4);
+  const courseColorMap = useMemo(() => {
+    const subjects = Array.from(new Set(viewCourses.flat().map((item) => item.trim()).filter(Boolean))).sort((a, b) => a.localeCompare(b, "zh-CN"));
+    const usedHues = new Set<number>();
+    const colors = new Map<string, CSSProperties>();
+
+    subjects.forEach((subject) => {
+      let hue = courseNameHue(subject);
+      let attempts = 0;
+      while (usedHues.has(hue) && attempts < 360) {
+        hue = (hue + 47) % 360;
+        attempts += 1;
+      }
+      usedHues.add(hue);
+      colors.set(subject, { "--course-bg": `hsl(${hue} 62% 93%)` } as CSSProperties);
+    });
+
+    return colors;
+  }, [viewCourses]);
+  const currentTermRange = termRange(calendarConfig, calendarYear);
 
   useEffect(() => {
-    const baseConfig = currentWeek?.config ?? data.scheduleConfig ?? defaultConfig;
+    if (isEditingSchedule || isEditingTerm || isEditingEvents || isEditingFocuses) {
+      setNewEvent((draft) => ({ ...draft, date: weekDates.startDate }));
+      setNewFocus((draft) => ({ ...draft, date: weekDates.startDate }));
+      return;
+    }
+    const baseConfig = normalizeTermConfig(data.scheduleConfig ?? currentWeek?.config ?? defaultConfig, calendarYear);
     setDraftConfig(baseConfig);
     setDraftCourses(normalizeCourses(currentWeek?.courses ?? data.courses ?? [], baseConfig));
     setDraftEvents(currentWeek?.events ?? (data.scheduleEvents ?? []).filter((item) => item.date >= weekDates.startDate && item.date <= weekDates.endDate));
     setDraftFocuses(currentWeek?.focuses ?? (data.dailyFocus ?? []).filter((item) => item.date >= weekDates.startDate && item.date <= weekDates.endDate));
     setNewEvent((draft) => ({ ...draft, date: weekDates.startDate }));
     setNewFocus((draft) => ({ ...draft, date: weekDates.startDate }));
-    setIsEditing(false);
-  }, [selectedKey]);
+    setIsEditingSchedule(false);
+  }, [selectedKey, isEditingSchedule, isEditingTerm, isEditingEvents, isEditingFocuses, calendarYear, currentWeek?.config, currentWeek?.courses, currentWeek?.events, currentWeek?.focuses, data.scheduleConfig, data.courses, data.scheduleEvents, data.dailyFocus, weekDates.startDate, weekDates.endDate]);
 
   function chooseMonth(month: string) {
+    if (!month) return;
     setSelectedMonth(month);
-    setSelectedWeek(1);
+    setSelectedWeek((week) => Math.min(week, getWeeksInMonth(month)));
     setCalendarYear(Number(month.slice(0, 4)) || calendarYear);
-    setJumpMonth(month);
   }
-  function getWeekDates(month: string, weekOfMonth: number) {
-    const [year, monthNumber] = month.split("-").map(Number);
-    const start = new Date(year, monthNumber - 1, 1 + (weekOfMonth - 1) * 7);
-    const end = new Date(year, monthNumber - 1, Math.min(new Date(year, monthNumber, 0).getDate(), weekOfMonth * 7));
-    return { startDate: formatDate(start), endDate: formatDate(end), label: `${year}年${monthNumber}月第${weekOfMonth}周` };
+
+  function normalizeCourses(courses: string[][], config: ScheduleConfig) {
+    return config.days.map((_, dayIndex) => Array.from({ length: config.periods.length }, (__, period) => courses[dayIndex]?.[period] ?? ""));
   }
-  function getWeeksInMonth(month: string) {
-    const [year, monthNumber] = month.split("-").map(Number);
-    return Math.ceil(new Date(year, monthNumber, 0).getDate() / 7);
-  }
-  function formatDate(date: Date) {
-    return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
-  }
-  function normalizeCourses(courses: string[][], nextConfig = viewConfig) {
-    return nextConfig.days.map((_, dayIndex) => Array.from({ length: nextConfig.periods.length }, (__, period) => courses[dayIndex]?.[period] ?? ""));
-  }
+
   function changeDraftConfig(patch: Partial<ScheduleConfig>) {
     setDraftConfig((current) => {
-      const nextConfig = { ...current, ...patch };
+      const nextConfig = normalizeTermConfig({ ...current, ...patch }, calendarYear);
+      if (patch.termStartMonth !== undefined || patch.termEndMonth !== undefined) {
+        const nextMonth = clampMonthToTerm(selectedMonth, nextConfig, calendarYear);
+        if (nextMonth !== selectedMonth) {
+          setSelectedMonth(nextMonth);
+          setCalendarYear(Number(nextMonth.slice(0, 4)) || calendarYear);
+          setSelectedWeek((week) => Math.min(week, getWeeksInMonth(nextMonth)));
+        }
+      }
       setDraftCourses((courses) => normalizeCourses(courses, nextConfig));
       return nextConfig;
     });
   }
+
   function changeCourse(day: number, period: number, value: string) {
     setDraftCourses((courses) => normalizeCourses(courses, draftConfig).map((row, rowIndex) => rowIndex === day ? row.map((course, colIndex) => colIndex === period ? value : course) : row));
   }
+
   function editDay(index: number, value: string) {
     changeDraftConfig({ days: draftConfig.days.map((item, itemIndex) => itemIndex === index ? value : item) });
   }
+
   function addDay() {
     const nextLabel = draftConfig.days.length === 5 ? "周六" : draftConfig.days.length === 6 ? "周日" : `第${draftConfig.days.length + 1}天`;
     changeDraftConfig({ days: [...draftConfig.days, nextLabel] });
   }
+
   function removeDay(index: number) {
     if (draftConfig.days.length <= 1) return;
     const nextConfig = { ...draftConfig, days: draftConfig.days.filter((_, itemIndex) => itemIndex !== index) };
     setDraftConfig(nextConfig);
     setDraftCourses((courses) => normalizeCourses(courses.filter((_, itemIndex) => itemIndex !== index), nextConfig));
   }
+
   function editPeriod(index: number, patch: Partial<{ label: string; time: string }>) {
     changeDraftConfig({ periods: draftConfig.periods.map((item, itemIndex) => itemIndex === index ? { ...item, ...patch } : item) });
   }
+
   function addPeriod() {
     changeDraftConfig({ periods: [...draftConfig.periods, { label: `第${draftConfig.periods.length + 1}节`, time: "" }] });
   }
+
   function removePeriod(index: number) {
     if (draftConfig.periods.length <= 1) return;
     setDraftConfig((current) => ({ ...current, periods: current.periods.filter((_, itemIndex) => itemIndex !== index) }));
     setDraftCourses((courses) => courses.map((row) => row.filter((_, itemIndex) => itemIndex !== index)));
   }
-  function applyPrimaryTemplate() {
-    const nextConfig: ScheduleConfig = { ...draftConfig, days: ["周一", "周二", "周三", "周四", "周五"], periods: [
-      { label: "早读", time: "08:00-08:20" }, { label: "第1节", time: "08:30-09:10" }, { label: "第2节", time: "09:20-10:00" }, { label: "第3节", time: "10:20-11:00" },
-      { label: "第4节", time: "11:10-11:50" }, { label: "午间", time: "12:00-13:30" }, { label: "第5节", time: "14:00-14:40" }, { label: "延时", time: "16:20-17:30" },
-    ] };
-    setDraftConfig(nextConfig);
-    setDraftCourses([
-      ["语文", "数学", "英语", "体育", "午餐/午休", "阅读", "班会", "延时服务"],
-      ["数学", "语文", "科学", "音乐", "午餐/午休", "劳动", "写字", "社团"],
-      ["英语", "数学", "语文", "美术", "午餐/午休", "信息", "心理", "延时作业"],
-      ["语文", "体育", "数学", "科学", "午餐/午休", "阅读", "综合", "延时服务"],
-      ["数学", "语文", "英语", "劳动", "午餐/午休", "班会", "社团", "放学整理"],
-    ]);
-  }
-  function addMiddleSchoolTemplate() {
-    const nextConfig: ScheduleConfig = { ...draftConfig, days: ["周一", "周二", "周三", "周四", "周五", "周六"], periods: [
-      { label: "早读", time: "07:30-07:55" }, { label: "第1节", time: "08:05-08:45" }, { label: "第2节", time: "08:55-09:35" }, { label: "第3节", time: "09:55-10:35" },
-      { label: "第4节", time: "10:45-11:25" }, { label: "午休", time: "12:20-13:50" }, { label: "第5节", time: "14:10-14:50" }, { label: "第6节", time: "15:00-15:40" },
-      { label: "第7节", time: "15:55-16:35" }, { label: "晚自习", time: "18:30-20:30" },
-    ] };
-    setDraftConfig(nextConfig);
-    setDraftCourses((courses) => normalizeCourses(courses, nextConfig));
-  }
+
   function clearSchedule() {
     setDraftCourses(draftConfig.days.map(() => Array.from({ length: draftConfig.periods.length }, () => "")));
   }
+
   function addEvent() {
-    setDraftEvents((items) => [{ id: crypto.randomUUID(), ...newEvent }, ...items]);
-  }
-  function addFocus() {
-    setDraftFocuses((items) => [{ id: crypto.randomUUID(), ...newFocus }, ...items]);
-  }
-  function saveWeek() {
-    const range = getWeekDates(selectedMonth, selectedWeek);
-    const week: ScheduleWeek = { id: currentWeek?.id ?? `sw-${selectedMonth}-w${selectedWeek}`, month: selectedMonth, weekOfMonth: selectedWeek, label: range.label, startDate: range.startDate, endDate: range.endDate, config: draftConfig, courses: normalizeCourses(draftCourses, draftConfig), events: draftEvents, focuses: draftFocuses };
-    update((current) => {
-      const nextWeeks = [week, ...(current.scheduleWeeks ?? []).filter((item) => !(item.month === selectedMonth && item.weekOfMonth === selectedWeek))].sort((a, b) => a.startDate.localeCompare(b.startDate));
-      return { ...current, scheduleWeeks: nextWeeks, scheduleConfig: draftConfig, courses: week.courses, scheduleEvents: nextWeeks.flatMap((item) => item.events), dailyFocus: nextWeeks.flatMap((item) => item.focuses) };
-    });
-    setIsEditing(false);
+    if (!newEvent.title.trim() && !newEvent.detail.trim()) return;
+    setDraftEvents((items) => [{ id: makeId("schedule-event"), ...newEvent, title: newEvent.title.trim() || "未命名活动" }, ...items]);
+    setNewEvent((draft) => ({ ...draft, title: "", detail: "" }));
   }
 
-  return <>
-    <ToolHeading kicker="课程表" title="长期查看和编辑每月每周课表" text="日历只负责定位年月周；学期范围、开学时间和学校说明都由老师自己填写，适合全国不同地区使用。" action={<button className="primary-small" onClick={() => setIsEditing(true)}>编辑模式</button>} />
-    {!hasScheduleData && <section className="schedule-empty-guide"><div><span>首次使用引导</span><h3>先选择月份和周次，再保存该周课表</h3><p>每一周都能拥有自己的课表和日程。调课周、考试周、补课周都可以单独保存。</p></div><ol><li>切换年份或跳转任意月份。</li><li>选择该月第几周，点击“编辑本周”。</li><li>保存后形成可回看的历史课表。</li></ol></section>}
-    <section className="schedule-summary stat-row">
-      <div><span>总课时</span><b>{filledCells}</b><small>已填写课程格</small></div>
-      <div><span>主科课时</span><b>{coreHours}</b><small>语数英理化生</small></div>
-      <div><span>本周课程数</span><b>{topSubjects.length}</b><small>学科种类</small></div>
-      <div><span>空闲节次</span><b>{freeSlots}</b><small>可继续补充</small></div>
-    </section>
-    <section className="schedule-toolbar">
-      <button className={`toggle-edit ${isEditing ? "active" : ""}`} onClick={() => setIsEditing((value) => !value)}><span>{isEditing ? "✓" : "✎"}</span>{isEditing ? "编辑中" : "编辑模式"}</button>
-      <button className="ghost-btn" onClick={applyPrimaryTemplate}>导入模板</button>
-      <button className="ghost-btn" onClick={() => window.print()}>导出/打印</button>
-      <button className="time-settings-btn" onClick={() => setIsEditing(true)}><span>时</span>作息时间设置</button>
-      <span className="spacer" />
-      {isEditing && <button className="primary-small" onClick={saveWeek}>保存本周</button>}
-    </section>
-    <section className="schedule-workbench">
-      <div className="schedule-main-card">
-        <div className="schedule-card-head"><div><span>{isEditing ? "正在编辑本周" : "本周课表"}</span><h3>{weekDates.label}课表</h3><p>{isEditing ? "可修改学期档案、星期、节次、时间和课程；模板不会覆盖老师填写的学期信息。" : "查看态保持干净，需要调整时再进入编辑。"}</p></div><div className="schedule-actions">{isEditing ? <><button onClick={saveWeek}>保存本周</button><button className="soft" onClick={() => setIsEditing(false)}>取消编辑</button></> : <><button onClick={() => setIsEditing(true)}>编辑本周</button><button className="soft" onClick={() => window.print()}>打印</button></>}</div></div>
-        <div className="schedule-calendar-picker">
-          <div className="calendar-year-toolbar calendar-collapsible-toggle" onClick={() => setCalendarOpen((open) => !open)}><button className="calendar-nav-btn" onClick={(event) => { event.stopPropagation(); setCalendarYear((year) => year - 1); }}>上一年</button><div className="calendar-year-title"><span>长期日历档案</span><b>{calendarYear}年 — 当前：{selectedMonth} 第{selectedWeek}周</b><small>{calendarOpen ? "点击收起" : "点击展开月份选择"}</small></div><label className="calendar-jump" onClick={(event) => event.stopPropagation()}>跳转月份<input type="month" value={jumpMonth} onChange={(event) => { const month = event.target.value; setJumpMonth(month); if (month) chooseMonth(month); }} /></label><button className="calendar-nav-btn" onClick={(event) => { event.stopPropagation(); setCalendarYear((year) => year + 1); }}>下一年</button></div>
-          {calendarOpen && <><div className="calendar-picker-head">{isEditing ? <><label>档案名称<input value={draftConfig.schoolYear} onChange={(event) => changeDraftConfig({ schoolYear: event.target.value })} placeholder="如：2026秋季接班档案" /></label><label>学期名称<input value={draftConfig.term} onChange={(event) => changeDraftConfig({ term: event.target.value })} placeholder="如：春季学期" /></label><label>起始月份<input type="month" value={draftConfig.termStartMonth ?? ""} onChange={(event) => changeDraftConfig({ termStartMonth: event.target.value })} /></label><label>结束月份<input type="month" value={draftConfig.termEndMonth ?? ""} onChange={(event) => changeDraftConfig({ termEndMonth: event.target.value })} /></label><label className="term-note-field">学期说明<input value={draftConfig.termNote ?? ""} onChange={(event) => changeDraftConfig({ termNote: event.target.value })} placeholder="如：本校9月3日报到，考试周另设课表" /></label></> : <><div><span>档案名称</span><b>{viewConfig.schoolYear}</b></div><div><span>学期名称</span><b>{viewConfig.term}</b></div><div><span>学期范围</span><b>{viewConfig.termStartMonth || viewConfig.termEndMonth ? `${viewConfig.termStartMonth || "未填"} 至 ${viewConfig.termEndMonth || "未填"}` : "由老师设置"}</b></div><div><span>学期说明</span><b>{viewConfig.termNote || "未填写"}</b></div></>}<div><span>正在查看</span><b>{selectedMonth} 第{selectedWeek}周</b></div><div><span>日期范围</span><b>{weekDates.startDate} 至 {weekDates.endDate}</b></div></div>
-          <div className="school-year-calendar">{monthOptions.map((month) => <button className={month === selectedMonth ? "active" : ""} key={month} onClick={() => chooseMonth(month)}><b>{month.slice(5)}月</b><span>{storedWeeks.filter((item) => item.month === month).length ? `${storedWeeks.filter((item) => item.month === month).length}周已存` : "未建档"}</span></button>)}</div></>}
-          <div className="calendar-week-row">{monthWeeks.map((item) => <button className={item.week === selectedWeek ? "active" : ""} key={item.week} onClick={() => setSelectedWeek(item.week)}><b>第{item.week}周</b><span>{item.startDate.slice(5)}—{item.endDate.slice(5)}</span><em>{item.stored ? "已保存" : "未编辑"}</em></button>)}</div>
-        </div>
-        <div className="schedule-inline-summary"><span>课程格 <b>{filledCells}</b></span><span>今日课务 <b>{todayCourses.filter(Boolean).length}</b></span><span>高频学科 <b>{topSubjects[0]?.[0] ?? "待填"}</b></span><span>本周日程 <b>{viewEvents.length + viewFocuses.length}</b></span></div>
-        {isEditing && <div className="schedule-actions schedule-template-actions"><button onClick={applyPrimaryTemplate}>小学作息模板</button><button onClick={addMiddleSchoolTemplate}>含晚自习模板</button><button className="soft" onClick={clearSchedule}>清空课程</button></div>}
-        {isEditing && <div className="course-palette">{["语文", "数学", "英语", "科学", "体育", "音乐", "美术", "劳动", "阅读", "班会", "午餐", "午睡", "晚自习", "社团"].map((subject) => <button key={subject} type="button">{subject}</button>)}</div>}
-        <div className="schedule-scroll"><div className="schedule-grid rich-schedule-grid" style={{ gridTemplateColumns: `${firstColumnWidth}px repeat(${viewConfig.days.length}, minmax(${dayColumnWidth}px, 1fr))`, minWidth: `${scheduleMinWidth}px` }}><div className="schedule-corner">节次 / 星期</div>{viewConfig.days.map((d, dayIndex) => <b className={dayIndex === todayIndex ? "today-col editable-day-head" : "editable-day-head"} key={`${d}-${dayIndex}`}>{isEditing ? <><input value={d} onChange={(event) => editDay(dayIndex, event.target.value)} /><button className="mini-remove" onClick={() => removeDay(dayIndex)}>移除</button></> : <span>{d}</span>}</b>)}{viewConfig.periods.map((period, periodIndex) => <div className="schedule-row" key={`${period.label}-${periodIndex}`}><span className="period-editor">{isEditing ? <><input className="period-label-input" value={period.label} onChange={(event) => editPeriod(periodIndex, { label: event.target.value })} /><input className="period-time-input" value={period.time ?? ""} onChange={(event) => editPeriod(periodIndex, { time: event.target.value })} placeholder="时间" /><button className="mini-remove" onClick={() => removePeriod(periodIndex)}>移除</button></> : <><b>{period.label}</b><small>{period.time || "未填时间"}</small></>}</span>{viewConfig.days.map((_, day) => <div className={`editable-cell ${day === todayIndex ? "today-cell" : ""}`} key={day}>{isEditing ? <input value={viewCourses[day]?.[periodIndex] ?? ""} onChange={(event) => changeCourse(day, periodIndex, event.target.value)} placeholder="课程/午休/晚自习" /> : <b>{viewCourses[day]?.[periodIndex] || "—"}</b>}</div>)}</div>)}</div></div>
-        {isEditing && <div className="schedule-structure-actions"><button onClick={addDay}>新增星期/上课日</button><button onClick={addPeriod}>新增节次/时间段</button></div>}
+  function addFocus() {
+    if (!newFocus.focus.trim() && !newFocus.todo.trim()) return;
+    setDraftFocuses((items) => [{ id: makeId("daily-focus"), ...newFocus, focus: newFocus.focus.trim() || "本周重点" }, ...items]);
+    setNewFocus((draft) => ({ ...draft, focus: "", todo: "" }));
+  }
+
+  function startTermEdit() {
+    const baseConfig = normalizeTermConfig(data.scheduleConfig ?? currentWeek?.config ?? defaultConfig, calendarYear);
+    setDraftConfig(baseConfig);
+    setIsEditingSchedule(false);
+    setIsEditingEvents(false);
+    setIsEditingFocuses(false);
+    setIsEditingTerm(true);
+  }
+
+  function cancelTermEdit() {
+    const baseConfig = normalizeTermConfig(data.scheduleConfig ?? currentWeek?.config ?? defaultConfig, calendarYear);
+    setDraftConfig(baseConfig);
+    setIsEditingTerm(false);
+  }
+
+  function saveTerm() {
+    const nextConfig = normalizeTermConfig(draftConfig, calendarYear);
+    const targetMonth = clampMonthToTerm(selectedMonth, nextConfig, calendarYear);
+    const targetWeek = Math.min(selectedWeek, getWeeksInMonth(targetMonth));
+    const termLabel = scheduleTermLabel(nextConfig);
+    update((current) => {
+      const activeClassId = current.activeClassId ?? current.rosterClasses?.[0]?.id;
+      return {
+        ...current,
+        scheduleConfig: nextConfig,
+        rosterClasses: current.rosterClasses?.map((item) => item.id === activeClassId ? { ...item, term: termLabel } : item),
+      };
+    });
+    setDraftConfig(nextConfig);
+    setSelectedMonth(targetMonth);
+    setCalendarYear(Number(targetMonth.slice(0, 4)) || calendarYear);
+    setSelectedWeek(targetWeek);
+    setIsEditingTerm(false);
+  }
+
+  function startScheduleEdit() {
+    const baseConfig = normalizeTermConfig(currentWeek?.config ?? data.scheduleConfig ?? defaultConfig, calendarYear);
+    setDraftConfig(baseConfig);
+    setDraftCourses(normalizeCourses(currentWeek?.courses ?? data.courses ?? [], baseConfig));
+    setDraftEvents(currentWeek?.events ?? (data.scheduleEvents ?? []).filter((item) => item.date >= weekDates.startDate && item.date <= weekDates.endDate));
+    setDraftFocuses(currentWeek?.focuses ?? (data.dailyFocus ?? []).filter((item) => item.date >= weekDates.startDate && item.date <= weekDates.endDate));
+    setIsEditingTerm(false);
+    setIsEditingEvents(false);
+    setIsEditingFocuses(false);
+    setIsEditingSchedule(true);
+  }
+
+  function cancelScheduleEdit() {
+    const baseConfig = normalizeTermConfig(currentWeek?.config ?? data.scheduleConfig ?? defaultConfig, calendarYear);
+    setDraftConfig(baseConfig);
+    setDraftCourses(normalizeCourses(currentWeek?.courses ?? data.courses ?? [], baseConfig));
+    setDraftEvents(currentWeek?.events ?? (data.scheduleEvents ?? []).filter((item) => item.date >= weekDates.startDate && item.date <= weekDates.endDate));
+    setDraftFocuses(currentWeek?.focuses ?? (data.dailyFocus ?? []).filter((item) => item.date >= weekDates.startDate && item.date <= weekDates.endDate));
+    setIsEditingSchedule(false);
+  }
+
+  function saveWeek() {
+    const nextConfig = normalizeTermConfig(draftConfig, calendarYear);
+    const targetMonth = clampMonthToTerm(selectedMonth, nextConfig, calendarYear);
+    const targetWeek = Math.min(selectedWeek, getWeeksInMonth(targetMonth));
+    const range = getWeekDates(targetMonth, targetWeek);
+    const targetStoredWeek = storedWeeks.find((item) => item.month === targetMonth && item.weekOfMonth === targetWeek);
+    const week: ScheduleWeek = {
+      id: targetStoredWeek?.id ?? `sw-${targetMonth}-w${targetWeek}`,
+      month: targetMonth,
+      weekOfMonth: targetWeek,
+      label: range.label,
+      startDate: range.startDate,
+      endDate: range.endDate,
+      config: nextConfig,
+      courses: normalizeCourses(draftCourses, nextConfig),
+      events: draftEvents,
+      focuses: draftFocuses,
+    };
+    update((current) => {
+      const nextWeeks = [week, ...(current.scheduleWeeks ?? []).filter((item) => !(item.month === targetMonth && item.weekOfMonth === targetWeek))].sort((a, b) => a.startDate.localeCompare(b.startDate));
+      const activeClassId = current.activeClassId ?? current.rosterClasses?.[0]?.id;
+      const termLabel = scheduleTermLabel(nextConfig);
+      return {
+        ...current,
+        scheduleWeeks: nextWeeks,
+        scheduleConfig: nextConfig,
+        courses: week.courses,
+        scheduleEvents: nextWeeks.flatMap((item) => item.events),
+        dailyFocus: nextWeeks.flatMap((item) => item.focuses),
+        rosterClasses: current.rosterClasses?.map((item) => item.id === activeClassId ? { ...item, term: termLabel } : item),
+      };
+    });
+    setDraftConfig(nextConfig);
+    setSelectedMonth(targetMonth);
+    setCalendarYear(Number(targetMonth.slice(0, 4)) || calendarYear);
+    setSelectedWeek(targetWeek);
+    setIsEditingSchedule(false);
+  }
+
+  function startEventsEdit() {
+    setDraftEvents(storedEvents);
+    setIsEditingEvents(true);
+  }
+
+  function cancelEventsEdit() {
+    setDraftEvents(storedEvents);
+    setIsEditingEvents(false);
+  }
+
+  function startFocusesEdit() {
+    setDraftFocuses(storedFocuses);
+    setIsEditingFocuses(true);
+  }
+
+  function cancelFocusesEdit() {
+    setDraftFocuses(storedFocuses);
+    setIsEditingFocuses(false);
+  }
+
+  function saveWeekSide(patch: Partial<Pick<ScheduleWeek, "events" | "focuses">>) {
+    const baseConfig = currentWeek?.config ?? data.scheduleConfig ?? defaultConfig;
+    const courses = normalizeCourses(currentWeek?.courses ?? data.courses ?? [], baseConfig);
+    const week: ScheduleWeek = {
+      id: currentWeek?.id ?? `sw-${selectedMonth}-w${selectedWeek}`,
+      month: selectedMonth,
+      weekOfMonth: selectedWeek,
+      label: weekDates.label,
+      startDate: weekDates.startDate,
+      endDate: weekDates.endDate,
+      config: baseConfig,
+      courses,
+      events: patch.events ?? storedEvents,
+      focuses: patch.focuses ?? storedFocuses,
+    };
+    update((current) => {
+      const nextWeeks = [week, ...(current.scheduleWeeks ?? []).filter((item) => !(item.month === selectedMonth && item.weekOfMonth === selectedWeek))].sort((a, b) => a.startDate.localeCompare(b.startDate));
+      return { ...current, scheduleWeeks: nextWeeks, scheduleEvents: nextWeeks.flatMap((item) => item.events), dailyFocus: nextWeeks.flatMap((item) => item.focuses) };
+    });
+  }
+
+  function saveEvents() {
+    saveWeekSide({ events: draftEvents });
+    setIsEditingEvents(false);
+  }
+
+  function saveFocuses() {
+    saveWeekSide({ focuses: draftFocuses });
+    setIsEditingFocuses(false);
+  }
+
+  return <div className="courseplan-page homework-bootstrap-preview">
+    <WorkbenchPageHeader
+      icon="🗓️"
+      tone="sky"
+      title="课程日程"
+      description={`${scheduleTermLabel(calendarConfig)} · ${weekDates.startDate} 至 ${weekDates.endDate}`}
+      actions={<div className="courseplan-heading-actions">
+        {isEditingSchedule ? <><button className="courseplan-primary workbench-header-primary" onClick={saveWeek}>保存课表</button><button onClick={cancelScheduleEdit}>取消编辑</button></> : <button className="courseplan-primary workbench-header-primary" onClick={startScheduleEdit}>编辑本周课表</button>}
+      </div>}
+    />
+
+    <section className="courseplan-toolbar workbench-page-context" aria-label="学期与周次">
+      <div className="courseplan-term-summary">
+        <span>学期档案</span>
+        <b>{calendarConfig.schoolYear || "未命名档案"} · {calendarConfig.term || "未命名学期"}</b>
+        <small>{currentTermRange.start} 至 {currentTermRange.end}{calendarConfig.termNote ? ` · ${calendarConfig.termNote}` : ""}</small>
       </div>
-      <aside className="today-brief"><div className="today-brief-head"><span>本周快速看</span><b>第{selectedWeek}周</b></div>{todayCourses.filter(Boolean).length ? todayCourses.map((course, index) => course && <div className="today-course" key={`${course}-${index}`}><i>{viewConfig.periods[index]?.label ?? `第${index + 1}节`}</i><span><b>{course}</b><small>{viewConfig.periods[index]?.time || "未填时间"}</small></span></div>) : <p className="empty-schedule">这一周还没有填写今日对应课程。</p>}<div className="today-plan-note"><span>本周日程摘要</span><b>{viewEvents[0]?.title || "暂无班会活动"}</b><small>{viewFocuses[0]?.todo || "暂无每日重点"}</small></div><div className="subject-cloud"><b>本周学科分布</b>{topSubjects.map(([subject, count]) => <span key={subject}>{subject}<em>{count}</em></span>)}</div></aside>
+      <label className="courseplan-month-select">
+        <span>月份</span>
+        <select value={selectedMonth} onChange={(event) => chooseMonth(event.target.value)}>
+          {monthOptions.map((month) => <option value={month} key={month}>{month.slice(0, 4)}年{month.slice(5)}月</option>)}
+        </select>
+      </label>
+      <div className="courseplan-current-week">
+        <span>当前周次</span>
+        <b>{weekDates.label}</b>
+        <small>{weekDates.startDate} 至 {weekDates.endDate}</small>
+      </div>
+      <div className="courseplan-toolbar-actions">
+        {isEditingTerm ? <><button className="courseplan-primary" onClick={saveTerm}>保存学期</button><button onClick={cancelTermEdit}>取消</button></> : <button onClick={startTermEdit}>编辑学期</button>}
+      </div>
     </section>
-    <section className="schedule-arrangements"><div className="schedule-card-head compact"><div><span>本周班会活动</span><h3>跟随周课表切换的日程</h3><p>查看态只展示本周安排；编辑态才显示新增、删除和输入框。</p></div></div>{isEditing && <div className="event-compose"><input type="date" value={newEvent.date} onChange={(event) => setNewEvent((draft) => ({ ...draft, date: event.target.value }))} /><select value={newEvent.type} onChange={(event) => setNewEvent((draft) => ({ ...draft, type: event.target.value as ScheduleEvent["type"] }))}>{["班会", "活动", "考试", "放假", "家校", "其他"].map((item) => <option key={item}>{item}</option>)}</select><input value={newEvent.title} onChange={(event) => setNewEvent((draft) => ({ ...draft, title: event.target.value }))} placeholder="活动标题" /><textarea value={newEvent.detail} onChange={(event) => setNewEvent((draft) => ({ ...draft, detail: event.target.value }))} /><button onClick={addEvent}>新增到月日程</button></div>}<div className="event-ledger">{viewEvents.length ? viewEvents.map((item) => <article className={!isEditing ? "read-only-row" : ""} key={item.id}>{isEditing ? <><input type="date" value={item.date} onChange={(event) => setDraftEvents((items) => items.map((row) => row.id === item.id ? { ...row, date: event.target.value } : row))} /><select value={item.type} onChange={(event) => setDraftEvents((items) => items.map((row) => row.id === item.id ? { ...row, type: event.target.value as ScheduleEvent["type"] } : row))}>{["班会", "活动", "考试", "放假", "家校", "其他"].map((type) => <option key={type}>{type}</option>)}</select><input value={item.title} onChange={(event) => setDraftEvents((items) => items.map((row) => row.id === item.id ? { ...row, title: event.target.value } : row))} /><textarea value={item.detail} onChange={(event) => setDraftEvents((items) => items.map((row) => row.id === item.id ? { ...row, detail: event.target.value } : row))} /><button onClick={() => setDraftEvents((items) => items.filter((row) => row.id !== item.id))}>删除</button></> : <><time>{item.date}</time><span>{item.type}</span><b>{item.title}</b><p>{item.detail}</p></>}</article>) : <p className="empty-schedule">本周暂无班会活动。点击“编辑本周”后可以添加。</p>}</div></section>
-    <section className="week-plan-editor"><div className="schedule-card-head compact"><div><span>本周每日重点</span><h3>跟随周次保存的重点事项</h3><p>每一周有自己的重点清单，可以回看上周做了什么，也能提前规划下个月某周。</p></div></div>{isEditing && <div className="focus-compose"><input type="date" value={newFocus.date} onChange={(event) => setNewFocus((draft) => ({ ...draft, date: event.target.value }))} /><input value={newFocus.focus} onChange={(event) => setNewFocus((draft) => ({ ...draft, focus: event.target.value }))} placeholder="重点主题" /><select value={newFocus.status} onChange={(event) => setNewFocus((draft) => ({ ...draft, status: event.target.value as DailyFocus["status"] }))}>{["待处理", "进行中", "已完成"].map((item) => <option key={item}>{item}</option>)}</select><textarea value={newFocus.todo} onChange={(event) => setNewFocus((draft) => ({ ...draft, todo: event.target.value }))} /><button onClick={addFocus}>新增重点</button></div>}<div className="focus-board">{viewFocuses.length ? viewFocuses.map((item) => <article className={`${item.status} ${!isEditing ? "read-only-row" : ""}`} key={item.id}>{isEditing ? <><input type="date" value={item.date} onChange={(event) => setDraftFocuses((items) => items.map((row) => row.id === item.id ? { ...row, date: event.target.value } : row))} /><input value={item.focus} onChange={(event) => setDraftFocuses((items) => items.map((row) => row.id === item.id ? { ...row, focus: event.target.value } : row))} /><select value={item.status} onChange={(event) => setDraftFocuses((items) => items.map((row) => row.id === item.id ? { ...row, status: event.target.value as DailyFocus["status"] } : row))}>{["待处理", "进行中", "已完成"].map((status) => <option key={status}>{status}</option>)}</select><textarea value={item.todo} onChange={(event) => setDraftFocuses((items) => items.map((row) => row.id === item.id ? { ...row, todo: event.target.value } : row))} /><button onClick={() => setDraftFocuses((items) => items.filter((row) => row.id !== item.id))}>删除</button></> : <><time>{item.date}</time><b>{item.focus}</b><span>{item.status}</span><p>{item.todo}</p></>}</article>) : <p className="empty-schedule">本周暂无每日重点。点击“编辑本周”后可以添加。</p>}</div></section>
-  </>;
+
+    {isEditingTerm && <section className="courseplan-term-form">
+      <label><span>档案名称</span><input value={draftConfig.schoolYear} onChange={(event) => changeDraftConfig({ schoolYear: event.target.value })} /></label>
+      <label><span>学期名称</span><input value={draftConfig.term} onChange={(event) => changeDraftConfig({ term: event.target.value })} /></label>
+      <label><span>起始月份</span><input type="month" value={draftConfig.termStartMonth ?? ""} onChange={(event) => changeDraftConfig({ termStartMonth: event.target.value })} /></label>
+      <label><span>结束月份</span><input type="month" value={draftConfig.termEndMonth ?? ""} onChange={(event) => changeDraftConfig({ termEndMonth: event.target.value })} /></label>
+      <label className="wide"><span>说明</span><input value={draftConfig.termNote ?? ""} onChange={(event) => changeDraftConfig({ termNote: event.target.value })} /></label>
+    </section>}
+
+    <nav className="courseplan-weeks" aria-label="周次切换">
+      {monthWeeks.map((item) => <button className={item.week === selectedWeek ? "active" : ""} key={item.week} onClick={() => setSelectedWeek(item.week)}>
+        <b>第{item.week}周</b>
+        <span>{item.startDate.slice(5)} 至 {item.endDate.slice(5)}</span>
+        <em>{item.stored ? "已保存" : "未编辑"}</em>
+      </button>)}
+    </nav>
+
+    <section className="courseplan-board">
+      <header className="courseplan-section-head">
+        <div><span>{isEditingSchedule ? "编辑课表" : "本周课表"}</span><h3>{weekDates.label}</h3></div>
+        <div className="courseplan-table-actions">
+          {isEditingSchedule ? <><button className="courseplan-primary" onClick={saveWeek}>保存课表</button><button onClick={cancelScheduleEdit}>取消</button><button className="courseplan-danger" onClick={clearSchedule}>清空课程</button><button onClick={addDay}>新增上课日</button><button onClick={addPeriod}>新增节次</button></> : null}
+        </div>
+      </header>
+      <div className="courseplan-scroll">
+        <div className="courseplan-table" style={{ gridTemplateColumns: `118px repeat(${viewConfig.days.length}, minmax(128px, 1fr))` }}>
+          <div className="corner">节次</div>
+          {viewConfig.days.map((day, dayIndex) => <div className="day-head" key={`${day}-${dayIndex}`}>
+            {isEditingSchedule ? <><input value={day} onChange={(event) => editDay(dayIndex, event.target.value)} /><button className="courseplan-danger compact" onClick={() => removeDay(dayIndex)}>删除日期</button></> : <b>{day}</b>}
+          </div>)}
+          {viewConfig.periods.map((period, periodIndex) => <Fragment key={`${period.label}-${periodIndex}-row`}>
+            <div className="period-cell" key={`${period.label}-${periodIndex}-period`}>
+              {isEditingSchedule ? <><input value={period.label} onChange={(event) => editPeriod(periodIndex, { label: event.target.value })} /><input value={period.time ?? ""} onChange={(event) => editPeriod(periodIndex, { time: event.target.value })} placeholder="时间" /><button className="courseplan-danger compact" onClick={() => removePeriod(periodIndex)}>删除节次</button></> : <><b>{period.label}</b><span>{period.time || "未填时间"}</span></>}
+            </div>
+            {viewConfig.days.map((_, dayIndex) => {
+              const courseName = viewCourses[dayIndex]?.[periodIndex] ?? "";
+              const trimmedCourse = courseName.trim();
+              return <div className={`courseplan-cell ${dayIndex === todayIndex ? "today" : ""} ${trimmedCourse ? "has-course" : "is-empty"}`} style={trimmedCourse ? courseColorMap.get(trimmedCourse) : undefined} key={`${dayIndex}-${periodIndex}`}>
+                {isEditingSchedule ? <input value={courseName} onChange={(event) => changeCourse(dayIndex, periodIndex, event.target.value)} placeholder="填写课程" /> : trimmedCourse ? <span className="courseplan-subject"><b>{trimmedCourse}</b></span> : <em>未安排</em>}
+              </div>;
+            })}
+          </Fragment>)}
+        </div>
+      </div>
+    </section>
+
+    <section className="courseplan-grid">
+      <section className="courseplan-panel">
+        <header className="courseplan-section-head"><div><span>班级活动</span><h3>本周安排</h3></div>{isEditingEvents ? <div><button className="courseplan-primary" onClick={saveEvents}>保存</button><button onClick={cancelEventsEdit}>取消</button></div> : <button onClick={startEventsEdit}>编辑</button>}</header>
+        {isEditingEvents && <div className="courseplan-compose event">
+          <input type="date" value={newEvent.date} onChange={(event) => setNewEvent((draft) => ({ ...draft, date: event.target.value }))} />
+          <select value={newEvent.type} onChange={(event) => setNewEvent((draft) => ({ ...draft, type: event.target.value as ScheduleEvent["type"] }))}>{eventTypes.map((item) => <option key={item}>{item}</option>)}</select>
+          <input value={newEvent.title} onChange={(event) => setNewEvent((draft) => ({ ...draft, title: event.target.value }))} placeholder="活动标题" />
+          <input value={newEvent.detail} onChange={(event) => setNewEvent((draft) => ({ ...draft, detail: event.target.value }))} placeholder="地点或准备事项" />
+          <button onClick={addEvent}>添加</button>
+        </div>}
+        <div className="courseplan-list">
+          {viewEvents.length ? viewEvents.map((item) => <article key={item.id}>
+            {isEditingEvents ? <><input type="date" value={item.date} onChange={(event) => setDraftEvents((items) => items.map((row) => row.id === item.id ? { ...row, date: event.target.value } : row))} /><select value={item.type} onChange={(event) => setDraftEvents((items) => items.map((row) => row.id === item.id ? { ...row, type: event.target.value as ScheduleEvent["type"] } : row))}>{eventTypes.map((type) => <option key={type}>{type}</option>)}</select><input value={item.title} onChange={(event) => setDraftEvents((items) => items.map((row) => row.id === item.id ? { ...row, title: event.target.value } : row))} /><input value={item.detail} onChange={(event) => setDraftEvents((items) => items.map((row) => row.id === item.id ? { ...row, detail: event.target.value } : row))} /><button className="courseplan-danger compact" onClick={() => setDraftEvents((items) => items.filter((row) => row.id !== item.id))}>删除</button></> : <><time>{item.date}</time><span>{item.type}</span><b>{item.title}</b><p>{item.detail || "暂无说明"}</p></>}
+          </article>) : <p>本周暂无班级活动。</p>}
+        </div>
+      </section>
+
+      <section className="courseplan-panel">
+        <header className="courseplan-section-head"><div><span>每日重点</span><h3>本周重点事项</h3></div>{isEditingFocuses ? <div><button className="courseplan-primary" onClick={saveFocuses}>保存</button><button onClick={cancelFocusesEdit}>取消</button></div> : <button onClick={startFocusesEdit}>编辑</button>}</header>
+        {isEditingFocuses && <div className="courseplan-compose focus">
+          <input type="date" value={newFocus.date} onChange={(event) => setNewFocus((draft) => ({ ...draft, date: event.target.value }))} />
+          <input value={newFocus.focus} onChange={(event) => setNewFocus((draft) => ({ ...draft, focus: event.target.value }))} placeholder="重点主题" />
+          <select value={newFocus.status} onChange={(event) => setNewFocus((draft) => ({ ...draft, status: event.target.value as DailyFocus["status"] }))}>{focusStatuses.map((item) => <option key={item}>{item}</option>)}</select>
+          <input value={newFocus.todo} onChange={(event) => setNewFocus((draft) => ({ ...draft, todo: event.target.value }))} placeholder="具体事项" />
+          <button onClick={addFocus}>添加</button>
+        </div>}
+        <div className="courseplan-list">
+          {viewFocuses.length ? viewFocuses.map((item) => <article key={item.id}>
+            {isEditingFocuses ? <><input type="date" value={item.date} onChange={(event) => setDraftFocuses((items) => items.map((row) => row.id === item.id ? { ...row, date: event.target.value } : row))} /><input value={item.focus} onChange={(event) => setDraftFocuses((items) => items.map((row) => row.id === item.id ? { ...row, focus: event.target.value } : row))} /><select value={item.status} onChange={(event) => setDraftFocuses((items) => items.map((row) => row.id === item.id ? { ...row, status: event.target.value as DailyFocus["status"] } : row))}>{focusStatuses.map((status) => <option key={status}>{status}</option>)}</select><input value={item.todo} onChange={(event) => setDraftFocuses((items) => items.map((row) => row.id === item.id ? { ...row, todo: event.target.value } : row))} /><button className="courseplan-danger compact" onClick={() => setDraftFocuses((items) => items.filter((row) => row.id !== item.id))}>删除</button></> : <><time>{item.date}</time><span>{item.status}</span><b>{item.focus}</b><p>{item.todo || "暂无事项"}</p></>}
+          </article>) : <p>本周暂无每日重点。</p>}
+        </div>
+      </section>
+    </section>
+  </div>;
+}
+
+function getWeekDates(month: string, weekOfMonth: number) {
+  const [year, monthNumber] = month.split("-").map(Number);
+  const start = new Date(year, monthNumber - 1, 1 + (weekOfMonth - 1) * 7);
+  const end = new Date(year, monthNumber - 1, Math.min(new Date(year, monthNumber, 0).getDate(), weekOfMonth * 7));
+  return { startDate: formatDate(start), endDate: formatDate(end), label: `${year}年${monthNumber}月第${weekOfMonth}周` };
+}
+
+function getWeeksInMonth(month: string) {
+  const [year, monthNumber] = month.split("-").map(Number);
+  return Math.ceil(new Date(year, monthNumber, 0).getDate() / 7);
+}
+
+function formatDate(date: Date) {
+  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
 }

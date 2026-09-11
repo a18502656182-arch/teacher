@@ -7,15 +7,117 @@ export type Student = {
   seat: number;
   points: number;
   homework: "已交" | "待订正" | "未交";
-  attendance: "正常" | "迟到" | "请假";
+  attendance: "正常" | "迟到" | "请假" | "缺勤";
   score: number;
   parentPhone?: string;
   note?: string;
+  residence?: "走读" | "住宿" | "未填";
+  tags?: string[];
   avoidWith?: string;
   seatNeed?: "无" | "前排" | "后排" | "靠窗" | "靠过道";
   seatFixed?: boolean;
   height?: number;
   groupLeader?: boolean;
+};
+
+export type AttendanceStatus = "正常" | "迟到" | "请假" | "缺勤";
+
+export type AttendanceRecord = {
+  id: string;
+  classId?: string;
+  studentId: string;
+  date: string;
+  period: "全天" | "上午" | "下午";
+  status: AttendanceStatus;
+  leaveType?: "病假" | "事假" | "其他";
+  reason?: string;
+  submittedBy?: string;
+  contact?: string;
+  approval?: "待确认" | "已确认" | "已销假";
+  returnedAt?: string;
+  note?: string;
+  createdAt: number;
+};
+
+export type TeacherAgendaType = "备课" | "会议" | "教研" | "批改" | "辅导" | "班级事务" | "其他";
+
+export type TeacherAgendaItem = {
+  id: string;
+  classId?: string;
+  date: string;
+  startTime?: string;
+  endTime?: string;
+  type: TeacherAgendaType;
+  title: string;
+  detail?: string;
+  location?: string;
+  relatedStudentIds?: string[];
+  status: "待处理" | "进行中" | "已完成" | "已取消";
+  completedAt?: string;
+  createdAt: number;
+};
+
+export type WorkLog = {
+  id: string;
+  classId?: string;
+  agendaId?: string;
+  date: string;
+  type: TeacherAgendaType;
+  title: string;
+  detail?: string;
+  durationMinutes?: number;
+  relatedStudentIds?: string[];
+  createdAt: number;
+};
+
+export type Guardian = {
+  id: string;
+  classId?: string;
+  studentId: string;
+  name: string;
+  relation: string;
+  phone?: string;
+  isPrimary?: boolean;
+  emergencyPriority?: number;
+};
+
+export type CareProfile = {
+  id: string;
+  classId?: string;
+  studentId: string;
+  category: "健康提醒" | "活动注意" | "座位照护" | "过敏与饮食" | "呼吸与心血管" | "视觉与感官" | "行动与书写" | "心理与情绪" | "其他";
+  severity: "一般" | "重要" | "紧急";
+  summary?: string;
+  instruction: string;
+  contraindication?: string;
+  customCategory?: string;
+  actionContexts?: string[];
+  reviewedAt?: string;
+  reviewDueAt?: string;
+  visibleScope: "班主任";
+};
+
+export type ClassroomToolSession = {
+  id: string;
+  classId?: string;
+  date: string;
+  kind: "随机点名" | "临时分组";
+  selectedStudentIds: string[];
+  groups?: string[][];
+  createdAt: number;
+};
+
+export type NotificationDraft = {
+  id: string;
+  classId?: string;
+  date: string;
+  title: string;
+  content: string;
+  channel: "班级群" | "私聊" | "电话提醒";
+  recipientStudentIds?: string[];
+  status: "草稿" | "已复制" | "已记录回执";
+  receiptNote?: string;
+  createdAt: number;
 };
 
 export type SeatingConfig = {
@@ -37,6 +139,7 @@ export type HomeworkTask = {
 
 export type PointEvent = {
   id: string;
+  classId?: string;
   studentId: string;
   scene: string;
   reason: string;
@@ -47,6 +150,7 @@ export type PointEvent = {
 
 export type GrowthEvidence = {
   id: string;
+  classId?: string;
   studentId: string;
   date: string;
   type: string;
@@ -71,6 +175,7 @@ export type PointRule = {
 
 export type CadreRole = {
   id: string;
+  classId?: string;
   role: string;
   studentId: string;
   duty: string;
@@ -105,6 +210,8 @@ export type DutyRecord = {
 
 export type CommunicationRecord = {
   id: string;
+  classId?: string;
+  studentId?: string;
   student: string;
   type: string;
   content: string;
@@ -122,10 +229,43 @@ export type ScoreExam = {
   date: string;
   subjects: string[];
   scores: Record<string, Record<string, number>>;
+  subjectMaxScores?: Record<string, number>;
+  scoreRanges?: Record<string, { id: string; label: string; min: number; max: number }[]>;
+  levels?: Record<string, "优秀" | "临界" | "帮扶">;
+  advice?: Record<string, string>;
+  focusSubjects?: Record<string, string>;
+  followUpStudentIds?: string[];
+  knowledgeItems?: ScoreKnowledgeItem[];
+  paperAnalyses?: ScorePaperAnalysis[];
+};
+
+export type ScoreKnowledgeItem = {
+  id: string;
+  title: string;
+  subject?: string;
+  questionNo?: string;
+  knowledgePoint?: string;
+  questionType?: string;
+  source?: "teacher" | "ai";
+  confidence?: number;
+  maxScore: number;
+  scores: Record<string, number>;
+};
+
+export type ScorePaperAnalysis = {
+  id: string;
+  sourceName: string;
+  sourceType: string;
+  sourceSize: number;
+  createdAt: string;
+  status: "待识别" | "识别中" | "待核对" | "已确认" | "失败";
+  message?: string;
+  items?: ScoreKnowledgeItem[];
 };
 
 export type ExamReflection = {
   id: string;
+  classId?: string;
   studentId: string;
   examId?: string;
   date: string;
@@ -139,6 +279,7 @@ export type ExamReflection = {
 
 export type TermComment = {
   id: string;
+  classId?: string;
   studentId: string;
   term: string;
   style: "温和鼓励" | "客观正式" | "家长可读";
@@ -190,6 +331,14 @@ export type ScheduleWeek = {
   focuses: DailyFocus[];
 };
 
+export type ClassScheduleData = {
+  config?: ScheduleConfig;
+  courses: string[][];
+  events: ScheduleEvent[];
+  focuses: DailyFocus[];
+  weeks: ScheduleWeek[];
+};
+
 export type RosterClass = {
   id: string;
   name: string;
@@ -204,10 +353,13 @@ export type WeeklyReport = {
   weekStart: string;
   weekEnd: string;
   edition: "家长版" | "教师版";
+  title?: string;
+  status?: "草稿" | "已归档";
   content: string;
   nextFocus: string;
   createdAt: string;
   updatedAt: string;
+  archivedAt?: string;
 };
 
 export type ClassroomData = {
@@ -217,6 +369,13 @@ export type ClassroomData = {
   dutyOffset: number;
   dutyJobs?: DutyJob[];
   dutyRecords?: DutyRecord[];
+  attendanceRecords?: AttendanceRecord[];
+  teacherAgenda?: TeacherAgendaItem[];
+  workLogs?: WorkLog[];
+  guardians?: Guardian[];
+  careProfiles?: CareProfile[];
+  classroomToolSessions?: ClassroomToolSession[];
+  notificationDrafts?: NotificationDraft[];
   records: CommunicationRecord[];
   courses: string[][];
   homeworkTasks?: HomeworkTask[];
@@ -234,8 +393,82 @@ export type ClassroomData = {
   dailyFocus?: DailyFocus[];
   scheduleWeeks?: ScheduleWeek[];
   seatingConfig?: SeatingConfig;
+  classSchedules?: Record<string, ClassScheduleData>;
+  classSeatingConfigs?: Record<string, SeatingConfig>;
   license?: { tier: "基础版" | "高级版"; canExport: boolean; expiresAt: string };
 };
+
+/**
+ * Generate a client-safe record id. `crypto.randomUUID()` is unavailable on
+ * non-secure HTTP origins and some older WebViews, so every write flow must
+ * keep a non-throwing fallback.
+ */
+export function makeId(prefix = "id") {
+  if (typeof globalThis.crypto?.randomUUID === "function") return globalThis.crypto.randomUUID();
+  return `${prefix}-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
+}
+
+/** 正式新工作台的最小空白数据；演示数据只能用于 /w/demo。 */
+export function createEmptyClassroomData(): ClassroomData {
+  const classId = "class-1";
+  return {
+    students: [],
+    activeClassId: classId,
+    rosterClasses: [{ id: classId, name: "我的班级", grade: "", term: "", students: [] }],
+    dutyOffset: 0,
+    records: [],
+    courses: Array.from({ length: 5 }, () => []),
+    homeworkTasks: [],
+    pointEvents: [],
+    growthEvidence: [],
+    pointRules: [],
+    cadres: [],
+    scoreExams: [],
+    examReflections: [],
+    termComments: [],
+    weeklyReports: [],
+    attendanceRecords: [],
+    teacherAgenda: [],
+    workLogs: [],
+    guardians: [],
+    careProfiles: [],
+    classroomToolSessions: [],
+    notificationDrafts: [],
+  };
+}
+
+export function monthIndex(month: string) {
+  const [year, monthNumber] = month.split("-").map(Number);
+  if (!year || !monthNumber) return 0;
+  return year * 12 + monthNumber - 1;
+}
+
+export function scheduleTermRange(config?: Pick<ScheduleConfig, "termStartMonth" | "termEndMonth">, fallbackYear = new Date().getFullYear()) {
+  const fallbackStart = `${fallbackYear}-08`;
+  const fallbackEnd = `${fallbackYear + 1}-01`;
+  const rawStart = config?.termStartMonth || fallbackStart;
+  const rawEnd = config?.termEndMonth || fallbackEnd;
+  const startMonth = monthIndex(rawStart) <= monthIndex(rawEnd) ? rawStart : rawEnd;
+  const endMonth = monthIndex(rawStart) <= monthIndex(rawEnd) ? rawEnd : rawStart;
+  const [startYear, startMonthNumber] = startMonth.split("-").map(Number);
+  const [endYear, endMonthNumber] = endMonth.split("-").map(Number);
+  const endDay = new Date(endYear, endMonthNumber, 0).getDate();
+  return {
+    startMonth,
+    endMonth,
+    startDate: `${startMonth}-01`,
+    endDate: `${endMonth}-${String(endDay).padStart(2, "0")}`,
+    startTime: new Date(startYear, startMonthNumber - 1, 1).getTime(),
+    endTime: new Date(endYear, endMonthNumber - 1, endDay, 23, 59, 59, 999).getTime(),
+  };
+}
+
+export function scheduleTermLabel(config?: Pick<ScheduleConfig, "schoolYear" | "term">, fallback = "当前学期") {
+  const schoolYear = config?.schoolYear?.trim();
+  const term = config?.term?.trim();
+  if (schoolYear && term) return `${schoolYear} · ${term}`;
+  return schoolYear || term || fallback;
+}
 
 const names = [
   "林知夏", "陈思远", "周雨桐", "王子谦", "苏沐晴", "赵一鸣",
@@ -315,6 +548,14 @@ export const defaultClassroomData: ClassroomData = {
   dutyRecords: [
     { id: "dr1", classId: "class-1", date: "2026-07-21", day: "星期二", jobId: "dj-board", studentIds: ["s5"], status: "已完成", note: "黑板和讲台整理到位。", checkedBy: "劳动委员", createdAt: 1784600000000 },
     { id: "dr2", classId: "class-1", date: "2026-07-21", day: "星期二", jobId: "dj-corner", studentIds: ["s8"], status: "需返工", note: "拖把未拧干，放学前再检查。", checkedBy: "班主任", createdAt: 1784600060000 },
+  ],
+  teacherAgenda: [
+    { id: "agenda-1", classId: "class-1", date: "2026-08-25", startTime: "07:45", endTime: "08:10", type: "班级事务", title: "核对请假与晨检情况", detail: "确认当天请假学生，并把异常情况写入考勤记录。", relatedStudentIds: ["s4"], status: "待处理", createdAt: 1787600000000 },
+    { id: "agenda-2", classId: "class-1", date: "2026-08-25", startTime: "12:20", endTime: "12:45", type: "批改", title: "复查数学订正", detail: "重点查看待订正学生的同类题是否真正掌握。", relatedStudentIds: ["s4", "s10"], status: "进行中", createdAt: 1787600060000 },
+    { id: "agenda-3", classId: "class-1", date: "2026-08-26", startTime: "16:30", endTime: "17:00", type: "班级事务", title: "作业连续未交家校沟通", detail: "整理客观情况和下一步家庭配合建议。", relatedStudentIds: ["s10"], status: "待处理", createdAt: 1787600120000 },
+  ],
+  workLogs: [
+    { id: "log-1", classId: "class-1", date: "2026-08-24", type: "备课", title: "完成本周班会材料", detail: "围绕安全与课前准备整理班会提纲。", durationMinutes: 35, createdAt: 1787510000000 },
   ],
   records: [
     { id: "r1", student: "周雨桐", type: "成长记录", channel: "面谈", content: "主动帮助同桌整理错题，课堂表达清晰。", followUp: "周五班会表扬", status: "已归档", date: "今天 10:20" },

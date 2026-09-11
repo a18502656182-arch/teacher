@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import "./public-entry.css";
+import "./workbench-repair.css";
 
 export const metadata: Metadata = {
-  title: "班主任云工具箱｜一个链接管好一个班",
-  description: "把课程表、座位、值日、作业、积分、成绩、沟通、评语和奖状整合到一个班级工作台。",
+  title: "班主任工作台",
+  description: "把学生、作业、积分、值日、沟通、成绩和评语整合到一个班级工作台。",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

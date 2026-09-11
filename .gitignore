@@ -5,5 +5,23 @@ dist
 .env*
 !.env.example
 *.log
+data/*.db
+data/*.db-*
+backups/
+.qa-shots/
+.tmp-auth-test-*/
 publish-site.mjs
 export_knowledge.py
+
+# Local deployment and backup artifacts are documented by name/hash only.
+*.tar.gz
+*.zip
+*.rar
+
+# Local QA evidence and Codex recovery material are not product source.
+reports/
+qa-audit-*/
+.impeccable/
+对话恢复-*/
+对话完整恢复-*/
+scripts/recover-codex-transcript.mjs
