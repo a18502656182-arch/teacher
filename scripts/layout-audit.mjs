@@ -16,6 +16,10 @@ const scoreView = process.env.QA_SCORES_VIEW || "";
 const openHealthEditor = process.env.QA_HEALTH_OPEN_EDITOR !== "false";
 const viewports = [
   { width: 1440, height: 900, name: "desktop" },
+  { width: 1280, height: 900, name: "desktop1280" },
+  { width: 1057, height: 900, name: "narrowDesktop" },
+  { width: 768, height: 1024, name: "tablet" },
+  { width: 360, height: 780, name: "smallMobile" },
   { width: 390, height: 844, name: "mobile" },
 ];
 
@@ -221,7 +225,7 @@ async function runRuntimeAudit(url) {
 
     const results = [];
     for (const viewport of viewports) {
-      await page.send("Emulation.setDeviceMetricsOverride", { width: viewport.width, height: viewport.height, deviceScaleFactor: 1, mobile: viewport.width < 700 });
+      await page.send("Emulation.setDeviceMetricsOverride", { width: viewport.width, height: viewport.height, deviceScaleFactor: 1, mobile: viewport.width <= 900 });
       for (const pageId of pages) {
         runtimeErrors = [];
         await page.send("Page.navigate", { url: `${url}?page=${pageId}` });
@@ -288,7 +292,7 @@ async function runRuntimeAudit(url) {
           await page.send("Runtime.evaluate", {
             returnByValue: true,
             expression: `(() => {
-              const isMobile = innerWidth < 700;
+              const isMobile = innerWidth <= 900;
               const target = isMobile
                 ? document.querySelector('.mobile-homework-task-list > button')
                 : document.querySelector('.homework-ledger-table .homework-row-actions .primary');
@@ -297,7 +301,7 @@ async function runRuntimeAudit(url) {
             })()`,
           });
           await wait(120);
-          if (viewport.width >= 700) {
+          if (viewport.width > 900) {
             await page.send("Runtime.evaluate", {
               returnByValue: true,
               expression: `(() => {
@@ -464,6 +468,7 @@ async function runRuntimeAudit(url) {
                 });
                 return strongButtons.length >= 3;
               }).length,
+              crampedDialogTextareas: [...document.querySelectorAll('[role="dialog"] textarea')].filter((element) => element.getClientRects().length && element.getBoundingClientRect().height < 99).map((element) => element.getAttribute('aria-label') || element.placeholder || 'unlabelled textarea'),
               clippedSurfaces: [...document.querySelectorAll('.mobile-page [class*="filter"], .mobile-page .mobile-search, .mobile-page .mobile-card-list, .mobile-page .mobile-student-list, .page-content > section')].filter((element) => {
                 const style = getComputedStyle(element);
                 const rect = element.getBoundingClientRect();
@@ -476,6 +481,7 @@ async function runRuntimeAudit(url) {
         });
         const data = result.value;
         const failures = [];
+        if (data?.crampedDialogTextareas?.length) failures.push(`Dialog long-text fields are too short: ${data.crampedDialogTextareas.join(', ')}`);
         if (!data?.content) failures.push("Missing .page-content.");
         if (pageId === "schedule" && !data?.teacherAgenda) failures.push("Schedule module did not render the teacher agenda view.");
         if (pageId === "health" && openHealthEditor && !data?.healthEditor) failures.push("Health care module did not open its registration editor.");
@@ -485,11 +491,11 @@ async function runRuntimeAudit(url) {
         if (pageId === "health" && openHealthEditor && !data?.healthFooterActions) failures.push("Health care registration hides its save action outside the visible editor footer.");
         if (pageId === "health" && !data?.healthHeaderAction) failures.push("Health care header primary action is not rendered as a visible primary button.");
         if (pageId === "homework" && !data?.homeworkDetail) failures.push("Homework detail did not open from its list entry.");
-        if (pageId === "homework" && viewport.width >= 700 && !data?.homeworkSelectionCleared) failures.push("Homework batch status action did not clear completed row selections.");
-        if (pageId === "homework" && viewport.width >= 700 && !data?.homeworkFollowModal) failures.push("Homework follow-up list did not open from the detail toolbar.");
-        if (pageId === "homework" && viewport.width < 700 && data?.mobileHomeworkTaskSummary) failures.push("Mobile homework detail still repeats the task summary card.");
-        if (pageId === "homework" && viewport.width < 700 && !data?.mobileHomeworkSelectionRail) failures.push("Mobile homework rows do not expose the visual selection affordance.");
-        if (pageId === "homework" && viewport.width < 700 && !data?.mobileHomeworkSelectionVisible) failures.push("Mobile homework selection does not visibly update after tapping a student row.");
+        if (pageId === "homework" && viewport.width > 900 && !data?.homeworkSelectionCleared) failures.push("Homework batch status action did not clear completed row selections.");
+        if (pageId === "homework" && viewport.width > 900 && !data?.homeworkFollowModal) failures.push("Homework follow-up list did not open from the detail toolbar.");
+        if (pageId === "homework" && viewport.width <= 900 && data?.mobileHomeworkTaskSummary) failures.push("Mobile homework detail still repeats the task summary card.");
+        if (pageId === "homework" && viewport.width <= 900 && !data?.mobileHomeworkSelectionRail) failures.push("Mobile homework rows do not expose the visual selection affordance.");
+        if (pageId === "homework" && viewport.width <= 900 && !data?.mobileHomeworkSelectionVisible) failures.push("Mobile homework selection does not visibly update after tapping a student row.");
         if (pageId === "attendance" && !data?.attendanceLedger) failures.push("Attendance does not expose the searchable main roster.");
         if (pageId === "attendance" && !data?.attendanceBatchBar) failures.push("Attendance selection does not expose the batch-save controls.");
         if (pageId === "attendance" && !data?.attendanceSelectionCleared) failures.push("Attendance batch save did not clear completed row selections.");

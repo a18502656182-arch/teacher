@@ -4,6 +4,9 @@ import test from "node:test";
 
 const read = (path) => readFileSync(new URL(`../${path}`, import.meta.url), "utf8");
 const app = read("app/w/[token]/ClassroomApp.tsx");
+const dashboard = read("app/components/campus/Dashboard.tsx");
+const dialogBehavior = read("app/components/campus/DialogAccessibility.tsx");
+const clipboard = read("lib/clipboard.ts");
 const workspaceRoute = read("app/api/workspace/[token]/route.ts");
 const aiRoute = read("app/api/ai/comment/route.ts");
 const auth = read("lib/auth.ts");
@@ -62,7 +65,7 @@ test("health care is a standalone, privacy-bounded operational workspace", () =>
   assert.match(healthCare, /学生名单中的主要监护人/);
   assert.match(healthCare, /visibleScope: "班主任"/);
   assert.doesNotMatch(healthCare, /行动提醒板|下次复核日期/);
-  assert.match(workbenchRepair, /\.health-care-page \.primary-button\s*\{[^}]*color:\s*#fff;[^}]*background:\s*#356df3;/);
+  assert.match(workbenchRepair, /\.health-care-page \.primary-button\s*\{[^}]*color:\s*var\(--campus-surface\);[^}]*background:\s*var\(--campus-primary\);/);
 });
 
 test("authentication keeps HTTP as an explicit temporary switch", () => {
@@ -213,11 +216,12 @@ test("course scheduling keeps teacher work in the same module with traceable rec
 });
 
 test("dashboard reuses dated teacher agenda instead of maintaining a second todo list", () => {
-  assert.match(app, /const todayAgenda = \(data\.teacherAgenda \?\? \[\]\)/);
-  assert.match(app, /现在与接下来/);
-  assert.match(app, /dashboard-timeline/);
-  assert.match(app, /mobile-home-agenda/);
-  assert.match(app, /attendanceExceptions/);
+  assert.match(dashboard, /data\.teacherAgenda/);
+  assert.match(dashboard, /a\.date===today/);
+  assert.match(dashboard, /a\.status!=='已完成'/);
+  assert.match(app, /<Dashboard data=\{data\}/);
+  assert.match(app, /<Dashboard[^>]*data=\{workspace\.data\}/);
+  assert.doesNotMatch(dashboard, /useState/);
 });
 
 test("student profile keeps guardians and care information out of the roster list", () => {
@@ -284,13 +288,15 @@ test("notification drafts are copyable records, never a claimed external send", 
   assert.match(classroomTypes, /notificationDrafts\?: NotificationDraft\[\]/);
   assert.match(app, /<NotificationDrafts data=\{data\} update=\{update\}/);
   assert.match(notificationDrafts, /系统不自动外发/);
-  assert.match(notificationDrafts, /navigator\.clipboard\.writeText/);
+  assert.match(notificationDrafts, /copyTextToClipboard/);
+  assert.match(clipboard, /navigator\.clipboard\.writeText/);
+  assert.doesNotMatch(notificationDrafts, /navigator\.clipboard\.writeText/);
   assert.match(notificationDrafts, /已记录回执/);
 });
 
 test("dialogs use unique titles and keyboard focus management", () => {
   assert.match(app, /const titleId = useId\(\)/);
-  assert.match(app, /event\.key === "Escape"/);
-  assert.match(app, /previous\?\.focus/);
+  assert.match(dialogBehavior, /event\.key==='Escape'/);
+  assert.match(dialogBehavior, /restoreFocus\.focus/);
   assert.doesNotMatch(app, /id="mobile-info-title"/);
 });

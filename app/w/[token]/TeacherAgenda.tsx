@@ -1,5 +1,6 @@
 "use client";
 
+import { StudentLookupDialog } from "@/app/components/campus/StudentLookupDialog";
 import { useMemo, useState } from "react";
 import { makeId } from "@/lib/classroom";
 import type { ClassroomData, TeacherAgendaItem, TeacherAgendaType, WorkLog } from "@/lib/classroom";
@@ -28,6 +29,7 @@ function timeLabel(item: Pick<TeacherAgendaItem, "startTime" | "endTime">) {
 export function TeacherAgenda({ data, update, mobile = false }: { data: ClassroomData; update: (fn: (d: ClassroomData) => ClassroomData) => void; mobile?: boolean }) {
   const activeClassId = data.activeClassId ?? data.rosterClasses?.[0]?.id ?? "";
   const [selectedDate, setSelectedDate] = useState(dateToday);
+  const [studentPickerOpen, setStudentPickerOpen] = useState(false);
   const [editor, setEditor] = useState<"agenda" | "log" | null>(null);
   const [agendaDraft, setAgendaDraft] = useState<TeacherAgendaItem>(() => blankAgenda(dateToday()));
   const [logDraft, setLogDraft] = useState<WorkLog>(() => blankLog(dateToday()));
@@ -140,7 +142,7 @@ export function TeacherAgenda({ data, update, mobile = false }: { data: Classroo
       <label><span>开始时间</span><input type="time" value={agendaDraft.startTime ?? ""} onChange={(event) => setAgendaDraft({ ...agendaDraft, startTime: event.target.value })} /></label>
       <label><span>结束时间</span><input type="time" value={agendaDraft.endTime ?? ""} onChange={(event) => setAgendaDraft({ ...agendaDraft, endTime: event.target.value })} /></label>
       <label className="wide"><span>事项标题</span><input autoFocus value={agendaDraft.title} onChange={(event) => setAgendaDraft({ ...agendaDraft, title: event.target.value })} placeholder="例如：复查数学订正" /></label>
-      <label><span>关联学生（可选）</span><select value={selectedStudentId} onChange={(event) => setSelectedStudent(event.target.value)}><option value="">不关联学生</option>{students.map((student) => <option key={student.id} value={student.id}>{student.name}</option>)}</select></label>
+      <label><span>关联学生（可选）</span><button type="button" className="campus-button" onClick={() => setStudentPickerOpen(true)}>{students.find((student) => student.id === selectedStudentId)?.name ?? "不关联学生"}</button></label>
       <label><span>地点/渠道</span><input value={agendaDraft.location ?? ""} onChange={(event) => setAgendaDraft({ ...agendaDraft, location: event.target.value })} placeholder="教室、办公室、电话等" /></label>
       <label className="wide"><span>说明与准备</span><textarea value={agendaDraft.detail ?? ""} onChange={(event) => setAgendaDraft({ ...agendaDraft, detail: event.target.value })} placeholder="记录需要完成什么、需要带什么或后续动作" /></label>
       <div className="agenda-status-options wide" aria-label="事项状态">{agendaStatuses.map((status) => <button type="button" className={agendaDraft.status === status ? "active" : ""} key={status} onClick={() => setAgendaDraft({ ...agendaDraft, status })}>{status}</button>)}</div>
@@ -148,7 +150,7 @@ export function TeacherAgenda({ data, update, mobile = false }: { data: Classroo
       <label><span>日期</span><input type="date" value={logDraft.date} onChange={(event) => setLogDraft({ ...logDraft, date: event.target.value })} /></label>
       <label><span>类型</span><select value={logDraft.type} onChange={(event) => setLogDraft({ ...logDraft, type: event.target.value as TeacherAgendaType })}>{agendaTypes.map((type) => <option value={type} key={type}>{type}</option>)}</select></label>
       <label className="wide"><span>工作标题</span><input autoFocus value={logDraft.title} onChange={(event) => setLogDraft({ ...logDraft, title: event.target.value })} placeholder="例如：完成本周班会材料" /></label>
-      <label><span>关联学生（可选）</span><select value={selectedStudentId} onChange={(event) => setSelectedStudent(event.target.value)}><option value="">不关联学生</option>{students.map((student) => <option key={student.id} value={student.id}>{student.name}</option>)}</select></label>
+      <label><span>关联学生（可选）</span><button type="button" className="campus-button" onClick={() => setStudentPickerOpen(true)}>{students.find((student) => student.id === selectedStudentId)?.name ?? "不关联学生"}</button></label>
       <label><span>耗时（分钟）</span><input type="number" min="0" value={logDraft.durationMinutes ?? 0} onChange={(event) => setLogDraft({ ...logDraft, durationMinutes: Number(event.target.value) || 0 })} /></label>
       <label className="wide"><span>工作说明</span><textarea value={logDraft.detail ?? ""} onChange={(event) => setLogDraft({ ...logDraft, detail: event.target.value })} placeholder="记录已完成的工作、结果或后续动作" /></label>
     </div>}
@@ -160,5 +162,6 @@ export function TeacherAgenda({ data, update, mobile = false }: { data: Classroo
     {!mobile && <WorkbenchPageHeader icon="🗂️" tone="lake" title="我的日程与工作留痕" description="安排当天工作，完成后沉淀可追溯记录；可关联班级和学生。" />}
     {panel}
     {editorBody}
+    {editor && studentPickerOpen && <StudentLookupDialog title="选择关联学生" students={students} selectedId={selectedStudentId} allowClear clearLabel="不关联学生" onClear={() => setSelectedStudent("")} onPick={(student) => { setSelectedStudent(student.id); setStudentPickerOpen(false); }} onClose={() => setStudentPickerOpen(false)} />}
   </div>;
 }

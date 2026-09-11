@@ -1,6 +1,6 @@
 /* Campus: warm working paper, sky-blue task surface, chalk-green support rail. Shared business structure; glass is reserved. */
 [data-theme="campus"] {
- --campus-canvas:#fafcfb; --campus-surface:#fff; --campus-ink:#17354a; --campus-muted:#526a7b; --campus-primary:#14778a; --campus-hover:#106575; --campus-blue:#eaf5fc; --campus-green:#edf6ef; --campus-line:#cbdce6; --campus-error:#b4233d; --campus-error-soft:#fcecef; --campus-yellow:#fff1d4;
+ --campus-canvas:#fffdf8; --campus-surface:#fff; --campus-ink:#17354a; --campus-muted:#526a7b; --campus-primary:#14778a; --campus-hover:#106575; --campus-blue:#eaf5fc; --campus-green:#edf6ef; --campus-line:#cbdce6; --campus-error:#b4233d; --campus-error-soft:#fcecef; --campus-yellow:#fff1d4; --campus-warning:#80500a; --campus-success:#245f43;
  --wb-bg:var(--campus-canvas); --wb-surface:var(--campus-surface); --wb-surface-soft:var(--campus-canvas); --wb-surface-tint:var(--campus-blue); --wb-primary:var(--campus-primary); --wb-primary-hover:var(--campus-hover); --wb-primary-soft:var(--campus-blue); --wb-primary-text:var(--campus-primary); --wb-text:var(--campus-ink); --wb-text-2:var(--campus-muted); --wb-muted:var(--campus-muted); --wb-line:var(--campus-line); --wb-line-strong:var(--campus-line); --wb-green:#245f43; --wb-green-bg:var(--campus-green); --wb-red:var(--campus-error); --wb-red-bg:var(--campus-error-soft); --wb-amber:#80500a; --wb-amber-bg:var(--campus-yellow); --wb-shadow:none; --wb-shadow-soft:none;
  color:var(--campus-ink); background:var(--campus-canvas);
 }

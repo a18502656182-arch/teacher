@@ -5,7 +5,7 @@ import { Button, ThemeArtwork } from '@/app/components/campus/primitives';
 export function DictationSummary({data,open}:{data:ClassroomData;open:()=>void}) {
  const tasks=(data.dictation?.tasks??[]).filter(t=>!t.archived&&t.context.kind==='class'&&t.context.classId===data.activeClassId&&t.date<=today());
  const pending=tasks.filter(t=>statistics([t]).pending>0);
- return <section className="campus-banner campus-daily"><div><h2>今天的班务</h2><p>{today()} · {data.rosterClasses?.find(c=>c.id===data.activeClassId)?.name??'当前班级'}</p><div className="campus-home-links"><Button intent="primary" onClick={open}>{pending.length?`继续批改 · ${pending.length}次听写`:'听写与复习'}</Button><Button intent="text" onClick={()=>{window.sessionStorage.setItem('classroom-learning-scene','family');open();}}>家庭学习 · {data.dictation?.children.filter(c=>!c.archived).length??0}个孩子</Button></div></div><ThemeArtwork slot="dashboard"/></section>;
+ return <section className="campus-home-intro"><div><h2>今天的班务</h2><p>{today()} · {data.rosterClasses?.find(c=>c.id===data.activeClassId)?.name??'当前班级'}</p><div className="campus-home-links"><Button intent="primary" onClick={open}>{pending.length?`继续批改 · ${pending.length}次听写`:'听写与复习'}</Button><Button intent="text" onClick={()=>{window.sessionStorage.setItem('classroom-learning-scene','family');open();}}>家庭学习 · {data.dictation?.children.filter(c=>!c.archived).length??0}个孩子</Button></div></div><ThemeArtwork slot="dashboard"/></section>;
 }
 export function StudentDictationHistory({data,studentId}:{data:ClassroomData;studentId:string}) {
  const tasks=(data.dictation?.tasks??[]).filter(t=>t.context.kind==='class'&&t.context.classId===data.activeClassId&&t.participants.some(p=>p.id===studentId)).toSorted((a,b)=>b.date.localeCompare(a.date));

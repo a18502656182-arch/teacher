@@ -1,5 +1,6 @@
 "use client";
 
+import { copyTextToClipboard } from "@/lib/clipboard";
 import { useMemo, useState } from "react";
 import { makeId } from "@/lib/classroom";
 import type { ClassroomData, NotificationDraft } from "@/lib/classroom";
@@ -64,7 +65,7 @@ export function NotificationDrafts({ data, update, mobile = false }: { data: Cla
   }
   async function copy(item: NotificationDraft) {
     const text = `${item.title}\n\n${item.content}`;
-    try { await navigator.clipboard.writeText(text); } catch { setError("浏览器未授予剪贴板权限，请手动复制内容。"); return; }
+    if (!await copyTextToClipboard(text, "已复制通知草稿")) return;
     update((current) => ({ ...current, notificationDrafts: (current.notificationDrafts ?? []).map((draft) => draft.id === item.id ? { ...draft, status: "已复制" } : draft) }));
   }
   function saveReceipt() {

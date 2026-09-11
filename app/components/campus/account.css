@@ -1,0 +1,18 @@
+/* Account surfaces share the campus palette while keeping their permission flows. */
+html[data-theme=campus] :is(.admin-page,.admin-login-page,.admin-loading,.entry-page,.privacy-page) { background:var(--campus-canvas); color:var(--campus-ink); }
+html[data-theme=campus] .admin-header { margin-top:24px; padding:24px; min-height:130px; border:0; border-radius:12px; background:var(--campus-blue); }
+html[data-theme=campus] .admin-header h1 { font-weight:700; font-size:28px; }
+html[data-theme=campus] :is(.admin-header>div>p,.admin-eyebrow) { display:none; }
+html[data-theme=campus] .admin-section { border:0; border-radius:0; margin-bottom:28px; background:transparent; }
+html[data-theme=campus] .admin-section-head { background:var(--campus-green); border:0; padding:16px; }
+html[data-theme=campus] .admin-code-maker { background:var(--campus-yellow); border-radius:12px; }
+html[data-theme=campus] .admin-table-filter { background:transparent; border:0; gap:12px; }
+html[data-theme=campus] .admin-table-filter label { flex-shrink:0; white-space:nowrap; }
+html[data-theme=campus] .admin-table-wrap th { background:var(--campus-blue); color:var(--campus-ink); }
+html[data-theme=campus] .admin-table-wrap td { background:var(--campus-surface); border-color:var(--campus-line); }
+html[data-theme=campus] .admin-table-wrap button { border-color:transparent; background:transparent; color:var(--campus-primary); }
+html[data-theme=campus] .admin-table-wrap .admin-danger-action { color:var(--campus-error); }
+html[data-theme=campus] :is(.admin-login button,.admin-code-maker>button,.admin-phone-dialog button[type=submit],.entry-submit) { background:var(--campus-primary); border-color:var(--campus-primary); color:var(--campus-surface); }
+html[data-theme=campus] .admin-login { border:0; box-shadow:none; background:var(--campus-blue); }
+html[data-theme=campus] :is(.admin-device-list>div,.admin-phone-form,.admin-delete-form) { background:var(--campus-surface); border-color:var(--campus-line); }
+@media(max-width:680px) { html[data-theme=campus] .admin-header { margin-top:12px; padding:20px 16px; min-height:100px; }html[data-theme=campus] .admin-page button { min-height:44px; } }

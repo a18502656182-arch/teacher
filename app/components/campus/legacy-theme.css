@@ -10,7 +10,8 @@ html[data-theme=campus] .sidebar .brand-mark{background:var(--campus-blue);color
 html[data-theme=campus] .side-nav.grouped h2{color:var(--campus-muted);font-size:12px}
 html[data-theme=campus] .side-nav.grouped button{color:var(--campus-ink);background:transparent;border:0;border-radius:6px;min-height:40px;box-shadow:none;font-weight:500}
 html[data-theme=campus] .side-nav.grouped button>span{background:transparent;color:inherit;border:0;box-shadow:none}
-html[data-theme=campus] .side-nav.grouped button:hover,html[data-theme=campus] .side-nav.grouped button.active{background:var(--campus-blue);color:var(--campus-primary)}
+html[data-theme=campus] .side-nav.grouped button:hover{background:var(--campus-canvas);color:var(--campus-primary)}
+html[data-theme=campus] .side-nav.grouped button.active{background:var(--campus-blue);color:var(--campus-primary)}
 html[data-theme=campus] .side-nav.grouped button.active{font-weight:700}
 html[data-theme=campus] .global-class-switch{background:var(--campus-green);border:0;border-radius:8px;color:var(--campus-ink)}
 html[data-theme=campus] .global-class-switch :is(small,input,select,button){color:var(--campus-ink)}

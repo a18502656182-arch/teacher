@@ -1,5 +1,6 @@
 "use client";
 
+import { StudentLookupDialog } from "@/app/components/campus/StudentLookupDialog";
 import { useMemo, useState } from "react";
 import type { ClassroomData, ScoreExam, Student } from "@/lib/classroom";
 
@@ -25,6 +26,7 @@ function linePath(points: TrendPoint[]) {
 export function ScoreTrends({ data, classId }: { data: ClassroomData; classId: string }) {
   const students = data.rosterClasses?.find((item) => item.id === classId)?.students ?? data.students;
   const exams = useMemo(() => (data.scoreExams ?? []).filter((item) => !item.classId || item.classId === classId).toSorted((a, b) => a.date.localeCompare(b.date) || a.title.localeCompare(b.title)), [classId, data.scoreExams]);
+  const [pickerOpen, setPickerOpen] = useState(false);
   const [studentId, setStudentId] = useState("");
   const [keyword, setKeyword] = useState("");
   const [subject, setSubject] = useState("全部");
@@ -54,9 +56,10 @@ export function ScoreTrends({ data, classId }: { data: ClassroomData; classId: s
   const path = linePath(chartPoints);
 
   return <section className="score-trends score-trends-workbench" aria-label="历次成绩趋势">
+    {pickerOpen && <StudentLookupDialog title="选择趋势学生" students={students} selectedId={studentId} allowClear clearLabel="查看班级整体" onClear={() => { setStudentId(""); setPage(1); }} onPick={(item) => { setStudentId(item.id); setPage(1); setPickerOpen(false); }} onClose={() => setPickerOpen(false)} />}
     <header>
       <div><h2>历次趋势</h2><p>按得分率比较不同满分；空白表示未录入，不等同于零分。</p></div>
-      <div className="score-trends-heading-actions"><label><span>查看学生</span><select value={studentId} onChange={(event) => { setStudentId(event.target.value); setPage(1); }}><option value="">班级整体</option>{students.map((item) => <option key={item.id} value={item.id}>{item.name}</option>)}</select></label><label><span>时间范围</span><select value={range} onChange={(event) => { setRange(event.target.value as typeof range); setPage(1); }}><option value="12">最近 12 场</option><option value="24">最近 24 场</option><option value="all">全部考试</option></select></label></div>
+      <div className="score-trends-heading-actions"><label><span>查看学生</span><button type="button" className="campus-button" onClick={() => setPickerOpen(true)}>{student?.name ?? "班级整体"}</button></label><label><span>时间范围</span><select value={range} onChange={(event) => { setRange(event.target.value as typeof range); setPage(1); }}><option value="12">最近 12 场</option><option value="24">最近 24 场</option><option value="all">全部考试</option></select></label></div>
     </header>
     <div className="score-trends-filters"><label><span>搜索考试</span><input value={keyword} onChange={(event) => { setKeyword(event.target.value); setPage(1); }} placeholder="名称、日期或科目" /></label><label><span>科目</span><select value={subject} onChange={(event) => { setSubject(event.target.value); setPage(1); }}><option>全部</option>{allSubjects.map((item) => <option key={item}>{item}</option>)}</select></label><p>已纳入 <b>{points.length}</b> / {exams.length} 场考试；平均录入覆盖 <b>{coverage}%</b></p></div>
     {points.length < 2 ? <div className="score-trends-empty">至少需要两场已保存考试，才能显示纵向变化；当前仍可在本次成绩中处理学生跟进。</div> : <>
