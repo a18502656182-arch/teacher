@@ -1,0 +1,64 @@
+.root {
+  --wb-canvas: #fffdf8;
+  --wb-work: #ffffff;
+  --wb-context: #eaf5fc;
+  --wb-assist: #edf6ef;
+  --wb-attention: #fff1d4;
+  --wb-ink: #17354a;
+  --wb-muted: #526a7b;
+  --wb-primary: #14778a;
+  --wb-primary-hover: #106575;
+  --wb-on-primary: #ffffff;
+  --wb-danger: #b4233d;
+  --wb-danger-soft: #fcecef;
+  --wb-success: #245f43;
+  --wb-warning: #80500a;
+  --wb-line: #cbdce6;
+  --wb-control-line: #8aa4b5;
+  --wb-disabled: #e9edf0;
+  --wb-radius-control: 10px;
+  --wb-radius-surface: 18px;
+  --wb-space-small: 8px;
+  --wb-space-control: 12px;
+  --wb-space-group: 16px;
+  --wb-space-section: 24px;
+  --wb-font: 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;
+  --wb-text: 16px;
+  --wb-text-small: 13px;
+  --wb-heading: 32px;
+  --wb-elevation-dialog: 0 16px 56px #17354a30;
+  --wb-backdrop: #17354a66;
+  --wb-material-blur: 0px;
+  --wb-motion-duration: 120ms;
+  background: var(--wb-canvas);
+  color: var(--wb-ink);
+  font: var(--wb-text)/1.6 var(--wb-font);
+  text-align: start;
+  color-scheme: light;
+  min-width: 0;
+}
+
+.root[data-theme='glass'] {
+  --wb-canvas: #f1f4ff;
+  --wb-work: #ffffff;
+  --wb-context: #edf1ff;
+  --wb-assist: #eef5fa;
+  --wb-ink: #17264f;
+  --wb-muted: #526484;
+  --wb-primary: #315deb;
+  --wb-primary-hover: #244bc8;
+  --wb-line: #cbd4e6;
+  --wb-control-line: #8495b5;
+}
+
+@supports (backdrop-filter: blur(1px)) {
+  .root[data-theme='glass'] { --wb-work: #fffffff0; --wb-material-blur: 12px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .root { --wb-motion-duration: 0ms; }
+}
+
+@media (max-width: 600px) {
+  .root { --wb-heading: 26px; }
+}

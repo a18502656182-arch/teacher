@@ -1,0 +1,11 @@
+html, body { margin: 0; padding: 0; }
+* { box-sizing: border-box; }
+.preview { min-height: 100dvh; max-width: 1120px; margin: auto; padding: 32px; }
+.preview h1 { font-size: var(--wb-heading); line-height: 1.35; margin: 0 0 12px; }
+.preview h2 { font-size: 22px; line-height: 1.4; margin: 0 0 20px; }
+.preview p { color: var(--wb-muted); }
+.preview section { padding: 28px 0; border-bottom: 1px solid var(--wb-line); }
+.preview-fields { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 20px; }
+.preview-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
+.preview input[type='checkbox'] { width: 20px; height: 20px; accent-color: var(--wb-primary); vertical-align: middle; }
+@media(max-width:600px) { .preview { padding: 20px 16px; } .preview-fields { grid-template-columns: 1fr; } }

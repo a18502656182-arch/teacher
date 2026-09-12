@@ -1,0 +1,15 @@
+.dialog { box-sizing: border-box; padding: 0; width: min(620px, calc(100% - 32px)); max-width: none; max-height: calc(100dvh - 32px); margin: auto; border: 0; border-radius: var(--wb-radius-surface); background: var(--wb-work); backdrop-filter: blur(var(--wb-material-blur)); color: var(--wb-ink); font: inherit; box-shadow: var(--wb-elevation-dialog); }
+.dialog::backdrop { background: var(--wb-backdrop); }
+.frame { display: flex; flex-direction: column; max-height: calc(100dvh - 32px); }
+.header, .footer { flex-shrink: 0; padding: 16px 24px; }
+.header { display: flex; align-items: center; justify-content: space-between; gap: 16px; border-bottom: 1px solid var(--wb-line); }
+.header h2 { margin: 0; font-size: 22px; line-height: 1.4; overflow-wrap: anywhere; }
+.body { padding: 24px; overflow-y: auto; overscroll-behavior: contain; min-height: 0; }
+.footer { display: flex; flex-wrap: wrap; justify-content: flex-end; align-items: center; gap: 12px; border-top: 1px solid var(--wb-line); background: var(--wb-context); }
+@media (max-width: 600px) {
+  .dialog { width: calc(100% - 24px); max-height: calc(100dvh - 24px); }
+  .frame { max-height: calc(100dvh - 24px); }
+  .header, .body, .footer { padding: 16px; }
+  .footer { padding-bottom: max(16px, env(safe-area-inset-bottom)); }
+  .header h2 { font-size: 20px; }
+}

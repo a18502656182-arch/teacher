@@ -21,4 +21,5 @@ for f in p.rglob('*'):
   text=f.read_text(encoding='utf-8-sig')
   if chr(65533) in text:errors.append('replacement character '+f.name)
 if errors: print('FAILED\n'+'\n'.join(errors));sys.exit(1)
-print(f'PASS: task DAG, 23 module/surface scopes, {len(acceptance)} acceptance rows, evidence gates and UTF-8 text. Implementation remains planned.')
+state=json.loads((p/'trackers/progress.json').read_text(encoding='utf-8'))['implementationStatus']
+print(f'PASS: task DAG, 23 module/surface scopes, {len(acceptance)} acceptance rows, evidence gates and UTF-8 text. Recorded implementation status: {state}; this check does not verify the UI.')

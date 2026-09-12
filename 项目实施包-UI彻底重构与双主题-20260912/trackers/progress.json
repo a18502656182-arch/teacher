@@ -1,16 +1,21 @@
 {
   "packageVersion": "1.0",
   "baselineCommit": "6e10e2dc314e09d0d72df9509730f57c5fde34e2",
-  "implementationStatus": "not-started",
-  "active_task": "TASK-01",
-  "next_action": "核验当前源码和Git后展开逐动作保全账本",
+  "implementationStatus": "in-progress",
+  "active_task": "TASK-02",
+  "next_action": "逐模块复核AST交互候选、handler与调用函数，展开功能/浮层账本；继续补齐独立主题和共享控件",
   "milestones": {
-    "M0": "planned",
+    "M0": "in-progress",
     "M1": "planned",
     "M2": "planned",
     "M3": "planned",
     "M4": "planned",
     "M5": "planned"
   },
-  "note": "本包已生成不等于重构已执行；任何done需实际commit与证据。"
+  "note": "已开始基础层代码与独立预览；未迁移页面。AST候选并非完整业务审计；M0/M1均未通过。",
+  "implementationStartCommit": "f321d5e9424e0020bdf1e56d52c31b986b503a53",
+  "parallelPreparation": [
+    "TASK-06",
+    "TASK-07"
+  ]
 }

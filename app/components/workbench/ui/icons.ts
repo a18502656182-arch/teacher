@@ -1,0 +1,14 @@
+export const iconPaths: Record<string,string> = {
+  dashboard:'M3 10 12 3l9 7v11h-6v-7H9v7H3Z', students:'M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M16 3a4 4 0 0 1 0 8M22 21v-2a4 4 0 0 0-3-3.87M13 7a4 4 0 1 1-8 0 4 4 0 0 1 8 0',
+  book:'M12 5v16M3 3c4-1 7 0 9 2 2-2 5-3 9-2v16c-4-1-7 0-9 2-2-2-5-3-9-2Z',
+  homework:'M5 3h12l3 3v15H5ZM8 8h8M8 12h8M8 16h5', attendance:'M8 3h8v4H8ZM6 5H3v16h18V5h-3M7 14l3 3 7-7',
+  scores:'M4 3v18h17M8 17v-5M13 17V8M18 17V4', points:'m12 3 3 6 6 1-4 5 1 6-6-3-6 3 1-6-4-5 6-1Z',
+  schedule:'M4 5h16v16H4ZM8 2v6M16 2v6M4 10h16M8 14h3M14 14h3', health:'M9 3h6v6h6v6h-6v6H9v-6H3V9h6Z',
+  records:'M3 4h18v13H8l-5 4ZM7 8h10M7 12h7', seating:'M3 3h7v7H3ZM14 3h7v7h-7ZM3 14h7v7H3ZM14 14h7v7h-7Z',
+  rules:'M4 6h16M4 12h16M4 18h16M8 3v6M16 9v6M8 15v6', tools:'M4 4h16v16H4ZM8 8h.01M16 8h.01M12 12h.01M8 16h.01M16 16h.01',
+  growth:'M12 21V9M12 16C3 16 3 9 3 7c7 0 9 4 9 9ZM12 12c9 0 9-7 9-9-7 0-9 4-9 9Z',
+  more:'M4 4h5v5H4ZM15 4h5v5h-5ZM4 15h5v5H4ZM15 15h5v5h-5Z', plus:'M12 5v14M5 12h14', check:'m5 12 4 4L19 6', arrow:'M5 12h14m-5-5 5 5-5 5', search:'M21 21l-5-5M18 10a8 8 0 1 1-16 0 8 8 0 0 1 16 0',
+  school:'M3 21V8l9-5 9 5v13M8 21v-6h8v6M7 10h.01M12 10h.01M17 10h.01', home:'M3 11 12 3l9 8v10h-6v-6H9v6H3Z', user:'M20 21a8 8 0 0 0-16 0M12 13a5 5 0 1 0 0-10 5 5 0 0 0 0 10', warning:'M12 3 2 21h20ZM12 9v5M12 18h.01', sync:'M20 7h-5V2M4 17h5v5M19 12a7 7 0 0 0-12-5l-2 2M5 12a7 7 0 0 0 12 5l2-2', chevron:'m9 18 6-6-6-6', view:'M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12Zm10 3a3 3 0 1 0 0-6 3 3 0 0 0 0 6',
+  dictation:'M5 4h14v16H5ZM8 8h8M8 12h5M8 16h3', weekly:'M4 5h16v15H4ZM7 2v6M17 2v6M7 11h10M7 15h7', duty:'M7 3h10l-1 6H8ZM9 9v12M15 9v12M6 21h12', cadres:'M12 3l3 5 6 1-4 4 1 7-6-3-6 3 1-7-4-4 6-1Z', reflection:'M5 3h11l3 3v15H5ZM9 9h6M9 13h6M9 17h4', comments:'M4 4h16v13H8l-4 4ZM8 8h8M8 12h6',
+};
+export const legacyIconNames: Record<string,string> = {'🎒':'students','📚':'homework','🧾':'attendance','🩺':'health','🎲':'tools','⭐':'points','🌱':'growth','🗞️':'homework','🪑':'seating','🧹':'attendance','🎖️':'students','💬':'records','📈':'scores','📝':'book','✍️':'records','🗂️':'schedule','📏':'rules','今日工作台':'dashboard','学生名单':'students','作业追踪':'homework','考勤与请假':'attendance','听写与复习':'book','成绩分析':'scores','积分评价':'points','积分规则':'rules','成长档案':'growth','健康与照护':'health','班级周报':'homework','课程日程':'schedule','课堂工具':'tools','座位分组':'seating','值日岗位':'attendance','班干部':'students','家校沟通':'records','考试反思':'book','期末评语':'records',dictation:'book',weekly:'homework',duty:'attendance',cadres:'students',reflection:'book',comments:'records'};

@@ -1,0 +1,33 @@
+.button, .input, .segment button { box-sizing: border-box; font: inherit; color: var(--wb-ink); }
+.button {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--wb-space-small);
+  min-height: 44px; padding: 9px 16px; margin: 0;
+  border: 1px solid var(--wb-control-line); border-radius: var(--wb-radius-control);
+  background: var(--wb-work); line-height: 1.4; font-weight: 500;
+  cursor: pointer; text-decoration: none; box-shadow: none;
+  transition: background-color var(--wb-motion-duration) ease-out;
+}
+.button[data-intent='primary'] { background: var(--wb-primary); color: var(--wb-on-primary); border-color: transparent; }
+.button[data-intent='text'] { background: transparent; border-color: transparent; color: var(--wb-primary); }
+.button[data-intent='danger'] { color: var(--wb-danger); }
+.button:hover:not(:disabled) { background: var(--wb-context); }
+.button[data-intent='primary']:hover:not(:disabled) { background: var(--wb-primary-hover); }
+.button[data-intent='danger']:hover:not(:disabled) { background: var(--wb-danger-soft); }
+.button:disabled, .segment button:disabled, .input:disabled { background: var(--wb-disabled); color: var(--wb-muted); cursor: not-allowed; }
+.button:focus-visible, .input:focus-visible, .segment button:focus-visible { outline: 3px solid var(--wb-primary); outline-offset: 3px; }
+.field { display: grid; gap: 6px; min-width: 0; }
+.field label { font-weight: 600; }
+.field small, .selection small { color: var(--wb-muted); font-size: var(--wb-text-small); }
+.field .error { color: var(--wb-danger); }
+.input { width: 100%; min-width: 0; min-height: 44px; padding: 9px 12px; border: 1px solid var(--wb-control-line); border-radius: var(--wb-radius-control); background: var(--wb-work); line-height: 1.5; }
+.input::placeholder { color: var(--wb-muted); opacity: 1; }
+.input[aria-invalid='true'] { border-color: var(--wb-danger); }
+.textarea { min-height: 112px; resize: vertical; }
+.segment { display: inline-flex; max-width: 100%; border: 1px solid var(--wb-control-line); border-radius: var(--wb-radius-control); }
+.segment button { flex: 1 0 auto; min-height: 44px; padding: 8px 12px; border: 0; margin: 0; background: var(--wb-work); white-space: nowrap; cursor: pointer; line-height: 1.5; }
+.segment button:first-child { border-radius: calc(var(--wb-radius-control) - 1px) 0 0 calc(var(--wb-radius-control) - 1px); }
+.segment button:last-child { border-radius: 0 calc(var(--wb-radius-control) - 1px) calc(var(--wb-radius-control) - 1px) 0; }
+.segment button[aria-pressed='true'] { background: var(--wb-primary); color: var(--wb-on-primary); }
+.selection { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: var(--wb-space-control); background: var(--wb-context); padding: var(--wb-space-group); border-radius: var(--wb-radius-control); }
+.selection small { display: block; }
+.actions { display: flex; align-items: center; flex-wrap: wrap; gap: var(--wb-space-small); }

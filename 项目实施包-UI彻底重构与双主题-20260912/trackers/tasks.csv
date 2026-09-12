@@ -1,11 +1,11 @@
-﻿task,title,depends_on,status,commit,evidence,next_action
-TASK-01,核验源码与Git,无,planned,,,
-TASK-02,展开功能与弹窗账本,01,planned,,,
+task,title,depends_on,status,commit,evidence,next_action
+TASK-01,核验源码与Git,无,done,f321d5e9424e0020bdf1e56d52c31b986b503a53,evidence/implementation-start-20260912.md,TASK-02逐动作核验
+TASK-02,展开功能与弹窗账本,01,in-progress,,evidence/implementation-start-20260912.md,1282交互及70浮层为候选；逐handler复核并填账本
 TASK-03,建立隔离测试夹具,02,planned,,,
 TASK-04,抽取纯业务计算,02,planned,,,
 TASK-05,抽取保存与草稿操作,"03,04",planned,,,
-TASK-06,建立主题契约与token,01,planned,,,
-TASK-07,建立基础控件,06,planned,,,
+TASK-06,建立主题契约与token,01,in-progress,,evidence/implementation-start-20260912.md,基础层已实现并独立预览；完整契约与组件覆盖待补齐
+TASK-07,建立基础控件,06,in-progress,,evidence/implementation-start-20260912.md,基础层已实现并独立预览；完整契约与组件覆盖待补齐
 TASK-08,建立浮层与搜索选人,"05,07",planned,,,
 TASK-09,建立新旧样式隔离,"06,07",planned,,,
 TASK-10,制作首批插画母样与变体,06,planned,,,
