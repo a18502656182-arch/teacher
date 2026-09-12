@@ -3,7 +3,7 @@
   "baselineCommit": "6e10e2dc314e09d0d72df9509730f57c5fde34e2",
   "implementationStatus": "in-progress",
   "active_task": "TASK-02",
-  "next_action": "继续档案/导入导出/相关浮层handler核验；学生作业纯操作已两端共用；保存层与旧CSS隔离尚待实施",
+  "next_action": "继续TASK02档案/导入导出账本；保存三操作已提取，CSS AST与控件探针已验证，完整保存controller及根CSS/portal隔离未完成",
   "milestones": {
     "M0": "in-progress",
     "M1": "planned",
@@ -12,10 +12,12 @@
     "M4": "planned",
     "M5": "planned"
   },
-  "note": "TASK02部分展开，见evidence/students-homework-operations-20260912.md。commitWorkspace听写专用不可直用于学生作业；未切换新页面。",
+  "note": "线上受检源码无需要覆盖的业务差异；见evidence/online-baseline-and-save-20260912.md。58项测试及认证集成通过。准备性提取不代表TASK03/04/05/09完整门槛完成；正式新页尚未切换。",
   "implementationStartCommit": "f321d5e9424e0020bdf1e56d52c31b986b503a53",
   "parallelPreparation": [
     "TASK-06",
     "TASK-07"
-  ]
+  ],
+  "verifiedOnlineBaseline": "0691aba",
+  "onlineArchiveSha256": "F2019A92C0E1CDB850DE1D790105CBE4DD82973645188244352841F0951E1E92"
 }

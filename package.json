@@ -11,7 +11,7 @@
     "start": "vinext start",
     "qa:layout": "node scripts/layout-audit.mjs --static",
     "qa:strict": "node scripts/layout-audit.mjs --serve",
-    "test": "npm run build && node --test tests/rendered-html.test.mjs tests/dictation.test.mjs tests/workbench-operations.test.mjs && node tests/auth-flow.integration.mjs",
+    "test": "npm run build && node --test tests/rendered-html.test.mjs tests/dictation.test.mjs tests/workbench-operations.test.mjs tests/workspace-operations.test.mjs tests/legacy-css-scope.test.mjs && node tests/auth-flow.integration.mjs",
     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
     "backup:db": "node scripts/backup-db.mjs",
     "db:generate": "drizzle-kit generate"
@@ -33,6 +33,8 @@
     "drizzle-kit": "0.31.10",
     "eslint": "9.39.4",
     "eslint-config-next": "16.2.6",
+    "lightningcss": "1.31.1",
+    "postcss": "8.5.19",
     "react-server-dom-webpack": "19.2.6",
     "tailwindcss": "4.2.1",
     "typescript": "5.9.3",

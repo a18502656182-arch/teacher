@@ -16,6 +16,7 @@ export default defineConfig([
     ".open-next/**",
     ".vinext/**",
     "backups/**",
+    "项目实施包-UI彻底重构与双主题-20260912/evidence-local/**",
     "*.tar.gz",
   ]),
 ]);

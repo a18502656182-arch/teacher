@@ -1,3 +1,4 @@
+import { LegacyScopeProbe } from './LegacyScopeProbe';
 import { useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { ThemeBoundary } from '../../app/components/workbench/theme/ThemeBoundary';
@@ -62,4 +63,4 @@ function ControlProbe() {
   </>;
 }
 
-createRoot(document.getElementById('root')!).render(new URLSearchParams(location.search).has('grading') ? <GradingProbe/> : <Preview/>);
+createRoot(document.getElementById('root')!).render(new URLSearchParams(location.search).has('isolation') ? <LegacyScopeProbe/> : new URLSearchParams(location.search).has('grading') ? <GradingProbe/> : <Preview/>);

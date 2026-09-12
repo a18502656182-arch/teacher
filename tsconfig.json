@@ -37,6 +37,7 @@
     ".next/dev/types/**/*.ts"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "项目实施包-UI彻底重构与双主题-20260912/evidence-local"
   ]
 }
