@@ -8,7 +8,7 @@ planning.context,campus,planned,,,,,not-run,待登记生产素材来源
 care.context,campus,planned,,,,,not-run,待登记生产素材来源
 communication.context,campus,planned,,,,,not-run,待登记生产素材来源
 organization.context,campus,implemented,imagegen-original,public/art/campus/cadres-responsibility.webp,public/art/campus/cadres-responsibility.webp,1100x733,pass,按校园参考气质原创生成并本地透明化压缩；无人像宠物口号或可读文字
-family.context,campus,planned,,,,,not-run,待登记生产素材来源
+family.context,campus,implemented,OpenAI image generation；参考项目既有word-cards/classroom-morning气质,public/art/campus/family-study.webp,public/art/campus/family-study.webp,1100x733 transparent WebP,pass,项目原创家庭学习静物；无人物角色、文字或UI；已压缩并在桌面/手机裁切核验
 empty.first-use,campus,planned,,,,,not-run,待登记生产素材来源
 empty.no-results,campus,planned,,,,,not-run,待登记生产素材来源
 home.scene,glass,planned,,,,,not-run,未来范围，首版不生产

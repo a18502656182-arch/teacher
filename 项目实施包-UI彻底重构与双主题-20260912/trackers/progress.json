@@ -3,7 +3,7 @@
   "baselineCommit": "6e10e2dc314e09d0d72df9509730f57c5fde34e2",
   "implementationStatus": "in-progress",
   "active_task": "TASK-02",
-  "next_action": "继续TASK02家庭学习（F-20/O-20），随后入口、账户与管理员；班干部已迁移，根CSS/portal与全站保存controller仍未完成",
+  "next_action": "继续TASK02入口（F-21/O-21），随后账户与管理员；家庭学习已迁移，根CSS/portal与全站保存controller仍未完成",
   "milestones": {
     "M0": "in-progress",
     "M1": "planned",
@@ -12,7 +12,7 @@
     "M4": "planned",
     "M5": "planned"
   },
-  "note": "线上受检源码无需要覆盖的业务差异。F02-F19已展开；班干部已迁到共享校园页面和纯操作层，正式空工作区、105人、两班、班委/小组长范围、空任期、长职责、取消、只读、保存失败和真实409均在隔离环境验证；182项测试、认证集成、类型、ESLint和全站115项六宽度qa通过。共享选择portal、完整根CSS退出与服务器确认式通用保存仍待后续任务。没有生产操作。",
+  "note": "线上受检源码无需要覆盖的业务差异。F02-F20已展开；家庭学习已迁到孩子切换、今日安排、错词/统计和档案组成的专属校园页面，重名孩子、归档恢复、自定义任务、人工批改、复习新轮次、只读、任务草稿、长姓名、360/390手机和真实409均在隔离环境验证；190项测试、认证集成、类型、ESLint和全站115项六宽度qa通过。共享听写核心CSS、完整根CSS退出、portal与服务器确认式通用保存仍待后续任务。没有生产操作。",
   "implementationStartCommit": "f321d5e9424e0020bdf1e56d52c31b986b503a53",
   "parallelPreparation": [
     "TASK-06",

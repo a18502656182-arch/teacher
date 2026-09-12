@@ -170,15 +170,15 @@ A-19-06,cadres,readonly,demo-readonly,1280x720,1ec62b6,pass,evidence/cadre-opera
 A-19-07,cadres,save-failure,synthetic-server-unavailable,768x900,1ec62b6,pass,evidence/cadre-operations-20260912.md,失败状态和重试入口出现；已编辑履职内容仍留在本机且未宣称服务器成功
 A-19-08,cadres,conflict-or-not-applicable,synthetic-two-tab-conflict,1280x720,1ec62b6,pass,evidence/cadre-operations-20260912.md,第二标签真实409；冲突提示和草稿入口可见；载入最新后陈旧岗位消失
 A-19-09,cadres,legacy-css-off,demo-css-isolation,six-width,1ec62b6,pass,evidence/cadre-operations-20260912.md,生产DOM已无cadre3/mobile-cadres消费者；新CSS Module接管页面且115项qa通过
-A-20-01,family,desktop-default,,,,not-run,,不适用需说明源码依据
-A-20-02,family,mobile-default,,,,not-run,,不适用需说明源码依据
-A-20-03,family,empty,,,,not-run,,不适用需说明源码依据
-A-20-04,family,long-data,,,,not-run,,不适用需说明源码依据
-A-20-05,family,primary-editor,,,,not-run,,不适用需说明源码依据
-A-20-06,family,readonly,,,,not-run,,不适用需说明源码依据
-A-20-07,family,save-failure,,,,not-run,,不适用需说明源码依据
-A-20-08,family,conflict-or-not-applicable,,,,not-run,,不适用需说明源码依据
-A-20-09,family,legacy-css-off,,,,not-run,,不适用需说明源码依据
+A-20-01,family,desktop-default,synthetic-three-children-duplicate-names,1280x720,872dee7,pass,evidence/family-operations-20260913.md,孩子切换到今日安排/错词/历史/档案构图实际渲染且原创家庭插画可见
+A-20-02,family,mobile-default,synthetic-three-children-duplicate-names,390x844;360x800,872dee7,pass,evidence/family-operations-20260913.md,手机页头/孩子横向切换/今日任务/批改保存栏可达且无整页横向溢出
+A-20-03,family,empty,demo-zero-family-children;unit-empty-child,1280x720,872dee7,pass,evidence/family-operations-20260913.md,零孩子不借用32名班级学生且不生成假任务或统计；只读新增禁用
+A-20-04,family,long-data,synthetic-long-child-name;semester-capacity-fixture,1280x720;360x800,872dee7,pass,evidence/family-operations-20260913.md,长姓名孩子在页头/切换/档案/批改换行；既有两班各50人与学期容量回归继续通过
+A-20-05,family,primary-editor,synthetic-three-children-duplicate-names,1280x720;360x800,872dee7,pass,evidence/family-operations-20260913.md,新增编辑归档恢复、自定义任务、逐词批改和错词复习新轮次完成；草稿返回先确认
+A-20-06,family,readonly,demo-readonly-zero-family-children,1280x720,872dee7,pass,evidence/family-operations-20260913.md,家庭空态与班级名册隔离；新增保存和批改入口禁用
+A-20-07,family,save-failure,synthetic-two-tab-server-rejection;workspace-network-unit,1280x720,872dee7,pass,evidence/family-operations-20260913.md,服务器拒绝时孩子编辑字段保持且未宣称成功；网络失败草稿由完整工作区回归覆盖
+A-20-08,family,conflict-or-not-applicable,synthetic-two-tab-conflict,1280x720,872dee7,pass,evidence/family-operations-20260913.md,第二标签真实409；全局冲突入口和孩子档案并发草稿同时保留
+A-20-09,family,legacy-css-off,demo-and-synthetic-css-isolation,six-width,872dee7,pass,evidence/family-operations-20260913.md,旧家庭select/平铺DOM退出；FamilyScene CSS Module接管家庭构图且共享听写核心保留
 A-21-01,entry,desktop-default,,,,not-run,,不适用需说明源码依据
 A-21-02,entry,mobile-default,,,,not-run,,不适用需说明源码依据
 A-21-03,entry,empty,,,,not-run,,不适用需说明源码依据

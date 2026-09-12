@@ -1,6 +1,6 @@
 # 家庭学习子场景：逐页执行卡
 
-状态：planned。模块ID：family。源码相对 app/w/[token]（明确app/lib前缀除外）：dictation/Dictation.tsx;TaskEditor.tsx;Grading.tsx;lib/dictation.ts。
+状态：implemented-with-shared-dictation-core（实现提交 `872dee7`）。模块ID：family。源码相对 app/w/[token]（明确app/lib前缀除外）：dictation/Dictation.tsx;dictation/FamilyScene.tsx;dictation/FamilyScene.module.css;features/family/operations.ts;TaskEditor.tsx;Grading.tsx;lib/dictation.ts。
 参考：G5信息结构+C5/C6校园。派生页面使用对应页面族构图和校园token，不把缺少专属图解释为可回退旧UI。
 
 ## 保全动作（种子，实施前展开）
@@ -29,3 +29,11 @@
 
 ## 完成判据
 全部保全动作有新入口与证据；桌面/手机/主要浮层可用；参考气质和比例达标；旧布局退出；测试没有通过削弱断言变绿。结果写当前commit，不复用旧报告标pass。
+
+## 2026-09-13执行结果
+
+- 家庭学习已改为孩子切换、今日安排、词库、个人错词、记录统计和孩子档案组成的独立校园页面；桌面与手机共用同一业务数据、听写编辑器、材料快照和人工批改流程。旧家庭选择框与条件化平铺布局已退出。
+- 孩子新增/编辑/归档/恢复和近30天汇总提取到纯操作层；重名孩子按ID隔离，归档保留历史并由服务端拒绝新增任务，班级学生不会进入家庭参与者。
+- 原创家庭学习物件插画已接 `family` 主题槽；玻璃映射为空且无公开入口。任务编辑、词库、批改继续使用共享听写核心及公共CSS，后续只清理无消费者旧规则，不复制第二套流程。
+- 桌面、390×844、360×800、零孩子只读、长姓名、归档/恢复、自定义任务、逐词批改、错词复习新轮次、未保存离开和双标签真实409均在隔离环境核验；完整测试190/190、认证集成、TypeScript、全量ESLint和115项六宽度严格审计通过。
+- 详细证据见 `evidence/family-operations-20260913.md`；A-20-01至09记录本次提交。
