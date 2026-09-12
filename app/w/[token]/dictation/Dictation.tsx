@@ -1,5 +1,5 @@
 'use client';
-import { useEffect,useRef,useState } from 'react';
+import { useRef,useState } from 'react';
 import type { ClassroomData } from '@/lib/classroom';
 import { makeId } from '@/lib/classroom';
 import { assertDictation,contextKey,emptyDictation,newTask,statistics,taskState,today,wrongWords,type DictationData,type DictationTask,type FamilyChild,type LearningContext,type Participant } from '@/lib/dictation';
@@ -12,10 +12,9 @@ import './dictation.css';
 export type CommitWorkspace = (updater:(data:ClassroomData)=>ClassroomData)=>Promise<boolean>;
 function confirmAction(message:string,title='确认操作',confirmLabel='确认'){return new Promise<boolean>(onResolve=>window.dispatchEvent(new CustomEvent('classroom:confirm',{detail:{message,title,confirmLabel,onResolve}})));}
 import { canLeaveDictation } from './navigation';
-export default function Dictation({data,token,readOnly,commit}: {data:ClassroomData;token:string;readOnly:boolean;commit:CommitWorkspace}) {
+export default function Dictation({data,token,readOnly,commit,scene,onSceneChange}: {data:ClassroomData;token:string;readOnly:boolean;commit:CommitWorkspace;scene:'class'|'family';onSceneChange:(scene:'class'|'family')=>void}) {
  const d=data.dictation??emptyDictation();
- const [scene,setScene]=useState<'class'|'family'>('class'),[childId,setChildId]=useState(d.children.find(c=>!c.archived)?.id??''),[view,setView]=useState('tasks'),[taskId,setTaskId]=useState(''),[editing,setEditing]=useState<DictationTask|undefined>(),[query,setQuery]=useState(''),[subject,setSubject]=useState(''),[person,setPerson]=useState(''),[date,setDate]=useState(''),[page,setPage]=useState(1),[message,setMessage]=useState(''),[busy,setBusy]=useState(false),[childForm,setChildForm]=useState<FamilyChild|null>(null);
- useEffect(()=>{try{if(sessionStorage.getItem('classroom-learning-scene')==='family'){setScene('family');sessionStorage.removeItem('classroom-learning-scene');}}catch{}},[]);
+ const [childId,setChildId]=useState(d.children.find(c=>!c.archived)?.id??''),[view,setView]=useState('tasks'),[taskId,setTaskId]=useState(''),[editing,setEditing]=useState<DictationTask|undefined>(),[query,setQuery]=useState(''),[subject,setSubject]=useState(''),[person,setPerson]=useState(''),[date,setDate]=useState(''),[page,setPage]=useState(1),[message,setMessage]=useState(''),[busy,setBusy]=useState(false),[childForm,setChildForm]=useState<FamilyChild|null>(null);
  const pendingAction=useRef<{key:string;task:DictationTask}|null>(null);
  const classId=data.activeClassId??data.rosterClasses?.[0]?.id??'';
  const context:LearningContext=scene==='class'?{kind:'class',classId}:{kind:'family',childId};
@@ -40,7 +39,7 @@ export default function Dictation({data,token,readOnly,commit}: {data:ClassroomD
  try{const key=`${t.id}:${reviewPerson?.id??''}:${nextLesson}`;const task=(pendingAction.current?.key===key?pendingAction.current.task:undefined)??newTask({...t,participants:people,words,lesson,title,date:today(),sourceId:nextLesson?undefined:t.id,archived:false});pendingAction.current={key,task};if(await saveTask(task))pendingAction.current=null;}catch(e){setMessage(e instanceof Error?e.message:'创建失败');}}
  async function saveChild(e:React.FormEvent<HTMLFormElement>){e.preventDefault();if(!childForm||busy)return;const f=new FormData(e.currentTarget);const c={...childForm,name:String(f.get('name')).trim(),grade:String(f.get('grade')).trim()};if(await change(x=>({...x,children:x.children.some(v=>v.id===c.id)?x.children.map(v=>v.id===c.id?c:v):[...x.children,c]}))){setChildId(c.id);setChildForm(null);}}
  return <section className="dictation-workspace" data-view={view}><PageHeader title="听写与复习" actions={view!=='grading'&&view!=='create'&&<Button intent="primary" disabled={readOnly||busy||!participants.length||Boolean(child?.archived)} onClick={()=>navigate('create')}><CampusIcon name="plus"/>新建听写</Button>}/>
- <div className="dictation-context"><div className="campus-tabs" aria-label="学习场景">{(['class','family'] as const).map(s=><button key={s} aria-pressed={scene===s} onClick={()=>{if(!canLeaveDictation())return;setScene(s);setView('tasks');setTaskId('');setPerson('');setPage(1);}}>{s==='class'?'班级教学':'家庭学习'}</button>)}</div>{scene==='class'?<span>{classroom?.name??'当前班级'} · {participants.length}人</span>:<label>当前孩子<select value={childId} onChange={e=>{if(!canLeaveDictation())return;setChildId(e.target.value);setTaskId('');setView('tasks');setPerson('');}}><option value="">选择孩子</option>{d.children.map(c=><option key={c.id} value={c.id}>{c.name}{c.archived?'（已归档）':''}</option>)}</select></label>}</div>
+ <div className="dictation-context"><div className="campus-tabs" aria-label="学习场景">{(['class','family'] as const).map(s=><button key={s} aria-pressed={scene===s} onClick={()=>{if(!canLeaveDictation())return;onSceneChange(s);setView('tasks');setTaskId('');setPerson('');setPage(1);}}>{s==='class'?'班级教学':'家庭学习'}</button>)}</div>{scene==='class'?<span>{classroom?.name??'当前班级'} · {participants.length}人</span>:<label>当前孩子<select value={childId} onChange={e=>{if(!canLeaveDictation())return;setChildId(e.target.value);setTaskId('');setView('tasks');setPerson('');}}><option value="">选择孩子</option>{d.children.map(c=><option key={c.id} value={c.id}>{c.name}{c.archived?'（已归档）':''}</option>)}</select></label>}</div>
  {readOnly&&<p className="campus-inline-alert">只读模式：可以浏览与打印；创建、修改和批改不可用。</p>}
  <nav className="campus-tabs" aria-label="听写子页面">{[['tasks','任务'],['books','词库'],['wrong','错词本'],['history','记录与统计'],...(scene==='family'?[['children','孩子档案']]:[])].map(([id,label])=><button key={id} aria-pressed={view===id} onClick={()=>navigate(id)}>{label}</button>)}</nav>
  {message&&<p role="status" className="dictation-feedback">{message}</p>}

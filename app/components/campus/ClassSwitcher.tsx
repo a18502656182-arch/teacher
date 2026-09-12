@@ -2,13 +2,13 @@
 import type { RosterClass } from '@/lib/classroom';
 import { Button, CampusIcon } from './primitives';
 
-export function ClassSwitcher({ classes, activeClass, onSwitch, onPatch, onAdd, onDelete }: {
+export function ClassSwitcher({ classes, activeClass, onSwitch, onPatch, onAdd, onDelete, showSelector = true }: {
   classes: RosterClass[]; activeClass: RosterClass;
   onSwitch: (id: string) => void; onPatch: (patch: Partial<RosterClass>) => void;
-  onAdd: () => void; onDelete: () => void;
+  onAdd: () => void; onDelete: () => void; showSelector?: boolean;
 }) {
   return <section className="campus-class-switch">
-    <label><span>当前班级</span><select value={activeClass.id} onChange={event => onSwitch(event.target.value)}>{classes.map(item => <option value={item.id} key={item.id}>{item.name}（{item.students.length}人）</option>)}</select></label>
+    {showSelector && <label><span>当前班级</span><select value={activeClass.id} onChange={event => onSwitch(event.target.value)}>{classes.map(item => <option value={item.id} key={item.id}>{item.name}（{item.students.length}人）</option>)}</select></label>}
     <details className="campus-class-settings"><summary><CampusIcon name="rules"/>班级设置</summary>
       <div className="campus-class-editor">
         <label><span>班级名称</span><input value={activeClass.name} onChange={event => onPatch({ name: event.target.value })}/></label>

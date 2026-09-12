@@ -1,10 +1,4 @@
-/* Shared campus shell: compact navigation, warm working paper, readable controls. */
-html[data-theme=campus] .app-shell .sidebar { display:flex; flex-direction:column; gap:16px; background:var(--campus-surface); padding:20px 12px; }
-html[data-theme=campus] .sidebar .sidebar-brand { padding:0 8px 8px; }
-html[data-theme=campus] .sidebar .brand-mark { width:38px; height:42px; background:transparent; }
-html[data-theme=campus] .side-nav.grouped { flex:1; min-height:0; }
-html[data-theme=campus] .side-nav.grouped h2 { margin:14px 8px 6px; font-weight:500; }
-html[data-theme=campus] .side-nav.grouped button { min-height:44px; padding:10px 12px; font-size:15px; gap:12px; border-radius:9px; }
+/* Class management is shared by the desktop utility rail and the mobile sheet. */
 .campus-class-switch { padding:0 8px 12px; border-bottom:1px solid var(--campus-line); }
 .campus-class-switch label,.campus-class-editor { display:grid; gap:6px; }
 .campus-class-switch label>span { font-size:12px; color:var(--campus-muted); }
@@ -14,9 +8,3 @@ html[data-theme=campus] .side-nav.grouped button { min-height:44px; padding:10px
 .campus-class-settings[open] summary::after { content:'⌃'; }
 .campus-class-settings summary .campus-icon { width:16px; height:16px; }
 .campus-class-editor { padding-top:14px; gap:12px; }
-html[data-theme=campus] .sidebar-account-entry { padding:12px 8px; border:0; border-top:1px solid var(--campus-line); border-radius:0; }
-html[data-theme=campus] .page-content { padding:24px 28px 40px; }
-@media(max-width:900px) {
- html[data-theme=campus] .app-shell .sidebar { display:none; }
- html[data-theme=campus] .page-content { padding:16px; }
-}

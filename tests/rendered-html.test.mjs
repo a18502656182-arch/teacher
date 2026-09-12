@@ -31,6 +31,11 @@ const authSource = read("lib/auth.ts");
 const examPaperRoute = read("app/api/ai/exam-paper/route.ts");
 const healthCare = read("app/w/[token]/HealthCare.tsx");
 const workbenchRepair = read("app/workbench-repair.css");
+const workspaceChrome = read("app/components/campus/WorkspaceChrome.tsx");
+const workspaceChromeCss = read("app/components/campus/workspace-chrome.css");
+const pageFamiliesCss = read("app/components/campus/page-families.css");
+const campusTheme = read("app/components/campus/theme.ts");
+const rootLayout = read("app/layout.tsx");
 const idWriteSurfaces = [attendancePage, teacherAgenda, classroomTools, notificationDrafts, studentProfile, read("app/w/[token]/CourseSchedule.tsx"), app];
 
 test("public entry exposes only the two intended primary routes", () => {
@@ -53,7 +58,7 @@ test("formal workspaces start blank while demo remains the only seeded classroom
 });
 
 test("health care is a standalone, privacy-bounded operational workspace", () => {
-  assert.match(app, /id: "health", icon: "🩺", label: "健康与照护"/);
+  assert.match(workspaceChrome, /id: 'health', label: '健康与照护'/);
   assert.match(app, /<HealthCare data=\{workspace\.data\} update=\{updateData\}/);
   assert.match(app, /<HealthCare data=\{data\} update=\{update\} mobile/);
   assert.match(classroomTypes, /actionContexts/);
@@ -136,8 +141,35 @@ test("administrator can export and permanently delete user data with confirmatio
 
 test("desktop shell has one page title and keeps account actions in the global sidebar", () => {
   assert.doesNotMatch(app, /<header className="topbar">/);
-  assert.match(app, /sidebar-account-entry/);
-  assert.match(app, /账户与使用期限/);
+  assert.match(workspaceChrome, /campus-nav-utility/);
+  assert.match(workspaceChrome, /账户与使用期限/);
+});
+
+test("campus rebuild owns one shared shell and four task-oriented navigation groups", () => {
+  assert.match(app, /<DesktopHeader/);
+  assert.match(app, /<WorkspaceNav/);
+  assert.match(app, /campus-workspace-content/);
+  assert.match(workspaceChrome, /title: '今日'/);
+  assert.match(workspaceChrome, /title: '学生'/);
+  assert.match(workspaceChrome, /title: '教学'/);
+  assert.match(workspaceChrome, /title: '班级'/);
+  assert.match(workspaceChromeCss, /grid-template-columns:\s*244px minmax\(0,\s*1fr\)/);
+  assert.match(workspaceChromeCss, /grid-template-rows:\s*68px minmax\(0,\s*1fr\)/);
+  assert.match(workspaceChromeCss, /\.campus-desktop-header/);
+  assert.match(workspaceChromeCss, /\.campus-workspace-nav/);
+  assert.doesNotMatch(rootLayout, /legacy-theme\.css/);
+});
+
+test("benchmark pages use reference-led compositions and semantic artwork slots", () => {
+  assert.match(dashboard, /campus-dashboard-stage/);
+  assert.match(app, /campus-student-workspace/);
+  assert.match(app, /campus-homework-workspace/);
+  assert.match(pageFamiliesCss, /grid-template-columns:minmax\(620px,1fr\) 350px/);
+  assert.match(pageFamiliesCss, /grid-template-columns:330px minmax\(0,1fr\)/);
+  assert.match(campusTheme, /assessment: '\/art\/campus\/assessment-review\.webp'/);
+  assert.match(campusTheme, /planning: '\/art\/campus\/class-planner\.webp'/);
+  assert.match(campusTheme, /glass: \{ status: 'planned', artwork: \{\} \}/);
+  assert.doesNotMatch(app, /切换玻璃|玻璃主题/);
 });
 
 test("AI requires consent, quota and an owned workspace token", () => {
@@ -181,7 +213,7 @@ test("duty timetable follows the course schedule's custom teaching days", () => 
 test("attendance keeps all actions in the batch-capable main roster", () => {
   assert.match(classroomTypes, /export type AttendanceRecord/);
   assert.match(classroomTypes, /attendanceRecords\?: AttendanceRecord\[\]/);
-  assert.match(app, /id: "attendance", icon: "🧾", label: "考勤与请假"/);
+  assert.match(workspaceChrome, /id: 'attendance', label: '考勤与请假'/);
   assert.match(app, /active === "attendance"/);
   assert.match(attendancePage, /一键全员正常/);
   assert.match(attendancePage, /月度记录/);
@@ -217,8 +249,8 @@ test("course scheduling keeps teacher work in the same module with traceable rec
 
 test("dashboard reuses dated teacher agenda instead of maintaining a second todo list", () => {
   assert.match(dashboard, /data\.teacherAgenda/);
-  assert.match(dashboard, /a\.date===today/);
-  assert.match(dashboard, /a\.status!=='已完成'/);
+  assert.match(dashboard, /item\.date === date/);
+  assert.match(dashboard, /item\.status !== '已完成'/);
   assert.match(app, /<Dashboard data=\{data\}/);
   assert.match(app, /<Dashboard[^>]*data=\{workspace\.data\}/);
   assert.doesNotMatch(dashboard, /useState/);
@@ -271,7 +303,7 @@ test("exam analysis separates trend and paper workflows with teacher review", ()
 test("classroom tools exclude leave and do not turn random picks into points", () => {
   assert.match(classroomTypes, /export type ClassroomToolSession/);
   assert.match(classroomTypes, /classroomToolSessions\?: ClassroomToolSession\[\]/);
-  assert.match(app, /id: "tools", icon: "🎲", label: "课堂工具"/);
+  assert.match(workspaceChrome, /id: 'tools', label: '课堂工具'/);
   assert.match(app, /active === "tools"/);
   assert.match(classroomTools, /item\.status === "请假"/);
   assert.match(classroomTools, /默认不写入积分/);

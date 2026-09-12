@@ -1,4 +1,5 @@
 import { CampusIcon, ThemeArtwork } from "@/app/components/campus/primitives";
+import type { ArtworkSlot } from "@/app/components/campus/theme";
 import type { ReactNode } from "react";
 import styles from "@/app/components/campus/PageHeader.module.css";
 
@@ -19,9 +20,17 @@ export function WorkbenchPageHeader({
   actions?: ReactNode;
   tone?: WorkbenchPageTone;
 }) {
-  const artwork = icon === "🎒" || icon === "🌱" ? "roster" : icon === "📝" || icon === "✍️" ? "dictation" : "homework";
-  return <header className={`${styles.header} ${styles[tone]} ${artwork ? styles.illustrated : ""}`}>
-    <span className={styles.marker} aria-hidden="true">{artwork ? <ThemeArtwork slot={artwork}/> : <CampusIcon name={icon}/>}</span>
+  const artworkByIcon: Record<string, ArtworkSlot> = {
+    students: "roster", "🎒": "roster", "🌱": "roster",
+    homework: "homework", "📚": "homework", "🧾": "homework",
+    "📈": "assessment", "📝": "assessment",
+    "💬": "communication", "✍️": "communication", "🩺": "care",
+    "🗂️": "planning", "🗓️": "planning", "🎲": "tools", "🪑": "planning", "🧹": "planning", "🎖️": "planning", "📏": "planning", "🗞️": "planning", "⭐": "planning",
+  };
+  const artwork = artworkByIcon[icon] ?? "planning";
+  const compactMarker = icon === "students" || icon === "homework";
+  return <header className={`${styles.header} ${styles[tone]} ${compactMarker ? "" : styles.illustrated}`}>
+    <span className={styles.marker} aria-hidden="true">{compactMarker ? <CampusIcon name={icon}/> : <ThemeArtwork slot={artwork}/>}</span>
     <div className={styles.copy}>
       <h2>{title}</h2>
       <p>{description}</p>

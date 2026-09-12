@@ -7,9 +7,8 @@ import type { CSSProperties, ReactNode } from "react";
 import Link from "next/link";
 import { lazy, Suspense } from 'react';
 import { Dashboard } from '@/app/components/campus/Dashboard';
-import { ClassSwitcher } from '@/app/components/campus/ClassSwitcher';
 import { CampusIcon, MetricStrip, ThemeArtwork } from '@/app/components/campus/primitives';
-import { DictationSummary } from './dictation/DictationSummary';
+import { DesktopHeader, SaveStatus, WorkspaceNav, workspaceModules, type LearningScene, type WorkspaceModuleId } from '@/app/components/campus/WorkspaceChrome';
 import { canLeaveDictation } from './dictation/navigation';
 const Dictation = lazy(() => import('./dictation/Dictation'));
 
@@ -29,39 +28,10 @@ import { WorkbenchPageHeader } from "./WorkbenchPageHeader";
 
 type Workspace = { className: string; grade: string; term: string; expiresAt: string; accessMode?: "active" | "readonly"; revision: number; data: ClassroomData };
 type LocalWorkspaceDraft = { revision: number; data: ClassroomData; savedAt: number };
-type ModuleId = "dictation" | "dashboard" | "students" | "attendance" | "homework" | "points" | "rules" | "growth" | "health" | "weekly" | "schedule" | "tools" | "seating" | "duty" | "cadres" | "records" | "scores" | "reflection" | "comments";
+type ModuleId = WorkspaceModuleId;
 type ToastTone = "success" | "error" | "info";
 type ToastEventDetail = { message: string; tone?: ToastTone };
 type ConfirmEventDetail = { message: string; title?: string; confirmLabel?: string; onResolve: (confirmed: boolean) => void };
-
-const nav: { id: ModuleId; icon: string; label: string }[] = [
-  { id: "dashboard", icon: "📊", label: "今日工作台" },
-  { id: "students", icon: "🎒", label: "学生名单" },
-  { id: "dictation", icon: "", label: "听写与复习" },
-  { id: "attendance", icon: "🧾", label: "考勤与请假" },
-  { id: "homework", icon: "📚", label: "作业追踪" },
-  { id: "points", icon: "⭐", label: "积分评价" },
-  { id: "rules", icon: "📏", label: "积分规则" },
-  { id: "growth", icon: "🌱", label: "成长档案" },
-  { id: "health", icon: "🩺", label: "健康与照护" },
-  { id: "weekly", icon: "🗞️", label: "班级周报" },
-  { id: "schedule", icon: "🗓️", label: "课程日程" },
-  { id: "tools", icon: "🎲", label: "课堂工具" },
-  { id: "seating", icon: "🪑", label: "座位分组" },
-  { id: "duty", icon: "🧹", label: "值日岗位" },
-  { id: "cadres", icon: "🎖️", label: "班干部" },
-  { id: "records", icon: "💬", label: "家校沟通" },
-  { id: "scores", icon: "📈", label: "成绩分析" },
-  { id: "reflection", icon: "📝", label: "考试反思" },
-  { id: "comments", icon: "✍️", label: "期末评语" },
-];
-
-const desktopNavGroups: { title: string; items: ModuleId[] }[] = [
-  { title: "今日", items: ["dashboard", "homework", "duty"] },
-  { title: "学生", items: ["students", "dictation", "attendance", "scores", "points", "growth", "health", "records", "reflection"] },
-  { title: "输出", items: ["weekly", "comments"] },
-  { title: "班级设置", items: ["schedule", "tools", "seating", "cadres", "rules"] },
-];
 
 const defaultPointRules: PointRule[] = [
   { id: "pr-class-speak", scene: "课堂", title: "主动表达", reason: "主动回答问题并说清思路", delta: 1, owner: "学习委员", enabled: true, level: "温和版", detail: "来自课堂提问、积极回答、精彩表现等资料场景。" },
@@ -510,6 +480,7 @@ export default function ClassroomApp({ token }: { token: string }) {
   const [toast, setToast] = useState<ToastEventDetail | null>(null);
   const [confirmRequest, setConfirmRequest] = useState<ConfirmEventDetail | null>(null);
   const [desktopAccount, setDesktopAccount] = useState<{ phone: string; expiresAt: string } | null>(null);
+  const [learningScene, setLearningScene] = useState<LearningScene>('class');
   const workspaceRef = useRef<Workspace | null>(null);
   const revisionRef = useRef(0);
   const serverRevisionRef = useRef(1);
@@ -561,7 +532,7 @@ export default function ClassroomApp({ token }: { token: string }) {
   useEffect(() => {
     function syncPageFromUrl() {
       const page = new URLSearchParams(window.location.search).get("page");
-      if (page && nav.some((item) => item.id === page)) setActive(page as ModuleId);
+      if (page && workspaceModules.some((item) => item.id === page)) setActive(page as ModuleId);
     }
     syncPageFromUrl();
     window.addEventListener("popstate", syncPageFromUrl);
@@ -762,7 +733,7 @@ export default function ClassroomApp({ token }: { token: string }) {
     const syncShellAccessibility = () => {
       const mobile = media.matches;
       const mobileShell = document.querySelector<HTMLElement>(".mobile-workbench");
-      const desktopShell = document.querySelector<HTMLElement>(".app-main");
+      const desktopShell = document.querySelector<HTMLElement>(".campus-workspace-main");
       for (const [element, hidden] of [[mobileShell, !mobile], [desktopShell, mobile && active !== "dictation"]] as const) {
         if (!element) continue;
         element.setAttribute("aria-hidden", String(hidden));
@@ -887,8 +858,14 @@ export default function ClassroomApp({ token }: { token: string }) {
     setConfirmRequest(null);
   }
 
+  function switchLearningScene(scene: LearningScene) {
+    if (!canLeaveDictation()) return;
+    setLearningScene(scene);
+    if (scene === 'family' && active !== 'dictation') openModule('dictation');
+  }
+
   return (
-    <div className="app-shell homework-bootstrap-shell" data-module={active} data-theme="campus">
+    <div className="app-shell homework-bootstrap-shell campus-workspace-shell" data-module={active} data-theme="campus">
       <MobileWorkbench
         workspaceToken={token}
         workspace={workspace}
@@ -896,6 +873,7 @@ export default function ClassroomApp({ token }: { token: string }) {
         activeClass={activeClass}
         active={active}
         saving={saving}
+        dirty={dirty}
         error={error}
         openModule={openModule}
         update={updateData}
@@ -912,20 +890,17 @@ export default function ClassroomApp({ token }: { token: string }) {
         saveConflict={saveConflict}
         exportDraft={exportWorkspaceBackup}
         loadLatest={loadLatestWorkspace}
+        learningScene={learningScene}
+        switchLearningScene={switchLearningScene}
       />
-      <aside className="sidebar">
-        <Link className="brand sidebar-brand" href="/"><span className="brand-mark"><CampusIcon name="book"/></span><span>班主任工作台</span></Link>
-        <ClassSwitcher classes={classes} activeClass={activeClass} onSwitch={switchGlobalClass} onPatch={patchActiveClass} onAdd={addGlobalClass} onDelete={deleteActiveClass} />
-        <nav className="side-nav grouped" aria-label="班级工具">{desktopNavGroups.map((group) => <section key={group.title}><h2>{group.title}</h2>{group.items.map((id) => { const item = nav.find((entry) => entry.id === id)!; return <button key={item.id} data-module={item.id} className={active === item.id ? "active" : ""} onClick={() => openModule(item.id)}><span aria-hidden="true"><CampusIcon name={item.id}/></span>{item.label}</button>; })}</section>)}</nav>
-        <div className="sidebar-utility">{!isDemo ? <><button className="sidebar-account-entry" type="button" onClick={openDesktopAccount}><span>账</span><b>我的工作台</b><small>账户与使用期限</small></button><div className="sidebar-data-actions"><button type="button" onClick={exportWorkspaceBackup}>导出备份</button><button type="button" onClick={() => backupInputRef.current?.click()}>恢复备份</button></div></> : <div className="sidebar-demo-entry"><span>演</span><b>演示模式</b></div>}</div>
-      </aside>
-      <main className="app-main">
+      <DesktopHeader classes={classes} activeClass={activeClass} scene={learningScene} onSwitchClass={switchGlobalClass} onScene={switchLearningScene} onAccount={openDesktopAccount} saving={saving} dirty={dirty} error={error} isDemo={isDemo} isReadOnly={isReadOnly}/>
+      <WorkspaceNav active={active} classes={classes} activeClass={activeClass} isDemo={isDemo} onOpen={openModule} onSwitch={switchGlobalClass} onPatch={patchActiveClass} onAdd={addGlobalClass} onDelete={deleteActiveClass} onAccount={openDesktopAccount} onExport={exportWorkspaceBackup} onImport={() => backupInputRef.current?.click()}/>
+      <main className="campus-workspace-main">
         {error && workspace && <div className="inline-alert" role="alert"><span>{error}</span><div>{saveConflictRef.current ? <><button type="button" onClick={exportWorkspaceBackup}>导出当前草稿</button><button type="button" onClick={() => void loadLatestWorkspace()}>载入最新版本</button></> : error.includes("请在听写页面重试保存") ? <span>请使用听写表单中的重试操作</span> : <button type="button" disabled={saving} onClick={() => void save()}>{saving ? "正在重试…" : "重试"}</button>}<button type="button" onClick={() => setError("")}>关闭</button></div></div>}
         {(isDemo || isReadOnly) && <div className="edit-mode-banner"><b>{isDemo ? "演示模式" : "只读宽限期"}</b><span>{isDemo ? "数据不会保存，AI 使用静态示例。" : "可以查看和导出，续期后恢复编辑。"}</span></div>}
-        <div className="page-content">
-          {active === "dictation" && <Suspense fallback={<p role="status">正在加载听写…</p>}><Dictation key={workspace.data.activeClassId} data={workspace.data} token={token} readOnly={isDemo || isReadOnly} commit={commitWorkspace}/></Suspense>}
-          {active === "dashboard" && <DictationSummary data={workspace.data} open={() => openModule("dictation")}/>}
-          {active === "dashboard" && <Dashboard defaultDutyJobs={defaultDutyJobs} data={workspace.data} open={openModule} />}
+        <div className="campus-workspace-content" data-family={active === 'dashboard' ? 'dashboard' : ['students','growth','points','health','records'].includes(active) ? 'student' : ['homework','dictation','attendance'].includes(active) ? 'task' : ['scores','reflection','schedule','tools'].includes(active) ? 'teaching' : 'class'}>
+          {active === "dictation" && <Suspense fallback={<p role="status">正在加载听写…</p>}><Dictation key={workspace.data.activeClassId} data={workspace.data} token={token} readOnly={isDemo || isReadOnly} commit={commitWorkspace} scene={learningScene} onSceneChange={setLearningScene}/></Suspense>}
+          {active === "dashboard" && <Dashboard defaultDutyJobs={defaultDutyJobs} data={workspace.data} open={openModule} openFamily={() => switchLearningScene('family')} />}
           {active === "students" && <Students data={workspace.data} update={updateData} />}
           {active === "attendance" && <Attendance data={workspace.data} update={updateData} />}
           {active === "homework" && <Homework data={workspace.data} update={updateData} />}
@@ -959,18 +934,18 @@ export default function ClassroomApp({ token }: { token: string }) {
   );
 }
 
-function MobileWorkbench({ workspaceToken, workspace, classes, activeClass, active, saving, error, openModule, update, switchClass, patchClass, addClass, deleteClass, save, clearError, isDemo, isReadOnly, exportBackup, importBackup, saveConflict, exportDraft, loadLatest }: { workspaceToken: string; workspace: Workspace; classes: RosterClass[]; activeClass: RosterClass; active: ModuleId; saving: boolean; error: string; openModule: (id: ModuleId) => void; update: (fn: (d: ClassroomData) => ClassroomData) => void; switchClass: (id: string) => void; patchClass: (patch: Partial<RosterClass>) => void; addClass: () => void; deleteClass: () => void; save: () => void; clearError: () => void; isDemo: boolean; isReadOnly: boolean; exportBackup: () => void; importBackup: () => void; saveConflict: boolean; exportDraft: () => void; loadLatest: () => Promise<void> }) {
+function MobileWorkbench({ workspaceToken, workspace, classes, activeClass, active, saving, dirty, error, openModule, update, switchClass, patchClass, addClass, deleteClass, save, clearError, isDemo, isReadOnly, exportBackup, importBackup, saveConflict, exportDraft, loadLatest, learningScene, switchLearningScene }: { workspaceToken: string; workspace: Workspace; classes: RosterClass[]; activeClass: RosterClass; active: ModuleId; saving: boolean; dirty: boolean; error: string; openModule: (id: ModuleId) => void; update: (fn: (d: ClassroomData) => ClassroomData) => void; switchClass: (id: string) => void; patchClass: (patch: Partial<RosterClass>) => void; addClass: () => void; deleteClass: () => void; save: () => void; clearError: () => void; isDemo: boolean; isReadOnly: boolean; exportBackup: () => void; importBackup: () => void; saveConflict: boolean; exportDraft: () => void; loadLatest: () => Promise<void>; learningScene: LearningScene; switchLearningScene: (scene: LearningScene) => void }) {
   const [moreOpen, setMoreOpen] = useState(false);
   const [accountOpen, setAccountOpen] = useState(false);
   const [account, setAccount] = useState<{ phone: string; expiresAt: string } | null>(null);
   const data = workspace.data;
   const classStudents = activeClass.students?.length ? activeClass.students : data.students;
-  const activeLabel = nav.find((item) => item.id === active)?.label ?? "工作台";
-  const primaryTabs: { id: ModuleId; label: string; icon: string }[] = [
-    { id: "dashboard", label: "首页", icon: "📊" },
-    { id: "students", label: "学生", icon: "🎒" },
-    { id: "homework", label: "作业", icon: "📚" },
-    { id: "scores", label: "成绩", icon: "📈" },
+  const activeLabel = workspaceModules.find((item) => item.id === active)?.label ?? "工作台";
+  const primaryTabs: { id: ModuleId; label: string }[] = [
+    { id: "dashboard", label: "首页" },
+    { id: "students", label: "学生" },
+    { id: "homework", label: "作业" },
+    { id: "scores", label: "成绩" },
   ];
   const isPrimary = primaryTabs.some((item) => item.id === active);
 
@@ -999,19 +974,15 @@ function MobileWorkbench({ workspaceToken, workspace, classes, activeClass, acti
   }
 
   return <section className="mobile-workbench" data-module={active} aria-label="手机版班主任工作台">
-    <header className="mobile-appbar">
-      <span className="mobile-appbar-marker" aria-hidden="true"><CampusIcon name={active}/></span>
-      <div className="mobile-appbar-title">
-        <h1>{activeLabel}</h1>
-        {active !== "dictation" && <p>{activeClass.grade || workspace.grade || "当前班级"} · {activeClass.name} · {classStudents.length}人</p>}
-      </div>
-      {active !== "dashboard" && <ThemeArtwork slot={active === "dictation" || active === "reflection" ? "dictation" : active === "students" || active === "growth" ? "roster" : "homework"} className="campus-mobile-art" />}
+    <header className={`mobile-appbar ${active === 'dashboard' ? 'mobile-appbar-home' : ''}`}>
+      <div className="mobile-appbar-brand"><span aria-hidden="true"><CampusIcon name={active === 'dashboard' ? 'book' : active}/></span><div><h1>{active === 'dashboard' ? '班主任工作台' : activeLabel}</h1>{active !== 'dictation' && <p>{activeClass.grade || workspace.grade || '当前班级'} · {classStudents.length}人</p>}</div></div>
+      <SaveStatus saving={saving} dirty={dirty} error={error} isDemo={isDemo} isReadOnly={isReadOnly}/>
+      {active === 'dashboard' && <><label className="mobile-class-select"><span>当前班级</span><select value={activeClass.id} onChange={event => switchClass(event.target.value)}>{classes.map(item => <option key={item.id} value={item.id}>{item.name}（{item.students.length}人）</option>)}</select></label><nav className="mobile-domain-switch" aria-label="工作场景"><button type="button" aria-pressed={learningScene === 'class'} onClick={() => switchLearningScene('class')}>班级教学</button><button type="button" aria-pressed={learningScene === 'family'} onClick={() => switchLearningScene('family')}>家庭学习</button></nav></>}
     </header>
     {(isDemo || isReadOnly) && <div className="mobile-access-note"><b>{isDemo ? "演示模式" : "只读宽限期"}</b><span>{isDemo ? "数据不会保存，AI 使用静态示例" : "可以查看和导出，续期后恢复编辑"}</span></div>}
     {error && <div className="mobile-inline-alert" role="alert"><span>{error}</span><div>{saveConflict ? <><button type="button" onClick={exportDraft}>导出草稿</button><button type="button" onClick={() => void loadLatest()}>载入最新</button></> : <button type="button" disabled={saving} onClick={() => void save()}>{saving ? "重试中…" : "重试"}</button>}<button type="button" onClick={clearError}>关闭</button></div></div>}
     <main className="mobile-screen">
-      {active === "dashboard" && <DictationSummary data={data} open={() => openModule("dictation")}/>}
-      {active === "dashboard" && <MobileHome data={data} classes={classes} activeClass={activeClass} open={openModule} switchClass={switchClass} patchClass={patchClass} addClass={addClass} deleteClass={deleteClass} />}
+      {active === "dashboard" && <MobileHome data={data} classes={classes} activeClass={activeClass} open={openModule} openFamily={() => switchLearningScene('family')} switchClass={switchClass} patchClass={patchClass} addClass={addClass} deleteClass={deleteClass} />}
       {active === "students" && <MobileStudents data={data} activeClass={activeClass} update={update} />}
       {active === "attendance" && <Attendance data={data} update={update} mobile />}
       {active === "homework" && <MobileHomework data={data} activeClass={activeClass} update={update} open={openModule} />}
@@ -1035,9 +1006,9 @@ function MobileWorkbench({ workspaceToken, workspace, classes, activeClass, acti
 }
 
 
-function MobileHome({ data, classes, activeClass, open, switchClass, patchClass, addClass, deleteClass }: { data: ClassroomData; classes: RosterClass[]; activeClass: RosterClass; open: (id: ModuleId) => void; switchClass: (id: string) => void; patchClass: (patch: Partial<RosterClass>) => void; addClass: () => void; deleteClass: () => void }) {
+function MobileHome({ data, classes, activeClass, open, openFamily, switchClass, patchClass, addClass, deleteClass }: { data: ClassroomData; classes: RosterClass[]; activeClass: RosterClass; open: (id: ModuleId) => void; openFamily: () => void; switchClass: (id: string) => void; patchClass: (patch: Partial<RosterClass>) => void; addClass: () => void; deleteClass: () => void }) {
   const [classSheetOpen, setClassSheetOpen] = useState(false);
-  return <div className="campus-mobile-home"><section className="campus-mobile-context"><span>{activeClass.name}</span><button type="button" onClick={() => setClassSheetOpen(true)}>切换与管理班级</button></section><Dashboard data={data} open={open} defaultDutyJobs={defaultDutyJobs}/>
+  return <div className="campus-mobile-home"><Dashboard data={data} open={open} openFamily={openFamily} defaultDutyJobs={defaultDutyJobs}/><button className="mobile-class-manage" type="button" onClick={() => setClassSheetOpen(true)}><CampusIcon name="rules"/>管理班级资料</button>
     {classSheetOpen && <MobileInfoSheet title="班级管理" onClose={() => setClassSheetOpen(false)}>
       <div className="mobile-form-grid">
         <label className="wide"><span>当前班级</span><select value={activeClass.id} onChange={(event) => switchClass(event.target.value)}>{classes.map((item) => <option value={item.id} key={item.id}>{item.name}（{item.students.length}人）</option>)}</select></label>
@@ -1947,7 +1918,7 @@ function MobileMore({ current, open, compact }: { current: ModuleId; open: (id: 
       <h2>{group.title}</h2>
       <div>
         {group.items.map((id) => {
-          const item = nav.find((navItem) => navItem.id === id)!;
+          const item = workspaceModules.find((navItem) => navItem.id === id)!;
           const tone = tones[id] ?? "blue";
           return <button type="button" className={`mobile-tool-icon ${tone} ${current === id ? "active" : ""}`} key={id} onClick={() => open(id)}><i><CampusIcon name={item.label}/></i><b>{item.label}</b></button>;
         })}
@@ -2071,7 +2042,7 @@ function MobileSecondaryPage({ workspaceToken, active, data, activeClass, update
   const [cadreDraft, setCadreDraft] = useState<CadreRole>({ id: "", role: "", studentId: activeClass.students[0]?.id ?? data.students[0]?.id ?? "", duty: "", scope: "班级管理", term: activeClass.term || "本学期", status: "在任", weeklyScore: 4, summary: "" });
   const students = activeClass.students?.length ? activeClass.students : data.students;
   const studentName = (id: string) => students.find((student) => student.id === id)?.name ?? "未选择学生";
-  const title = nav.find((item) => item.id === active)?.label ?? "更多工具";
+  const title = workspaceModules.find((item) => item.id === active)?.label ?? "更多工具";
   const records = data.records.filter((record) => recordBelongsToClass(record, activeClass.id, students));
   const events = (data.pointEvents ?? []).filter((event) => students.some((student) => student.id === event.studentId));
   const evidence = (data.growthEvidence ?? []).filter((item) => students.some((student) => student.id === item.studentId));
@@ -3879,6 +3850,7 @@ function Students({ data, update }: { data: ClassroomData; update: (fn: (d: Clas
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [batchDraft, setBatchDraft] = useState<{ group: string; gender: Student["gender"] | "不修改"; note: string }>({ group: "", gender: "不修改", note: "" });
   const [profileStudentId, setProfileStudentId] = useState("");
+  const [focusedStudentId, setFocusedStudentId] = useState("");
   const [newStudentDraft, setNewStudentDraft] = useState<Student | null>(null);
   const classes = data.rosterClasses?.length ? data.rosterClasses : [{ id: "class-1", name: "当前班级", grade: "", term: "", students: data.students }];
   const activeClassId = data.activeClassId ?? classes[0].id;
@@ -3901,12 +3873,20 @@ function Students({ data, update }: { data: ClassroomData; update: (fn: (d: Clas
   const shownIds = shown.map((student) => student.id);
   const selectedCount = selectedIds.length;
   const allShownSelected = shownIds.length > 0 && shownIds.every((id) => selectedIds.includes(id));
+  const focusedStudent = classStudents.find((student) => student.id === focusedStudentId) ?? pageItems[0] ?? classStudents[0];
+  const focusedHomework = focusedStudent ? (data.homeworkTasks ?? []).filter((task) => (!task.classId || task.classId === activeClassId) && task.statuses[focusedStudent.id]).toSorted((a, b) => b.date.localeCompare(a.date)).slice(0, 3) : [];
+  const focusedAttendance = focusedStudent ? (data.attendanceRecords ?? []).filter((record) => record.studentId === focusedStudent.id && (!record.classId || record.classId === activeClassId)).toSorted((a, b) => b.date.localeCompare(a.date)).slice(0, 3) : [];
+  const focusedRecords = focusedStudent ? data.records.filter((record) => recordBelongsToStudent(record, focusedStudent, activeClassId)).toSorted((a, b) => b.date.localeCompare(a.date)).slice(0, 3) : [];
+  const focusedDictation = focusedStudent ? (data.dictation?.tasks ?? []).filter((task) => task.context.kind === 'class' && task.context.classId === activeClassId && task.participants.some(person => person.id === focusedStudent.id)).toSorted((a, b) => b.date.localeCompare(a.date))[0] : undefined;
 
   useEffect(() => setPage(1), [filter, groupFilter, activeClassId, pageSize]);
   useEffect(() => {
     const ids = new Set(classStudents.map((student) => student.id));
     setSelectedIds((current) => current.filter((id) => ids.has(id)));
   }, [classStudents]);
+  useEffect(() => {
+    if (!classStudents.some((student) => student.id === focusedStudentId)) setFocusedStudentId(classStudents[0]?.id ?? "");
+  }, [activeClassId, classStudents, focusedStudentId]);
 
   function syncActiveClass(current: ClassroomData, nextStudents: Student[], patch?: Partial<RosterClass>): ClassroomData {
     const currentClasses = current.rosterClasses?.length ? current.rosterClasses : classes;
@@ -4049,9 +4029,9 @@ function Students({ data, update }: { data: ClassroomData; update: (fn: (d: Clas
     URL.revokeObjectURL(url);
     setMessage(`已导出 ${activeClass.name} 的学生名单。`);
   }
-  return <section className="roster-page roster-pro-page homework-bootstrap-preview">
+  return <section className="roster-page roster-pro-page campus-student-page">
     <WorkbenchPageHeader
-      icon="🎒"
+      icon="students"
       tone="lake"
       title={`${activeClass.name}学生名单`}
       description={`${activeClass.grade || "当前年级"} · ${activeClass.term || "当前学期"} · 维护姓名、学号、小组、性别和家长电话。`}
@@ -4060,8 +4040,9 @@ function Students({ data, update }: { data: ClassroomData; update: (fn: (d: Clas
         <button className="roster-primary-action workbench-header-primary" onClick={addStudent}>新增学生</button>
       </div>}
     />
-    <MetricStrip items={[{label:"总人数",value:classStudents.length,detail:"当前班级"},{label:"学习小组",value:groupOptions.length,detail:"按座位维护"},{label:"电话完整度",value:`${phoneRate}%`,detail:`${withPhone}人已填写`}]}/>
-    <section className="roster-tools-panel">
+    <div className="campus-student-summary"><MetricStrip items={[{label:"总人数",value:classStudents.length,detail:"当前班级"},{label:"男生",value:boys,detail:"名单统计"},{label:"女生",value:girls,detail:"名单统计"},{label:"电话完整度",value:`${phoneRate}%`,detail:`${withPhone}人已填写`}]}/></div>
+    <section className="campus-student-workspace">
+      <div className="campus-student-master"><section className="roster-tools-panel">
       <div className="roster-command-bar">
         <label className="roster-search-field"><span>搜索</span><input value={filter} onChange={(e) => setFilter(e.target.value)} placeholder="姓名、学号、电话或备注" /></label>
         <label className="roster-group-filter"><span>小组</span><select value={groupFilter} onChange={(e) => setGroupFilter(e.target.value)}><option>全部小组</option>{groupOptions.map((group) => <option key={group} value={group}>第{group}组</option>)}</select></label>
@@ -4076,16 +4057,16 @@ function Students({ data, update }: { data: ClassroomData; update: (fn: (d: Clas
         <label className="batch-note"><span>备注</span><input value={batchDraft.note} onChange={(e) => setBatchDraft({ ...batchDraft, note: e.target.value })} placeholder="留空不修改，填写后覆盖备注" /></label>
         <button className="roster-primary-action" disabled={!selectedCount} onClick={applyBatchEdit}>应用</button>
       </div>}
-    </section>
-    <details className="roster-import-drawer">
+      </section>
+      <details className="roster-import-drawer">
       <summary><span>批量导入名单</span><b>展开</b></summary>
       <div className="roster-import-body">
         <textarea value={bulk} onChange={(e) => setBulk(e.target.value)} placeholder={"张三 13800000001 备注\n李四 13800000002"} />
         <div className="roster-import-actions"><button className="roster-danger-text" onClick={replaceNames}>替换当前名单</button><button className="roster-secondary-action" onClick={appendNames}>追加学生</button></div>
       </div>
-    </details>
-    {message && <div className="inline-alert roster-message" onClick={() => setMessage("")}>{message}<span>×</span></div>}
-    <section className="roster-directory">
+      </details>
+      {message && <div className="inline-alert roster-message" onClick={() => setMessage("")}>{message}<span>×</span></div>}
+      <section className="roster-directory">
       <header className="roster-directory-head">
         <div><span>当前名单</span></div>
         <small>显示 {pageItems.length} / {shown.length} 人</small>
@@ -4095,7 +4076,7 @@ function Students({ data, update }: { data: ClassroomData; update: (fn: (d: Clas
           <colgroup><col className="col-select" /><col className="col-no" /><col className="col-name" /><col className="col-gender" /><col className="col-group" /><col className="col-phone" /><col className="col-note" /><col className="col-action" /></colgroup>
           <thead><tr><th><input aria-label="选择当前筛选学生" type="checkbox" checked={allShownSelected} onChange={toggleShownSelect} /></th><th>学号</th><th>姓名</th><th>性别</th><th>小组</th><th>家长电话</th><th>备注</th><th>操作</th></tr></thead>
           <tbody>
-            {pageItems.map((s) => <tr key={s.id}>
+            {pageItems.map((s) => <tr key={s.id} className={focusedStudent?.id === s.id ? 'is-focused' : ''} onClick={() => setFocusedStudentId(s.id)}>
               <td className="roster-select-cell"><input aria-label={`选择${s.name}`} type="checkbox" checked={selectedIds.includes(s.id)} onChange={() => toggleStudentSelect(s.id)} /></td>
               <td>{editMode ? <input aria-label={`${s.name}学号`} value={s.studentNo ?? ""} onChange={(e) => edit(s.id, { studentNo: e.target.value })} /> : <span className="roster-student-no">{s.studentNo || "-"}</span>}</td>
               <td><strong className="roster-student-name">{editMode ? <input aria-label={`${s.name}姓名`} value={s.name} onChange={(e) => edit(s.id, { name: e.target.value })} /> : s.name}</strong></td>
@@ -4103,32 +4084,33 @@ function Students({ data, update }: { data: ClassroomData; update: (fn: (d: Clas
               <td>{editMode ? <input aria-label={`${s.name}小组`} type="number" value={s.group} onChange={(e) => edit(s.id, { group: Number(e.target.value) || 1 })} /> : `第${s.group}组`}</td>
               <td>{editMode ? <input aria-label={`${s.name}家长电话`} value={s.parentPhone ?? ""} onChange={(e) => edit(s.id, { parentPhone: e.target.value })} /> : <span className="roster-muted-value">{s.parentPhone || "未填写"}</span>}</td>
               <td>{editMode ? <input aria-label={`${s.name}备注`} value={s.note ?? ""} onChange={(e) => edit(s.id, { note: e.target.value })} /> : <span className="roster-muted-value">{s.note || "-"}</span>}</td>
-              <td><button className="roster-secondary-action" onClick={() => setProfileStudentId(s.id)}>档案</button><button className="roster-delete-action" disabled={!editMode} onClick={() => removeStudent(s.id)}>删除</button></td>
+              <td><button className="roster-secondary-action" onClick={(event) => { event.stopPropagation(); setFocusedStudentId(s.id); }}>查看</button><button className="roster-delete-action" disabled={!editMode} onClick={(event) => { event.stopPropagation(); void removeStudent(s.id); }}>删除</button></td>
             </tr>)}
             {!pageItems.length && <tr><td className="roster-empty-row" colSpan={8}><b>当前没有学生</b><span>先展开批量导入，或切换到其他班级。</span></td></tr>}
           </tbody>
         </table>
       </div>
-    <div className="roster-mobile-list">
-      {pageItems.map((s) => <article className="roster-mobile-card" key={s.id}>
-        <header><label className="roster-card-check"><input aria-label={`选择${s.name}`} type="checkbox" checked={selectedIds.includes(s.id)} onChange={() => toggleStudentSelect(s.id)} /></label><i>{s.name.slice(0,1)}</i><div>{editMode ? <input value={s.name} onChange={(e) => edit(s.id, { name: e.target.value })} /> : <b>{s.name}</b>}<span>学号 {s.studentNo || "未填"} · 第{s.group}组</span></div></header>
-        <div className="mobile-fields">
-          <label>学号{editMode ? <input value={s.studentNo ?? ""} onChange={(e) => edit(s.id, { studentNo: e.target.value })} /> : <span>{s.studentNo || "-"}</span>}</label>
-          <label>性别{editMode ? <select value={s.gender} onChange={(e) => edit(s.id, { gender: e.target.value as Student["gender"] })}><option>女</option><option>男</option></select> : <span>{s.gender}</span>}</label>
-          <label>小组{editMode ? <input type="number" value={s.group} onChange={(e) => edit(s.id, { group: Number(e.target.value) || 1 })} /> : <span>{s.group}</span>}</label>
-          <label className="wide">家长电话{editMode ? <input value={s.parentPhone ?? ""} onChange={(e) => edit(s.id, { parentPhone: e.target.value })} /> : <span>{s.parentPhone || "-"}</span>}</label>
-          <label className="wide">备注{editMode ? <input value={s.note ?? ""} onChange={(e) => edit(s.id, { note: e.target.value })} /> : <span>{s.note || "-"}</span>}</label>
-        </div>
-        <div className="roster-mobile-actions"><button className="roster-secondary-action" onClick={() => setProfileStudentId(s.id)}>档案与照护</button><button className="danger-small" disabled={!editMode} onClick={() => removeStudent(s.id)}>删除这名学生</button></div>
-      </article>)}
-    </div>
-    <footer className="roster-pagination">
+      <footer className="roster-pagination">
       <button disabled={safePage <= 1} onClick={() => setPage((value) => Math.max(1, value - 1))}>上一页</button>
       <span>第 {safePage} / {totalPages} 页，显示 {pageItems.length} / {shown.length} 人</span>
       <button disabled={safePage >= totalPages} onClick={() => setPage((value) => Math.min(totalPages, value + 1))}>下一页</button>
-    </footer>
-    {profileStudentId && classStudents.find((student) => student.id === profileStudentId) && <StudentProfile student={classStudents.find((student) => student.id === profileStudentId)!} data={data} update={update} onClose={() => setProfileStudentId("")} />}
+      </footer>
+      </section></div>
+      <aside className="campus-student-detail" aria-live="polite">{focusedStudent ? <>
+        <div className="campus-student-detail-hero"><ThemeArtwork slot="roster"/><span>{focusedStudent.name.slice(-2)}</span></div>
+        <header><div><h2>{focusedStudent.name}</h2><p>学号 {focusedStudent.studentNo || '未填'} · 第{focusedStudent.group}组 · {focusedStudent.seat}号座位</p></div><button type="button" onClick={() => setProfileStudentId(focusedStudent.id)}>完整档案</button></header>
+        <dl className="campus-student-facts"><div><dt>积分</dt><dd>{focusedStudent.points}</dd></div><div><dt>近期成绩</dt><dd>{focusedStudent.score}</dd></div><div><dt>考勤</dt><dd>{focusedStudent.attendance}</dd></div><div><dt>作业</dt><dd>{focusedStudent.homework}</dd></div></dl>
+        <section><h3>最近动态</h3><ol>
+          {focusedDictation && <li><span><CampusIcon name="dictation"/></span><div><b>{focusedDictation.date} · {focusedDictation.title}</b><p>{!focusedDictation.results[focusedStudent.id] ? '待批改' : focusedDictation.results[focusedStudent.id][0] === 'graded' ? `${focusedDictation.results[focusedStudent.id][1].length} 个错词` : focusedDictation.results[focusedStudent.id][0] === 'leave' ? '请假，不计入错误率' : '未参加，不计入错误率'}</p></div></li>}
+          {focusedHomework.map(task => <li key={task.id}><span><CampusIcon name="homework"/></span><div><b>{task.date} · {task.title}</b><p>{task.statuses[focusedStudent.id]}</p></div></li>)}
+          {focusedAttendance.map(record => <li key={record.id}><span><CampusIcon name="attendance"/></span><div><b>{record.date} · {record.status}</b><p>{record.reason || record.note || record.period}</p></div></li>)}
+          {focusedRecords.map(record => <li key={record.id}><span><CampusIcon name="records"/></span><div><b>{record.date} · {record.type}</b><p>{record.status || '已记录'}</p></div></li>)}
+          {!focusedDictation && !focusedHomework.length && !focusedAttendance.length && !focusedRecords.length && <li className="is-empty"><span><CampusIcon name="growth"/></span><div><b>暂无近期记录</b><p>新的作业、听写、考勤与沟通会出现在这里。</p></div></li>}
+        </ol></section>
+        {focusedStudent.note && <section className="campus-student-note"><h3>班务备注</h3><p>{focusedStudent.note}</p></section>}
+      </> : <div className="campus-student-detail-empty"><ThemeArtwork slot="roster"/><p>从名单中选择一名学生查看近期动态。</p></div>}</aside>
     </section>
+    {profileStudentId && classStudents.find((student) => student.id === profileStudentId) && <StudentProfile student={classStudents.find((student) => student.id === profileStudentId)!} data={data} update={update} onClose={() => setProfileStudentId("")} />}
     {newStudentDraft && <div className="roster-editor-backdrop" role="presentation" onMouseDown={(event) => { if (event.currentTarget === event.target) setNewStudentDraft(null); }}><section className="roster-editor-modal" role="dialog" aria-modal="true" aria-labelledby="roster-new-student-title"><header><div><h2 id="roster-new-student-title">新增学生</h2><p>保存后才会加入当前班级名单。</p></div><button type="button" aria-label="关闭" onClick={() => setNewStudentDraft(null)}>×</button></header><div className="roster-editor-fields"><label><span>姓名</span><input autoFocus value={newStudentDraft.name} onChange={(event) => setNewStudentDraft({ ...newStudentDraft, name: event.target.value })} placeholder="请输入学生姓名" /></label><label><span>学号</span><input value={newStudentDraft.studentNo ?? ""} onChange={(event) => setNewStudentDraft({ ...newStudentDraft, studentNo: event.target.value })} placeholder="例如：51" /></label><label><span>性别</span><select value={newStudentDraft.gender} onChange={(event) => setNewStudentDraft({ ...newStudentDraft, gender: event.target.value as Student["gender"] })}><option>女</option><option>男</option></select></label><label><span>小组</span><input type="number" min={1} value={newStudentDraft.group} onChange={(event) => setNewStudentDraft({ ...newStudentDraft, group: Number(event.target.value) || 1 })} /></label><label><span>座位</span><input type="number" min={1} value={newStudentDraft.seat} onChange={(event) => setNewStudentDraft({ ...newStudentDraft, seat: Number(event.target.value) || 1 })} /></label><label><span>家长电话 <i>选填</i></span><input inputMode="tel" maxLength={13} value={newStudentDraft.parentPhone ?? ""} onChange={(event) => setNewStudentDraft({ ...newStudentDraft, parentPhone: event.target.value })} placeholder="11位手机号" /></label><label className="wide"><span>备注 <i>选填</i></span><textarea value={newStudentDraft.note ?? ""} onChange={(event) => setNewStudentDraft({ ...newStudentDraft, note: event.target.value })} placeholder="可填写需要长期记住的班务信息" /></label></div><footer><button type="button" onClick={() => setNewStudentDraft(null)}>取消</button><button type="button" className="roster-primary-action" onClick={saveNewStudent}>保存学生</button></footer></section></div>}
   </section>;
 }
@@ -4137,8 +4119,8 @@ function Homework({ data, update }: { data: ClassroomData; update: (fn: (d: Clas
   const activeClassId = data.activeClassId ?? data.rosterClasses?.[0]?.id ?? "class-1";
   const activeClass = data.rosterClasses?.find((item) => item.id === activeClassId);
   const tasks = (data.homeworkTasks ?? []).filter((item) => item.classId === activeClassId);
-  const [selectedTaskId, setSelectedTaskId] = useState("");
-  const [detailOpen, setDetailOpen] = useState(false);
+  const [selectedTaskId, setSelectedTaskId] = useState(tasks[0]?.id ?? "");
+  const [detailOpen, setDetailOpen] = useState(Boolean(tasks.length));
   const [createOpen, setCreateOpen] = useState(false);
   const [editOpen, setEditOpen] = useState(false);
   const [followOpen, setFollowOpen] = useState(false);
@@ -4384,12 +4366,13 @@ function Homework({ data, update }: { data: ClassroomData; update: (fn: (d: Clas
   }
 
   if (detailOpen && task) return <section className="homework-page homework-bootstrap-preview homework-detail-preview">
+    {createOpen && <div className="homework-modal-backdrop" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) setCreateOpen(false); }}><section className="homework-create-modal" role="dialog" aria-modal="true" aria-labelledby="create-homework-title-detail"><header><div><h3 id="create-homework-title-detail">新增作业</h3><p>确认后加入当前班级台账。</p></div><button aria-label="关闭" onClick={() => setCreateOpen(false)}>×</button></header><div className="homework-create-fields"><label>日期<input type="date" value={draftDate} onChange={(e) => { setDraftDate(e.target.value); setCreateError(""); }} /></label><label>学科<input value={draftSubject} onChange={(e) => { setDraftSubject(e.target.value); setCreateError(""); }} placeholder="请输入学科" autoFocus /></label><label className="wide">作业内容<textarea value={draftTitle} onChange={(e) => { setDraftTitle(e.target.value); setCreateError(""); }} placeholder="请输入具体作业内容" rows={4} /></label></div>{createError && <p className="homework-create-error">{createError}</p>}<footer><button className="cancel" onClick={() => setCreateOpen(false)}>取消</button><button className="confirm" onClick={confirmAddTask}>确认新增</button></footer></section></div>}
     <WorkbenchPageHeader
-      icon="📚"
+      icon="homework"
       tone="coral"
-      title={`${task.subject} · ${task.title}`}
-      description={`${task.date} · 集中处理这一项作业的提交、订正、复查和待跟进名单。`}
-      actions={<button className="primary-small homework-back workbench-header-primary" onClick={() => setDetailOpen(false)}>返回台账</button>}
+      title="作业追踪"
+      description={`${activeClass?.name ?? "当前班级"} · 先选择作业，再集中处理学生提交、订正和复查状态。`}
+      actions={<button className="primary-small workbench-header-primary" onClick={openCreateTask}>新增作业</button>}
     />
     {editOpen && <div className="homework-modal-backdrop" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) setEditOpen(false); }}>
       <section className="homework-create-modal" role="dialog" aria-modal="true" aria-labelledby="edit-homework-title">
@@ -4418,7 +4401,14 @@ function Homework({ data, update }: { data: ClassroomData; update: (fn: (d: Clas
         <footer><button className="cancel" onClick={() => setFollowOpen(false)}>关闭</button><button className="confirm" disabled={!followStudents.length} onClick={copyFollowList}>复制名单</button></footer>
       </section>
     </div>}
-    <section className="taskdesk-detail">
+    <section className="campus-homework-workspace"><aside className="campus-homework-master">
+      <header><div><h2>作业任务</h2><p>{filteredTasks.length} 项 · {unresolvedTasks} 项待处理</p></div><button type="button" onClick={resetTaskFilters}>重置</button></header>
+      <label className="campus-homework-search"><span>搜索任务</span><input value={taskKeyword} onChange={(event) => setTaskKeyword(event.target.value)} placeholder="学科或作业内容"/></label>
+      <div className="campus-homework-master-filters"><label>学科<select value={subjectFilter} onChange={(event) => setSubjectFilter(event.target.value)}><option value="全部">全部</option>{subjects.map(subject => <option key={subject}>{subject}</option>)}</select></label><label>月份<select value={selectedMonth} onChange={(event) => setSelectedMonth(event.target.value)}><option>全部月份</option>{archiveMonths.map(month => <option key={month}>{month}</option>)}</select></label></div>
+      <div className="campus-homework-task-list">{pagedTasks.map(item => { const summary = taskSummary(item); return <button type="button" className={item.id === task.id ? 'is-current' : ''} key={item.id} onClick={() => openTask(item.id)}><span><em>{item.subject}</em><time>{item.date}</time></span><b>{item.title}</b><small><i style={{width:`${summary.rate}%`}}/>{summary.rate}% 完成 · 未交 {summary.missing} · 待订正 {summary.fixing}</small></button>; })}{!pagedTasks.length && <p>没有匹配的作业任务。</p>}</div>
+      <footer><button disabled={safePage <= 1} onClick={() => setListPage(page => Math.max(1, page - 1))}>上一页</button><span>{safePage} / {totalPages}</span><button disabled={safePage >= totalPages} onClick={() => setListPage(page => Math.min(totalPages, page + 1))}>下一页</button></footer>
+    </aside><section className="taskdesk-detail campus-homework-detail">
+      <header className="campus-homework-detail-heading"><div><span>{task.subject}</span><h2>{task.title}</h2><p>{task.date} · {data.students.length} 名学生</p></div><ThemeArtwork slot="homework"/><button type="button" onClick={openEditTask}>编辑作业</button></header>
       <section className="taskdesk-detail-info">
         <div><span>日期</span><b>{task.date}</b></div>
         <div><span>学科</span><b>{task.subject}</b></div>
@@ -4440,11 +4430,13 @@ function Homework({ data, update }: { data: ClassroomData; update: (fn: (d: Clas
       <section className="taskdesk-bulk">
         <span>已选择 <b>{selectedStudentIds.length}</b> 人</span>
         <button onClick={toggleCurrentPage}>{pagedStudents.length > 0 && pagedStudents.every((student) => selectedStudentIds.includes(student.id)) ? "取消本页全选" : "全选本页"}</button>
-        <button disabled={!selectedStudentIds.length} onClick={() => bulkSet("已交")}>选中设为已交</button>
-        <button disabled={!selectedStudentIds.length} onClick={() => bulkSet("未交")}>选中设为未交</button>
-        <button disabled={!selectedStudentIds.length} onClick={() => bulkSet("待订正")}>选中设为待订正</button>
-        <button disabled={!selectedStudentIds.length} onClick={() => bulkSet("已复查")}>选中设为已复查</button>
-        <button className="follow-add" disabled={!selectedStudentIds.length} onClick={addSelectedToFollowList}>选中加入待跟进名单</button>
+        {selectedStudentIds.length > 0 && <>
+          <button onClick={() => bulkSet("已交")}>选中设为已交</button>
+          <button onClick={() => bulkSet("未交")}>选中设为未交</button>
+          <button onClick={() => bulkSet("待订正")}>选中设为待订正</button>
+          <button onClick={() => bulkSet("已复查")}>选中设为已复查</button>
+          <button className="follow-add" onClick={addSelectedToFollowList}>选中加入待跟进名单</button>
+        </>}
         <button onClick={() => { setCopyMessage(""); setFollowOpen(true); }}>查看待跟进名单（{followStudents.length}）</button>
       </section>
       <section className="homework-student-table-card">
@@ -4470,7 +4462,7 @@ function Homework({ data, update }: { data: ClassroomData; update: (fn: (d: Clas
         <span>学生第 {safeStudentPage} / {studentTotalPages} 页，共 {visibleStudents.length} 人</span>
         <button disabled={safeStudentPage >= studentTotalPages} onClick={() => setStudentPage((page) => Math.min(studentTotalPages, page + 1))}>下一页</button>
       </div>
-    </section>
+    </section></section>
   </section>;
 
   return <section className="homework-page homework-bootstrap-preview">

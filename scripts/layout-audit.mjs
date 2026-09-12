@@ -32,6 +32,7 @@ function runStaticAudit() {
   const globals = readFileSync(path.join(root, "app", "globals.css"), "utf8");
   const repair = readFileSync(path.join(root, "app", "workbench-repair.css"), "utf8");
   const layout = readFileSync(path.join(root, "app", "layout.tsx"), "utf8");
+  const workspaceChrome = readFileSync(path.join(root, "app", "components", "campus", "workspace-chrome.css"), "utf8");
   const route = readFileSync(path.join(root, "app", "api", "workspace", "[token]", "route.ts"), "utf8");
   const importantCount = (repair.match(/!important/g) || []).length;
 
@@ -40,6 +41,10 @@ function runStaticAudit() {
   assert(!/====\s*V\d|V3: workbench|V4|V5|V6|V7/.test(repair), "workbench-repair.css still contains versioned patch markers.", failures);
   assert(importantCount < 20, `workbench-repair.css still relies on too many !important rules (${importantCount}).`, failures);
   assert(/import "\.\/workbench-repair\.css";/.test(layout), "layout.tsx is not loading workbench-repair.css.", failures);
+  assert(/import "\.\/components\/campus\/workspace-chrome\.css";/.test(layout), "layout.tsx is not loading the campus workspace shell.", failures);
+  assert(/\.campus-workspace-shell\{[^}]*grid-template-columns:244px minmax\(0,1fr\)/.test(workspaceChrome), "Campus workspace is missing the reference-bound desktop grid.", failures);
+  assert(/@media\(max-width:1180px\)\{[\s\S]*?html\[data-theme=campus\] \.campus-workspace-shell\{grid-template-columns:220px minmax\(0,1fr\)/.test(workspaceChrome), "Campus workspace compact grid does not override the base selector.", failures);
+  assert(/\.campus-workspace-nav\{[^}]*position:sticky;[^}]*background:#fffefa/.test(workspaceChrome), "Campus workspace navigation is missing its continuous background rail.", failures);
   assert(/\.app-shell\s*\{[^}]*grid-template-columns:\s*236px\s+minmax\(0,\s*1fr\)/i.test(repair), "Missing stable sidebar/content shell grid.", failures);
   assert(/\.app-main\s*\{[^}]*margin-left:\s*0;/i.test(repair), "Missing app-main double-offset reset.", failures);
   assert(/\.page-content\s*\{[^}]*max-width:\s*none;/i.test(repair), "Page content is not full-width in the workbench shell.", failures);
@@ -233,7 +238,7 @@ async function runRuntimeAudit(url) {
         while (Date.now() - pageReadyStarted < 15000) {
           const ready = await page.send("Runtime.evaluate", {
             returnByValue: true,
-            expression: "Boolean(document.querySelector('.page-content'))",
+            expression: "Boolean(document.querySelector('.campus-workspace-content, .page-content'))",
           });
           if (ready.result.value) break;
           await wait(250);
@@ -405,9 +410,9 @@ async function runRuntimeAudit(url) {
         const { result } = await page.send("Runtime.evaluate", {
           returnByValue: true,
           expression: `(() => {
-            const content = document.querySelector('.page-content');
+            const content = document.querySelector('.campus-workspace-content, .page-content');
             const shell = document.querySelector('.app-shell');
-            const main = document.querySelector('.app-main');
+            const main = document.querySelector('.campus-workspace-main, .app-main');
             const rect = (el) => {
               if (!el) return null;
               const r = el.getBoundingClientRect();
@@ -469,7 +474,7 @@ async function runRuntimeAudit(url) {
                 return strongButtons.length >= 3;
               }).length,
               crampedDialogTextareas: [...document.querySelectorAll('[role="dialog"] textarea')].filter((element) => element.getClientRects().length && element.getBoundingClientRect().height < 99).map((element) => element.getAttribute('aria-label') || element.placeholder || 'unlabelled textarea'),
-              clippedSurfaces: [...document.querySelectorAll('.mobile-page [class*="filter"], .mobile-page .mobile-search, .mobile-page .mobile-card-list, .mobile-page .mobile-student-list, .page-content > section')].filter((element) => {
+              clippedSurfaces: [...document.querySelectorAll('.mobile-page [class*="filter"], .mobile-page .mobile-search, .mobile-page .mobile-card-list, .mobile-page .mobile-student-list, .campus-workspace-content > section, .page-content > section')].filter((element) => {
                 const style = getComputedStyle(element);
                 const rect = element.getBoundingClientRect();
                 return style.display !== 'none' && style.visibility !== 'hidden' && rect.width > 0 && (rect.left < -2 || rect.right > innerWidth + 2);
@@ -482,7 +487,7 @@ async function runRuntimeAudit(url) {
         const data = result.value;
         const failures = [];
         if (data?.crampedDialogTextareas?.length) failures.push(`Dialog long-text fields are too short: ${data.crampedDialogTextareas.join(', ')}`);
-        if (!data?.content) failures.push("Missing .page-content.");
+        if (!data?.content) failures.push("Missing workspace content container.");
         if (pageId === "schedule" && !data?.teacherAgenda) failures.push("Schedule module did not render the teacher agenda view.");
         if (pageId === "health" && openHealthEditor && !data?.healthEditor) failures.push("Health care module did not open its registration editor.");
         if (pageId === "health" && openHealthEditor && !data?.healthStudentPickerIdle) failures.push("Health care student picker opens results before the teacher starts searching.");
@@ -521,27 +526,27 @@ async function runRuntimeAudit(url) {
             returnByValue: true,
             expression: `(async () => {
               const scrollingElement = document.scrollingElement;
-              const sideNav = document.querySelector('.side-nav');
+              const sideNav = document.querySelector('.campus-workspace-nav, .side-nav');
               const sideNavMaxScroll = sideNav ? sideNav.scrollHeight - sideNav.clientHeight : 0;
               if (sideNav) sideNav.scrollTop = sideNav.scrollHeight;
               await new Promise((resolve) => setTimeout(resolve, 50));
               const sideNavScrollTop = sideNav?.scrollTop ?? 0;
               scrollingElement?.scrollTo(0, scrollingElement.scrollHeight);
               await new Promise((resolve) => setTimeout(resolve, 100));
-              const shell = document.querySelector('.app-shell');
+              const shell = document.querySelector('.campus-workspace-shell, .app-shell');
               return {
                 scrollY,
                 documentHeight: scrollingElement?.scrollHeight ?? 0,
                 viewportHeight: innerHeight,
                 sideNavMaxScroll,
                 sideNavScrollTop,
-                shellBackgroundImage: shell ? getComputedStyle(shell).backgroundImage : '',
+                navigationBackground: sideNav ? getComputedStyle(sideNav).backgroundColor : '',
               };
             })()`,
           });
           const sticky = stickyResult.result.value;
           if (sticky?.sideNavMaxScroll > 4 && sticky.sideNavScrollTop < sticky.sideNavMaxScroll - 4) failures.push("Desktop navigation cannot scroll to its final items.");
-          if (!sticky?.shellBackgroundImage || sticky.shellBackgroundImage === "none") failures.push("Desktop shell is missing the continuous sidebar background rail.");
+          if (!sticky?.navigationBackground || sticky.navigationBackground === "rgba(0, 0, 0, 0)") failures.push("Desktop shell is missing the continuous sidebar background rail.");
           if (screenshotDir) {
             const scrolledShot = await page.send("Page.captureScreenshot", { format: "png", fromSurface: true, captureBeyondViewport: false });
             writeFileSync(path.join(screenshotDir, `${viewport.name}-${pageId}-scrolled.png`), Buffer.from(scrolledShot.data, "base64"));
