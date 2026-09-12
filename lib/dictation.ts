@@ -89,7 +89,9 @@ export function assertDictation(value: unknown, data: ClassroomData, previous?: 
       const classroom = data.rosterClasses?.find(item => item.id === c.classId); if (!classroom) fail();
       for (const p of t.participants) if (!classroom.students.some(s => s.id === p.id) && !(old && contextKey(old.context) === contextKey(c) && old.participants.some(s => s.id === p.id))) fail();
     } else if (c.kind === 'family') {
-      if ('classId' in c || !d.children.some(child => child.id === c.childId) || t.participants.length !== 1 || t.participants[0].id !== c.childId) fail();
+      const familyChild = d.children.find(child => child.id === c.childId);
+      if ('classId' in c || !familyChild || t.participants.length !== 1 || t.participants[0].id !== c.childId) fail();
+      if (familyChild.archived && !old) throw new Error('已归档孩子不能新增听写任务，请先恢复档案');
     } else fail();
     for (const p of t.participants) if (!text(p.name,80) || !text(p.number,80)) fail();
     if (!t.results || typeof t.results !== 'object' || Array.isArray(t.results)) fail();
