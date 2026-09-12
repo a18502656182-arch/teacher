@@ -11,7 +11,7 @@
     "start": "vinext start",
     "qa:layout": "node scripts/layout-audit.mjs --static",
     "qa:strict": "node scripts/layout-audit.mjs --serve",
-    "test": "npm run build && node --test tests/rendered-html.test.mjs tests/dictation.test.mjs tests/workbench-operations.test.mjs tests/workspace-operations.test.mjs tests/legacy-css-scope.test.mjs tests/student-relations.test.mjs tests/student-profile.test.mjs tests/attendance-operations.test.mjs tests/points-rules-operations.test.mjs tests/growth-health-operations.test.mjs tests/records-notifications-operations.test.mjs tests/score-operations.test.mjs tests/reflection-operations.test.mjs && node tests/auth-flow.integration.mjs",
+    "test": "npm run build && node --test tests/rendered-html.test.mjs tests/dictation.test.mjs tests/workbench-operations.test.mjs tests/workspace-operations.test.mjs tests/legacy-css-scope.test.mjs tests/student-relations.test.mjs tests/student-profile.test.mjs tests/attendance-operations.test.mjs tests/points-rules-operations.test.mjs tests/growth-health-operations.test.mjs tests/records-notifications-operations.test.mjs tests/score-operations.test.mjs tests/reflection-operations.test.mjs tests/weekly-operations.test.mjs && node tests/auth-flow.integration.mjs",
     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
     "backup:db": "node scripts/backup-db.mjs",
     "db:generate": "drizzle-kit generate"

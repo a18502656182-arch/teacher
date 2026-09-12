@@ -448,6 +448,49 @@ async function runRuntimeAudit(url) {
             })()`,
           });
         }
+        if (pageId === "weekly") {
+          await page.send("Runtime.evaluate", {
+            returnByValue: true,
+            expression: `(() => {
+              const target = [...document.querySelectorAll('button')].find((button) => button.getClientRects().length > 0 && /新建(本周)?周报/.test(button.textContent ?? ''));
+              target?.click();
+              return Boolean(target);
+            })()`,
+          });
+          await wait(100);
+          await page.send("Runtime.evaluate", {
+            returnByValue: true,
+            expression: `(() => {
+              const isMobile = innerWidth <= 900;
+              const editor = isMobile ? document.querySelector('.mobile-bottom-sheet') : document.querySelector('.weekreport-editor');
+              const textarea = isMobile ? editor?.querySelector('textarea') : editor?.querySelector('textarea[aria-label="周报正文"]');
+              if (textarea) {
+                const setter = Object.getOwnPropertyDescriptor(HTMLTextAreaElement.prototype, 'value')?.set;
+                setter?.call(textarea, 'QA周报只读保留内容');
+                textarea.dispatchEvent(new Event('input', { bubbles: true }));
+              }
+              const action = [...(editor?.querySelectorAll('button') ?? [])].find((button) => button.textContent?.includes('保存草稿'));
+              action?.click();
+              return Boolean(editor && textarea && action);
+            })()`,
+          });
+          await wait(100);
+          await page.send("Runtime.evaluate", {
+            returnByValue: true,
+            expression: `(() => {
+              const isMobile = innerWidth <= 900;
+              const editor = isMobile ? document.querySelector('.mobile-bottom-sheet') : document.querySelector('.weekreport-editor');
+              const primary = [...(editor?.querySelectorAll('button') ?? [])].find((button) => button.textContent?.includes('完成并归档'));
+              const actions = primary?.closest('.mobile-sheet-actions');
+              window.__weeklyEditorHealthy = Boolean(editor && editor.querySelectorAll('textarea').length >= 2);
+              window.__weeklyReadOnlyShown = document.body.innerText.includes('当前为只读模式，周报内容未修改');
+              window.__weeklyDraftRetained = [...(editor?.querySelectorAll('textarea') ?? [])].some((textarea) => textarea.value === 'QA周报只读保留内容');
+              const primaryStyle = primary ? getComputedStyle(primary) : null;
+              window.__weeklyPrimaryFullWidth = !isMobile || Boolean(primary && actions && primaryStyle?.gridColumnStart === '1' && primaryStyle?.gridColumnEnd === '-1');
+              return window.__weeklyEditorHealthy && window.__weeklyReadOnlyShown && window.__weeklyDraftRetained && window.__weeklyPrimaryFullWidth;
+            })()`,
+          });
+        }
         await wait(250);
         const { result } = await page.send("Runtime.evaluate", {
           returnByValue: true,
@@ -485,6 +528,10 @@ async function runRuntimeAudit(url) {
               reflectionEditorHealthy: window.__reflectionEditorHealthy === true,
               reflectionReadOnlyShown: window.__reflectionReadOnlyShown === true,
               reflectionDraftRetained: window.__reflectionDraftRetained === true,
+              weeklyEditorHealthy: window.__weeklyEditorHealthy === true,
+              weeklyReadOnlyShown: window.__weeklyReadOnlyShown === true,
+              weeklyDraftRetained: window.__weeklyDraftRetained === true,
+              weeklyPrimaryFullWidth: window.__weeklyPrimaryFullWidth === true,
               shell: rect(shell),
               main: rect(main),
               content: rect(content),
@@ -555,6 +602,10 @@ async function runRuntimeAudit(url) {
         if (pageId === "reflection" && !data?.reflectionEditorHealthy) failures.push("Reflection editor did not expose all five long-text fields.");
         if (pageId === "reflection" && !data?.reflectionReadOnlyShown) failures.push("Reflection editor reported success instead of the demo/read-only state.");
         if (pageId === "reflection" && !data?.reflectionDraftRetained) failures.push("Reflection editor discarded the teacher's draft after a blocked read-only save.");
+        if (pageId === "weekly" && !data?.weeklyEditorHealthy) failures.push("Weekly report editor did not expose the report and next-action fields.");
+        if (pageId === "weekly" && !data?.weeklyReadOnlyShown) failures.push("Weekly report editor reported success instead of the demo/read-only state.");
+        if (pageId === "weekly" && !data?.weeklyDraftRetained) failures.push("Weekly report editor discarded the teacher's draft after a blocked read-only save.");
+        if (pageId === "weekly" && viewport.width <= 900 && !data?.weeklyPrimaryFullWidth) failures.push("Weekly report mobile primary action does not span the editor width.");
         if (runtimeErrors.length) failures.push(`Browser runtime error: ${runtimeErrors[0].slice(0, 500)}`);
         if (data?.text && new RegExp("[\\u935A\\u95BE\\u701B\\u7EFE\\u941D\\u4E3F\\u6500\\u5931\\u8F9C\\u6B8F]").test(data.text)) failures.push("Visible text still contains mojibake.");
         if (data && data.scrollWidth - data.viewportWidth > 10) failures.push(`Horizontal page overflow ${Math.round(data.scrollWidth - data.viewportWidth)}px.`);

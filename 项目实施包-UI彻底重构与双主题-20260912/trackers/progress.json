@@ -3,7 +3,7 @@
   "baselineCommit": "6e10e2dc314e09d0d72df9509730f57c5fde34e2",
   "implementationStatus": "in-progress",
   "active_task": "TASK-02",
-  "next_action": "继续TASK02班级周报（F-13/O-13）及其余页面族逐动作/浮层核验；F-02至F-12已展开，完整保存controller及根CSS/portal隔离未完成",
+  "next_action": "继续TASK02期末评语（F-14/O-14）及其余页面族逐动作/浮层核验；F-02至F-13已展开，完整保存controller及根CSS/portal隔离未完成",
   "milestones": {
     "M0": "in-progress",
     "M1": "planned",
@@ -12,7 +12,7 @@
     "M4": "planned",
     "M5": "planned"
   },
-  "note": "线上受检源码无需要覆盖的业务差异。F02-F12已展开；考试反思已统一当前班保存、幂等内部留痕、缺失成绩与只读语义，112项测试、认证集成、类型、ESLint和全站115项qa:strict通过；六宽度反思编辑器已用本地Chromium/CDP实测。准备性提取不代表TASK03/04/05/09完整门槛完成；正式新页尚未切换。",
+  "note": "线上受检源码无需要覆盖的业务差异。F02-F13已展开；班级周报已统一草稿/归档与当前班保存，按周证据排除无日期和当前累计替代值，122项测试、认证集成、类型、ESLint和全站115项qa:strict通过；六宽度周报编辑器已用本地Chromium/CDP实测并修正手机动作重叠。准备性提取不代表TASK03/04/05/09完整门槛完成；正式新页尚未切换。",
   "implementationStartCommit": "f321d5e9424e0020bdf1e56d52c31b986b503a53",
   "parallelPreparation": [
     "TASK-06",

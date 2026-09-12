@@ -17796,6 +17796,32 @@ textarea:focus {
     font-weight: 700;
   }
 
+  .mobile-weekly-editor-message {
+    grid-column: 1 / -1;
+    margin: 0;
+    padding: 10px 12px;
+    border: 1px solid var(--campus-line);
+    border-radius: 8px;
+    background: var(--campus-blue);
+    color: var(--campus-primary);
+    font-size: 13px;
+    font-weight: 750;
+    line-height: 1.45;
+  }
+
+  .mobile-weekly-submit-actions .primary {
+    grid-column: 1 / -1;
+  }
+
+  .mobile-sheet-actions.mobile-weekly-utility-actions {
+    position: static;
+    margin: 12px 0 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    backdrop-filter: none;
+  }
+
   .mobile-chip-tabs.duty-days {
     grid-template-columns: repeat(5, minmax(0, 1fr));
     gap: 6px;
