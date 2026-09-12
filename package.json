@@ -11,7 +11,7 @@
     "start": "vinext start",
     "qa:layout": "node scripts/layout-audit.mjs --static",
     "qa:strict": "node scripts/layout-audit.mjs --serve",
-    "test": "npm run build && node --test tests/rendered-html.test.mjs tests/dictation.test.mjs tests/workbench-operations.test.mjs tests/workspace-operations.test.mjs tests/legacy-css-scope.test.mjs && node tests/auth-flow.integration.mjs",
+    "test": "npm run build && node --test tests/rendered-html.test.mjs tests/dictation.test.mjs tests/workbench-operations.test.mjs tests/workspace-operations.test.mjs tests/legacy-css-scope.test.mjs tests/student-relations.test.mjs tests/student-profile.test.mjs && node tests/auth-flow.integration.mjs",
     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
     "backup:db": "node scripts/backup-db.mjs",
     "db:generate": "drizzle-kit generate"

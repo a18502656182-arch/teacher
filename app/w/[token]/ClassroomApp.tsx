@@ -22,6 +22,7 @@ import type { CadreRole, ClassScheduleData, ClassroomData, CommunicationRecord, 
 import { Attendance } from "./Attendance";
 import { ScheduleHub } from "./ScheduleHub";
 import { TeacherAgenda } from "./TeacherAgenda";
+import { removeStudentRelations } from "./features/students/relations";
 import { StudentProfile } from "./StudentProfile";
 import { HealthCare } from "./HealthCare";
 import { ScoreTrends } from "./ScoreTrends";
@@ -411,44 +412,6 @@ function scopeClassSettings(previous: ClassroomData, updated: ClassroomData): Cl
   };
 }
 
-function removeStudentRelations(data: ClassroomData, studentIds: Iterable<string>, classId: string): ClassroomData {
-  const ids = new Set(studentIds);
-  if (!ids.size) return data;
-  const classExamIds = new Set((data.scoreExams ?? []).filter((exam) => exam.classId === classId).map((exam) => exam.id));
-  const omitStudentKeys = <T,>(source: Record<string, T> | undefined) => Object.fromEntries(Object.entries(source ?? {}).filter(([studentId]) => !ids.has(studentId)));
-  return {
-    ...data,
-    homeworkTasks: data.homeworkTasks?.map((task) => task.classId === classId ? {
-      ...task,
-      statuses: omitStudentKeys(task.statuses),
-      followUpStudentIds: task.followUpStudentIds?.filter((studentId) => !ids.has(studentId)),
-    } : task),
-    pointEvents: data.pointEvents?.filter((event) => !ids.has(event.studentId)),
-    growthEvidence: data.growthEvidence?.filter((item) => !ids.has(item.studentId)),
-    cadres: data.cadres?.filter((role) => !ids.has(role.studentId)),
-    records: data.records.filter((record) => !record.studentId || !ids.has(record.studentId)),
-    scoreExams: data.scoreExams?.map((exam) => exam.classId === classId ? {
-      ...exam,
-      scores: omitStudentKeys(exam.scores),
-      levels: omitStudentKeys(exam.levels),
-      advice: omitStudentKeys(exam.advice),
-      focusSubjects: omitStudentKeys(exam.focusSubjects),
-      followUpStudentIds: exam.followUpStudentIds?.filter((studentId) => !ids.has(studentId)),
-      knowledgeItems: exam.knowledgeItems?.map((item) => ({ ...item, scores: omitStudentKeys(item.scores) })),
-    } : exam),
-    examReflections: data.examReflections?.filter((item) => !ids.has(item.studentId) && (!item.examId || !classExamIds.has(item.examId))),
-    termComments: data.termComments?.filter((item) => !ids.has(item.studentId)),
-    dutyJobs: data.dutyJobs?.map((job) => ({ ...job, studentIds: job.studentIds?.filter((studentId) => !ids.has(studentId)) })),
-    dutyRecords: data.dutyRecords?.map((record) => record.classId === classId ? { ...record, studentIds: record.studentIds.filter((studentId) => !ids.has(studentId)) } : record),
-    attendanceRecords: data.attendanceRecords?.filter((record) => !ids.has(record.studentId)),
-    teacherAgenda: data.teacherAgenda?.map((item) => item.classId === classId ? { ...item, relatedStudentIds: item.relatedStudentIds?.filter((studentId) => !ids.has(studentId)) } : item),
-    workLogs: data.workLogs?.map((item) => item.classId === classId ? { ...item, relatedStudentIds: item.relatedStudentIds?.filter((studentId) => !ids.has(studentId)) } : item),
-    dictation: data.dictation ? { ...data.dictation, tasks: data.dictation.tasks.map(t => t.context.kind === "class" && t.context.classId === classId ? { ...t, participants: t.participants.filter(p => !ids.has(p.id)), results: Object.fromEntries(Object.entries(t.results).filter(([id]) => !ids.has(id))) } : t).filter(t => t.participants.length > 0) } : undefined,
-    guardians: data.guardians?.filter((item) => !ids.has(item.studentId)),
-    careProfiles: data.careProfiles?.filter((item) => !ids.has(item.studentId)),
-    notificationDrafts: data.notificationDrafts?.map((item) => item.classId === classId ? { ...item, recipientStudentIds: item.recipientStudentIds?.filter((studentId) => !ids.has(studentId)) } : item),
-  };
-}
 
 function updateClassStudents(data: ClassroomData, classId: string, updater: (student: Student) => Student): ClassroomData {
   const students = data.students.map(updater);

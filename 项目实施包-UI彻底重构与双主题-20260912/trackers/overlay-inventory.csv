@@ -1,6 +1,6 @@
 ﻿id,module,seed_scope,old_trigger,new_component,dirty_close,nested_focus,mobile,save_failure,status,evidence
 O-01,dashboard,真实待办跳转、课程日程、听写摘要、值日、学生近況、家庭入口,待展开,,not-run,not-run,not-run,not-run,not-inventoried,
-O-02,students,新增、编辑、删除关联、导入/替换名单、搜索、分页、批量编辑、档案、监护人,待展开,,not-run,not-run,not-run,not-run,not-inventoried,
+O-02,students,"新增/编辑、删除确认、替换确认、文本追加、批量编辑、学生档案/监护人/照护","desktop:newStudentDraft/profileStudentId/editMode+bulk/replaceNames danger; mobile:MobileInfoSheet edit/bulk/profile; shared requestDangerConfirm",,"旧新增/批量无独立脏守卫；档案取消/背景/关闭直接放弃；危险确认取消不变","根DialogAccessibility管理匹配浮层；新嵌套焦点未验","旧桌面/手机入口存在；新视图未验","编辑先本地应用，服务器失败由全局草稿/重试承接；听写历史只读",inventoried-not-migrated,evidence/student-profile-relations-20260912.md
 O-03,homework,新增/编辑/删除任务、历史、学科月份筛选、名单搜索、批量状态、备注、跟进名单复制,待展开,,not-run,not-run,not-run,not-run,not-inventoried,
 O-04,attendance,日期/月视图、状态、请假与备注、搜索筛选、多选、批量保存、一键正常,待展开,,not-run,not-run,not-run,not-run,not-inventoried,
 O-05,dictation,创建、参与者、人工报词材料、逐生错词、核对保存下一人、词库文本导入、课次推进、快照、复听、错词本、历史30天统计,待展开,,not-run,not-run,not-run,not-run,not-inventoried,

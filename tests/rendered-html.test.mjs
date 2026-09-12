@@ -23,6 +23,7 @@ const attendancePage = read("app/w/[token]/Attendance.tsx");
 const teacherAgenda = read("app/w/[token]/TeacherAgenda.tsx");
 const scheduleHub = read("app/w/[token]/ScheduleHub.tsx");
 const studentProfile = read("app/w/[token]/StudentProfile.tsx");
+const studentProfileOperations = read("app/w/[token]/features/students/profile.ts");
 const scoreTrends = read("app/w/[token]/ScoreTrends.tsx");
 const classroomTools = read("app/w/[token]/ClassroomTools.tsx");
 const notificationDrafts = read("app/w/[token]/NotificationDrafts.tsx");
@@ -264,7 +265,7 @@ test("student profile keeps guardians and care information out of the roster lis
   assert.match(classroomTypes, /guardians\?: Guardian\[\]/);
   assert.match(classroomTypes, /careProfiles\?: CareProfile\[\]/);
   assert.match(app, /<StudentProfile student=/);
-  assert.match(app, /guardians: data\.guardians\?\.filter/);
+  assert.match(studentProfileOperations, /guardians: \[\.\.\.\(current\.guardians \?\? \[\]\)\.filter/);
   assert.match(studentProfile, /仅在本详情内向班主任显示/);
   assert.match(studentProfile, /visibleScope: "班主任"/);
   assert.match(studentProfile, /考勤历史/);

@@ -1,7 +1,7 @@
 "use client";
 
 import { StudentDictationHistory } from './dictation/DictationSummary';
-import { useMemo, useState } from "react";
+import { useStudentProfileController } from "./features/students/useStudentProfileController";
 import { makeId } from "@/lib/classroom";
 import type { CareProfile, ClassroomData, Guardian, Student } from "@/lib/classroom";
 
@@ -9,26 +9,7 @@ function blankGuardian(studentId: string): Guardian { return { id: makeId("guard
 function blankCare(studentId: string): CareProfile { return { id: makeId("care"), studentId, category: "健康提醒", severity: "一般", instruction: "", contraindication: "", reviewedAt: new Date().toISOString().slice(0, 10), visibleScope: "班主任" }; }
 
 export function StudentProfile({ student, data, update, onClose }: { student: Student; data: ClassroomData; update: (fn: (d: ClassroomData) => ClassroomData) => void; onClose: () => void }) {
-  const classId = data.activeClassId ?? data.rosterClasses?.[0]?.id ?? "";
-  const [residence, setResidence] = useState(student.residence ?? "未填");
-  const [tags, setTags] = useState((student.tags ?? []).join("、"));
-  const [guardians, setGuardians] = useState<Guardian[]>(() => (data.guardians ?? []).filter((item) => item.studentId === student.id));
-  const [care, setCare] = useState<CareProfile[]>(() => (data.careProfiles ?? []).filter((item) => item.studentId === student.id));
-  const [message, setMessage] = useState("");
-  const visibleCare = useMemo(() => care, [care]);
-  const attendanceHistory = useMemo(() => (data.attendanceRecords ?? []).filter((item) => item.classId === classId && item.studentId === student.id).toSorted((a, b) => b.date.localeCompare(a.date)).slice(0, 24), [classId, data.attendanceRecords, student.id]);
-  function save() {
-    const cleanedGuardians = guardians.filter((item) => item.name.trim()).map((item, index) => ({ ...item, classId, name: item.name.trim(), phone: item.phone?.replace(/[\s-]/g, "") ?? "", isPrimary: Boolean(item.isPrimary), emergencyPriority: Math.max(1, Number(item.emergencyPriority) || index + 1) }));
-    if (cleanedGuardians.some((item) => item.phone && !/^1[3-9]\d{9}$/.test(item.phone))) return setMessage("监护人电话需为 11 位手机号，或留空。");
-    const cleanedCare = care.map((item) => ({ ...item, classId, instruction: item.instruction.trim(), contraindication: item.contraindication?.trim() ?? "", visibleScope: "班主任" as const }));
-    update((current) => ({ ...current,
-      students: current.students.map((item) => item.id === student.id ? { ...item, residence, tags: tags.split(/[、，,]/).map((item) => item.trim()).filter(Boolean).slice(0, 8) } : item),
-      rosterClasses: current.rosterClasses?.map((classroom) => classroom.id === classId ? { ...classroom, students: classroom.students.map((item) => item.id === student.id ? { ...item, residence, tags: tags.split(/[、，,]/).map((item) => item.trim()).filter(Boolean).slice(0, 8) } : item) } : classroom),
-      guardians: [...(current.guardians ?? []).filter((item) => item.studentId !== student.id), ...cleanedGuardians],
-      careProfiles: [...(current.careProfiles ?? []).filter((item) => item.studentId !== student.id), ...cleanedCare],
-    }));
-    onClose();
-  }
+  const { residence, setResidence, tags, setTags, guardians, setGuardians, care, setCare, message, visibleCare, attendanceHistory, save } = useStudentProfileController({ student, data, update, onClose });
   return <div className="student-profile-backdrop" role="presentation" onMouseDown={(event) => { if (event.currentTarget === event.target) onClose(); }}><section className="student-profile-dialog" role="dialog" aria-modal="true" aria-labelledby="student-profile-title">
     <header><div><span>受控学生档案</span><h2 id="student-profile-title">{student.name} · 联系与照护</h2><p>健康与紧急信息仅在本详情内向班主任显示，不进入名单主表。</p></div><button type="button" onClick={onClose} aria-label="关闭">×</button></header>
     <div className="student-profile-body"><section><h3>基础扩展</h3><div className="student-profile-fields"><label><span>住宿情况</span><select value={residence} onChange={(event) => setResidence(event.target.value as typeof residence)}><option>未填</option><option>走读</option><option>住宿</option></select></label><label className="wide"><span>学生标签</span><input value={tags} onChange={(event) => setTags(event.target.value)} placeholder="如：需作业提醒、班干部候选（用顿号或逗号分隔）" /></label></div></section>
