@@ -9,6 +9,8 @@ import { lazy, Suspense } from 'react';
 import { Dashboard } from '@/app/components/campus/Dashboard';
 import { CampusIcon, MetricStrip, ThemeArtwork } from '@/app/components/campus/primitives';
 import { DesktopHeader, SaveStatus, WorkspaceNav, workspaceModules, type LearningScene, type WorkspaceModuleId } from '@/app/components/campus/WorkspaceChrome';
+import { applyHomeworkStatuses } from './features/homework/operations';
+import { applyStudentBatch } from './features/students/operations';
 import { canLeaveDictation } from './dictation/navigation';
 const Dictation = lazy(() => import('./dictation/Dictation'));
 
@@ -1174,15 +1176,7 @@ function MobileStudents({ data, activeClass, update }: { data: ClassroomData; ac
       notify("请先选择学生", "error");
       return;
     }
-    const group = batchDraft.group.trim() ? Math.max(1, Number(batchDraft.group) || 1) : null;
-    const note = batchDraft.note.trim();
-    const selectedSet = new Set(selectedStudentIds);
-    update((current) => syncStudents(current, students.map((student) => selectedSet.has(student.id) ? {
-      ...student,
-      ...(group ? { group } : {}),
-      ...(batchDraft.gender !== "不修改" ? { gender: batchDraft.gender } : {}),
-      ...(note ? { note } : {}),
-    } : student)));
+    update((current) => syncStudents(current, applyStudentBatch(students, selectedStudentIds, batchDraft)));
     setBatchOpen(false);
     setBatchDraft({ group: "", gender: "不修改", note: "" });
     notify(`已批量更新 ${selectedStudentIds.length} 名学生`, "success");
@@ -1309,16 +1303,7 @@ function MobileHomework({ data, activeClass, update, open }: { data: ClassroomDa
   }, [selected?.id]);
   function setStudentHomeworkStatus(studentId: string, status: HomeworkTask["statuses"][string]) {
     if (!selected) return;
-    const studentHomeworkStatus = status === "已复查" ? "已交" : status;
-    update((current) => ({
-      ...current,
-      homeworkTasks: (current.homeworkTasks ?? []).map((task) => task.id === selected.id ? { ...task, statuses: { ...task.statuses, [studentId]: status } } : task),
-      students: current.students.map((student) => student.id === studentId ? { ...student, homework: studentHomeworkStatus } : student),
-      rosterClasses: current.rosterClasses?.map((rosterClass) => rosterClass.id === activeClass.id ? {
-        ...rosterClass,
-        students: rosterClass.students.map((student) => student.id === studentId ? { ...student, homework: studentHomeworkStatus } : student),
-      } : rosterClass),
-    }));
+    update((current) => applyHomeworkStatuses({ ...current, homeworkTasks: current.homeworkTasks ?? [] }, activeClass.id, selected.id, [studentId], status));
   }
   function toggleHomeworkStudent(id: string) {
     setDetailSelectedIds((current) => current.includes(id) ? current.filter((item) => item !== id) : [...current, id]);
@@ -1336,17 +1321,7 @@ function MobileHomework({ data, activeClass, update, open }: { data: ClassroomDa
       notify("请先选择学生", "error");
       return;
     }
-    const selectedSet = new Set(detailSelectedIds);
-    const studentHomeworkStatus = status === "已复查" ? "已交" : status;
-    update((current) => ({
-      ...current,
-      homeworkTasks: (current.homeworkTasks ?? []).map((task) => task.id === selected.id ? { ...task, statuses: { ...task.statuses, ...Object.fromEntries(detailSelectedIds.map((id) => [id, status])) } } : task),
-      students: current.students.map((student) => selectedSet.has(student.id) ? { ...student, homework: studentHomeworkStatus } : student),
-      rosterClasses: current.rosterClasses?.map((rosterClass) => rosterClass.id === activeClass.id ? {
-        ...rosterClass,
-        students: rosterClass.students.map((student) => selectedSet.has(student.id) ? { ...student, homework: studentHomeworkStatus } : student),
-      } : rosterClass),
-    }));
+    update((current) => applyHomeworkStatuses({ ...current, homeworkTasks: current.homeworkTasks ?? [] }, activeClass.id, selected.id, detailSelectedIds, status));
     setDetailSelectedIds([]);
     notify(`已批量更新 ${detailSelectedIds.length} 名学生`, "success");
   }
@@ -3928,15 +3903,7 @@ function Students({ data, update }: { data: ClassroomData; update: (fn: (d: Clas
   }
   function applyBatchEdit() {
     if (!selectedIds.length) return setMessage("请先勾选要批量编辑的学生。");
-    const group = batchDraft.group.trim() ? Math.max(1, Number(batchDraft.group) || 1) : null;
-    const note = batchDraft.note.trim();
-    const selectedSet = new Set(selectedIds);
-    update((d) => syncActiveClass(d, classStudents.map((s) => selectedSet.has(s.id) ? {
-      ...s,
-      ...(group ? { group } : {}),
-      ...(batchDraft.gender !== "不修改" ? { gender: batchDraft.gender } : {}),
-      ...(note ? { note } : {}),
-    } : s)));
+    update((d) => syncActiveClass(d, applyStudentBatch(classStudents, selectedIds, batchDraft)));
     setMessage(`已批量更新 ${selectedIds.length} 名学生的小组、性别或备注。`);
     setBatchDraft({ group: "", gender: "不修改", note: "" });
   }
@@ -4285,10 +4252,7 @@ function Homework({ data, update }: { data: ClassroomData; update: (fn: (d: Clas
   }
   function setStatus(student: Student, next: HomeworkTask["statuses"][string]) {
     if (!taskId) return;
-    update((d) => updateClassStudents({
-      ...d,
-      homeworkTasks: d.homeworkTasks?.map((item) => item.id === taskId ? { ...item, statuses: { ...item.statuses, [student.id]: next } } : item),
-    }, activeClassId, (current) => current.id === student.id ? { ...current, homework: next === "已复查" ? "已交" : next } : current));
+    update((d) => applyHomeworkStatuses(d, activeClassId, taskId, [student.id], next));
   }
   function toggle(student: Student) {
     if (!task) return;
@@ -4319,11 +4283,7 @@ function Homework({ data, update }: { data: ClassroomData; update: (fn: (d: Clas
     if (!taskId) return;
     const target = data.students.filter((student) => selectedStudentIds.includes(student.id));
     if (!target.length) return;
-    const ids = new Set(target.map((student) => student.id));
-    update((d) => updateClassStudents({
-      ...d,
-      homeworkTasks: d.homeworkTasks?.map((item) => item.id === taskId ? { ...item, statuses: { ...item.statuses, ...Object.fromEntries(target.map((student) => [student.id, next])) } } : item),
-    }, activeClassId, (student) => ids.has(student.id) ? { ...student, homework: next === "已复查" ? "已交" : next } : student));
+    update((d) => applyHomeworkStatuses(d, activeClassId, taskId, target.map((student) => student.id), next));
     setSelectedStudentIds([]);
   }
   function setStudentNote(studentId: string, note: string) {

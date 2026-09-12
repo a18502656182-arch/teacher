@@ -3,7 +3,7 @@
   "baselineCommit": "6e10e2dc314e09d0d72df9509730f57c5fde34e2",
   "implementationStatus": "in-progress",
   "active_task": "TASK-02",
-  "next_action": "继续学生/作业逐handler核验；听写共享hook及新视图已独立验证，待保存边界/CSS隔离/壳层门槛后接线",
+  "next_action": "继续档案/导入导出/相关浮层handler核验；学生作业纯操作已两端共用；保存层与旧CSS隔离尚待实施",
   "milestones": {
     "M0": "in-progress",
     "M1": "planned",
@@ -12,7 +12,7 @@
     "M4": "planned",
     "M5": "planned"
   },
-  "note": "TASK02仍未完成。听写新视图仅独立预览，生产旧视图共用提取hook。见evidence/grading-controller-20260912.md",
+  "note": "TASK02部分展开，见evidence/students-homework-operations-20260912.md。commitWorkspace听写专用不可直用于学生作业；未切换新页面。",
   "implementationStartCommit": "f321d5e9424e0020bdf1e56d52c31b986b503a53",
   "parallelPreparation": [
     "TASK-06",
