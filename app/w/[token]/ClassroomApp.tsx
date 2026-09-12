@@ -12,6 +12,7 @@ import { DesktopHeader, SaveStatus, WorkspaceNav, workspaceModules, type Learnin
 import { applyHomeworkStatuses } from './features/homework/operations';
 import { addGrowthEvidence, growthEvidenceForStudent } from './features/growth/operations';
 import { communicationRecordsForClass, localCommunicationDate, patchCommunicationStatus, recordBelongsToClass, recordBelongsToStudent, removeCommunicationRecord, saveCommunicationRecord } from './features/records/operations';
+import { examReflectionsForClass, saveExamReflection } from './features/reflections/operations';
 import { applyPointEvents, pointEventsForClass, undoPointEvent as undoPointEventInClass } from './features/points/operations';
 import { defaultPointRules } from './features/rules/catalog';
 import { deletePointRule, patchPointRule, pointRulesForData, pointRuleUsageCount, replacePointRules, upsertPointRule } from './features/rules/operations';
@@ -733,7 +734,7 @@ export default function ClassroomApp({ token }: { token: string }) {
           {active === "cadres" && <Cadres data={workspace.data} update={updateData} />}
           {active === "records" && <Records data={workspace.data} update={updateData} />}
           {active === "scores" && <Scores workspaceToken={token} data={workspace.data} update={updateData} />}
-          {active === "reflection" && <Reflection data={workspace.data} update={updateData} open={openModule} />}
+          {active === "reflection" && <Reflection data={workspace.data} update={updateData} open={openModule} readOnly={isDemo || isReadOnly} />}
           {active === "comments" && <Comments workspaceToken={token} data={workspace.data} update={updateData} />}
         </div>
       </main>
@@ -805,7 +806,7 @@ function MobileWorkbench({ workspaceToken, workspace, classes, activeClass, acti
       {active === "homework" && <MobileHomework data={data} activeClass={activeClass} update={update} open={openModule} />}
       {active === "scores" && <MobileScores workspaceToken={workspaceToken} data={data} activeClass={activeClass} update={update} open={openModule} />}
       {active === "health" && <HealthCare data={data} update={update} mobile />}
-      {!isPrimary && active !== "attendance" && active !== "health" && active !== "dictation" && <MobileSecondaryPage workspaceToken={workspaceToken} active={active} data={data} activeClass={activeClass} update={update} open={openModule} />}
+      {!isPrimary && active !== "attendance" && active !== "health" && active !== "dictation" && <MobileSecondaryPage workspaceToken={workspaceToken} active={active} data={data} activeClass={activeClass} update={update} open={openModule} readOnly={isDemo || isReadOnly} />}
     </main>
     <nav className="mobile-tabbar" aria-label="手机底部导航">
       {primaryTabs.map((item) => <button type="button" data-module={item.id} key={item.id} className={active === item.id ? "active" : ""} onClick={() => openModule(item.id)}><i aria-hidden="true"><CampusIcon name={item.id}/></i><span>{item.label}</span></button>)}
@@ -1699,7 +1700,7 @@ function MobileMore({ current, open, compact }: { current: ModuleId; open: (id: 
   </div>;
 }
 
-function MobileSecondaryPage({ workspaceToken, active, data, activeClass, update, open }: { workspaceToken: string; active: ModuleId; data: ClassroomData; activeClass: RosterClass; update: (fn: (d: ClassroomData) => ClassroomData) => void; open: (id: ModuleId) => void }) {
+function MobileSecondaryPage({ workspaceToken, active, data, activeClass, update, open, readOnly }: { workspaceToken: string; active: ModuleId; data: ClassroomData; activeClass: RosterClass; update: (fn: (d: ClassroomData) => ClassroomData) => void; open: (id: ModuleId) => void; readOnly: boolean }) {
   const mobileDutyDays = data.scheduleConfig?.days?.map((day) => day.trim()).filter(Boolean) ?? days;
   const mobileDutyDaysKey = mobileDutyDays.join("|");
   const currentWeekday = ["周日", "周一", "周二", "周三", "周四", "周五", "周六"][new Date().getDay()];
@@ -1778,10 +1779,10 @@ function MobileSecondaryPage({ workspaceToken, active, data, activeClass, update
   const [recordTypeFilter, setRecordTypeFilter] = useState("全部类型");
   const [recordStatusFilter, setRecordStatusFilter] = useState<"全部状态" | CommunicationRecord["status"]>("全部状态");
   const [reflectionEditorOpen, setReflectionEditorOpen] = useState(false);
-  const [reflectionDraft, setReflectionDraft] = useState<ExamReflection>({ id: "", studentId: activeClass.students[0]?.id ?? data.students[0]?.id ?? "", examId: data.scoreExams?.[0]?.id, date: today(), problem: "", reason: "", action: "", familyMessage: "", teacherNote: "", status: "草稿" });
+  const [reflectionDraft, setReflectionDraft] = useState<ExamReflection>({ id: "", studentId: activeClass.students[0]?.id ?? data.students[0]?.id ?? "", examId: scoreExamsForClass(data, activeClass.id)[0]?.id, date: today(), problem: "", reason: "", action: "", familyMessage: "", teacherNote: "", status: "草稿" });
   const [reflectionKeyword, setReflectionKeyword] = useState("");
   const [reflectionStatusFilter, setReflectionStatusFilter] = useState<"全部" | ExamReflection["status"]>("全部");
-  const [reflectionExamFilter, setReflectionExamFilter] = useState(data.scoreExams?.[0]?.id ?? "");
+  const [reflectionExamFilter, setReflectionExamFilter] = useState(scoreExamsForClass(data, activeClass.id)[0]?.id ?? "");
   const [reflectionMobileView, setReflectionMobileView] = useState<"students" | "saved">("students");
   const [reflectionStudentPage, setReflectionStudentPage] = useState(1);
   const [reflectionSavedPage, setReflectionSavedPage] = useState(1);
@@ -1813,12 +1814,20 @@ function MobileSecondaryPage({ workspaceToken, active, data, activeClass, update
   const [dutyDraft, setDutyDraft] = useState<DutyJob>({ id: "", name: "", area: "", standard: "", studentIds: [], enabled: true });
   const [cadreDraft, setCadreDraft] = useState<CadreRole>({ id: "", role: "", studentId: activeClass.students[0]?.id ?? data.students[0]?.id ?? "", duty: "", scope: "班级管理", term: activeClass.term || "本学期", status: "在任", weeklyScore: 4, summary: "" });
   const students = activeClass.students?.length ? activeClass.students : data.students;
+  const mobileReflectionExams = scoreExamsForClass(data, activeClass.id);
+  const mobileReflectionExamIdsKey = mobileReflectionExams.map((item) => item.id).join("|");
+  const firstMobileReflectionExamId = mobileReflectionExams[0]?.id ?? "";
+  useEffect(() => {
+    if (mobileReflectionExamIdsKey.split("|").includes(reflectionExamFilter)) return;
+    setReflectionExamFilter(firstMobileReflectionExamId);
+    setReflectionStudentPage(1);
+  }, [firstMobileReflectionExamId, mobileReflectionExamIdsKey, reflectionExamFilter]);
   const studentName = (id: string) => students.find((student) => student.id === id)?.name ?? "未选择学生";
   const title = workspaceModules.find((item) => item.id === active)?.label ?? "更多工具";
   const records = communicationRecordsForClass(data, activeClass.id);
   const events = pointEventsForClass(data, activeClass.id);
   const evidence = (data.growthEvidence ?? []).filter((item) => item.source !== "家校沟通" && students.some((student) => student.id === item.studentId));
-  const reflections = (data.examReflections ?? []).filter((item) => students.some((student) => student.id === item.studentId));
+  const reflections = examReflectionsForClass(data, activeClass.id);
   const comments = (data.termComments ?? []).filter((item) => students.some((student) => student.id === item.studentId));
   const dutyJobs = data.dutyJobs ?? [];
   const dutyRecords = (data.dutyRecords ?? []).filter((record) => !record.classId || record.classId === activeClass.id);
@@ -2434,26 +2443,27 @@ function MobileSecondaryPage({ workspaceToken, active, data, activeClass, update
   }
   function openReflectionEditor(item?: ExamReflection) {
     setDetail(null);
-    setReflectionDraft(item ? { ...item } : { id: "", studentId: students[0]?.id ?? "", examId: reflectionExamFilter || data.scoreExams?.[0]?.id, date: today(), problem: "", reason: "", action: "", familyMessage: "", teacherNote: "", status: "草稿" });
+    const classExamId = reflectionExamFilter || scoreExamsForClass(data, activeClass.id)[0]?.id;
+    setReflectionDraft(item ? { ...item, examId: item.examId || classExamId } : { id: "", studentId: students[0]?.id ?? "", examId: classExamId, date: today(), problem: "", reason: "", action: "", familyMessage: "", teacherNote: "", status: "草稿" });
     setReflectionEditorOpen(true);
   }
   function saveReflectionMobile(status: ExamReflection["status"]) {
-    if (!reflectionDraft.studentId || !reflectionDraft.problem.trim()) {
-      notify("请选择学生并填写主要问题", "error");
+    if (readOnly) {
+      notify("当前为只读模式，反思内容未修改", "info");
       return;
     }
-    const next: ExamReflection = { ...reflectionDraft, id: reflectionDraft.id || makeId(), status };
-    const student = students.find((item) => item.id === next.studentId);
-    const exam = (data.scoreExams ?? []).find((item) => item.id === next.examId);
-    const record: CommunicationRecord | null = status === "已完成" && student ? { id: makeId(), classId: activeClass.id, studentId: student.id, student: student.name, type: "考试反思", channel: "学生复盘", content: `考试：${exam?.title ?? "未关联考试"}｜问题：${next.problem}｜原因：${next.reason}｜行动：${next.action}`, followUp: next.teacherNote, status: "已归档", date: today() } : null;
-    update((current) => ({
-      ...current,
-      scoreExams: status === "已完成" && next.examId ? (current.scoreExams ?? []).map((item) => item.id === next.examId ? { ...item, followUpStudentIds: (item.followUpStudentIds ?? []).filter((studentId) => studentId !== next.studentId) } : item) : current.scoreExams,
-      examReflections: [next, ...(current.examReflections ?? []).filter((item) => item.id !== next.id)],
-      records: record ? [record, ...current.records] : current.records,
-    }));
+    const reflectionId = reflectionDraft.id || makeId();
+    const recordId = makeId();
+    const input = { ...reflectionDraft, id: reflectionId };
+    const preview = saveExamReflection(data, activeClass.id, input, status, () => reflectionId, () => recordId);
+    if (preview.error) {
+      notify(preview.error, "error");
+      return;
+    }
+    update((current) => saveExamReflection(current, activeClass.id, input, status, () => reflectionId, () => recordId).data ?? current);
+    setReflectionDraft(preview.reflection!);
     setReflectionEditorOpen(false);
-    notify(status === "已完成" ? "考试反思已完成并归档" : "考试反思草稿已保存", "success");
+    notify(status === "已完成" ? "反思与家校沟通留痕已更新，正在同步" : "反思草稿已更新，正在同步", "info");
   }
   function commentRecordsFor(student: Student) {
     return records.filter((record) => recordBelongsToStudent(record, student, activeClass.id));
@@ -3185,7 +3195,7 @@ function MobileSecondaryPage({ workspaceToken, active, data, activeClass, update
   }
 
   if (active === "reflection") {
-    const reflectionExams = scoreExamsForClass(data, activeClass.id);
+    const reflectionExams = mobileReflectionExams;
     if (!reflectionExams.length) return <div className="mobile-stack mobile-reflection-page">
       <MobileSectionHero title={title} text="先建立真实考试，再为学生填写考试反思。" />
       <section className="mobile-card-list"><article><b>还没有可反思的考试</b><span>成绩分析中新增考试后，这里会显示对应学生和成绩上下文。</span><button type="button" onClick={() => open("scores")}>去成绩分析</button></article></section>
@@ -3243,7 +3253,8 @@ function MobileSecondaryPage({ workspaceToken, active, data, activeClass, update
         if (!currentReflectionExam) return null;
         const itemReflection = reflections.find((item) => item.examId === currentReflectionExam.id && item.studentId === row.student.id);
         const statusText = itemReflection?.status ?? (row.followUp ? "重点跟进" : "未填写");
-        return <button type="button" className={row.followUp ? "follow" : ""} key={`${currentReflectionExam.id}-${row.student.id}`} onClick={() => openLinkedReflection(currentReflectionExam, row)}><span><b>{row.student.name} · {statusText}</b><small>总分 {row.total} · 平均 {row.average} · {row.followUp ? "需要重点复盘" : "常规复盘"}</small></span><em>{itemReflection ? "继续编辑" : "填写"}</em></button>;
+        const scoreText = row.complete ? `总分 ${row.total} · 平均 ${row.average}` : row.enteredCount ? `已录 ${row.enteredCount}/${currentReflectionSubjects.length} · 已录平均 ${row.average}` : "成绩未录入";
+        return <button type="button" className={row.followUp ? "follow" : ""} key={`${currentReflectionExam.id}-${row.student.id}`} onClick={() => openLinkedReflection(currentReflectionExam, row)}><span><b>{row.student.name} · {statusText}</b><small>{scoreText} · {row.followUp ? "需要重点复盘" : "常规复盘"}</small></span><em>{itemReflection ? "继续编辑" : "填写"}</em></button>;
       })}{!currentReflectionRows.length && <article><b>暂无成绩数据</b><span>请先在成绩分析页面录入本次考试成绩。</span></article>}</div>{currentReflectionRows.length > reflectionPageSize && <div className="mobile-list-pager"><button type="button" disabled={safeReflectionStudentPage <= 1} onClick={() => setReflectionStudentPage((page) => page - 1)}>上一页</button><span>{safeReflectionStudentPage} / {reflectionStudentPageCount}</span><button type="button" disabled={safeReflectionStudentPage >= reflectionStudentPageCount} onClick={() => setReflectionStudentPage((page) => page + 1)}>下一页</button></div>}</section>}
       {reflectionMobileView === "saved" && <><label className="mobile-search"><span>搜索已保存反思</span><input value={reflectionKeyword} onChange={(event) => setReflectionKeyword(event.target.value)} placeholder="学生、问题、原因、行动或备注" /></label>
       <nav className="mobile-chip-tabs">{["全部", "草稿", "已完成"].map((item) => <button type="button" className={reflectionStatusFilter === item ? "active" : ""} key={item} onClick={() => setReflectionStatusFilter(item as typeof reflectionStatusFilter)}>{item}</button>)}</nav>
@@ -6549,16 +6560,16 @@ function ScoresWithExam({ workspaceToken, data, update }: { workspaceToken: stri
   </>;
 }
 
-function Reflection({ data, update, open }: { data: ClassroomData; update: (fn: (d: ClassroomData) => ClassroomData) => void; open: (id: ModuleId) => void }) {
+function Reflection({ data, update, open, readOnly }: { data: ClassroomData; update: (fn: (d: ClassroomData) => ClassroomData) => void; open: (id: ModuleId) => void; readOnly: boolean }) {
   const activeClassId = data.activeClassId ?? data.rosterClasses?.[0]?.id ?? "class-1";
   if (!scoreExamsForClass(data, activeClassId).length) return <>
     <WorkbenchPageHeader icon="📝" tone="iris" title="本次考试反思" description="先建立真实考试，再为学生填写考试反思。" />
     <section className="reflection5-page"><section className="reflection5-current workbench-page-context"><div className="reflection5-current-main"><span>考试反思</span><h3>还没有可反思的考试</h3><p>成绩分析中新增考试后，这里会显示对应学生和成绩上下文。</p></div><div className="reflection5-actions"><button type="button" onClick={() => open("scores")}>去成绩分析</button></div></section></section>
   </>;
-  return <ReflectionWithExam data={data} update={update} />;
+  return <ReflectionWithExam data={data} update={update} readOnly={readOnly} />;
 }
 
-function ReflectionWithExam({ data, update }: { data: ClassroomData; update: (fn: (d: ClassroomData) => ClassroomData) => void }) {
+function ReflectionWithExam({ data, update, readOnly }: { data: ClassroomData; update: (fn: (d: ClassroomData) => ClassroomData) => void; readOnly: boolean }) {
   const params = typeof window !== "undefined" ? new URLSearchParams(window.location.search) : null;
   const activeClassId = data.activeClassId ?? data.rosterClasses?.[0]?.id ?? "class-1";
   const initialStudentId = params?.get("studentId") || "";
@@ -6576,8 +6587,7 @@ function ReflectionWithExam({ data, update }: { data: ClassroomData; update: (fn
   const [examLibrarySort, setExamLibrarySort] = useState("date-desc");
   const exams = scoreExamsForClass(data, activeClassId);
   const [examFilter, setExamFilter] = useState(() => exams.some((item) => item.id === initialExamId) ? initialExamId : exams[0]?.id ?? "");
-  const activeStudentIds = new Set(data.students.map((student) => student.id));
-  const reflections = (data.examReflections ?? []).filter((item) => activeStudentIds.has(item.studentId));
+  const reflections = examReflectionsForClass(data, activeClassId);
   const libraryRows = exams.flatMap((item) => {
     const subjects = scoreSubjects(item);
     return scoreRowsFor(item, data.students, reflections).map((row) => {
@@ -6594,7 +6604,7 @@ function ReflectionWithExam({ data, update }: { data: ClassroomData; update: (fn
     return {
       exam: item,
       subjects,
-      average: Math.round(rows.reduce((sum, row) => sum + row.average, 0) / Math.max(1, rows.length)),
+      average: rows.some((row) => row.enteredCount) ? Math.round(rows.filter((row) => row.enteredCount).reduce((sum, row) => sum + row.average, 0) / rows.filter((row) => row.enteredCount).length) : null,
       reflected: reflections.filter((entry) => entry.examId === item.id).length,
     };
   });
@@ -6668,15 +6678,21 @@ function ReflectionWithExam({ data, update }: { data: ClassroomData; update: (fn
   }, [examYearFilter, examMonthFilter]);
   if (!selected) return null;
   function save(status: ExamReflection["status"]) {
-    const next = { ...draft, id: selected.reflection?.id ?? draft.id, studentId: selected.student.id, examId: selected.exam.id, status };
-    const record: CommunicationRecord = { id: makeId(), student: selected.student.name, type: "考试反思", channel: "学生复盘", content: `考试：${selected.exam.title}｜问题：${next.problem}｜原因：${next.reason}｜行动：${next.action}`, followUp: next.teacherNote, status: status === "已完成" ? "已归档" : "待跟进", date: "刚刚" };
-    update((current) => ({
-      ...current,
-      scoreExams: status === "已完成" ? (current.scoreExams ?? exams).map((item) => item.id === selected.exam.id ? { ...item, followUpStudentIds: (item.followUpStudentIds ?? []).filter((studentId) => studentId !== selected.student.id) } : item) : current.scoreExams,
-      examReflections: [next, ...(current.examReflections ?? []).filter((item) => item.id !== next.id)],
-      records: status === "已完成" ? [record, ...current.records] : current.records,
-    }));
-    setSavedState(status === "已完成" ? "已更新，正在同步到家校沟通" : "草稿已更新，正在同步");
+    if (readOnly) {
+      setSavedState("当前为只读模式，反思内容未修改");
+      return;
+    }
+    const reflectionId = (selected.reflection?.id ?? draft.id) || makeId();
+    const recordId = makeId();
+    const input = { ...draft, id: reflectionId, studentId: selected.student.id, examId: selected.exam.id };
+    const preview = saveExamReflection(data, activeClassId, input, status, () => reflectionId, () => recordId);
+    if (preview.error) {
+      setSavedState(preview.error);
+      return;
+    }
+    update((current) => saveExamReflection(current, activeClassId, input, status, () => reflectionId, () => recordId).data ?? current);
+    setDraft(preview.reflection!);
+    setSavedState(status === "已完成" ? "反思与家校沟通留痕已更新，正在同步" : "草稿已更新，正在同步");
   }
   const totalMaxScore = subjectMaxScore(selected.exam, "总分");
   const statusClass = (status: string) => status === "已完成" ? "done" : status === "草稿" ? "draft" : status === "重点跟进" ? "follow" : "empty";
@@ -6713,8 +6729,8 @@ function ReflectionWithExam({ data, update }: { data: ClassroomData; update: (fn
             <div><span>反思填写</span><h3>{selected.student.name}</h3><p>{selected.exam.title} · {selected.exam.date} · {selected.followUp ? "成绩页重点跟进" : "常规复盘对象"}</p></div>
           </header>
           <div className="reflection5-scoreline">
-            <span><small>总分</small><b>{selected.total}/{totalMaxScore}</b></span>
-            <span><small>平均</small><b>{selected.average}</b></span>
+            <span><small>总分</small><b>{selected.complete ? `${selected.total}/${totalMaxScore}` : `已录 ${selected.enteredCount}/${selected.subjects.length}`}</b></span>
+            <span><small>{selected.complete ? "平均" : "已录平均"}</small><b>{selected.enteredCount ? selected.average : "未录入"}</b></span>
             <span><small>跟进状态</small><b>{selected.followUp ? "重点跟进" : "常规复盘"}</b></span>
           </div>
           <div className="reflection5-form"><label><span>主要问题</span><textarea value={draft.problem} onChange={(e) => setDraft({ ...draft, problem: e.target.value })} placeholder="老师填写：这次考试最需要和学生复盘的问题。" /></label><label><span>原因分析</span><textarea value={draft.reason} onChange={(e) => setDraft({ ...draft, reason: e.target.value })} placeholder="老师填写：错因、状态、习惯或知识点问题。" /></label><label><span>下一步行动</span><textarea value={draft.action} onChange={(e) => setDraft({ ...draft, action: e.target.value })} placeholder="老师填写：订正、面谈、练习、复测等安排。" /></label><label><span>写给家长的话</span><textarea value={draft.familyMessage} onChange={(e) => setDraft({ ...draft, familyMessage: e.target.value })} placeholder="老师填写：需要家长配合的观察和提醒。" /></label><label className="wide"><span>班主任跟进</span><textarea value={draft.teacherNote} onChange={(e) => setDraft({ ...draft, teacherNote: e.target.value })} placeholder="老师填写：后续追踪节点、复查方式或备注。" /></label></div>
@@ -6772,7 +6788,7 @@ function Comments({ workspaceToken, data, update }: { workspaceToken: string; da
   useEffect(() => { setTerm(currentTermLabel); }, [currentTermLabel]);
   const evidence = student ? classRecords.filter((record) => recordBelongsToStudent(record, student, activeClassId)) : [];
   const events = (data.pointEvents ?? []).filter(e=>e.studentId===student?.id);
-  const reflections = (data.examReflections ?? []).filter((item) => item.studentId === student?.id);
+  const reflections = examReflectionsForClass(data, activeClassId).filter((item) => item.studentId === student?.id);
   const saved = (data.termComments ?? []).find((item) => item.studentId === student?.id && item.term === term && item.style === style);
   const savedComments = data.termComments?.length ?? 0;
   const termOptions = Array.from(new Set([currentTermLabel, ...(data.termComments ?? []).map((item) => item.term)].map((item) => item?.trim()).filter(Boolean)));

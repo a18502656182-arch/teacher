@@ -30,6 +30,7 @@ const notificationDrafts = read("app/w/[token]/NotificationDrafts.tsx");
 const notificationOperations = read("app/w/[token]/features/notifications/operations.ts");
 const scoreItemAnalysis = read("app/w/[token]/ScoreItemAnalysis.tsx");
 const scoreOperations = read("app/w/[token]/features/scores/operations.ts");
+const reflectionOperations = read("app/w/[token]/features/reflections/operations.ts");
 const workspaceBackup = read("lib/workspaceBackup.ts");
 const authSource = read("lib/auth.ts");
 const examPaperRoute = read("app/api/ai/exam-paper/route.ts");
@@ -309,6 +310,18 @@ test("exam analysis separates trend and paper workflows with teacher review", ()
   assert.match(examPaperRoute, /EXAM_AI_ENDPOINT/);
   assert.match(examPaperRoute, /EXAM_AI_API_KEY/);
   assert.match(examPaperRoute, /仅支持 JPG、PNG、WEBP 或 PDF 试卷/);
+});
+
+test("exam reflections share guarded save logic across desktop and mobile", () => {
+  assert.match(app, /examReflectionsForClass\(data, activeClass\.id\)/);
+  assert.match(app, /saveExamReflection\(data, activeClass\.id/);
+  assert.match(app, /saveExamReflection\(data, activeClassId/);
+  assert.match(app, /当前为只读模式，反思内容未修改/);
+  assert.match(app, /成绩未录入/);
+  assert.match(classroomTypes, /reflectionId\?: string/);
+  assert.match(reflectionOperations, /linkedRecord\?\.id \?\? createRecordId\(\)/);
+  assert.match(reflectionOperations, /status !== '已完成'/);
+  assert.match(reflectionOperations, /followUpStudentIds: \(item\.followUpStudentIds/);
 });
 
 test("classroom tools exclude leave and do not turn random picks into points", () => {

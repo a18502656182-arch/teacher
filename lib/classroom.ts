@@ -214,6 +214,7 @@ export type CommunicationRecord = {
   id: string;
   classId?: string;
   studentId?: string;
+  reflectionId?: string;
   student: string;
   type: string;
   content: string;

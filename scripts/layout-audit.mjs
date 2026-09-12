@@ -406,6 +406,48 @@ async function runRuntimeAudit(url) {
             })()`,
           });
         }
+        if (pageId === "reflection") {
+          await page.send("Runtime.evaluate", {
+            returnByValue: true,
+            expression: `(() => {
+              const isMobile = innerWidth <= 900;
+              const row = isMobile
+                ? document.querySelector('.mobile-reflection-linked-list button')
+                : document.querySelectorAll('.reflection5-picker-list button')[1] || document.querySelector('.reflection5-picker-list button');
+              row?.click();
+              return Boolean(row);
+            })()`,
+          });
+          await wait(100);
+          await page.send("Runtime.evaluate", {
+            returnByValue: true,
+            expression: `(() => {
+              const isMobile = innerWidth <= 900;
+              const editor = isMobile ? document.querySelector('.mobile-bottom-sheet') : document.querySelector('.reflection5-editor');
+              const textarea = editor?.querySelector('textarea');
+              if (textarea) {
+                const setter = Object.getOwnPropertyDescriptor(HTMLTextAreaElement.prototype, 'value')?.set;
+                setter?.call(textarea, 'QA只读保留内容');
+                textarea.dispatchEvent(new Event('input', { bubbles: true }));
+              }
+              const action = [...(editor?.querySelectorAll('button') ?? [])].find((button) => /完成.*归档/.test(button.textContent ?? ''));
+              action?.click();
+              return Boolean(editor && textarea && action);
+            })()`,
+          });
+          await wait(100);
+          await page.send("Runtime.evaluate", {
+            returnByValue: true,
+            expression: `(() => {
+              const isMobile = innerWidth <= 900;
+              const editor = isMobile ? document.querySelector('.mobile-bottom-sheet') : document.querySelector('.reflection5-editor');
+              window.__reflectionEditorHealthy = Boolean(editor && editor.querySelectorAll('textarea').length >= 5);
+              window.__reflectionReadOnlyShown = document.body.innerText.includes('当前为只读模式，反思内容未修改');
+              window.__reflectionDraftRetained = [...(editor?.querySelectorAll('textarea') ?? [])].some((textarea) => textarea.value === 'QA只读保留内容');
+              return window.__reflectionEditorHealthy && window.__reflectionReadOnlyShown && window.__reflectionDraftRetained;
+            })()`,
+          });
+        }
         await wait(250);
         const { result } = await page.send("Runtime.evaluate", {
           returnByValue: true,
@@ -440,6 +482,9 @@ async function runRuntimeAudit(url) {
               attendanceStatusActionsHealthy: window.__attendanceStatusActionsHealthy === true,
               attendanceAllNormalHealthy: window.__attendanceAllNormalHealthy === true,
               attendanceDetachedEditor: Boolean(document.querySelector('.attendance-editor, .attendance-mobile-editor-backdrop')),
+              reflectionEditorHealthy: window.__reflectionEditorHealthy === true,
+              reflectionReadOnlyShown: window.__reflectionReadOnlyShown === true,
+              reflectionDraftRetained: window.__reflectionDraftRetained === true,
               shell: rect(shell),
               main: rect(main),
               content: rect(content),
@@ -507,6 +552,9 @@ async function runRuntimeAudit(url) {
         if (pageId === "attendance" && !data?.attendanceStatusActionsHealthy) failures.push("An attendance status action caused the main roster to disappear or show an error overlay.");
         if (pageId === "attendance" && !data?.attendanceAllNormalHealthy) failures.push("Attendance one-click all-normal did not keep the roster available with normal statuses.");
         if (pageId === "attendance" && data?.attendanceDetachedEditor) failures.push("Attendance still opens a detached editor instead of keeping records in the main roster.");
+        if (pageId === "reflection" && !data?.reflectionEditorHealthy) failures.push("Reflection editor did not expose all five long-text fields.");
+        if (pageId === "reflection" && !data?.reflectionReadOnlyShown) failures.push("Reflection editor reported success instead of the demo/read-only state.");
+        if (pageId === "reflection" && !data?.reflectionDraftRetained) failures.push("Reflection editor discarded the teacher's draft after a blocked read-only save.");
         if (runtimeErrors.length) failures.push(`Browser runtime error: ${runtimeErrors[0].slice(0, 500)}`);
         if (data?.text && new RegExp("[\\u935A\\u95BE\\u701B\\u7EFE\\u941D\\u4E3F\\u6500\\u5931\\u8F9C\\u6B8F]").test(data.text)) failures.push("Visible text still contains mojibake.");
         if (data && data.scrollWidth - data.viewportWidth > 10) failures.push(`Horizontal page overflow ${Math.round(data.scrollWidth - data.viewportWidth)}px.`);
