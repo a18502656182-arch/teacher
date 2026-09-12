@@ -1,6 +1,6 @@
 # 账户与班级管理：逐页执行卡
 
-状态：planned。模块ID：account。源码相对 app/w/[token]（明确app/lib前缀除外）：ClassroomApp.tsx:AccountDialog/MobileWorkbench;ClassSwitcher.tsx。
+状态：migrated-and-verified。模块ID：account。旧源码相对 app/w/[token]（明确app/lib前缀除外）：ClassroomApp.tsx:AccountDialog/MobileWorkbench;ClassSwitcher.tsx；新实现：features/account/AccountCenter.tsx、useAccountCenter.ts、operations.ts。
 参考：共享对话框。派生页面使用对应页面族构图和校园token，不把缺少专属图解释为可回退旧UI。
 
 ## 保全动作（种子，实施前展开）
@@ -29,3 +29,11 @@
 
 ## 完成判据
 全部保全动作有新入口与证据；桌面/手机/主要浮层可用；参考气质和比例达标；旧布局退出；测试没有通过削弱断言变绿。结果写当前commit，不复用旧报告标pass。
+
+## 2026-09-13 实施记录
+
+- 实现提交：`af28a20`；证据：`../evidence/account-operations-20260913.md`。
+- 桌面和手机改为同一个原生 `AccountCenter`。账户读取、班级增改切删、完整备份和当前设备退出均有唯一入口；演示与到期只读状态使用同一结构。
+- 班级操作提取为纯函数并补齐两班各50人、空班、新班和删除关联回归。旧 `ClassSwitcher`、旧账户弹窗、手机重复账户/班级层及其全局样式已删除。
+- 删除和退出采用对话框内确认，保存失败保留工作区草稿；有效与无效备份均在隔离浏览器实测。TypeScript、全量ESLint、生产构建、196项测试、认证集成和115项六宽度严格审计通过。
+- 管理员页面、真实物理手机、弱网、HTTPS和线上部署不属于本记录的已验证范围。
