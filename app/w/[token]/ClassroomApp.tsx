@@ -10,6 +10,7 @@ import { Dashboard } from '@/app/components/campus/Dashboard';
 import { CampusIcon, MetricStrip, ThemeArtwork } from '@/app/components/campus/primitives';
 import { DesktopHeader, SaveStatus, WorkspaceNav, workspaceModules, type LearningScene, type WorkspaceModuleId } from '@/app/components/campus/WorkspaceChrome';
 import { applyHomeworkStatuses } from './features/homework/operations';
+import { addGrowthEvidence, growthEvidenceForStudent } from './features/growth/operations';
 import { applyPointEvents, pointEventsForClass, undoPointEvent as undoPointEventInClass } from './features/points/operations';
 import { defaultPointRules } from './features/rules/catalog';
 import { deletePointRule, patchPointRule, pointRulesForData, pointRuleUsageCount, replacePointRules, upsertPointRule } from './features/rules/operations';
@@ -2804,7 +2805,7 @@ function MobileSecondaryPage({ workspaceToken, active, data, activeClass, update
     const recordsForStudent = selectedGrowthStudent ? data.records.filter((record) => recordBelongsToStudent(record, selectedGrowthStudent, activeClassId)) : [];
     const eventsForStudent = (data.pointEvents ?? []).filter((event) => event.studentId === selectedGrowthStudent?.id);
     const homeworkForStudent = selectedGrowthStudent ? tasks.map((task) => ({ task, status: task.statuses[selectedGrowthStudent.id] ?? selectedGrowthStudent.homework })) : [];
-    const manualForStudent = (data.growthEvidence ?? []).filter((item) => item.studentId === selectedGrowthStudent?.id);
+    const manualForStudent = selectedGrowthStudent ? growthEvidenceForStudent(data, activeClassId, selectedGrowthStudent.id) : [];
     const homeworkDone = homeworkForStudent.filter(({ status }) => status === "已交" || status === "已复查").length;
     const homeworkRate = homeworkForStudent.length ? Math.round(homeworkDone / homeworkForStudent.length * 100) : 0;
     const positiveEvents = eventsForStudent.filter((event) => event.delta > 0);
@@ -2856,8 +2857,7 @@ function MobileSecondaryPage({ workspaceToken, active, data, activeClass, update
         setGrowthFormError("请填写日期、标题和具体事实。");
         return;
       }
-      const item: GrowthEvidence = { id: makeId(), studentId: selectedGrowthStudent.id, date: growthDraft.date, type: growthDraft.type, title: growthDraft.title.trim(), content: growthDraft.content.trim(), followUp: growthDraft.followUp.trim(), source: "班主任补充", createdAt: Date.now() };
-      update((current) => ({ ...current, growthEvidence: [item, ...(current.growthEvidence ?? [])] }));
+      update((current) => addGrowthEvidence(current, activeClassId, selectedGrowthStudent.id, growthDraft, makeId).data ?? current);
       setGrowthDraft({ date: today(), type: "表扬记录", title: "", content: "", followUp: "" });
       setGrowthFormError("");
       setGrowthKindFilter("全部类型");
@@ -4660,7 +4660,7 @@ function Growth({ data, update }: { data: ClassroomData; update: (fn: (d: Classr
   const events = (data.pointEvents ?? []).filter((event) => event.studentId === student.id);
   const tasks = (data.homeworkTasks ?? []).filter((task) => !task.classId || task.classId === activeClassId);
   const homework = tasks.map((task) => ({ task, status: task.statuses[student.id] ?? student.homework }));
-  const manual = (data.growthEvidence ?? []).filter((item) => item.studentId === student.id);
+  const manual = growthEvidenceForStudent(data, activeClassId ?? "class-1", student.id);
   const homeworkDone = homework.filter(({ status }) => status === "已交" || status === "已复查").length;
   const homeworkRate = homework.length ? Math.round(homeworkDone / homework.length * 100) : 0;
   const positiveEvents = events.filter((event) => event.delta > 0);
@@ -4736,8 +4736,7 @@ function Growth({ data, update }: { data: ClassroomData; update: (fn: (d: Classr
   }
   function saveEvidence() {
     if (!draft.date || !draft.title.trim() || !draft.content.trim()) { setFormError("请填写日期、简短标题和具体事实。"); return; }
-    const item: GrowthEvidence = { id: makeId(), studentId: student.id, date: draft.date, type: draft.type, title: draft.title.trim(), content: draft.content.trim(), followUp: draft.followUp.trim(), source: "班主任补充", createdAt: Date.now() };
-    update((current) => ({ ...current, growthEvidence: [item, ...(current.growthEvidence ?? [])] }));
+    update((current) => addGrowthEvidence(current, activeClassId ?? "class-1", student.id, draft, makeId).data ?? current);
     setDraft({ date: today(), type: "表扬记录", title: "", content: "", followUp: "" });
     setFormError(""); setKind("全部类型"); setRange("全部时间"); setPage(1); setShowComposer(false);
   }

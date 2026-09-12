@@ -3,14 +3,16 @@ import { CampusIcon } from "@/app/components/campus/primitives";
 
 import { useDeferredValue, useMemo, useState } from "react";
 import type { CareProfile, ClassroomData, Guardian, Student } from "@/lib/classroom";
+import { makeId } from "@/lib/classroom";
+import { localCareDate, primaryGuardianForStudent, removeCareProfile, saveCareProfile, type CareProfileDraft } from "./features/health/operations";
 import { WorkbenchPageHeader } from "./WorkbenchPageHeader";
 
 const categories = ["过敏与饮食", "呼吸与心血管", "视觉与感官", "行动与书写", "心理与情绪", "健康提醒", "活动注意", "座位照护", "其他"] as const;
 const contexts = ["体育活动", "外出实践", "午餐饮食", "座位安排", "考试安排", "日常观察"] as const;
 const severityOrder = { 紧急: 0, 重要: 1, 一般: 2 } as const;
-type CareDraft = Pick<CareProfile, "id" | "studentId" | "category" | "severity" | "instruction" | "contraindication" | "reviewedAt" | "summary" | "actionContexts" | "customCategory">;
+type CareDraft = CareProfileDraft;
 
-function emptyDraft(): CareDraft { return { id: "", studentId: "", category: "健康提醒", severity: "一般", summary: "", instruction: "", contraindication: "", actionContexts: [], customCategory: "", reviewedAt: new Date().toISOString().slice(0, 10) }; }
+function emptyDraft(): CareDraft { return { id: "", studentId: "", category: "健康提醒", severity: "一般", summary: "", instruction: "", contraindication: "", actionContexts: [], customCategory: "", reviewedAt: localCareDate() }; }
 function profileCategory(profile: Pick<CareProfile, "category" | "customCategory">) { return profile.category === "其他" && profile.customCategory?.trim() ? profile.customCategory.trim() : profile.category; }
 function contactLabel(guardian?: Guardian) { return guardian ? `${guardian.name}${guardian.relation ? `（${guardian.relation}）` : ""}${guardian.phone ? ` · ${guardian.phone}` : ""}` : "学生名单中暂未维护监护人联系方式"; }
 function requestCareConfirm(message: string) {
@@ -25,10 +27,8 @@ export function HealthCare({ data, update, mobile = false }: { data: ClassroomDa
   const students = useMemo(() => activeClass?.students ?? data.students ?? [], [activeClass, data.students]);
   const studentById = useMemo(() => new Map(students.map((student) => [student.id, student])), [students]);
   const guardiansByStudent = useMemo(() => {
-    const grouped = new Map<string, Guardian[]>();
-    (data.guardians ?? []).filter((guardian) => !guardian.classId || guardian.classId === activeClassId).forEach((guardian) => grouped.set(guardian.studentId, [...(grouped.get(guardian.studentId) ?? []), guardian]));
-    return new Map([...grouped].map(([studentId, guardians]) => [studentId, guardians.toSorted((a, b) => Number(Boolean(b.isPrimary)) - Number(Boolean(a.isPrimary)) || (a.emergencyPriority ?? 99) - (b.emergencyPriority ?? 99))[0]]));
-  }, [data.guardians, activeClassId]);
+    return new Map(students.map(student => [student.id, primaryGuardianForStudent(data.guardians ?? [], activeClassId, student.id)]));
+  }, [data.guardians, activeClassId, students]);
   const profiles = useMemo(() => (data.careProfiles ?? []).filter((item) => (!item.classId || item.classId === activeClassId) && studentById.has(item.studentId)).toSorted((a, b) => severityOrder[a.severity] - severityOrder[b.severity] || (studentById.get(a.studentId)?.name ?? "").localeCompare(studentById.get(b.studentId)?.name ?? "", "zh-CN")), [data.careProfiles, activeClassId, studentById]);
   const [query, setQuery] = useState("");
   const deferredQuery = useDeferredValue(query.trim());
@@ -45,10 +45,14 @@ export function HealthCare({ data, update, mobile = false }: { data: ClassroomDa
   const availableContexts = useMemo(() => [...new Set([...contexts, ...profiles.flatMap((item) => item.actionContexts ?? [])])], [profiles]);
   function save() {
     if (!draft?.studentId) return;
-    const next: CareProfile = { ...draft, id: draft.id || `care-${Date.now()}`, classId: activeClassId, summary: draft.summary?.trim(), instruction: draft.instruction.trim(), contraindication: draft.contraindication?.trim(), customCategory: draft.category === "其他" ? draft.customCategory?.trim() : "", actionContexts: [...new Set((draft.actionContexts ?? []).map((item) => item.trim()).filter(Boolean))], visibleScope: "班主任" };
-    update((current) => ({ ...current, careProfiles: [next, ...(current.careProfiles ?? []).filter((item) => item.id !== next.id)] })); setDraft(null);
+    const preview = saveCareProfile(data, activeClassId, draft, () => "care-preview");
+    if (preview.error) {
+      window.dispatchEvent(new CustomEvent("classroom:toast", { detail: { message: preview.error, tone: "error" } }));
+      return;
+    }
+    update((current) => saveCareProfile(current, activeClassId, draft, makeId).data ?? current); setDraft(null);
   }
-  async function remove() { if (!draft?.id || !await requestCareConfirm("这条照护登记会从当前班级移除，且无法恢复。")) return; update((current) => ({ ...current, careProfiles: (current.careProfiles ?? []).filter((item) => item.id !== draft.id) })); setDraft(null); }
+  async function remove() { if (!draft?.id || !await requestCareConfirm("这条照护登记会从当前班级移除，且无法恢复。")) return; update((current) => removeCareProfile(current, activeClassId, draft.id)); setDraft(null); }
   const newEntry = () => setDraft(emptyDraft());
   return <main className={`health-care-page ${mobile ? "health-care-mobile" : ""}`}>
     {mobile ? <div className="health-care-mobile-intro"><span className="module-icon health"><CampusIcon name="health"/></span><div><h1>健康与照护</h1><p>最小必要信息 · 仅班主任可见</p></div><button className="primary-button" onClick={newEntry}>新增登记</button></div> : <WorkbenchPageHeader icon="🩺" tone="coral" title="健康与照护" description="为日常安排保留必要行动提示；不展示诊断细节，也不作为公开标签。" meta={`${activeClass?.name ?? "当前班级"} · ${students.length} 名学生`} actions={<button className="primary-button" onClick={newEntry}>新增照护登记</button>} />}

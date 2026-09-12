@@ -32,6 +32,7 @@ const workspaceBackup = read("lib/workspaceBackup.ts");
 const authSource = read("lib/auth.ts");
 const examPaperRoute = read("app/api/ai/exam-paper/route.ts");
 const healthCare = read("app/w/[token]/HealthCare.tsx");
+const healthOperations = read("app/w/[token]/features/health/operations.ts");
 const workbenchRepair = read("app/workbench-repair.css");
 const workspaceChrome = read("app/components/campus/WorkspaceChrome.tsx");
 const workspaceChromeCss = read("app/components/campus/workspace-chrome.css");
@@ -70,7 +71,7 @@ test("health care is a standalone, privacy-bounded operational workspace", () =>
   assert.match(healthCare, /自定义关注类型/);
   assert.match(healthCare, /自定义场景/);
   assert.match(healthCare, /学生名单中的主要监护人/);
-  assert.match(healthCare, /visibleScope: "班主任"/);
+  assert.match(healthOperations, /visibleScope: '班主任'/);
   assert.doesNotMatch(healthCare, /行动提醒板|下次复核日期/);
   assert.match(workbenchRepair, /\.health-care-page \.primary-button\s*\{[^}]*color:\s*var\(--campus-surface\);[^}]*background:\s*var\(--campus-primary\);/);
 });

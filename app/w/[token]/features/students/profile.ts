@@ -16,6 +16,9 @@ export function applyStudentProfile(
   classId: string,
   draft: StudentProfileDraft,
 ): StudentProfileResult {
+  const classStudents = current.rosterClasses?.find(item => item.id === classId)?.students
+    ?? ((current.activeClassId ?? classId) === classId ? current.students : []);
+  if (!classStudents.some(student => student.id === studentId)) return { error: '所选学生不属于当前班级。' };
   const guardians = draft.guardians
     .filter(item => item.name.trim())
     .map((item, index) => ({
@@ -46,7 +49,7 @@ export function applyStudentProfile(
     rosterClasses: current.rosterClasses?.map(classroom => classroom.id === classId
       ? { ...classroom, students: classroom.students.map(patch) }
       : classroom),
-    guardians: [...(current.guardians ?? []).filter(item => item.studentId !== studentId), ...guardians],
-    careProfiles: [...(current.careProfiles ?? []).filter(item => item.studentId !== studentId), ...care],
+    guardians: [...(current.guardians ?? []).filter(item => item.studentId !== studentId || Boolean(item.classId && item.classId !== classId)), ...guardians],
+    careProfiles: [...(current.careProfiles ?? []).filter(item => item.studentId !== studentId || Boolean(item.classId && item.classId !== classId)), ...care],
   } };
 }

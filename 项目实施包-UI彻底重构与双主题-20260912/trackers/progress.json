@@ -3,7 +3,7 @@
   "baselineCommit": "6e10e2dc314e09d0d72df9509730f57c5fde34e2",
   "implementationStatus": "in-progress",
   "active_task": "TASK-02",
-  "next_action": "继续TASK02成长/健康/家校沟通及其余页面族逐动作/浮层核验；F-02至F-07已展开，完整保存controller及根CSS/portal隔离未完成",
+  "next_action": "继续TASK02家校沟通/成绩及其余页面族逐动作/浮层核验；F-02至F-09已展开，完整保存controller及根CSS/portal隔离未完成",
   "milestones": {
     "M0": "in-progress",
     "M1": "planned",
@@ -12,7 +12,7 @@
     "M4": "planned",
     "M5": "planned"
   },
-  "note": "线上受检源码无需要覆盖的业务差异。学生删除、作业跨班、考勤日期/备注、积分跨班/撤销和规则空库缺陷已修；76项测试、认证集成和qa:strict通过。准备性提取不代表TASK03/04/05/09完整门槛完成；正式新页尚未切换。",
+  "note": "线上受检源码无需要覆盖的业务差异。F02-F09已展开；成长/健康增加班级快照、跨班校验和本机日期，84项测试、认证集成和qa:strict通过。准备性提取不代表TASK03/04/05/09完整门槛完成；正式新页尚未切换。",
   "implementationStartCommit": "f321d5e9424e0020bdf1e56d52c31b986b503a53",
   "parallelPreparation": [
     "TASK-06",

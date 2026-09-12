@@ -2,11 +2,12 @@
 
 import { StudentDictationHistory } from './dictation/DictationSummary';
 import { useStudentProfileController } from "./features/students/useStudentProfileController";
+import { localCareDate } from "./features/health/operations";
 import { makeId } from "@/lib/classroom";
 import type { CareProfile, ClassroomData, Guardian, Student } from "@/lib/classroom";
 
 function blankGuardian(studentId: string): Guardian { return { id: makeId("guardian"), studentId, name: "", relation: "父亲", phone: "", isPrimary: false, emergencyPriority: 2 }; }
-function blankCare(studentId: string): CareProfile { return { id: makeId("care"), studentId, category: "健康提醒", severity: "一般", instruction: "", contraindication: "", reviewedAt: new Date().toISOString().slice(0, 10), visibleScope: "班主任" }; }
+function blankCare(studentId: string): CareProfile { return { id: makeId("care"), studentId, category: "健康提醒", severity: "一般", instruction: "", contraindication: "", reviewedAt: localCareDate(), visibleScope: "班主任" }; }
 
 export function StudentProfile({ student, data, update, onClose }: { student: Student; data: ClassroomData; update: (fn: (d: ClassroomData) => ClassroomData) => void; onClose: () => void }) {
   const { residence, setResidence, tags, setTags, guardians, setGuardians, care, setCare, message, visibleCare, attendanceHistory, save } = useStudentProfileController({ student, data, update, onClose });

@@ -1,7 +1,9 @@
 # 成长档案：逐页执行卡
 
-状态：planned。模块ID：growth。源码相对 app/w/[token]（明确app/lib前缀除外）：ClassroomApp.tsx:Growth/MobileSecondaryPage;StudentProfile.tsx。
+状态：inventoried-with-gap。模块ID：growth。源码相对 app/w/[token]（明确app/lib前缀除外）：ClassroomApp.tsx:Growth/MobileSecondaryPage;StudentProfile.tsx。
 参考：C3派生。派生页面使用对应页面族构图和校园token，不把缺少专属图解释为可回退旧UI。
+
+当前检查点：新增人工事实已接 `features/growth/operations.ts` 并立即保存班级快照；显式他班记录不再混入。当前源码没有人工记录编辑/删除入口，“编辑”仍是规划缺口。页面DOM、保存失败上下文、打印与旧CSS尚未迁移，详见 `evidence/growth-health-operations-20260912.md`。
 
 ## 保全动作（种子，实施前展开）
 选学生、时间范围、分类、添加编辑记录、历史、复制导出素材。

@@ -56,3 +56,15 @@ test('空姓名联系人被忽略，空字段不伪造联系人关系', () => {
   assert.equal(result.error, undefined);
   assert.deepEqual(result.data.guardians.map(item => item.id), ['b-g']);
 });
+
+test('档案保存拒绝另一班学生，并保留显式属于另一班的同ID私密记录', () => {
+  const data = fixture();
+  const otherGuardian = { id: 'other-g', classId: 'b', studentId: 'a-0', name: '他班同ID联系人', relation: '母亲', phone: '' };
+  const otherCare = { id: 'other-c', classId: 'b', studentId: 'a-0', category: '健康提醒', severity: '一般', instruction: '他班', visibleScope: '班主任' };
+  data.guardians = [otherGuardian]; data.careProfiles = [otherCare];
+  const result = applyStudentProfile(data, 'a-0', 'a', { residence: '未填', tags: '', guardians: [], care: [] });
+  assert.equal(result.error, undefined);
+  assert.equal(result.data.guardians[0], otherGuardian);
+  assert.equal(result.data.careProfiles[0], otherCare);
+  assert.equal(applyStudentProfile(data, 'b-0', 'a', { residence: '未填', tags: '', guardians: [], care: [] }).error, '所选学生不属于当前班级。');
+});

@@ -13,8 +13,8 @@ export function useStudentProfileController({ student, data, update, onClose }: 
   const classId = data.activeClassId ?? data.rosterClasses?.[0]?.id ?? "";
   const [residence, setResidence] = useState(student.residence ?? "未填");
   const [tags, setTags] = useState((student.tags ?? []).join("、"));
-  const [guardians, setGuardians] = useState<Guardian[]>(() => (data.guardians ?? []).filter((item) => item.studentId === student.id));
-  const [care, setCare] = useState<CareProfile[]>(() => (data.careProfiles ?? []).filter((item) => item.studentId === student.id));
+  const [guardians, setGuardians] = useState<Guardian[]>(() => (data.guardians ?? []).filter((item) => item.studentId === student.id && (!item.classId || item.classId === classId)));
+  const [care, setCare] = useState<CareProfile[]>(() => (data.careProfiles ?? []).filter((item) => item.studentId === student.id && (!item.classId || item.classId === classId)));
   const [message, setMessage] = useState("");
   const visibleCare = useMemo(() => care, [care]);
   const attendanceHistory = useMemo(() => (data.attendanceRecords ?? []).filter((item) => item.classId === classId && item.studentId === student.id).toSorted((a, b) => b.date.localeCompare(a.date)).slice(0, 24), [classId, data.attendanceRecords, student.id]);
