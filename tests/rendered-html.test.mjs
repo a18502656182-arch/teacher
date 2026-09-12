@@ -12,6 +12,11 @@ const workspaceRoute = read("app/api/workspace/[token]/route.ts");
 const aiRoute = read("app/api/ai/comment/route.ts");
 const auth = read("lib/auth.ts");
 const home = read("app/page.tsx");
+const entryPage = read("app/features/entry/EntryPage.tsx");
+const entryController = read("app/features/entry/useEntryController.ts");
+const entryStyles = read("app/features/entry/EntryPage.module.css");
+const privacyPage = read("app/features/entry/PrivacyPage.tsx");
+const adminStyles = read("app/admin.css");
 const adminPage = read("app/admin/page.tsx");
 const redeemRoute = read("app/api/admin/redeem-codes/route.ts");
 const adminUsersRoute = read("app/api/admin/users/route.ts");
@@ -49,9 +54,22 @@ const dutyOperations = read("app/w/[token]/features/duty/operations.ts");
 const idWriteSurfaces = [attendancePage, teacherAgenda, classroomTools, notificationDrafts, studentProfile, read("app/w/[token]/CourseSchedule.tsx"), app];
 
 test("public entry exposes only the two intended primary routes", () => {
-  assert.match(home, /进入我的工作台/);
-  assert.match(home, /查看演示/);
-  assert.doesNotMatch(home, /功能总览|打开演示班级|查看模块/);
+  const publicEntry = home + entryPage;
+  assert.match(publicEntry, /进入我的工作台/);
+  assert.match(publicEntry, /查看只读演示/);
+  assert.doesNotMatch(publicEntry, /功能总览|打开演示班级|查看模块/);
+  assert.match(entryController, /\/api\/auth\/me/);
+  assert.match(entryController, /\/api\/auth\/enter/);
+  assert.match(entryController, /网络连接失败，请稍后重试/);
+  assert.match(entryStyles, /max-height:\s*calc\(100dvh - 12px\)/);
+  assert.doesNotMatch(adminStyles, /entry-|privacy-page/);
+});
+
+test("privacy migration preserves the established data and AI statements", () => {
+  assert.match(privacyPage, /正式工作台按账户隔离。工作台地址只用于定位数据，仍需有效账户会话和已绑定浏览器才能访问。/);
+  assert.match(privacyPage, /AI 编写仅在老师主动确认后启用，并只发送当前编辑所选择的资料。/);
+  assert.match(privacyPage, /管理员应先向用户提供导出文件，再执行不可恢复删除。/);
+  assert.match(privacyPage, /工作台到期后进入 30 天只读宽限期/);
 });
 
 test("formal workspace access is session-owned and demo is read-only", () => {

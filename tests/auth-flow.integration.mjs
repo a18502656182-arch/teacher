@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { spawn, spawnSync } from "node:child_process";
 import { mkdtemp, rm } from "node:fs/promises";
+import { DatabaseSync } from "node:sqlite";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -51,6 +52,7 @@ async function waitForServer(output) {
 
 async function run() {
   const temp = await mkdtemp(path.join(tmpdir(), "classroom-auth-test-"));
+  const databasePath = path.join(temp, "classroom.db");
   const output = { value: "" };
   const command = process.execPath;
   const args = [path.join(root, "node_modules", "next", "dist", "bin", "next"), "dev", "-H", "127.0.0.1", "-p", String(port)];
@@ -58,7 +60,7 @@ async function run() {
     cwd: root,
     env: {
       ...process.env,
-      CLASSROOM_DB_PATH: path.join(temp, "classroom.db"),
+      CLASSROOM_DB_PATH: databasePath,
       AUTH_ENFORCEMENT_ENABLED: "true",
       AUTH_ALLOW_INSECURE_HTTP: "true",
       AUTH_SESSION_SECRET: "integration-session-secret-1234567890",
@@ -76,9 +78,22 @@ async function run() {
     const admin = new Map();
     let result = await request("/api/admin/session", { jar: admin, method: "POST", body: { password: "aaaa2222" } });
     assert.equal(result.response.status, 200, JSON.stringify(result.json));
-    result = await request("/api/admin/redeem-codes", { jar: admin, method: "POST", body: { quantity: 2, codeLength: 8, maxDevices: 2, validDays: 30 } });
+    result = await request("/api/admin/redeem-codes", { jar: admin, method: "POST", body: { quantity: 3, codeLength: 8, maxDevices: 2, validDays: 30 } });
     assert.equal(result.response.status, 201, JSON.stringify(result.json));
-    const [codeA, codeB] = result.json.codes;
+    const [codeA, codeB, expiredCode] = result.json.codes;
+
+    result = await request("/api/auth/enter", { jar: new Map(), method: "POST", body: { redeemCode: "short", phone: "123" } });
+    assert.equal(result.response.status, 400);
+    assert.equal(result.json.code, "INVALID_INPUT");
+    assert.equal(result.json.error, "请填写有效的兑换码和手机号");
+
+    const directDatabase = new DatabaseSync(databasePath);
+    directDatabase.prepare("UPDATE redeem_codes SET expires_at = ? WHERE code_hint = ?").run(Date.now() - 1_000, expiredCode.slice(-4));
+    directDatabase.close();
+    result = await request("/api/auth/enter", { jar: new Map(), method: "POST", body: { redeemCode: expiredCode, phone: "13700000003" } });
+    assert.equal(result.response.status, 401);
+    assert.equal(result.json.code, "INVALID_REDEEM");
+    assert.equal(result.json.error, "兑换码或手机号不正确", "过期码不得泄露自身存在或过期状态");
 
     const deviceA = new Map();
     result = await request("/api/auth/enter", { jar: deviceA, method: "POST", body: { redeemCode: codeA, phone: "13800000001" }, userAgent: "Windows Chrome A" });

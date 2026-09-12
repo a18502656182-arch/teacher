@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { DialogAccessibility } from "./components/campus/DialogAccessibility";
 import "./globals.css";
-import "./public-entry.css";
+import "./admin.css";
 import "./workbench-repair.css";
 import "./components/campus/campus.css";
 import "./components/campus/shell.css";
