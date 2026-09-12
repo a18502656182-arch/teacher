@@ -1,7 +1,9 @@
 # 积分规则：逐页执行卡
 
-状态：planned。模块ID：rules。源码相对 app/w/[token]（明确app/lib前缀除外）：ClassroomApp.tsx:Rules/MobileSecondaryPage。
+状态：inventoried-with-gap。模块ID：rules。源码相对 app/w/[token]（明确app/lib前缀除外）：ClassroomApp.tsx:Rules/MobileSecondaryPage。
 参考：规则库派生。派生页面使用对应页面族构图和校园token，不把缺少专属图解释为可回退旧UI。
+
+当前检查点：默认目录和规则操作已移出主组件；首次修改标记让旧空备份继续兼容，同时允许用户真正删除到空。新事件以 `ruleId` 稳定引用，旧记录按完整快照兼容；页面结构、编辑浮层、保存失败上下文和旧CSS仍待迁移，详见 `evidence/points-rules-operations-20260912.md`。
 
 ## 保全动作（种子，实施前展开）
 新增编辑、分类搜索、启用禁用、复制、删除。

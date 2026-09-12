@@ -10,6 +10,9 @@ import { Dashboard } from '@/app/components/campus/Dashboard';
 import { CampusIcon, MetricStrip, ThemeArtwork } from '@/app/components/campus/primitives';
 import { DesktopHeader, SaveStatus, WorkspaceNav, workspaceModules, type LearningScene, type WorkspaceModuleId } from '@/app/components/campus/WorkspaceChrome';
 import { applyHomeworkStatuses } from './features/homework/operations';
+import { applyPointEvents, pointEventsForClass, undoPointEvent as undoPointEventInClass } from './features/points/operations';
+import { defaultPointRules } from './features/rules/catalog';
+import { deletePointRule, patchPointRule, pointRulesForData, pointRuleUsageCount, replacePointRules, upsertPointRule } from './features/rules/operations';
 import { applyStudentBatch } from './features/students/operations';
 import { createWorkspaceOperations } from './workspace/operations';
 import type { Workspace, LocalWorkspaceDraft } from './workspace/types';
@@ -36,21 +39,6 @@ type ModuleId = WorkspaceModuleId;
 type ToastTone = "success" | "error" | "info";
 type ToastEventDetail = { message: string; tone?: ToastTone };
 type ConfirmEventDetail = { message: string; title?: string; confirmLabel?: string; onResolve: (confirmed: boolean) => void };
-
-const defaultPointRules: PointRule[] = [
-  { id: "pr-class-speak", scene: "课堂", title: "主动表达", reason: "主动回答问题并说清思路", delta: 1, owner: "学习委员", enabled: true, level: "温和版", detail: "来自课堂提问、积极回答、精彩表现等资料场景。" },
-  { id: "pr-class-disrupt", scene: "课堂", title: "扰乱课堂", reason: "上课讲话、走神或影响同学听课", delta: -1, owner: "纪律委员", enabled: true, level: "温和版", detail: "轻微课堂问题先提醒再记录，连续出现再转入沟通。" },
-  { id: "pr-homework-good", scene: "作业", title: "优秀作业", reason: "作业完成认真，订正及时", delta: 1, owner: "课代表", enabled: true, level: "小学版", detail: "对应优秀作业、书写认真、按时订正。" },
-  { id: "pr-homework-missing", scene: "作业", title: "未交或拖拉", reason: "作业未按时提交、迟交或订正拖拉", delta: -2, owner: "课代表", enabled: true, level: "严格版", detail: "资料中常见扣分项，后续应同步到作业追踪。" },
-  { id: "pr-discipline-routine", scene: "纪律", title: "常规达标", reason: "早读、两操、路队或集会表现稳定", delta: 1, owner: "值日班长", enabled: true, level: "小学版", detail: "对应常规、三操、早读、路队等每日记录。" },
-  { id: "pr-discipline-conflict", scene: "纪律", title: "冲突顶撞", reason: "顶撞老师、班干部或与同学发生冲突", delta: -3, owner: "班长", enabled: true, level: "严格版", detail: "严重情况可按规则调整到 -5 至 -10，并补充谈心记录。" },
-  { id: "pr-health-duty", scene: "卫生", title: "主动值日", reason: "主动整理卫生角或完成值日岗位", delta: 1, owner: "劳动委员", enabled: true, level: "小学版", detail: "来自卫生、值日、承包区达标等资料。" },
-  { id: "pr-health-miss", scene: "卫生", title: "卫生未达标", reason: "值日不到位或座位周边不整洁", delta: -1, owner: "劳动委员", enabled: true, level: "温和版", detail: "适合轻量记录，避免只惩罚不补救。" },
-  { id: "pr-group-activity", scene: "集体活动", title: "集体贡献", reason: "代表班级参与活动或主动服务集体", delta: 2, owner: "班长", enabled: true, level: "初中版", detail: "参考集体活动、黑板报、比赛、班级服务。" },
-  { id: "pr-group-award", scene: "集体活动", title: "竞赛获奖", reason: "代表班级参赛获奖或被学校表扬", delta: 5, owner: "班长", enabled: true, level: "严格版", detail: "资料中常见 3-8 分或更高奖励，可按学校情况调整。" },
-  { id: "pr-manner-help", scene: "文明礼仪", title: "文明互助", reason: "帮助同学，文明沟通有示范作用", delta: 1, owner: "班长", enabled: true, level: "小学版", detail: "可沉淀为文明礼仪之星、期末评语证据。" },
-  { id: "pr-cadre-duty", scene: "班干部", title: "履职认真", reason: "班干部或课代表认真完成职责", delta: 2, owner: "班主任", enabled: true, level: "自定义", detail: "参考班干部每周履职奖励，适合周五汇总。" },
-];
 
 const ruleSets = {
   小学温和版: {
@@ -322,7 +310,7 @@ function normalizeData(data: ClassroomData): ClassroomData {
     homeworkTasks: data.homeworkTasks?.length ? data.homeworkTasks.map((task) => ({ ...task, classId: task.classId ?? rosterClasses[0].id, followUpStudentIds: task.followUpStudentIds ?? [] })) : [firstTask],
     pointEvents: (data.pointEvents ?? []).map((event) => ({ ...event, classId: event.classId ?? classByStudentId.get(event.studentId) ?? activeClassId })),
     growthEvidence: (data.growthEvidence ?? []).map((item) => ({ ...item, classId: item.classId ?? classByStudentId.get(item.studentId) ?? activeClassId })),
-    pointRules: data.pointRules?.length ? data.pointRules.map((rule) => ({ ...rule, enabled: rule.enabled !== false })) : defaultPointRules,
+    pointRules: pointRulesForData(data).map((rule) => ({ ...rule, enabled: rule.enabled !== false })),
     dutyJobs: data.dutyJobs?.length ? data.dutyJobs.map((job) => ({ ...job, enabled: job.enabled !== false })) : defaultDutyJobs,
     dutyRecords: data.dutyRecords ?? [],
     attendanceRecords: (data.attendanceRecords ?? []).map((item) => ({
@@ -1765,9 +1753,9 @@ function MobileSecondaryPage({ workspaceToken, active, data, activeClass, update
   const [ruleEditorOpen, setRuleEditorOpen] = useState(false);
   const [dutyEditorOpen, setDutyEditorOpen] = useState(false);
   const [cadreEditorOpen, setCadreEditorOpen] = useState(false);
-  const availablePointRules = (data.pointRules?.length ? data.pointRules : defaultPointRules).filter((rule) => rule.enabled !== false);
-  const firstPointRule = availablePointRules[0] ?? defaultPointRules[0];
-  const [pointDraft, setPointDraft] = useState({ studentId: activeClass.students[0]?.id ?? data.students[0]?.id ?? "", ruleId: firstPointRule.id, note: "", operator: "班主任", delta: firstPointRule.delta });
+  const availablePointRules = pointRulesForData(data).filter((rule) => rule.enabled !== false);
+  const firstPointRule = availablePointRules[0];
+  const [pointDraft, setPointDraft] = useState({ studentId: activeClass.students[0]?.id ?? data.students[0]?.id ?? "", ruleId: firstPointRule?.id ?? "", note: "", operator: "班主任", delta: firstPointRule?.delta ?? 0 });
   const [pointStudentKeyword, setPointStudentKeyword] = useState("");
   const [pointGroupFilter, setPointGroupFilter] = useState("全部小组");
   const [selectedPointIds, setSelectedPointIds] = useState<string[]>([]);
@@ -1869,7 +1857,7 @@ function MobileSecondaryPage({ workspaceToken, active, data, activeClass, update
   const studentName = (id: string) => students.find((student) => student.id === id)?.name ?? "未选择学生";
   const title = workspaceModules.find((item) => item.id === active)?.label ?? "更多工具";
   const records = data.records.filter((record) => recordBelongsToClass(record, activeClass.id, students));
-  const events = (data.pointEvents ?? []).filter((event) => students.some((student) => student.id === event.studentId));
+  const events = pointEventsForClass(data, activeClass.id);
   const evidence = (data.growthEvidence ?? []).filter((item) => students.some((student) => student.id === item.studentId));
   const reflections = (data.examReflections ?? []).filter((item) => students.some((student) => student.id === item.studentId));
   const comments = (data.termComments ?? []).filter((item) => students.some((student) => student.id === item.studentId));
@@ -1904,16 +1892,6 @@ function MobileSecondaryPage({ workspaceToken, active, data, activeClass, update
       </>,
     });
   }
-  function patchStudentPoints(studentId: string, delta: number, current: ClassroomData) {
-    return {
-      ...current,
-      students: current.students.map((student) => student.id === studentId ? { ...student, points: student.points + delta } : student),
-      rosterClasses: current.rosterClasses?.map((rosterClass) => rosterClass.id === activeClass.id ? {
-        ...rosterClass,
-        students: rosterClass.students.map((student) => student.id === studentId ? { ...student, points: student.points + delta } : student),
-      } : rosterClass),
-    };
-  }
   function togglePointStudent(studentId: string) {
     setSelectedPointIds((ids) => ids.includes(studentId) ? ids.filter((id) => id !== studentId) : [...ids, studentId]);
   }
@@ -1927,31 +1905,15 @@ function MobileSecondaryPage({ workspaceToken, active, data, activeClass, update
       notify("请选择学生和积分规则，分值不能为 0", "error");
       return;
     }
-    update((current) => {
-      const patched = selectedPointIds.reduce((next, studentId) => patchStudentPoints(studentId, value, next), current);
-      const stamp = new Date().toLocaleString("zh-CN", { year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit" });
-      const nextEvents: PointEvent[] = selectedPointIds.map((studentId) => ({
-        id: makeId(),
-        classId: activeClass.id,
-        studentId,
-        scene: selectedPointRule.scene,
-        reason: pointDraft.note.trim() ? `${selectedPointRule.reason || selectedPointRule.title}｜${pointDraft.note.trim()}` : selectedPointRule.reason || selectedPointRule.title,
-        delta: value,
-        date: stamp,
-        operator: pointDraft.operator.trim() || "班主任",
-      }));
-      return { ...patched, pointEvents: [...nextEvents, ...(patched.pointEvents ?? [])] };
-    });
+    const stamp = new Date().toLocaleString("zh-CN", { year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit" });
+    update((current) => applyPointEvents(current, activeClass.id, selectedPointIds, selectedPointRule, value, pointDraft.note, pointDraft.operator, stamp, makeId));
     setPointDraft((current) => ({ ...current, note: "" }));
     setSelectedPointIds([]);
     setQuickPointOpen(false);
     notify("积分记录已添加", "success");
   }
   function undoPointEvent(event: PointEvent) {
-    update((current) => {
-      const patched = patchStudentPoints(event.studentId, -event.delta, current);
-      return { ...patched, pointEvents: (patched.pointEvents ?? []).filter((item) => item.id !== event.id) };
-    });
+    update((current) => undoPointEventInClass(current, activeClass.id, event.id));
     notify("积分记录已撤销", "success");
   }
   function saveRecord() {
@@ -2029,27 +1991,22 @@ function MobileSecondaryPage({ workspaceToken, active, data, activeClass, update
       return;
     }
     const nextRule: PointRule = { ...ruleDraft, id: ruleDraft.id || makeId(), title: ruleDraft.title.trim(), reason: ruleDraft.reason.trim(), delta: Number(ruleDraft.delta) || 0, owner: ruleDraft.owner.trim() || "班主任" };
-    update((current) => {
-      const rules = current.pointRules?.length ? current.pointRules : defaultPointRules;
-      return { ...current, pointRules: rules.some((rule) => rule.id === nextRule.id) ? rules.map((rule) => rule.id === nextRule.id ? nextRule : rule) : [nextRule, ...rules] };
-    });
+    update((current) => upsertPointRule(current, nextRule));
     setRuleEditorOpen(false);
     notify("积分规则已保存", "success");
   }
   function toggleRuleEnabled(rule: PointRule) {
-    const rules = data.pointRules?.length ? data.pointRules : defaultPointRules;
-    update((current) => ({ ...current, pointRules: rules.map((item) => item.id === rule.id ? { ...item, enabled: item.enabled === false } : item) }));
+    update((current) => patchPointRule(current, rule.id, { enabled: rule.enabled === false }));
     notify("规则状态已更新", "success");
   }
   function copyRuleMobile(rule: PointRule) {
     const copied: PointRule = { ...rule, id: makeId(), title: `${rule.title} 副本`, enabled: true, level: "自定义" };
-    update((current) => ({ ...current, pointRules: [copied, ...(current.pointRules?.length ? current.pointRules : defaultPointRules)] }));
+    update((current) => replacePointRules(current, [copied, ...pointRulesForData(current)]));
     notify("规则已复制", "success");
   }
   async function deleteRuleMobile(rule: PointRule) {
     if (!await requestDangerConfirm(`确认删除规则“${rule.title}”？历史积分记录不会删除。`)) return;
-    const rules = data.pointRules?.length ? data.pointRules : defaultPointRules;
-    update((current) => ({ ...current, pointRules: rules.filter((item) => item.id !== rule.id) }));
+    update((current) => deletePointRule(current, rule.id));
     setDetail(null);
     notify("规则已删除", "success");
   }
@@ -2701,14 +2658,14 @@ function MobileSecondaryPage({ workspaceToken, active, data, activeClass, update
           <em>{selectedPointIds.length ? "修改" : "去选择"}</em>
         </button>
         <button type="button" className="mobile-point-step" onClick={() => setPointRuleSheetOpen(true)}>
-          <span><small>规则</small><b>{selectedPointRule.scene} · {selectedPointRule.title}</b></span>
-          <em>{selectedPointRule.delta > 0 ? "+" : ""}{selectedPointRule.delta}</em>
+          <span><small>规则</small><b>{selectedPointRule ? `${selectedPointRule.scene} · ${selectedPointRule.title}` : "暂无可用规则"}</b></span>
+          <em>{selectedPointRule ? `${selectedPointRule.delta > 0 ? "+" : ""}${selectedPointRule.delta}` : "—"}</em>
         </button>
         {selectedPointIds.length > 4 && <p className="mobile-point-selected-more">另有 {selectedPointIds.length - 4} 名学生已选中，提交时会一起记分。</p>}
         <div className="mobile-form-grid">
           <label><span>本次分值</span><input type="number" value={pointDraft.delta} onChange={(event) => setPointDraft({ ...pointDraft, delta: Number(event.target.value) || 0 })} /></label>
           <label><span>执行人</span><input value={pointDraft.operator} onChange={(event) => setPointDraft({ ...pointDraft, operator: event.target.value })} placeholder="班主任" /></label>
-          <label className="wide"><span>补充说明</span><textarea value={pointDraft.note} onChange={(event) => setPointDraft({ ...pointDraft, note: event.target.value })} placeholder={`默认理由：${selectedPointRule.reason || selectedPointRule.title}`} /></label>
+          <label className="wide"><span>补充说明</span><textarea value={pointDraft.note} onChange={(event) => setPointDraft({ ...pointDraft, note: event.target.value })} placeholder={selectedPointRule ? `默认理由：${selectedPointRule.reason || selectedPointRule.title}` : "请先到积分规则添加并启用规则"} /></label>
         </div>
         <div className="mobile-sheet-actions"><button type="button" disabled={!selectedPointIds.length} onClick={() => setSelectedPointIds([])}>清空选择</button><button type="button" className="primary" disabled={!selectedPointIds.length || !selectedPointRule || Number(pointDraft.delta) === 0} onClick={savePointEvent}>{selectedPointIds.length ? `提交 ${selectedPointIds.length} 人` : "先选学生"}</button></div>
       </section>
@@ -3605,9 +3562,8 @@ function MobileSecondaryPage({ workspaceToken, active, data, activeClass, update
   }
 
   if (active === "rules") {
-    const rules = data.pointRules ?? [];
-    const enabled = rules.filter((rule) => rule.enabled);
-    const ruleSource = rules.length ? rules : defaultPointRules;
+    const ruleSource = pointRulesForData(data);
+    const enabled = ruleSource.filter((rule) => rule.enabled !== false);
     const ruleCategories = ["全部", ...Array.from(new Set(ruleSource.map((rule) => rule.scene)))];
     const visibleRules = ruleSource.filter((rule) => {
       const text = `${rule.scene}${rule.title}${rule.reason}${rule.owner}${rule.delta}`;
@@ -3622,7 +3578,7 @@ function MobileSecondaryPage({ workspaceToken, active, data, activeClass, update
         <label className="mobile-select-field mobile-rule-category-select"><span>规则分类</span><select value={ruleCategory} onChange={(event) => setRuleCategory(event.target.value)}>{ruleCategories.map((item) => <option value={item} key={item}>{item}</option>)}</select></label>
         <label className="mobile-select-field"><span>状态</span><select value={ruleStatusFilter} onChange={(event) => setRuleStatusFilter(event.target.value as typeof ruleStatusFilter)}><option>全部状态</option><option>启用</option><option>停用</option></select></label>
       </section>
-      <section className="mobile-card-list"><header><h2>规则列表</h2><span>{visibleRules.length} 条</span></header>{visibleRules.map((rule) => <button type="button" key={rule.id} onClick={() => setDetail({ title: rule.title, children: <><div className="mobile-detail-grid"><span><small>场景</small><b>{rule.scene}</b></span><span><small>分值</small><b>{rule.delta > 0 ? "+" : ""}{rule.delta}</b></span><span><small>状态</small><b>{rule.enabled ? "启用" : "停用"}</b></span><span><small>使用</small><b>{events.filter((event) => event.scene === rule.scene && (event.reason.includes(rule.title) || event.reason.includes(rule.reason))).length}</b></span></div><div className="mobile-sheet-section"><h3>理由</h3><p>{rule.reason}</p></div><div className="mobile-sheet-section"><h3>执行人</h3><p>{rule.owner}</p></div><div className="mobile-sheet-section"><h3>说明</h3><p>{rule.detail || "暂无说明"}</p></div><div className="mobile-sheet-actions"><button type="button" onClick={() => openRuleEditor(rule)}>编辑规则</button><button type="button" onClick={() => toggleRuleEnabled(rule)}>{rule.enabled ? "停用规则" : "启用规则"}</button></div><div className="mobile-sheet-actions"><button type="button" onClick={() => copyRuleMobile(rule)}>复制规则</button><button type="button" onClick={() => deleteRuleMobile(rule)}>删除规则</button></div></> })}><b>{rule.title} · {rule.delta > 0 ? "+" : ""}{rule.delta}分</b><span>{rule.enabled ? "启用" : "停用"} · {rule.scene} · {rule.reason} · {rule.owner}</span></button>)}{!visibleRules.length && <article><b>暂无规则</b><span>可以调整搜索或新增积分规则。</span></article>}</section>
+      <section className="mobile-card-list"><header><h2>规则列表</h2><span>{visibleRules.length} 条</span></header>{visibleRules.map((rule) => <button type="button" key={rule.id} onClick={() => setDetail({ title: rule.title, children: <><div className="mobile-detail-grid"><span><small>场景</small><b>{rule.scene}</b></span><span><small>分值</small><b>{rule.delta > 0 ? "+" : ""}{rule.delta}</b></span><span><small>状态</small><b>{rule.enabled !== false ? "启用" : "停用"}</b></span><span><small>使用</small><b>{pointRuleUsageCount(events, rule)}</b></span></div><div className="mobile-sheet-section"><h3>理由</h3><p>{rule.reason}</p></div><div className="mobile-sheet-section"><h3>执行人</h3><p>{rule.owner}</p></div><div className="mobile-sheet-section"><h3>说明</h3><p>{rule.detail || "暂无说明"}</p></div><div className="mobile-sheet-actions"><button type="button" onClick={() => openRuleEditor(rule)}>编辑规则</button><button type="button" onClick={() => toggleRuleEnabled(rule)}>{rule.enabled !== false ? "停用规则" : "启用规则"}</button></div><div className="mobile-sheet-actions"><button type="button" onClick={() => copyRuleMobile(rule)}>复制规则</button><button type="button" onClick={() => deleteRuleMobile(rule)}>删除规则</button></div></> })}><b>{rule.title} · {rule.delta > 0 ? "+" : ""}{rule.delta}分</b><span>{rule.enabled !== false ? "启用" : "停用"} · {rule.scene} · {rule.reason} · {rule.owner}</span></button>)}{!visibleRules.length && <article><b>暂无规则</b><span>可以调整搜索或新增积分规则。</span></article>}</section>
       {detail && <MobileInfoSheet title={detail.title} onClose={() => setDetail(null)}>{detail.children}</MobileInfoSheet>}
       {ruleEditorOpen && <MobileInfoSheet title={ruleDraft.id ? "编辑积分规则" : "新增积分规则"} onClose={() => setRuleEditorOpen(false)}>
         <div className="mobile-form-grid">
@@ -4359,7 +4315,7 @@ function Homework({ data, update }: { data: ClassroomData; update: (fn: (d: Clas
 }
 
 function Points({ data, update }: { data: ClassroomData; update: (fn: (d: ClassroomData) => ClassroomData) => void }) {
-  const rules = (data.pointRules?.length ? data.pointRules : defaultPointRules).filter((item) => item.enabled !== false);
+  const rules = pointRulesForData(data).filter((item) => item.enabled !== false);
   const [ruleId, setRuleId] = useState(rules[0]?.id ?? "");
   const [keyword, setKeyword] = useState("");
   const [groupFilter, setGroupFilter] = useState("全部小组");
@@ -4370,7 +4326,7 @@ function Points({ data, update }: { data: ClassroomData; update: (fn: (d: Classr
 
   const activeClassId = data.activeClassId ?? data.rosterClasses?.[0]?.id ?? "class-1";
   const students = data.students;
-  const rule = rules.find((item) => item.id === ruleId) ?? rules[0] ?? defaultPointRules[0];
+  const rule = rules.find((item) => item.id === ruleId) ?? rules[0];
   const value = Number(customDelta) || 0;
   const absDelta = Math.max(1, Math.abs(value));
   const actionText = (value >= 0 ? "加" : "扣") + absDelta;
@@ -4382,11 +4338,9 @@ function Points({ data, update }: { data: ClassroomData; update: (fn: (d: Classr
   });
   const filteredStudentIds = filtered.map((student) => student.id);
   const filteredAllSelected = filteredStudentIds.length > 0 && filteredStudentIds.every((id) => selected.includes(id));
-  const events = data.pointEvents ?? [];
   const selectedStudents = students.filter((student) => selected.includes(student.id));
   const selectedNames = selectedStudents.map((student) => student.name);
-  const studentIds = new Set(students.map((student) => student.id));
-  const classEvents = events.filter((event) => studentIds.has(event.studentId));
+  const classEvents = pointEventsForClass(data, activeClassId);
   const positiveTotal = classEvents.filter((event) => event.delta > 0).reduce((sum, event) => sum + event.delta, 0);
   const negativeTotal = classEvents.filter((event) => event.delta < 0).reduce((sum, event) => sum + Math.abs(event.delta), 0);
   const participants = new Set(classEvents.map((event) => event.studentId)).size;
@@ -4410,39 +4364,20 @@ function Points({ data, update }: { data: ClassroomData; update: (fn: (d: Classr
   function applyScore(studentIds: string[]) {
     if (!studentIds.length || !rule || value === 0) return;
     const stamp = new Date().toLocaleString("zh-CN", { year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit" });
-    const newEvents: PointEvent[] = studentIds.map((studentId) => ({
-      id: makeId(),
-      studentId,
-      scene: rule.scene,
-      reason: note.trim() ? `${rule.reason || rule.title}｜${note.trim()}` : rule.reason || rule.title,
-      delta: value,
-      date: stamp,
-      operator: operator.trim() || "班主任",
-    }));
-
-    update((d) => {
-      const updateStudents = (list: Student[]) => list.map((student) => studentIds.includes(student.id) ? { ...student, points: student.points + value } : student);
-      const nextStudents = updateStudents(d.students);
-      const nextClasses: RosterClass[] | undefined = d.rosterClasses?.map((item) => item.id === activeClassId ? { ...item, students: updateStudents(item.students) } : item);
-      return { ...d, students: nextStudents, rosterClasses: nextClasses, pointEvents: [...newEvents, ...(d.pointEvents ?? [])] };
-    });
+    update((d) => applyPointEvents(d, activeClassId, studentIds, rule, value, note, operator, stamp, makeId));
     setSelected([]);
     setNote("");
   }
 
   function undoEvent(event: PointEvent) {
-    update((d) => {
-      const nextStudents = d.students.map((student) => student.id === event.studentId ? { ...student, points: student.points - event.delta } : student);
-      const nextClasses = d.rosterClasses?.map((item) => item.id === activeClassId ? { ...item, students: item.students.map((student) => student.id === event.studentId ? { ...student, points: student.points - event.delta } : student) } : item);
-      return { ...d, students: nextStudents, rosterClasses: nextClasses, pointEvents: (d.pointEvents ?? []).filter((item) => item.id !== event.id) };
-    });
+    update((d) => undoPointEventInClass(d, activeClassId, event.id));
   }
 
   return <section className="point-pro-page homework-bootstrap-preview">
     <WorkbenchPageHeader icon="⭐" tone="marigold" title="班级记分" description="选择学生和规则后统一提交，误操作可在历史记录中撤销。" />
     <section className="campus-statistics">
-      <div><span>本周加分</span><b>{positiveTotal}</b><small>正向事件累计</small></div>
-      <div><span>本周扣分</span><b>{negativeTotal}</b><small>提醒事件累计</small></div>
+      <div><span>累计加分</span><b>{positiveTotal}</b><small>当前班全部记录</small></div>
+      <div><span>累计扣分</span><b>{negativeTotal}</b><small>当前班全部记录</small></div>
       <div><span>参与人数</span><b>{participants}</b><small>已有积分记录</small></div>
     </section>
     <div className="pointdesk-workspace">
@@ -4491,7 +4426,7 @@ function Points({ data, update }: { data: ClassroomData; update: (fn: (d: Classr
         <header className="pointdesk-section-head compact">
           <div>
             <b>录入规则</b>
-            <span>{rule.scene} · {rule.title}</span>
+            <span>{rule ? `${rule.scene} · ${rule.title}` : "暂无可用规则"}</span>
           </div>
           <strong className={value >= 0 ? "positive" : "negative"}>{value > 0 ? "+" : ""}{value}</strong>
         </header>
@@ -4549,7 +4484,7 @@ function Rules({ data, update }: { data: ClassroomData; update: (fn: (d: Classro
   const [showForm, setShowForm] = useState(false);
   const [draft, setDraft] = useState({ scene: "学习", title: "", reason: "", delta: 1, owner: "班主任", level: "自定义" as PointRule["level"] });
   const [editingRule, setEditingRule] = useState<{ id: string; scene: string; title: string; reason: string; delta: number } | null>(null);
-  const rules = data.pointRules?.length ? data.pointRules : defaultPointRules;
+  const rules = pointRulesForData(data);
   const categories = ["全部", ...Array.from(new Set(rules.map((item) => item.scene)))];
   const visibleRules = rules.filter((item) => {
     const text = `${item.scene}${item.title}${item.reason}${item.owner}${item.delta}${item.detail ?? ""}`;
@@ -4557,9 +4492,9 @@ function Rules({ data, update }: { data: ClassroomData; update: (fn: (d: Classro
     return (category === "全部" || item.scene === category) && (statusFilter === "全部状态" || statusFilter === status) && (!keyword.trim() || text.includes(keyword.trim()));
   });
   const activeRules = rules.filter((item) => item.enabled !== false);
-  const usageFor = (item: PointRule) => (data.pointEvents ?? []).filter((event) => event.scene === item.scene && (event.reason.includes(item.title) || event.reason.includes(item.reason) || item.reason.includes(event.reason))).length;
+  const usageFor = (item: PointRule) => pointRuleUsageCount(data.pointEvents ?? [], item);
   function editRule(id: string, patch: Partial<PointRule>) {
-    update((d) => ({ ...d, pointRules: (d.pointRules?.length ? d.pointRules : defaultPointRules).map((item) => item.id === id ? { ...item, ...patch } : item) }));
+    update((d) => patchPointRule(d, id, patch));
   }
   function startEditRule(item: PointRule) {
     setEditingRule({ id: item.id, scene: item.scene, title: item.title, reason: item.reason, delta: item.delta });
@@ -4577,19 +4512,19 @@ function Rules({ data, update }: { data: ClassroomData; update: (fn: (d: Classro
   function addRule() {
     if (!draft.title.trim() || !draft.reason.trim()) return;
     const newRule: PointRule = { id: makeId(), scene: draft.scene.trim() || "其他", title: draft.title.trim(), reason: draft.reason.trim(), delta: Number(draft.delta) || 0, owner: draft.owner.trim() || "班主任", enabled: true, level: draft.level, detail: "由班主任自定义添加。" };
-    update((d) => ({ ...d, pointRules: [newRule, ...(d.pointRules?.length ? d.pointRules : defaultPointRules)] }));
+    update((d) => upsertPointRule(d, newRule));
     setDraft({ scene: "学习", title: "", reason: "", delta: 1, owner: "班主任", level: "自定义" });
     setCategory(newRule.scene);
     setShowForm(false);
   }
   function copyRule(item: PointRule) {
     const copied: PointRule = { ...item, id: makeId(), title: `${item.title} 副本`, enabled: true, level: "自定义" };
-    update((d) => ({ ...d, pointRules: [copied, ...(d.pointRules?.length ? d.pointRules : defaultPointRules)] }));
+    update((d) => replacePointRules(d, [copied, ...pointRulesForData(d)]));
   }
   async function deleteRule(id: string) {
     const target = rules.find((item) => item.id === id);
     if (!target || !await requestDangerConfirm(`规则“${target.title}”会从规则库移除，历史积分记录不会删除。`)) return;
-    update((d) => ({ ...d, pointRules: (d.pointRules?.length ? d.pointRules : defaultPointRules).filter((item) => item.id !== id) }));
+    update((d) => deletePointRule(d, id));
   }
   return <section className="rule-pro-page homework-bootstrap-preview">
     <WorkbenchPageHeader icon="📏" tone="marigold" title="班级积分规则库" description="统一维护班级加分、扣分规则，供积分评价页快速调用。" actions={<button className="ruledesk-add workbench-header-primary" onClick={() => setShowForm((value) => !value)}>{showForm ? "收起新增" : "添加规则"}</button>} />

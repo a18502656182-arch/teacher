@@ -141,6 +141,7 @@ export type HomeworkTask = {
 export type PointEvent = {
   id: string;
   classId?: string;
+  ruleId?: string;
   studentId: string;
   scene: string;
   reason: string;
@@ -384,6 +385,7 @@ export type ClassroomData = {
   pointEvents?: PointEvent[];
   growthEvidence?: GrowthEvidence[];
   pointRules?: PointRule[];
+  pointRulesInitialized?: boolean;
   cadres?: CadreRole[];
   scoreExams?: ScoreExam[];
   examReflections?: ExamReflection[];
