@@ -13,7 +13,7 @@ export function removeStudentRelations(data: ClassroomData, studentIds: Iterable
     } : task),
     pointEvents: data.pointEvents?.filter((event) => !ids.has(event.studentId)),
     growthEvidence: data.growthEvidence?.filter((item) => !ids.has(item.studentId)),
-    cadres: data.cadres?.filter((role) => !ids.has(role.studentId)),
+    cadres: data.cadres?.filter((role) => role.classId && role.classId !== classId ? true : !ids.has(role.studentId)),
     records: data.records.filter((record) => !record.studentId || !ids.has(record.studentId)),
     scoreExams: data.scoreExams?.map((exam) => exam.classId === classId ? {
       ...exam,

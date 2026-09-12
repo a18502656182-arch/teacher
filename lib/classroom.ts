@@ -182,6 +182,7 @@ export type CadreRole = {
   studentId: string;
   duty: string;
   scope?: string;
+  groupNumber?: number;
   term?: string;
   status?: "在任" | "试用" | "轮换";
   weeklyScore?: number;

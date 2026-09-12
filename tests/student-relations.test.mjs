@@ -22,6 +22,7 @@ function fixture() {
       b: { offset: 1, jobs: [{ id: 'job', studentIds: ['b-0'] }] },
     },
     dutyRecords: [{ id: 'duty-a', classId: 'a', studentIds: ['a-0', 'a-1'] }, { id: 'duty-b', classId: 'b', studentIds: ['b-0'] }],
+    cadres: [{ id: 'cadre-a', classId: 'a', studentId: 'a-0' }, { id: 'cadre-b', classId: 'b', studentId: 'a-0' }, { id: 'cadre-legacy-a', studentId: 'a-1' }],
     dictation: { children: [{ id: 'child-1' }, { id: 'child-2' }], tasks: [
       { id: 'affected', context: { kind: 'class', classId: 'a' }, participants: [{ id: 'a-0' }, { id: 'a-1' }], results: { 'a-0': { status: 'graded' }, 'a-1': { status: 'graded' } } },
       { id: 'last', context: { kind: 'class', classId: 'a' }, participants: [{ id: 'a-0' }], results: {} },
@@ -59,6 +60,7 @@ test('关联清理保留未选数据、另一班成绩和旧无ID沟通记录', 
   assert.equal(next.classDutySettings.b, data.classDutySettings.b);
   assert.deepEqual(next.dutyRecords[0].studentIds, ['a-1']);
   assert.equal(next.dutyRecords[1], data.dutyRecords[1]);
+  assert.deepEqual(next.cadres.map(role => role.id), ['cadre-b', 'cadre-legacy-a']);
   assert.equal(next.rosterClasses, data.rosterClasses);
   assert.equal(removeStudentRelations(data, [], 'a'), data);
 });

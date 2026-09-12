@@ -25,7 +25,7 @@ export function WorkbenchPageHeader({
     homework: "homework", "📚": "homework", "🧾": "homework",
     "📈": "assessment", "📝": "assessment",
     "💬": "communication", "✍️": "communication", "🩺": "care",
-    "🗂️": "planning", "🗓️": "planning", "🎲": "tools", "🪑": "planning", "🧹": "planning", "🎖️": "planning", "📏": "planning", "🗞️": "planning", "⭐": "planning",
+    "🗂️": "planning", "🗓️": "planning", "🎲": "tools", "🪑": "planning", "🧹": "planning", cadres: "cadres", "🎖️": "cadres", "📏": "planning", "🗞️": "planning", "⭐": "planning",
   };
   const artwork = artworkByIcon[icon] ?? "planning";
   const compactMarker = icon === "students" || icon === "homework" || icon === "duty";

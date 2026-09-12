@@ -8,6 +8,7 @@ export const iconPaths: Record<string,string> = {
   rules:'M4 6h16M4 12h16M4 18h16M8 3v6M16 9v6M8 15v6', tools:'M4 4h16v16H4ZM8 8h.01M16 8h.01M12 12h.01M8 16h.01M16 16h.01',
   growth:'M12 21V9M12 16C3 16 3 9 3 7c7 0 9 4 9 9ZM12 12c9 0 9-7 9-9-7 0-9 4-9 9Z',
   more:'M4 4h5v5H4ZM15 4h5v5h-5ZM4 15h5v5H4ZM15 15h5v5h-5Z', plus:'M12 5v14M5 12h14', check:'m5 12 4 4L19 6', arrow:'M5 12h14m-5-5 5 5-5 5', search:'M21 21l-5-5M18 10a8 8 0 1 1-16 0 8 8 0 0 1 16 0',
+  group:'M4 20v-1.5A3.5 3.5 0 0 1 7.5 15h3a3.5 3.5 0 0 1 3.5 3.5V20M9 12a3 3 0 1 0 0-6 3 3 0 0 0 0 6M15 8a2.5 2.5 0 1 1 2.5 2.5M16 15h1a3 3 0 0 1 3 3v2', edit:'M4 20h4L19 9l-4-4L4 16v4ZM13.5 6.5l4 4', copy:'M8 8h12v12H8ZM4 16H3V4h12v1', trash:'M4 7h16M9 7V4h6v3M7 7l1 14h8l1-14M10 11v6M14 11v6', lock:'M6 10h12v11H6ZM9 10V7a3 3 0 0 1 6 0v3M12 14v3', alert:'M12 3 2 21h20ZM12 9v5M12 18h.01',
   school:'M3 21V8l9-5 9 5v13M8 21v-6h8v6M7 10h.01M12 10h.01M17 10h.01', home:'M3 11 12 3l9 8v10h-6v-6H9v6H3Z', user:'M20 21a8 8 0 0 0-16 0M12 13a5 5 0 1 0 0-10 5 5 0 0 0 0 10', warning:'M12 3 2 21h20ZM12 9v5M12 18h.01', sync:'M20 7h-5V2M4 17h5v5M19 12a7 7 0 0 0-12-5l-2 2M5 12a7 7 0 0 0 12 5l2-2', chevron:'m9 18 6-6-6-6', view:'M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12Zm10 3a3 3 0 1 0 0-6 3 3 0 0 0 0 6',
   dictation:'M5 4h14v16H5ZM8 8h8M8 12h5M8 16h3', weekly:'M4 5h16v15H4ZM7 2v6M17 2v6M7 11h10M7 15h7', duty:'M7 3h10l-1 6H8ZM9 9v12M15 9v12M6 21h12', cadres:'M12 3l3 5 6 1-4 4 1 7-6-3-6 3 1-7-4-4 6-1Z', reflection:'M5 3h11l3 3v15H5ZM9 9h6M9 13h6M9 17h4', comments:'M4 4h16v13H8l-4 4ZM8 8h8M8 12h6',
 };

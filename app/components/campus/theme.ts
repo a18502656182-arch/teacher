@@ -1,5 +1,5 @@
 export type ThemeName = 'campus' | 'glass';
-export type ArtworkSlot = 'dashboard' | 'dictation' | 'roster' | 'homework' | 'assessment' | 'planning' | 'duty' | 'care' | 'communication' | 'tools' | 'empty';
+export type ArtworkSlot = 'dashboard' | 'dictation' | 'roster' | 'homework' | 'assessment' | 'planning' | 'duty' | 'cadres' | 'care' | 'communication' | 'tools' | 'empty';
 export type ThemeConfig = { status: 'development' | 'ready' | 'planned'; artwork: Partial<Record<ArtworkSlot,string>> };
 export const themes: Record<ThemeName, ThemeConfig> = {
   campus: { status: 'ready', artwork: {
@@ -10,6 +10,7 @@ export const themes: Record<ThemeName, ThemeConfig> = {
     assessment: '/art/campus/assessment-review.webp',
     planning: '/art/campus/class-planner.webp',
     duty: '/art/campus/duty-cleaning.webp',
+    cadres: '/art/campus/cadres-responsibility.webp',
     care: '/art/campus/student-records.webp',
     communication: '/art/campus/student-records.webp',
     tools: '/art/campus/class-planner.webp',

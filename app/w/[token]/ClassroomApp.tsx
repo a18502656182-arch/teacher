@@ -28,7 +28,7 @@ const Dictation = lazy(() => import('./dictation/Dictation'));
 
 import { makeId, scheduleTermLabel, scheduleTermRange } from "@/lib/classroom";
 import { parseWorkspaceBackup } from "@/lib/workspaceBackup";
-import type { CadreRole, ClassScheduleData, ClassroomData, CommunicationRecord, DailyFocus, ExamReflection, HomeworkTask, PointEvent, PointRule, RosterClass, ScheduleConfig, ScheduleEvent, ScheduleWeek, ScoreExam, Student, TermComment, WeeklyReport } from "@/lib/classroom";
+import type { ClassScheduleData, ClassroomData, CommunicationRecord, DailyFocus, ExamReflection, HomeworkTask, PointEvent, PointRule, RosterClass, ScheduleConfig, ScheduleEvent, ScheduleWeek, ScoreExam, Student, TermComment, WeeklyReport } from "@/lib/classroom";
 import { Attendance } from "./Attendance";
 import { ScheduleHub } from "./ScheduleHub";
 import { TeacherAgenda } from "./TeacherAgenda";
@@ -41,6 +41,7 @@ import { ClassroomTools } from "./ClassroomTools";
 import { Seating } from "./Seating";
 import { normalizeSeatingConfig } from "./features/seating/operations";
 import { Duty } from "./Duty";
+import { Cadres } from "./Cadres";
 import { cloneDutyJobs, defaultDutyJobs, normalizeClassDutySettings } from "./features/duty/operations";
 import { NotificationDrafts } from "./NotificationDrafts";
 import { WorkbenchPageHeader } from "./WorkbenchPageHeader";
@@ -328,11 +329,27 @@ function normalizeData(data: ClassroomData): ClassroomData {
     guardians: (data.guardians ?? []).map((item) => ({ ...item, classId: item.classId ?? classByStudentId.get(item.studentId) ?? activeClassId, isPrimary: Boolean(item.isPrimary), emergencyPriority: Math.max(1, Number(item.emergencyPriority) || 2) })),
     careProfiles: (data.careProfiles ?? []).map((item) => ({ ...item, classId: item.classId ?? classByStudentId.get(item.studentId) ?? activeClassId, visibleScope: "班主任" as const, severity: ["一般", "重要", "紧急"].includes(item.severity) ? item.severity : "一般" })),
     records: (data.records ?? []).map((record) => ({ ...record, ...resolveStudentLink(record.studentId, record.student, record.classId), channel: record.channel ?? "面谈", followUp: record.followUp ?? "", status: record.status ?? "待跟进" })),
-    cadres: data.cadres?.length ? data.cadres.map((role) => ({ ...role, classId: role.classId ?? classByStudentId.get(role.studentId) ?? activeClassId, scope: role.scope ?? "班级管理", term: role.term && role.term !== "本学期" ? role.term : activeTermLabel || "本学期", status: role.status ?? "在任", weeklyScore: role.weeklyScore ?? 4, summary: role.summary ?? "填写本周履职表现。" })) : [
-      { id: "c1", classId: activeClassId, role: "班长", studentId: students[0]?.id ?? "", duty: "协助班主任管理班级常规。", scope: "班级常规", term: activeTermLabel || "本学期", status: "在任", weeklyScore: 5, summary: "能主动提醒同学，适合继续培养组织能力。" },
-      { id: "c2", classId: activeClassId, role: "学习委员", studentId: students[1]?.id ?? "", duty: "组织早读，记录作业缺交。", scope: "学习管理", term: activeTermLabel || "本学期", status: "在任", weeklyScore: 4, summary: "作业反馈及时，早读组织还可以更大胆。" },
-      { id: "c3", classId: activeClassId, role: "劳动委员", studentId: students[2]?.id ?? "", duty: "安排和检查卫生岗位。", scope: "卫生值日", term: activeTermLabel || "本学期", status: "在任", weeklyScore: 5, summary: "检查细致，能把值日问题及时反馈给老师。" },
-    ],
+    cadres: (data.cadres ?? []).map((role) => {
+      const classId = role.classId ?? classByStudentId.get(role.studentId) ?? activeClassId;
+      const roleClass = rosterClasses.find(item => item.id === classId);
+      const classStudents = roleClass?.students ?? (classId === activeClassId ? students : []);
+      const assignedStudent = classStudents.find(student => student.id === role.studentId);
+      const namedGroup = Number(role.role.match(/第?\s*(\d+)\s*组/)?.[1]);
+      const isGroupRole = role.scope === "小组管理" || role.role.includes("组长") || (Number.isInteger(role.groupNumber) && Number(role.groupNumber) > 0) || (Number.isInteger(namedGroup) && namedGroup > 0);
+      const groupNumber = isGroupRole ? (Number.isInteger(role.groupNumber) && Number(role.groupNumber) > 0 ? Number(role.groupNumber) : Number.isInteger(namedGroup) && namedGroup > 0 ? namedGroup : assignedStudent && Number.isInteger(assignedStudent.group) && assignedStudent.group > 0 ? assignedStudent.group : undefined) : undefined;
+      const rawScore = Number(role.weeklyScore);
+      return {
+        ...role,
+        classId,
+        studentId: assignedStudent?.id ?? "",
+        scope: isGroupRole ? "小组管理" : role.scope ?? "班级管理",
+        groupNumber,
+        term: role.term === "本学期" ? roleClass?.term || activeTermLabel || "本学期" : String(role.term ?? ""),
+        status: (["在任", "试用", "轮换"] as const).includes(role.status ?? "在任") ? role.status ?? "在任" : "在任",
+        weeklyScore: Number.isFinite(rawScore) ? Math.max(1, Math.min(5, Math.round(rawScore))) : 4,
+        summary: String(role.summary ?? ""),
+      };
+    }),
     scoreExams: (data.scoreExams ?? []).map((item) => ({ ...item, classId: item.classId ?? activeClassId })),
     examReflections: (data.examReflections ?? []).map((item) => ({ ...item, classId: item.classId ?? classByStudentId.get(item.studentId) ?? activeClassId })),
     termComments: (data.termComments ?? []).map((item) => ({ ...item, classId: item.classId ?? classByStudentId.get(item.studentId) ?? activeClassId })),
@@ -750,7 +767,7 @@ export default function ClassroomApp({ token }: { token: string }) {
           {active === "tools" && <ClassroomTools data={workspace.data} update={updateData} readOnly={isDemo || isReadOnly} />}
           {active === "seating" && <Seating data={workspace.data} update={updateData} readOnly={isDemo || isReadOnly} />}
           {active === "duty" && <Duty data={workspace.data} update={updateData} readOnly={isDemo || isReadOnly} />}
-          {active === "cadres" && <Cadres data={workspace.data} update={updateData} />}
+          {active === "cadres" && <Cadres data={workspace.data} update={updateData} readOnly={isDemo || isReadOnly} confirmAction={requestDangerConfirm} />}
           {active === "records" && <Records data={workspace.data} update={updateData} />}
           {active === "scores" && <Scores workspaceToken={token} data={workspace.data} update={updateData} />}
           {active === "reflection" && <Reflection data={workspace.data} update={updateData} open={openModule} readOnly={isDemo || isReadOnly} />}
@@ -827,7 +844,8 @@ function MobileWorkbench({ workspaceToken, workspace, classes, activeClass, acti
       {active === "health" && <HealthCare data={data} update={update} mobile />}
       {active === "seating" && <Seating data={data} update={update} readOnly={isDemo || isReadOnly} mobile />}
       {active === "duty" && <Duty data={data} update={update} readOnly={isDemo || isReadOnly} mobile />}
-      {!isPrimary && active !== "attendance" && active !== "health" && active !== "dictation" && active !== "seating" && active !== "duty" && <MobileSecondaryPage workspaceToken={workspaceToken} active={active} data={data} activeClass={activeClass} update={update} open={openModule} readOnly={isDemo || isReadOnly} />}
+      {active === "cadres" && <Cadres data={data} update={update} readOnly={isDemo || isReadOnly} mobile confirmAction={requestDangerConfirm} />}
+      {!isPrimary && active !== "attendance" && active !== "health" && active !== "dictation" && active !== "seating" && active !== "duty" && active !== "cadres" && <MobileSecondaryPage workspaceToken={workspaceToken} active={active} data={data} activeClass={activeClass} update={update} open={openModule} readOnly={isDemo || isReadOnly} />}
     </main>
     <nav className="mobile-tabbar" aria-label="手机底部导航">
       {primaryTabs.map((item) => <button type="button" data-module={item.id} key={item.id} className={active === item.id ? "active" : ""} onClick={() => openModule(item.id)}><i aria-hidden="true"><CampusIcon name={item.id}/></i><span>{item.label}</span></button>)}
@@ -1729,7 +1747,6 @@ function MobileSecondaryPage({ workspaceToken, active, data, activeClass, update
   const [editingRecordId, setEditingRecordId] = useState("");
   const [recordStudentPickerOpen, setRecordStudentPickerOpen] = useState(false);
   const [ruleEditorOpen, setRuleEditorOpen] = useState(false);
-  const [cadreEditorOpen, setCadreEditorOpen] = useState(false);
   const availablePointRules = pointRulesForData(data).filter((rule) => rule.enabled !== false);
   const firstPointRule = availablePointRules[0];
   const [pointDraft, setPointDraft] = useState({ studentId: activeClass.students[0]?.id ?? data.students[0]?.id ?? "", ruleId: firstPointRule?.id ?? "", note: "", operator: "班主任", delta: firstPointRule?.delta ?? 0 });
@@ -1815,13 +1832,8 @@ function MobileSecondaryPage({ workspaceToken, active, data, activeClass, update
   const [ruleKeyword, setRuleKeyword] = useState("");
   const [ruleCategory, setRuleCategory] = useState("全部");
   const [ruleStatusFilter, setRuleStatusFilter] = useState<"全部状态" | "启用" | "停用">("全部状态");
-  const [cadreView, setCadreView] = useState<"全部" | "班委" | "小组长">("全部");
-  const [cadreKeyword, setCadreKeyword] = useState("");
-  const [cadreScopeFilter, setCadreScopeFilter] = useState("全部");
-  const [cadreStudentPickerId, setCadreStudentPickerId] = useState("");
   const [recordDraft, setRecordDraft] = useState({ studentId: activeClass.students[0]?.id ?? data.students[0]?.id ?? "", student: activeClass.students[0]?.name ?? data.students[0]?.name ?? "", type: "家校沟通", channel: "微信", date: localCommunicationDate(), purpose: "沟通情况补录", home: "", content: "", opinion: "", followUp: "" });
   const [ruleDraft, setRuleDraft] = useState<PointRule>({ id: "", scene: "课堂", title: "", reason: "", delta: 1, owner: "班主任", enabled: true, level: "自定义", detail: "" });
-  const [cadreDraft, setCadreDraft] = useState<CadreRole>({ id: "", role: "", studentId: activeClass.students[0]?.id ?? data.students[0]?.id ?? "", duty: "", scope: "班级管理", term: activeClass.term || "本学期", status: "在任", weeklyScore: 4, summary: "" });
   const students = activeClass.students?.length ? activeClass.students : data.students;
   const mobileReflectionExams = scoreExamsForClass(data, activeClass.id);
   const mobileReflectionExamIdsKey = mobileReflectionExams.map((item) => item.id).join("|");
@@ -1840,7 +1852,6 @@ function MobileSecondaryPage({ workspaceToken, active, data, activeClass, update
   const comments = termCommentsForClass(data, activeClass.id);
   const dutyJobs = data.dutyJobs ?? [];
   const dutyRecords = (data.dutyRecords ?? []).filter((record) => !record.classId || record.classId === activeClass.id);
-  const cadres = data.cadres ?? [];
   const selectedPointRule = availablePointRules.find((rule) => rule.id === pointDraft.ruleId) ?? firstPointRule;
   const pointGroups = Array.from(new Set(students.map((student) => student.group))).sort((a, b) => a - b);
   const filteredPointStudents = students.filter((student) => {
@@ -1978,30 +1989,6 @@ function MobileSecondaryPage({ workspaceToken, active, data, activeClass, update
     update((current) => deletePointRule(current, rule.id));
     setDetail(null);
     notify("规则已删除", "success");
-  }
-  function openCadreEditor(role?: CadreRole) {
-    setDetail(null);
-    setCadreDraft(role ? { ...role } : { id: "", role: "", studentId: students[0]?.id ?? "", duty: "", scope: "班级管理", term: activeClass.term || "本学期", status: "在任", weeklyScore: 4, summary: "" });
-    setCadreEditorOpen(true);
-  }
-  function saveCadreDraft() {
-    if (!cadreDraft.role.trim() || !cadreDraft.studentId || !cadreDraft.duty.trim()) {
-      notify("请填写岗位、学生和职责", "error");
-      return;
-    }
-    const nextRole: CadreRole = { ...cadreDraft, id: cadreDraft.id || makeId(), role: cadreDraft.role.trim(), duty: cadreDraft.duty.trim(), weeklyScore: Number(cadreDraft.weeklyScore) || 0 };
-    update((current) => {
-      const roles = current.cadres ?? [];
-      return { ...current, cadres: roles.some((role) => role.id === nextRole.id) ? roles.map((role) => role.id === nextRole.id ? nextRole : role) : [nextRole, ...roles] };
-    });
-    setCadreEditorOpen(false);
-    notify("班干部岗位已保存", "success");
-  }
-  async function deleteCadreMobile(role: CadreRole) {
-    if (!await requestDangerConfirm(`确认删除“${role.role}”？`)) return;
-    update((current) => ({ ...current, cadres: (current.cadres ?? []).filter((item) => item.id !== role.id) }));
-    setDetail(null);
-    notify("班干部岗位已删除", "success");
   }
   function mobileWeekMeta(offset = 0) {
     const monday = new Date();
@@ -2973,78 +2960,6 @@ function MobileSecondaryPage({ workspaceToken, active, data, activeClass, update
         </div>
         <div className="mobile-sheet-actions"><button type="button" onClick={() => saveReflectionMobile("草稿")}>保存草稿</button><button type="button" className="primary" onClick={() => saveReflectionMobile("已完成")}>完成归档</button></div>
       </MobileInfoSheet>}
-    </div>;
-  }
-
-  if (active === "cadres") {
-    const roleKind = (role: CadreRole): "班委" | "小组长" => ((role.scope ?? "") === "小组管理" || role.role.includes("组长") || /^第\d+组/.test(role.role)) ? "小组长" : "班委";
-    const committeeRoles = cadres.filter((role) => roleKind(role) === "班委");
-    const groupRoles = cadres.filter((role) => roleKind(role) === "小组长");
-    const groupNumbers = Array.from(new Set(students.map((student) => student.group))).sort((a, b) => a - b);
-    const groupNumberOptions = groupNumbers.length ? groupNumbers : [1];
-    const roleGroupNumber = (role: CadreRole) => Number(role.role.match(/第(\d+)组/)?.[1]) || groupNumberOptions[0] || 1;
-    const missingGroups = groupNumbers.filter((group) => {
-      const candidates = students.filter((student) => student.group === group);
-      return !groupRoles.some((role) => role.role.includes(`第${group}组`) || candidates.some((student) => student.id === role.studentId));
-    });
-    const averageScore = Math.round(cadres.reduce((sum, role) => sum + (role.weeklyScore ?? 0), 0) / Math.max(1, cadres.length));
-    const appointmentText = cadres.map((role) => `兹聘任 ${studentName(role.studentId)} 为本班 ${role.role}，负责：${role.duty}`).join("\n");
-    function openNewCadre(scope: "班级管理" | "小组管理", group?: number) {
-      const safeGroup = group ?? groupNumberOptions[0] ?? 1;
-      const candidates = scope === "小组管理" ? students.filter((student) => student.group === safeGroup) : students;
-      setDetail(null);
-      setCadreDraft({ id: "", role: scope === "小组管理" ? `第${safeGroup}组组长` : "新班委岗位", studentId: candidates[0]?.id ?? students[0]?.id ?? "", duty: scope === "小组管理" ? "负责本组纪律、作业提醒和小组协作。" : "填写岗位职责", scope, term: scheduleTermLabel(data.scheduleConfig, activeClass.term || "本学期"), status: "试用", weeklyScore: 3, summary: "填写本周履职表现。" });
-      setCadreEditorOpen(true);
-    }
-    function cadreCandidatesForDraft() {
-      if ((cadreDraft.scope ?? "班级管理") !== "小组管理") return students;
-      const group = roleGroupNumber(cadreDraft);
-      return students.filter((student) => student.group === group);
-    }
-    const filteredCadres = cadres.filter((role) => {
-      const text = `${role.role}${studentName(role.studentId)}${role.duty}${role.scope ?? ""}${role.status ?? ""}`;
-      const viewOk = cadreView === "全部" || roleKind(role) === cadreView;
-      const statusOk = cadreScopeFilter === "全部" || (role.status ?? "在任") === cadreScopeFilter;
-      return viewOk && statusOk && (!cadreKeyword.trim() || text.includes(cadreKeyword.trim()));
-    });
-    const groupLeaderCount = groupRoles.length;
-    return <div className="mobile-stack mobile-cadres-page">
-      <MobileSectionHero title={title} text={`${committeeRoles.length} 个班委 · ${groupLeaderCount} 个小组长 · 履职 ${averageScore}/5`} />
-      <section className="mobile-overview-stats compact mobile-insight-rail" aria-label="班干部概览"><span><small>班委岗位</small><b>{committeeRoles.length}</b></span><span><small>小组长</small><b>{groupLeaderCount}</b></span><span><small>平均履职</small><b>{averageScore}</b></span></section>
-      <nav className="mobile-segmented cadre-tabs" aria-label="班干部视图">{(["全部", "班委", "小组长"] as const).map((view) => <button type="button" className={cadreView === view ? "active" : ""} key={view} onClick={() => setCadreView(view)}><b>{view}</b><span>{view === "全部" ? cadres.length : view === "班委" ? committeeRoles.length : groupRoles.length} 个</span></button>)}</nav>
-      <section className="mobile-action-row mobile-cadre-actions"><button type="button" onClick={() => openNewCadre("班级管理")}>新增班委</button><button type="button" onClick={() => openNewCadre("小组管理", missingGroups[0] ?? groupNumberOptions[0])}>新增小组长</button></section>
-      {missingGroups.length > 0 && <section className="mobile-card-list mobile-cadre-gap-alert"><article><b>未设置小组长</b><span>缺少：第{missingGroups.join("组、第")}组</span></article></section>}
-      <section className="mobile-cadre-filter-panel"><label className="mobile-search"><span>搜索岗位</span><input value={cadreKeyword} onChange={(event) => setCadreKeyword(event.target.value)} placeholder="岗位、学生或职责" /></label><label><span>任职状态</span><select value={cadreScopeFilter} onChange={(event) => setCadreScopeFilter(event.target.value)}><option value="全部">全部状态</option><option>在任</option><option>试用</option><option>轮换</option></select></label></section>
-      <section className="mobile-card-list"><header><h2>岗位列表</h2><button type="button" onClick={() => copyTextToClipboard(appointmentText, "已复制全部聘任书")}>复制聘任书</button></header>{filteredCadres.map((role) => <button type="button" key={role.id} onClick={() => setDetail({ title: role.role, children: <><div className="mobile-detail-grid"><span><small>学生</small><b>{studentName(role.studentId)}</b></span><span><small>评分</small><b>{role.weeklyScore ?? "-"}/5</b></span><span><small>类型</small><b>{roleKind(role)}</b></span><span><small>状态</small><b>{role.status ?? "在任"}</b></span></div><div className="mobile-sheet-section"><h3>任期</h3><p>{role.term || scheduleTermLabel(data.scheduleConfig, activeClass.term || "本学期")}</p></div><div className="mobile-sheet-section"><h3>职责</h3><p>{role.duty}</p></div><div className="mobile-sheet-section"><h3>履职评价</h3><p>{role.summary || "暂无总结"}</p></div><div className="mobile-sheet-actions"><button type="button" onClick={() => openCadreEditor(role)}>编辑岗位</button><button type="button" onClick={() => copyTextToClipboard(`兹聘任 ${studentName(role.studentId)} 为本班 ${role.role}，负责：${role.duty}`, "已复制聘任书")}>复制聘任书</button></div><div className="mobile-sheet-actions single"><button type="button" onClick={() => deleteCadreMobile(role)}>删除岗位</button></div></> })}><b>{role.role} · {studentName(role.studentId)}</b><span>{roleKind(role)} · {role.status ?? "在任"} · 任期 {role.term || scheduleTermLabel(data.scheduleConfig, activeClass.term || "本学期")} · 评分 {role.weeklyScore ?? "-"}/5</span></button>)}{!filteredCadres.length && <article><b>暂无岗位</b><span>可以调整筛选或新增班干部岗位。</span></article>}</section>
-      {detail && <MobileInfoSheet title={detail.title} onClose={() => setDetail(null)}>{detail.children}</MobileInfoSheet>}
-      {cadreEditorOpen && <MobileInfoSheet title={cadreDraft.id ? "编辑班干部" : "新增班干部"} onClose={() => setCadreEditorOpen(false)}>
-        <div className="mobile-form-grid">
-          <label><span>岗位</span><input value={cadreDraft.role} onChange={(event) => setCadreDraft({ ...cadreDraft, role: event.target.value })} /></label>
-          <label><span>学生</span><button type="button" className="mobile-picker-trigger" onClick={() => setCadreStudentPickerId("draft")}>{studentName(cadreDraft.studentId) || "选择学生"}</button></label>
-          <label><span>岗位类型</span><select value={cadreDraft.scope ?? "班级管理"} onChange={(event) => {
-            const scope = event.target.value;
-            if (scope === "小组管理") {
-              const group = roleGroupNumber(cadreDraft);
-              const candidates = students.filter((student) => student.group === group);
-              setCadreDraft({ ...cadreDraft, scope, role: `第${group}组组长`, studentId: candidates[0]?.id ?? "" });
-              return;
-            }
-            setCadreDraft({ ...cadreDraft, scope, role: (cadreDraft.scope ?? "") === "小组管理" ? "新班委岗位" : cadreDraft.role });
-          }}><option>班级管理</option><option>小组管理</option></select></label>
-          {(cadreDraft.scope ?? "班级管理") === "小组管理" && <label><span>负责小组</span><select value={roleGroupNumber(cadreDraft)} onChange={(event) => {
-            const group = Number(event.target.value);
-            const candidates = students.filter((student) => student.group === group);
-            setCadreDraft({ ...cadreDraft, role: `第${group}组组长`, studentId: candidates[0]?.id ?? "" });
-          }}>{groupNumberOptions.map((group) => <option value={group} key={group}>第{group}组</option>)}</select></label>}
-          <label><span>状态</span><select value={cadreDraft.status ?? "在任"} onChange={(event) => setCadreDraft({ ...cadreDraft, status: event.target.value as CadreRole["status"] })}><option>在任</option><option>试用</option><option>轮换</option></select></label>
-          <label><span>任期</span><input value={cadreDraft.term ?? ""} onChange={(event) => setCadreDraft({ ...cadreDraft, term: event.target.value })} /></label>
-          <label><span>本周评分</span><input type="number" value={cadreDraft.weeklyScore ?? 0} onChange={(event) => setCadreDraft({ ...cadreDraft, weeklyScore: Number(event.target.value) || 0 })} /></label>
-          <label className="wide"><span>职责</span><textarea value={cadreDraft.duty} onChange={(event) => setCadreDraft({ ...cadreDraft, duty: event.target.value })} /></label>
-          <label className="wide"><span>履职评价</span><textarea value={cadreDraft.summary ?? ""} onChange={(event) => setCadreDraft({ ...cadreDraft, summary: event.target.value })} /></label>
-        </div>
-        <div className="mobile-sheet-actions"><button type="button" onClick={() => setCadreEditorOpen(false)}>取消</button><button type="button" className="primary" onClick={saveCadreDraft}>保存岗位</button></div>
-      </MobileInfoSheet>}
-      {cadreStudentPickerId === "draft" && <StudentLookupDialog title="选择任职学生" subtitle={(cadreDraft.scope ?? "班级管理") === "小组管理" ? `${cadreDraft.role} 的候选学生` : "从全班候选人中搜索"} students={cadreCandidatesForDraft()} selectedId={cadreDraft.studentId} onPick={(student) => { setCadreDraft({ ...cadreDraft, studentId: student.id }); setCadreStudentPickerId(""); }} onClose={() => setCadreStudentPickerId("")} />}
     </div>;
   }
 
@@ -4253,7 +4168,7 @@ function Growth({ data, update }: { data: ClassroomData; update: (fn: (d: Classr
   const homeworkRate = homework.length ? Math.round(homeworkDone / homework.length * 100) : 0;
   const positiveEvents = events.filter((event) => event.delta > 0);
   const negativeEvents = events.filter((event) => event.delta < 0);
-  const cadre = (data.cadres ?? []).find((role) => role.studentId === student.id);
+  const cadre = (data.cadres ?? []).find((role) => role.studentId === student.id && (!role.classId || role.classId === activeClassId));
   const status = student.score < 80 || student.homework !== "已交" || student.attendance !== "正常" || negativeEvents.length > positiveEvents.length
     ? "需要跟进"
     : student.score >= 90 || student.points >= 18 ? "表现良好" : "整体稳定";
@@ -4779,160 +4694,6 @@ function Weekly({ data, update, readOnly }: { data: ClassroomData; update: (fn: 
       <div className="weekreport-preview-content"><pre>{previewReport.content}</pre><section><span>下周行动</span><p>{previewReport.nextFocus || "未填写"}</p></section></div>
       <footer><button onClick={() => copyText(previewReport.content)}>复制正文</button><button className="primary" onClick={() => openSavedReport(previewReport)}>打开编辑</button></footer>
     </section></div>}
-  </div>;
-}
-
-function Cadres({ data, update }: { data: ClassroomData; update: (fn: (d: ClassroomData) => ClassroomData) => void }) {
-  const [tab, setTab] = useState<"全部" | "班委" | "小组长">("全部");
-  const [editingRoleId, setEditingRoleId] = useState<string | null>(null);
-  const [draftRole, setDraftRole] = useState<CadreRole | null>(null);
-  const [roleStudentPickerId, setRoleStudentPickerId] = useState<string | null>(null);
-  const activeTermLabel = scheduleTermLabel(data.scheduleConfig, "本学期");
-  const activeClassId = data.activeClassId ?? data.rosterClasses?.[0]?.id ?? "class-1";
-  const roles = data.cadres ?? [];
-  const roleKind = (role: CadreRole): "班委" | "小组长" => ((role.scope ?? "") === "小组管理" || role.role.includes("组长") || /^第\d+组/.test(role.role)) ? "小组长" : "班委";
-  const committeeRoles = roles.filter((role) => roleKind(role) === "班委");
-  const groupRoles = roles.filter((role) => roleKind(role) === "小组长");
-  const groupNumbers = Array.from(new Set(data.students.map((student) => student.group))).sort((a, b) => a - b);
-  const groupNumberOptions = groupNumbers.length ? groupNumbers : [1];
-  const activeRoles = tab === "班委" ? committeeRoles : tab === "小组长" ? groupRoles : roles;
-  const editingRole = editingRoleId === "__new__" ? draftRole : roles.find((role) => role.id === editingRoleId) ?? null;
-  const missingGroups = groupNumbers.filter((group) => {
-    const candidates = data.students.filter((student) => student.group === group);
-    return !groupRoles.some((item) => item.role.includes(`第${group}组`) || candidates.some((student) => student.id === item.studentId));
-  });
-  function edit(id: string, patch: Partial<CadreRole>) {
-    if (id === "__new__" || id === draftRole?.id) {
-      setDraftRole((current) => current ? { ...current, ...patch } : current);
-      return;
-    }
-    update((d) => ({ ...d, cadres: (d.cadres ?? []).map((c) => c.id === id ? { ...c, ...patch } : c) }));
-  }
-
-  function addRole(scope: "班级管理" | "小组管理", group?: number) {
-    const safeGroup = group ?? groupNumberOptions[0] ?? 1;
-    const candidates = scope === "小组管理" ? data.students.filter((student) => student.group === safeGroup) : data.students;
-    const firstStudent = candidates[0] ?? data.students[0];
-    const roleName = scope === "小组管理" ? `第${safeGroup}组组长` : "新班委岗位";
-    const id = makeId();
-    setDraftRole({ id, classId: activeClassId, role: roleName, studentId: firstStudent?.id ?? "", duty: "", scope, term: activeTermLabel, status: "试用", weeklyScore: 3, summary: "" });
-    setEditingRoleId("__new__");
-  }
-
-  function closeRoleEditor() {
-    setEditingRoleId(null);
-    setDraftRole(null);
-  }
-
-  function saveDraftRole() {
-    if (!draftRole) return;
-    const next = { ...draftRole, role: draftRole.role.trim(), duty: draftRole.duty.trim(), term: draftRole.term?.trim() || activeTermLabel, summary: draftRole.summary?.trim() };
-    if (!next.role || !next.duty) {
-      notify("请填写岗位名称和岗位职责", "error");
-      return;
-    }
-    update((current) => ({ ...current, cadres: [...(current.cadres ?? []), next] }));
-    setDraftRole(null);
-    setEditingRoleId(null);
-    notify("班干部岗位已新增", "success");
-  }
-
-  async function removeRole(id: string) {
-    if (id === "__new__") {
-      closeRoleEditor();
-      return;
-    }
-    const target = roles.find((item) => item.id === id);
-    if (target && !await requestDangerConfirm(`岗位“${target.role}”会从班干部台账中移除。`)) return;
-    update((d) => ({ ...d, cadres: (d.cadres ?? []).filter((item) => item.id !== id) }));
-    if (editingRoleId === id) closeRoleEditor();
-    if (roleStudentPickerId === id) setRoleStudentPickerId(null);
-  }
-
-  function candidatesForRole(role: CadreRole) {
-    if (roleKind(role) !== "小组长") return data.students;
-    const group = roleGroupNumber(role);
-    return Number.isFinite(group) ? data.students.filter((student) => student.group === group) : data.students;
-  }
-
-  function roleGroupNumber(role: CadreRole) {
-    const group = Number(role.role.match(/第(\d+)组/)?.[1]);
-    return Number.isFinite(group) ? group : groupNumberOptions[0] ?? 1;
-  }
-
-  function changeRoleGroup(role: CadreRole, group: number) {
-    const candidates = data.students.filter((student) => student.group === group);
-    edit(role.id, { role: `第${group}组组长`, studentId: candidates[0]?.id ?? "" });
-  }
-
-  function renderRoleRow(role: CadreRole) {
-    const student = data.students.find((item) => item.id === role.studentId);
-    return <article className="cadre3-row" key={role.id}>
-      <div className="cadre3-role-cell">
-        <i>{(role.scope ?? "班级管理") === "小组管理" ? "组" : "班"}</i>
-        <div><b>{role.role}</b><span>{role.duty}</span></div>
-      </div>
-      <span>{student?.name || "待任命"}</span>
-      <span>{roleKind(role)}</span>
-      <span>{role.term || activeTermLabel}</span>
-      <em>{role.status ?? "在任"}</em>
-      <strong>{role.weeklyScore ?? 3}/5</strong>
-      <div className="cadre3-row-actions"><button onClick={() => setEditingRoleId(role.id)}>编辑</button><button onClick={() => copyTextToClipboard(`兹聘任 ${student?.name || "某同学"} 为本班 ${role.role}，负责：${role.duty}`, "已复制聘任书")}>复制</button></div>
-    </article>;
-  }
-
-  return <div className="cadre3-page">
-    <WorkbenchPageHeader icon="🎖️" tone="iris" title="班干部岗位" description="先在列表里看清岗位和任期，点击编辑再处理职责、评价和聘任书，避免把所有长内容挤在主页面。" actions={<div className="cadre3-actions"><button className="primary workbench-header-primary" onClick={() => addRole("班级管理")}>新增班委岗位</button><button onClick={() => addRole("小组管理", missingGroups[0] ?? groupNumberOptions[0])}>新增小组长</button></div>} />
-    <section className="campus-statistics"><div><span>班委岗位</span><b>{committeeRoles.length}</b><small>班级管理</small></div><div><span>小组长</span><b>{groupRoles.length}</b><small>{missingGroups.length ? `${missingGroups.length} 组未设置` : "已覆盖小组"}</small></div><div><span>平均履职</span><b>{Math.round(roles.reduce((sum, role) => sum + (role.weeklyScore ?? 0), 0) / Math.max(1, roles.length))}</b><small>满分 5 分</small></div></section>
-
-    <main className="cadre3-ledger">
-      <header className="cadre3-ledger-head">
-          <div><span>岗位列表</span><h3>{tab === "全部" ? "全部岗位" : tab}</h3><p>主列表只保留关键字段；职责和评价在编辑窗口中维护。</p></div>
-          <nav>{(["全部", "班委", "小组长"] as const).map((item) => <button className={tab === item ? "active" : ""} onClick={() => setTab(item)} key={item}>{item}</button>)}</nav>
-      </header>
-      <section className="cadre3-table">
-        <div className="cadre3-table-head"><span>岗位</span><span>学生</span><span>类型</span><span>任期</span><span>状态</span><span>评分</span><span>操作</span></div>
-        {activeRoles.length ? activeRoles.map((role) => renderRoleRow(role)) : <div className="cadre3-empty"><b>还没有对应岗位</b><p>点击上方新增岗位，选择学生并填写职责后会自动形成任期记录。</p><button onClick={() => addRole(tab === "小组长" ? "小组管理" : "班级管理", groupNumbers[0])}>新增岗位</button></div>}
-      </section>
-    </main>
-    {editingRole && <div className="cadre3-modal-backdrop" onClick={closeRoleEditor}>
-      <section className="cadre3-modal" role="dialog" aria-modal="true" aria-label="班干部岗位" onClick={(event) => event.stopPropagation()}>
-        <header><div><span>{editingRoleId === "__new__" ? "新增岗位" : "编辑岗位"}</span><h3>{editingRole.role || "填写岗位名称"}</h3><p>{editingRoleId === "__new__" ? "填写完成后点击保存，未保存不会加入班干部台账。" : "这里维护详细职责、履职评价和聘任书内容。"}</p></div><button type="button" onClick={closeRoleEditor}>关闭</button></header>
-        <div className="cadre3-form">
-          <label><span>岗位名称</span><input value={editingRole.role} onChange={(e) => edit(editingRole.id, { role: e.target.value })} /></label>
-          <label><span>岗位类型</span><select value={editingRole.scope ?? "班级管理"} onChange={(e) => {
-            const scope = e.target.value as CadreRole["scope"];
-            if (scope === "小组管理") {
-              const group = roleGroupNumber(editingRole);
-              const candidates = data.students.filter((student) => student.group === group);
-              edit(editingRole.id, { scope, role: `第${group}组组长`, studentId: candidates[0]?.id ?? "" });
-              return;
-            }
-            edit(editingRole.id, { scope, role: roleKind(editingRole) === "小组长" ? "新班委岗位" : editingRole.role });
-          }}><option value="班级管理">班委</option><option value="小组管理">小组长</option></select></label>
-          {roleKind(editingRole) === "小组长" && <label><span>负责小组</span><select value={roleGroupNumber(editingRole)} onChange={(e) => changeRoleGroup(editingRole, Number(e.target.value))}>{groupNumberOptions.map((group) => <option value={group} key={group}>第{group}组</option>)}</select></label>}
-          <label><span>任职学生</span><button className="student-picker-trigger" onClick={() => setRoleStudentPickerId(editingRole.id)}><span>{data.students.find((student) => student.id === editingRole.studentId)?.name ?? "待选择"}</span><em>选择</em></button></label>
-          <label><span>任期</span><input value={editingRole.term ?? activeTermLabel} onChange={(e) => edit(editingRole.id, { term: e.target.value })} /></label>
-          <label><span>状态</span><select value={editingRole.status ?? "在任"} onChange={(e) => edit(editingRole.id, { status: e.target.value as CadreRole["status"] })}><option>在任</option><option>试用</option><option>轮换</option></select></label>
-          <label><span>履职评分</span><input type="range" min={1} max={5} value={editingRole.weeklyScore ?? 3} onChange={(e) => edit(editingRole.id, { weeklyScore: Number(e.target.value) })} /></label>
-          <label className="wide"><span>岗位职责</span><textarea value={editingRole.duty} onChange={(e) => edit(editingRole.id, { duty: e.target.value })} /></label>
-          <label className="wide"><span>履职评价 / 任期记录</span><textarea value={editingRole.summary ?? ""} onChange={(e) => edit(editingRole.id, { summary: e.target.value })} /></label>
-        </div>
-        <footer><button type="button" onClick={() => copyTextToClipboard(`兹聘任 ${data.students.find((student) => student.id === editingRole.studentId)?.name || "某同学"} 为本班 ${editingRole.role}，负责：${editingRole.duty}`, "已复制聘任书")}>复制聘任书</button>{editingRoleId !== "__new__" && <button type="button" className="text-danger" onClick={() => removeRole(editingRole.id)}>删除岗位</button>}<button type="button" className="primary-small" onClick={editingRoleId === "__new__" ? saveDraftRole : closeRoleEditor}>{editingRoleId === "__new__" ? "保存岗位" : "完成"}</button></footer>
-      </section>
-    </div>}
-    {roleStudentPickerId && (() => {
-      const role = roleStudentPickerId === "__new__" || roleStudentPickerId === draftRole?.id ? draftRole : roles.find((item) => item.id === roleStudentPickerId);
-      if (!role) return null;
-      return <StudentLookupDialog
-        title="选择任职学生"
-        subtitle={roleKind(role) === "小组长" ? `第${roleGroupNumber(role)}组全部成员，可搜索姓名或学号。` : `${role.role} 可从全班候选人中搜索。`}
-        students={candidatesForRole(role)}
-        selectedId={role.studentId}
-        onPick={(student) => { edit(roleStudentPickerId, { studentId: student.id }); setRoleStudentPickerId(null); }}
-        onClose={() => setRoleStudentPickerId(null)}
-      />;
-    })()}
   </div>;
 }
 
