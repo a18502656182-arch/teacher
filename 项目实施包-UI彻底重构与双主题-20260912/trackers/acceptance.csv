@@ -1,4 +1,4 @@
-﻿id,module,scenario,fixture,viewport,commit,result,evidence,reason
+id,module,scenario,fixture,viewport,commit,result,evidence,reason
 A-01-01,dashboard,desktop-default,,,,not-run,,不适用需说明源码依据
 A-01-02,dashboard,mobile-default,,,,not-run,,不适用需说明源码依据
 A-01-03,dashboard,empty,,,,not-run,,不适用需说明源码依据
@@ -179,15 +179,15 @@ A-20-06,family,readonly,demo-readonly-zero-family-children,1280x720,872dee7,pass
 A-20-07,family,save-failure,synthetic-two-tab-server-rejection;workspace-network-unit,1280x720,872dee7,pass,evidence/family-operations-20260913.md,服务器拒绝时孩子编辑字段保持且未宣称成功；网络失败草稿由完整工作区回归覆盖
 A-20-08,family,conflict-or-not-applicable,synthetic-two-tab-conflict,1280x720,872dee7,pass,evidence/family-operations-20260913.md,第二标签真实409；全局冲突入口和孩子档案并发草稿同时保留
 A-20-09,family,legacy-css-off,demo-and-synthetic-css-isolation,six-width,872dee7,pass,evidence/family-operations-20260913.md,旧家庭select/平铺DOM退出；FamilyScene CSS Module接管家庭构图且共享听写核心保留
-A-21-01,entry,desktop-default,,,,not-run,,不适用需说明源码依据
-A-21-02,entry,mobile-default,,,,not-run,,不适用需说明源码依据
-A-21-03,entry,empty,,,,not-run,,不适用需说明源码依据
-A-21-04,entry,long-data,,,,not-run,,不适用需说明源码依据
-A-21-05,entry,primary-editor,,,,not-run,,不适用需说明源码依据
-A-21-06,entry,readonly,,,,not-run,,不适用需说明源码依据
-A-21-07,entry,save-failure,,,,not-run,,不适用需说明源码依据
-A-21-08,entry,conflict-or-not-applicable,,,,not-run,,不适用需说明源码依据
-A-21-09,entry,legacy-css-off,,,,not-run,,不适用需说明源码依据
+A-21-01,entry,desktop-default,browser-local,1280x720,a799f6b,pass,evidence/entry-operations-20260913.md,桌面入口与隐私页实际渲染
+A-21-02,entry,mobile-default,browser-local,390x844,a799f6b,pass,evidence/entry-operations-20260913.md,手机入口、底部验证层与隐私长页实际渲染
+A-21-03,entry,empty,formal-entry,1280x720,a799f6b,pass,evidence/entry-operations-20260913.md,公开入口不注入班级或示例业务数字
+A-21-04,entry,long-data,bounded-auth-fields,390x844,a799f6b,not-applicable,evidence/entry-operations-20260913.md,本页没有长业务列表；手机号受长度限制且输入框自身滚动
+A-21-05,entry,primary-editor,auth-dialog,1280x720;390x844,a799f6b,pass,evidence/entry-operations-20260913.md,兑换码/手机号、提交中防重复、焦点和脏关闭已验
+A-21-06,entry,readonly,demo-route,1280x720;390x844,a799f6b,pass,evidence/entry-operations-20260913.md,唯一演示入口明确只读；既有只读契约回归通过
+A-21-07,entry,save-failure,isolated-auth-db,1280x720;390x844,a799f6b,pass,evidence/entry-operations-20260913.md,无效、过期和网络失败不关闭或清空表单
+A-21-08,entry,conflict-or-not-applicable,auth-only,,a799f6b,not-applicable,evidence/entry-operations-20260913.md,入口不写工作区数据，不参与revision/409冲突
+A-21-09,entry,legacy-css-off,module-css,1280x720;390x844,a799f6b,pass,evidence/entry-operations-20260913.md,入口/隐私旧全局选择器退出；管理员样式独立
 A-22-01,account,desktop-default,,,,not-run,,不适用需说明源码依据
 A-22-02,account,mobile-default,,,,not-run,,不适用需说明源码依据
 A-22-03,account,empty,,,,not-run,,不适用需说明源码依据

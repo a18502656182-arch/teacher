@@ -1,4 +1,4 @@
-﻿role,theme,status,source,desktop_file,mobile_file,dimensions,crop_checked,license_note
+role,theme,status,source,desktop_file,mobile_file,dimensions,crop_checked,license_note
 home.scene,campus,planned,,,,,not-run,待登记生产素材来源
 dictation.context,campus,planned,,,,,not-run,待登记生产素材来源
 student.detail,campus,planned,,,,,not-run,待登记生产素材来源
@@ -23,3 +23,4 @@ organization.context,glass,planned,,,,,not-run,未来范围，首版不生产
 family.context,glass,planned,,,,,not-run,未来范围，首版不生产
 empty.first-use,glass,planned,,,,,not-run,未来范围，首版不生产
 empty.no-results,glass,planned,,,,,not-run,未来范围，首版不生产
+entry.context,campus,implemented,项目已有原创校园场景复用,public/art/campus/classroom-morning.webp,public/art/campus/classroom-morning.webp,960x640 WebP,pass,项目原创既有资源；作为独立ThemeArtwork语义槽使用，无人物、宠物、口号或可读文字

@@ -1,6 +1,6 @@
-﻿task,title,depends_on,status,commit,evidence,next_action
+task,title,depends_on,status,commit,evidence,next_action
 TASK-01,核验源码与Git,无,done,f321d5e9424e0020bdf1e56d52c31b986b503a53,evidence/implementation-start-20260912.md,TASK-02逐动作核验
-TASK-02,展开功能与弹窗账本,01,in-progress,872dee7,evidence/implementation-start-20260912.md; evidence/schedule-operations-20260912.md; evidence/classroom-tools-operations-20260912.md; evidence/seating-operations-20260912.md; evidence/duty-operations-20260912.md; evidence/cadre-operations-20260912.md; evidence/family-operations-20260913.md,F02-F20已展开；继续F21入口，再完成F22-F23
+TASK-02,展开功能与弹窗账本,01,in-progress,a799f6b,evidence/implementation-start-20260912.md; evidence/schedule-operations-20260912.md; evidence/classroom-tools-operations-20260912.md; evidence/seating-operations-20260912.md; evidence/duty-operations-20260912.md; evidence/cadre-operations-20260912.md; evidence/family-operations-20260913.md; evidence/entry-operations-20260913.md,F02-F21已展开；继续F22账户，再完成F23管理员
 TASK-03,建立隔离测试夹具,02,planned,,,
 TASK-04,抽取纯业务计算,02,planned,,,
 TASK-05,抽取保存与草稿操作,"03,04",planned,,,
