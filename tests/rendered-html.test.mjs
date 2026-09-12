@@ -27,6 +27,7 @@ const studentProfileOperations = read("app/w/[token]/features/students/profile.t
 const scoreTrends = read("app/w/[token]/ScoreTrends.tsx");
 const classroomTools = read("app/w/[token]/ClassroomTools.tsx");
 const notificationDrafts = read("app/w/[token]/NotificationDrafts.tsx");
+const notificationOperations = read("app/w/[token]/features/notifications/operations.ts");
 const scoreItemAnalysis = read("app/w/[token]/ScoreItemAnalysis.tsx");
 const workspaceBackup = read("lib/workspaceBackup.ts");
 const authSource = read("lib/auth.ts");
@@ -327,7 +328,8 @@ test("notification drafts are copyable records, never a claimed external send", 
   assert.match(notificationDrafts, /copyTextToClipboard/);
   assert.match(clipboard, /navigator\.clipboard\.writeText/);
   assert.doesNotMatch(notificationDrafts, /navigator\.clipboard\.writeText/);
-  assert.match(notificationDrafts, /已记录回执/);
+  assert.match(notificationDrafts, /saveNotificationReceipt/);
+  assert.match(notificationOperations, /status: '已记录回执'/);
 });
 
 test("dialogs use unique titles and keyboard focus management", () => {

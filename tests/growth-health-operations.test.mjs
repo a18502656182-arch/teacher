@@ -19,6 +19,7 @@ function fixture() {
     activeClassId: 'a', students: a, rosterClasses: [{ id: 'a', students: a }, { id: 'b', students: b }],
     growthEvidence: [
       { id: 'a-old', classId: 'a', studentId: 'a-0', date: '2026-09-10', type: '日常', title: '原记录', content: '保留' },
+      { id: 'legacy-record-copy', classId: 'a', studentId: 'a-0', date: '2026-09-10', type: '沟通', title: '旧重复记录', content: '由沟通台账直接呈现', source: '家校沟通' },
       { id: 'wrong-class', classId: 'b', studentId: 'a-0', date: '2026-09-10', type: '日常', title: '显式他班', content: '不能显示' },
     ],
     careProfiles: [
@@ -44,7 +45,7 @@ test('成长事实写入当前班快照并保留另一班与家庭数据', () =>
   assert.equal(result.data.dictation, data.dictation);
 });
 
-test('成长事实拒绝另一班、空字段并按显式classId隔离旧记录', () => {
+test('成长事实拒绝另一班、空字段，并过滤沟通台账留下的重复副本', () => {
   const data = fixture();
   assert.equal(growth.addGrowthEvidence(data, 'a', 'b-0', { date: '2026-09-12', type: '日常', title: '标题', content: '事实', followUp: '' }, () => 'bad').error, '所选学生不属于当前班级。');
   assert.equal(growth.addGrowthEvidence(data, 'a', 'a-0', { date: '', type: '日常', title: '', content: '', followUp: '' }, () => 'bad').error, '请填写日期、标题和具体事实。');

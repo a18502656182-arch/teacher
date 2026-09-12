@@ -31,5 +31,5 @@ export function addGrowthEvidence(
 export function growthEvidenceForStudent(data: ClassroomData, classId: string, studentId: string): GrowthEvidence[] {
   const allowed = classStudentIds(data, classId);
   if (!allowed.has(studentId)) return [];
-  return (data.growthEvidence ?? []).filter(item => item.studentId === studentId && (!item.classId || item.classId === classId));
+  return (data.growthEvidence ?? []).filter(item => item.source !== '家校沟通' && item.studentId === studentId && (!item.classId || item.classId === classId));
 }

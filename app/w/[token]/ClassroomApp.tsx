@@ -11,6 +11,7 @@ import { CampusIcon, MetricStrip, ThemeArtwork } from '@/app/components/campus/p
 import { DesktopHeader, SaveStatus, WorkspaceNav, workspaceModules, type LearningScene, type WorkspaceModuleId } from '@/app/components/campus/WorkspaceChrome';
 import { applyHomeworkStatuses } from './features/homework/operations';
 import { addGrowthEvidence, growthEvidenceForStudent } from './features/growth/operations';
+import { communicationRecordsForClass, localCommunicationDate, patchCommunicationStatus, recordBelongsToClass, recordBelongsToStudent, removeCommunicationRecord, saveCommunicationRecord } from './features/records/operations';
 import { applyPointEvents, pointEventsForClass, undoPointEvent as undoPointEventInClass } from './features/points/operations';
 import { defaultPointRules } from './features/rules/catalog';
 import { deletePointRule, patchPointRule, pointRulesForData, pointRuleUsageCount, replacePointRules, upsertPointRule } from './features/rules/operations';
@@ -22,7 +23,7 @@ const Dictation = lazy(() => import('./dictation/Dictation'));
 
 import { makeId, scheduleTermLabel, scheduleTermRange } from "@/lib/classroom";
 import { parseWorkspaceBackup } from "@/lib/workspaceBackup";
-import type { CadreRole, ClassScheduleData, ClassroomData, CommunicationRecord, DailyFocus, DutyJob, DutyRecord, ExamReflection, GrowthEvidence, HomeworkTask, PointEvent, PointRule, RosterClass, ScheduleConfig, ScheduleEvent, ScheduleWeek, ScoreExam, SeatingConfig, Student, TermComment, WeeklyReport } from "@/lib/classroom";
+import type { CadreRole, ClassScheduleData, ClassroomData, CommunicationRecord, DailyFocus, DutyJob, DutyRecord, ExamReflection, HomeworkTask, PointEvent, PointRule, RosterClass, ScheduleConfig, ScheduleEvent, ScheduleWeek, ScoreExam, SeatingConfig, Student, TermComment, WeeklyReport } from "@/lib/classroom";
 import { Attendance } from "./Attendance";
 import { ScheduleHub } from "./ScheduleHub";
 import { TeacherAgenda } from "./TeacherAgenda";
@@ -411,17 +412,6 @@ function updateClassStudents(data: ClassroomData, classId: string, updater: (stu
       ? { ...classroom, students: classroom.students.map(updater) }
       : classroom),
   };
-}
-
-function recordBelongsToClass(record: CommunicationRecord, classId: string, students: Student[]) {
-  if (record.classId) return record.classId === classId;
-  if (record.studentId) return students.some((student) => student.id === record.studentId);
-  return students.some((student) => student.name === record.student);
-}
-
-function recordBelongsToStudent(record: CommunicationRecord, student: Student, classId: string) {
-  if (record.classId && record.classId !== classId) return false;
-  return record.studentId ? record.studentId === student.id : record.student === student.name;
 }
 
 export default function ClassroomApp({ token }: { token: string }) {
@@ -1850,16 +1840,16 @@ function MobileSecondaryPage({ workspaceToken, active, data, activeClass, update
   const [cadreKeyword, setCadreKeyword] = useState("");
   const [cadreScopeFilter, setCadreScopeFilter] = useState("全部");
   const [cadreStudentPickerId, setCadreStudentPickerId] = useState("");
-  const [recordDraft, setRecordDraft] = useState({ student: activeClass.students[0]?.name ?? data.students[0]?.name ?? "", type: "家校沟通", channel: "微信", date: today(), purpose: "沟通情况补录", home: "", content: "", opinion: "", followUp: "" });
+  const [recordDraft, setRecordDraft] = useState({ studentId: activeClass.students[0]?.id ?? data.students[0]?.id ?? "", student: activeClass.students[0]?.name ?? data.students[0]?.name ?? "", type: "家校沟通", channel: "微信", date: localCommunicationDate(), purpose: "沟通情况补录", home: "", content: "", opinion: "", followUp: "" });
   const [ruleDraft, setRuleDraft] = useState<PointRule>({ id: "", scene: "课堂", title: "", reason: "", delta: 1, owner: "班主任", enabled: true, level: "自定义", detail: "" });
   const [dutyDraft, setDutyDraft] = useState<DutyJob>({ id: "", name: "", area: "", standard: "", studentIds: [], enabled: true });
   const [cadreDraft, setCadreDraft] = useState<CadreRole>({ id: "", role: "", studentId: activeClass.students[0]?.id ?? data.students[0]?.id ?? "", duty: "", scope: "班级管理", term: activeClass.term || "本学期", status: "在任", weeklyScore: 4, summary: "" });
   const students = activeClass.students?.length ? activeClass.students : data.students;
   const studentName = (id: string) => students.find((student) => student.id === id)?.name ?? "未选择学生";
   const title = workspaceModules.find((item) => item.id === active)?.label ?? "更多工具";
-  const records = data.records.filter((record) => recordBelongsToClass(record, activeClass.id, students));
+  const records = communicationRecordsForClass(data, activeClass.id);
   const events = pointEventsForClass(data, activeClass.id);
-  const evidence = (data.growthEvidence ?? []).filter((item) => students.some((student) => student.id === item.studentId));
+  const evidence = (data.growthEvidence ?? []).filter((item) => item.source !== "家校沟通" && students.some((student) => student.id === item.studentId));
   const reflections = (data.examReflections ?? []).filter((item) => students.some((student) => student.id === item.studentId));
   const comments = (data.termComments ?? []).filter((item) => students.some((student) => student.id === item.studentId));
   const dutyJobs = data.dutyJobs ?? [];
@@ -1918,32 +1908,22 @@ function MobileSecondaryPage({ workspaceToken, active, data, activeClass, update
     notify("积分记录已撤销", "success");
   }
   function saveRecord() {
-    if (!recordDraft.student || !recordDraft.content.trim()) {
-      notify("请选择学生并填写沟通内容", "error");
-      return;
-    }
-    const text = `目的：${recordDraft.purpose}｜家庭情况：${recordDraft.home}｜沟通内容：${recordDraft.content}`;
-    const selectedStudent = students.find((student) => student.name === recordDraft.student);
-    const record: CommunicationRecord = {
-      id: editingRecordId || makeId(),
-      student: recordDraft.student,
-      studentId: selectedStudent?.id,
-      classId: activeClass.id,
+    const draft = {
+      id: editingRecordId || undefined,
+      studentId: recordDraft.studentId,
       type: recordDraft.type,
       channel: recordDraft.channel,
-      content: text,
-      parentFeedback: recordDraft.opinion.trim(),
-      followUp: recordDraft.followUp.trim(),
-      status: editingRecordId ? data.records.find((item) => item.id === editingRecordId)?.status ?? "待跟进" : "待跟进",
-      date: recordDraft.date.trim() || today(),
+      date: recordDraft.date,
+      purpose: recordDraft.purpose,
+      home: recordDraft.home,
+      content: recordDraft.content,
+      parentFeedback: recordDraft.opinion,
+      followUp: recordDraft.followUp,
     };
-    const evidence: GrowthEvidence | null = selectedStudent ? { id: makeId(), classId: activeClass.id, studentId: selectedStudent.id, date: record.date, type: recordDraft.type, title: `${recordDraft.student} ${recordDraft.type}`, content: text, followUp: recordDraft.followUp.trim(), source: "家校沟通", createdAt: Date.now() } : null;
-    update((current) => ({
-      ...current,
-      records: editingRecordId ? current.records.map((item) => item.id === editingRecordId ? record : item) : [record, ...current.records],
-      growthEvidence: !editingRecordId && evidence ? [evidence, ...(current.growthEvidence ?? [])] : current.growthEvidence,
-    }));
-    setRecordDraft((current) => ({ ...current, date: today(), home: "", content: "", opinion: "", followUp: "" }));
+    const preview = saveCommunicationRecord(data, activeClass.id, draft, () => "record-preview");
+    if (preview.error) { notify(preview.error, "error"); return; }
+    update((current) => saveCommunicationRecord(current, activeClass.id, draft, makeId).data ?? current);
+    setRecordDraft((current) => ({ ...current, date: localCommunicationDate(), home: "", content: "", opinion: "", followUp: "" }));
     setEditingRecordId("");
     setQuickRecordOpen(false);
     notify(editingRecordId ? "沟通记录已更新" : "沟通记录已添加", "success");
@@ -1951,18 +1931,20 @@ function MobileSecondaryPage({ workspaceToken, active, data, activeClass, update
   function openRecordEditor(record?: CommunicationRecord) {
     if (!record) {
       setEditingRecordId("");
-      setRecordDraft({ student: students[0]?.name ?? "", type: "家校沟通", channel: "微信", date: today(), purpose: "沟通情况补录", home: "", content: "", opinion: "", followUp: "" });
+      setRecordDraft({ studentId: students[0]?.id ?? "", student: students[0]?.name ?? "", type: "家校沟通", channel: "微信", date: localCommunicationDate(), purpose: "沟通情况补录", home: "", content: "", opinion: "", followUp: "" });
       setQuickRecordOpen(true);
       return;
     }
     setDetail(null);
     setEditingRecordId(record.id);
     const parts = record.content.split("｜");
+    const recordStudent = students.find((student) => student.id === record.studentId) ?? students.find((student) => student.name === record.student);
     setRecordDraft({
-      student: record.student,
+      studentId: recordStudent?.id ?? "",
+      student: recordStudent?.name ?? record.student,
       type: record.type,
       channel: record.channel ?? "微信",
-      date: record.date || today(),
+      date: record.date || localCommunicationDate(),
       purpose: parts.find((part) => part.startsWith("目的："))?.replace("目的：", "") || "沟通情况补录",
       home: parts.find((part) => part.startsWith("家庭情况："))?.replace("家庭情况：", "") || "",
       content: parts.find((part) => part.startsWith("沟通内容："))?.replace("沟通内容：", "") || record.content,
@@ -1972,12 +1954,12 @@ function MobileSecondaryPage({ workspaceToken, active, data, activeClass, update
     setQuickRecordOpen(true);
   }
   function patchRecordStatus(recordId: string, status: CommunicationRecord["status"]) {
-    update((current) => ({ ...current, records: current.records.map((record) => record.id === recordId ? { ...record, status } : record) }));
+    update((current) => patchCommunicationStatus(current, activeClass.id, recordId, status));
     notify("沟通状态已更新", "success");
   }
   async function deleteRecordMobile(recordId: string) {
     if (!await requestDangerConfirm("确认删除这条沟通记录？")) return;
-    update((current) => ({ ...current, records: current.records.filter((record) => record.id !== recordId) }));
+    update((current) => removeCommunicationRecord(current, activeClass.id, recordId));
     setDetail(null);
     notify("沟通记录已删除", "success");
   }
@@ -2758,7 +2740,7 @@ function MobileSecondaryPage({ workspaceToken, active, data, activeClass, update
         </div>
         <div className="mobile-sheet-actions"><button type="button" onClick={() => { setQuickRecordOpen(false); setEditingRecordId(""); }}>取消</button><button type="button" className="primary" onClick={saveRecord}>保存记录</button></div>
       </MobileInfoSheet>}
-      {recordStudentPickerOpen && <StudentLookupDialog title="选择沟通学生" subtitle="搜索姓名、学号或小组后再选择，不展开全班下拉。" students={students} selectedId={students.find((student) => student.name === recordDraft.student)?.id} onPick={(student) => { setRecordDraft({ ...recordDraft, student: student.name }); setRecordStudentPickerOpen(false); }} onClose={() => setRecordStudentPickerOpen(false)} />}
+      {recordStudentPickerOpen && <StudentLookupDialog title="选择沟通学生" subtitle="搜索姓名、学号或小组后再选择，不展开全班下拉。" students={students} selectedId={recordDraft.studentId} onPick={(student) => { setRecordDraft({ ...recordDraft, studentId: student.id, student: student.name }); setRecordStudentPickerOpen(false); }} onClose={() => setRecordStudentPickerOpen(false)} />}
     </div>;
   }
 
@@ -2767,7 +2749,7 @@ function MobileSecondaryPage({ workspaceToken, active, data, activeClass, update
     const termBounds = scheduleTermRange(data.scheduleConfig);
     const tasks = (data.homeworkTasks ?? []).filter((task) => !task.classId || task.classId === activeClassId);
     const studentEvidenceCount = (item: Student) => {
-      const manualCount = (data.growthEvidence ?? []).filter((record) => record.studentId === item.id).length;
+      const manualCount = growthEvidenceForStudent(data, activeClassId, item.id).length;
       const pointCount = (data.pointEvents ?? []).filter((event) => event.studentId === item.id).length;
       const recordCount = data.records.filter((record) => recordBelongsToStudent(record, item, activeClassId)).length;
       const homeworkCount = tasks.filter((task) => task.statuses[item.id]).length;
@@ -2961,7 +2943,7 @@ function MobileSecondaryPage({ workspaceToken, active, data, activeClass, update
       return { group, count: groupStudents.length, average: groupStudents.length ? Math.round(points / groupStudents.length) : 0, unresolved, names: groupStudents.map((student) => student.name).join("、") };
     }).sort((a, b) => b.average - a.average);
     const weeklyGrowthRecords = [
-      ...(data.growthEvidence ?? []).filter((item) => studentIds.has(item.studentId) && item.date >= weeklyMeta.weekStart && item.date <= weeklyMeta.weekEnd).map((item) => ({ student: studentName(item.studentId), type: item.type, content: item.content || item.title, date: item.date })),
+      ...(data.growthEvidence ?? []).filter((item) => item.source !== "家校沟通" && studentIds.has(item.studentId) && item.date >= weeklyMeta.weekStart && item.date <= weeklyMeta.weekEnd).map((item) => ({ student: studentName(item.studentId), type: item.type, content: item.content || item.title, date: item.date })),
       ...records.filter((record) => !/^\d{4}-\d{2}-\d{2}/.test(record.date) || (record.date >= weeklyMeta.weekStart && record.date <= weeklyMeta.weekEnd)).map((record) => ({ student: record.student, type: record.type, content: record.content, date: record.date })),
     ].slice(0, 8);
     const visibleReports = reports.filter((report) => {
@@ -4671,7 +4653,7 @@ function Growth({ data, update }: { data: ClassroomData; update: (fn: (d: Classr
     : student.score >= 90 || student.points >= 18 ? "表现良好" : "整体稳定";
   const statusTone = status === "需要跟进" ? "attention" : status === "表现良好" ? "positive" : "steady";
   const studentEvidenceCount = (item: Student) => {
-    const hasManual = (data.growthEvidence ?? []).filter((record) => record.studentId === item.id).length;
+    const hasManual = growthEvidenceForStudent(data, activeClassId ?? "class-1", item.id).length;
     const hasPoints = (data.pointEvents ?? []).filter((event) => event.studentId === item.id).length;
     const hasRecords = data.records.filter((record) => recordBelongsToStudent(record, item, activeClassId ?? "class-1")).length;
     const homeworkCount = tasks.filter((task) => task.statuses[item.id]).length;
@@ -5924,8 +5906,7 @@ function Cadres({ data, update }: { data: ClassroomData; update: (fn: (d: Classr
 }
 
 function Records({ data, update }: { data: ClassroomData; update: (fn: (d: ClassroomData) => ClassroomData) => void }) {
-  const [student, setStudent] = useState("");
-  const [studentQuery, setStudentQuery] = useState("");
+  const [studentId, setStudentId] = useState("");
   const [studentPickerOpen, setStudentPickerOpen] = useState(false);
   const [studentPickerKeyword, setStudentPickerKeyword] = useState("");
   const [studentPickerRange, setStudentPickerRange] = useState("常用");
@@ -5936,7 +5917,7 @@ function Records({ data, update }: { data: ClassroomData; update: (fn: (d: Class
   const [content, setContent] = useState("");
   const [opinion, setOpinion] = useState("");
   const [followUp, setFollowUp] = useState("");
-  const [recordTime, setRecordTime] = useState(today());
+  const [recordTime, setRecordTime] = useState(localCommunicationDate());
   const [recordModalOpen, setRecordModalOpen] = useState(false);
   const [editingRecordId, setEditingRecordId] = useState<string | null>(null);
   const [filter, setFilter] = useState("全部类型");
@@ -5944,14 +5925,13 @@ function Records({ data, update }: { data: ClassroomData; update: (fn: (d: Class
   const [keyword, setKeyword] = useState("");
   const [recordError, setRecordError] = useState("");
   const activeClassId = data.activeClassId ?? data.rosterClasses?.[0]?.id ?? "class-1";
-  const classRecords = data.records.filter((record) => recordBelongsToClass(record, activeClassId, data.students));
-  const selectedStudent = data.students.find((item) => item.name === student);
+  const classRecords = communicationRecordsForClass(data, activeClassId);
+  const selectedStudent = data.students.find((item) => item.id === studentId);
   useEffect(() => {
-    if (student && !data.students.some((item) => item.name === student)) {
-      setStudent("");
-      setStudentQuery("");
+    if (studentId && !data.students.some((item) => item.id === studentId)) {
+      setStudentId("");
     }
-  }, [data.activeClassId, data.students, student]);
+  }, [data.activeClassId, data.students, studentId]);
   const sortedStudents = [...data.students].sort((a, b) => {
     const aNo = Number.parseInt(String(a.studentNo ?? "").replace(/\D/g, ""), 10);
     const bNo = Number.parseInt(String(b.studentNo ?? "").replace(/\D/g, ""), 10);
@@ -5964,8 +5944,8 @@ function Records({ data, update }: { data: ClassroomData; update: (fn: (d: Class
     const end = Math.min(sortedStudents.length, start + pickerRangeSize);
     return { key: `range-${index}`, label: `${start + 1}-${end}`, start, end };
   });
-  const recentStudentNames = Array.from(new Set([student, ...classRecords.map((record) => record.student)])).filter(Boolean).slice(0, 8);
-  const recentStudents = recentStudentNames.map((name) => data.students.find((item) => item.name === name)).filter((item): item is Student => Boolean(item));
+  const recentStudentIds = Array.from(new Set([studentId, ...classRecords.map((record) => record.studentId ?? data.students.find((item) => item.name === record.student)?.id ?? "")])).filter(Boolean).slice(0, 8);
+  const recentStudents = recentStudentIds.map((id) => data.students.find((item) => item.id === id)).filter((item): item is Student => Boolean(item));
   const searchText = studentPickerKeyword.trim();
   const activeRange = pickerRanges.find((item) => item.key === studentPickerRange);
   const pickerStudents = searchText
@@ -5975,8 +5955,7 @@ function Records({ data, update }: { data: ClassroomData; update: (fn: (d: Class
       : recentStudents;
   const pickerTitle = searchText ? `全班搜索结果 ${pickerStudents.length} 人` : activeRange ? `名单序号 ${activeRange.label}` : "常用学生";
   function pickStudent(nextStudent: Student) {
-    setStudent(nextStudent.name);
-    setStudentQuery(nextStudent.name);
+    setStudentId(nextStudent.id);
     setStudentPickerOpen(false);
   }
   function readRecordField(text: string, label: string) {
@@ -5984,8 +5963,7 @@ function Records({ data, update }: { data: ClassroomData; update: (fn: (d: Class
   }
   function openAddRecord() {
     setEditingRecordId(null);
-    setStudent("");
-    setStudentQuery("");
+    setStudentId("");
     setType("家访登记");
     setChannel("微信");
     setPurpose("");
@@ -5993,17 +5971,17 @@ function Records({ data, update }: { data: ClassroomData; update: (fn: (d: Class
     setContent("");
     setOpinion("");
     setFollowUp("");
-    setRecordTime(today());
+    setRecordTime(localCommunicationDate());
     setRecordError("");
     setRecordModalOpen(true);
   }
   function openEditRecord(record: CommunicationRecord) {
+    const recordStudent = data.students.find((item) => item.id === record.studentId) ?? data.students.find((item) => item.name === record.student);
     setEditingRecordId(record.id);
-    setStudent(record.student);
-    setStudentQuery(record.student);
+    setStudentId(recordStudent?.id ?? "");
     setType(record.type);
     setChannel(record.channel ?? "面谈");
-    setRecordTime(record.date || today());
+    setRecordTime(record.date || localCommunicationDate());
     setPurpose(readRecordField(record.content, "目的") || "沟通情况补录");
     setHome(readRecordField(record.content, "家庭情况") || readRecordField(record.content, "家庭与在校情况"));
     setContent(readRecordField(record.content, "沟通内容") || record.content);
@@ -6013,32 +5991,17 @@ function Records({ data, update }: { data: ClassroomData; update: (fn: (d: Class
     setRecordModalOpen(true);
   }
   function saveRecord() {
-    if (!selectedStudent) {
-      setRecordError("请选择沟通对象后再保存。");
-      return;
-    }
-    if (!content.trim()) {
-      setRecordError("请填写沟通内容后再保存。");
-      return;
-    }
+    const draft = { id: editingRecordId ?? undefined, studentId, type, channel, date: recordTime, purpose, home, content, parentFeedback: opinion, followUp };
+    const preview = saveCommunicationRecord(data, activeClassId, draft, () => "record-preview");
+    if (preview.error) { setRecordError(preview.error); return; }
     setRecordError("");
-    const text = `目的：${purpose}｜家庭情况：${home}｜沟通内容：${content}`;
-    if (editingRecordId) {
-      update((d) => ({
-        ...d,
-        records: d.records.map((item) => item.id === editingRecordId ? { ...item, classId: activeClassId, studentId: selectedStudent?.id, student, type, channel, content: text, parentFeedback: opinion, followUp, date: recordTime || item.date } : item)
-      }));
-    } else {
-      const record: CommunicationRecord = { id: makeId(), classId: activeClassId, studentId: selectedStudent?.id, student, type, channel, content: text, parentFeedback: opinion, followUp, status: "待跟进", date: recordTime || today() };
-      const evidence: GrowthEvidence | null = selectedStudent ? { id: makeId(), classId: activeClassId, studentId: selectedStudent.id, date: recordTime || today(), type, title: `${student} ${type}`, content: text, followUp, source: "家校沟通", createdAt: Date.now() } : null;
-      update((d) => ({ ...d, records: [record, ...d.records], growthEvidence: evidence ? [evidence, ...(d.growthEvidence ?? [])] : d.growthEvidence }));
-    }
+    update((current) => saveCommunicationRecord(current, activeClassId, draft, makeId).data ?? current);
     setRecordModalOpen(false);
   }
   async function deleteRecord(record: CommunicationRecord) {
     const confirmed = await requestDangerConfirm(`${record.student} 的这条${record.type}记录会从家校沟通台账中移除。`);
     if (!confirmed) return;
-    update((d) => ({ ...d, records: d.records.filter((item) => item.id !== record.id) }));
+    update((current) => removeCommunicationRecord(current, activeClassId, record.id));
   }
   const types = ["全部类型", ...Array.from(new Set(classRecords.map((record) => record.type)))];
   const visibleRecords = classRecords.filter((record) => {
@@ -6047,7 +6010,7 @@ function Records({ data, update }: { data: ClassroomData; update: (fn: (d: Class
   });
   const followCount = classRecords.filter((record) => record.status === "待跟进").length;
   const resolvedCount = classRecords.filter((record) => record.status === "已跟进" || record.status === "已归档").length;
-  const involvedCount = new Set(classRecords.map((record) => record.student)).size;
+  const involvedCount = new Set(classRecords.map((record) => record.studentId ?? record.student)).size;
   return <>
     <WorkbenchPageHeader icon="💬" tone="berry" title="沟通记录" description="按学生、类型和状态查找记录，待跟进事项优先处理。" actions={<button type="button" className="record3-primary workbench-header-primary" onClick={openAddRecord}>新增沟通记录</button>} />
     <section className="record3-page">
@@ -6064,14 +6027,14 @@ function Records({ data, update }: { data: ClassroomData; update: (fn: (d: Class
         </div>
         <div className="record3-table">
           <div className="record3-head"><span>学生</span><span>沟通时间</span><span>类型/方式</span><span>沟通摘要</span><span>反馈与跟进</span><span>状态</span><span>操作</span></div>
-          {visibleRecords.length ? visibleRecords.map((r) => <article key={r.id} className="record3-row"><b><i>{r.student.slice(0,1)}</i><span>{r.student}</span></b><time>{r.date}</time><span>{r.type}<small>{r.channel ?? "面谈"}</small></span><p>{r.content}</p><p>{r.parentFeedback && <small>反馈：{r.parentFeedback}</small>}{r.followUp && <small>跟进：{r.followUp}</small>}</p><select value={r.status ?? "待跟进"} onChange={(e) => update((d) => ({ ...d, records: d.records.map((item) => item.id === r.id ? { ...item, status: e.target.value as CommunicationRecord["status"] } : item) }))}><option>待跟进</option><option>已跟进</option><option>已归档</option></select><div><button type="button" onClick={() => openEditRecord(r)}>编辑</button><button type="button" onClick={() => copyTextToClipboard(`${r.student}｜${r.type}｜${r.content}｜${r.followUp ?? ""}`, "已复制沟通记录")}>复制</button><button type="button" onClick={() => deleteRecord(r)}>删除</button></div></article>) : <div className="record3-empty">没有符合条件的沟通记录。</div>}
+          {visibleRecords.length ? visibleRecords.map((r) => <article key={r.id} className="record3-row"><b><i>{r.student.slice(0,1)}</i><span>{r.student}</span></b><time>{r.date}</time><span>{r.type}<small>{r.channel ?? "面谈"}</small></span><p>{r.content}</p><p>{r.parentFeedback && <small>反馈：{r.parentFeedback}</small>}{r.followUp && <small>跟进：{r.followUp}</small>}</p><select value={r.status ?? "待跟进"} onChange={(e) => update((current) => patchCommunicationStatus(current, activeClassId, r.id, e.target.value as CommunicationRecord["status"]))}><option>待跟进</option><option>已跟进</option><option>已归档</option></select><div><button type="button" onClick={() => openEditRecord(r)}>编辑</button><button type="button" onClick={() => copyTextToClipboard(`${r.student}｜${r.type}｜${r.content}｜${r.followUp ?? ""}`, "已复制沟通记录")}>复制</button><button type="button" onClick={() => deleteRecord(r)}>删除</button></div></article>) : <div className="record3-empty">没有符合条件的沟通记录。</div>}
         </div>
       </section>
       {recordModalOpen && <div className="record3-modal-backdrop" onClick={() => setRecordModalOpen(false)}>
         <section className="record3-edit-modal" role="dialog" aria-modal="true" aria-labelledby="record-editor-title" onClick={(event) => event.stopPropagation()}>
-           <header><div><span>{editingRecordId ? "编辑记录" : "新增记录"}</span><h3 id="record-editor-title">{student || "请选择学生"} · {type}</h3></div><button type="button" onClick={() => setRecordModalOpen(false)}>关闭</button></header>
+           <header><div><span>{editingRecordId ? "编辑记录" : "新增记录"}</span><h3 id="record-editor-title">{selectedStudent?.name || "请选择学生"} · {type}</h3></div><button type="button" onClick={() => setRecordModalOpen(false)}>关闭</button></header>
           <div className="record3-fields">
-            <label className="record3-student-picker"><span>学生</span><button type="button" onClick={() => setStudentPickerOpen(true)}><span className="record3-student-main">{selectedStudent ? <><b>{selectedStudent.name}</b><small>{selectedStudent.studentNo ? `学号 ${selectedStudent.studentNo}` : "未填学号"}</small></> : <><b>{studentQuery || "选择学生"}</b><small>搜索姓名或学号</small></>}</span><em>选择学生</em></button></label>
+            <label className="record3-student-picker"><span>学生</span><button type="button" onClick={() => setStudentPickerOpen(true)}><span className="record3-student-main">{selectedStudent ? <><b>{selectedStudent.name}</b><small>{selectedStudent.studentNo ? `学号 ${selectedStudent.studentNo}` : "未填学号"}</small></> : <><b>选择学生</b><small>搜索姓名或学号</small></>}</span><em>选择学生</em></button></label>
             <label><span>时间维度</span><input value={recordTime} onChange={(e) => setRecordTime(e.target.value)} placeholder="如 2026-08-06、8月家访、第3周周五" /></label>
             <label><span>类型</span><select value={type} onChange={(e) => setType(e.target.value)}>{["家访登记", "谈心记录", "作业跟进", "纪律表现", "表扬记录", "心理关注"].map((t) => <option key={t}>{t}</option>)}</select></label>
             <label><span>方式</span><select value={channel} onChange={(e) => setChannel(e.target.value)}>{["微信", "电话", "面谈", "家访", "班级群"].map((item) => <option key={item}>{item}</option>)}</select></label>
@@ -6082,7 +6045,7 @@ function Records({ data, update }: { data: ClassroomData; update: (fn: (d: Class
             <label className="wide"><span>下一步跟进</span><textarea value={followUp} onChange={(e) => setFollowUp(e.target.value)} /></label>
           </div>
           {recordError && <p className="record3-form-error" role="alert">{recordError}</p>}
-          <footer><button type="button" onClick={() => setRecordModalOpen(false)}>取消</button><button type="button" className="record3-primary" onClick={saveRecord}>{editingRecordId ? "保存修改" : "保存并同步成长档案"}</button></footer>
+          <footer><button type="button" onClick={() => setRecordModalOpen(false)}>取消</button><button type="button" className="record3-primary" onClick={saveRecord}>{editingRecordId ? "保存修改" : "保存记录"}</button></footer>
         </section>
       </div>}
       {studentPickerOpen && <div className="record3-picker-backdrop" onClick={() => setStudentPickerOpen(false)}>
@@ -6091,7 +6054,7 @@ function Records({ data, update }: { data: ClassroomData; update: (fn: (d: Class
           <div className="record3-picker-tools"><input value={studentPickerKeyword} onChange={(event) => setStudentPickerKeyword(event.target.value)} placeholder="输入姓名或学号搜索全班" /><nav><button type="button" className={studentPickerRange === "常用" && !searchText ? "active" : ""} onClick={() => { setStudentPickerRange("常用"); setStudentPickerKeyword(""); }}>常用</button>{pickerRanges.map((range) => <button type="button" className={studentPickerRange === range.key && !searchText ? "active" : ""} key={range.key} onClick={() => { setStudentPickerRange(range.key); setStudentPickerKeyword(""); }}>{range.label}</button>)}</nav></div>
           <div className="record3-picker-caption"><b>{pickerTitle}</b><span>{searchText ? "正在按姓名和学号搜索全班名单" : activeRange ? "按名单顺序分段浏览，不一次性铺满全班" : "默认只显示当前学生和已有沟通记录"}</span></div>
           <div className="record3-picker-list">
-            {pickerStudents.length ? pickerStudents.map((item) => <button type="button" className={item.name === student ? "selected" : ""} key={item.id} onClick={() => pickStudent(item)}><i>{item.name.slice(0,1)}</i><span><b>{item.name}</b><small>{item.studentNo || "未填学号"} · {data.records.filter((record) => recordBelongsToStudent(record, item, activeClassId)).length}条记录</small></span></button>) : <p>{searchText ? "没有匹配的学生。" : "输入姓名或学号搜索全班学生，或选择上方名单序号段浏览。"}</p>}
+            {pickerStudents.length ? pickerStudents.map((item) => <button type="button" className={item.id === studentId ? "selected" : ""} key={item.id} onClick={() => pickStudent(item)}><i>{item.name.slice(0,1)}</i><span><b>{item.name}</b><small>{item.studentNo || "未填学号"} · {data.records.filter((record) => recordBelongsToStudent(record, item, activeClassId)).length}条记录</small></span></button>) : <p>{searchText ? "没有匹配的学生。" : "输入姓名或学号搜索全班学生，或选择上方名单序号段浏览。"}</p>}
           </div>
         </section>
       </div>}
