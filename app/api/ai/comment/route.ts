@@ -43,9 +43,26 @@ export async function POST(request: Request) {
     return Response.json({ error: "请求内容格式不正确。" }, { status: 400 });
   }
 
-  if (payload.workspaceToken === "demo") {
-    return Response.json({ content: "该生本学期能够认真参与课堂活动，与同学相处融洽，也在日常任务中逐渐形成责任意识。希望接下来继续保持主动表达的习惯，遇到困难时及时提问，并把学习计划落实到每天的小行动中。", demo: true });
+  const studentName = limitText(payload.studentName, 60);
+  const term = limitText(payload.term, 80);
+  const style = limitText(payload.style, 30) || "家长可读";
+  const teacherInput = limitText(payload.teacherInput, 1200);
+  const context = payload.context ?? {};
+
+  if (!studentName) {
+    return Response.json({ error: "缺少学生信息。" }, { status: 400 });
   }
+
+  if (payload.workspaceToken === "demo") {
+    return Response.json({ content: "【演示草稿】此处只展示 AI 帮写后的编辑流程，不代表当前学生的真实表现。正式使用时，系统只会依据教师勾选的记录和补充内容生成草稿。", demo: true });
+  }
+
+  const hasEvidence = Boolean(teacherInput)
+    || [context.records, context.events, context.reflections].some(items => Array.isArray(items) && items.some(item => limitText(item, 180)))
+    || context.score != null
+    || context.points != null
+    || Boolean(limitText(context.homework, 100));
+  if (!hasEvidence) return Response.json({ error: "请先选择真实记录或填写老师补充。" }, { status: 400 });
 
   const apiKey = process.env.DEEPSEEK_API_KEY;
   if (!apiKey) return Response.json({ error: "尚未配置 DeepSeek API Key。" }, { status: 503 });
@@ -62,16 +79,6 @@ export async function POST(request: Request) {
   } catch (error) {
     if (error instanceof AuthError) return Response.json({ error: error.message, code: error.code }, { status: error.status });
     return Response.json({ error: "AI 使用状态检查失败" }, { status: 500 });
-  }
-
-  const studentName = limitText(payload.studentName, 60);
-  const term = limitText(payload.term, 80);
-  const style = limitText(payload.style, 30) || "家长可读";
-  const teacherInput = limitText(payload.teacherInput, 1200);
-  const context = payload.context ?? {};
-
-  if (!studentName) {
-    return Response.json({ error: "缺少学生信息。" }, { status: 400 });
   }
 
   const prompt = [

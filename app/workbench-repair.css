@@ -15061,6 +15061,18 @@ textarea:focus {
     font-weight: 800;
   }
 
+  .mobile-form-message {
+    margin: 0 0 10px;
+    padding: 9px 10px;
+    border: 1px solid var(--campus-line);
+    border-radius: 8px;
+    background: var(--campus-green);
+    color: var(--campus-ink);
+    font-size: 13px;
+    font-weight: 750;
+    line-height: 1.55;
+  }
+
   .mobile-form-grid label {
     display: grid;
     gap: 6px;

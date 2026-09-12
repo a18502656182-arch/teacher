@@ -1,6 +1,6 @@
 # 期末评语：逐页执行卡
 
-状态：planned。模块ID：comments。源码相对 app/w/[token]（明确app/lib前缀除外）：ClassroomApp.tsx:Comments/MobileSecondaryPage。
+状态：inventoried-with-gap。模块ID：comments。源码相对 app/w/[token]（明确app/lib前缀除外）：ClassroomApp.tsx:Comments/MobileSecondaryPage；共享操作：features/comments/operations.ts。
 参考：编辑工作区派生。派生页面使用对应页面族构图和校园token，不把缺少专属图解释为可回退旧UI。
 
 ## 保全动作（种子，实施前展开）
@@ -29,3 +29,9 @@
 
 ## 完成判据
 全部保全动作有新入口与证据；桌面/手机/主要浮层可用；参考气质和比例达标；旧布局退出；测试没有通过削弱断言变绿。结果写当前commit，不复用旧报告标pass。
+
+## 2026-09-12 实际核验
+
+已展开桌面/手机学期、学生、依据、生成、人工编辑、保存、复制与浮层入口，并将班级过滤、保存唯一性和只整理真实依据收进共享操作层。修复了跨班计数、只读假成功、本地模板编写无依据事实及证据变化覆盖手工草稿。六宽度真实浏览器已打开手机二级依据浮层，并验证草稿和只读提示保留。
+
+本卡仍未完成：生产 DOM/CSS 继续使用 `comment5-*` 和手机公共大组件，正式新视图、100+/软键盘/真实 AI 服务、页面级脏状态和旧 CSS 退出尚未验收，所以 `A-14-*` 不改为通过。证据见 `../evidence/comments-operations-20260912.md`。

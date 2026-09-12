@@ -13,6 +13,7 @@ import { applyHomeworkStatuses } from './features/homework/operations';
 import { addGrowthEvidence, growthEvidenceForStudent } from './features/growth/operations';
 import { communicationRecordsForClass, localCommunicationDate, patchCommunicationStatus, recordBelongsToClass, recordBelongsToStudent, removeCommunicationRecord, saveCommunicationRecord } from './features/records/operations';
 import { examReflectionsForClass, saveExamReflection } from './features/reflections/operations';
+import { appendTermCommentText, buildLocalTermCommentDraft, saveTermComment, termCommentsForClass } from './features/comments/operations';
 import { isDatedWithin, saveWeeklyReport, weeklyActivityRows, weeklyFollowRows, weeklyHomeworkMetrics, weeklyPointEventsForClass, weeklyPositiveRows, weeklyReportsForClass } from './features/weekly/operations';
 import { applyPointEvents, pointEventsForClass, undoPointEvent as undoPointEventInClass } from './features/points/operations';
 import { defaultPointRules } from './features/rules/catalog';
@@ -736,7 +737,7 @@ export default function ClassroomApp({ token }: { token: string }) {
           {active === "records" && <Records data={workspace.data} update={updateData} />}
           {active === "scores" && <Scores workspaceToken={token} data={workspace.data} update={updateData} />}
           {active === "reflection" && <Reflection data={workspace.data} update={updateData} open={openModule} readOnly={isDemo || isReadOnly} />}
-          {active === "comments" && <Comments workspaceToken={token} data={workspace.data} update={updateData} />}
+          {active === "comments" && <Comments workspaceToken={token} data={workspace.data} update={updateData} readOnly={isDemo || isReadOnly} />}
         </div>
       </main>
       {toast && <div className={`workbench-toast ${toast.tone ?? "success"}`} role="status">{toast.message}</div>}
@@ -1799,6 +1800,7 @@ function MobileSecondaryPage({ workspaceToken, active, data, activeClass, update
   const [commentPendingPage, setCommentPendingPage] = useState(1);
   const [commentEvidenceOpen, setCommentEvidenceOpen] = useState(false);
   const [commentTeacherInput, setCommentTeacherInput] = useState("");
+  const [commentEditorMessage, setCommentEditorMessage] = useState("");
   const [commentAiBusy, setCommentAiBusy] = useState(false);
   const [commentAiError, setCommentAiError] = useState("");
   const [commentSelectedRecordIds, setCommentSelectedRecordIds] = useState<string[]>([]);
@@ -1830,7 +1832,7 @@ function MobileSecondaryPage({ workspaceToken, active, data, activeClass, update
   const events = pointEventsForClass(data, activeClass.id);
   const evidence = (data.growthEvidence ?? []).filter((item) => item.source !== "家校沟通" && students.some((student) => student.id === item.studentId));
   const reflections = examReflectionsForClass(data, activeClass.id);
-  const comments = (data.termComments ?? []).filter((item) => students.some((student) => student.id === item.studentId));
+  const comments = termCommentsForClass(data, activeClass.id);
   const dutyJobs = data.dutyJobs ?? [];
   const dutyRecords = (data.dutyRecords ?? []).filter((record) => !record.classId || record.classId === activeClass.id);
   const cadres = data.cadres ?? [];
@@ -2466,15 +2468,6 @@ function MobileSecondaryPage({ workspaceToken, active, data, activeClass, update
   function commentReflectionsFor(student: Student) {
     return reflections.filter((item) => item.studentId === student.id);
   }
-  function buildMobileCommentText(student: Student, style: TermComment["style"], recordList: CommunicationRecord[], eventList: PointEvent[], reflectionList: ExamReflection[]) {
-    const opening = style === "客观正式" ? `${student.name}同学本学期能遵守班级常规，整体学习状态` : style === "温和鼓励" ? `${student.name}同学，这一学期老师看到了你的努力，整体表现` : `${student.name}同学本学期在校表现`;
-    const level = student.score >= 90 ? "稳定优秀，学习主动性较强" : student.score >= 80 ? "较为踏实，能够完成多数学习任务" : "还需要老师和家长共同陪伴，逐步建立稳定习惯";
-    const eventText = eventList[0] ? `在日常记录中，${eventList[0].reason}，说明他/她具备继续进步的基础。` : "平时能够参与班级活动，也在逐步积累自己的小进步。";
-    const evidenceText = recordList[0] ? `近期记录显示：${recordList[0].content}` : "接下来可以继续多积累课堂表达、作业订正和自我管理方面的具体表现。";
-    const reflectionText = reflectionList[0] ? `考试后能看到自己的问题：${reflectionList[0].problem}，并已经形成改进计划。` : "";
-    const advice = student.homework === "未交" ? "下阶段建议重点抓作业提交和订正闭环，把每天的小任务落实到位。" : student.score < 80 ? "下阶段建议结合错题复盘和基础练习，逐步建立信心。" : "下阶段希望继续保持主动表达和稳定复盘，把优势坚持下去。";
-    return `${opening}${level}。${eventText}${evidenceText}${reflectionText}${advice}`;
-  }
   function resetMobileCommentEvidence(student: Student) {
     setCommentSelectedRecordIds(commentRecordsFor(student).slice(0, 4).map((item) => item.id));
     setCommentSelectedReflectionIds(commentReflectionsFor(student).slice(0, 3).map((item) => item.id));
@@ -2486,30 +2479,53 @@ function MobileSecondaryPage({ workspaceToken, active, data, activeClass, update
     if (!student) return;
     const style: TermComment["style"] = item?.style ?? "家长可读";
     const term = item?.term ?? (commentTermFilter || scheduleTermLabel(data.scheduleConfig, activeClass.term || "当前学期"));
-    const recordList = commentRecordsFor(student).slice(0, 4);
-    const eventList = commentEventsFor(student).slice(0, 4);
-    const reflectionList = commentReflectionsFor(student).slice(0, 3);
     resetMobileCommentEvidence(student);
     setCommentTeacherInput("");
     setCommentAiError("");
-    setCommentDraft(item ? { ...item } : { id: "", studentId: student.id, term, style, content: buildMobileCommentText(student, style, recordList, eventList, reflectionList), updatedAt: today() });
+    setCommentEditorMessage("");
+    setCommentDraft(item ? { ...item } : { id: "", classId: activeClass.id, studentId: student.id, term, style, content: "", updatedAt: today() });
     setCommentEditorOpen(true);
   }
-  function saveCommentMobile() {
-    if (!commentDraft.studentId || !commentDraft.content.trim()) {
-      notify("请选择学生并填写评语内容", "error");
+  async function closeCommentEditorMobile() {
+    if (commentAiBusy) {
+      setCommentEditorMessage("AI帮写仍在处理中，请等待完成后再关闭。");
       return;
     }
-    const next: TermComment = { ...commentDraft, id: commentDraft.id || makeId(), updatedAt: today() };
-    update((current) => ({ ...current, termComments: [next, ...(current.termComments ?? []).filter((item) => item.id !== next.id)] }));
-    setCommentTermFilter(next.term);
+    const original = commentDraft.id
+      ? comments.find(item => item.id === commentDraft.id)
+      : comments.find(item => item.studentId === commentDraft.studentId && item.term === commentDraft.term && item.style === commentDraft.style);
+    const dirty = commentDraft.content !== (original?.content ?? "") || Boolean(commentTeacherInput.trim());
+    if (dirty && !await requestDangerConfirm("关闭后会放弃当前未保存的评语内容和老师补充。", "放弃未保存评语", "放弃并关闭")) return;
     setCommentEditorOpen(false);
-    notify("评语已保存", "success");
+    setCommentEvidenceOpen(false);
+    setCommentEditorMessage("");
+  }
+  function saveCommentMobile() {
+    if (readOnly) {
+      setCommentEditorMessage("当前为只读模式，评语内容未修改。");
+      return;
+    }
+    const commentId = commentDraft.id || makeId();
+    const input = { ...commentDraft, id: commentId };
+    const preview = saveTermComment(data, activeClass.id, input, () => commentId, today());
+    if (preview.error) {
+      setCommentEditorMessage(preview.error);
+      return;
+    }
+    update((current) => saveTermComment(current, activeClass.id, input, () => commentId, today()).data ?? current);
+    setCommentDraft(preview.comment!);
+    setCommentTermFilter(preview.comment!.term);
+    setCommentEditorMessage("评语已更新到本机草稿，正在同步；同步失败时可在当前编辑页继续处理。");
+    notify("评语已更新，正在同步", "info");
   }
   async function generateCommentMobile() {
     const student = students.find((item) => item.id === commentDraft.studentId);
     if (!student) {
       notify("请选择学生", "error");
+      return;
+    }
+    if (readOnly && workspaceToken !== "demo") {
+      setCommentAiError("当前为只读模式，AI帮写不可用。");
       return;
     }
     const selectedRecords = commentRecordsFor(student).filter((item) => commentSelectedRecordIds.includes(item.id));
@@ -2529,9 +2545,6 @@ function MobileSecondaryPage({ workspaceToken, active, data, activeClass, update
           style: commentDraft.style,
           teacherInput: commentTeacherInput,
           context: {
-            score: student.score,
-            points: student.points,
-            homework: student.homework,
             records: selectedRecords.map((item) => `${item.date}｜${item.type}｜${item.content}${item.parentFeedback ? `；反馈：${item.parentFeedback}` : ""}${item.followUp ? `；跟进：${item.followUp}` : ""}`),
             events: selectedEvents.map((item) => `${item.date}｜${item.reason}（${item.delta > 0 ? "+" : ""}${item.delta}分）`),
             reflections: selectedReflections.map((item) => `问题：${item.problem}；原因：${item.reason}；行动：${item.action}${item.teacherNote ? `；跟进：${item.teacherNote}` : ""}`),
@@ -3085,15 +3098,18 @@ function MobileSecondaryPage({ workspaceToken, active, data, activeClass, update
     const selectedCommentEvents = selectedCommentStudent ? commentEventsFor(selectedCommentStudent).filter((item) => commentSelectedEventIds.includes(item.id)) : [];
     const selectedCommentReflections = selectedCommentStudent ? commentReflectionsFor(selectedCommentStudent).filter((item) => commentSelectedReflectionIds.includes(item.id)) : [];
     const commentBasisCount = selectedCommentRecords.length + selectedCommentEvents.length + selectedCommentReflections.length;
-    const appendCommentText = (text: string) => setCommentDraft((current) => ({ ...current, content: `${current.content}${current.content.endsWith("。") ? "" : "。"}${text}` }));
-    const changeCommentStyle = (style: TermComment["style"]) => {
+    const appendCommentText = (text: string) => setCommentDraft((current) => ({ ...current, content: appendTermCommentText(current.content, text) }));
+    const changeCommentStyle = async (style: TermComment["style"]) => {
       const student = selectedCommentStudent;
       if (!student) {
         setCommentDraft((current) => ({ ...current, style }));
         return;
       }
       const existing = comments.find((item) => item.studentId === student.id && item.term === commentDraft.term && item.style === style);
-      setCommentDraft(existing ? { ...existing } : { ...commentDraft, id: "", style, content: buildMobileCommentText(student, style, selectedCommentRecords, selectedCommentEvents, selectedCommentReflections), updatedAt: today() });
+      if (existing && existing.id !== commentDraft.id && commentDraft.content !== (comments.find(item => item.id === commentDraft.id)?.content ?? "")
+        && !await requestDangerConfirm("切换后会放弃当前未保存的评语内容。", "切换评语语气", "放弃并切换")) return;
+      setCommentEditorMessage("");
+      setCommentDraft(existing ? { ...existing } : { ...commentDraft, id: "", classId: activeClass.id, style, updatedAt: today() });
     };
     return <div className="mobile-stack mobile-comments-page">
       <MobileSectionHero title={title} text={`${activeCommentTerm} 已保存 ${termComments.length} 条评语，可从学生列表继续填写。`} />
@@ -3127,22 +3143,32 @@ function MobileSecondaryPage({ workspaceToken, active, data, activeClass, update
           <div className="mobile-list-pager"><button type="button" disabled={safeCommentPage <= 1} onClick={() => setCommentPage((page) => Math.max(1, page - 1))}>上一页</button><span>{safeCommentPage} / {totalCommentPages} · 共 {filteredComments.length} 条</span><button type="button" disabled={safeCommentPage >= totalCommentPages} onClick={() => setCommentPage((page) => Math.min(totalCommentPages, page + 1))}>下一页</button></div>
         </section>
       </>}
-      {commentEditorOpen && <MobileInfoSheet title={commentDraft.id ? "编辑评语" : "填写评语"} onClose={() => setCommentEditorOpen(false)}>
+      {commentEditorOpen && <MobileInfoSheet title={commentDraft.id ? "编辑评语" : "填写评语"} onClose={() => void closeCommentEditorMobile()}>
         {commentAiError && <p className="mobile-form-error">{commentAiError}</p>}
+        {commentEditorMessage && <p className="mobile-form-message" role="status">{commentEditorMessage}</p>}
         {selectedCommentStudent && <section className="mobile-comment-person">
           <b>{selectedCommentStudent.name}</b>
           <span>{commentDraft.term} · 第{selectedCommentStudent.group}组 · 已选 {commentBasisCount} 条依据</span>
         </section>}
         <div className="mobile-form-grid mobile-comment-editor-form">
-          <label className="wide"><span>语气</span><select value={commentDraft.style} onChange={(event) => changeCommentStyle(event.target.value as TermComment["style"])}><option>家长可读</option><option>温和鼓励</option><option>客观正式</option></select></label>
+          <label className="wide"><span>语气</span><select value={commentDraft.style} onChange={(event) => void changeCommentStyle(event.target.value as TermComment["style"])}><option>家长可读</option><option>温和鼓励</option><option>客观正式</option></select></label>
           <label className="wide"><span>老师补充</span><textarea value={commentTeacherInput} onChange={(event) => setCommentTeacherInput(event.target.value)} placeholder="例如：课堂表达更主动，但作业订正还需要提醒；希望语气温和一些。" /></label>
-          <label className="wide"><span>评语内容</span><textarea value={commentDraft.content} onChange={(event) => setCommentDraft({ ...commentDraft, content: event.target.value })} /></label>
+          <label className="wide"><span>评语内容</span><textarea aria-label="评语内容" value={commentDraft.content} onChange={(event) => { setCommentDraft({ ...commentDraft, content: event.target.value }); setCommentEditorMessage(""); }} /></label>
         </div>
         <div className="mobile-comment-basis-strip"><span>AI帮写依据</span><em>沟通 {selectedCommentRecords.length}</em><em>积分 {selectedCommentEvents.length}</em><em>反思 {selectedCommentReflections.length}</em></div>
-        <div className="campus-editor-tools"><button type="button" onClick={() => selectedCommentStudent && setCommentDraft((current) => ({ ...current, content: buildMobileCommentText(selectedCommentStudent, current.style, selectedCommentRecords, selectedCommentEvents, selectedCommentReflections) }))}>本地生成</button><button type="button" disabled={commentAiBusy} onClick={generateCommentMobile}>{commentAiBusy ? "AI帮写中" : "AI帮写"}</button></div>
+        <div className="campus-editor-tools"><button type="button" onClick={() => {
+          if (!selectedCommentStudent) return;
+          const content = buildLocalTermCommentDraft(selectedCommentStudent, commentDraft.style, { records: selectedCommentRecords, events: selectedCommentEvents, reflections: selectedCommentReflections, teacherInput: commentTeacherInput });
+          if (!content) {
+            setCommentEditorMessage("还没有可整理的依据。请先选择记录或填写老师补充。");
+            return;
+          }
+          setCommentDraft((current) => ({ ...current, content }));
+          setCommentEditorMessage("已按当前选中的真实记录生成本地草稿，请检查后保存。");
+        }}>本地生成</button><button type="button" disabled={commentAiBusy} onClick={generateCommentMobile}>{commentAiBusy ? "AI帮写中" : "AI帮写"}</button></div>
         {workspaceToken !== "demo" && <div className="campus-editor-tools"><button type="button" onClick={() => void disableAiConsent().catch((error) => setCommentAiError(error instanceof Error ? error.message : "AI 设置更新失败"))}>关闭 AI 数据授权</button></div>}
         <div className="campus-editor-tools"><button type="button" onClick={() => setCommentEvidenceOpen(true)}>选择依据</button><button type="button" onClick={() => copyTextToClipboard(commentDraft.content, "已复制评语")}>复制评语</button></div>
-        <div className="mobile-sheet-actions"><button type="button" onClick={() => setCommentEditorOpen(false)}>取消</button><button type="button" className="primary" onClick={saveCommentMobile}>保存评语</button></div>
+        <div className="mobile-sheet-actions"><button type="button" onClick={() => void closeCommentEditorMobile()}>关闭</button><button type="button" className="primary" onClick={saveCommentMobile}>保存评语</button></div>
       </MobileInfoSheet>}
       {commentEvidenceOpen && selectedCommentStudent && <MobileInfoSheet title={`${selectedCommentStudent.name} · 选择依据`} onClose={() => setCommentEvidenceOpen(false)}>
         <section className="mobile-comment-evidence-list">
@@ -6702,7 +6728,7 @@ function ReflectionWithExam({ data, update, readOnly }: { data: ClassroomData; u
   </>;
 }
 
-function Comments({ workspaceToken, data, update }: { workspaceToken: string; data: ClassroomData; update: (fn: (d: ClassroomData) => ClassroomData) => void }) {
+function Comments({ workspaceToken, data, update, readOnly }: { workspaceToken: string; data: ClassroomData; update: (fn: (d: ClassroomData) => ClassroomData) => void; readOnly: boolean }) {
   const [id, setId] = useState(data.students[0]?.id ?? "");
   const [style, setStyle] = useState<TermComment["style"]>("家长可读");
   const currentTermLabel = scheduleTermLabel(data.scheduleConfig, "当前学期");
@@ -6717,23 +6743,33 @@ function Comments({ workspaceToken, data, update }: { workspaceToken: string; da
   const [selectedRecordIds, setSelectedRecordIds] = useState<string[]>([]);
   const [selectedReflectionIds, setSelectedReflectionIds] = useState<string[]>([]);
   const [selectedEventIds, setSelectedEventIds] = useState<string[]>([]);
-  const student = data.students.find(s=>s.id===id) ?? data.students[0];
   const activeClassId = data.activeClassId ?? data.rosterClasses?.[0]?.id ?? "class-1";
-  const classRecords = data.records.filter((record) => recordBelongsToClass(record, activeClassId, data.students));
+  const students = data.rosterClasses?.find(item => item.id === activeClassId)?.students ?? data.students;
+  const student = students.find(item => item.id === id) ?? students[0];
+  const classRecords = data.records.filter((record) => recordBelongsToClass(record, activeClassId, students));
   useEffect(() => {
-    if (!data.students.some((item) => item.id === id)) setId(data.students[0]?.id ?? "");
-  }, [data.activeClassId, data.students, id]);
+    if (!students.some((item) => item.id === id)) setId(students[0]?.id ?? "");
+  }, [data.activeClassId, students, id]);
   useEffect(() => { setTerm(currentTermLabel); }, [currentTermLabel]);
   const evidence = student ? classRecords.filter((record) => recordBelongsToStudent(record, student, activeClassId)) : [];
-  const events = (data.pointEvents ?? []).filter(e=>e.studentId===student?.id);
+  const classEvents = pointEventsForClass(data, activeClassId);
+  const events = classEvents.filter(event => event.studentId === student?.id);
   const reflections = examReflectionsForClass(data, activeClassId).filter((item) => item.studentId === student?.id);
-  const saved = (data.termComments ?? []).find((item) => item.studentId === student?.id && item.term === term && item.style === style);
-  const savedComments = data.termComments?.length ?? 0;
-  const termOptions = Array.from(new Set([currentTermLabel, ...(data.termComments ?? []).map((item) => item.term)].map((item) => item?.trim()).filter(Boolean)));
-  const termSavedComments = (data.termComments ?? []).filter((item) => item.term === term).length;
-  const termMissingCount = data.students.filter((item) => !(data.termComments ?? []).some((commentItem) => commentItem.studentId === item.id && commentItem.term === term)).length;
-  const evidenceCountFor = (studentId: string) => classRecords.filter((record) => record.studentId ? record.studentId === studentId : record.student === data.students.find((item) => item.id === studentId)?.name).length;
-  const studentMatches = data.students.filter((item) => {
+  const classReflections = examReflectionsForClass(data, activeClassId);
+  const comments = termCommentsForClass(data, activeClassId);
+  const saved = comments.find((item) => item.studentId === student?.id && item.term === term && item.style === style);
+  const savedComments = comments.length;
+  const termOptions = Array.from(new Set([currentTermLabel, ...comments.map((item) => item.term)].map((item) => item?.trim()).filter(Boolean)));
+  const termSavedComments = comments.filter((item) => item.term === term).length;
+  const termMissingCount = students.filter((item) => !comments.some((commentItem) => commentItem.studentId === item.id && commentItem.term === term)).length;
+  const evidenceCountFor = (studentId: string) => {
+    const currentStudent = students.find((item) => item.id === studentId);
+    if (!currentStudent) return 0;
+    return classRecords.filter((record) => recordBelongsToStudent(record, currentStudent, activeClassId)).length
+      + classEvents.filter((event) => event.studentId === studentId).length
+      + classReflections.filter((item) => item.studentId === studentId).length;
+  };
+  const studentMatches = students.filter((item) => {
       const text = `${item.name}${item.studentNo ?? ""}${item.group}`;
     return studentKeyword.trim() ? text.includes(studentKeyword.trim()) : true;
   });
@@ -6754,25 +6790,50 @@ function Comments({ workspaceToken, data, update }: { workspaceToken: string; da
   const selectedReflections = reflections.filter((item) => selectedReflectionIds.includes(item.id));
   const selectedEvents = events.filter((item) => selectedEventIds.includes(item.id));
   const aiBasisCount = selectedRecords.length + selectedReflections.length + selectedEvents.length;
-  const comment = useMemo(() => {
-    if (!student) return "";
-    const opening = style === "客观正式" ? `${student.name}同学本学期能遵守班级常规，整体学习状态` : style === "温和鼓励" ? `${student.name}同学，这一学期老师看到了你的努力，整体表现` : `${student.name}同学本学期在校表现`;
-    const level = student.score >= 90 ? "稳定优秀，学习主动性较强" : student.score >= 80 ? "较为踏实，能够完成多数学习任务" : "还需要老师和家长共同陪伴，逐步建立稳定习惯";
-    const eventText = selectedEvents[0] ? `在日常记录中，${selectedEvents[0].reason}，说明他/她具备继续进步的基础。` : "平时能够参与班级活动，也在逐步积累自己的小进步。";
-    const evidenceText = selectedRecords[0] ? `近期记录显示：${selectedRecords[0].content}` : "接下来可以继续多积累课堂表达、作业订正和自我管理方面的具体表现。";
-    const reflectionText = selectedReflections[0] ? `考试后能看到自己的问题：${selectedReflections[0].problem}，并已经形成改进计划。` : "";
-    const advice = student.homework === "未交" ? "下阶段建议重点抓作业提交和订正闭环，把每天的小任务落实到位。" : student.score < 80 ? "下阶段建议先从薄弱知识点和错题复盘入手，建立信心。" : "下阶段希望继续保持主动表达和稳定复盘，把优势坚持下去。";
-    return `${opening}${level}。${eventText}${evidenceText}${reflectionText}${advice}`;
-  }, [student, style, selectedRecords, selectedEvents, selectedReflections]);
-  const [draft, setDraft] = useState(saved?.content ?? comment);
-  useEffect(() => { setDraft(saved?.content ?? comment); setSavedState(""); }, [saved?.content, comment]);
+  const comment = useMemo(() => student ? buildLocalTermCommentDraft(student, style, { records: selectedRecords, events: selectedEvents, reflections: selectedReflections, teacherInput }) : "", [student, style, selectedRecords, selectedEvents, selectedReflections, teacherInput]);
+  const [draft, setDraft] = useState(saved?.content ?? "");
+  useEffect(() => { setDraft(saved?.content ?? ""); setSavedState(""); setAiError(""); }, [student?.id, term, style, saved?.id, saved?.content]);
   if (!student) return null;
+  const draftDirty = draft !== (saved?.content ?? "") || Boolean(teacherInput.trim());
+  async function changeCommentContext(action: () => void) {
+    if (aiBusy) {
+      setSavedState("AI帮写仍在处理中，请等待完成后再切换。");
+      return;
+    }
+    if (draftDirty && !await requestDangerConfirm("切换后会放弃当前未保存的评语内容和老师补充。", "放弃未保存评语", "放弃并切换")) return;
+    setTeacherInput("");
+    action();
+  }
+  async function applyLocalDraft() {
+    if (!comment) {
+      setSavedState("还没有可整理的依据。请先选择记录或填写老师补充。");
+      return;
+    }
+    if (draft !== (saved?.content ?? "") && draft !== comment
+      && !await requestDangerConfirm("套用本地草稿会替换当前未保存的评语内容。", "替换当前草稿", "替换草稿")) return;
+    setDraft(comment);
+    setSavedState("已按当前选中的真实记录生成本地草稿，请检查后保存。");
+  }
   function save() {
-    const item: TermComment = { id: saved?.id ?? makeId(), classId: activeClassId, studentId: student.id, term, style, content: draft, updatedAt: today() };
-    update((current) => ({ ...current, termComments: [item, ...(current.termComments ?? []).filter((commentItem) => commentItem.id !== item.id)] }));
+    if (readOnly) {
+      setSavedState("当前为只读模式，评语内容未修改。");
+      return;
+    }
+    const commentId = saved?.id ?? makeId();
+    const input = { id: commentId, studentId: student.id, term, style, content: draft };
+    const preview = saveTermComment(data, activeClassId, input, () => commentId, today());
+    if (preview.error) {
+      setAiError(preview.error);
+      return;
+    }
+    update((current) => saveTermComment(current, activeClassId, input, () => commentId, today()).data ?? current);
     setSavedState("评语已更新，正在同步");
   }
   async function generateAiComment() {
+    if (readOnly && workspaceToken !== "demo") {
+      setAiError("当前为只读模式，AI帮写不可用。");
+      return;
+    }
     setAiBusy(true);
     setAiError("");
     setSavedState("");
@@ -6788,9 +6849,6 @@ function Comments({ workspaceToken, data, update }: { workspaceToken: string; da
           style,
           teacherInput,
           context: {
-            score: student.score,
-            points: student.points,
-            homework: student.homework,
             records: selectedRecords.map((item) => `${item.date}｜${item.type}｜${item.content}${item.parentFeedback ? `；反馈：${item.parentFeedback}` : ""}${item.followUp ? `；跟进：${item.followUp}` : ""}`),
             events: selectedEvents.map((item) => `${item.date}｜${item.reason}（${item.delta > 0 ? "+" : ""}${item.delta}分）`),
             reflections: selectedReflections.map((item) => `问题：${item.problem}；原因：${item.reason}；行动：${item.action}${item.teacherNote ? `；跟进：${item.teacherNote}` : ""}`),
@@ -6813,29 +6871,29 @@ function Comments({ workspaceToken, data, update }: { workspaceToken: string; da
     <section className="comment5-page">
       <section className="comment5-current workbench-page-context">
         <div><span>当前学生</span><h3>{student.name}</h3><p>{term} · {style} · 学号 {student.studentNo || "未填"}</p></div>
-        <label className="comment5-term-switch"><span>学期筛选</span><select value={term} onChange={(event) => setTerm(event.target.value)}>{termOptions.map((item) => <option value={item} key={item}>{item}</option>)}</select><small>课程日程：{termBounds.startMonth} 至 {termBounds.endMonth}</small></label>
-        <div className="comment5-actions"><button type="button" onClick={() => setDraft(comment)}>套用本地草稿</button><button type="button" onClick={() => copyTextToClipboard(draft, "已复制评语")}>复制评语</button><button type="button" className="comment5-primary" onClick={save}>保存评语</button></div>
+        <label className="comment5-term-switch"><span>学期筛选</span><select value={term} onChange={(event) => { const next = event.target.value; void changeCommentContext(() => setTerm(next)); }}>{termOptions.map((item) => <option value={item} key={item}>{item}</option>)}</select><small>课程日程：{termBounds.startMonth} 至 {termBounds.endMonth}</small></label>
+        <div className="comment5-actions"><button type="button" onClick={() => void applyLocalDraft()}>套用本地草稿</button><button type="button" onClick={() => copyTextToClipboard(draft, "已复制评语")}>复制评语</button><button type="button" className="comment5-primary" onClick={save}>保存评语</button></div>
       </section>
       <div className="comment5-progressline"><span>当前学期</span><b>已保存 {termSavedComments} 条</b><em>历史 {savedComments} 条</em><em>待填写 {termMissingCount} 人</em><em>已选依据 {aiBasisCount} 条</em></div>
       <section className="comment5-work">
         <aside className="comment5-students">
-          <header><div><span>学生名单</span><h3>{studentMatches.length} / {data.students.length}</h3></div><small>{safeStudentPage} / {totalStudentPages}</small></header>
+          <header><div><span>学生名单</span><h3>{studentMatches.length} / {students.length}</h3></div><small>{safeStudentPage} / {totalStudentPages}</small></header>
           <label className="comment5-search"><span>查询学生</span><input value={studentKeyword} onChange={(event) => setStudentKeyword(event.target.value)} placeholder="姓名、学号或小组" /></label>
           <div className="comment5-student-head"><span>学生</span><span>状态</span></div>
           <div className="comment5-student-list">
             {pagedStudents.map((item) => {
-              const isSaved = (data.termComments ?? []).some((commentItem) => commentItem.studentId === item.id && commentItem.term === term);
-              return <button type="button" className={item.id === id ? "selected" : ""} key={item.id} onClick={() => { setId(item.id); setStudentKeyword(""); }}><i>{item.name.slice(0, 1)}</i><span><b>{item.name}</b><small>学号 {item.studentNo || "未填"} · {evidenceCountFor(item.id)} 条证据</small></span><em className={isSaved ? "saved" : "empty"}>{isSaved ? "已保存" : "未填写"}</em></button>;
+              const isSaved = comments.some((commentItem) => commentItem.studentId === item.id && commentItem.term === term);
+              return <button type="button" className={item.id === id ? "selected" : ""} key={item.id} onClick={() => void changeCommentContext(() => { setId(item.id); setStudentKeyword(""); })}><i>{item.name.slice(0, 1)}</i><span><b>{item.name}</b><small>学号 {item.studentNo || "未填"} · {evidenceCountFor(item.id)} 条证据</small></span><em className={isSaved ? "saved" : "empty"}>{isSaved ? "已保存" : "未填写"}</em></button>;
             })}
             {!studentMatches.length && <p>没有匹配的学生。</p>}
           </div>
           <footer><button type="button" disabled={safeStudentPage <= 1} onClick={() => setStudentPage((next) => Math.max(1, next - 1))}>上一页</button><span>{safeStudentPage} / {totalStudentPages}</span><button type="button" disabled={safeStudentPage >= totalStudentPages} onClick={() => setStudentPage((next) => Math.min(totalStudentPages, next + 1))}>下一页</button></footer>
         </aside>
         <section className="comment5-editor">
-          <div className="comment5-toolbar"><label><span>语气</span><select value={style} onChange={(e) => setStyle(e.target.value as TermComment["style"])}><option>家长可读</option><option>温和鼓励</option><option>客观正式</option></select></label></div>
+          <div className="comment5-toolbar"><label><span>语气</span><select value={style} onChange={(event) => { const next = event.target.value as TermComment["style"]; void changeCommentContext(() => setStyle(next)); }}><option>家长可读</option><option>温和鼓励</option><option>客观正式</option></select></label></div>
           <section className="comment5-draft">
             <header><div><span>可编辑评语草稿</span><h3>{student.name}</h3></div><small>{draft.length} 字</small></header>
-            <textarea value={draft} onChange={(event) => setDraft(event.target.value)} />
+            <textarea aria-label="评语内容" value={draft} onChange={(event) => { setDraft(event.target.value); setSavedState(""); }} />
           </section>
           <section className="comment5-input">
             <label><span>老师补充</span><textarea value={teacherInput} onChange={(event) => setTeacherInput(event.target.value)} placeholder="例如：本学期课堂表达更主动，但作业订正还需要提醒；希望语气温和一些。" /></label>
@@ -6843,13 +6901,13 @@ function Comments({ workspaceToken, data, update }: { workspaceToken: string; da
             {workspaceToken !== "demo" && <button type="button" onClick={() => void disableAiConsent().catch((error) => setAiError(error instanceof Error ? error.message : "AI 设置更新失败"))}>关闭 AI 授权</button>}
           </section>
           {aiError && <button className="comment5-alert error" onClick={() => setAiError("")}>{aiError}<span>点击关闭</span></button>}
-          <div className="comment5-evidence-strip"><span>AI帮写依据</span><em>积分 {student.points}</em><em>已选 {aiBasisCount} 条</em></div>
+          <div className="comment5-evidence-strip"><span>评语依据</span><em>已选 {aiBasisCount} 条</em><em>仅整理已勾选记录</em></div>
           <section className="comment5-evidence">
             <header><span>依据选择</span><small>勾选后进入 AI 帮写，也可点击追加到草稿</small></header>
             <div>
-              {evidence.map((item) => <article className="comment5-basis-row" key={item.id}><label><input type="checkbox" checked={selectedRecordIds.includes(item.id)} onChange={(event) => setSelectedRecordIds((list) => event.target.checked ? [...list, item.id] : list.filter((idValue) => idValue !== item.id))} /><b>{item.type}</b><span>{item.date} · {item.content}</span></label><button type="button" onClick={() => setDraft(`${draft}${draft.endsWith("。") ? "" : "。"}平时记录中还可以看到：${item.content}`)}>追加</button></article>)}
-              {reflections.map((item) => <article className="comment5-basis-row" key={item.id}><label><input type="checkbox" checked={selectedReflectionIds.includes(item.id)} onChange={(event) => setSelectedReflectionIds((list) => event.target.checked ? [...list, item.id] : list.filter((idValue) => idValue !== item.id))} /><b>考试反思</b><span>{item.date} · {item.problem || "已填写反思"} · {item.action || "待补充行动"}</span></label><button type="button" onClick={() => setDraft(`${draft}${draft.endsWith("。") ? "" : "。"}考试反思中记录：${item.problem}${item.action ? `，下一步是${item.action}` : ""}`)}>追加</button></article>)}
-              {events.map((item) => <article className="comment5-basis-row" key={item.id}><label><input type="checkbox" checked={selectedEventIds.includes(item.id)} onChange={(event) => setSelectedEventIds((list) => event.target.checked ? [...list, item.id] : list.filter((idValue) => idValue !== item.id))} /><b>积分记录</b><span>{item.date} · {item.reason} · {item.delta > 0 ? "+" : ""}{item.delta}分</span></label><button type="button" onClick={() => setDraft(`${draft}${draft.endsWith("。") ? "" : "。"}积分记录中体现：${item.reason}`)}>追加</button></article>)}
+              {evidence.map((item) => <article className="comment5-basis-row" key={item.id}><label><input type="checkbox" checked={selectedRecordIds.includes(item.id)} onChange={(event) => setSelectedRecordIds((list) => event.target.checked ? [...list, item.id] : list.filter((idValue) => idValue !== item.id))} /><b>{item.type}</b><span>{item.date} · {item.content}</span></label><button type="button" onClick={() => setDraft((current) => appendTermCommentText(current, `平时记录：${item.content}`))}>追加</button></article>)}
+              {reflections.map((item) => <article className="comment5-basis-row" key={item.id}><label><input type="checkbox" checked={selectedReflectionIds.includes(item.id)} onChange={(event) => setSelectedReflectionIds((list) => event.target.checked ? [...list, item.id] : list.filter((idValue) => idValue !== item.id))} /><b>考试反思</b><span>{item.date} · {item.problem || "已填写反思"} · {item.action || "待补充行动"}</span></label><button type="button" onClick={() => setDraft((current) => appendTermCommentText(current, `考试反思记录：${item.problem}${item.action ? `；下一步：${item.action}` : ""}`))}>追加</button></article>)}
+              {events.map((item) => <article className="comment5-basis-row" key={item.id}><label><input type="checkbox" checked={selectedEventIds.includes(item.id)} onChange={(event) => setSelectedEventIds((list) => event.target.checked ? [...list, item.id] : list.filter((idValue) => idValue !== item.id))} /><b>积分记录</b><span>{item.date} · {item.reason} · {item.delta > 0 ? "+" : ""}{item.delta}分</span></label><button type="button" onClick={() => setDraft((current) => appendTermCommentText(current, `积分记录：${item.reason}（${item.delta > 0 ? "+" : ""}${item.delta}分）`))}>追加</button></article>)}
               {!evidence.length && !reflections.length && !events.length && <p>暂无记录，可先到家校沟通、考试反思或积分评价补充依据。</p>}
             </div>
           </section>

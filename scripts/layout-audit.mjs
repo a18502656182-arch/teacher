@@ -491,6 +491,83 @@ async function runRuntimeAudit(url) {
             })()`,
           });
         }
+        if (pageId === "comments") {
+          await page.send("Runtime.evaluate", {
+            returnByValue: true,
+            expression: `(() => {
+              if (innerWidth > 900) return true;
+              const target = document.querySelector('.mobile-comments-page .mobile-card-list > button');
+              target?.click();
+              return Boolean(target);
+            })()`,
+          });
+          await wait(100);
+          await page.send("Runtime.evaluate", {
+            returnByValue: true,
+            expression: `(() => {
+              const isMobile = innerWidth <= 900;
+              const editor = isMobile ? document.querySelector('.mobile-bottom-sheet') : document.querySelector('.comment5-editor');
+              const textarea = editor?.querySelector('textarea[aria-label="评语内容"]');
+              if (textarea) {
+                const setter = Object.getOwnPropertyDescriptor(HTMLTextAreaElement.prototype, 'value')?.set;
+                setter?.call(textarea, 'QA评语只读保留内容');
+                textarea.dispatchEvent(new Event('input', { bubbles: true }));
+              }
+              if (isMobile) {
+                const evidence = [...(editor?.querySelectorAll('button') ?? [])].find((button) => button.textContent?.includes('选择依据'));
+                evidence?.click();
+              } else {
+                editor?.querySelector('.comment5-basis-row input[type="checkbox"]')?.click();
+              }
+              return Boolean(editor && textarea);
+            })()`,
+          });
+          await wait(100);
+          await page.send("Runtime.evaluate", {
+            returnByValue: true,
+            expression: `(() => {
+              const isMobile = innerWidth <= 900;
+              if (!isMobile) {
+                window.__commentEvidenceSheetHealthy = true;
+                return true;
+              }
+              const sheets = [...document.querySelectorAll('.mobile-bottom-sheet')];
+              const evidenceSheet = sheets.at(-1);
+              window.__commentEvidenceSheetHealthy = sheets.length >= 2 && Boolean(evidenceSheet?.querySelector('.mobile-comment-evidence-list'));
+              evidenceSheet?.querySelector('input[type="checkbox"]')?.click();
+              const done = [...(evidenceSheet?.querySelectorAll('button') ?? [])].find((button) => button.textContent?.includes('完成'));
+              done?.click();
+              return window.__commentEvidenceSheetHealthy;
+            })()`,
+          });
+          await wait(100);
+          await page.send("Runtime.evaluate", {
+            returnByValue: true,
+            expression: `(() => {
+              const isMobile = innerWidth <= 900;
+              const editor = isMobile ? document.querySelector('.mobile-bottom-sheet') : document.querySelector('.comment5-editor');
+              const textarea = editor?.querySelector('textarea[aria-label="评语内容"]');
+              window.__commentDraftRetainedAfterEvidence = textarea?.value === 'QA评语只读保留内容';
+              const actionRoot = isMobile ? editor : document.querySelector('.comment5-page');
+              const action = [...(actionRoot?.querySelectorAll('button') ?? [])].find((button) => button.textContent?.includes('保存评语'));
+              action?.click();
+              return Boolean(editor && textarea && action);
+            })()`,
+          });
+          await wait(100);
+          await page.send("Runtime.evaluate", {
+            returnByValue: true,
+            expression: `(() => {
+              const isMobile = innerWidth <= 900;
+              const editor = isMobile ? document.querySelector('.mobile-bottom-sheet') : document.querySelector('.comment5-editor');
+              const textarea = editor?.querySelector('textarea[aria-label="评语内容"]');
+              window.__commentEditorHealthy = Boolean(editor && editor.querySelectorAll('textarea').length >= 2);
+              window.__commentReadOnlyShown = document.body.innerText.includes('当前为只读模式，评语内容未修改');
+              window.__commentDraftRetained = textarea?.value === 'QA评语只读保留内容';
+              return window.__commentEditorHealthy && window.__commentReadOnlyShown && window.__commentDraftRetained && window.__commentDraftRetainedAfterEvidence && window.__commentEvidenceSheetHealthy;
+            })()`,
+          });
+        }
         await wait(250);
         const { result } = await page.send("Runtime.evaluate", {
           returnByValue: true,
@@ -532,6 +609,11 @@ async function runRuntimeAudit(url) {
               weeklyReadOnlyShown: window.__weeklyReadOnlyShown === true,
               weeklyDraftRetained: window.__weeklyDraftRetained === true,
               weeklyPrimaryFullWidth: window.__weeklyPrimaryFullWidth === true,
+              commentEditorHealthy: window.__commentEditorHealthy === true,
+              commentReadOnlyShown: window.__commentReadOnlyShown === true,
+              commentDraftRetained: window.__commentDraftRetained === true,
+              commentDraftRetainedAfterEvidence: window.__commentDraftRetainedAfterEvidence === true,
+              commentEvidenceSheetHealthy: window.__commentEvidenceSheetHealthy === true,
               shell: rect(shell),
               main: rect(main),
               content: rect(content),
@@ -606,6 +688,11 @@ async function runRuntimeAudit(url) {
         if (pageId === "weekly" && !data?.weeklyReadOnlyShown) failures.push("Weekly report editor reported success instead of the demo/read-only state.");
         if (pageId === "weekly" && !data?.weeklyDraftRetained) failures.push("Weekly report editor discarded the teacher's draft after a blocked read-only save.");
         if (pageId === "weekly" && viewport.width <= 900 && !data?.weeklyPrimaryFullWidth) failures.push("Weekly report mobile primary action does not span the editor width.");
+        if (pageId === "comments" && !data?.commentEditorHealthy) failures.push("Term comment editor did not expose the teacher-input and comment fields.");
+        if (pageId === "comments" && !data?.commentReadOnlyShown) failures.push("Term comment editor reported success instead of the demo/read-only state.");
+        if (pageId === "comments" && !data?.commentDraftRetained) failures.push("Term comment editor discarded the teacher's draft after a blocked read-only save.");
+        if (pageId === "comments" && !data?.commentDraftRetainedAfterEvidence) failures.push("Changing term-comment evidence overwrote the teacher's draft.");
+        if (pageId === "comments" && viewport.width <= 900 && !data?.commentEvidenceSheetHealthy) failures.push("Term comment mobile evidence picker did not open as a usable nested sheet.");
         if (runtimeErrors.length) failures.push(`Browser runtime error: ${runtimeErrors[0].slice(0, 500)}`);
         if (data?.text && new RegExp("[\\u935A\\u95BE\\u701B\\u7EFE\\u941D\\u4E3F\\u6500\\u5931\\u8F9C\\u6B8F]").test(data.text)) failures.push("Visible text still contains mojibake.");
         if (data && data.scrollWidth - data.viewportWidth > 10) failures.push(`Horizontal page overflow ${Math.round(data.scrollWidth - data.viewportWidth)}px.`);
