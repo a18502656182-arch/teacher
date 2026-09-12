@@ -204,10 +204,16 @@ export type DutyRecord = {
   day: string;
   jobId: string;
   studentIds: string[];
+  assignmentSource?: "auto" | "fixed" | "manual";
   status: "待检查" | "已完成" | "需返工" | "已替换";
   note: string;
   checkedBy: string;
   createdAt: number;
+};
+
+export type ClassDutyData = {
+  offset: number;
+  jobs: DutyJob[];
 };
 
 export type CommunicationRecord = {
@@ -373,6 +379,7 @@ export type ClassroomData = {
   dutyOffset: number;
   dutyJobs?: DutyJob[];
   dutyRecords?: DutyRecord[];
+  classDutySettings?: Record<string, ClassDutyData>;
   attendanceRecords?: AttendanceRecord[];
   teacherAgenda?: TeacherAgendaItem[];
   workLogs?: WorkLog[];

@@ -27,6 +27,10 @@ export function removeStudentRelations(data: ClassroomData, studentIds: Iterable
     examReflections: data.examReflections?.filter((item) => !ids.has(item.studentId)),
     termComments: data.termComments?.filter((item) => !ids.has(item.studentId)),
     dutyJobs: data.dutyJobs?.map((job) => ({ ...job, studentIds: job.studentIds?.filter((studentId) => !ids.has(studentId)) })),
+    classDutySettings: data.classDutySettings ? Object.fromEntries(Object.entries(data.classDutySettings).map(([settingsClassId, settings]) => [settingsClassId, settingsClassId === classId ? {
+      ...settings,
+      jobs: settings.jobs.map((job) => ({ ...job, studentIds: job.studentIds?.filter((studentId) => !ids.has(studentId)) })),
+    } : settings])) : undefined,
     dutyRecords: data.dutyRecords?.map((record) => record.classId === classId ? { ...record, studentIds: record.studentIds.filter((studentId) => !ids.has(studentId)) } : record),
     attendanceRecords: data.attendanceRecords?.filter((record) => !ids.has(record.studentId)),
     teacherAgenda: data.teacherAgenda?.map((item) => item.classId === classId ? { ...item, relatedStudentIds: item.relatedStudentIds?.filter((studentId) => !ids.has(studentId)) } : item),

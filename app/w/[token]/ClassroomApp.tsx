@@ -28,7 +28,7 @@ const Dictation = lazy(() => import('./dictation/Dictation'));
 
 import { makeId, scheduleTermLabel, scheduleTermRange } from "@/lib/classroom";
 import { parseWorkspaceBackup } from "@/lib/workspaceBackup";
-import type { CadreRole, ClassScheduleData, ClassroomData, CommunicationRecord, DailyFocus, DutyJob, DutyRecord, ExamReflection, HomeworkTask, PointEvent, PointRule, RosterClass, ScheduleConfig, ScheduleEvent, ScheduleWeek, ScoreExam, Student, TermComment, WeeklyReport } from "@/lib/classroom";
+import type { CadreRole, ClassScheduleData, ClassroomData, CommunicationRecord, DailyFocus, ExamReflection, HomeworkTask, PointEvent, PointRule, RosterClass, ScheduleConfig, ScheduleEvent, ScheduleWeek, ScoreExam, Student, TermComment, WeeklyReport } from "@/lib/classroom";
 import { Attendance } from "./Attendance";
 import { ScheduleHub } from "./ScheduleHub";
 import { TeacherAgenda } from "./TeacherAgenda";
@@ -40,6 +40,8 @@ import { ScoreItemAnalysis } from "./ScoreItemAnalysis";
 import { ClassroomTools } from "./ClassroomTools";
 import { Seating } from "./Seating";
 import { normalizeSeatingConfig } from "./features/seating/operations";
+import { Duty } from "./Duty";
+import { cloneDutyJobs, defaultDutyJobs, normalizeClassDutySettings } from "./features/duty/operations";
 import { NotificationDrafts } from "./NotificationDrafts";
 import { WorkbenchPageHeader } from "./WorkbenchPageHeader";
 
@@ -70,15 +72,6 @@ const ruleSets = {
 const homeworkOrder: HomeworkTask["statuses"][string][] = ["已交", "未交", "待订正", "已复查"];
 const days = ["星期一", "星期二", "星期三", "星期四", "星期五"];
 const shortDays = ["周一", "周二", "周三", "周四", "周五"];
-const dutyDayAliases: Record<string, string> = { 星期一: "周一", 星期二: "周二", 星期三: "周三", 星期四: "周四", 星期五: "周五", 星期六: "周六", 星期日: "周日" };
-function sameDutyDay(left: string, right: string) { return (dutyDayAliases[left] ?? left) === (dutyDayAliases[right] ?? right); }
-const defaultDutyJobs: DutyJob[] = [
-  { id: "dj-floor", name: "地面保洁", area: "教室地面、桌椅间", standard: "无明显纸屑，桌椅摆正，放学前复查一次。", enabled: true },
-  { id: "dj-board", name: "黑板讲台", area: "黑板、粉笔槽、讲台", standard: "课间擦净黑板，粉笔和教具归位。", enabled: true },
-  { id: "dj-corridor", name: "走廊门窗", area: "走廊、门窗、窗台", standard: "走廊无杂物，窗台不堆放个人物品。", enabled: true },
-  { id: "dj-corner", name: "卫生角", area: "扫把、拖把、垃圾桶", standard: "工具摆放整齐，垃圾桶及时清理。", enabled: true },
-  { id: "dj-books", name: "图书角", area: "图书角、阅读柜", standard: "图书按类归位，破损图书单独放置。", enabled: true },
-];
 
 function notify(message: string, tone: ToastTone = "success") {
   if (typeof window === "undefined") return;
@@ -275,6 +268,10 @@ function normalizeData(data: ClassroomData): ClassroomData {
   const legacySeating = { rows, columns, groupCount, aisleAfter };
   const classSeatingConfigs = data.classSeatingConfigs ?? Object.fromEntries(rosterClasses.map((classroom) => [classroom.id, { ...legacySeating }]));
   const activeSeating = classSeatingConfigs[activeClassId] ?? legacySeating;
+  const dutySource = { ...data, rosterClasses, activeClassId, students };
+  const classDutySettings = Object.fromEntries(rosterClasses.map(classroom => [classroom.id, normalizeClassDutySettings(dutySource, classroom.id)]));
+  const activeDuty = classDutySettings[activeClassId];
+  const rosterIdsByClass = new Map(rosterClasses.map(classroom => [classroom.id, new Set(classroom.students.map(student => student.id))]));
   const firstTask: HomeworkTask = {
     id: "h-default",
     classId: activeClassId,
@@ -293,8 +290,19 @@ function normalizeData(data: ClassroomData): ClassroomData {
     pointEvents: (data.pointEvents ?? []).map((event) => ({ ...event, classId: event.classId ?? classByStudentId.get(event.studentId) ?? activeClassId })),
     growthEvidence: (data.growthEvidence ?? []).map((item) => ({ ...item, classId: item.classId ?? classByStudentId.get(item.studentId) ?? activeClassId })),
     pointRules: pointRulesForData(data).map((rule) => ({ ...rule, enabled: rule.enabled !== false })),
-    dutyJobs: data.dutyJobs?.length ? data.dutyJobs.map((job) => ({ ...job, enabled: job.enabled !== false })) : defaultDutyJobs,
-    dutyRecords: data.dutyRecords ?? [],
+    dutyOffset: activeDuty.offset,
+    dutyJobs: cloneDutyJobs(activeDuty.jobs),
+    classDutySettings,
+    dutyRecords: (data.dutyRecords ?? []).map(record => {
+      const classId = record.classId ?? rosterClasses[0].id;
+      const studentIds = rosterIdsByClass.get(classId) ?? new Set<string>();
+      return {
+        ...record,
+        classId,
+        studentIds: (record.studentIds ?? []).filter((id, index, values) => studentIds.has(id) && values.indexOf(id) === index),
+        assignmentSource: ["auto", "fixed", "manual"].includes(record.assignmentSource ?? "") ? record.assignmentSource : (record.studentIds?.length ? "manual" : "auto"),
+      };
+    }),
     attendanceRecords: (data.attendanceRecords ?? []).map((item) => ({
       ...item,
       classId: item.classId ?? classByStudentId.get(item.studentId) ?? activeClassId,
@@ -359,17 +367,31 @@ function scopeClassSettings(previous: ClassroomData, updated: ClassroomData): Cl
     focuses: updated.dailyFocus ?? [],
     weeks: updated.scheduleWeeks ?? [],
   };
-  const schedules = { ...(previous.classSchedules ?? {}), [previousClassId]: nextClassId === previousClassId ? updatedSchedule : previousSchedule };
-  const seatings = { ...(previous.classSeatingConfigs ?? {}), [previousClassId]: previous.seatingConfig ?? { rows: 6, columns: 6, groupCount: 6, aisleAfter: [2, 4] } };
+  const remainingClassIds = new Set((updated.rosterClasses ?? []).map(classroom => classroom.id));
+  const previousClassStillExists = remainingClassIds.has(previousClassId);
+  const schedules = { ...(previous.classSchedules ?? {}), ...(updated.classSchedules ?? {}) };
+  if (previousClassStillExists) schedules[previousClassId] = nextClassId === previousClassId ? updatedSchedule : previousSchedule;
+  const seatings = { ...(previous.classSeatingConfigs ?? {}), ...(updated.classSeatingConfigs ?? {}) };
+  if (previousClassStillExists) seatings[previousClassId] = previous.seatingConfig ?? { rows: 6, columns: 6, groupCount: 6, aisleAfter: [2, 4] };
+  const previousDuty = { offset: previous.dutyOffset ?? 0, jobs: cloneDutyJobs(previous.dutyJobs?.length ? previous.dutyJobs : defaultDutyJobs) };
+  const updatedDuty = { offset: updated.dutyOffset ?? 0, jobs: cloneDutyJobs(updated.dutyJobs?.length ? updated.dutyJobs : defaultDutyJobs) };
+  const dutySettings = { ...(previous.classDutySettings ?? {}), ...(updated.classDutySettings ?? {}) };
+  if (previousClassStillExists) dutySettings[previousClassId] = nextClassId === previousClassId ? updatedDuty : previousDuty;
+  for (const classId of Object.keys(schedules)) if (!remainingClassIds.has(classId)) delete schedules[classId];
+  for (const classId of Object.keys(seatings)) if (!remainingClassIds.has(classId)) delete seatings[classId];
+  for (const classId of Object.keys(dutySettings)) if (!remainingClassIds.has(classId)) delete dutySettings[classId];
   if (nextClassId === previousClassId) {
     seatings[nextClassId] = updated.seatingConfig ?? seatings[nextClassId];
-    return { ...updated, classSchedules: schedules, classSeatingConfigs: seatings };
+    dutySettings[nextClassId] = updatedDuty;
+    return { ...updated, classSchedules: schedules, classSeatingConfigs: seatings, classDutySettings: dutySettings };
   }
-  const targetSchedule = schedules[nextClassId] ?? previousSchedule;
+  const targetSchedule = schedules[nextClassId] ?? (previousClassStillExists ? previousSchedule : updatedSchedule);
   const targetStudentCount = updated.rosterClasses?.find((item) => item.id === nextClassId)?.students.length ?? updated.students.length;
   const targetSeating = seatings[nextClassId] ?? normalizeSeatingConfig(undefined, targetStudentCount).config;
   schedules[nextClassId] = targetSchedule;
   if (targetSeating) seatings[nextClassId] = targetSeating;
+  const targetDuty = dutySettings[nextClassId] ?? normalizeClassDutySettings({ ...updated, classDutySettings: dutySettings, dutyJobs: previousClassStillExists ? undefined : updatedDuty.jobs, dutyOffset: previousClassStillExists ? 0 : updatedDuty.offset }, nextClassId);
+  dutySettings[nextClassId] = targetDuty;
   return {
     ...updated,
     courses: targetSchedule.courses,
@@ -380,6 +402,9 @@ function scopeClassSettings(previous: ClassroomData, updated: ClassroomData): Cl
     seatingConfig: targetSeating,
     classSchedules: schedules,
     classSeatingConfigs: seatings,
+    dutyOffset: targetDuty.offset,
+    dutyJobs: cloneDutyJobs(targetDuty.jobs),
+    classDutySettings: dutySettings,
   };
 }
 
@@ -724,7 +749,7 @@ export default function ClassroomApp({ token }: { token: string }) {
           {active === "schedule" && <ScheduleHub data={workspace.data} update={updateData} readOnly={isDemo || isReadOnly} />}
           {active === "tools" && <ClassroomTools data={workspace.data} update={updateData} readOnly={isDemo || isReadOnly} />}
           {active === "seating" && <Seating data={workspace.data} update={updateData} readOnly={isDemo || isReadOnly} />}
-          {active === "duty" && <Duty data={workspace.data} update={updateData} />}
+          {active === "duty" && <Duty data={workspace.data} update={updateData} readOnly={isDemo || isReadOnly} />}
           {active === "cadres" && <Cadres data={workspace.data} update={updateData} />}
           {active === "records" && <Records data={workspace.data} update={updateData} />}
           {active === "scores" && <Scores workspaceToken={token} data={workspace.data} update={updateData} />}
@@ -801,7 +826,8 @@ function MobileWorkbench({ workspaceToken, workspace, classes, activeClass, acti
       {active === "scores" && <MobileScores workspaceToken={workspaceToken} data={data} activeClass={activeClass} update={update} open={openModule} />}
       {active === "health" && <HealthCare data={data} update={update} mobile />}
       {active === "seating" && <Seating data={data} update={update} readOnly={isDemo || isReadOnly} mobile />}
-      {!isPrimary && active !== "attendance" && active !== "health" && active !== "dictation" && active !== "seating" && <MobileSecondaryPage workspaceToken={workspaceToken} active={active} data={data} activeClass={activeClass} update={update} open={openModule} readOnly={isDemo || isReadOnly} />}
+      {active === "duty" && <Duty data={data} update={update} readOnly={isDemo || isReadOnly} mobile />}
+      {!isPrimary && active !== "attendance" && active !== "health" && active !== "dictation" && active !== "seating" && active !== "duty" && <MobileSecondaryPage workspaceToken={workspaceToken} active={active} data={data} activeClass={activeClass} update={update} open={openModule} readOnly={isDemo || isReadOnly} />}
     </main>
     <nav className="mobile-tabbar" aria-label="手机底部导航">
       {primaryTabs.map((item) => <button type="button" data-module={item.id} key={item.id} className={active === item.id ? "active" : ""} onClick={() => openModule(item.id)}><i aria-hidden="true"><CampusIcon name={item.id}/></i><span>{item.label}</span></button>)}
@@ -1696,9 +1722,6 @@ function MobileMore({ current, open, compact }: { current: ModuleId; open: (id: 
 }
 
 function MobileSecondaryPage({ workspaceToken, active, data, activeClass, update, open, readOnly }: { workspaceToken: string; active: ModuleId; data: ClassroomData; activeClass: RosterClass; update: (fn: (d: ClassroomData) => ClassroomData) => void; open: (id: ModuleId) => void; readOnly: boolean }) {
-  const mobileDutyDays = data.scheduleConfig?.days?.map((day) => day.trim()).filter(Boolean) ?? days;
-  const mobileDutyDaysKey = mobileDutyDays.join("|");
-  const currentWeekday = ["周日", "周一", "周二", "周三", "周四", "周五", "周六"][new Date().getDay()];
   const [detail, setDetail] = useState<{ title: string; children: ReactNode } | null>(null);
   const [quickPointOpen, setQuickPointOpen] = useState(false);
   const [pointRuleSheetOpen, setPointRuleSheetOpen] = useState(false);
@@ -1706,7 +1729,6 @@ function MobileSecondaryPage({ workspaceToken, active, data, activeClass, update
   const [editingRecordId, setEditingRecordId] = useState("");
   const [recordStudentPickerOpen, setRecordStudentPickerOpen] = useState(false);
   const [ruleEditorOpen, setRuleEditorOpen] = useState(false);
-  const [dutyEditorOpen, setDutyEditorOpen] = useState(false);
   const [cadreEditorOpen, setCadreEditorOpen] = useState(false);
   const availablePointRules = pointRulesForData(data).filter((rule) => rule.enabled !== false);
   const firstPointRule = availablePointRules[0];
@@ -1762,13 +1784,6 @@ function MobileSecondaryPage({ workspaceToken, active, data, activeClass, update
   const [courseDraft, setCourseDraft] = useState({ dayIndex: 0, courses: [] as string[] });
   const [scheduleEditorMessage, setScheduleEditorMessage] = useState("");
   const scheduleDraftBaselines = useRef<Record<"event" | "focus" | "course" | "config", string>>({ event: "", focus: "", course: "", config: "" });
-  const [dutyDay, setDutyDay] = useState(() => mobileDutyDays.find((day) => sameDutyDay(day, currentWeekday)) ?? mobileDutyDays[0] ?? days[0]);
-  const [dutyKeyword, setDutyKeyword] = useState("");
-  const [dutyView, setDutyView] = useState<"今日" | "周表" | "岗位" | "台账">("今日");
-  const [dutyStatusFilter, setDutyStatusFilter] = useState<"全部" | DutyRecord["status"]>("全部");
-  const [dutyAssignTarget, setDutyAssignTarget] = useState<{ day: string; jobId: string } | null>(null);
-  const [dutyFixedPickerId, setDutyFixedPickerId] = useState("");
-  useEffect(() => { if (!mobileDutyDays.some((day) => sameDutyDay(day, dutyDay))) setDutyDay(mobileDutyDays[0] ?? days[0]); }, [dutyDay, mobileDutyDays, mobileDutyDaysKey]);
   const [recordKeyword, setRecordKeyword] = useState("");
   const [recordTypeFilter, setRecordTypeFilter] = useState("全部类型");
   const [recordStatusFilter, setRecordStatusFilter] = useState<"全部状态" | CommunicationRecord["status"]>("全部状态");
@@ -1806,7 +1821,6 @@ function MobileSecondaryPage({ workspaceToken, active, data, activeClass, update
   const [cadreStudentPickerId, setCadreStudentPickerId] = useState("");
   const [recordDraft, setRecordDraft] = useState({ studentId: activeClass.students[0]?.id ?? data.students[0]?.id ?? "", student: activeClass.students[0]?.name ?? data.students[0]?.name ?? "", type: "家校沟通", channel: "微信", date: localCommunicationDate(), purpose: "沟通情况补录", home: "", content: "", opinion: "", followUp: "" });
   const [ruleDraft, setRuleDraft] = useState<PointRule>({ id: "", scene: "课堂", title: "", reason: "", delta: 1, owner: "班主任", enabled: true, level: "自定义", detail: "" });
-  const [dutyDraft, setDutyDraft] = useState<DutyJob>({ id: "", name: "", area: "", standard: "", studentIds: [], enabled: true });
   const [cadreDraft, setCadreDraft] = useState<CadreRole>({ id: "", role: "", studentId: activeClass.students[0]?.id ?? data.students[0]?.id ?? "", duty: "", scope: "班级管理", term: activeClass.term || "本学期", status: "在任", weeklyScore: 4, summary: "" });
   const students = activeClass.students?.length ? activeClass.students : data.students;
   const mobileReflectionExams = scoreExamsForClass(data, activeClass.id);
@@ -1964,24 +1978,6 @@ function MobileSecondaryPage({ workspaceToken, active, data, activeClass, update
     update((current) => deletePointRule(current, rule.id));
     setDetail(null);
     notify("规则已删除", "success");
-  }
-  function openDutyEditor(job?: DutyJob) {
-    setDetail(null);
-    setDutyDraft(job ? { ...job, studentIds: job.studentIds ?? [] } : { id: "", name: "", area: "", standard: "", studentIds: [], enabled: true });
-    setDutyEditorOpen(true);
-  }
-  function saveDutyDraft() {
-    if (!dutyDraft.name.trim() || !dutyDraft.area.trim() || !dutyDraft.standard.trim()) {
-      notify("请填写岗位、区域和标准", "error");
-      return;
-    }
-    const nextJob: DutyJob = { ...dutyDraft, id: dutyDraft.id || makeId(), name: dutyDraft.name.trim(), area: dutyDraft.area.trim(), standard: dutyDraft.standard.trim(), studentIds: dutyDraft.studentIds ?? [] };
-    update((current) => {
-      const jobs = current.dutyJobs ?? [];
-      return { ...current, dutyJobs: jobs.some((job) => job.id === nextJob.id) ? jobs.map((job) => job.id === nextJob.id ? nextJob : job) : [nextJob, ...jobs] };
-    });
-    setDutyEditorOpen(false);
-    notify("值日岗位已保存", "success");
   }
   function openCadreEditor(role?: CadreRole) {
     setDetail(null);
@@ -2260,22 +2256,6 @@ function MobileSecondaryPage({ workspaceToken, active, data, activeClass, update
     if (kind === "focus") setFocusEditorOpen(false);
     if (kind === "course") setCourseEditorOpen(false);
     if (kind === "config") setScheduleConfigOpen(false);
-  }
-  function saveDutyRecordMobile(job: DutyJob, status: DutyRecord["status"], note = "") {
-    const next: DutyRecord = {
-      id: makeId(),
-      classId: activeClass.id,
-      date: today(),
-      day: dutyDay,
-      jobId: job.id,
-      studentIds: job.studentIds?.length ? job.studentIds : students.filter((student) => student.group === (((mobileDutyDays.indexOf(dutyDay) + (data.dutyOffset ?? 0)) % Math.max(1, ...students.map((item) => item.group))) + 1)).slice(0, 1).map((student) => student.id),
-      status,
-      note,
-      checkedBy: "劳动委员",
-      createdAt: Date.now(),
-    };
-    update((current) => ({ ...current, dutyRecords: [next, ...(current.dutyRecords ?? [])] }));
-    notify("值日检查已记录", "success");
   }
   function openReflectionEditor(item?: ExamReflection) {
     setDetail(null);
@@ -2784,128 +2764,6 @@ function MobileSecondaryPage({ workspaceToken, active, data, activeClass, update
         <div className="mobile-sheet-actions mobile-weekly-utility-actions"><button type="button" onClick={() => setWeeklyDraft({ ...weeklyDraft, content: generatedPreview })}>自动生成正文</button><button type="button" onClick={() => copyTextToClipboard(weeklyDraft.content || generatedPreview, "已复制周报正文")}>复制正文</button></div>
         <div className="mobile-sheet-actions mobile-weekly-submit-actions">{weeklyEditorMessage && <p className="mobile-weekly-editor-message" role="status">{weeklyEditorMessage}</p>}<button type="button" onClick={() => setWeeklyEditorOpen(false)}>取消</button><button type="button" onClick={() => saveWeeklyReportMobile("草稿")}>保存草稿</button><button type="button" className="primary" onClick={() => saveWeeklyReportMobile("已归档")}>完成并归档</button></div>
       </MobileInfoSheet>}
-    </div>;
-  }
-
-  if (active === "duty") {
-    const allDutyJobs = dutyJobs.length ? dutyJobs : defaultDutyJobs;
-    const enabledDutyJobs = allDutyJobs.filter((job) => job.enabled !== false);
-    const enabledDutyCount = enabledDutyJobs.length;
-    const dutyGroups = Math.max(1, ...students.map((student) => student.group || 1));
-    const dutyGroupLists = Array.from({ length: dutyGroups }, (_, index) => students.filter((student) => student.group === index + 1));
-    const dutyDayIndex = Math.max(0, mobileDutyDays.indexOf(dutyDay));
-    const dutyGroupNumber = ((dutyDayIndex + (data.dutyOffset ?? 0)) % dutyGroups) + 1;
-    const dutyRecordFor = (day: string, job: DutyJob) => dutyRecords.find((record) => record.date === today() && sameDutyDay(record.day, day) && record.jobId === job.id);
-    const assignedDutyStudents = (day: string, job: DutyJob, jobIndex: number) => {
-      const manual = (dutyRecordFor(day, job)?.studentIds ?? []).map((id) => students.find((student) => student.id === id)).filter(Boolean) as Student[];
-      if (manual.length) return manual;
-      const fixed = (job.studentIds ?? []).map((id) => students.find((student) => student.id === id)).filter(Boolean) as Student[];
-      if (fixed.length) return fixed;
-      const dayIndex = Math.max(0, mobileDutyDays.indexOf(day));
-      const group = dutyGroupLists[(dayIndex + (data.dutyOffset ?? 0)) % dutyGroups] ?? [];
-      return group.length ? [group[jobIndex % group.length]] : [];
-    };
-    const dutyText = mobileDutyDays.map((day, dayIndex) => {
-      const groupNumber = ((dayIndex + (data.dutyOffset ?? 0)) % dutyGroups) + 1;
-      return `${day} 第${groupNumber}组：` + enabledDutyJobs.map((job, jobIndex) => `${job.name}-${assignedDutyStudents(day, job, jobIndex).map((student) => student.name).join("、") || "待安排"}`).join("；");
-    }).join("\n");
-    const pendingDutyCount = enabledDutyJobs.filter((job) => {
-      const record = dutyRecordFor(dutyDay, job);
-      return !record || record.status === "待检查" || record.status === "需返工";
-    }).length;
-    const weekDoneCount = mobileDutyDays.reduce((sum, day) => sum + enabledDutyJobs.filter((job) => dutyRecordFor(day, job)?.status === "已完成").length, 0);
-    const weekTotal = Math.max(1, enabledDutyJobs.length * mobileDutyDays.length);
-    const weekRate = Math.round(weekDoneCount / weekTotal * 100);
-    const filteredDutyRecords = dutyRecords.filter((record) => {
-      const job = dutyJobs.find((item) => item.id === record.jobId);
-      const names = record.studentIds.map((id) => studentName(id)).join("、");
-      const keywordOk = !dutyKeyword.trim() || `${record.date}${record.day}${record.status}${record.note}${job?.name ?? ""}${names}`.includes(dutyKeyword.trim());
-      const statusOk = dutyStatusFilter === "全部" || record.status === dutyStatusFilter;
-      return keywordOk && statusOk;
-    });
-    const dutyAssignJob = dutyAssignTarget ? enabledDutyJobs.find((job) => job.id === dutyAssignTarget.jobId) ?? allDutyJobs.find((job) => job.id === dutyAssignTarget.jobId) : undefined;
-    const dutyAssignJobIndex = dutyAssignJob ? Math.max(0, enabledDutyJobs.findIndex((job) => job.id === dutyAssignJob.id)) : 0;
-    const dutyAssignStudents = dutyAssignTarget && dutyAssignJob ? assignedDutyStudents(dutyAssignTarget.day, dutyAssignJob, dutyAssignJobIndex) : [];
-    function markDutyMobile(day: string, job: DutyJob, jobIndex: number, status: DutyRecord["status"]) {
-      const assigned = assignedDutyStudents(day, job, jobIndex);
-      const existing = dutyRecordFor(day, job);
-      const next: DutyRecord = {
-        id: existing?.id ?? makeId(),
-        classId: activeClass.id,
-        date: today(),
-        day,
-        jobId: job.id,
-        studentIds: assigned.map((student) => student.id),
-        status,
-        note: existing?.note ?? "",
-        checkedBy: existing?.checkedBy ?? "劳动委员",
-        createdAt: existing?.createdAt ?? currentTimestamp(),
-      };
-      update((current) => ({ ...current, dutyRecords: [next, ...(current.dutyRecords ?? []).filter((record) => record.id !== next.id)] }));
-      notify(`${day} ${job.name} 已记录为${status}`, "success");
-    }
-    function assignDutyMobile(day: string, job: DutyJob, studentId: string) {
-      const existing = dutyRecordFor(day, job);
-      if (!studentId) {
-        update((current) => ({ ...current, dutyRecords: (current.dutyRecords ?? []).filter((record) => !(record.date === today() && record.day === day && record.jobId === job.id)) }));
-        setDutyAssignTarget(null);
-        notify("已恢复自动轮换", "success");
-        return;
-      }
-      const next: DutyRecord = {
-        id: existing?.id ?? makeId(),
-        classId: activeClass.id,
-        date: today(),
-        day,
-        jobId: job.id,
-        studentIds: [studentId],
-        status: existing?.status ?? "待检查",
-        note: existing?.note ?? "",
-        checkedBy: existing?.checkedBy ?? "劳动委员",
-        createdAt: existing?.createdAt ?? currentTimestamp(),
-      };
-      update((current) => ({ ...current, dutyRecords: [next, ...(current.dutyRecords ?? []).filter((record) => record.id !== next.id)] }));
-      setDutyAssignTarget(null);
-      notify("负责学生已指定", "success");
-    }
-    function patchDutyRecordNote(recordId: string, note: string) {
-      update((current) => ({ ...current, dutyRecords: (current.dutyRecords ?? []).map((record) => record.id === recordId ? { ...record, note } : record) }));
-    }
-    function rotateDutyWeek() {
-      update((current) => ({ ...current, dutyOffset: ((current.dutyOffset ?? 0) + 1) % dutyGroups }));
-      notify("已轮换一周", "success");
-    }
-    return <div className="mobile-stack mobile-duty-page">
-      <MobileSectionHero title={title} text={`${dutyDay.replace("星期", "周")} · ${pendingDutyCount} 项待检查 · 本周 ${weekRate}%`} />
-      <section className="mobile-duty-quick-stats mobile-insight-rail" aria-label="值日岗位概览"><span><small>检查日</small><b>{dutyDay.replace("星期", "周")}</b></span><span><small>今日进度</small><b>{Math.max(0, enabledDutyCount - pendingDutyCount)}/{enabledDutyCount}</b></span><span><small>本周完成</small><b>{weekRate}%</b></span></section>
-      <nav className="mobile-segmented duty-tabs" aria-label="值日岗位视图">{(["今日", "周表", "岗位", "台账"] as const).map((view) => <button type="button" className={dutyView === view ? "active" : ""} key={view} onClick={() => setDutyView(view)}><b>{view}</b><span>{view === "今日" ? "检查" : view === "周表" ? "轮换" : view === "岗位" ? "设置" : "记录"}</span></button>)}</nav>
-      <nav className="mobile-chip-tabs duty-days">{mobileDutyDays.map((day) => <button type="button" className={dutyDay === day ? "active" : ""} key={day} onClick={() => setDutyDay(day)}>{day}</button>)}</nav>
-      {dutyView === "今日" && <section className="mobile-card-list mobile-duty-check"><header><h2>岗位检查</h2></header>{enabledDutyJobs.map((job, jobIndex) => {
-        const record = dutyRecordFor(dutyDay, job);
-        const assigned = assignedDutyStudents(dutyDay, job, jobIndex);
-        const status = record?.status ?? "待检查";
-        return <article className={`status-${status}`} key={job.id}><button type="button" onClick={() => setDetail({ title: job.name, children: <><div className="mobile-sheet-section"><h3>区域</h3><p>{job.area}</p></div><div className="mobile-sheet-section"><h3>标准</h3><p>{job.standard}</p></div><div className="mobile-detail-grid"><span><small>负责学生</small><b>{assigned.map((student) => student.name).join("、") || "待安排"}</b></span><span><small>状态</small><b>{status}</b></span></div><div className="mobile-sheet-actions"><button type="button" onClick={() => markDutyMobile(dutyDay, job, jobIndex, "已完成")}>完成</button><button type="button" onClick={() => markDutyMobile(dutyDay, job, jobIndex, "需返工")}>返工</button></div><div className="mobile-sheet-actions"><button type="button" onClick={() => setDutyAssignTarget({ day: dutyDay, jobId: job.id })}>指定学生</button><button type="button" onClick={() => openDutyEditor(job)}>编辑岗位</button></div></> })}><span><b>{job.name}</b><small>{job.area} · {assigned.map((student) => student.name).join("、") || "待安排"}</small></span><em className={`mobile-duty-status status-${status}`}>{status}</em></button><div><button type="button" className={status === "已完成" ? "active done" : ""} onClick={() => markDutyMobile(dutyDay, job, jobIndex, "已完成")}>完成</button><button type="button" className={status === "需返工" ? "active rework" : ""} onClick={() => markDutyMobile(dutyDay, job, jobIndex, "需返工")}>返工</button><button type="button" onClick={() => setDutyAssignTarget({ day: dutyDay, jobId: job.id })}>指定</button></div></article>;
-      })}</section>}
-      {dutyView === "周表" && <section className="mobile-card-list mobile-duty-week"><header><h2>一周值日表</h2><button type="button" onClick={rotateDutyWeek}>轮换下周</button></header>{mobileDutyDays.map((day, dayIndex) => <article key={day}><b>{day} · 第{((dayIndex + (data.dutyOffset ?? 0)) % dutyGroups) + 1}组</b>{enabledDutyJobs.map((job, jobIndex) => <button type="button" key={job.id} onClick={() => setDutyAssignTarget({ day, jobId: job.id })}><span>{job.name}</span><em>{assignedDutyStudents(day, job, jobIndex).map((student) => student.name).join("、") || "待安排"}</em></button>)}</article>)}<button type="button" className="mobile-text-action" onClick={() => copyTextToClipboard(dutyText, "已复制值日表")}>复制当前值日表</button></section>}
-      {dutyView === "岗位" && <section className="mobile-card-list"><header><h2>岗位设置</h2><button type="button" onClick={() => openDutyEditor()}>新增</button></header>{allDutyJobs.map((job) => <button type="button" key={job.id} onClick={() => setDetail({ title: job.name, children: <><div className="mobile-detail-grid"><span><small>状态</small><b>{job.enabled === false ? "停用" : "启用"}</b></span><span><small>固定学生</small><b>{(job.studentIds ?? []).map((id) => studentName(id)).join("、") || "自动轮换"}</b></span></div><div className="mobile-sheet-section"><h3>区域</h3><p>{job.area}</p></div><div className="mobile-sheet-section"><h3>标准</h3><p>{job.standard}</p></div><div className="mobile-sheet-actions"><button type="button" onClick={() => openDutyEditor(job)}>编辑岗位</button><button type="button" onClick={() => { update((current) => ({ ...current, dutyJobs: allDutyJobs.map((item) => item.id === job.id ? { ...item, enabled: item.enabled === false } : item) })); setDetail(null); notify("岗位状态已更新", "success"); }}>{job.enabled === false ? "启用岗位" : "停用岗位"}</button></div></> })}><b>{job.name}</b><span>{job.enabled === false ? "停用" : "启用"} · {job.area} · {(job.studentIds ?? []).map((id) => studentName(id)).join("、") || "自动轮换"}</span></button>)}</section>}
-      {dutyView === "台账" && <>
-        <label className="mobile-search"><span>搜索台账</span><input value={dutyKeyword} onChange={(event) => setDutyKeyword(event.target.value)} placeholder="日期、岗位、学生、状态或备注" /></label>
-        <nav className="mobile-chip-tabs">{(["全部", "待检查", "已完成", "需返工", "已替换"] as const).map((status) => <button type="button" className={dutyStatusFilter === status ? "active" : ""} key={status} onClick={() => setDutyStatusFilter(status)}>{status}</button>)}</nav>
-        <section className="mobile-card-list"><header><h2>检查记录</h2><button type="button" onClick={() => copyTextToClipboard(filteredDutyRecords.map((record) => `${record.date} ${record.day} ${allDutyJobs.find((job) => job.id === record.jobId)?.name ?? "值日岗位"} ${record.status} ${record.note}`).join("\n"), "已复制检查台账")}>复制</button></header>{filteredDutyRecords.slice(0, 20).map((record) => <article className="mobile-duty-record" key={record.id}><b>{record.day} · {allDutyJobs.find((job) => job.id === record.jobId)?.name ?? "值日岗位"}</b><span>{record.date} · {record.status} · {(record.studentIds ?? []).map((id) => studentName(id)).join("、") || "未记录学生"}</span><textarea value={record.note} placeholder="补充检查备注" onChange={(event) => patchDutyRecordNote(record.id, event.target.value)} /></article>)}{!filteredDutyRecords.length && <article><b>暂无记录</b><span>可以从岗位检查里记录完成或返工。</span></article>}</section>
-      </>}
-      {detail && <MobileInfoSheet title={detail.title} onClose={() => setDetail(null)}>{detail.children}</MobileInfoSheet>}
-      {dutyEditorOpen && <MobileInfoSheet title={dutyDraft.id ? "编辑值日岗位" : "新增值日岗位"} onClose={() => setDutyEditorOpen(false)}>
-        <div className="mobile-form-grid">
-          <label><span>岗位名称</span><input value={dutyDraft.name} onChange={(event) => setDutyDraft({ ...dutyDraft, name: event.target.value })} /></label>
-          <label><span>启用状态</span><select value={dutyDraft.enabled ? "启用" : "停用"} onChange={(event) => setDutyDraft({ ...dutyDraft, enabled: event.target.value === "启用" })}><option>启用</option><option>停用</option></select></label>
-          <label className="wide"><span>负责区域</span><input value={dutyDraft.area} onChange={(event) => setDutyDraft({ ...dutyDraft, area: event.target.value })} /></label>
-          <label className="wide"><span>检查标准</span><textarea value={dutyDraft.standard} onChange={(event) => setDutyDraft({ ...dutyDraft, standard: event.target.value })} /></label>
-          <label className="wide"><span>固定学生</span><button type="button" className="mobile-picker-trigger" disabled={!dutyDraft.id} onClick={() => setDutyFixedPickerId(dutyDraft.id)}>{(dutyDraft.studentIds ?? []).map((id) => studentName(id)).join("、") || (dutyDraft.id ? "按小组自动轮换" : "新增岗位保存后可固定学生")}</button></label>
-        </div>
-        <div className="mobile-sheet-actions"><button type="button" onClick={() => setDutyEditorOpen(false)}>取消</button><button type="button" className="primary" onClick={saveDutyDraft}>保存岗位</button></div>
-      </MobileInfoSheet>}
-      {dutyAssignTarget && dutyAssignJob && <StudentLookupDialog title="选择值日学生" subtitle={`${dutyAssignTarget.day} · ${dutyAssignJob.name} · 当前 ${dutyAssignStudents.map((student) => student.name).join("、") || "自动轮换"}`} students={students} selectedId={dutyAssignStudents[0]?.id} allowClear clearLabel="恢复自动轮换" onPick={(student) => assignDutyMobile(dutyAssignTarget.day, dutyAssignJob, student.id)} onClear={() => assignDutyMobile(dutyAssignTarget.day, dutyAssignJob, "")} onClose={() => setDutyAssignTarget(null)} />}
-      {dutyFixedPickerId && <StudentLookupDialog title="选择固定值日学生" subtitle={allDutyJobs.find((job) => job.id === dutyFixedPickerId)?.name ?? "值日岗位"} students={students} selectedId={allDutyJobs.find((job) => job.id === dutyFixedPickerId)?.studentIds?.[0]} allowClear clearLabel="恢复轮换" onPick={(student) => { update((current) => ({ ...current, dutyJobs: allDutyJobs.map((job) => job.id === dutyFixedPickerId ? { ...job, studentIds: [student.id] } : job) })); setDutyDraft((current) => current.id === dutyFixedPickerId ? { ...current, studentIds: [student.id] } : current); setDutyFixedPickerId(""); notify("固定学生已更新", "success"); }} onClear={() => { update((current) => ({ ...current, dutyJobs: allDutyJobs.map((job) => job.id === dutyFixedPickerId ? { ...job, studentIds: [] } : job) })); setDutyDraft((current) => current.id === dutyFixedPickerId ? { ...current, studentIds: [] } : current); setDutyFixedPickerId(""); notify("已恢复自动轮换", "success"); }} onClose={() => setDutyFixedPickerId("")} />}
     </div>;
   }
 
@@ -4921,239 +4779,6 @@ function Weekly({ data, update, readOnly }: { data: ClassroomData; update: (fn: 
       <div className="weekreport-preview-content"><pre>{previewReport.content}</pre><section><span>下周行动</span><p>{previewReport.nextFocus || "未填写"}</p></section></div>
       <footer><button onClick={() => copyText(previewReport.content)}>复制正文</button><button className="primary" onClick={() => openSavedReport(previewReport)}>打开编辑</button></footer>
     </section></div>}
-  </div>;
-}
-
-function Duty({ data, update }: { data: ClassroomData; update: (fn: (d: ClassroomData) => ClassroomData) => void }) {
-  const dutyDays = data.scheduleConfig?.days?.map((day) => day.trim()).filter(Boolean) ?? days;
-  const currentWeekday = ["周日", "周一", "周二", "周三", "周四", "周五", "周六"][new Date().getDay()];
-  const [selectedDay, setSelectedDay] = useState(() => dutyDays.find((day) => sameDutyDay(day, currentWeekday)) ?? dutyDays[0] ?? days[0]);
-  const [editingJobId, setEditingJobId] = useState<string | null>(null);
-  const [newJobDraft, setNewJobDraft] = useState<DutyJob | null>(null);
-  const [keyword, setKeyword] = useState("");
-  const [message, setMessage] = useState("");
-  const [assignTarget, setAssignTarget] = useState<{ day: string; jobId: string } | null>(null);
-  const [assignKeyword, setAssignKeyword] = useState("");
-  const [assignGroup, setAssignGroup] = useState("all");
-  const [fixedJobPickerId, setFixedJobPickerId] = useState<string | null>(null);
-  const activeClassId = data.activeClassId ?? data.rosterClasses?.[0]?.id ?? "class-1";
-  const allJobs = data.dutyJobs?.length ? data.dutyJobs : defaultDutyJobs;
-  const jobs = allJobs.filter((job) => job.enabled !== false);
-  const maxGroup = Math.max(1, ...data.students.map((s) => s.group || 1));
-  const groups = Array.from({ length: maxGroup }, (_, group) => data.students.filter((s) => s.group === group + 1));
-  const records = (data.dutyRecords ?? []).filter((record) => !record.classId || record.classId === activeClassId);
-  const selectedDayIndex = dutyDays.indexOf(selectedDay) >= 0 ? dutyDays.indexOf(selectedDay) : 0;
-  const todayRecords = records.filter((record) => record.date === today());
-  const pendingCount = jobs.filter((job) => {
-    const record = todayRecords.find((item) => item.day === selectedDay && item.jobId === job.id);
-    return !record || record.status === "待检查" || record.status === "需返工";
-  }).length;
-  const weekDoneCount = dutyDays.reduce((sum, day) => sum + jobs.filter((job) => records.some((record) => record.date === today() && sameDutyDay(record.day, day) && record.jobId === job.id && record.status === "已完成")).length, 0);
-
-  useEffect(() => { if (!dutyDays.some((day) => sameDutyDay(day, selectedDay))) setSelectedDay(dutyDays[0] ?? days[0]); }, [dutyDays, selectedDay]);
-
-  function dutyRecordFor(day: string, job: DutyJob) {
-    return records.find((record) => record.date === today() && sameDutyDay(record.day, day) && record.jobId === job.id);
-  }
-
-  function assignedStudents(dayIndex: number, job: DutyJob, jobIndex: number) {
-    const day = dutyDays[dayIndex] ?? selectedDay;
-    const manual = (dutyRecordFor(day, job)?.studentIds ?? []).map((id) => data.students.find((student) => student.id === id)).filter(Boolean) as Student[];
-    if (manual.length) return manual;
-    const fixed = (job.studentIds ?? []).map((id) => data.students.find((student) => student.id === id)).filter(Boolean) as Student[];
-    if (fixed.length) return fixed;
-    const group = groups[(dayIndex + data.dutyOffset) % groups.length] ?? [];
-    return group.length ? [group[jobIndex % group.length]] : [];
-  }
-
-  function editJob(id: string, patch: Partial<DutyJob>) {
-    update((current) => ({ ...current, dutyJobs: allJobs.map((job) => job.id === id ? { ...job, ...patch } : job) }));
-  }
-
-  function addJob() {
-    setEditingJobId(null);
-    setNewJobDraft({ id: makeId("duty-job"), name: "", area: "", standard: "", enabled: true });
-  }
-
-  function saveNewJob() {
-    if (!newJobDraft) return;
-    const next = { ...newJobDraft, name: newJobDraft.name.trim(), area: newJobDraft.area.trim(), standard: newJobDraft.standard.trim() };
-    if (!next.name || !next.area || !next.standard) {
-      setMessage("请填写岗位名称、负责区域和检查标准。");
-      return;
-    }
-    update((current) => ({ ...current, dutyJobs: [...(current.dutyJobs?.length ? current.dutyJobs : allJobs), next] }));
-    setNewJobDraft(null);
-    setMessage("值日岗位已新增。");
-  }
-
-  function assignDutyStudent(day: string, job: DutyJob, studentId: string) {
-    const existing = dutyRecordFor(day, job);
-    if (!studentId) {
-      update((current) => ({ ...current, dutyRecords: (current.dutyRecords ?? []).filter((record) => !(record.date === today() && record.day === day && record.jobId === job.id)) }));
-      setMessage(`${day} ${job.name} 已恢复自动轮换`);
-      setAssignTarget(null);
-      return;
-    }
-    const student = data.students.find((item) => item.id === studentId);
-    const next: DutyRecord = {
-      id: existing?.id ?? makeId(),
-      classId: activeClassId,
-      date: today(),
-      day,
-      jobId: job.id,
-      studentIds: [studentId],
-      status: existing?.status ?? "待检查",
-      note: existing?.note ?? "",
-      checkedBy: existing?.checkedBy ?? "劳动委员",
-      createdAt: existing?.createdAt ?? currentTimestamp(),
-    };
-    update((current) => ({ ...current, dutyRecords: [next, ...(current.dutyRecords ?? []).filter((record) => record.id !== next.id)] }));
-    setMessage(`${day} ${job.name} 已指定给 ${student?.name ?? "该学生"}`);
-    setAssignTarget(null);
-  }
-
-  function openDutyAssigner(day: string, job: DutyJob) {
-    const dayIndex = dutyDays.indexOf(day) >= 0 ? dutyDays.indexOf(day) : 0;
-    const groupNumber = ((dayIndex + data.dutyOffset) % groups.length) + 1;
-    setAssignTarget({ day, jobId: job.id });
-    setAssignGroup(String(groupNumber));
-    setAssignKeyword("");
-  }
-
-  function mark(day: string, job: DutyJob, jobIndex: number, status: DutyRecord["status"]) {
-    const students = assignedStudents(dutyDays.indexOf(day), job, jobIndex);
-    const existing = records.find((record) => record.date === today() && sameDutyDay(record.day, day) && record.jobId === job.id);
-    const next: DutyRecord = {
-      id: existing?.id ?? makeId(),
-      classId: activeClassId,
-      date: today(),
-      day,
-      jobId: job.id,
-      studentIds: students.map((student) => student.id),
-      status,
-      note: existing?.note ?? "",
-      checkedBy: existing?.checkedBy ?? "劳动委员",
-      createdAt: existing?.createdAt ?? currentTimestamp(),
-    };
-    update((current) => ({ ...current, dutyRecords: [next, ...(current.dutyRecords ?? []).filter((record) => record.id !== next.id)] }));
-    setMessage(`${day} ${job.name} 已记录为${status}`);
-  }
-
-  const dutyText = dutyDays.map((day, dayIndex) => {
-    const groupIndex = (dayIndex + data.dutyOffset) % groups.length;
-    return `${day} 第${groupIndex + 1}组：` + jobs.map((job, jobIndex) => `${job.name}-${assignedStudents(dayIndex, job, jobIndex).map((student) => student.name).join("、") || "待安排"}`).join("；");
-  }).join("\n");
-
-  const filteredRecords = records.filter((record) => {
-    const job = allJobs.find((item) => item.id === record.jobId);
-    const names = record.studentIds.map((id) => data.students.find((student) => student.id === id)?.name).filter(Boolean).join("、");
-    const text = `${record.date}${record.day}${job?.name}${names}${record.status}${record.note}`;
-    return !keyword.trim() || text.includes(keyword.trim());
-  }).slice(0, 20);
-  const selectedGroupNumber = ((selectedDayIndex + data.dutyOffset) % groups.length) + 1;
-  const selectedGroup = groups[selectedGroupNumber - 1] ?? [];
-  const dayDoneCount = Math.max(0, jobs.length - pendingCount);
-  const weekTotal = Math.max(1, jobs.length * dutyDays.length);
-  const weekRate = Math.round(weekDoneCount / weekTotal * 100);
-  const assignJob = assignTarget ? jobs.find((job) => job.id === assignTarget.jobId) ?? allJobs.find((job) => job.id === assignTarget.jobId) : undefined;
-  const assignDayIndex = assignTarget && dutyDays.indexOf(assignTarget.day) >= 0 ? dutyDays.indexOf(assignTarget.day) : 0;
-  const assignJobIndex = assignJob ? Math.max(0, jobs.findIndex((job) => job.id === assignJob.id)) : 0;
-  const assignRecord = assignTarget && assignJob ? dutyRecordFor(assignTarget.day, assignJob) : undefined;
-  const assignManual = Boolean(assignRecord?.studentIds?.length);
-  const assignCurrentStudents = assignTarget && assignJob ? assignedStudents(assignDayIndex, assignJob, assignJobIndex) : [];
-  const assignGroupNumber = assignTarget ? ((assignDayIndex + data.dutyOffset) % groups.length) + 1 : 1;
-  const assignCandidates = data.students.filter((student) => {
-    const matchGroup = assignGroup === "all" || String(student.group) === assignGroup;
-    const q = assignKeyword.trim();
-    const matchKeyword = !q || `${student.name}${student.studentNo ?? ""}${student.group}`.includes(q);
-    return matchGroup && matchKeyword;
-  });
-
-  return <div className="duty3-page">
-    <WorkbenchPageHeader icon="🧹" tone="marigold" title="值日岗位" description="按小组自动轮换，也可以给单个岗位固定学生；检查结果会沉淀到台账，后续可用于周报和沟通。" actions={<div className="duty3-actions"><button className="primary workbench-header-primary" onClick={() => update((d) => ({ ...d, dutyOffset: (d.dutyOffset + 1) % maxGroup }))}>轮换一周</button></div>} />
-    {message && <button className="inline-alert duty3-message" onClick={() => setMessage("")}>{message}<span>点击关闭</span></button>}
-    {assignTarget && assignJob && <div className="duty3-assign-backdrop" role="presentation" onClick={() => setAssignTarget(null)}>
-      <section className="duty3-assign-modal" role="dialog" aria-modal="true" aria-label="选择值日学生" onClick={(event) => event.stopPropagation()}>
-        <header><div><span>{assignTarget.day} · {assignJob.name}</span><h3>选择负责同学</h3><p>当前：{assignCurrentStudents.map((student) => student.name).join("、") || "自动轮换待安排"}{assignManual ? " · 手动指定" : " · 默认轮换"}</p></div><button aria-label="关闭" onClick={() => setAssignTarget(null)}>×</button></header>
-        <div className="duty3-assign-tools"><input autoFocus value={assignKeyword} onChange={(event) => setAssignKeyword(event.target.value)} placeholder="搜索姓名、学号或小组" /><select value={assignGroup} onChange={(event) => setAssignGroup(event.target.value)}><option value="all">全部小组</option>{groups.map((group, index) => <option value={index + 1} key={index}>第{index + 1}组（{group.length}人）</option>)}</select></div>
-        <div className="duty3-assign-recommend"><button onClick={() => setAssignGroup(String(assignGroupNumber))}>只看当天轮值组</button><button onClick={() => assignDutyStudent(assignTarget.day, assignJob, "")}>恢复自动轮换</button></div>
-        <div className="duty3-assign-list">{assignCandidates.length ? assignCandidates.map((student) => <button className={assignRecord?.studentIds?.includes(student.id) ? "active" : ""} onClick={() => assignDutyStudent(assignTarget.day, assignJob, student.id)} key={student.id}><i>{student.name.slice(0, 1)}</i><span><b>{student.name}</b><small>第{student.group}组 · 学号 {student.studentNo || "未填"}</small></span></button>) : <p>没有找到符合条件的学生。</p>}</div>
-      </section>
-    </div>}
-
-    <section className="campus-statistics"><div><span>当前检查日</span><b>{selectedDay}</b><small>第{selectedGroupNumber}组轮值</small></div><div><span>今日进度</span><b>{dayDoneCount}/{jobs.length}</b><small>{pendingCount ? `还有 ${pendingCount} 项待处理` : "已全部处理"}</small></div><div><span>本周完成率</span><b>{weekRate}%</b><small>完成 {weekDoneCount}/{weekTotal}</small></div></section>
-
-    <section className="duty3-layout">
-      <main className="duty3-main">
-        <section className="duty3-today">
-          <header className="duty3-section-head">
-            <div><span>今日检查</span><h3>{selectedDay} · 第{selectedGroupNumber}组</h3><p>{selectedGroup.map((student) => student.name).join("、") || "当前小组暂无学生"}</p></div>
-            <button onClick={() => window.print()}>打印公示</button>
-          </header>
-          <div className="duty3-day-switch">{dutyDays.map((day) => <button className={selectedDay === day ? "active" : ""} onClick={() => setSelectedDay(day)} key={day}><b>{day}</b><span>第{((dutyDays.indexOf(day) + data.dutyOffset) % groups.length) + 1}组</span></button>)}</div>
-          <div className="duty3-task-list">
-          {jobs.map((job, jobIndex) => {
-            const students = assignedStudents(selectedDayIndex, job, jobIndex);
-            const record = dutyRecordFor(selectedDay, job);
-            const manualAssigned = Boolean(record?.studentIds?.length);
-            return <article className="duty3-task" key={job.id}>
-              <div className="duty3-task-title">
-                <i>{job.name.slice(0, 1)}</i>
-                <div><b>{job.name}</b><small>{job.area}</small></div>
-                <em className={`duty3-status ${record?.status ?? "待检查"}`}>{record?.status ?? "待检查"}</em>
-              </div>
-              <p>{job.standard}</p>
-              <div className="duty3-assignees">{students.length ? students.map((student) => <span key={student.id}>{student.name}</span>) : <span>待安排</span>}</div>
-              <button className="duty3-assign-trigger" onClick={() => openDutyAssigner(selectedDay, job)}><span>{manualAssigned ? "手动指定" : "默认轮换"}</span><b>{students.map((student) => student.name).join("、") || "选择同学"}</b></button>
-              <footer><button onClick={() => mark(selectedDay, job, jobIndex, "已完成")}>完成</button><button onClick={() => mark(selectedDay, job, jobIndex, "需返工")}>返工</button></footer>
-            </article>;
-          })}
-          </div>
-        </section>
-
-        <section className="duty3-week">
-          <header className="duty3-section-head"><div><span>一周值日表</span><h3>按小组轮换</h3></div><button onClick={() => copyTextToClipboard(dutyText, "已复制值日表")}>复制</button></header>
-          <div className="duty3-table">
-            <div className="duty3-table-head" style={{ gridTemplateColumns: `150px repeat(${dutyDays.length}, minmax(132px, 1fr))` }}><span>岗位</span>{dutyDays.map((day) => <span key={day}>{day}</span>)}</div>
-            {jobs.map((job, jobIndex) => <div className="duty3-table-row" style={{ gridTemplateColumns: `150px repeat(${dutyDays.length}, minmax(132px, 1fr))` }} key={job.id}><b>{job.name}</b>{dutyDays.map((day, dayIndex) => { const students = assignedStudents(dayIndex, job, jobIndex); const record = dutyRecordFor(day, job); const manualAssigned = Boolean(record?.studentIds?.length); return <div key={day}><small>第{((dayIndex + data.dutyOffset) % groups.length) + 1}组{manualAssigned ? " · 手动" : ""}</small>{students.map((student) => <span key={student.id}>{student.name}</span>)}{!students.length && <span>待安排</span>}<button className="duty3-cell-picker" onClick={() => openDutyAssigner(day, job)}>{manualAssigned ? "改负责人" : "选择"}</button></div>; })}</div>)}
-          </div>
-        </section>
-      </main>
-
-      <aside className="duty3-side">
-        <section className="duty3-jobs">
-          <header className="duty3-section-head"><div><span>岗位设置</span><h3>启用岗位</h3></div><button onClick={addJob}>新增</button></header>
-          <div className="duty3-job-list">{newJobDraft && <article className="duty3-job-new"><header><b>新增岗位</b><span>填写后保存才会加入值日安排</span></header><div className="duty3-job-editor"><label><span>岗位名</span><input autoFocus value={newJobDraft.name} onChange={(event) => setNewJobDraft({ ...newJobDraft, name: event.target.value })} placeholder="例如：讲台整理" /></label><label><span>负责区域</span><input value={newJobDraft.area} onChange={(event) => setNewJobDraft({ ...newJobDraft, area: event.target.value })} placeholder="例如：讲台、粉笔槽" /></label><label><span>检查标准</span><textarea value={newJobDraft.standard} onChange={(event) => setNewJobDraft({ ...newJobDraft, standard: event.target.value })} placeholder="写清楚完成标准和复查时间" /></label></div><footer><button type="button" onClick={() => setNewJobDraft(null)}>取消</button><button type="button" className="primary-small" onClick={saveNewJob}>保存岗位</button></footer></article>}{allJobs.map((job) => <article className={job.enabled === false ? "disabled" : ""} key={job.id}>
-            <header><button className={job.enabled === false ? "" : "enabled"} onClick={() => editJob(job.id, { enabled: job.enabled === false })}>{job.enabled === false ? "停用" : "启用"}</button><b>{job.name}</b><button onClick={() => setEditingJobId(editingJobId === job.id ? null : job.id)}>{editingJobId === job.id ? "收起" : "编辑"}</button></header>
-            <p>{job.area}</p>
-            {editingJobId === job.id && <div className="duty3-job-editor">
-              <label><span>岗位名</span><input value={job.name} onChange={(e) => editJob(job.id, { name: e.target.value })} /></label>
-              <label><span>负责区域</span><input value={job.area} onChange={(e) => editJob(job.id, { area: e.target.value })} /></label>
-              <label><span>检查标准</span><textarea value={job.standard} onChange={(e) => editJob(job.id, { standard: e.target.value })} /></label>
-              <label><span>固定学生</span><button className="student-picker-trigger" onClick={() => setFixedJobPickerId(job.id)}><span>{data.students.find((student) => student.id === job.studentIds?.[0])?.name ?? "按小组自动轮换"}</span><em>{job.studentIds?.[0] ? "更换" : "选择"}</em></button></label>
-            </div>}
-          </article>)}</div>
-        </section>
-
-        <section className="duty3-records">
-          <header className="duty3-section-head"><div><span>检查台账</span><h3>最近记录</h3></div><button onClick={() => copyTextToClipboard(filteredRecords.map((record) => `${record.date} ${record.day} ${record.status} ${record.note}`).join("\n"), "已复制检查台账")}>复制</button></header>
-          <input value={keyword} onChange={(e) => setKeyword(e.target.value)} placeholder="搜索岗位、学生、备注" />
-          <div>{filteredRecords.length ? filteredRecords.map((record) => { const job = allJobs.find((item) => item.id === record.jobId); const names = record.studentIds.map((id) => data.students.find((student) => student.id === id)?.name).filter(Boolean).join("、"); return <article key={record.id}><b>{record.day} · {job?.name ?? "值日岗位"}</b><span>{record.date} · {record.status} · {names || "未记录学生"}</span><textarea value={record.note} placeholder="补充检查备注" onChange={(e) => update((current) => ({ ...current, dutyRecords: (current.dutyRecords ?? []).map((item) => item.id === record.id ? { ...item, note: e.target.value } : item) }))} /></article>; }) : <p>还没有符合条件的值日记录。</p>}</div>
-        </section>
-      </aside>
-    </section>
-    {fixedJobPickerId && <StudentLookupDialog
-      title="选择固定值日学生"
-      subtitle={allJobs.find((job) => job.id === fixedJobPickerId)?.name ?? "值日岗位"}
-      students={data.students}
-      selectedId={allJobs.find((job) => job.id === fixedJobPickerId)?.studentIds?.[0]}
-      allowClear
-      clearLabel="恢复轮换"
-      onPick={(student) => { editJob(fixedJobPickerId, { studentIds: [student.id] }); setFixedJobPickerId(null); }}
-      onClear={() => editJob(fixedJobPickerId, { studentIds: [] })}
-      onClose={() => setFixedJobPickerId(null)}
-    />}
   </div>;
 }
 

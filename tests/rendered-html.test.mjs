@@ -44,6 +44,8 @@ const workspaceChromeCss = read("app/components/campus/workspace-chrome.css");
 const pageFamiliesCss = read("app/components/campus/page-families.css");
 const campusTheme = read("app/components/campus/theme.ts");
 const rootLayout = read("app/layout.tsx");
+const dutyPage = read("app/w/[token]/Duty.tsx");
+const dutyOperations = read("app/w/[token]/features/duty/operations.ts");
 const idWriteSurfaces = [attendancePage, teacherAgenda, classroomTools, notificationDrafts, studentProfile, read("app/w/[token]/CourseSchedule.tsx"), app];
 
 test("public entry exposes only the two intended primary routes", () => {
@@ -211,12 +213,13 @@ test("homework batch status changes clear the completed selection and keep mobil
 });
 
 test("duty timetable follows the course schedule's custom teaching days", () => {
-  assert.match(app, /const dutyDays = data\.scheduleConfig\?\.days/);
-  assert.match(app, /const mobileDutyDays = data\.scheduleConfig\?\.days/);
-  assert.match(app, /dutyDays\.map\(\(day\)/);
-  assert.match(app, /mobileDutyDays\.map\(\(day\)/);
-  assert.match(app, /gridTemplateColumns: `150px repeat\(\$\{dutyDays\.length\}/);
-  assert.match(app, /function sameDutyDay/);
+  assert.match(dutyPage, /data\.scheduleConfig\?\.days \?\? defaultDays/);
+  assert.match(dutyPage, /days\.map\(day =>/);
+  assert.match(dutyPage, /gridTemplateColumns: `170px repeat\(\$\{days\.length\}/);
+  assert.match(dutyOperations, /export function dutyDateForDay/);
+  assert.match(dutyOperations, /export function sameDutyDay/);
+  assert.match(app, /active === "duty" && <Duty data=\{data\} update=\{update\} readOnly=\{isDemo \|\| isReadOnly\} mobile/);
+  assert.doesNotMatch(app, /className="duty3-page"|className="mobile-stack mobile-duty-page"/);
 });
 
 test("attendance keeps all actions in the batch-capable main roster", () => {

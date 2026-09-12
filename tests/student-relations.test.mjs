@@ -15,6 +15,13 @@ function fixture() {
     scoreExams: [{ id: 'exam-a', classId: 'a', scores: { 'a-0': 10, 'a-1': 20 }, knowledgeItems: [{ scores: { 'a-0': 1, 'a-1': 2 } }] }, { id: 'exam-b', classId: 'b', scores: { 'b-0': 30 } }],
     examReflections: [{ id: 'r0', studentId: 'a-0', examId: 'exam-a' }, { id: 'r1', studentId: 'a-1', examId: 'exam-a' }, { id: 'r2', studentId: 'b-0', examId: 'exam-b' }],
     homeworkTasks: [{ classId: 'a', statuses: { 'a-0': '未交', 'a-1': '已交' }, followUpStudentIds: ['a-0', 'a-1'] }],
+    activeClassId: 'a', dutyOffset: 0,
+    dutyJobs: [{ id: 'job', studentIds: ['a-0', 'a-1'] }],
+    classDutySettings: {
+      a: { offset: 0, jobs: [{ id: 'job', studentIds: ['a-0', 'a-1'] }] },
+      b: { offset: 1, jobs: [{ id: 'job', studentIds: ['b-0'] }] },
+    },
+    dutyRecords: [{ id: 'duty-a', classId: 'a', studentIds: ['a-0', 'a-1'] }, { id: 'duty-b', classId: 'b', studentIds: ['b-0'] }],
     dictation: { children: [{ id: 'child-1' }, { id: 'child-2' }], tasks: [
       { id: 'affected', context: { kind: 'class', classId: 'a' }, participants: [{ id: 'a-0' }, { id: 'a-1' }], results: { 'a-0': { status: 'graded' }, 'a-1': { status: 'graded' } } },
       { id: 'last', context: { kind: 'class', classId: 'a' }, participants: [{ id: 'a-0' }], results: {} },
@@ -47,6 +54,11 @@ test('关联清理保留未选数据、另一班成绩和旧无ID沟通记录', 
   assert.deepEqual(next.homeworkTasks[0].statuses, { 'a-1': '已交' });
   assert.deepEqual(next.homeworkTasks[0].followUpStudentIds, ['a-1']);
   assert.equal(next.records.length, 3);
+  assert.deepEqual(next.dutyJobs[0].studentIds, ['a-1']);
+  assert.deepEqual(next.classDutySettings.a.jobs[0].studentIds, ['a-1']);
+  assert.equal(next.classDutySettings.b, data.classDutySettings.b);
+  assert.deepEqual(next.dutyRecords[0].studentIds, ['a-1']);
+  assert.equal(next.dutyRecords[1], data.dutyRecords[1]);
   assert.equal(next.rosterClasses, data.rosterClasses);
   assert.equal(removeStudentRelations(data, [], 'a'), data);
 });

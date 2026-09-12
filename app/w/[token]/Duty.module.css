@@ -1,0 +1,1279 @@
+.page {
+  display: grid;
+  gap: 18px;
+  min-width: 0;
+  color: var(--campus-ink);
+}
+
+.headerAction,
+.primaryButton {
+  min-height: 38px;
+  padding: 0 16px;
+  border: 1px solid var(--campus-primary);
+  border-radius: 9px;
+  color: var(--campus-surface);
+  background: var(--campus-primary);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.headerAction:disabled,
+.primaryButton:disabled,
+.page button:disabled {
+  cursor: not-allowed;
+  opacity: .5;
+}
+
+.mobileIntro {
+  display: none;
+}
+
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  overflow: hidden;
+  border: 1px solid var(--campus-line);
+  border-radius: 13px;
+  background: var(--campus-surface);
+}
+
+.metrics > div {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+  padding: 15px 18px;
+  border-right: 1px solid var(--campus-line);
+}
+
+.metrics > div:last-child {
+  border-right: 0;
+}
+
+.metrics span,
+.metrics small {
+  overflow: hidden;
+  color: var(--campus-muted);
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.metrics b {
+  color: var(--campus-primary);
+  font-size: 24px;
+  line-height: 1.1;
+}
+
+.metrics .warningMetric b {
+  color: var(--campus-warning);
+}
+
+.notice {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  margin: 0;
+  padding: 11px 14px;
+  border: 1px solid var(--campus-primary);
+  border-radius: 9px;
+  color: var(--campus-primary);
+  background: var(--campus-blue);
+  font: inherit;
+  font-size: 13px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.notice span {
+  flex: 0 0 auto;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.notice.error {
+  border-color: var(--campus-error);
+  color: var(--campus-error);
+  background: var(--campus-error-soft);
+}
+
+.readOnlyNote,
+.groupWarning {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin: 0;
+  padding: 11px 14px;
+  border-radius: 9px;
+  color: var(--campus-primary);
+  background: var(--campus-blue);
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.groupWarning {
+  color: #75500d;
+  background: var(--campus-yellow);
+}
+
+.groupWarning svg {
+  flex: 0 0 17px;
+  width: 17px;
+  height: 17px;
+}
+
+.viewTabs {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 7px;
+  padding: 6px;
+  border-radius: 11px;
+  background: var(--campus-green);
+}
+
+.viewTabs button {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+  min-height: 54px;
+  padding: 9px 12px;
+  border: 0;
+  border-radius: 8px;
+  color: var(--campus-muted);
+  background: transparent;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.viewTabs button[aria-pressed="true"] {
+  color: var(--campus-primary);
+  background: var(--campus-surface);
+  box-shadow: 0 3px 12px rgb(24 73 82 / 9%);
+}
+
+.viewTabs b {
+  overflow: hidden;
+  font-size: 14px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.viewTabs small {
+  overflow: hidden;
+  font-size: 12px;
+  font-weight: 500;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dayTabs {
+  display: flex;
+  gap: 7px;
+  min-width: 0;
+  overflow-x: auto;
+  padding-bottom: 2px;
+  scrollbar-width: thin;
+}
+
+.dayTabs button {
+  display: grid;
+  flex: 1 0 88px;
+  gap: 2px;
+  min-height: 46px;
+  padding: 7px 12px;
+  border: 1px solid var(--campus-line);
+  border-radius: 9px;
+  color: var(--campus-muted);
+  background: var(--campus-surface);
+  font: inherit;
+  cursor: pointer;
+}
+
+.dayTabs button[aria-pressed="true"] {
+  border-color: var(--campus-primary);
+  color: var(--campus-primary);
+  background: var(--campus-blue);
+}
+
+.dayTabs b {
+  font-size: 13px;
+}
+
+.dayTabs small {
+  font-size: 11px;
+}
+
+.todayBoard {
+  display: grid;
+  grid-template-columns: minmax(220px, .7fr) minmax(0, 2fr);
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--campus-line);
+  border-radius: 15px;
+  background: var(--campus-surface);
+}
+
+.scene {
+  position: relative;
+  display: grid;
+  align-content: start;
+  min-width: 0;
+  padding: 22px;
+  overflow: hidden;
+  background:
+    linear-gradient(180deg, rgb(231 246 241 / 35%), transparent 55%),
+    var(--campus-green);
+}
+
+.scene::after {
+  position: absolute;
+  right: -18px;
+  bottom: 22px;
+  width: 110px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgb(45 92 87 / 10%);
+  content: "";
+}
+
+.scene :global(.campus-art) {
+  width: min(100%, 250px);
+  height: 150px;
+  margin: 0 auto 12px;
+  object-fit: contain;
+}
+
+.scene > span,
+.todayBoard header span,
+.weekPanel > header span,
+.jobsPanel > header span,
+.ledgerPanel > header span,
+.dialog > header span {
+  color: var(--campus-primary);
+  font-size: 12px;
+  font-weight: 750;
+  letter-spacing: .04em;
+}
+
+.scene h2 {
+  margin: 5px 0 8px;
+  font-size: 21px;
+}
+
+.scene p {
+  margin: 0;
+  color: var(--campus-muted);
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+.scene dl {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  margin: 17px 0;
+  overflow: hidden;
+  border-radius: 8px;
+  background: var(--campus-line);
+}
+
+.scene dl div {
+  display: grid;
+  gap: 3px;
+  padding: 10px;
+  background: rgb(255 255 255 / 70%);
+}
+
+.scene dt {
+  color: var(--campus-muted);
+  font-size: 11px;
+}
+
+.scene dd {
+  margin: 0;
+  color: var(--campus-primary);
+  font-size: 14px;
+  font-weight: 750;
+}
+
+.scene > button,
+.checklist > header button,
+.weekPanel > header button,
+.jobsPanel > header button,
+.ledgerPanel > header button,
+.jobSettings article > div:last-child button,
+.empty button {
+  min-height: 35px;
+  padding: 0 12px;
+  border: 1px solid var(--campus-line);
+  border-radius: 8px;
+  color: var(--campus-primary);
+  background: var(--campus-surface);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.checklist {
+  min-width: 0;
+  padding: 20px;
+}
+
+.checklist > header,
+.weekPanel > header,
+.jobsPanel > header,
+.ledgerPanel > header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 13px;
+}
+
+.checklist h2,
+.weekPanel h2,
+.jobsPanel h2,
+.ledgerPanel h2 {
+  margin: 3px 0 0;
+  font-size: 19px;
+}
+
+.weekPanel > header p,
+.jobsPanel > header p,
+.ledgerPanel > header p {
+  margin: 5px 0 0;
+  color: var(--campus-muted);
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.jobRow {
+  display: grid;
+  grid-template-columns: 42px minmax(180px, 1.4fr) minmax(150px, .8fr) auto;
+  align-items: center;
+  gap: 13px;
+  min-width: 0;
+  padding: 14px 4px;
+  border-top: 1px solid var(--campus-line);
+}
+
+.jobRow:first-of-type {
+  border-top: 0;
+}
+
+.jobRow.done {
+  background: linear-gradient(90deg, transparent, rgb(231 246 241 / 45%));
+}
+
+.jobRow.rework {
+  background: linear-gradient(90deg, transparent, rgb(255 243 216 / 55%));
+}
+
+.jobMark,
+.settingIcon {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  place-items: center;
+  border-radius: 9px;
+  color: var(--campus-primary);
+  background: var(--campus-blue);
+}
+
+.jobMark svg,
+.settingIcon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.jobCopy,
+.assignee {
+  display: grid;
+  min-width: 0;
+  gap: 3px;
+}
+
+.jobCopy > span,
+.assignee small {
+  overflow: hidden;
+  color: var(--campus-muted);
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.jobCopy h3 {
+  margin: 0;
+  font-size: 15px;
+}
+
+.jobCopy p {
+  display: -webkit-box;
+  overflow: hidden;
+  margin: 0;
+  color: var(--campus-muted);
+  font-size: 13px;
+  line-height: 1.45;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.assignee b {
+  overflow: hidden;
+  font-size: 14px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.assignee button {
+  width: fit-content;
+  min-height: 30px;
+  margin-left: -4px;
+  padding: 0 4px;
+  border: 0;
+  color: var(--campus-primary);
+  background: transparent;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.statusActions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(54px, 1fr));
+  gap: 5px;
+  min-width: 125px;
+}
+
+.statusActions > span {
+  grid-column: 1 / -1;
+  justify-self: end;
+  padding: 4px 7px;
+  border-radius: 99px;
+  color: var(--campus-muted);
+  background: var(--campus-green);
+  font-size: 11px;
+}
+
+.statusActions > span[data-status="已完成"],
+.weekTable [data-status="已完成"],
+.ledgerList [data-status="已完成"] {
+  color: var(--campus-success);
+  background: var(--campus-green);
+}
+
+.statusActions > span[data-status="需返工"],
+.weekTable [data-status="需返工"],
+.ledgerList [data-status="需返工"] {
+  color: #80560c;
+  background: var(--campus-yellow);
+}
+
+.statusActions button {
+  min-height: 31px;
+  padding: 0 9px;
+  border: 1px solid var(--campus-line);
+  border-radius: 7px;
+  color: var(--campus-muted);
+  background: var(--campus-surface);
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.statusActions button[aria-pressed="true"] {
+  border-color: var(--campus-primary);
+  color: var(--campus-primary);
+  background: var(--campus-blue);
+}
+
+.weekPanel,
+.jobsPanel,
+.ledgerPanel {
+  min-width: 0;
+  padding: 20px;
+  border: 1px solid var(--campus-line);
+  border-radius: 14px;
+  background: var(--campus-surface);
+}
+
+.weekPanel > header > div:last-child {
+  display: flex;
+  flex: 0 0 auto;
+  gap: 7px;
+}
+
+.weekScroll {
+  min-width: 0;
+  overflow-x: auto;
+  border: 1px solid var(--campus-line);
+  border-radius: 10px;
+  scrollbar-width: thin;
+}
+
+.weekTable {
+  display: grid;
+  background: var(--campus-line);
+  gap: 1px;
+}
+
+.weekTable > button,
+.weekCorner,
+.weekRow > div,
+.weekRow > button {
+  display: grid;
+  align-content: center;
+  gap: 4px;
+  min-width: 0;
+  min-height: 60px;
+  padding: 10px 12px;
+  border: 0;
+  color: var(--campus-ink);
+  background: var(--campus-surface);
+  font: inherit;
+  text-align: left;
+}
+
+.weekTable > button {
+  cursor: pointer;
+}
+
+.weekTable > button.selectedDay {
+  color: var(--campus-primary);
+  background: var(--campus-blue);
+}
+
+.weekTable small,
+.weekTable span {
+  overflow: hidden;
+  color: var(--campus-muted);
+  font-size: 11px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.weekRow {
+  display: grid;
+  gap: 1px;
+}
+
+.weekRow > div {
+  background: var(--campus-green);
+}
+
+.weekRow > button {
+  cursor: pointer;
+}
+
+.weekRow > button:hover,
+.weekRow > button:focus-visible {
+  background: var(--campus-blue);
+}
+
+.weekRow > button span {
+  width: fit-content;
+  padding: 3px 6px;
+  border-radius: 99px;
+  background: var(--campus-green);
+}
+
+.jobSettings {
+  display: grid;
+}
+
+.jobSettings article {
+  display: grid;
+  grid-template-columns: 42px minmax(220px, 1.25fr) minmax(190px, .8fr) auto;
+  align-items: center;
+  gap: 14px;
+  padding: 15px 4px;
+  border-top: 1px solid var(--campus-line);
+}
+
+.jobSettings article:first-child {
+  border-top: 0;
+}
+
+.jobSettings article > div:nth-child(2) {
+  min-width: 0;
+}
+
+.jobSettings h3 {
+  margin: 0 0 3px;
+  font-size: 15px;
+}
+
+.jobSettings p,
+.jobSettings small {
+  display: block;
+  overflow: hidden;
+  margin: 0;
+  color: var(--campus-muted);
+  font-size: 13px;
+  line-height: 1.45;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.jobSettings dl {
+  display: grid;
+  gap: 7px;
+  margin: 0;
+}
+
+.jobSettings dl div {
+  display: grid;
+  grid-template-columns: 70px minmax(0, 1fr);
+  gap: 6px;
+  font-size: 12px;
+}
+
+.jobSettings dt {
+  color: var(--campus-muted);
+}
+
+.jobSettings dd {
+  overflow: hidden;
+  margin: 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.jobSettings article > div:last-child {
+  display: flex;
+  gap: 6px;
+}
+
+.ledgerFilters {
+  display: grid;
+  grid-template-columns: minmax(220px, 1fr) auto auto;
+  align-items: end;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 9px;
+  background: var(--campus-green);
+}
+
+.ledgerFilters label {
+  display: grid;
+  gap: 5px;
+  color: var(--campus-muted);
+  font-size: 11px;
+}
+
+.ledgerFilters input,
+.form input,
+.form select,
+.form textarea,
+.ledgerList textarea {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 38px;
+  padding: 8px 10px;
+  border: 1px solid var(--campus-line);
+  border-radius: 8px;
+  color: var(--campus-ink);
+  background: var(--campus-surface);
+  font: inherit;
+  font-size: 13px;
+}
+
+.ledgerFilters nav {
+  display: flex;
+  gap: 4px;
+  max-width: 440px;
+  overflow-x: auto;
+}
+
+.ledgerFilters nav button {
+  flex: 0 0 auto;
+  min-height: 34px;
+  padding: 0 10px;
+  border: 0;
+  border-radius: 7px;
+  color: var(--campus-muted);
+  background: transparent;
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.ledgerFilters nav button[aria-pressed="true"] {
+  color: var(--campus-primary);
+  background: var(--campus-surface);
+}
+
+.ledgerFilters > span {
+  padding-bottom: 9px;
+  color: var(--campus-muted);
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+.ledgerList {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px 20px;
+  margin-top: 16px;
+}
+
+.ledgerList article {
+  display: grid;
+  align-content: start;
+  gap: 8px;
+  min-width: 0;
+  padding: 14px 0;
+  border-top: 2px solid var(--campus-green);
+}
+
+.ledgerList article header {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.ledgerList article header div {
+  display: grid;
+  min-width: 0;
+  gap: 3px;
+}
+
+.ledgerList time,
+.ledgerList p,
+.ledgerList label span {
+  color: var(--campus-muted);
+  font-size: 12px;
+}
+
+.ledgerList article header span {
+  align-self: start;
+  padding: 4px 7px;
+  border-radius: 99px;
+  color: var(--campus-muted);
+  background: var(--campus-green);
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+.ledgerList p {
+  overflow: hidden;
+  margin: 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ledgerList label {
+  display: grid;
+  gap: 5px;
+}
+
+.ledgerList textarea,
+.form textarea {
+  min-height: 70px;
+  resize: vertical;
+  line-height: 1.5;
+}
+
+.empty {
+  display: grid;
+  grid-column: 1 / -1;
+  justify-items: center;
+  gap: 8px;
+  padding: 38px 20px;
+  color: var(--campus-muted);
+  text-align: center;
+}
+
+.empty :global(.campus-art) {
+  width: 150px;
+  height: 100px;
+  object-fit: contain;
+}
+
+.empty p {
+  max-width: 430px;
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.backdrop {
+  position: fixed;
+  z-index: 90;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgb(17 49 57 / 48%);
+}
+
+.dialog {
+  display: grid;
+  width: min(660px, 100%);
+  max-height: calc(100dvh - 40px);
+  overflow: hidden;
+  border-radius: 14px;
+  background: var(--campus-surface);
+  box-shadow: 0 20px 58px rgb(18 52 60 / 22%);
+}
+
+.dialog > header,
+.dialog > footer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 19px;
+  border-bottom: 1px solid var(--campus-line);
+}
+
+.dialog > header > div {
+  min-width: 0;
+}
+
+.dialog h2 {
+  margin: 3px 0 0;
+  font-size: 20px;
+  overflow-wrap: anywhere;
+}
+
+.dialog > header p {
+  margin: 5px 0 0;
+  color: var(--campus-muted);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.dialog > header > button {
+  display: grid;
+  flex: 0 0 34px;
+  width: 34px;
+  height: 34px;
+  margin-left: auto;
+  padding: 0;
+  place-items: center;
+  border: 1px solid var(--campus-line);
+  border-radius: 8px;
+  color: var(--campus-muted);
+  background: var(--campus-surface);
+  cursor: pointer;
+}
+
+.dialog > header svg {
+  width: 17px;
+  height: 17px;
+}
+
+.form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 13px;
+  overflow-y: auto;
+  padding: 18px 19px;
+}
+
+.form label {
+  display: grid;
+  gap: 6px;
+  color: var(--campus-muted);
+  font-size: 12px;
+}
+
+.form label > span {
+  font-weight: 700;
+}
+
+.form em {
+  color: var(--campus-error);
+  font-style: normal;
+  font-weight: 500;
+}
+
+.form .wide {
+  grid-column: 1 / -1;
+}
+
+.studentPicker {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 42px;
+  padding: 8px 11px;
+  border: 1px solid var(--campus-line);
+  border-radius: 8px;
+  color: var(--campus-ink);
+  background: var(--campus-surface);
+  font: inherit;
+  font-size: 13px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.studentPicker small {
+  flex: 0 0 auto;
+  color: var(--campus-primary);
+  font-size: 11px;
+}
+
+.dialog > footer {
+  justify-content: flex-end;
+  border-top: 1px solid var(--campus-line);
+  border-bottom: 0;
+}
+
+.dialog > footer > span {
+  margin-right: auto;
+  color: var(--campus-muted);
+  font-size: 11px;
+}
+
+.dialog > footer > button:not(.primaryButton) {
+  min-height: 38px;
+  padding: 0 14px;
+  border: 1px solid var(--campus-line);
+  border-radius: 8px;
+  color: var(--campus-muted);
+  background: var(--campus-surface);
+  font: inherit;
+  cursor: pointer;
+}
+
+@media (max-width: 1040px) {
+  .todayBoard {
+    grid-template-columns: 1fr;
+  }
+
+  .scene {
+    grid-template-columns: 160px minmax(0, 1fr);
+    column-gap: 18px;
+  }
+
+  .scene :global(.campus-art) {
+    grid-row: 1 / span 6;
+    width: 160px;
+    height: 130px;
+    margin: 0;
+  }
+
+  .scene dl {
+    margin: 12px 0;
+  }
+
+  .jobRow {
+    grid-template-columns: 42px minmax(180px, 1.3fr) minmax(140px, .8fr);
+  }
+
+  .statusActions {
+    grid-column: 2 / -1;
+    grid-template-columns: auto 74px 74px;
+    justify-content: end;
+  }
+
+  .statusActions > span {
+    grid-column: auto;
+    align-self: center;
+  }
+
+  .jobSettings article {
+    grid-template-columns: 42px minmax(0, 1fr) auto;
+  }
+
+  .jobSettings dl {
+    grid-column: 2;
+  }
+
+  .jobSettings article > div:last-child {
+    grid-column: 3;
+    grid-row: 1 / span 2;
+  }
+}
+
+@media (max-width: 760px) {
+  .page,
+  .mobile {
+    gap: 13px;
+    padding-bottom: 12px;
+  }
+
+  .mobileIntro,
+  .mobile .mobileIntro {
+    position: relative;
+    display: grid;
+    grid-template-columns: 40px minmax(0, 1fr) 88px;
+    align-items: center;
+    gap: 10px;
+    min-height: 94px;
+    padding: 13px 14px;
+    overflow: hidden;
+    border-radius: 13px;
+    background: var(--campus-green);
+  }
+
+  .mobileIntro > span {
+    display: grid;
+    width: 40px;
+    height: 40px;
+    place-items: center;
+    border-radius: 10px;
+    color: var(--campus-primary);
+    background: var(--campus-surface);
+  }
+
+  .mobileIntro > span svg {
+    width: 21px;
+    height: 21px;
+  }
+
+  .mobileIntro h1 {
+    margin: 2px 0;
+    font-size: 19px;
+  }
+
+  .mobileIntro small,
+  .mobileIntro p {
+    display: block;
+    margin: 0;
+    color: var(--campus-muted);
+    font-size: 11px;
+  }
+
+  .mobileIntro :global(.campus-art) {
+    width: 94px;
+    height: 78px;
+    object-fit: contain;
+  }
+
+  .metrics {
+    grid-template-columns: repeat(4, minmax(96px, 1fr));
+    overflow-x: auto;
+    border-radius: 11px;
+    scrollbar-width: thin;
+  }
+
+  .metrics > div {
+    padding: 11px 12px;
+  }
+
+  .metrics b {
+    font-size: 20px;
+  }
+
+  .viewTabs {
+    display: flex;
+    overflow-x: auto;
+    padding: 5px;
+    scrollbar-width: none;
+  }
+
+  .viewTabs button {
+    flex: 0 0 105px;
+    min-height: 48px;
+    padding: 8px 10px;
+  }
+
+  .viewTabs small {
+    display: none;
+  }
+
+  .dayTabs button {
+    flex-basis: 72px;
+  }
+
+  .todayBoard {
+    border: 0;
+    background: transparent;
+  }
+
+  .scene {
+    display: none;
+  }
+
+  .checklist,
+  .weekPanel,
+  .jobsPanel,
+  .ledgerPanel {
+    padding: 14px;
+    border-radius: 11px;
+  }
+
+  .checklist {
+    border: 1px solid var(--campus-line);
+    background: var(--campus-surface);
+  }
+
+  .checklist > header,
+  .weekPanel > header,
+  .jobsPanel > header,
+  .ledgerPanel > header {
+    align-items: center;
+  }
+
+  .checklist h2,
+  .weekPanel h2,
+  .jobsPanel h2,
+  .ledgerPanel h2 {
+    font-size: 16px;
+  }
+
+  .weekPanel > header p,
+  .jobsPanel > header p,
+  .ledgerPanel > header p {
+    display: none;
+  }
+
+  .jobRow {
+    grid-template-columns: 38px minmax(0, 1fr);
+    gap: 9px;
+    padding: 13px 0;
+  }
+
+  .jobMark {
+    width: 36px;
+    height: 36px;
+  }
+
+  .assignee {
+    grid-column: 2;
+  }
+
+  .statusActions {
+    grid-column: 2;
+    grid-template-columns: auto 1fr 1fr;
+    justify-content: stretch;
+  }
+
+  .statusActions > span {
+    justify-self: start;
+  }
+
+  .weekPanel > header > div:last-child {
+    display: grid;
+  }
+
+  .weekPanel > header button:first-child {
+    display: none;
+  }
+
+  .jobSettings article {
+    grid-template-columns: 38px minmax(0, 1fr);
+    gap: 9px;
+  }
+
+  .jobSettings dl,
+  .jobSettings article > div:last-child {
+    grid-column: 2;
+    grid-row: auto;
+  }
+
+  .jobSettings article > div:last-child {
+    justify-content: flex-start;
+  }
+
+  .ledgerFilters {
+    grid-template-columns: 1fr;
+    align-items: stretch;
+  }
+
+  .ledgerFilters nav {
+    width: 100%;
+  }
+
+  .ledgerFilters > span {
+    padding: 0;
+  }
+
+  .ledgerList {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .backdrop {
+    place-items: end center;
+    padding: 0;
+  }
+
+  .dialog {
+    width: 100%;
+    max-height: min(88dvh, 760px);
+    border-radius: 16px 16px 0 0;
+  }
+
+  .dialog > header,
+  .dialog > footer,
+  .form {
+    padding-right: 14px;
+    padding-left: 14px;
+  }
+
+  .form {
+    grid-template-columns: 1fr;
+  }
+
+  .form .wide {
+    grid-column: auto;
+  }
+
+  .dialog > footer {
+    flex-wrap: wrap;
+  }
+
+  .dialog > footer > span {
+    display: none;
+  }
+}
+
+@media (max-width: 390px) {
+  .mobileIntro {
+    grid-template-columns: 38px minmax(0, 1fr) 70px;
+    padding-right: 8px;
+    padding-left: 10px;
+  }
+
+  .mobileIntro :global(.campus-art) {
+    width: 78px;
+  }
+
+  .metrics {
+    grid-template-columns: repeat(4, 92px);
+  }
+
+  .checklist,
+  .weekPanel,
+  .jobsPanel,
+  .ledgerPanel {
+    padding: 12px;
+  }
+
+  .checklist > header,
+  .jobsPanel > header,
+  .ledgerPanel > header {
+    align-items: flex-start;
+  }
+
+  .statusActions {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .statusActions > span {
+    grid-column: 1 / -1;
+  }
+
+  .dialog > footer > button {
+    flex: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page *,
+  .page *::before,
+  .page *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0ms !important;
+  }
+}

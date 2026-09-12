@@ -28,7 +28,7 @@ export function WorkbenchPageHeader({
     "🗂️": "planning", "🗓️": "planning", "🎲": "tools", "🪑": "planning", "🧹": "planning", "🎖️": "planning", "📏": "planning", "🗞️": "planning", "⭐": "planning",
   };
   const artwork = artworkByIcon[icon] ?? "planning";
-  const compactMarker = icon === "students" || icon === "homework";
+  const compactMarker = icon === "students" || icon === "homework" || icon === "duty";
   return <header className={`${styles.header} ${styles[tone]} ${compactMarker ? "" : styles.illustrated}`}>
     <span className={styles.marker} aria-hidden="true">{compactMarker ? <CampusIcon name={icon}/> : <ThemeArtwork slot={artwork}/>}</span>
     <div className={styles.copy}>
