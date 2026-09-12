@@ -1,0 +1,103 @@
+{
+  "capturedAt": "2026-09-12",
+  "commit": "6e10e2dc314e09d0d72df9509730f57c5fde34e2",
+  "factsOnly": true,
+  "files": [
+    {
+      "path": "app/layout.tsx",
+      "sha256": "4420478c422f00a6909ddaa671f62142138cd69765576e266511202a539f2d6e",
+      "bytes": 1850,
+      "lines": 29
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "sha256": "b3858e6bf19e7cdf2bcd4b64e68a95c4c54ccc30ed8320b115a712595e7943bf",
+      "bytes": 604419,
+      "lines": 7266
+    },
+    {
+      "path": "app/workbench-repair.css",
+      "sha256": "4d324ef50beefec0834049ebb72cb28054f0a5fc9710ed6085744c86df86c778",
+      "bytes": 563378,
+      "lines": 21650
+    },
+    {
+      "path": "app/components/campus/WorkspaceChrome.tsx",
+      "sha256": "989f759ee75c03aa80fb345f76b81995035f1e3f429bf11b5850f1ee519f5ecd",
+      "bytes": 5655,
+      "lines": 71
+    },
+    {
+      "path": "app/components/campus/theme.ts",
+      "sha256": "0b24e90fdb22bb459bb8b855cdf6a164a8d81aa130e12f2debfd7b94074b2250",
+      "bytes": 1121,
+      "lines": 20
+    },
+    {
+      "path": "app/components/campus/Dashboard.tsx",
+      "sha256": "7e4700fdac4ce2c814242e0a83fb058d479bfdadf252a067f63379d650209825",
+      "bytes": 7791,
+      "lines": 47
+    },
+    {
+      "path": "lib/classroom.ts",
+      "sha256": "35b25d464d1f1ab0227250cc3c05211cc608bd160effcfdfc77293e14fa3e49d",
+      "bytes": 26422,
+      "lines": 689
+    },
+    {
+      "path": "lib/dictation.ts",
+      "sha256": "1785a5616a4083b00cbfdba21140fcc973644882d09bc21261b0ef24ea1b066e",
+      "bytes": 8184,
+      "lines": 91
+    },
+    {
+      "path": "lib/workspaceBackup.ts",
+      "sha256": "2efa4f6265a5e5ce746af49410a2ccda3a9eb791ab9da76889d5777f95672e83",
+      "bytes": 3198,
+      "lines": 56
+    },
+    {
+      "path": "app/api/workspace/[token]/route.ts",
+      "sha256": "a3ba2bf1f8384cb07e175558a40a7e5481cf9d29ed6debbb6aa31237f32acdc9",
+      "bytes": 8400,
+      "lines": 182
+    },
+    {
+      "path": "scripts/layout-audit.mjs",
+      "sha256": "7e88a0f6aefb6eaf48ee7b88abcff78f6f0c5cb44d32998c0aa81dff96c55a27",
+      "bytes": 37472,
+      "lines": 586
+    },
+    {
+      "path": "tests/rendered-html.test.mjs",
+      "sha256": "8ba0eb9e3e37c4869f8fc9e15146c4012f0646b45c09de379cef8bddb51cb7c4",
+      "bytes": 17783,
+      "lines": 334
+    },
+    {
+      "path": "tests/dictation.test.mjs",
+      "sha256": "a30b17f56d82b933443ea091e2309fe5f26627c6ae554cc46547d81d92ccb594",
+      "bytes": 6332,
+      "lines": 74
+    },
+    {
+      "path": "tests/auth-flow.integration.mjs",
+      "sha256": "be3e460d11c4651587e5c6af3903518d72d2ca035a6d2275bf082c39103eb964",
+      "bytes": 9460,
+      "lines": 171
+    },
+    {
+      "path": "package.json",
+      "sha256": "82850d47418b88c9b8d9e00e2391502f29b6779ed92fb818075e252f3e552597",
+      "bytes": 1349,
+      "lines": 44
+    },
+    {
+      "path": "package-lock.json",
+      "sha256": "cff6a594f0ee4f31ef364803e82d2f725669f89c761f1f35c64d4177905d5b28",
+      "bytes": 391870,
+      "lines": 11292
+    }
+  ]
+}

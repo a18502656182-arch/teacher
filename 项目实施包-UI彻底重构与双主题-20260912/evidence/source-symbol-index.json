@@ -1,0 +1,2561 @@
+{
+  "note": "只读正则提取定位线索，不是完整AST调用图；匿名回调和箭头函数可能缺失，TASK-02仍必须逐操作审计。",
+  "symbols": [
+    {
+      "path": "app/w/[token]/Attendance.tsx",
+      "line": 11,
+      "symbol": "dateToday"
+    },
+    {
+      "path": "app/w/[token]/Attendance.tsx",
+      "line": 13,
+      "symbol": "monthDays"
+    },
+    {
+      "path": "app/w/[token]/Attendance.tsx",
+      "line": 19,
+      "symbol": "getActiveClass"
+    },
+    {
+      "path": "app/w/[token]/Attendance.tsx",
+      "line": 25,
+      "symbol": "statusFor"
+    },
+    {
+      "path": "app/w/[token]/Attendance.tsx",
+      "line": 27,
+      "symbol": "updateTodayAttendance"
+    },
+    {
+      "path": "app/w/[token]/Attendance.tsx",
+      "line": 36,
+      "symbol": "Attendance"
+    },
+    {
+      "path": "app/w/[token]/Attendance.tsx",
+      "line": 76,
+      "symbol": "saveChanges"
+    },
+    {
+      "path": "app/w/[token]/Attendance.tsx",
+      "line": 91,
+      "symbol": "setStudentStatus"
+    },
+    {
+      "path": "app/w/[token]/Attendance.tsx",
+      "line": 92,
+      "symbol": "saveStudentNote"
+    },
+    {
+      "path": "app/w/[token]/Attendance.tsx",
+      "line": 98,
+      "symbol": "markAllNormal"
+    },
+    {
+      "path": "app/w/[token]/Attendance.tsx",
+      "line": 99,
+      "symbol": "toggleStudent"
+    },
+    {
+      "path": "app/w/[token]/Attendance.tsx",
+      "line": 100,
+      "symbol": "toggleVisible"
+    },
+    {
+      "path": "app/w/[token]/Attendance.tsx",
+      "line": 101,
+      "symbol": "applyBatch"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 73,
+      "symbol": "sameDutyDay"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 82,
+      "symbol": "notify"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 92,
+      "symbol": "requestDangerConfirm"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 101,
+      "symbol": "ensureAiConsent"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 123,
+      "symbol": "disableAiConsent"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 137,
+      "symbol": "today"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 144,
+      "symbol": "currentTimestamp"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 148,
+      "symbol": "defaultScheduleConfig"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 169,
+      "symbol": "scheduleMonthIndex"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 175,
+      "symbol": "scheduleMonthFromIndex"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 181,
+      "symbol": "scheduleTermMonths"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 191,
+      "symbol": "getScheduleWeekDates"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 200,
+      "symbol": "getScheduleWeeksInMonth"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 206,
+      "symbol": "formatScheduleDate"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 210,
+      "symbol": "normalizeMobileCourses"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 214,
+      "symbol": "sanitizeSeatingConfig"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 226,
+      "symbol": "defaultScoreExam"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 241,
+      "symbol": "normalizeData"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 279,
+      "symbol": "resolveStudentLink"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 371,
+      "symbol": "scopeClassSettings"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 411,
+      "symbol": "removeStudentRelations"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 450,
+      "symbol": "updateClassStudents"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 461,
+      "symbol": "recordBelongsToClass"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 467,
+      "symbol": "recordBelongsToStudent"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 472,
+      "symbol": "ClassroomApp"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 533,
+      "symbol": "syncPageFromUrl"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 543,
+      "symbol": "handleToast"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 548,
+      "symbol": "handleConfirm"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 559,
+      "symbol": "openModule"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 567,
+      "symbol": "updateData"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 591,
+      "symbol": "save"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 652,
+      "symbol": "commitWorkspace"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 690,
+      "symbol": "loadLatestWorkspace"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 748,
+      "symbol": "openDesktopAccount"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 759,
+      "symbol": "exportWorkspaceBackup"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 779,
+      "symbol": "importWorkspaceBackup"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 803,
+      "symbol": "switchGlobalClass"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 810,
+      "symbol": "patchActiveClass"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 819,
+      "symbol": "addGlobalClass"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 825,
+      "symbol": "deleteActiveClass"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 856,
+      "symbol": "resolveConfirm"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 861,
+      "symbol": "switchLearningScene"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 937,
+      "symbol": "MobileWorkbench"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 957,
+      "symbol": "openFromMore"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 963,
+      "symbol": "openAccount"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 1009,
+      "symbol": "MobileHome"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 1024,
+      "symbol": "MobileStudents"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 1082,
+      "symbol": "syncStudents"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 1090,
+      "symbol": "makeStudentFromRow"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 1112,
+      "symbol": "saveStudentDraft"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 1134,
+      "symbol": "deleteStudent"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 1145,
+      "symbol": "appendBulkStudents"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 1162,
+      "symbol": "toggleStudentSelect"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 1165,
+      "symbol": "toggleFilteredSelect"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 1172,
+      "symbol": "applyStudentBatchEdit"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 1255,
+      "symbol": "MobileHomework"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 1310,
+      "symbol": "setStudentHomeworkStatus"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 1323,
+      "symbol": "toggleHomeworkStudent"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 1326,
+      "symbol": "toggleDetailStudents"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 1334,
+      "symbol": "batchSetHomeworkStatus"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 1353,
+      "symbol": "addMobileHomeworkFollowUp"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 1364,
+      "symbol": "handleMobileHomeworkBatch"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 1368,
+      "symbol": "openNewTask"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 1373,
+      "symbol": "saveTaskDraft"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 1400,
+      "symbol": "deleteTask"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 1470,
+      "symbol": "MobileScores"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 1541,
+      "symbol": "updateExam"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 1548,
+      "symbol": "setStudentScore"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 1560,
+      "symbol": "openMobileScoreBatch"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 1567,
+      "symbol": "applyMobileBatchScore"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 1609,
+      "symbol": "toggleScoreFollow"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 1613,
+      "symbol": "openNewExam"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 1618,
+      "symbol": "openEditExam"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 1623,
+      "symbol": "saveExamDraft"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 1660,
+      "symbol": "deleteMobileExam"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 1674,
+      "symbol": "chooseExam"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 1682,
+      "symbol": "setScoreAdvice"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 1685,
+      "symbol": "batchScoreFollow"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 1692,
+      "symbol": "toggleScoreSelect"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 1695,
+      "symbol": "toggleVisibleScoreSelect"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 1700,
+      "symbol": "loadMobileFilterDraft"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 1705,
+      "symbol": "openMobileFilterEditor"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 1710,
+      "symbol": "saveMobileFilterEditor"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 1890,
+      "symbol": "MobileMore"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 1930,
+      "symbol": "MobileSecondaryPage"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 2068,
+      "symbol": "openStudentSheet"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 2082,
+      "symbol": "patchStudentPoints"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 2092,
+      "symbol": "togglePointStudent"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 2095,
+      "symbol": "toggleFilteredPointStudents"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 2099,
+      "symbol": "savePointEvent"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 2125,
+      "symbol": "undoPointEvent"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 2132,
+      "symbol": "saveRecord"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 2163,
+      "symbol": "openRecordEditor"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 2186,
+      "symbol": "patchRecordStatus"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 2190,
+      "symbol": "deleteRecordMobile"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 2196,
+      "symbol": "openRuleEditor"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 2201,
+      "symbol": "saveRuleDraft"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 2214,
+      "symbol": "toggleRuleEnabled"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 2219,
+      "symbol": "copyRuleMobile"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 2224,
+      "symbol": "deleteRuleMobile"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 2231,
+      "symbol": "openDutyEditor"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 2236,
+      "symbol": "saveDutyDraft"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 2249,
+      "symbol": "openCadreEditor"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 2254,
+      "symbol": "saveCadreDraft"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 2267,
+      "symbol": "deleteCadreMobile"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 2273,
+      "symbol": "mobileWeekMeta"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 2285,
+      "symbol": "generateWeeklyText"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 2316,
+      "symbol": "openWeeklyEditorMobile"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 2332,
+      "symbol": "saveWeeklyReportMobile"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 2355,
+      "symbol": "openScheduleEditor"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 2361,
+      "symbol": "getMobileScheduleContext"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 2374,
+      "symbol": "saveMobileScheduleWeek"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 2402,
+      "symbol": "saveScheduleEventMobile"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 2416,
+      "symbol": "deleteScheduleEventMobile"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 2425,
+      "symbol": "openFocusEditor"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 2431,
+      "symbol": "saveFocusMobile"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 2445,
+      "symbol": "deleteFocusMobile"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 2454,
+      "symbol": "openCourseEditor"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 2458,
+      "symbol": "saveCourseDayMobile"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 2467,
+      "symbol": "saveScheduleConfigMobile"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 2483,
+      "symbol": "openSeatingConfigMobile"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 2488,
+      "symbol": "syncMobileSeatStudents"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 2496,
+      "symbol": "saveSeatingConfigMobile"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 2517,
+      "symbol": "patchSeatStudent"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 2521,
+      "symbol": "seatGroupFor"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 2526,
+      "symbol": "mobileSeatRemember"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 2529,
+      "symbol": "swapMobileSeat"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 2548,
+      "symbol": "assignMobileStudentToSeat"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 2564,
+      "symbol": "chooseMobileSeat"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 2581,
+      "symbol": "rotateMobileSeats"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 2599,
+      "symbol": "regroupMobileSeats"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 2605,
+      "symbol": "undoMobileSeat"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 2613,
+      "symbol": "setMobileGroupLeader"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 2618,
+      "symbol": "mateMobileSeat"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 2623,
+      "symbol": "isMobileAisleSeat"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 2627,
+      "symbol": "smartArrangeMobileSeats"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 2686,
+      "symbol": "saveDutyRecordMobile"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 2702,
+      "symbol": "openReflectionEditor"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 2707,
+      "symbol": "saveReflectionMobile"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 2725,
+      "symbol": "commentRecordsFor"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 2728,
+      "symbol": "commentEventsFor"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 2731,
+      "symbol": "commentReflectionsFor"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 2734,
+      "symbol": "buildMobileCommentText"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 2743,
+      "symbol": "resetMobileCommentEvidence"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 2748,
+      "symbol": "openCommentEditor"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 2763,
+      "symbol": "saveCommentMobile"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 2774,
+      "symbol": "generateCommentMobile"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 3058,
+      "symbol": "copyGrowthSummary"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 3065,
+      "symbol": "selectGrowthStudent"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 3072,
+      "symbol": "saveGrowthEvidence"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 3261,
+      "symbol": "markDutyMobile"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 3279,
+      "symbol": "assignDutyMobile"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 3303,
+      "symbol": "patchDutyRecordNote"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 3306,
+      "symbol": "rotateDutyWeek"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 3550,
+      "symbol": "openNewCadre"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 3557,
+      "symbol": "cadreCandidatesForDraft"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 3821,
+      "symbol": "MobileSectionHero"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 3826,
+      "symbol": "MobileInfoSheet"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 3836,
+      "symbol": "AccountDialog"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 3842,
+      "symbol": "Students"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 3891,
+      "symbol": "syncActiveClass"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 3897,
+      "symbol": "makeStudent"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 3916,
+      "symbol": "edit"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 3919,
+      "symbol": "toggleStudentSelect"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 3922,
+      "symbol": "toggleShownSelect"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 3929,
+      "symbol": "applyBatchEdit"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 3943,
+      "symbol": "rowsFromBulk"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 3947,
+      "symbol": "replaceNames"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 3967,
+      "symbol": "appendNames"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 3980,
+      "symbol": "addStudent"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 3984,
+      "symbol": "saveNewStudent"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 3999,
+      "symbol": "removeStudent"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 4008,
+      "symbol": "exportRoster"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 4118,
+      "symbol": "Homework"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 4223,
+      "symbol": "setTask"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 4227,
+      "symbol": "openCreateTask"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 4234,
+      "symbol": "confirmAddTask"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 4251,
+      "symbol": "deleteTaskById"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 4260,
+      "symbol": "openTask"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 4270,
+      "symbol": "openEditTask"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 4278,
+      "symbol": "confirmEditTask"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 4286,
+      "symbol": "setStatus"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 4293,
+      "symbol": "toggle"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 4299,
+      "symbol": "toggleStudentSelection"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 4302,
+      "symbol": "toggleCurrentPage"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 4307,
+      "symbol": "addSelectedToFollowList"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 4313,
+      "symbol": "removeFromFollowList"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 4318,
+      "symbol": "bulkSet"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 4329,
+      "symbol": "setStudentNote"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 4336,
+      "symbol": "copyFollowList"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 4347,
+      "symbol": "resetTaskFilters"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 4357,
+      "symbol": "taskSummary"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 4551,
+      "symbol": "Points"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 4589,
+      "symbol": "toggleStudent"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 4593,
+      "symbol": "toggleFiltered"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 4600,
+      "symbol": "applyScore"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 4623,
+      "symbol": "undoEvent"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 4735,
+      "symbol": "Rules"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 4751,
+      "symbol": "editRule"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 4754,
+      "symbol": "startEditRule"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 4757,
+      "symbol": "saveEditingRule"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 4767,
+      "symbol": "addRule"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 4775,
+      "symbol": "copyRule"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 4779,
+      "symbol": "deleteRule"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 4868,
+      "symbol": "growthTimestamp"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 4883,
+      "symbol": "inGrowthRange"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 4895,
+      "symbol": "Growth"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 4989,
+      "symbol": "selectStudent"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 4992,
+      "symbol": "saveEvidence"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 4999,
+      "symbol": "copySummary"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 5114,
+      "symbol": "Weekly"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 5258,
+      "symbol": "shiftWeek"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 5262,
+      "symbol": "copyText"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 5270,
+      "symbol": "saveReport"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 5295,
+      "symbol": "switchToClass"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 5301,
+      "symbol": "openSavedReport"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 5486,
+      "symbol": "Seating"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 5501,
+      "symbol": "groupForSeat"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 5507,
+      "symbol": "syncStudents"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 5516,
+      "symbol": "remember"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 5520,
+      "symbol": "updateConfig"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 5534,
+      "symbol": "swapStudentTo"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 5552,
+      "symbol": "assignStudentToSeat"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 5564,
+      "symbol": "chooseSeat"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 5579,
+      "symbol": "isAisleSeat"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 5584,
+      "symbol": "mateSeat"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 5590,
+      "symbol": "smartArrange"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 5650,
+      "symbol": "rotateRows"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 5668,
+      "symbol": "undo"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 5676,
+      "symbol": "editStudent"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 5680,
+      "symbol": "setLeader"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 5685,
+      "symbol": "regroupBySeat"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 5795,
+      "symbol": "Duty"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 5823,
+      "symbol": "dutyRecordFor"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 5827,
+      "symbol": "assignedStudents"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 5837,
+      "symbol": "editJob"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 5841,
+      "symbol": "addJob"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 5846,
+      "symbol": "saveNewJob"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 5858,
+      "symbol": "assignDutyStudent"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 5884,
+      "symbol": "openDutyAssigner"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 5892,
+      "symbol": "mark"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 6028,
+      "symbol": "Cadres"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 6047,
+      "symbol": "edit"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 6055,
+      "symbol": "addRole"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 6065,
+      "symbol": "closeRoleEditor"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 6070,
+      "symbol": "saveDraftRole"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 6083,
+      "symbol": "removeRole"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 6095,
+      "symbol": "candidatesForRole"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 6101,
+      "symbol": "roleGroupNumber"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 6106,
+      "symbol": "changeRoleGroup"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 6111,
+      "symbol": "renderRoleRow"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 6182,
+      "symbol": "Records"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 6233,
+      "symbol": "pickStudent"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 6238,
+      "symbol": "readRecordField"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 6241,
+      "symbol": "openAddRecord"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 6256,
+      "symbol": "openEditRecord"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 6271,
+      "symbol": "saveRecord"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 6294,
+      "symbol": "deleteRecord"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 6361,
+      "symbol": "scoreSubjects"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 6365,
+      "symbol": "scoreValue"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 6369,
+      "symbol": "scoreTotal"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 6373,
+      "symbol": "scoreAverage"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 6378,
+      "symbol": "scoreWeakSubject"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 6383,
+      "symbol": "autoScoreLevel"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 6389,
+      "symbol": "defaultScoreAdvice"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 6395,
+      "symbol": "parseSubjects"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 6401,
+      "symbol": "scoreSubjectKey"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 6405,
+      "symbol": "subjectMaxScore"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 6410,
+      "symbol": "defaultScoreRanges"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 6423,
+      "symbol": "scoreRangesFor"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 6428,
+      "symbol": "scoreRowsFor"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 6441,
+      "symbol": "Scores"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 6575,
+      "symbol": "updateExam"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 6587,
+      "symbol": "setScore"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 6599,
+      "symbol": "openBatchScore"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 6606,
+      "symbol": "applyBatchScore"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 6639,
+      "symbol": "setAdvice"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 6642,
+      "symbol": "toggleFollow"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 6646,
+      "symbol": "batchFollow"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 6652,
+      "symbol": "toggleSelect"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 6655,
+      "symbol": "toggleSelectVisible"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 6659,
+      "symbol": "addExam"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 6665,
+      "symbol": "confirmAddExam"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 6682,
+      "symbol": "openExamEdit"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 6688,
+      "symbol": "deleteCurrentExam"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 6702,
+      "symbol": "confirmExamEdit"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 6718,
+      "symbol": "loadFilterDraft"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 6723,
+      "symbol": "openFilterEditor"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 6727,
+      "symbol": "saveFilterEditor"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 6744,
+      "symbol": "chooseExam"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 6919,
+      "symbol": "Reflection"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 7030,
+      "symbol": "save"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 7111,
+      "symbol": "Comments"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 7176,
+      "symbol": "save"
+    },
+    {
+      "path": "app/w/[token]/ClassroomApp.tsx",
+      "line": 7181,
+      "symbol": "generateAiComment"
+    },
+    {
+      "path": "app/w/[token]/ClassroomTools.tsx",
+      "line": 8,
+      "symbol": "ClassroomTools"
+    },
+    {
+      "path": "app/w/[token]/ClassroomTools.tsx",
+      "line": 16,
+      "symbol": "draw"
+    },
+    {
+      "path": "app/w/[token]/ClassroomTools.tsx",
+      "line": 17,
+      "symbol": "makeGroups"
+    },
+    {
+      "path": "app/w/[token]/ClassroomTools.tsx",
+      "line": 18,
+      "symbol": "copyGroups"
+    },
+    {
+      "path": "app/w/[token]/CourseSchedule.tsx",
+      "line": 31,
+      "symbol": "courseNameHue"
+    },
+    {
+      "path": "app/w/[token]/CourseSchedule.tsx",
+      "line": 35,
+      "symbol": "monthIndex"
+    },
+    {
+      "path": "app/w/[token]/CourseSchedule.tsx",
+      "line": 41,
+      "symbol": "monthFromIndex"
+    },
+    {
+      "path": "app/w/[token]/CourseSchedule.tsx",
+      "line": 47,
+      "symbol": "termRange"
+    },
+    {
+      "path": "app/w/[token]/CourseSchedule.tsx",
+      "line": 57,
+      "symbol": "termMonths"
+    },
+    {
+      "path": "app/w/[token]/CourseSchedule.tsx",
+      "line": 65,
+      "symbol": "clampMonthToTerm"
+    },
+    {
+      "path": "app/w/[token]/CourseSchedule.tsx",
+      "line": 72,
+      "symbol": "normalizeTermConfig"
+    },
+    {
+      "path": "app/w/[token]/CourseSchedule.tsx",
+      "line": 77,
+      "symbol": "CourseSchedule"
+    },
+    {
+      "path": "app/w/[token]/CourseSchedule.tsx",
+      "line": 155,
+      "symbol": "chooseMonth"
+    },
+    {
+      "path": "app/w/[token]/CourseSchedule.tsx",
+      "line": 162,
+      "symbol": "normalizeCourses"
+    },
+    {
+      "path": "app/w/[token]/CourseSchedule.tsx",
+      "line": 166,
+      "symbol": "changeDraftConfig"
+    },
+    {
+      "path": "app/w/[token]/CourseSchedule.tsx",
+      "line": 182,
+      "symbol": "changeCourse"
+    },
+    {
+      "path": "app/w/[token]/CourseSchedule.tsx",
+      "line": 186,
+      "symbol": "editDay"
+    },
+    {
+      "path": "app/w/[token]/CourseSchedule.tsx",
+      "line": 190,
+      "symbol": "addDay"
+    },
+    {
+      "path": "app/w/[token]/CourseSchedule.tsx",
+      "line": 195,
+      "symbol": "removeDay"
+    },
+    {
+      "path": "app/w/[token]/CourseSchedule.tsx",
+      "line": 202,
+      "symbol": "editPeriod"
+    },
+    {
+      "path": "app/w/[token]/CourseSchedule.tsx",
+      "line": 206,
+      "symbol": "addPeriod"
+    },
+    {
+      "path": "app/w/[token]/CourseSchedule.tsx",
+      "line": 210,
+      "symbol": "removePeriod"
+    },
+    {
+      "path": "app/w/[token]/CourseSchedule.tsx",
+      "line": 216,
+      "symbol": "clearSchedule"
+    },
+    {
+      "path": "app/w/[token]/CourseSchedule.tsx",
+      "line": 220,
+      "symbol": "addEvent"
+    },
+    {
+      "path": "app/w/[token]/CourseSchedule.tsx",
+      "line": 226,
+      "symbol": "addFocus"
+    },
+    {
+      "path": "app/w/[token]/CourseSchedule.tsx",
+      "line": 232,
+      "symbol": "startTermEdit"
+    },
+    {
+      "path": "app/w/[token]/CourseSchedule.tsx",
+      "line": 241,
+      "symbol": "cancelTermEdit"
+    },
+    {
+      "path": "app/w/[token]/CourseSchedule.tsx",
+      "line": 247,
+      "symbol": "saveTerm"
+    },
+    {
+      "path": "app/w/[token]/CourseSchedule.tsx",
+      "line": 267,
+      "symbol": "startScheduleEdit"
+    },
+    {
+      "path": "app/w/[token]/CourseSchedule.tsx",
+      "line": 279,
+      "symbol": "cancelScheduleEdit"
+    },
+    {
+      "path": "app/w/[token]/CourseSchedule.tsx",
+      "line": 288,
+      "symbol": "saveWeek"
+    },
+    {
+      "path": "app/w/[token]/CourseSchedule.tsx",
+      "line": 327,
+      "symbol": "startEventsEdit"
+    },
+    {
+      "path": "app/w/[token]/CourseSchedule.tsx",
+      "line": 332,
+      "symbol": "cancelEventsEdit"
+    },
+    {
+      "path": "app/w/[token]/CourseSchedule.tsx",
+      "line": 337,
+      "symbol": "startFocusesEdit"
+    },
+    {
+      "path": "app/w/[token]/CourseSchedule.tsx",
+      "line": 342,
+      "symbol": "cancelFocusesEdit"
+    },
+    {
+      "path": "app/w/[token]/CourseSchedule.tsx",
+      "line": 347,
+      "symbol": "saveWeekSide"
+    },
+    {
+      "path": "app/w/[token]/CourseSchedule.tsx",
+      "line": 368,
+      "symbol": "saveEvents"
+    },
+    {
+      "path": "app/w/[token]/CourseSchedule.tsx",
+      "line": 373,
+      "symbol": "saveFocuses"
+    },
+    {
+      "path": "app/w/[token]/CourseSchedule.tsx",
+      "line": 492,
+      "symbol": "getWeekDates"
+    },
+    {
+      "path": "app/w/[token]/CourseSchedule.tsx",
+      "line": 499,
+      "symbol": "getWeeksInMonth"
+    },
+    {
+      "path": "app/w/[token]/CourseSchedule.tsx",
+      "line": 504,
+      "symbol": "formatDate"
+    },
+    {
+      "path": "app/w/[token]/HealthCare.tsx",
+      "line": 13,
+      "symbol": "emptyDraft"
+    },
+    {
+      "path": "app/w/[token]/HealthCare.tsx",
+      "line": 14,
+      "symbol": "profileCategory"
+    },
+    {
+      "path": "app/w/[token]/HealthCare.tsx",
+      "line": 15,
+      "symbol": "contactLabel"
+    },
+    {
+      "path": "app/w/[token]/HealthCare.tsx",
+      "line": 16,
+      "symbol": "requestCareConfirm"
+    },
+    {
+      "path": "app/w/[token]/HealthCare.tsx",
+      "line": 22,
+      "symbol": "HealthCare"
+    },
+    {
+      "path": "app/w/[token]/HealthCare.tsx",
+      "line": 46,
+      "symbol": "save"
+    },
+    {
+      "path": "app/w/[token]/HealthCare.tsx",
+      "line": 51,
+      "symbol": "remove"
+    },
+    {
+      "path": "app/w/[token]/HealthCare.tsx",
+      "line": 63,
+      "symbol": "StudentPicker"
+    },
+    {
+      "path": "app/w/[token]/HealthCare.tsx",
+      "line": 71,
+      "symbol": "CareEditor"
+    },
+    {
+      "path": "app/w/[token]/HealthCare.tsx",
+      "line": 74,
+      "symbol": "updateCustomContexts"
+    },
+    {
+      "path": "app/w/[token]/NotificationDrafts.tsx",
+      "line": 13,
+      "symbol": "requestNotificationConfirm"
+    },
+    {
+      "path": "app/w/[token]/NotificationDrafts.tsx",
+      "line": 21,
+      "symbol": "recipientLabel"
+    },
+    {
+      "path": "app/w/[token]/NotificationDrafts.tsx",
+      "line": 27,
+      "symbol": "NotificationDrafts"
+    },
+    {
+      "path": "app/w/[token]/NotificationDrafts.tsx",
+      "line": 44,
+      "symbol": "openCreate"
+    },
+    {
+      "path": "app/w/[token]/NotificationDrafts.tsx",
+      "line": 45,
+      "symbol": "openEdit"
+    },
+    {
+      "path": "app/w/[token]/NotificationDrafts.tsx",
+      "line": 50,
+      "symbol": "chooseRecipient"
+    },
+    {
+      "path": "app/w/[token]/NotificationDrafts.tsx",
+      "line": 55,
+      "symbol": "save"
+    },
+    {
+      "path": "app/w/[token]/NotificationDrafts.tsx",
+      "line": 66,
+      "symbol": "copy"
+    },
+    {
+      "path": "app/w/[token]/NotificationDrafts.tsx",
+      "line": 71,
+      "symbol": "saveReceipt"
+    },
+    {
+      "path": "app/w/[token]/NotificationDrafts.tsx",
+      "line": 76,
+      "symbol": "remove"
+    },
+    {
+      "path": "app/w/[token]/page.tsx",
+      "line": 3,
+      "symbol": "WorkspacePage"
+    },
+    {
+      "path": "app/w/[token]/ScheduleHub.tsx",
+      "line": 8,
+      "symbol": "ScheduleHub"
+    },
+    {
+      "path": "app/w/[token]/ScoreItemAnalysis.tsx",
+      "line": 10,
+      "symbol": "itemRate"
+    },
+    {
+      "path": "app/w/[token]/ScoreItemAnalysis.tsx",
+      "line": 15,
+      "symbol": "statusClass"
+    },
+    {
+      "path": "app/w/[token]/ScoreItemAnalysis.tsx",
+      "line": 17,
+      "symbol": "ScoreItemAnalysis"
+    },
+    {
+      "path": "app/w/[token]/ScoreItemAnalysis.tsx",
+      "line": 31,
+      "symbol": "saveExam"
+    },
+    {
+      "path": "app/w/[token]/ScoreItemAnalysis.tsx",
+      "line": 32,
+      "symbol": "create"
+    },
+    {
+      "path": "app/w/[token]/ScoreItemAnalysis.tsx",
+      "line": 39,
+      "symbol": "remove"
+    },
+    {
+      "path": "app/w/[token]/ScoreItemAnalysis.tsx",
+      "line": 40,
+      "symbol": "changeScore"
+    },
+    {
+      "path": "app/w/[token]/ScoreItemAnalysis.tsx",
+      "line": 45,
+      "symbol": "patchPaper"
+    },
+    {
+      "path": "app/w/[token]/ScoreItemAnalysis.tsx",
+      "line": 54,
+      "symbol": "selectFile"
+    },
+    {
+      "path": "app/w/[token]/ScoreItemAnalysis.tsx",
+      "line": 61,
+      "symbol": "patchReviewItem"
+    },
+    {
+      "path": "app/w/[token]/ScoreItemAnalysis.tsx",
+      "line": 65,
+      "symbol": "analyzePaper"
+    },
+    {
+      "path": "app/w/[token]/ScoreItemAnalysis.tsx",
+      "line": 84,
+      "symbol": "confirmPaper"
+    },
+    {
+      "path": "app/w/[token]/ScoreTrends.tsx",
+      "line": 9,
+      "symbol": "subjects"
+    },
+    {
+      "path": "app/w/[token]/ScoreTrends.tsx",
+      "line": 10,
+      "symbol": "rate"
+    },
+    {
+      "path": "app/w/[token]/ScoreTrends.tsx",
+      "line": 20,
+      "symbol": "linePath"
+    },
+    {
+      "path": "app/w/[token]/ScoreTrends.tsx",
+      "line": 26,
+      "symbol": "ScoreTrends"
+    },
+    {
+      "path": "app/w/[token]/StudentProfile.tsx",
+      "line": 8,
+      "symbol": "blankGuardian"
+    },
+    {
+      "path": "app/w/[token]/StudentProfile.tsx",
+      "line": 9,
+      "symbol": "blankCare"
+    },
+    {
+      "path": "app/w/[token]/StudentProfile.tsx",
+      "line": 11,
+      "symbol": "StudentProfile"
+    },
+    {
+      "path": "app/w/[token]/StudentProfile.tsx",
+      "line": 20,
+      "symbol": "save"
+    },
+    {
+      "path": "app/w/[token]/TeacherAgenda.tsx",
+      "line": 12,
+      "symbol": "dateToday"
+    },
+    {
+      "path": "app/w/[token]/TeacherAgenda.tsx",
+      "line": 16,
+      "symbol": "blankAgenda"
+    },
+    {
+      "path": "app/w/[token]/TeacherAgenda.tsx",
+      "line": 20,
+      "symbol": "blankLog"
+    },
+    {
+      "path": "app/w/[token]/TeacherAgenda.tsx",
+      "line": 24,
+      "symbol": "timeLabel"
+    },
+    {
+      "path": "app/w/[token]/TeacherAgenda.tsx",
+      "line": 29,
+      "symbol": "TeacherAgenda"
+    },
+    {
+      "path": "app/w/[token]/TeacherAgenda.tsx",
+      "line": 45,
+      "symbol": "openAgenda"
+    },
+    {
+      "path": "app/w/[token]/TeacherAgenda.tsx",
+      "line": 51,
+      "symbol": "openLog"
+    },
+    {
+      "path": "app/w/[token]/TeacherAgenda.tsx",
+      "line": 57,
+      "symbol": "saveAgenda"
+    },
+    {
+      "path": "app/w/[token]/TeacherAgenda.tsx",
+      "line": 67,
+      "symbol": "saveLog"
+    },
+    {
+      "path": "app/w/[token]/TeacherAgenda.tsx",
+      "line": 77,
+      "symbol": "updateStatus"
+    },
+    {
+      "path": "app/w/[token]/TeacherAgenda.tsx",
+      "line": 81,
+      "symbol": "completeAndLog"
+    },
+    {
+      "path": "app/w/[token]/TeacherAgenda.tsx",
+      "line": 90,
+      "symbol": "deleteCurrent"
+    },
+    {
+      "path": "app/w/[token]/TeacherAgenda.tsx",
+      "line": 97,
+      "symbol": "setSelectedStudent"
+    },
+    {
+      "path": "app/w/[token]/WorkbenchPageHeader.tsx",
+      "line": 8,
+      "symbol": "WorkbenchPageHeader"
+    },
+    {
+      "path": "app/w/[token]/dictation/Dictation.tsx",
+      "line": 13,
+      "symbol": "confirmAction"
+    },
+    {
+      "path": "app/w/[token]/dictation/Dictation.tsx",
+      "line": 15,
+      "symbol": "Dictation"
+    },
+    {
+      "path": "app/w/[token]/dictation/Dictation.tsx",
+      "line": 33,
+      "symbol": "navigate"
+    },
+    {
+      "path": "app/w/[token]/dictation/Dictation.tsx",
+      "line": 34,
+      "symbol": "change"
+    },
+    {
+      "path": "app/w/[token]/dictation/Dictation.tsx",
+      "line": 35,
+      "symbol": "saveTask"
+    },
+    {
+      "path": "app/w/[token]/dictation/Dictation.tsx",
+      "line": 36,
+      "symbol": "repeat"
+    },
+    {
+      "path": "app/w/[token]/dictation/Dictation.tsx",
+      "line": 40,
+      "symbol": "saveChild"
+    },
+    {
+      "path": "app/w/[token]/dictation/DictationSummary.tsx",
+      "line": 5,
+      "symbol": "DictationSummary"
+    },
+    {
+      "path": "app/w/[token]/dictation/DictationSummary.tsx",
+      "line": 10,
+      "symbol": "StudentDictationHistory"
+    },
+    {
+      "path": "app/w/[token]/dictation/Grading.tsx",
+      "line": 5,
+      "symbol": "Grading"
+    },
+    {
+      "path": "app/w/[token]/dictation/Grading.tsx",
+      "line": 20,
+      "symbol": "changeStudent"
+    },
+    {
+      "path": "app/w/[token]/dictation/Grading.tsx",
+      "line": 21,
+      "symbol": "discard"
+    },
+    {
+      "path": "app/w/[token]/dictation/Grading.tsx",
+      "line": 22,
+      "symbol": "save"
+    },
+    {
+      "path": "app/w/[token]/dictation/navigation.ts",
+      "line": 1,
+      "symbol": "canLeaveDictation"
+    },
+    {
+      "path": "app/w/[token]/dictation/PersonFilter.tsx",
+      "line": 6,
+      "symbol": "PersonFilter"
+    },
+    {
+      "path": "app/w/[token]/dictation/TaskEditor.tsx",
+      "line": 6,
+      "symbol": "TaskEditor"
+    },
+    {
+      "path": "app/w/[token]/dictation/TaskEditor.tsx",
+      "line": 15,
+      "symbol": "submit"
+    },
+    {
+      "path": "app/w/[token]/dictation/WordLibrary.tsx",
+      "line": 6,
+      "symbol": "WordLibrary"
+    },
+    {
+      "path": "app/w/[token]/dictation/WordLibrary.tsx",
+      "line": 10,
+      "symbol": "submit"
+    },
+    {
+      "path": "app/components/campus/ClassSwitcher.tsx",
+      "line": 5,
+      "symbol": "ClassSwitcher"
+    },
+    {
+      "path": "app/components/campus/Dashboard.tsx",
+      "line": 9,
+      "symbol": "Dashboard"
+    },
+    {
+      "path": "app/components/campus/DialogAccessibility.tsx",
+      "line": 5,
+      "symbol": "DialogAccessibility"
+    },
+    {
+      "path": "app/components/campus/DialogAccessibility.tsx",
+      "line": 14,
+      "symbol": "release"
+    },
+    {
+      "path": "app/components/campus/DialogAccessibility.tsx",
+      "line": 15,
+      "symbol": "sync"
+    },
+    {
+      "path": "app/components/campus/DialogAccessibility.tsx",
+      "line": 34,
+      "symbol": "keydown"
+    },
+    {
+      "path": "app/components/campus/primitives.tsx",
+      "line": 17,
+      "symbol": "CampusIcon"
+    },
+    {
+      "path": "app/components/campus/primitives.tsx",
+      "line": 20,
+      "symbol": "ThemeArtwork"
+    },
+    {
+      "path": "app/components/campus/primitives.tsx",
+      "line": 21,
+      "symbol": "Button"
+    },
+    {
+      "path": "app/components/campus/primitives.tsx",
+      "line": 22,
+      "symbol": "EmptyState"
+    },
+    {
+      "path": "app/components/campus/primitives.tsx",
+      "line": 23,
+      "symbol": "MetricStrip"
+    },
+    {
+      "path": "app/components/campus/primitives.tsx",
+      "line": 24,
+      "symbol": "PageHeader"
+    },
+    {
+      "path": "app/components/campus/primitives.tsx",
+      "line": 25,
+      "symbol": "Pager"
+    },
+    {
+      "path": "app/components/campus/StudentLookupDialog.tsx",
+      "line": 5,
+      "symbol": "StudentLookupDialog"
+    },
+    {
+      "path": "app/components/campus/theme.ts",
+      "line": 20,
+      "symbol": "resolveTheme"
+    },
+    {
+      "path": "app/components/campus/WorkspaceChrome.tsx",
+      "line": 32,
+      "symbol": "SaveStatus"
+    },
+    {
+      "path": "app/components/campus/WorkspaceChrome.tsx",
+      "line": 42,
+      "symbol": "DesktopHeader"
+    },
+    {
+      "path": "app/components/campus/WorkspaceChrome.tsx",
+      "line": 60,
+      "symbol": "WorkspaceNav"
+    },
+    {
+      "path": "lib/auth.ts",
+      "line": 54,
+      "symbol": "envSecret"
+    },
+    {
+      "path": "lib/auth.ts",
+      "line": 60,
+      "symbol": "authEnforced"
+    },
+    {
+      "path": "lib/auth.ts",
+      "line": 64,
+      "symbol": "normalizePhone"
+    },
+    {
+      "path": "lib/auth.ts",
+      "line": 68,
+      "symbol": "validPhone"
+    },
+    {
+      "path": "lib/auth.ts",
+      "line": 72,
+      "symbol": "normalizeRedeemCode"
+    },
+    {
+      "path": "lib/auth.ts",
+      "line": 76,
+      "symbol": "maskPhone"
+    },
+    {
+      "path": "lib/auth.ts",
+      "line": 80,
+      "symbol": "hash"
+    },
+    {
+      "path": "lib/auth.ts",
+      "line": 84,
+      "symbol": "hmac"
+    },
+    {
+      "path": "lib/auth.ts",
+      "line": 88,
+      "symbol": "hashRedeemCode"
+    },
+    {
+      "path": "lib/auth.ts",
+      "line": 92,
+      "symbol": "randomToken"
+    },
+    {
+      "path": "lib/auth.ts",
+      "line": 96,
+      "symbol": "createRedeemCode"
+    },
+    {
+      "path": "lib/auth.ts",
+      "line": 102,
+      "symbol": "encryptRedeemCode"
+    },
+    {
+      "path": "lib/auth.ts",
+      "line": 110,
+      "symbol": "decryptRedeemCode"
+    },
+    {
+      "path": "lib/auth.ts",
+      "line": 123,
+      "symbol": "parseCookies"
+    },
+    {
+      "path": "lib/auth.ts",
+      "line": 133,
+      "symbol": "trustsProxyHeaders"
+    },
+    {
+      "path": "lib/auth.ts",
+      "line": 137,
+      "symbol": "requestProtocol"
+    },
+    {
+      "path": "lib/auth.ts",
+      "line": 142,
+      "symbol": "cookieSecurity"
+    },
+    {
+      "path": "lib/auth.ts",
+      "line": 148,
+      "symbol": "makeCookie"
+    },
+    {
+      "path": "lib/auth.ts",
+      "line": 152,
+      "symbol": "clearCookie"
+    },
+    {
+      "path": "lib/auth.ts",
+      "line": 156,
+      "symbol": "appendCookies"
+    },
+    {
+      "path": "lib/auth.ts",
+      "line": 161,
+      "symbol": "jsonWithCookies"
+    },
+    {
+      "path": "lib/auth.ts",
+      "line": 165,
+      "symbol": "assertSameOrigin"
+    },
+    {
+      "path": "lib/auth.ts",
+      "line": 173,
+      "symbol": "clientIp"
+    },
+    {
+      "path": "lib/auth.ts",
+      "line": 178,
+      "symbol": "adminIpAllowed"
+    },
+    {
+      "path": "lib/auth.ts",
+      "line": 185,
+      "symbol": "safeEqual"
+    },
+    {
+      "path": "lib/auth.ts",
+      "line": 191,
+      "symbol": "verifyAdminPassword"
+    },
+    {
+      "path": "lib/auth.ts",
+      "line": 196,
+      "symbol": "createAdminSession"
+    },
+    {
+      "path": "lib/auth.ts",
+      "line": 203,
+      "symbol": "requireAdmin"
+    },
+    {
+      "path": "lib/auth.ts",
+      "line": 213,
+      "symbol": "verifyAdminLogin"
+    },
+    {
+      "path": "lib/auth.ts",
+      "line": 225,
+      "symbol": "recordAdminAudit"
+    },
+    {
+      "path": "lib/auth.ts",
+      "line": 232,
+      "symbol": "createSessionInTransaction"
+    },
+    {
+      "path": "lib/auth.ts",
+      "line": 239,
+      "symbol": "deviceName"
+    },
+    {
+      "path": "lib/auth.ts",
+      "line": 245,
+      "symbol": "attemptKeys"
+    },
+    {
+      "path": "lib/auth.ts",
+      "line": 253,
+      "symbol": "recordAttempts"
+    },
+    {
+      "path": "lib/auth.ts",
+      "line": 260,
+      "symbol": "enforceAttemptLimit"
+    },
+    {
+      "path": "lib/auth.ts",
+      "line": 270,
+      "symbol": "enterWithRedeemCode"
+    },
+    {
+      "path": "lib/auth.ts",
+      "line": 349,
+      "symbol": "getSession"
+    },
+    {
+      "path": "lib/auth.ts",
+      "line": 365,
+      "symbol": "restoreSessionFromDevice"
+    },
+    {
+      "path": "lib/auth.ts",
+      "line": 379,
+      "symbol": "requireSession"
+    },
+    {
+      "path": "lib/auth.ts",
+      "line": 385,
+      "symbol": "workspaceForUser"
+    },
+    {
+      "path": "lib/auth.ts",
+      "line": 391,
+      "symbol": "workspaceMode"
+    },
+    {
+      "path": "lib/auth.ts",
+      "line": 399,
+      "symbol": "requireWorkspaceOwner"
+    },
+    {
+      "path": "lib/auth.ts",
+      "line": 410,
+      "symbol": "logoutCurrentDevice"
+    },
+    {
+      "path": "lib/auth.ts",
+      "line": 420,
+      "symbol": "setAiConsent"
+    },
+    {
+      "path": "lib/auth.ts",
+      "line": 426,
+      "symbol": "shanghaiDate"
+    },
+    {
+      "path": "lib/auth.ts",
+      "line": 430,
+      "symbol": "aiUsage"
+    },
+    {
+      "path": "lib/auth.ts",
+      "line": 438,
+      "symbol": "consumeAiUsage"
+    },
+    {
+      "path": "lib/auth.ts",
+      "line": 450,
+      "symbol": "refundAiUsage"
+    },
+    {
+      "path": "lib/auth.ts",
+      "line": 457,
+      "symbol": "refreshDeviceCookie"
+    },
+    {
+      "path": "lib/auth.ts",
+      "line": 462,
+      "symbol": "redeemCodeDefaults"
+    },
+    {
+      "path": "lib/auth.ts",
+      "line": 466,
+      "symbol": "userSessionCookies"
+    },
+    {
+      "path": "lib/classroom.ts",
+      "line": 408,
+      "symbol": "makeId"
+    },
+    {
+      "path": "lib/classroom.ts",
+      "line": 414,
+      "symbol": "createEmptyClassroomData"
+    },
+    {
+      "path": "lib/classroom.ts",
+      "line": 442,
+      "symbol": "monthIndex"
+    },
+    {
+      "path": "lib/classroom.ts",
+      "line": 448,
+      "symbol": "scheduleTermRange"
+    },
+    {
+      "path": "lib/classroom.ts",
+      "line": 468,
+      "symbol": "scheduleTermLabel"
+    },
+    {
+      "path": "lib/clipboard.ts",
+      "line": 1,
+      "symbol": "copyTextToClipboard"
+    },
+    {
+      "path": "lib/dictation.ts",
+      "line": 16,
+      "symbol": "parseWords"
+    },
+    {
+      "path": "lib/dictation.ts",
+      "line": 26,
+      "symbol": "statistics"
+    },
+    {
+      "path": "lib/dictation.ts",
+      "line": 36,
+      "symbol": "wrongWords"
+    },
+    {
+      "path": "lib/dictation.ts",
+      "line": 50,
+      "symbol": "newTask"
+    },
+    {
+      "path": "lib/dictation.ts",
+      "line": 55,
+      "symbol": "assertDictation"
+    },
+    {
+      "path": "lib/dictation.ts",
+      "line": 57,
+      "symbol": "fail"
+    },
+    {
+      "path": "lib/workspaceBackup.ts",
+      "line": 16,
+      "symbol": "uniqueIds"
+    },
+    {
+      "path": "lib/workspaceBackup.ts",
+      "line": 28,
+      "symbol": "parseWorkspaceBackup"
+    }
+  ],
+  "apiRoutes": [
+    "app/api/admin/audit-logs/route.ts",
+    "app/api/admin/devices/[id]/route.ts",
+    "app/api/admin/redeem-codes/[id]/route.ts",
+    "app/api/admin/redeem-codes/route.ts",
+    "app/api/admin/session/route.ts",
+    "app/api/admin/users/[id]/data/route.ts",
+    "app/api/admin/users/[id]/devices/route.ts",
+    "app/api/admin/users/[id]/renew/route.ts",
+    "app/api/admin/users/[id]/route.ts",
+    "app/api/admin/users/route.ts",
+    "app/api/admin/workspaces/route.ts",
+    "app/api/ai/comment/route.ts",
+    "app/api/ai/exam-paper/route.ts",
+    "app/api/auth/ai-consent/route.ts",
+    "app/api/auth/enter/route.ts",
+    "app/api/auth/logout/route.ts",
+    "app/api/auth/me/route.ts",
+    "app/api/knowledge/[token]/route.ts",
+    "app/api/workspace/[token]/route.ts"
+  ]
+}

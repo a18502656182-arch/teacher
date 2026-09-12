@@ -1,0 +1,31 @@
+{
+  "kind": "specification-not-importable-backup",
+  "syntheticOnly": true,
+  "classSizes": [
+    0,
+    50,
+    50,
+    105
+  ],
+  "familyChildren": 2,
+  "taskCounts": [
+    0,
+    3,
+    30
+  ],
+  "dictationWordCounts": [
+    8,
+    12,
+    60,
+    200
+  ],
+  "states": [
+    "readonly",
+    "network-failure",
+    "409-conflict",
+    "old-backup-v1",
+    "backup-v2",
+    "near-capacity"
+  ],
+  "instruction": "Use current schema and isolated temporary DB; never send to production."
+}

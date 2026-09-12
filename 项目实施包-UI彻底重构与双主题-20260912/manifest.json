@@ -1,0 +1,608 @@
+{
+  "version": "1.0",
+  "createdAt": "2026-09-12",
+  "kind": "implementation-plan-not-deployment",
+  "baselineCommit": "6e10e2dc314e09d0d72df9509730f57c5fde34e2",
+  "files": [
+    {
+      "path": "00-从这里开始.md",
+      "bytes": 4377,
+      "sha256": "d5ceb6584d48ccc2d89c90bf6da59ad0fb93406ba72ee2a89930a6d5b155c27a"
+    },
+    {
+      "path": "01-当前事实与失败原因.md",
+      "bytes": 2729,
+      "sha256": "a88c568df998cb32fec36fd53fa74e972d24844b8995477d6f18fb11dbfe2f49"
+    },
+    {
+      "path": "02-功能保全与数据契约.md",
+      "bytes": 3607,
+      "sha256": "92ba2e81e0d791727b716d418183c514497b0ae63411d7667481236b433af0a8"
+    },
+    {
+      "path": "03-目标目录与代码迁移.md",
+      "bytes": 4181,
+      "sha256": "ec9d9803bf6c9dae2078959f1890e248fd6279a090cd8d924ac289b904be904f"
+    },
+    {
+      "path": "04-双主题契约与组件API.md",
+      "bytes": 2923,
+      "sha256": "581f0e3a46a646a117384c5312e790896280d0dd640df252f14e829ea7c51818"
+    },
+    {
+      "path": "05-校园视觉与构图尺寸.md",
+      "bytes": 3284,
+      "sha256": "ba0fc615728a097fdd704a61933fe5b95e794decc77b834b1af3d5763f0df109"
+    },
+    {
+      "path": "06-插画生产与参考图用法.md",
+      "bytes": 3796,
+      "sha256": "0eeadfd99c7290dae6083bb4d2ad183fff8254fcde6612b9e649f8976a7c84f7"
+    },
+    {
+      "path": "07-逐步实施总流程.md",
+      "bytes": 2533,
+      "sha256": "b1c9fd177e8d15f137f93298b673ee1e98bfca473c39633318e5a1a23f138d28"
+    },
+    {
+      "path": "08-保存状态与交互时序.md",
+      "bytes": 2644,
+      "sha256": "0c02280fd8d0527029acc242bf7c20351e3cf104ee9fb976eda98b99ba662d13"
+    },
+    {
+      "path": "09-手机与弹窗逐项操作规范.md",
+      "bytes": 2508,
+      "sha256": "2930f5afa96c2b51679f99533d96b95b98ddf53d8f57defcb36662c7ceb96d05"
+    },
+    {
+      "path": "10-验收场景与命令.md",
+      "bytes": 3223,
+      "sha256": "8cc141e8aaf59e172bc90bf5c4331a189d29d06f51167da16c2cb2a8538a4abc"
+    },
+    {
+      "path": "11-旧CSS清除与回归控制.md",
+      "bytes": 1733,
+      "sha256": "fd1b16124d9d884f8eb00d87d29051a98f3f663c746ba05167ac7fefcfbfc1a5"
+    },
+    {
+      "path": "12-交接执行与交付规则.md",
+      "bytes": 2104,
+      "sha256": "8638a4489c5ca68221e73c1857f62e824adf14ce51f24746cca067c44c01d448"
+    },
+    {
+      "path": "13-给下一对话的完整启动指令.md",
+      "bytes": 2173,
+      "sha256": "f207ef80815eebc5ccd30aeb1b05aa9f64474c547076527b7ca4de1b5d2c15bf"
+    },
+    {
+      "path": "14-代码样例使用说明.md",
+      "bytes": 1172,
+      "sha256": "a27434e73f3810f18063f01e138e0e59a6510902c8929dc9dc3c6fc7f88daca1"
+    },
+    {
+      "path": "15-参考图逐张差异清单.md",
+      "bytes": 1677,
+      "sha256": "baced1667f45d9c8d14e02003b321cb8981da48385add4fa925067ac1de1296a"
+    },
+    {
+      "path": "16-逐步检查与常见错误纠偏.md",
+      "bytes": 2093,
+      "sha256": "ce9ac5e82ca6b2a2192ca99f061da71c04e469ffcbbfebb570e4462629985af3"
+    },
+    {
+      "path": "17-范围变更与待决策事项.md",
+      "bytes": 1322,
+      "sha256": "696a8a044115a65d68cf6ff99f0c1e9dea2b119b7913b62bc4c908b76a8d44fb"
+    },
+    {
+      "path": "assets/incumbent/assessment-review.webp",
+      "bytes": 67956,
+      "sha256": "26ccc151c2a82899d135afc03821106d14f044d218a33c1e14342b9ec829ec04"
+    },
+    {
+      "path": "assets/incumbent/class-planner.webp",
+      "bytes": 83380,
+      "sha256": "470b69e24c8a81696dbbd14b72e2771a3116068de82a303911d7871b9f7c610c"
+    },
+    {
+      "path": "assets/incumbent/classroom-morning.webp",
+      "bytes": 101430,
+      "sha256": "aae786005ad687168fa4d0f04fd73fd33a7a929f5682be1db1b2463eae3fec4e"
+    },
+    {
+      "path": "assets/incumbent/homework-books.webp",
+      "bytes": 74882,
+      "sha256": "5a82348b81d749ebf8b200f652ee2763894aec9abb0d2634f434cff26d4c0941"
+    },
+    {
+      "path": "assets/incumbent/student-records.webp",
+      "bytes": 196672,
+      "sha256": "f2e2897fcfd4d35f3e830701b82ca5189eac299a4961493ec437d4198196ce80"
+    },
+    {
+      "path": "assets/incumbent/study-desk.webp",
+      "bytes": 67088,
+      "sha256": "ae8af15cb52d3ff617fcd73c11d3fe1297901331ed70da5d2f7a35c04c459cf4"
+    },
+    {
+      "path": "assets/incumbent/word-cards.webp",
+      "bytes": 12772,
+      "sha256": "a9e602b123f67ca73e4c1d348a906ada12a47bee5be066145902e838ed085489"
+    },
+    {
+      "path": "evidence/README.md",
+      "bytes": 135,
+      "sha256": "43deb05a6544322d44d48f3fc9591250037881f80ea00fd24c2286767d70401a"
+    },
+    {
+      "path": "evidence/source-baseline.json",
+      "bytes": 3114,
+      "sha256": "380716f5e9bc4b8d62b37f00dbd95895c4f4062d9f484ae8fe359946dad9de4a"
+    },
+    {
+      "path": "evidence/source-symbol-index.json",
+      "bytes": 59994,
+      "sha256": "e472f1d75984f28f35f1d2e002996f70e5e1e890b0a9e25c232c6d822165b43b"
+    },
+    {
+      "path": "evidence/源码迁移定位表.md",
+      "bytes": 1913,
+      "sha256": "afb65f035651bcd57dbad64fb2c1f8a5e92b8100c747641672d18f068eec53af"
+    },
+    {
+      "path": "examples/contracts.ts.txt",
+      "bytes": 1133,
+      "sha256": "301996d5667bff408b19c51e862d61020b18b8825c190da3ba052684e3071adb"
+    },
+    {
+      "path": "examples/fixture-spec.json",
+      "bytes": 520,
+      "sha256": "1b712f1523b56ae701d3b09543c1e901b72ff167b2d9713237dcc9ac2d4bebbc"
+    },
+    {
+      "path": "examples/migration-boundary.md",
+      "bytes": 626,
+      "sha256": "52215f44462f5791706333b56e07153b630d5b6e51304b9515693c8c11418f73"
+    },
+    {
+      "path": "examples/README.md",
+      "bytes": 409,
+      "sha256": "4f994fcac7a80ad29bac0d5f8ed6cc628aaeb7d070569b3d90b5f743b657582c"
+    },
+    {
+      "path": "examples/save-transition.mjs",
+      "bytes": 1211,
+      "sha256": "c7316bb2859a55598788a3212020322d0b24abd890ace9cbccff161c631094dd"
+    },
+    {
+      "path": "examples/save-transition.test.mjs",
+      "bytes": 1485,
+      "sha256": "dbc1c7502713166835084b9ef1908a1c98945aacab389eb839e87d713ffb8125"
+    },
+    {
+      "path": "examples/theme-tokens.css.txt",
+      "bytes": 1193,
+      "sha256": "1ab693af996e691c0b4a05dbf5374e1626f48a2b6e00ed02356462fc068bb444"
+    },
+    {
+      "path": "historical/06-参考图索引与纠错.md",
+      "bytes": 2518,
+      "sha256": "aebb9ab486f70b2a7a647c4c06bebab1cf8f44ea2a5898e3ac900b9532916d57"
+    },
+    {
+      "path": "historical/校园插画全站构图与视觉层次重建规范-20260911.md",
+      "bytes": 17582,
+      "sha256": "95d8572478264b1f69d34af4e992fdd52a671c841821bd24f049b3b3038b85a4"
+    },
+    {
+      "path": "historical/组件样板.html",
+      "bytes": 9979,
+      "sha256": "25e6f6968397c1c530b74272579a278cfb5ce8b6645cf9b5246f5c6087ea1808"
+    },
+    {
+      "path": "historical/给项目对话的校园插画全站重建指令-20260911.md",
+      "bytes": 4878,
+      "sha256": "dafe8a57b44a39e4ada770ce70b5392a07a61d218585767a5765dec432306773"
+    },
+    {
+      "path": "index.html",
+      "bytes": 9205,
+      "sha256": "f0ee7bcbc8cb6507d89aff9c8ee026e2bd78d6d2b536f19e6515738ca0f38de1"
+    },
+    {
+      "path": "pages/01-dashboard.md",
+      "bytes": 2523,
+      "sha256": "eac59b17429a0c5db8842210e2ae71d53a3eabf4b5771d324f27c4b55d1c2ebc"
+    },
+    {
+      "path": "pages/02-students.md",
+      "bytes": 2503,
+      "sha256": "c26f6432fe1797e0cef2a0774cbf9efe12610bfb274b6ccea41bc9be9ab2d54f"
+    },
+    {
+      "path": "pages/03-homework.md",
+      "bytes": 2511,
+      "sha256": "5732ff413a488c41f030e6a76cec3553dd179a545d083c046be487e722870409"
+    },
+    {
+      "path": "pages/04-attendance.md",
+      "bytes": 2461,
+      "sha256": "f46e2fb5ae37b116013f86613d9bae170d522c1b4ce26da4cb13241cdcaaed09"
+    },
+    {
+      "path": "pages/05-dictation.md",
+      "bytes": 2657,
+      "sha256": "623e8aab7e182f880f36223444049847053162b007070c83b850a9dd11006e33"
+    },
+    {
+      "path": "pages/06-points.md",
+      "bytes": 2454,
+      "sha256": "85bb486a8296ebf9e3f08f2691ab4b2c6b949e722347f6dcdcb2298227ccfcfb"
+    },
+    {
+      "path": "pages/07-rules.md",
+      "bytes": 2376,
+      "sha256": "1b696ae13a5830e2698a8f119e1f69342bc6908e838dddaec770563d9103292e"
+    },
+    {
+      "path": "pages/08-growth.md",
+      "bytes": 2388,
+      "sha256": "0fa505f343d60863c09f2bc6d93c8a3de070dcc7b6cacb06920140a55e3b2be1"
+    },
+    {
+      "path": "pages/09-health.md",
+      "bytes": 2421,
+      "sha256": "7ebe3b822188ccd3787c25ff64b72231f2e9a305214f2f999ff732b24e0196ff"
+    },
+    {
+      "path": "pages/10-records.md",
+      "bytes": 2489,
+      "sha256": "c2fb9df2f30b1a53b00753d383b3f28053a692603aaaf2f73a942e509ae4e09a"
+    },
+    {
+      "path": "pages/11-scores.md",
+      "bytes": 2524,
+      "sha256": "d4e37f23b6403a990f9805cad0a259cd733af2dd7fec7bdacdff7b9edaed20c2"
+    },
+    {
+      "path": "pages/12-reflection.md",
+      "bytes": 2378,
+      "sha256": "f679c70a51623f385046144444f9387f352a7765047b9428afd1cebb933e9848"
+    },
+    {
+      "path": "pages/13-weekly.md",
+      "bytes": 2354,
+      "sha256": "3d29eabbe004fbecb59508c5cd9388781a9f038a3fe67063f89f11082b302da7"
+    },
+    {
+      "path": "pages/14-comments.md",
+      "bytes": 2442,
+      "sha256": "bbb8252de46a0a1d18439916e9f56b97aac5214f4dbf4d0da36c0c5f12378b92"
+    },
+    {
+      "path": "pages/15-schedule.md",
+      "bytes": 2521,
+      "sha256": "ad667c0d5a68748590cc832e35dad3c74470cf3af3fe423d8f26dcbb71aa922f"
+    },
+    {
+      "path": "pages/16-tools.md",
+      "bytes": 2392,
+      "sha256": "d5fab4d149bdda6f76fe12f287e0ecae3aa543147b31faea49b7c3cdcb1d0297"
+    },
+    {
+      "path": "pages/17-seating.md",
+      "bytes": 2452,
+      "sha256": "889039f482b119eca786173418ab0c569adbcf1115034d85972e8544f2fdb3f0"
+    },
+    {
+      "path": "pages/18-duty.md",
+      "bytes": 2365,
+      "sha256": "01dd43a7616efba7bf17972d4020947e18a03c8349e54b3855ac1b9efc541d15"
+    },
+    {
+      "path": "pages/19-cadres.md",
+      "bytes": 2390,
+      "sha256": "3b3a9e3169efd3b9ae915695667dfebf60695155acc9ada3ee4309f583d41a21"
+    },
+    {
+      "path": "pages/20-family.md",
+      "bytes": 2531,
+      "sha256": "22321d2a94bc0346e8ca6c414d3694cefb19a6e84bffa361b62f74908acd2148"
+    },
+    {
+      "path": "pages/21-entry.md",
+      "bytes": 2374,
+      "sha256": "502747da9fbb5b67e59f4b01a1ed461da6ca40115a52d88760b6b1df78eb5569"
+    },
+    {
+      "path": "pages/22-account.md",
+      "bytes": 2453,
+      "sha256": "336764e9c5a6f6c0291f85d2c408a9e7775eacfa60745135bb7185244ecea750"
+    },
+    {
+      "path": "pages/23-admin.md",
+      "bytes": 2438,
+      "sha256": "c609dfdb5219adeee21d95071f25df01d92ce775c899d1c3e779bbd7d96224e3"
+    },
+    {
+      "path": "references/campus/C1-桌面首页.png",
+      "bytes": 1635897,
+      "sha256": "5e201313eaf71b37e19ff3f093ca3fa4d2d7a7adef188a25ceb8c218b595debd"
+    },
+    {
+      "path": "references/campus/C2-桌面听写.png",
+      "bytes": 1549681,
+      "sha256": "be02bc701d9ffb7f03494e455c2ae5284f2caa58aa7803c18b5e332dc2dbfabe"
+    },
+    {
+      "path": "references/campus/C3-桌面学生.png",
+      "bytes": 1565817,
+      "sha256": "521f2bce5f21dcafd28cc5b327bdd066c07f041495bdcce6481907797fc81436"
+    },
+    {
+      "path": "references/campus/C4-桌面作业.png",
+      "bytes": 1638129,
+      "sha256": "534ba57e561c0e2f2db90c4f0f2e8ac13ca2840d8bd62740b858d0f278b259df"
+    },
+    {
+      "path": "references/campus/C5-手机首页.png",
+      "bytes": 1330359,
+      "sha256": "f719e7defbc4a2cd087f0bcf28e335954929fed4181ff8fe9e5893845d12a7d7"
+    },
+    {
+      "path": "references/campus/C6-手机批改.png",
+      "bytes": 1188100,
+      "sha256": "647082c652e5cb4e0b6924703ac434e9b269d03d2df037b24529c8f5d92d20b9"
+    },
+    {
+      "path": "references/glass/G0-桌面听写.png",
+      "bytes": 1485501,
+      "sha256": "155331cc8772f769f179e1ae2c5ffd1a85dc76bd9d50f37a795ff2c884f413ac"
+    },
+    {
+      "path": "references/glass/G1-桌面首页.png",
+      "bytes": 1498652,
+      "sha256": "9fa1da252d4e9887b6596e7cc1a47ef0a25b13d9dbe856c7ce5b933052d90b71"
+    },
+    {
+      "path": "references/glass/G2-桌面学生.png",
+      "bytes": 1496560,
+      "sha256": "14afab572b55cbf92f78639cde7b69c2053968e12861338588224d4efec15e86"
+    },
+    {
+      "path": "references/glass/G3-手机首页.png",
+      "bytes": 1499923,
+      "sha256": "457d8d7cbe95080bd9f025cc81193be040aedb7a680c0eed5262823d06a59ab2"
+    },
+    {
+      "path": "references/glass/G4-手机批改.png",
+      "bytes": 1448120,
+      "sha256": "5647285500e4c54a010560edab3dd8e9bf82868150c410db384877ac202edeb3"
+    },
+    {
+      "path": "references/glass/G5-手机家庭.png",
+      "bytes": 1496306,
+      "sha256": "d8674060006e3f9d655cc2a6eb97d3658234ba2daeb91182cd76cf58f48a669a"
+    },
+    {
+      "path": "references/README.md",
+      "bytes": 746,
+      "sha256": "7d3c49401c89dab2046b7459eb71ff254eb83c717ec7d46b2f933f19a3198010"
+    },
+    {
+      "path": "tasks/TASK-01.md",
+      "bytes": 1510,
+      "sha256": "fc86c56e4aa7cded8b6450b8bb090cb9674b9f23d03d50cb9177c149adeb9e02"
+    },
+    {
+      "path": "tasks/TASK-02.md",
+      "bytes": 1517,
+      "sha256": "1cd1ee4aca56de2e8897e658b93a8ff401b174c6e06193589226cf4a33fe75d7"
+    },
+    {
+      "path": "tasks/TASK-03.md",
+      "bytes": 1474,
+      "sha256": "b1407c208146e6d8c5513fb7438ded16915318be9a0d7fd757cd67f6f7137314"
+    },
+    {
+      "path": "tasks/TASK-04.md",
+      "bytes": 1487,
+      "sha256": "5f0495a43c4fdd7e147f278ce6d743e1904865aef55b7bcd40d1911b80f3381b"
+    },
+    {
+      "path": "tasks/TASK-05.md",
+      "bytes": 1515,
+      "sha256": "dfcd171e11cb4f3dc72b977ccf9e073b1bebb0539b17015a09976e8a659a4662"
+    },
+    {
+      "path": "tasks/TASK-06.md",
+      "bytes": 1474,
+      "sha256": "69a03835148c585a3458fcb632970bd42c535a9640ffb039aaa8b34805c9a8ff"
+    },
+    {
+      "path": "tasks/TASK-07.md",
+      "bytes": 1470,
+      "sha256": "9736e5affb591d2b8738027c801a4c4eeab651d5f9a019d4c92d719c9b3fddcc"
+    },
+    {
+      "path": "tasks/TASK-08.md",
+      "bytes": 1492,
+      "sha256": "7cb0739446a0a609547191b66baed8cc731d97a2acf1a7692a875ba908021326"
+    },
+    {
+      "path": "tasks/TASK-09.md",
+      "bytes": 1498,
+      "sha256": "d98cf95fe498fef202e8e6f84d7e1d8f30da8f2f31b63fb9b3fc3810eb4dfb80"
+    },
+    {
+      "path": "tasks/TASK-10.md",
+      "bytes": 1498,
+      "sha256": "34cc42d2a767c251166393096957853573a49d647c22426bb0dc1221b768d10a"
+    },
+    {
+      "path": "tasks/TASK-11.md",
+      "bytes": 1493,
+      "sha256": "d7ce0606c62b61e993304442ea4e1b89e88cdb34d85c1b6b55db2f2f26c3b5f0"
+    },
+    {
+      "path": "tasks/TASK-12.md",
+      "bytes": 1471,
+      "sha256": "9faa3db418d6f5b26d9d5500181a8963183e8f8a86d5f52f0f8e8b51aa56d6ea"
+    },
+    {
+      "path": "tasks/TASK-13.md",
+      "bytes": 1471,
+      "sha256": "aaf961fe64b0f58676a6b4dc9bdfe865314e890426668d8c411c621d5ea87b22"
+    },
+    {
+      "path": "tasks/TASK-14.md",
+      "bytes": 1474,
+      "sha256": "f1155927179ed6e63be8cf6ba90ce58c7f289a91db742b05169b36e67565a4ed"
+    },
+    {
+      "path": "tasks/TASK-15.md",
+      "bytes": 1453,
+      "sha256": "ddcd5183d78a6ffd9fbfb19350453dac2e6046cf7a828b2b7bd1af991bbbac4c"
+    },
+    {
+      "path": "tasks/TASK-16.md",
+      "bytes": 1472,
+      "sha256": "31ed386e0cfac09e90b3f349c5994b77fd327ebe0a5fbb6f1542c2d8e8263cfb"
+    },
+    {
+      "path": "tasks/TASK-17.md",
+      "bytes": 1471,
+      "sha256": "10b62d6b5e2746f9692f6ef5ba1c8b96b0fb335daa0de0526a607ed58baa545d"
+    },
+    {
+      "path": "tasks/TASK-18.md",
+      "bytes": 1465,
+      "sha256": "689b53ede276fe43f7ff4b51be69240c071ed311f121723ce34ece8c6b937fcd"
+    },
+    {
+      "path": "tasks/TASK-19.md",
+      "bytes": 1456,
+      "sha256": "5d5d5df57c14098bd7c0796e5ae1f9637d4cebf53f6a32a7c03285b30cc04772"
+    },
+    {
+      "path": "tasks/TASK-20.md",
+      "bytes": 1436,
+      "sha256": "34e0715fb6d85f1ff84623633c81f2ff26c1eeca8ee2245fe2bafd85849d3bcd"
+    },
+    {
+      "path": "tasks/TASK-21.md",
+      "bytes": 1476,
+      "sha256": "8e3fa986341edaf45c13284f9c7ffe1e767411df4a8c3dc08b6aaaac7d92c9c0"
+    },
+    {
+      "path": "tasks/TASK-22.md",
+      "bytes": 1453,
+      "sha256": "699958f83e7252813ed00d87c7836cdd1289d41146cf893dcac7310c97c792fa"
+    },
+    {
+      "path": "tasks/TASK-23.md",
+      "bytes": 1457,
+      "sha256": "472c6fc51b6632ef3f5d5551b10b84d77cc5ce30a4225bce193e9baefb971687"
+    },
+    {
+      "path": "tasks/TASK-24.md",
+      "bytes": 1405,
+      "sha256": "72b6d4f0d4555e5c75479848794e764eda9cb6420cb2386fc98b8e31abd081e8"
+    },
+    {
+      "path": "tasks/TASK-25.md",
+      "bytes": 1449,
+      "sha256": "1c34e11fb7e649e77d2c89a6f2ec9055bc1d44e7ac003fc58316290c9361a075"
+    },
+    {
+      "path": "tasks/TASK-26.md",
+      "bytes": 1424,
+      "sha256": "7ac6c8a13321ad5ade3de3131d0b29a63b15a52f59e571b0ad4c25298d5a39ed"
+    },
+    {
+      "path": "tasks/TASK-27.md",
+      "bytes": 1468,
+      "sha256": "a169f84618b6aacd86b21f0b0318a905385d17766f0da5c78ddcdccaa5341dd7"
+    },
+    {
+      "path": "tasks/TASK-28.md",
+      "bytes": 1443,
+      "sha256": "8901013f35989ff20663ae0db1d5e5a16cf93514ef220e0eddcfb27de16f68f9"
+    },
+    {
+      "path": "tasks/TASK-29.md",
+      "bytes": 1484,
+      "sha256": "7463e03f290811df9b6fc80ed5236109b5163374949544d8fe694b9a2ea3faf0"
+    },
+    {
+      "path": "tasks/TASK-30.md",
+      "bytes": 1524,
+      "sha256": "15240f5df19050d8b1983af0cc2527b2f677fde9fb7ccfba934390900f2286e6"
+    },
+    {
+      "path": "tasks/TASK-31.md",
+      "bytes": 1499,
+      "sha256": "5539681aaa968debc9970e1b34a22723d98952928180c8ec20ac0e15168eea42"
+    },
+    {
+      "path": "tasks/TASK-32.md",
+      "bytes": 1473,
+      "sha256": "cd22d8df6fa3b533ead8b2f5151a7fcf3eeda1b6de3bba9357595a3adae7cdc7"
+    },
+    {
+      "path": "tasks/TASK-33.md",
+      "bytes": 1466,
+      "sha256": "180db3eadcc665cfa0840631ed8bcced26feea6f52a7d23fb8329d328abc5ef4"
+    },
+    {
+      "path": "tools/check-plan.py",
+      "bytes": 1594,
+      "sha256": "51217b0e6b5e7e854fb6e99db10d32ef0bda74b4ce336a8d31999ae2128cfb7f"
+    },
+    {
+      "path": "tools/check-source-drift.py",
+      "bytes": 586,
+      "sha256": "b57b6f4432e0a3ac55d21e575cf99dd55bdc0634aaed7a1b1940a38208539512"
+    },
+    {
+      "path": "tools/README.md",
+      "bytes": 800,
+      "sha256": "166dd721fb6c61ca2c4cf4e04a45957b3eb6aadded898bae5f72617a3b5cfe99"
+    },
+    {
+      "path": "tools/verify-package.py",
+      "bytes": 1361,
+      "sha256": "7eda588e31c25a90862e73c2a4d573067a9edc77b2e3c0338463888b55ca75f5"
+    },
+    {
+      "path": "trackers/acceptance.csv",
+      "bytes": 15352,
+      "sha256": "709b7df46dd5c47650c8b39c31c40fda3b7ce498e1f980335be39425abc2c294"
+    },
+    {
+      "path": "trackers/asset-plan.csv",
+      "bytes": 1861,
+      "sha256": "64921f95288dede6bbc763eab22ec0eb13c7d5b426e962a9e2213bf94e0a50ae"
+    },
+    {
+      "path": "trackers/feature-preservation.csv",
+      "bytes": 5361,
+      "sha256": "b48575b5640bee1cd5ed8615592b45289b191a6206d512dd45128cc598aacd4b"
+    },
+    {
+      "path": "trackers/overlay-inventory.csv",
+      "bytes": 4012,
+      "sha256": "221a664adb1afdce0251e4612fb311a697990c5bba5d64d6607c5e7a84e0fbeb"
+    },
+    {
+      "path": "trackers/progress.json",
+      "bytes": 495,
+      "sha256": "c3794c3ea6fe9bda7d0432a3c3f84429d2d083cc253ba3b2723f59b4a0a3a78a"
+    },
+    {
+      "path": "trackers/tasks.csv",
+      "bytes": 1765,
+      "sha256": "7e99e9cafd2295fb36431590f5671f1e28153d1684cb5d600c7b829dbb8415ed"
+    }
+  ]
+}

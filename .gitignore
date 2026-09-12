@@ -29,3 +29,10 @@ scripts/recover-codex-transcript.mjs
 
 # User-supplied design reference package stays local; ship only authored product assets.
 项目资料包-听写与双主题-20260911/
+
+# UI reconstruction handoff: authored plans are tracked; user references and local evidence stay local.
+项目实施包-UI彻底重构与双主题-20260912/references/campus/
+项目实施包-UI彻底重构与双主题-20260912/references/glass/
+项目实施包-UI彻底重构与双主题-20260912/assets/
+项目实施包-UI彻底重构与双主题-20260912/historical/
+项目实施包-UI彻底重构与双主题-20260912/evidence-local/

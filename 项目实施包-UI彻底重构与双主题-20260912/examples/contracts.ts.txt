@@ -1,0 +1,9 @@
+// 计划接口示例：不自动进入生产、不替代当前API类型。
+export type ThemeId = 'campus' | 'glass';
+export type SaveState = 'clean' | 'dirty' | 'saving' | 'saved' | 'failed' | 'conflict' | 'readonly';
+export type CommitResult = { ok: true; revision: number } | { ok: false; reason: 'readonly' | 'conflict' | 'validation' | 'capacity' | 'network'; message: string };
+export type ArtworkSpec = { src: string; mobileSrc?: string; width: number; height: number; fit: 'contain' | 'cover'; focalPoint: [number, number]; decorative: boolean };
+export interface ThemeDefinition { id: ThemeId; status: 'planned' | 'development' | 'ready'; artwork: Partial<Record<string, ArtworkSpec>>; capabilities: { blur: boolean; reducedMotion: boolean }; }
+export interface EditorActions<T> { updateDraft(patch: Partial<T>): void; confirmReview(): void; commit(): Promise<CommitResult>; requestLeave(): Promise<boolean>; }
+// 适配当前commitWorkspace:boolean时，必须从真实服务端确认取得revision，不能编造。
+// controller拥有状态，view只消费；theme不接触T，resize不更换controller的key。

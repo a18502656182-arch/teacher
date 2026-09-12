@@ -1,0 +1,21 @@
+/* 示例token，不直接导入生产。页面CSS应引用这些角色，不复制色值。 */
+[data-ui-generation="next"][data-theme="campus"] {
+  --surface-canvas:#fffdf8; --surface-work:#fff; --surface-context:#eaf5fc;
+  --surface-assist:#edf6ef; --surface-attention:#fff1d4;
+  --text-main:#17354a; --text-muted:#526a7b; --action-primary:#14778a;
+  --state-error:#b4233d; --state-success:#245f43; --line:#cbdce6;
+  --radius-control:10px; --radius-surface:18px; --space-section:24px;
+  --surface-blur:0px;
+}
+/* 只用于本地架构验证，不是完成的玻璃视觉，禁止公开切换。 */
+[data-ui-generation="next"][data-theme="glass"] {
+  --surface-canvas:#f1f4ff; --surface-work:rgba(255,255,255,.94);
+  --surface-context:#edf1ff; --surface-assist:#eef5fa; --surface-attention:#fff1d4;
+  --text-main:#17264f; --text-muted:#526484; --action-primary:#315deb;
+  --state-error:#b4233d; --state-success:#245f43; --line:#cbd4e6;
+  --radius-control:10px; --radius-surface:18px; --space-section:24px;
+  --surface-blur:12px;
+}
+@supports not (backdrop-filter:blur(1px)) {
+  [data-ui-generation="next"][data-theme="glass"] { --surface-work:#fff; --surface-blur:0px; }
+}

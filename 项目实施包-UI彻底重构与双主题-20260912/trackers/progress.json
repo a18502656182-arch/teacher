@@ -1,0 +1,16 @@
+{
+  "packageVersion": "1.0",
+  "baselineCommit": "6e10e2dc314e09d0d72df9509730f57c5fde34e2",
+  "implementationStatus": "not-started",
+  "active_task": "TASK-01",
+  "next_action": "核验当前源码和Git后展开逐动作保全账本",
+  "milestones": {
+    "M0": "planned",
+    "M1": "planned",
+    "M2": "planned",
+    "M3": "planned",
+    "M4": "planned",
+    "M5": "planned"
+  },
+  "note": "本包已生成不等于重构已执行；任何done需实际commit与证据。"
+}
