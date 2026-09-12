@@ -22,6 +22,7 @@ const classroomTypes = read("lib/classroom.ts");
 const attendancePage = read("app/w/[token]/Attendance.tsx");
 const teacherAgenda = read("app/w/[token]/TeacherAgenda.tsx");
 const scheduleHub = read("app/w/[token]/ScheduleHub.tsx");
+const scheduleOperations = read("app/w/[token]/features/schedule/operations.ts");
 const studentProfile = read("app/w/[token]/StudentProfile.tsx");
 const studentProfileOperations = read("app/w/[token]/features/students/profile.ts");
 const scoreTrends = read("app/w/[token]/ScoreTrends.tsx");
@@ -251,7 +252,9 @@ test("course scheduling keeps teacher work in the same module with traceable rec
   assert.match(scheduleHub, /班级课表/);
   assert.match(scheduleHub, /我的日程与留痕/);
   assert.match(teacherAgenda, /完成并留痕/);
-  assert.match(teacherAgenda, /agendaId: item\.id/);
+  assert.match(teacherAgenda, /completeAgendaWithLog/);
+  assert.match(scheduleOperations, /find\(log => log\.agendaId === agenda\.id\)/);
+  assert.match(scheduleOperations, /agendaId: agenda\.id/);
 });
 
 test("dashboard reuses dated teacher agenda instead of maintaining a second todo list", () => {

@@ -4,6 +4,7 @@ import { Fragment, useEffect, useMemo, useState } from "react";
 import type { CSSProperties } from "react";
 import { makeId, scheduleTermLabel } from "@/lib/classroom";
 import type { ClassroomData, DailyFocus, ScheduleConfig, ScheduleEvent, ScheduleWeek } from "@/lib/classroom";
+import { saveClassScheduleWeek, saveScheduleTermConfig } from "./features/schedule/operations";
 import { WorkbenchPageHeader } from "./WorkbenchPageHeader";
 
 const defaultConfig: ScheduleConfig = {
@@ -74,12 +75,12 @@ function normalizeTermConfig(config: ScheduleConfig, fallbackYear: number) {
   return { ...config, termStartMonth: start, termEndMonth: end };
 }
 
-export function CourseSchedule({ data, update }: { data: ClassroomData; update: (fn: (d: ClassroomData) => ClassroomData) => void }) {
+export function CourseSchedule({ data, update, readOnly = false }: { data: ClassroomData; update: (fn: (d: ClassroomData) => ClassroomData) => void; readOnly?: boolean }) {
   const storedWeeks = useMemo(() => data.scheduleWeeks ?? [], [data.scheduleWeeks]);
   const initialConfig = data.scheduleConfig ?? defaultConfig;
-  const initialBaseMonth = initialConfig.termStartMonth || storedWeeks[0]?.month || new Date().toISOString().slice(0, 7);
+  const initialBaseMonth = initialConfig.termStartMonth || storedWeeks[0]?.month || formatDate(new Date()).slice(0, 7);
   const initialYear = Number(initialBaseMonth.slice(0, 4)) || new Date().getFullYear();
-  const initialMonth = clampMonthToTerm(storedWeeks[0]?.month ?? initialBaseMonth, initialConfig, initialYear);
+  const initialMonth = clampMonthToTerm(formatDate(new Date()).slice(0, 7), initialConfig, initialYear);
   const initialStoredWeek = storedWeeks.find((item) => item.month === initialMonth);
   const [selectedMonth, setSelectedMonth] = useState(initialMonth);
   const [calendarYear, setCalendarYear] = useState(Number(initialMonth.slice(0, 4)) || new Date().getFullYear());
@@ -92,6 +93,7 @@ export function CourseSchedule({ data, update }: { data: ClassroomData; update: 
   const [draftCourses, setDraftCourses] = useState<string[][]>([]);
   const [draftEvents, setDraftEvents] = useState<ScheduleEvent[]>([]);
   const [draftFocuses, setDraftFocuses] = useState<DailyFocus[]>([]);
+  const [message, setMessage] = useState("");
   const [newEvent, setNewEvent] = useState<Omit<ScheduleEvent, "id">>({ date: `${selectedMonth}-01`, title: "", type: "班会", detail: "" });
   const [newFocus, setNewFocus] = useState<Omit<DailyFocus, "id">>({ date: `${selectedMonth}-01`, focus: "", todo: "", status: "待处理" });
 
@@ -135,6 +137,8 @@ export function CourseSchedule({ data, update }: { data: ClassroomData; update: 
     return colors;
   }, [viewCourses]);
   const currentTermRange = termRange(calendarConfig, calendarYear);
+  const activeClassId = data.activeClassId ?? data.rosterClasses?.[0]?.id ?? "";
+  const isEditingAny = isEditingTerm || isEditingSchedule || isEditingEvents || isEditingFocuses;
 
   useEffect(() => {
     if (isEditingSchedule || isEditingTerm || isEditingEvents || isEditingFocuses) {
@@ -153,7 +157,7 @@ export function CourseSchedule({ data, update }: { data: ClassroomData; update: 
   }, [selectedKey, isEditingSchedule, isEditingTerm, isEditingEvents, isEditingFocuses, calendarYear, currentWeek?.config, currentWeek?.courses, currentWeek?.events, currentWeek?.focuses, data.scheduleConfig, data.courses, data.scheduleEvents, data.dailyFocus, weekDates.startDate, weekDates.endDate]);
 
   function chooseMonth(month: string) {
-    if (!month) return;
+    if (!month || isEditingAny) return;
     setSelectedMonth(month);
     setSelectedWeek((week) => Math.min(week, getWeeksInMonth(month)));
     setCalendarYear(Number(month.slice(0, 4)) || calendarYear);
@@ -165,7 +169,7 @@ export function CourseSchedule({ data, update }: { data: ClassroomData; update: 
 
   function changeDraftConfig(patch: Partial<ScheduleConfig>) {
     setDraftConfig((current) => {
-      const nextConfig = normalizeTermConfig({ ...current, ...patch }, calendarYear);
+      const nextConfig = { ...current, ...patch };
       if (patch.termStartMonth !== undefined || patch.termEndMonth !== undefined) {
         const nextMonth = clampMonthToTerm(selectedMonth, nextConfig, calendarYear);
         if (nextMonth !== selectedMonth) {
@@ -235,6 +239,7 @@ export function CourseSchedule({ data, update }: { data: ClassroomData; update: 
     setIsEditingSchedule(false);
     setIsEditingEvents(false);
     setIsEditingFocuses(false);
+    setMessage("");
     setIsEditingTerm(true);
   }
 
@@ -245,23 +250,28 @@ export function CourseSchedule({ data, update }: { data: ClassroomData; update: 
   }
 
   function saveTerm() {
-    const nextConfig = normalizeTermConfig(draftConfig, calendarYear);
+    if (readOnly) {
+      setMessage("当前为只读模式，学期配置未保存。");
+      return;
+    }
+    const preview = saveScheduleTermConfig(data, activeClassId, draftConfig);
+    if (preview.error) {
+      setMessage(preview.error);
+      return;
+    }
+    const nextConfig = preview.data!.scheduleConfig ?? draftConfig;
     const targetMonth = clampMonthToTerm(selectedMonth, nextConfig, calendarYear);
     const targetWeek = Math.min(selectedWeek, getWeeksInMonth(targetMonth));
-    const termLabel = scheduleTermLabel(nextConfig);
     update((current) => {
-      const activeClassId = current.activeClassId ?? current.rosterClasses?.[0]?.id;
-      return {
-        ...current,
-        scheduleConfig: nextConfig,
-        rosterClasses: current.rosterClasses?.map((item) => item.id === activeClassId ? { ...item, term: termLabel } : item),
-      };
+      const result = saveScheduleTermConfig(current, activeClassId, draftConfig);
+      return result.data ?? current;
     });
     setDraftConfig(nextConfig);
     setSelectedMonth(targetMonth);
     setCalendarYear(Number(targetMonth.slice(0, 4)) || calendarYear);
     setSelectedWeek(targetWeek);
     setIsEditingTerm(false);
+    setMessage("学期配置已更新，正在同步。");
   }
 
   function startScheduleEdit() {
@@ -273,6 +283,7 @@ export function CourseSchedule({ data, update }: { data: ClassroomData; update: 
     setIsEditingTerm(false);
     setIsEditingEvents(false);
     setIsEditingFocuses(false);
+    setMessage("");
     setIsEditingSchedule(true);
   }
 
@@ -286,46 +297,36 @@ export function CourseSchedule({ data, update }: { data: ClassroomData; update: 
   }
 
   function saveWeek() {
-    const nextConfig = normalizeTermConfig(draftConfig, calendarYear);
-    const targetMonth = clampMonthToTerm(selectedMonth, nextConfig, calendarYear);
-    const targetWeek = Math.min(selectedWeek, getWeeksInMonth(targetMonth));
-    const range = getWeekDates(targetMonth, targetWeek);
-    const targetStoredWeek = storedWeeks.find((item) => item.month === targetMonth && item.weekOfMonth === targetWeek);
-    const week: ScheduleWeek = {
-      id: targetStoredWeek?.id ?? `sw-${targetMonth}-w${targetWeek}`,
-      month: targetMonth,
-      weekOfMonth: targetWeek,
-      label: range.label,
-      startDate: range.startDate,
-      endDate: range.endDate,
-      config: nextConfig,
-      courses: normalizeCourses(draftCourses, nextConfig),
-      events: draftEvents,
-      focuses: draftFocuses,
-    };
+    if (readOnly) {
+      setMessage("当前为只读模式，本周课表未保存。");
+      return;
+    }
+    const input = { month: selectedMonth, weekOfMonth: selectedWeek, config: draftConfig, courses: draftCourses, events: draftEvents, focuses: draftFocuses };
+    const preview = saveClassScheduleWeek(data, activeClassId, input);
+    if (preview.error) {
+      setMessage(preview.error);
+      return;
+    }
+    const week = preview.week;
+    if (!week) return;
     update((current) => {
-      const nextWeeks = [week, ...(current.scheduleWeeks ?? []).filter((item) => !(item.month === targetMonth && item.weekOfMonth === targetWeek))].sort((a, b) => a.startDate.localeCompare(b.startDate));
-      const activeClassId = current.activeClassId ?? current.rosterClasses?.[0]?.id;
-      const termLabel = scheduleTermLabel(nextConfig);
-      return {
-        ...current,
-        scheduleWeeks: nextWeeks,
-        scheduleConfig: nextConfig,
-        courses: week.courses,
-        scheduleEvents: nextWeeks.flatMap((item) => item.events),
-        dailyFocus: nextWeeks.flatMap((item) => item.focuses),
-        rosterClasses: current.rosterClasses?.map((item) => item.id === activeClassId ? { ...item, term: termLabel } : item),
-      };
+      const result = saveClassScheduleWeek(current, activeClassId, input);
+      return result.data ?? current;
     });
-    setDraftConfig(nextConfig);
-    setSelectedMonth(targetMonth);
-    setCalendarYear(Number(targetMonth.slice(0, 4)) || calendarYear);
-    setSelectedWeek(targetWeek);
+    setDraftConfig(week.config);
+    setDraftCourses(week.courses);
+    setDraftEvents(week.events);
+    setDraftFocuses(week.focuses);
     setIsEditingSchedule(false);
+    setMessage("本周课表已更新，正在同步。");
   }
 
   function startEventsEdit() {
     setDraftEvents(storedEvents);
+    setIsEditingTerm(false);
+    setIsEditingSchedule(false);
+    setIsEditingFocuses(false);
+    setMessage("");
     setIsEditingEvents(true);
   }
 
@@ -336,6 +337,10 @@ export function CourseSchedule({ data, update }: { data: ClassroomData; update: 
 
   function startFocusesEdit() {
     setDraftFocuses(storedFocuses);
+    setIsEditingTerm(false);
+    setIsEditingSchedule(false);
+    setIsEditingEvents(false);
+    setMessage("");
     setIsEditingFocuses(true);
   }
 
@@ -345,34 +350,32 @@ export function CourseSchedule({ data, update }: { data: ClassroomData; update: 
   }
 
   function saveWeekSide(patch: Partial<Pick<ScheduleWeek, "events" | "focuses">>) {
+    if (readOnly) {
+      setMessage("当前为只读模式，本周日程未保存。");
+      return false;
+    }
     const baseConfig = currentWeek?.config ?? data.scheduleConfig ?? defaultConfig;
     const courses = normalizeCourses(currentWeek?.courses ?? data.courses ?? [], baseConfig);
-    const week: ScheduleWeek = {
-      id: currentWeek?.id ?? `sw-${selectedMonth}-w${selectedWeek}`,
-      month: selectedMonth,
-      weekOfMonth: selectedWeek,
-      label: weekDates.label,
-      startDate: weekDates.startDate,
-      endDate: weekDates.endDate,
-      config: baseConfig,
-      courses,
-      events: patch.events ?? storedEvents,
-      focuses: patch.focuses ?? storedFocuses,
-    };
+    const input = { month: selectedMonth, weekOfMonth: selectedWeek, config: baseConfig, courses, events: patch.events ?? storedEvents, focuses: patch.focuses ?? storedFocuses };
+    const preview = saveClassScheduleWeek(data, activeClassId, input);
+    if (preview.error) {
+      setMessage(preview.error);
+      return false;
+    }
     update((current) => {
-      const nextWeeks = [week, ...(current.scheduleWeeks ?? []).filter((item) => !(item.month === selectedMonth && item.weekOfMonth === selectedWeek))].sort((a, b) => a.startDate.localeCompare(b.startDate));
-      return { ...current, scheduleWeeks: nextWeeks, scheduleEvents: nextWeeks.flatMap((item) => item.events), dailyFocus: nextWeeks.flatMap((item) => item.focuses) };
+      const result = saveClassScheduleWeek(current, activeClassId, input);
+      return result.data ?? current;
     });
+    setMessage("本周日程已更新，正在同步。");
+    return true;
   }
 
   function saveEvents() {
-    saveWeekSide({ events: draftEvents });
-    setIsEditingEvents(false);
+    if (saveWeekSide({ events: draftEvents })) setIsEditingEvents(false);
   }
 
   function saveFocuses() {
-    saveWeekSide({ focuses: draftFocuses });
-    setIsEditingFocuses(false);
+    if (saveWeekSide({ focuses: draftFocuses })) setIsEditingFocuses(false);
   }
 
   return <div className="courseplan-page homework-bootstrap-preview">
@@ -386,6 +389,8 @@ export function CourseSchedule({ data, update }: { data: ClassroomData; update: 
       </div>}
     />
 
+    {message && <p className="courseplan-message" role="status">{message}</p>}
+
     <section className="courseplan-toolbar workbench-page-context" aria-label="学期与周次">
       <div className="courseplan-term-summary">
         <span>学期档案</span>
@@ -394,7 +399,7 @@ export function CourseSchedule({ data, update }: { data: ClassroomData; update: 
       </div>
       <label className="courseplan-month-select">
         <span>月份</span>
-        <select value={selectedMonth} onChange={(event) => chooseMonth(event.target.value)}>
+        <select value={selectedMonth} disabled={isEditingAny} onChange={(event) => chooseMonth(event.target.value)}>
           {monthOptions.map((month) => <option value={month} key={month}>{month.slice(0, 4)}年{month.slice(5)}月</option>)}
         </select>
       </label>
@@ -417,7 +422,7 @@ export function CourseSchedule({ data, update }: { data: ClassroomData; update: 
     </section>}
 
     <nav className="courseplan-weeks" aria-label="周次切换">
-      {monthWeeks.map((item) => <button className={item.week === selectedWeek ? "active" : ""} key={item.week} onClick={() => setSelectedWeek(item.week)}>
+      {monthWeeks.map((item) => <button className={item.week === selectedWeek ? "active" : ""} disabled={isEditingAny} key={item.week} onClick={() => setSelectedWeek(item.week)}>
         <b>第{item.week}周</b>
         <span>{item.startDate.slice(5)} 至 {item.endDate.slice(5)}</span>
         <em>{item.stored ? "已保存" : "未编辑"}</em>

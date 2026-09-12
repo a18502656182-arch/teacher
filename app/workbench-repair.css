@@ -6566,6 +6566,22 @@ textarea:focus {
   color: var(--campus-ink);
 }
 
+.courseplan-message,
+.agenda-page-message,
+.agenda-form-message {
+  margin: 0;
+  padding: 9px 12px;
+  border: 1px solid var(--campus-line);
+  border-radius: 7px;
+  background: var(--campus-green);
+  color: var(--campus-ink);
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.agenda-form-message { margin: -4px 18px 8px; }
+
 .courseplan-page-head {
   min-width: 0;
   display: grid;
@@ -21276,6 +21292,11 @@ textarea:focus {
 .agenda-editor > header > button:hover { background: var(--campus-blue); color: var(--campus-primary); }
 .agenda-form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; padding: 16px 18px; }
 .agenda-form-grid label { min-width: 0; display: grid; gap: 5px; }
+.agenda-student-field { min-width: 0; display: grid; gap: 5px; }
+.agenda-student-field > span { color: var(--campus-primary); font-size: 12px; font-weight: 750; }
+.agenda-student-chips { display: flex; flex-wrap: wrap; gap: 5px; }
+.agenda-student-chips button { min-height: 27px; padding: 0 7px; border: 1px solid var(--campus-line); border-radius: 99px; background: var(--campus-green); color: var(--campus-ink); font: inherit; font-size: 11px; }
+.agenda-student-chips i { margin-left: 4px; color: var(--campus-error); font-style: normal; }
 .agenda-form-grid label.wide,
 .agenda-form-grid .wide { grid-column: 1 / -1; }
 .agenda-form-grid label span { color: var(--campus-primary); font-size: 12px; font-weight: 750; }

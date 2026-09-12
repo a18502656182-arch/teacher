@@ -4,13 +4,14 @@ import { StudentLookupDialog } from "@/app/components/campus/StudentLookupDialog
 import { useMemo, useState } from "react";
 import { makeId } from "@/lib/classroom";
 import type { ClassroomData, TeacherAgendaItem, TeacherAgendaType, WorkLog } from "@/lib/classroom";
+import { completeAgendaWithLog, localScheduleDate, removeTeacherAgenda, removeWorkLog, saveTeacherAgenda, saveWorkLog, teacherAgendaForClass, workLogsForClass } from "./features/schedule/operations";
 import { WorkbenchPageHeader } from "./WorkbenchPageHeader";
 
 const agendaTypes: TeacherAgendaType[] = ["备课", "会议", "教研", "批改", "辅导", "班级事务", "其他"];
 const agendaStatuses: TeacherAgendaItem["status"][] = ["待处理", "进行中", "已完成", "已取消"];
 
 function dateToday() {
-  return new Date().toISOString().slice(0, 10);
+  return localScheduleDate();
 }
 
 function blankAgenda(date: string): TeacherAgendaItem {
@@ -26,7 +27,18 @@ function timeLabel(item: Pick<TeacherAgendaItem, "startTime" | "endTime">) {
   return item.startTime || item.endTime || "未设时间";
 }
 
-export function TeacherAgenda({ data, update, mobile = false }: { data: ClassroomData; update: (fn: (d: ClassroomData) => ClassroomData) => void; mobile?: boolean }) {
+function requestAgendaConfirm(message: string, title: string, confirmLabel: string) {
+  if (typeof window === "undefined") return Promise.resolve(false);
+  return new Promise<boolean>((resolve) => {
+    window.dispatchEvent(new CustomEvent("classroom:confirm", { detail: { message, title, confirmLabel, onResolve: resolve } }));
+  });
+}
+
+function draftSignature(value: TeacherAgendaItem | WorkLog) {
+  return JSON.stringify(value);
+}
+
+export function TeacherAgenda({ data, update, mobile = false, readOnly = false }: { data: ClassroomData; update: (fn: (d: ClassroomData) => ClassroomData) => void; mobile?: boolean; readOnly?: boolean }) {
   const activeClassId = data.activeClassId ?? data.rosterClasses?.[0]?.id ?? "";
   const [selectedDate, setSelectedDate] = useState(dateToday);
   const [studentPickerOpen, setStudentPickerOpen] = useState(false);
@@ -34,72 +46,132 @@ export function TeacherAgenda({ data, update, mobile = false }: { data: Classroo
   const [agendaDraft, setAgendaDraft] = useState<TeacherAgendaItem>(() => blankAgenda(dateToday()));
   const [logDraft, setLogDraft] = useState<WorkLog>(() => blankLog(dateToday()));
   const [error, setError] = useState("");
-  const agendas = useMemo(() => (data.teacherAgenda ?? []).filter((item) => item.classId === activeClassId), [activeClassId, data.teacherAgenda]);
-  const logs = useMemo(() => (data.workLogs ?? []).filter((item) => item.classId === activeClassId), [activeClassId, data.workLogs]);
+  const [message, setMessage] = useState("");
+  const [editorBaseline, setEditorBaseline] = useState("");
+  const agendas = useMemo(() => teacherAgendaForClass(data, activeClassId), [activeClassId, data]);
+  const logs = useMemo(() => workLogsForClass(data, activeClassId), [activeClassId, data]);
   const dayItems = useMemo(() => agendas.filter((item) => item.date === selectedDate).toSorted((a, b) => `${a.startTime ?? "99:99"}${a.title}`.localeCompare(`${b.startTime ?? "99:99"}${b.title}`, "zh-CN")), [agendas, selectedDate]);
   const dayLogs = useMemo(() => logs.filter((item) => item.date === selectedDate).toSorted((a, b) => b.createdAt - a.createdAt), [logs, selectedDate]);
   const pendingCount = dayItems.filter((item) => item.status === "待处理" || item.status === "进行中").length;
   const completedCount = dayItems.filter((item) => item.status === "已完成").length;
-  const students = data.students ?? [];
+  const students = data.rosterClasses?.find((item) => item.id === activeClassId)?.students ?? data.students ?? [];
 
   function openAgenda(item?: TeacherAgendaItem) {
-    setAgendaDraft(item ? { ...item, relatedStudentIds: [...(item.relatedStudentIds ?? [])] } : blankAgenda(selectedDate));
+    const draft = item ? { ...item, relatedStudentIds: [...(item.relatedStudentIds ?? [])] } : blankAgenda(selectedDate);
+    setAgendaDraft(draft);
+    setEditorBaseline(draftSignature(draft));
     setError("");
+    setMessage("");
     setEditor("agenda");
   }
 
   function openLog(item?: WorkLog) {
-    setLogDraft(item ? { ...item, relatedStudentIds: [...(item.relatedStudentIds ?? [])] } : blankLog(selectedDate));
+    const draft = item ? { ...item, relatedStudentIds: [...(item.relatedStudentIds ?? [])] } : blankLog(selectedDate);
+    setLogDraft(draft);
+    setEditorBaseline(draftSignature(draft));
     setError("");
+    setMessage("");
     setEditor("log");
   }
 
   function saveAgenda() {
-    if (!agendaDraft.title.trim()) {
-      setError("请填写事项标题");
+    if (readOnly) {
+      setError("当前为只读模式，事项未保存。");
       return;
     }
-    const next = { ...agendaDraft, id: agendaDraft.id || makeId("agenda"), classId: activeClassId, title: agendaDraft.title.trim(), detail: agendaDraft.detail?.trim() ?? "", location: agendaDraft.location?.trim() ?? "", createdAt: agendaDraft.createdAt || Date.now() };
-    update((current) => ({ ...current, teacherAgenda: [next, ...(current.teacherAgenda ?? []).filter((item) => item.id !== next.id)] }));
-    setEditor(null);
+    const nowIso = new Date().toISOString();
+    const nextId = agendaDraft.id || makeId("agenda");
+    const preview = saveTeacherAgenda(data, activeClassId, agendaDraft, () => nextId, nowIso);
+    if (preview.error) {
+      setError(preview.error);
+      return;
+    }
+    update((current) => saveTeacherAgenda(current, activeClassId, agendaDraft, () => nextId, nowIso).data ?? current);
+    setAgendaDraft(preview.item!);
+    setEditorBaseline(draftSignature(preview.item!));
+    setError("");
+    setMessage("事项已更新，正在同步。确认无误后可关闭编辑器。");
   }
 
   function saveLog() {
-    if (!logDraft.title.trim()) {
-      setError("请填写工作标题");
+    if (readOnly) {
+      setError("当前为只读模式，工作留痕未保存。");
       return;
     }
-    const next = { ...logDraft, id: logDraft.id || makeId("work-log"), classId: activeClassId, title: logDraft.title.trim(), detail: logDraft.detail?.trim() ?? "", durationMinutes: Math.max(0, Number(logDraft.durationMinutes) || 0), createdAt: logDraft.createdAt || Date.now() };
-    update((current) => ({ ...current, workLogs: [next, ...(current.workLogs ?? []).filter((item) => item.id !== next.id)] }));
-    setEditor(null);
-  }
-
-  function updateStatus(item: TeacherAgendaItem, status: TeacherAgendaItem["status"]) {
-    update((current) => ({ ...current, teacherAgenda: (current.teacherAgenda ?? []).map((entry) => entry.id === item.id ? { ...entry, status, completedAt: status === "已完成" ? new Date().toISOString() : undefined } : entry) }));
+    const nextId = logDraft.id || makeId("work-log");
+    const preview = saveWorkLog(data, activeClassId, logDraft, () => nextId);
+    if (preview.error) {
+      setError(preview.error);
+      return;
+    }
+    update((current) => saveWorkLog(current, activeClassId, logDraft, () => nextId).data ?? current);
+    setLogDraft(preview.item!);
+    setEditorBaseline(draftSignature(preview.item!));
+    setError("");
+    setMessage("工作留痕已更新，正在同步。确认无误后可关闭编辑器。");
   }
 
   function completeAndLog(item: TeacherAgendaItem) {
-    const existingLog = (data.workLogs ?? []).some((log) => log.agendaId === item.id);
-    update((current) => ({
-      ...current,
-      teacherAgenda: (current.teacherAgenda ?? []).map((entry) => entry.id === item.id ? { ...entry, status: "已完成", completedAt: new Date().toISOString() } : entry),
-      workLogs: existingLog ? current.workLogs : [{ id: makeId("work-log"), classId: activeClassId, agendaId: item.id, date: item.date, type: item.type, title: item.title, detail: item.detail ?? "", relatedStudentIds: item.relatedStudentIds ?? [], createdAt: Date.now() }, ...(current.workLogs ?? [])],
-    }));
+    if (readOnly) {
+      setMessage("当前为只读模式，事项状态和工作留痕未更改。");
+      return;
+    }
+    const logId = makeId("work-log");
+    const nowIso = new Date().toISOString();
+    const createdAt = Date.now();
+    const preview = completeAgendaWithLog(data, activeClassId, item.id, () => logId, nowIso, createdAt);
+    if (preview.error) {
+      setMessage(preview.error);
+      return;
+    }
+    update((current) => completeAgendaWithLog(current, activeClassId, item.id, () => logId, nowIso, createdAt).data ?? current);
+    setMessage("事项已完成；对应工作留痕已保留，重复操作不会新增副本。");
   }
 
-  function deleteCurrent() {
-    if (editor === "agenda" && agendaDraft.id) update((current) => ({ ...current, teacherAgenda: (current.teacherAgenda ?? []).filter((item) => item.id !== agendaDraft.id) }));
-    if (editor === "log" && logDraft.id) update((current) => ({ ...current, workLogs: (current.workLogs ?? []).filter((item) => item.id !== logDraft.id) }));
+  async function deleteCurrent() {
+    if (readOnly) {
+      setError("当前为只读模式，记录未删除。");
+      return;
+    }
+    const preview = editor === "agenda" && agendaDraft.id
+      ? removeTeacherAgenda(data, activeClassId, agendaDraft.id)
+      : editor === "log" && logDraft.id
+        ? removeWorkLog(data, activeClassId, logDraft.id)
+        : { error: "当前记录不存在。" };
+    if (preview.error) {
+      setError(preview.error);
+      return;
+    }
+    if (!await requestAgendaConfirm(editor === "agenda" ? "确认删除这条个人日程？" : "确认删除这条工作留痕？", "确认删除", "确认删除")) return;
+    if (editor === "agenda") update((current) => removeTeacherAgenda(current, activeClassId, agendaDraft.id).data ?? current);
+    if (editor === "log") update((current) => removeWorkLog(current, activeClassId, logDraft.id).data ?? current);
+    setEditor(null);
+    setMessage("记录已删除，正在同步。");
+  }
+
+  async function closeEditor() {
+    if (!editor) return;
+    const currentSignature = draftSignature(editor === "agenda" ? agendaDraft : logDraft);
+    if (currentSignature !== editorBaseline && !await requestAgendaConfirm("当前编辑内容尚未保存，确认关闭并放弃这些修改？", "放弃未保存修改", "放弃修改")) return;
+    setStudentPickerOpen(false);
     setEditor(null);
   }
 
   const selectedStudentId = editor === "agenda" ? agendaDraft.relatedStudentIds?.[0] ?? "" : logDraft.relatedStudentIds?.[0] ?? "";
   function setSelectedStudent(studentId: string) {
-    if (editor === "agenda") setAgendaDraft((current) => ({ ...current, relatedStudentIds: studentId ? [studentId] : [] }));
-    if (editor === "log") setLogDraft((current) => ({ ...current, relatedStudentIds: studentId ? [studentId] : [] }));
+    if (editor === "agenda") setAgendaDraft((current) => ({ ...current, relatedStudentIds: studentId ? [...new Set([...(current.relatedStudentIds ?? []), studentId])] : [] }));
+    if (editor === "log") setLogDraft((current) => ({ ...current, relatedStudentIds: studentId ? [...new Set([...(current.relatedStudentIds ?? []), studentId])] : [] }));
   }
+  function removeSelectedStudent(studentId: string) {
+    if (editor === "agenda") setAgendaDraft((current) => ({ ...current, relatedStudentIds: (current.relatedStudentIds ?? []).filter((id) => id !== studentId) }));
+    if (editor === "log") setLogDraft((current) => ({ ...current, relatedStudentIds: (current.relatedStudentIds ?? []).filter((id) => id !== studentId) }));
+  }
+  const selectedStudents = students.filter((student) => (editor === "agenda" ? agendaDraft.relatedStudentIds : logDraft.relatedStudentIds)?.includes(student.id));
+  const selectedStudentNames = selectedStudents.map((student) => student.name);
+  const studentSelectionLabel = selectedStudentNames.length ? selectedStudentNames.length === 1 ? selectedStudentNames[0] : `${selectedStudentNames[0]}等 ${selectedStudentNames.length} 人` : "不关联学生";
 
   const panel = <>
+    {message && <p className="agenda-page-message" role="status">{message}</p>}
     <section className="agenda-datebar workbench-page-context" aria-label="选择工作日期">
       <label><span>查看日期</span><input type="date" value={selectedDate} onChange={(event) => setSelectedDate(event.target.value)} /></label>
       <button type="button" onClick={() => setSelectedDate(dateToday())}>回到今天</button>
@@ -134,15 +206,15 @@ export function TeacherAgenda({ data, update, mobile = false }: { data: Classroo
     </section>
   </>;
 
-  const editorBody = editor && <div className="agenda-editor-backdrop" role="presentation" onMouseDown={(event) => { if (event.currentTarget === event.target) setEditor(null); }}><section className="agenda-editor" role="dialog" aria-modal="true" aria-labelledby="agenda-editor-title">
-    <header><div><span>{editor === "agenda" ? "个人日程" : "工作留痕"}</span><h2 id="agenda-editor-title">{editor === "agenda" ? agendaDraft.id ? "编辑事项" : "新增事项" : logDraft.id ? "编辑记录" : "补记工作"}</h2></div><button type="button" onClick={() => setEditor(null)} aria-label="关闭">×</button></header>
+  const editorBody = editor && <div className="agenda-editor-backdrop" role="presentation" onMouseDown={(event) => { if (event.currentTarget === event.target) void closeEditor(); }}><section className="agenda-editor" role="dialog" aria-modal="true" aria-labelledby="agenda-editor-title">
+    <header><div><span>{editor === "agenda" ? "个人日程" : "工作留痕"}</span><h2 id="agenda-editor-title">{editor === "agenda" ? agendaDraft.id ? "编辑事项" : "新增事项" : logDraft.id ? "编辑记录" : "补记工作"}</h2></div><button type="button" onClick={() => void closeEditor()} aria-label="关闭">×</button></header>
     {editor === "agenda" ? <div className="agenda-form-grid">
       <label><span>日期</span><input type="date" value={agendaDraft.date} onChange={(event) => setAgendaDraft({ ...agendaDraft, date: event.target.value })} /></label>
       <label><span>类型</span><select value={agendaDraft.type} onChange={(event) => setAgendaDraft({ ...agendaDraft, type: event.target.value as TeacherAgendaType })}>{agendaTypes.map((type) => <option value={type} key={type}>{type}</option>)}</select></label>
       <label><span>开始时间</span><input type="time" value={agendaDraft.startTime ?? ""} onChange={(event) => setAgendaDraft({ ...agendaDraft, startTime: event.target.value })} /></label>
       <label><span>结束时间</span><input type="time" value={agendaDraft.endTime ?? ""} onChange={(event) => setAgendaDraft({ ...agendaDraft, endTime: event.target.value })} /></label>
       <label className="wide"><span>事项标题</span><input autoFocus value={agendaDraft.title} onChange={(event) => setAgendaDraft({ ...agendaDraft, title: event.target.value })} placeholder="例如：复查数学订正" /></label>
-      <label><span>关联学生（可选）</span><button type="button" className="campus-button" onClick={() => setStudentPickerOpen(true)}>{students.find((student) => student.id === selectedStudentId)?.name ?? "不关联学生"}</button></label>
+      <div className="agenda-student-field"><span>关联学生（可多选）</span><button type="button" className="campus-button" onClick={() => setStudentPickerOpen(true)}>{studentSelectionLabel}</button>{selectedStudents.length > 0 && <div className="agenda-student-chips">{selectedStudents.map((student) => <button type="button" key={student.id} onClick={() => removeSelectedStudent(student.id)} aria-label={`移除关联学生 ${student.name}`}>{student.name}<i aria-hidden="true">×</i></button>)}</div>}</div>
       <label><span>地点/渠道</span><input value={agendaDraft.location ?? ""} onChange={(event) => setAgendaDraft({ ...agendaDraft, location: event.target.value })} placeholder="教室、办公室、电话等" /></label>
       <label className="wide"><span>说明与准备</span><textarea value={agendaDraft.detail ?? ""} onChange={(event) => setAgendaDraft({ ...agendaDraft, detail: event.target.value })} placeholder="记录需要完成什么、需要带什么或后续动作" /></label>
       <div className="agenda-status-options wide" aria-label="事项状态">{agendaStatuses.map((status) => <button type="button" className={agendaDraft.status === status ? "active" : ""} key={status} onClick={() => setAgendaDraft({ ...agendaDraft, status })}>{status}</button>)}</div>
@@ -150,12 +222,13 @@ export function TeacherAgenda({ data, update, mobile = false }: { data: Classroo
       <label><span>日期</span><input type="date" value={logDraft.date} onChange={(event) => setLogDraft({ ...logDraft, date: event.target.value })} /></label>
       <label><span>类型</span><select value={logDraft.type} onChange={(event) => setLogDraft({ ...logDraft, type: event.target.value as TeacherAgendaType })}>{agendaTypes.map((type) => <option value={type} key={type}>{type}</option>)}</select></label>
       <label className="wide"><span>工作标题</span><input autoFocus value={logDraft.title} onChange={(event) => setLogDraft({ ...logDraft, title: event.target.value })} placeholder="例如：完成本周班会材料" /></label>
-      <label><span>关联学生（可选）</span><button type="button" className="campus-button" onClick={() => setStudentPickerOpen(true)}>{students.find((student) => student.id === selectedStudentId)?.name ?? "不关联学生"}</button></label>
+      <div className="agenda-student-field"><span>关联学生（可多选）</span><button type="button" className="campus-button" onClick={() => setStudentPickerOpen(true)}>{studentSelectionLabel}</button>{selectedStudents.length > 0 && <div className="agenda-student-chips">{selectedStudents.map((student) => <button type="button" key={student.id} onClick={() => removeSelectedStudent(student.id)} aria-label={`移除关联学生 ${student.name}`}>{student.name}<i aria-hidden="true">×</i></button>)}</div>}</div>
       <label><span>耗时（分钟）</span><input type="number" min="0" value={logDraft.durationMinutes ?? 0} onChange={(event) => setLogDraft({ ...logDraft, durationMinutes: Number(event.target.value) || 0 })} /></label>
       <label className="wide"><span>工作说明</span><textarea value={logDraft.detail ?? ""} onChange={(event) => setLogDraft({ ...logDraft, detail: event.target.value })} placeholder="记录已完成的工作、结果或后续动作" /></label>
     </div>}
+    {message && <p className="agenda-form-message" role="status">{message}</p>}
     {error && <p className="agenda-form-error" role="alert">{error}</p>}
-    <footer>{(editor === "agenda" ? agendaDraft.id : logDraft.id) && <button className="agenda-delete" type="button" onClick={deleteCurrent}>删除</button>}<span /><button type="button" onClick={() => setEditor(null)}>取消</button><button className="agenda-primary" type="button" onClick={editor === "agenda" ? saveAgenda : saveLog}>保存</button></footer>
+    <footer>{(editor === "agenda" ? agendaDraft.id : logDraft.id) && <button className="agenda-delete" type="button" onClick={() => void deleteCurrent()}>删除</button>}<span /><button type="button" onClick={() => void closeEditor()}>关闭</button><button className="agenda-primary" type="button" onClick={editor === "agenda" ? saveAgenda : saveLog}>保存</button></footer>
   </section></div>;
 
   return <div className={`teacher-agenda ${mobile ? "teacher-agenda-mobile" : ""}`}>

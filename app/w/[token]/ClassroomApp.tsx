@@ -14,6 +14,7 @@ import { addGrowthEvidence, growthEvidenceForStudent } from './features/growth/o
 import { communicationRecordsForClass, localCommunicationDate, patchCommunicationStatus, recordBelongsToClass, recordBelongsToStudent, removeCommunicationRecord, saveCommunicationRecord } from './features/records/operations';
 import { examReflectionsForClass, saveExamReflection } from './features/reflections/operations';
 import { appendTermCommentText, buildLocalTermCommentDraft, saveTermComment, termCommentsForClass } from './features/comments/operations';
+import { saveClassScheduleWeek, saveScheduleTermConfig } from './features/schedule/operations';
 import { isDatedWithin, saveWeeklyReport, weeklyActivityRows, weeklyFollowRows, weeklyHomeworkMetrics, weeklyPointEventsForClass, weeklyPositiveRows, weeklyReportsForClass } from './features/weekly/operations';
 import { applyPointEvents, pointEventsForClass, undoPointEvent as undoPointEventInClass } from './features/points/operations';
 import { defaultPointRules } from './features/rules/catalog';
@@ -729,7 +730,7 @@ export default function ClassroomApp({ token }: { token: string }) {
           {active === "growth" && <Growth data={workspace.data} update={updateData} />}
           {active === "health" && <HealthCare data={workspace.data} update={updateData} />}
           {active === "weekly" && <Weekly data={workspace.data} update={updateData} readOnly={isDemo || isReadOnly} />}
-          {active === "schedule" && <ScheduleHub data={workspace.data} update={updateData} />}
+          {active === "schedule" && <ScheduleHub data={workspace.data} update={updateData} readOnly={isDemo || isReadOnly} />}
           {active === "tools" && <ClassroomTools data={workspace.data} update={updateData} />}
           {active === "seating" && <Seating data={workspace.data} update={updateData} />}
           {active === "duty" && <Duty data={workspace.data} update={updateData} />}
@@ -1753,7 +1754,12 @@ function MobileSecondaryPage({ workspaceToken, active, data, activeClass, update
   const [scheduleDraft, setScheduleDraft] = useState<ScheduleEvent>({ id: "", date: today(), title: "", type: "班会", detail: "" });
   const [scheduleKeyword, setScheduleKeyword] = useState("");
   const [scheduleTypeFilter, setScheduleTypeFilter] = useState<ScheduleEvent["type"] | "全部">("全部");
-  const [scheduleMonth, setScheduleMonth] = useState((data.scheduleConfig?.termStartMonth || data.scheduleWeeks?.[0]?.month || today().slice(0, 7)));
+  const [scheduleMonth, setScheduleMonth] = useState(() => {
+    const config = data.scheduleConfig ?? defaultScheduleConfig();
+    const months = scheduleTermMonths(config);
+    const currentMonth = today().slice(0, 7);
+    return months.includes(currentMonth) ? currentMonth : months.includes(data.scheduleWeeks?.[0]?.month ?? "") ? data.scheduleWeeks![0].month : months[0] ?? currentMonth;
+  });
   const [scheduleWeekNo, setScheduleWeekNo] = useState(1);
   const [scheduleDayIndex, setScheduleDayIndex] = useState(Math.max(0, Math.min(4, new Date().getDay() - 1)));
   const [scheduleConfigOpen, setScheduleConfigOpen] = useState(false);
@@ -1762,6 +1768,8 @@ function MobileSecondaryPage({ workspaceToken, active, data, activeClass, update
   const [focusDraft, setFocusDraft] = useState<DailyFocus>({ id: "", date: today(), focus: "", todo: "", status: "待处理" });
   const [courseEditorOpen, setCourseEditorOpen] = useState(false);
   const [courseDraft, setCourseDraft] = useState({ dayIndex: 0, courses: [] as string[] });
+  const [scheduleEditorMessage, setScheduleEditorMessage] = useState("");
+  const scheduleDraftBaselines = useRef<Record<"event" | "focus" | "course" | "config", string>>({ event: "", focus: "", course: "", config: "" });
   const [seatingEditorOpen, setSeatingEditorOpen] = useState(false);
   const initialSeatingConfig = sanitizeSeatingConfig(data.seatingConfig, activeClass.students?.length || data.students.length);
   const [seatingDraft, setSeatingDraft] = useState({ rows: String(initialSeatingConfig.rows), columns: String(initialSeatingConfig.columns), groupCount: String(initialSeatingConfig.groupCount), aisleAfter: initialSeatingConfig.aisleAfter.join("，") });
@@ -2090,8 +2098,11 @@ function MobileSecondaryPage({ workspaceToken, active, data, activeClass, update
   }
   function openScheduleEditor(event?: ScheduleEvent) {
     setDetail(null);
-    const range = getScheduleWeekDates(scheduleMonth, scheduleWeekNo);
-    setScheduleDraft(event ? { ...event } : { id: "", date: range.startDate, title: "", type: "班会", detail: "" });
+    const range = getMobileScheduleContext().weekDates;
+    const draft = event ? { ...event } : { id: "", date: range.startDate, title: "", type: "班会" as const, detail: "" };
+    setScheduleDraft(draft);
+    scheduleDraftBaselines.current.event = JSON.stringify(draft);
+    setScheduleEditorMessage("");
     setScheduleEditorOpen(true);
   }
   function getMobileScheduleContext(source: ClassroomData = data) {
@@ -2110,111 +2121,162 @@ function MobileSecondaryPage({ workspaceToken, active, data, activeClass, update
   function saveMobileScheduleWeek(patch: Partial<Pick<ScheduleWeek, "config" | "courses" | "events" | "focuses">>, source: ClassroomData) {
     const context = getMobileScheduleContext(source);
     const config = patch.config ?? context.config;
-    const courses = normalizeMobileCourses(patch.courses ?? context.courses, config);
-    const week: ScheduleWeek = {
-      id: context.storedWeek?.id ?? `sw-${context.activeMonth}-w${context.safeWeek}`,
+    return saveClassScheduleWeek(source, activeClass.id, {
       month: context.activeMonth,
       weekOfMonth: context.safeWeek,
-      label: context.weekDates.label,
-      startDate: context.weekDates.startDate,
-      endDate: context.weekDates.endDate,
       config,
-      courses,
+      courses: normalizeMobileCourses(patch.courses ?? context.courses, config),
       events: patch.events ?? context.weekEvents,
       focuses: patch.focuses ?? context.weekFocuses,
-    };
-    const nextWeeks = [week, ...(source.scheduleWeeks ?? []).filter((item) => !(item.month === context.activeMonth && item.weekOfMonth === context.safeWeek))].sort((a, b) => a.startDate.localeCompare(b.startDate));
-    const termLabel = scheduleTermLabel(config, activeClass.term || "当前学期");
-    return {
-      ...source,
-      scheduleWeeks: nextWeeks,
-      scheduleConfig: config,
-      courses: week.courses,
-      scheduleEvents: nextWeeks.flatMap((item) => item.events),
-      dailyFocus: nextWeeks.flatMap((item) => item.focuses),
-      rosterClasses: source.rosterClasses?.map((rosterClass) => rosterClass.id === activeClass.id ? { ...rosterClass, term: termLabel } : rosterClass),
-    };
+    });
   }
   function saveScheduleEventMobile() {
-    if (!scheduleDraft.title.trim()) {
-      notify("请填写日程标题", "error");
+    if (readOnly) {
+      setScheduleEditorMessage("当前为只读模式，日程未保存。");
       return;
     }
     const next: ScheduleEvent = { ...scheduleDraft, id: scheduleDraft.id || makeId(), title: scheduleDraft.title.trim(), detail: scheduleDraft.detail.trim() };
+    const context = getMobileScheduleContext(data);
+    const events = context.weekEvents.some((item) => item.id === next.id) ? context.weekEvents.map((item) => item.id === next.id ? next : item) : [next, ...context.weekEvents];
+    const preview = saveMobileScheduleWeek({ events }, data);
+    if (preview.error) {
+      setScheduleEditorMessage(preview.error);
+      return;
+    }
     update((current) => {
-      const context = getMobileScheduleContext(current);
-      const events = context.weekEvents.some((item) => item.id === next.id) ? context.weekEvents.map((item) => item.id === next.id ? next : item) : [next, ...context.weekEvents];
-      return saveMobileScheduleWeek({ events }, current);
+      const currentContext = getMobileScheduleContext(current);
+      const currentEvents = currentContext.weekEvents.some((item) => item.id === next.id) ? currentContext.weekEvents.map((item) => item.id === next.id ? next : item) : [next, ...currentContext.weekEvents];
+      return saveMobileScheduleWeek({ events: currentEvents }, current).data ?? current;
     });
-    setScheduleEditorOpen(false);
-    notify("日程事件已保存", "success");
+    setScheduleDraft(preview.week!.events.find((item) => item.id === next.id) ?? next);
+    scheduleDraftBaselines.current.event = JSON.stringify(preview.week!.events.find((item) => item.id === next.id) ?? next);
+    setScheduleEditorMessage("日程已更新，正在同步。确认无误后可关闭。");
   }
   async function deleteScheduleEventMobile(eventId: string) {
+    if (readOnly) {
+      notify("当前为只读模式，日程未删除", "error");
+      return;
+    }
     if (!await requestDangerConfirm("确认删除这条日程事件？")) return;
+    const context = getMobileScheduleContext(data);
+    const preview = saveMobileScheduleWeek({ events: context.weekEvents.filter((event) => event.id !== eventId) }, data);
+    if (preview.error) {
+      notify(preview.error, "error");
+      return;
+    }
     update((current) => {
-      const context = getMobileScheduleContext(current);
-      return saveMobileScheduleWeek({ events: context.weekEvents.filter((event) => event.id !== eventId) }, current);
+      const currentContext = getMobileScheduleContext(current);
+      return saveMobileScheduleWeek({ events: currentContext.weekEvents.filter((event) => event.id !== eventId) }, current).data ?? current;
     });
     setDetail(null);
     notify("日程事件已删除", "success");
   }
   function openFocusEditor(item?: DailyFocus) {
     setDetail(null);
-    const range = getScheduleWeekDates(scheduleMonth, scheduleWeekNo);
-    setFocusDraft(item ? { ...item } : { id: "", date: range.startDate, focus: "", todo: "", status: "待处理" });
+    const range = getMobileScheduleContext().weekDates;
+    const draft = item ? { ...item } : { id: "", date: range.startDate, focus: "", todo: "", status: "待处理" as const };
+    setFocusDraft(draft);
+    scheduleDraftBaselines.current.focus = JSON.stringify(draft);
+    setScheduleEditorMessage("");
     setFocusEditorOpen(true);
   }
   function saveFocusMobile() {
-    if (!focusDraft.focus.trim() && !focusDraft.todo.trim()) {
-      notify("请填写重点主题或待办事项", "error");
+    if (readOnly) {
+      setScheduleEditorMessage("当前为只读模式，每日重点未保存。");
       return;
     }
     const next: DailyFocus = { ...focusDraft, id: focusDraft.id || makeId(), focus: focusDraft.focus.trim() || "本周重点", todo: focusDraft.todo.trim() };
+    const context = getMobileScheduleContext(data);
+    const focuses = context.weekFocuses.some((item) => item.id === next.id) ? context.weekFocuses.map((item) => item.id === next.id ? next : item) : [next, ...context.weekFocuses];
+    const preview = saveMobileScheduleWeek({ focuses }, data);
+    if (preview.error) {
+      setScheduleEditorMessage(preview.error);
+      return;
+    }
     update((current) => {
-      const context = getMobileScheduleContext(current);
-      const focuses = context.weekFocuses.some((item) => item.id === next.id) ? context.weekFocuses.map((item) => item.id === next.id ? next : item) : [next, ...context.weekFocuses];
-      return saveMobileScheduleWeek({ focuses }, current);
+      const currentContext = getMobileScheduleContext(current);
+      const currentFocuses = currentContext.weekFocuses.some((item) => item.id === next.id) ? currentContext.weekFocuses.map((item) => item.id === next.id ? next : item) : [next, ...currentContext.weekFocuses];
+      return saveMobileScheduleWeek({ focuses: currentFocuses }, current).data ?? current;
     });
-    setFocusEditorOpen(false);
-    notify("每日重点已保存", "success");
+    setFocusDraft(preview.week!.focuses.find((item) => item.id === next.id) ?? next);
+    scheduleDraftBaselines.current.focus = JSON.stringify(preview.week!.focuses.find((item) => item.id === next.id) ?? next);
+    setScheduleEditorMessage("每日重点已更新，正在同步。确认无误后可关闭。");
   }
   async function deleteFocusMobile(focusId: string) {
+    if (readOnly) {
+      notify("当前为只读模式，每日重点未删除", "error");
+      return;
+    }
     if (!await requestDangerConfirm("确认删除这条每日重点？")) return;
+    const context = getMobileScheduleContext(data);
+    const preview = saveMobileScheduleWeek({ focuses: context.weekFocuses.filter((item) => item.id !== focusId) }, data);
+    if (preview.error) {
+      notify(preview.error, "error");
+      return;
+    }
     update((current) => {
-      const context = getMobileScheduleContext(current);
-      return saveMobileScheduleWeek({ focuses: context.weekFocuses.filter((item) => item.id !== focusId) }, current);
+      const currentContext = getMobileScheduleContext(current);
+      return saveMobileScheduleWeek({ focuses: currentContext.weekFocuses.filter((item) => item.id !== focusId) }, current).data ?? current;
     });
     setDetail(null);
     notify("每日重点已删除", "success");
   }
   function openCourseEditor(dayIndex: number, courses: string[]) {
-    setCourseDraft({ dayIndex, courses });
+    const draft = { dayIndex, courses };
+    setCourseDraft(draft);
+    scheduleDraftBaselines.current.course = JSON.stringify(draft);
+    setScheduleEditorMessage("");
     setCourseEditorOpen(true);
   }
   function saveCourseDayMobile() {
-    update((current) => {
-      const context = getMobileScheduleContext(current);
-      const courses = context.courses.map((row, index) => index === courseDraft.dayIndex ? courseDraft.courses.map((item) => item.trim()) : row);
-      return saveMobileScheduleWeek({ courses }, current);
-    });
-    setCourseEditorOpen(false);
-    notify("课程已保存", "success");
-  }
-  function saveScheduleConfigMobile() {
-    const nextConfig: ScheduleConfig = {
-      ...scheduleConfigDraft,
-      schoolYear: scheduleConfigDraft.schoolYear.trim() || "自定义学年/学段",
-      term: scheduleConfigDraft.term.trim() || "自定义学期",
-      days: scheduleConfigDraft.days.map((item) => item.trim()).filter(Boolean),
-      periods: scheduleConfigDraft.periods.map((item) => ({ label: item.label.trim(), time: item.time?.trim() })).filter((item) => item.label),
-    };
-    if (!nextConfig.days.length || !nextConfig.periods.length) {
-      notify("至少保留一个上课日和一个节次", "error");
+    if (readOnly) {
+      setScheduleEditorMessage("当前为只读模式，课程未保存。");
       return;
     }
-    update((current) => saveMobileScheduleWeek({ config: nextConfig, courses: normalizeMobileCourses(getMobileScheduleContext(current).courses, nextConfig) }, current));
-    setScheduleConfigOpen(false);
-    notify("学期与节次已保存", "success");
+    const context = getMobileScheduleContext(data);
+    const courses = context.courses.map((row, index) => index === courseDraft.dayIndex ? courseDraft.courses.map((item) => item.trim()) : row);
+    const preview = saveMobileScheduleWeek({ courses }, data);
+    if (preview.error) {
+      setScheduleEditorMessage(preview.error);
+      return;
+    }
+    update((current) => {
+      const currentContext = getMobileScheduleContext(current);
+      const currentCourses = currentContext.courses.map((row, index) => index === courseDraft.dayIndex ? courseDraft.courses.map((item) => item.trim()) : row);
+      return saveMobileScheduleWeek({ courses: currentCourses }, current).data ?? current;
+    });
+    const savedDraft = { dayIndex: courseDraft.dayIndex, courses: preview.week!.courses[courseDraft.dayIndex] ?? [] };
+    setCourseDraft(savedDraft);
+    scheduleDraftBaselines.current.course = JSON.stringify(savedDraft);
+    setScheduleEditorMessage("当天课程已更新，正在同步。确认无误后可关闭。");
+  }
+  function saveScheduleConfigMobile() {
+    if (readOnly) {
+      setScheduleEditorMessage("当前为只读模式，学期配置未保存。");
+      return;
+    }
+    const preview = saveScheduleTermConfig(data, activeClass.id, scheduleConfigDraft);
+    if (preview.error) {
+      setScheduleEditorMessage(preview.error);
+      return;
+    }
+    const nextConfig = preview.data!.scheduleConfig ?? scheduleConfigDraft;
+    update((current) => saveScheduleTermConfig(current, activeClass.id, scheduleConfigDraft).data ?? current);
+    const monthOptions = scheduleTermMonths(nextConfig);
+    const nextMonth = monthOptions.includes(scheduleMonth) ? scheduleMonth : monthOptions[0] ?? scheduleMonth;
+    setScheduleConfigDraft(nextConfig);
+    scheduleDraftBaselines.current.config = JSON.stringify(nextConfig);
+    setScheduleMonth(nextMonth);
+    setScheduleWeekNo((week) => Math.min(week, getScheduleWeeksInMonth(nextMonth)));
+    setScheduleEditorMessage("学期配置已更新，正在同步。确认无误后可关闭。");
+  }
+  async function closeMobileScheduleEditor(kind: "event" | "focus" | "course" | "config") {
+    const draft = kind === "event" ? scheduleDraft : kind === "focus" ? focusDraft : kind === "course" ? courseDraft : scheduleConfigDraft;
+    if (JSON.stringify(draft) !== scheduleDraftBaselines.current[kind] && !await requestDangerConfirm("当前内容尚未保存，确认关闭并放弃这些修改？", "放弃未保存修改", "放弃修改")) return;
+    if (kind === "event") setScheduleEditorOpen(false);
+    if (kind === "focus") setFocusEditorOpen(false);
+    if (kind === "course") setCourseEditorOpen(false);
+    if (kind === "config") setScheduleConfigOpen(false);
   }
   function openSeatingConfigMobile(config?: SeatingConfig) {
     const safeConfig = sanitizeSeatingConfig(config ?? data.seatingConfig, students.length);
@@ -3351,7 +3413,7 @@ function MobileSecondaryPage({ workspaceToken, active, data, activeClass, update
   if (active === "tools") return <div className="mobile-stack"><ClassroomTools data={data} update={update} /></div>;
 
   if (active === "schedule") {
-    if (scheduleSurface === "我的日程") return <div className="mobile-stack mobile-schedule-page"><nav className="schedule-hub-switch mobile-schedule-hub-switch" aria-label="课程日程视图"><button type="button" onClick={() => setScheduleSurface("班级课表")}>班级课表</button><button className="active" type="button">我的日程与留痕</button></nav><TeacherAgenda data={data} update={update} mobile /></div>;
+    if (scheduleSurface === "我的日程") return <div className="mobile-stack mobile-schedule-page"><nav className="schedule-hub-switch mobile-schedule-hub-switch" aria-label="课程日程视图"><button type="button" onClick={() => setScheduleSurface("班级课表")}>班级课表</button><button className="active" type="button">我的日程与留痕</button></nav><TeacherAgenda data={data} update={update} mobile readOnly={readOnly} /></div>;
     const scheduleContext = getMobileScheduleContext();
     const monthWeeks = Array.from({ length: getScheduleWeeksInMonth(scheduleContext.activeMonth) }, (_, index) => {
       const week = index + 1;
@@ -3382,7 +3444,7 @@ function MobileSecondaryPage({ workspaceToken, active, data, activeClass, update
     };
     return <div className="mobile-stack mobile-schedule-page">
       <nav className="schedule-hub-switch mobile-schedule-hub-switch" aria-label="课程日程视图"><button className="active" type="button">班级课表</button><button type="button" onClick={() => setScheduleSurface("我的日程")}>我的日程与留痕</button></nav>
-      <MobileSectionHero title={title} text={`${scheduleContext.weekDates.label} · ${scheduleContext.weekDates.startDate} 至 ${scheduleContext.weekDates.endDate}`} action="配置" onAction={() => { setScheduleConfigDraft(scheduleContext.config); setScheduleConfigOpen(true); }} />
+      <MobileSectionHero title={title} text={`${scheduleContext.weekDates.label} · ${scheduleContext.weekDates.startDate} 至 ${scheduleContext.weekDates.endDate}`} action="配置" onAction={() => { setScheduleConfigDraft(scheduleContext.config); scheduleDraftBaselines.current.config = JSON.stringify(scheduleContext.config); setScheduleEditorMessage(""); setScheduleConfigOpen(true); }} />
       <section className="mobile-schedule-period-switch" aria-label="切换月份与周次">
         <div className="mobile-schedule-pickers">
           <label className="mobile-select-field"><span>月份</span><select value={scheduleContext.activeMonth} onChange={(event) => { setScheduleMonth(event.target.value); setScheduleWeekNo(1); }}>{scheduleContext.monthOptions.map((month) => <option key={month} value={month}>{month.slice(0, 4)}年{month.slice(5)}月</option>)}</select></label>
@@ -3406,31 +3468,34 @@ function MobileSecondaryPage({ workspaceToken, active, data, activeClass, update
       <section className="mobile-card-list"><header><h2>班级活动</h2><button type="button" onClick={() => openScheduleEditor()}>新增</button></header>{scheduleEvents.slice(0, 12).map((event) => <button type="button" key={event.id} onClick={() => setDetail({ title: event.title, children: <><div className="mobile-detail-grid"><span><small>日期</small><b>{event.date}</b></span><span><small>类型</small><b>{event.type}</b></span></div><div className="mobile-sheet-section"><h3>说明</h3><p>{event.detail || "暂无说明"}</p></div><div className="mobile-sheet-actions"><button type="button" onClick={() => openScheduleEditor(event)}>编辑日程</button><button type="button" onClick={() => deleteScheduleEventMobile(event.id)}>删除日程</button></div></> })}><b>{event.date} · {event.title}</b><span>{event.type} · {event.detail || "暂无说明"}</span></button>)}{!scheduleEvents.length && <article><b>暂无日程事件</b><span>可以调整筛选或新增班会、考试和活动。</span></article>}</section>
       <section className="mobile-card-list"><header><h2>每日重点</h2><button type="button" onClick={() => openFocusEditor()}>新增</button></header>{filteredFocuses.slice(0, 12).map((item) => <button type="button" key={item.id} onClick={() => setDetail({ title: item.focus, children: <><div className="mobile-detail-grid"><span><small>日期</small><b>{item.date}</b></span><span><small>状态</small><b>{item.status}</b></span></div><div className="mobile-sheet-section"><h3>待办事项</h3><p>{item.todo || "暂无事项"}</p></div><div className="mobile-sheet-actions"><button type="button" onClick={() => openFocusEditor(item)}>编辑重点</button><button type="button" onClick={() => deleteFocusMobile(item.id)}>删除重点</button></div></> })}><b>{item.date} · {item.focus}</b><span>{item.status} · {item.todo || "暂无事项"}</span></button>)}{!filteredFocuses.length && <article><b>暂无每日重点</b><span>可以新增晨会、作业闭环、家校沟通等重点事项。</span></article>}</section>
       {detail && <MobileInfoSheet title={detail.title} onClose={() => setDetail(null)}>{detail.children}</MobileInfoSheet>}
-      {scheduleEditorOpen && <MobileInfoSheet title={scheduleDraft.id ? "编辑日程" : "新增日程"} onClose={() => setScheduleEditorOpen(false)}>
+      {scheduleEditorOpen && <MobileInfoSheet title={scheduleDraft.id ? "编辑日程" : "新增日程"} onClose={() => void closeMobileScheduleEditor("event")}>
         <div className="mobile-form-grid">
-          <label><span>日期</span><input value={scheduleDraft.date} onChange={(event) => setScheduleDraft({ ...scheduleDraft, date: event.target.value })} /></label>
+          <label><span>日期</span><input type="date" value={scheduleDraft.date} onChange={(event) => setScheduleDraft({ ...scheduleDraft, date: event.target.value })} /></label>
           <label><span>类型</span><select value={scheduleDraft.type} onChange={(event) => setScheduleDraft({ ...scheduleDraft, type: event.target.value as ScheduleEvent["type"] })}><option>班会</option><option>活动</option><option>考试</option><option>放假</option><option>家校</option><option>其他</option></select></label>
           <label className="wide"><span>标题</span><input value={scheduleDraft.title} onChange={(event) => setScheduleDraft({ ...scheduleDraft, title: event.target.value })} /></label>
           <label className="wide"><span>说明</span><textarea value={scheduleDraft.detail} onChange={(event) => setScheduleDraft({ ...scheduleDraft, detail: event.target.value })} /></label>
         </div>
-        <div className="mobile-sheet-actions"><button type="button" onClick={() => setScheduleEditorOpen(false)}>取消</button><button type="button" className="primary" onClick={saveScheduleEventMobile}>保存日程</button></div>
+        {scheduleEditorMessage && <p className="mobile-form-message" role="status">{scheduleEditorMessage}</p>}
+        <div className="mobile-sheet-actions"><button type="button" onClick={() => void closeMobileScheduleEditor("event")}>关闭</button><button type="button" className="primary" onClick={saveScheduleEventMobile}>保存日程</button></div>
       </MobileInfoSheet>}
-      {focusEditorOpen && <MobileInfoSheet title={focusDraft.id ? "编辑每日重点" : "新增每日重点"} onClose={() => setFocusEditorOpen(false)}>
+      {focusEditorOpen && <MobileInfoSheet title={focusDraft.id ? "编辑每日重点" : "新增每日重点"} onClose={() => void closeMobileScheduleEditor("focus")}>
         <div className="mobile-form-grid">
           <label><span>日期</span><input type="date" value={focusDraft.date} onChange={(event) => setFocusDraft({ ...focusDraft, date: event.target.value })} /></label>
           <label><span>状态</span><select value={focusDraft.status} onChange={(event) => setFocusDraft({ ...focusDraft, status: event.target.value as DailyFocus["status"] })}><option>待处理</option><option>进行中</option><option>已完成</option></select></label>
           <label className="wide"><span>重点主题</span><input value={focusDraft.focus} onChange={(event) => setFocusDraft({ ...focusDraft, focus: event.target.value })} /></label>
           <label className="wide"><span>具体事项</span><textarea value={focusDraft.todo} onChange={(event) => setFocusDraft({ ...focusDraft, todo: event.target.value })} /></label>
         </div>
-        <div className="mobile-sheet-actions"><button type="button" onClick={() => setFocusEditorOpen(false)}>取消</button><button type="button" className="primary" onClick={saveFocusMobile}>保存重点</button></div>
+        {scheduleEditorMessage && <p className="mobile-form-message" role="status">{scheduleEditorMessage}</p>}
+        <div className="mobile-sheet-actions"><button type="button" onClick={() => void closeMobileScheduleEditor("focus")}>关闭</button><button type="button" className="primary" onClick={saveFocusMobile}>保存重点</button></div>
       </MobileInfoSheet>}
-      {courseEditorOpen && <MobileInfoSheet title={`${scheduleContext.config.days[courseDraft.dayIndex] ?? "课程"} · 编辑当天课程`} onClose={() => setCourseEditorOpen(false)}>
+      {courseEditorOpen && <MobileInfoSheet title={`${scheduleContext.config.days[courseDraft.dayIndex] ?? "课程"} · 编辑当天课程`} onClose={() => void closeMobileScheduleEditor("course")}>
         <div className="mobile-form-grid">
           {scheduleContext.config.periods.map((period, index) => <label key={`${period.label}-${index}`}><span>{period.label}{period.time ? ` · ${period.time}` : ""}</span><input value={courseDraft.courses[index] ?? ""} onChange={(event) => setCourseDraft((current) => ({ ...current, courses: scheduleContext.config.periods.map((_, itemIndex) => itemIndex === index ? event.target.value : current.courses[itemIndex] ?? "") }))} placeholder="填写课程" /></label>)}
         </div>
-        <div className="mobile-sheet-actions"><button type="button" onClick={() => setCourseEditorOpen(false)}>取消</button><button type="button" className="primary" onClick={saveCourseDayMobile}>保存课程</button></div>
+        {scheduleEditorMessage && <p className="mobile-form-message" role="status">{scheduleEditorMessage}</p>}
+        <div className="mobile-sheet-actions"><button type="button" onClick={() => void closeMobileScheduleEditor("course")}>关闭</button><button type="button" className="primary" onClick={saveCourseDayMobile}>保存课程</button></div>
       </MobileInfoSheet>}
-      {scheduleConfigOpen && <MobileInfoSheet title="学期、上课日与节次" onClose={() => setScheduleConfigOpen(false)}>
+      {scheduleConfigOpen && <MobileInfoSheet title="学期、上课日与节次" onClose={() => void closeMobileScheduleEditor("config")}>
         <div className="mobile-form-grid">
           <label><span>档案名称</span><input value={scheduleConfigDraft.schoolYear} onChange={(event) => setScheduleConfigDraft({ ...scheduleConfigDraft, schoolYear: event.target.value })} /></label>
           <label><span>学期名称</span><input value={scheduleConfigDraft.term} onChange={(event) => setScheduleConfigDraft({ ...scheduleConfigDraft, term: event.target.value })} /></label>
@@ -3440,7 +3505,8 @@ function MobileSecondaryPage({ workspaceToken, active, data, activeClass, update
         </div>
         <section className="mobile-card-list in-sheet-list"><header><h2>上课日</h2><button type="button" onClick={() => setScheduleConfigDraft((current) => ({ ...current, days: [...current.days, `第${current.days.length + 1}天`] }))}>新增</button></header>{scheduleConfigDraft.days.map((day, index) => <article key={`${day}-${index}`}><label><span>名称</span><input value={day} onChange={(event) => setScheduleConfigDraft((current) => ({ ...current, days: current.days.map((item, itemIndex) => itemIndex === index ? event.target.value : item) }))} /></label><button type="button" onClick={() => setScheduleConfigDraft((current) => ({ ...current, days: current.days.filter((_, itemIndex) => itemIndex !== index) }))}>删除</button></article>)}</section>
         <section className="mobile-card-list in-sheet-list"><header><h2>节次</h2><button type="button" onClick={() => setScheduleConfigDraft((current) => ({ ...current, periods: [...current.periods, { label: `第${current.periods.length + 1}节`, time: "" }] }))}>新增</button></header>{scheduleConfigDraft.periods.map((period, index) => <article key={`${period.label}-${index}`}><label><span>节次</span><input value={period.label} onChange={(event) => setScheduleConfigDraft((current) => ({ ...current, periods: current.periods.map((item, itemIndex) => itemIndex === index ? { ...item, label: event.target.value } : item) }))} /></label><label><span>时间</span><input value={period.time ?? ""} onChange={(event) => setScheduleConfigDraft((current) => ({ ...current, periods: current.periods.map((item, itemIndex) => itemIndex === index ? { ...item, time: event.target.value } : item) }))} /></label><button type="button" onClick={() => setScheduleConfigDraft((current) => ({ ...current, periods: current.periods.filter((_, itemIndex) => itemIndex !== index) }))}>删除</button></article>)}</section>
-        <div className="mobile-sheet-actions"><button type="button" onClick={() => setScheduleConfigOpen(false)}>取消</button><button type="button" className="primary" onClick={saveScheduleConfigMobile}>保存配置</button></div>
+        {scheduleEditorMessage && <p className="mobile-form-message" role="status">{scheduleEditorMessage}</p>}
+        <div className="mobile-sheet-actions"><button type="button" onClick={() => void closeMobileScheduleEditor("config")}>关闭</button><button type="button" className="primary" onClick={saveScheduleConfigMobile}>保存配置</button></div>
       </MobileInfoSheet>}
     </div>;
   }

@@ -1,6 +1,6 @@
 # 课程日程：逐页执行卡
 
-状态：planned。模块ID：schedule。源码相对 app/w/[token]（明确app/lib前缀除外）：ScheduleHub.tsx;CourseSchedule.tsx;TeacherAgenda.tsx;ClassroomApp.tsx:MobileSecondaryPage。
+状态：inventoried-with-gap。模块ID：schedule。源码相对 app/w/[token]（明确app/lib前缀除外）：ScheduleHub.tsx;CourseSchedule.tsx;TeacherAgenda.tsx;ClassroomApp.tsx:MobileSecondaryPage；共享操作：features/schedule/operations.ts。
 参考：计划器派生。派生页面使用对应页面族构图和校园token，不把缺少专属图解释为可回退旧UI。
 
 ## 保全动作（种子，实施前展开）
@@ -29,3 +29,9 @@
 
 ## 完成判据
 全部保全动作有新入口与证据；桌面/手机/主要浮层可用；参考气质和比例达标；旧布局退出；测试没有通过削弱断言变绿。结果写当前commit，不复用旧报告标pass。
+
+## 2026-09-12 实际核验
+
+已展开桌面/手机课程与个人日程入口、学期月份周次、教学日配置、课程/活动/每日重点编辑、事项和工作留痕。两端已接共享操作层，修复周保存丢失周外活动、倒置学期、跨班关联、只读假成功、事项重复留痕和手机默认月份不一致；隔离可写工作区验证保存、刷新和跨端读取。
+
+本卡仍未完成：生产 DOM/CSS 继续使用 `courseplan-*`、`agenda-*` 和手机公共大组件，正式独立校园视图、旧 CSS 退出、操作级服务器确认、100+/物理手机和全部极端状态尚未验收，所以 `A-15-*` 不改为通过。证据见 `../evidence/schedule-operations-20260912.md`。

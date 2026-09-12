@@ -68,7 +68,7 @@ export function saveTermComment(
   }
   const existing = idTarget ?? periodTarget;
   const comment: TermComment = {
-    id: existing?.id ?? draft.id ?? createId(),
+    id: existing?.id ?? (draft.id || createId()),
     classId,
     studentId: draft.studentId,
     term,
