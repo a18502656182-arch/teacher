@@ -143,15 +143,15 @@ A-16-06,tools,readonly,,,,not-run,,不适用需说明源码依据
 A-16-07,tools,save-failure,,,,not-run,,不适用需说明源码依据
 A-16-08,tools,conflict-or-not-applicable,,,,not-run,,不适用需说明源码依据
 A-16-09,tools,legacy-css-off,,,,not-run,,不适用需说明源码依据
-A-17-01,seating,desktop-default,,,,not-run,,不适用需说明源码依据
-A-17-02,seating,mobile-default,,,,not-run,,不适用需说明源码依据
-A-17-03,seating,empty,,,,not-run,,不适用需说明源码依据
-A-17-04,seating,long-data,,,,not-run,,不适用需说明源码依据
-A-17-05,seating,primary-editor,,,,not-run,,不适用需说明源码依据
-A-17-06,seating,readonly,,,,not-run,,不适用需说明源码依据
-A-17-07,seating,save-failure,,,,not-run,,不适用需说明源码依据
-A-17-08,seating,conflict-or-not-applicable,,,,not-run,,不适用需说明源码依据
-A-17-09,seating,legacy-css-off,,,,not-run,,不适用需说明源码依据
+A-17-01,seating,desktop-default,synthetic-105-students,1265x900,ac161ee,pass,evidence/seating-operations-20260912.md,桌面概览、命令栏、布局、画布、分组和条件表实际渲染
+A-17-02,seating,mobile-default,synthetic-105-students,390x844,ac161ee,pass,evidence/seating-operations-20260912.md,手机共用页面，画布局部滚动且换座撤销通过
+A-17-03,seating,empty,synthetic-new-empty-class,1265x900,ac161ee,pass,evidence/seating-operations-20260912.md,新空班0/6、1x6、3组且显示无学生提示
+A-17-04,seating,long-data,synthetic-105-long-names,1265x900;390x844,ac161ee,pass,evidence/seating-operations-20260912.md,105个长姓名、18x6超宽画布和搜索105通过
+A-17-05,seating,primary-editor,synthetic-105-students,1265x900;390x844,ac161ee,pass,evidence/seating-operations-20260912.md,配置12组、智能排座、固定座、换座和撤销通过
+A-17-06,seating,readonly,demo-readonly,1265x900;390x844,ac161ee,pass,evidence/seating-operations-20260912.md,写按钮禁用，构图与打印可用且无假成功
+A-17-07,seating,save-failure,synthetic-route-unavailable,1265x900,ac161ee,pass,evidence/seating-operations-20260912.md,失败时修改保留并显示重试，恢复路由后同步成功
+A-17-08,seating,conflict-or-not-applicable,workspace-conflict-fixture,,,not-run,,workspace 409纯操作已覆盖；座位页双客户端真实浏览器409尚未执行
+A-17-09,seating,legacy-css-off,demo-css-isolation,six-width,ac161ee,pass,evidence/seating-operations-20260912.md,新CSS Module类不匹配旧seat2/mobile-seat选择器，座位专项qa通过
 A-18-01,duty,desktop-default,,,,not-run,,不适用需说明源码依据
 A-18-02,duty,mobile-default,,,,not-run,,不适用需说明源码依据
 A-18-03,duty,empty,,,,not-run,,不适用需说明源码依据
