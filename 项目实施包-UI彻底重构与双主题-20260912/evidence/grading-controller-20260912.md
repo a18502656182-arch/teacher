@@ -43,3 +43,13 @@ TypeScript、ESLint、生产构建、39项既有测试、认证集成、qa:stric
 学生名单已开始读Students控制器：搜索涵盖姓名/学号/电话/备注/小组/座位，当前toggleShownSelect覆盖全部筛选结果而非当前页；桌面applyBatchEdit未清selectedIds。这里只记录源码事实，尚未核完手机与父层保存，不据此改变业务。
 
 下一步按TASK02继续Students/MobileStudents和Homework/MobileHomework逐handler核验；完成TASK05保存边界与TASK09旧CSS隔离，再通过共享壳层及标杆门槛切换正式页面。不要把独立预览误接成生产假保存。
+
+## 2026-09-12 全模块补充核验
+
+已继续核对Dictation、TaskEditor、WordLibrary、PersonFilter与navigation：任务/历史/错词/词库/家庭孩子均为同一响应式组件子视图，不是桌面和手机两份业务树。全写操作经change等待commit返回，失败留在原表单；任务重试复用pending ID，词库重试复用newBookId，批改失败停留当前人。
+
+发现编辑未批改复习任务或归档任务时，TaskEditor用新任务对象只覆盖id/createdAt，导致sourceId/archived丢失。新增preserveTaskIdentity并用风险场景回归，现保留id、createdAt、results、sourceId和archived，只应用允许编辑的材料/参与者字段。词库名称增加trim后非空校验，打开新建/编辑时清理旧错误消息。
+
+当前创建任务、词库编辑和孩子编辑是页内表单；PersonFilter是展开层；批改手机名单是局部抽屉；删除词库/任务与孩子归档使用全局确认。只有批改hook注册脏离开守卫，TaskEditor、WordLibrary和孩子表单可以直接取消/切子页而丢草稿，登记为迁移缺口。GradingView仍只在开发预览，生产继续旧Grading JSX。
+
+本次补充后生产构建、70/70自动测试、认证集成、TypeScript、完整ESLint和qa:strict通过；变更目标设计检测为0项。未用这些代码检查替代生产接线或浏览器视觉验收。

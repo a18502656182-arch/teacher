@@ -52,6 +52,17 @@ export function newTask(input: Omit<DictationTask, 'id' | 'createdAt' | 'results
   if (input.words.length > 200) throw new Error('每次听写最多200个词，请按课次或词组拆分');
   return { ...input, words: input.words.map(w => ({ ...w })), participants: input.participants.map(p => ({ ...p })), id: makeId('dictation'), createdAt: new Date().toISOString(), results: {} };
 }
+export function preserveTaskIdentity(initial: DictationTask, edited: DictationTask): DictationTask {
+  return {
+    ...initial,
+    ...edited,
+    id: initial.id,
+    createdAt: initial.createdAt,
+    results: initial.results,
+    sourceId: initial.sourceId,
+    archived: initial.archived,
+  };
+}
 export function assertDictation(value: unknown, data: ClassroomData, previous?: ClassroomData): asserts value is DictationData | undefined {
   if (value === undefined) return;
   function fail(): never { throw new Error('听写数据或参与者归属不正确，无法保存或恢复'); }

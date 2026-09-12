@@ -14,7 +14,7 @@ for (const name of ['classroom', 'dictation', 'workspaceBackup']) {
   await writeFile(path.join(temp, `${name}.mjs`), compiled);
 }
 after(() => rm(temp, { recursive: true, force: true }));
-const { newTask, parseWords, statistics, wrongWords, assertDictation } = await import(pathToFileURL(path.join(temp, 'dictation.mjs')));
+const { newTask, parseWords, preserveTaskIdentity, statistics, wrongWords, assertDictation } = await import(pathToFileURL(path.join(temp, 'dictation.mjs')));
 const { parseWorkspaceBackup } = await import(pathToFileURL(path.join(temp, 'workspaceBackup.mjs')));
 const people = (prefix, count) => Array.from({length:count}, (_,i)=>({id:`${prefix}-${i}`,name:`测试学生${i+1}`,number:String(i+1)}));
 const classes = ['a','b'].map(id=>({id,name:`测试班${id}`,students:people(id,50)}));
@@ -28,6 +28,12 @@ test('未批改、请假和未参加均不进入正确率分母',()=>{
 test('材料和参与者是独立快照，复听创建新结果',()=>{
  const t=task();const repeat=newTask({...t,sourceId:t.id});repeat.words[0].text='changed';repeat.participants[0].name='changed';
  assert.equal(t.words[0].text,'apple');assert.notEqual(t.participants[0].name,'changed');assert.notEqual(t.id,repeat.id);assert.deepEqual(repeat.results,{});
+});
+test('编辑未批改的复习/归档任务保留来源、归档和身份字段',()=>{
+ const initial={...task(),sourceId:'source-task',archived:true};
+ const edited=newTask({...initial,title:'修改后的任务',words:parseWords('new | 新词 | 第二课')});
+ const final=preserveTaskIdentity(initial,edited);
+ assert.equal(final.id,initial.id);assert.equal(final.createdAt,initial.createdAt);assert.equal(final.sourceId,'source-task');assert.equal(final.archived,true);assert.equal(final.title,'修改后的任务');assert.deepEqual(final.results,initial.results);
 });
 test('两班与家庭孩子禁止交叉参与',()=>{
  const t=task();const data=structuredClone(base);data.dictation.tasks=[t];assert.doesNotThrow(()=>assertDictation(data.dictation,data));

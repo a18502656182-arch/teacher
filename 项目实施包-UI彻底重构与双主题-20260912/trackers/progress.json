@@ -3,7 +3,7 @@
   "baselineCommit": "6e10e2dc314e09d0d72df9509730f57c5fde34e2",
   "implementationStatus": "in-progress",
   "active_task": "TASK-02",
-  "next_action": "继续TASK02听写及其余页面族逐动作/浮层核验；F-02至F-04已展开，完整保存controller及根CSS/portal隔离未完成",
+  "next_action": "继续TASK02积分/规则及其余页面族逐动作/浮层核验；F-02至F-05已展开，完整保存controller及根CSS/portal隔离未完成",
   "milestones": {
     "M0": "in-progress",
     "M1": "planned",
