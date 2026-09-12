@@ -3,16 +3,16 @@
 import { StudentLookupDialog } from "@/app/components/campus/StudentLookupDialog";
 import { useMemo, useState } from "react";
 import type { ClassroomData, ScoreExam, Student } from "@/lib/classroom";
+import { scoreEntry, scoreExamsForClass } from "./features/scores/operations";
 
 type TrendPoint = { exam: ScoreExam; value: number | null; entered: number; total: number };
 
 function subjects(exam: ScoreExam) { return exam.subjects?.length ? exam.subjects : Object.values(exam.scores)[0] ? Object.keys(Object.values(exam.scores)[0]) : []; }
 function rate(exam: ScoreExam, student: Student) {
   const list = subjects(exam);
-  const scores = exam.scores[student.id] ?? {};
-  const entered = list.filter((subject) => scores[subject] != null);
+  const entered = list.filter((subject) => scoreEntry(exam, student.id, subject) != null);
   if (!entered.length) return null;
-  const total = entered.reduce((sum, subject) => sum + Number(scores[subject] ?? 0), 0);
+  const total = entered.reduce((sum, subject) => sum + Number(scoreEntry(exam, student.id, subject) ?? 0), 0);
   const max = entered.reduce((sum, subject) => sum + Number(exam.subjectMaxScores?.[subject] ?? 100), 0);
   return max ? Math.round(total / max * 100) : null;
 }
@@ -25,7 +25,7 @@ function linePath(points: TrendPoint[]) {
 
 export function ScoreTrends({ data, classId }: { data: ClassroomData; classId: string }) {
   const students = data.rosterClasses?.find((item) => item.id === classId)?.students ?? data.students;
-  const exams = useMemo(() => (data.scoreExams ?? []).filter((item) => !item.classId || item.classId === classId).toSorted((a, b) => a.date.localeCompare(b.date) || a.title.localeCompare(b.title)), [classId, data.scoreExams]);
+  const exams = useMemo(() => scoreExamsForClass(data, classId).toSorted((a, b) => a.date.localeCompare(b.date) || a.title.localeCompare(b.title)), [classId, data]);
   const [pickerOpen, setPickerOpen] = useState(false);
   const [studentId, setStudentId] = useState("");
   const [keyword, setKeyword] = useState("");

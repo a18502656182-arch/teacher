@@ -2,6 +2,7 @@
 
 import { useMemo, useRef, useState } from "react";
 import type { ClassroomData, ScoreExam, ScoreKnowledgeItem, ScorePaperAnalysis, Student } from "@/lib/classroom";
+import { addScoreKnowledgeItem, addScorePaperAnalysis, confirmScorePaperAnalysis, patchScoreExam, patchScorePaperAnalysis, removeScoreKnowledgeItem, setKnowledgeItemScore } from "./features/scores/operations";
 
 type ItemDraft = { title: string; subject: string; questionNo: string; knowledgePoint: string; questionType: string; maxScore: string };
 const emptyDraft = (): ItemDraft => ({ title: "", subject: "", questionNo: "", knowledgePoint: "", questionType: "", maxScore: "10" });
@@ -14,7 +15,7 @@ function itemRate(item: ScoreKnowledgeItem, students: Student[]) {
 
 function statusClass(status: ScorePaperAnalysis["status"]) { return status === "已确认" ? "confirmed" : status === "待核对" ? "review" : status === "失败" ? "failed" : "pending"; }
 
-export function ScoreItemAnalysis({ exam, students, update, workspaceToken }: { exam: ScoreExam; students: Student[]; update: (fn: (data: ClassroomData) => ClassroomData) => void; workspaceToken?: string }) {
+export function ScoreItemAnalysis({ data: classroomData, classId, exam, students, update, workspaceToken }: { data: ClassroomData; classId: string; exam: ScoreExam; students: Student[]; update: (fn: (data: ClassroomData) => ClassroomData) => void; workspaceToken?: string }) {
   const items = useMemo(() => exam.knowledgeItems ?? [], [exam.knowledgeItems]);
   const papers = useMemo(() => exam.paperAnalyses ?? [], [exam.paperAnalyses]);
   const [draft, setDraft] = useState<ItemDraft>(emptyDraft);
@@ -28,28 +29,23 @@ export function ScoreItemAnalysis({ exam, students, update, workspaceToken }: { 
   const selectedPaper = papers.find((paper) => paper.id === selectedPaperId) ?? papers[0];
   const reviewItems = selectedPaper?.items ?? [];
 
-  function saveExam(next: Partial<ScoreExam>) { update((data) => ({ ...data, scoreExams: (data.scoreExams ?? []).map((item) => item.id === exam.id ? { ...item, ...next } : item) })); }
+  function saveExam(next: Partial<ScoreExam>) { update((data) => patchScoreExam(data, classId, exam.id, next)); }
   function create() {
     const maxScore = Number(draft.maxScore);
-    if (!draft.title.trim() || !Number.isFinite(maxScore) || maxScore <= 0) { setError("请填写分析项名称和大于零的满分。"); return; }
-    const next: ScoreKnowledgeItem = { id: id(), title: draft.title.trim(), subject: draft.subject.trim() || undefined, questionNo: draft.questionNo.trim() || undefined, knowledgePoint: draft.knowledgePoint.trim() || undefined, questionType: draft.questionType.trim() || undefined, source: "teacher", maxScore, scores: {} };
-    saveExam({ knowledgeItems: [...items, next] });
+    const input = { title: draft.title, subject: draft.subject, questionNo: draft.questionNo, knowledgePoint: draft.knowledgePoint, questionType: draft.questionType, maxScore, confidence: undefined };
+    const itemId = id();
+    const preview = addScoreKnowledgeItem(classroomData, classId, exam.id, input, () => itemId);
+    if (preview.error) { setError(preview.error); return; }
+    update((data) => addScoreKnowledgeItem(data, classId, exam.id, input, () => itemId).data ?? data);
     setDraft(emptyDraft()); setError("");
   }
-  function remove(idValue: string) { saveExam({ knowledgeItems: items.filter((item) => item.id !== idValue) }); if (recordingId === idValue) setRecordingId(""); }
+  function remove(idValue: string) { update((data) => removeScoreKnowledgeItem(data, classId, exam.id, idValue)); if (recordingId === idValue) setRecordingId(""); }
   function changeScore(item: ScoreKnowledgeItem, studentId: string, value: string) {
-    const nextScores = { ...item.scores };
-    if (value.trim() === "") delete nextScores[studentId]; else { const numeric = Number(value); if (!Number.isFinite(numeric)) return; nextScores[studentId] = Math.max(0, Math.min(item.maxScore, numeric)); }
-    saveExam({ knowledgeItems: items.map((candidate) => candidate.id === item.id ? { ...candidate, scores: nextScores } : candidate) });
+    const numeric = value.trim() === "" ? null : Number(value);
+    update((data) => setKnowledgeItemScore(data, classId, exam.id, item.id, studentId, numeric).data ?? data);
   }
   function patchPaper(paperId: string, patch: Partial<ScorePaperAnalysis>) {
-    update((data) => ({
-      ...data,
-      scoreExams: (data.scoreExams ?? []).map((candidate) => candidate.id !== exam.id ? candidate : {
-        ...candidate,
-        paperAnalyses: (candidate.paperAnalyses ?? []).map((paper) => paper.id === paperId ? { ...paper, ...patch } : paper),
-      }),
-    }));
+    update((data) => patchScorePaperAnalysis(data, classId, exam.id, paperId, patch));
   }
   function selectFile(next: File | null) {
     if (!next) { setFile(null); return; }
@@ -66,7 +62,7 @@ export function ScoreItemAnalysis({ exam, students, update, workspaceToken }: { 
     if (!file) { setError("请先选择 JPG、PNG、WEBP 或 PDF 试卷。"); return; }
     if (!workspaceToken || workspaceToken === "demo") { setError("演示模式不发送试卷文件。请在正式工作台配置识别服务后使用。" ); return; }
     const paper: ScorePaperAnalysis = { id: id(), sourceName: file.name, sourceType: file.type || "unknown", sourceSize: file.size, createdAt: new Date().toISOString(), status: "识别中" };
-    saveExam({ paperAnalyses: [paper, ...papers] });
+    update((data) => addScorePaperAnalysis(data, classId, exam.id, paper).data ?? data);
     setSelectedPaperId(paper.id); setUploading(true); setError("");
     try {
       const form = new FormData(); form.set("workspaceToken", workspaceToken); form.set("examId", exam.id); form.set("file", file);
@@ -74,7 +70,7 @@ export function ScoreItemAnalysis({ exam, students, update, workspaceToken }: { 
       const result = await response.json().catch(() => ({})) as { items?: Array<Omit<ScoreKnowledgeItem, "id" | "scores" | "source">>; error?: string; message?: string };
       if (!response.ok || !result.items?.length) throw new Error(result.error || "识别服务没有返回题目");
       const parsed = result.items.map((item) => ({ ...item, id: id(), scores: {}, source: "ai" as const }));
-      update((data) => ({ ...data, scoreExams: (data.scoreExams ?? []).map((candidate) => candidate.id !== exam.id ? candidate : { ...candidate, paperAnalyses: (candidate.paperAnalyses ?? []).map((entry) => entry.id === paper.id ? { ...entry, status: "待核对", message: result.message, items: parsed } : entry) }) }));
+      update((data) => patchScorePaperAnalysis(data, classId, exam.id, paper.id, { status: "待核对", message: result.message, items: parsed }));
       setFile(null); if (fileRef.current) fileRef.current.value = "";
     } catch (uploadError) {
       patchPaper(paper.id, { status: "失败", message: uploadError instanceof Error ? uploadError.message : "试卷识别失败" });
@@ -82,9 +78,11 @@ export function ScoreItemAnalysis({ exam, students, update, workspaceToken }: { 
     } finally { setUploading(false); }
   }
   function confirmPaper() {
-    if (!selectedPaper || !reviewItems.length) return;
-    const cleanItems = reviewItems.filter((item) => item.title.trim() && item.maxScore > 0);
-    saveExam({ knowledgeItems: [...items, ...cleanItems], paperAnalyses: papers.map((paper) => paper.id === selectedPaper.id ? { ...paper, status: "已确认", items: cleanItems } : paper) });
+    if (!selectedPaper) return;
+    const preview = confirmScorePaperAnalysis(classroomData, classId, exam.id, selectedPaper.id);
+    if (preview.error) { setError(preview.error); return; }
+    setError("");
+    update((data) => confirmScorePaperAnalysis(data, classId, exam.id, selectedPaper.id).data ?? data);
   }
 
   return <section className="score-item-analysis score-analysis-center" aria-label="试卷与知识点分析">

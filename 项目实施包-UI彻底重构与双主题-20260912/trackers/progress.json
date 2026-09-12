@@ -3,7 +3,7 @@
   "baselineCommit": "6e10e2dc314e09d0d72df9509730f57c5fde34e2",
   "implementationStatus": "in-progress",
   "active_task": "TASK-02",
-  "next_action": "继续TASK02成绩、考试反思及其余页面族逐动作/浮层核验；F-02至F-10已展开，完整保存controller及根CSS/portal隔离未完成",
+  "next_action": "继续TASK02考试反思及其余页面族逐动作/浮层核验；F-02至F-11已展开，完整保存controller及根CSS/portal隔离未完成",
   "milestones": {
     "M0": "in-progress",
     "M1": "planned",
@@ -12,7 +12,7 @@
     "M4": "planned",
     "M5": "planned"
   },
-  "note": "线上受检源码无需要覆盖的业务差异。F02-F10已展开；家校沟通与通知草稿统一当前班操作并修复成长重复副本和多人对象覆盖，92项测试、认证集成和qa:strict通过。准备性提取不代表TASK03/04/05/09完整门槛完成；正式新页尚未切换。",
+  "note": "线上受检源码无需要覆盖的业务差异。F02-F11已展开；成绩操作已区分未录与真实零分、去除正式假考试并统一当前班边界，103项测试、认证集成、类型、ESLint和115项qa:strict通过；桌面/390手机关键成绩流程已在本地演示数据实测。准备性提取不代表TASK03/04/05/09完整门槛完成；正式新页尚未切换。",
   "implementationStartCommit": "f321d5e9424e0020bdf1e56d52c31b986b503a53",
   "parallelPreparation": [
     "TASK-06",

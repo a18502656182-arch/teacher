@@ -15,6 +15,7 @@ import { communicationRecordsForClass, localCommunicationDate, patchCommunicatio
 import { applyPointEvents, pointEventsForClass, undoPointEvent as undoPointEventInClass } from './features/points/operations';
 import { defaultPointRules } from './features/rules/catalog';
 import { deletePointRule, patchPointRule, pointRulesForData, pointRuleUsageCount, replacePointRules, upsertPointRule } from './features/rules/operations';
+import { createScoreExam, editScoreExam, patchScoreExam, removeScoreExam, scoreEntry, scoreEntryCount, scoreExamsForClass, setScoreEntries, studentScoreSummary } from './features/scores/operations';
 import { applyStudentBatch } from './features/students/operations';
 import { createWorkspaceOperations } from './workspace/operations';
 import type { Workspace, LocalWorkspaceDraft } from './workspace/types';
@@ -217,21 +218,6 @@ function sanitizeSeatingConfig(config: SeatingConfig | undefined, studentCount: 
   return { rows, columns, groupCount, aisleAfter: Array.from(new Set(aisleAfter)) };
 }
 
-function defaultScoreExam(students: Student[], classId: string): ScoreExam {
-  return {
-    id: `exam-default-${classId}`,
-    classId,
-    title: "最近一次学情检测",
-    date: today(),
-    subjects: ["语文", "数学", "英语"],
-    scores: Object.fromEntries(students.map((student, index) => [student.id, {
-      语文: Math.max(0, Math.min(100, student.score + [-2, 1, 0, -4, 3][index % 5])),
-      数学: Math.max(0, Math.min(100, student.score + [3, -1, 2, -6, 0][index % 5])),
-      英语: Math.max(0, Math.min(100, student.score + [0, 2, -3, 1, -2][index % 5])),
-    }])),
-  };
-}
-
 function normalizeData(data: ClassroomData): ClassroomData {
   const activeTermLabel = data.scheduleConfig ? scheduleTermLabel(data.scheduleConfig) : "";
   const fallbackStudents = data.students.map((student, index) => ({
@@ -345,7 +331,7 @@ function normalizeData(data: ClassroomData): ClassroomData {
       { id: "c2", classId: activeClassId, role: "学习委员", studentId: students[1]?.id ?? "", duty: "组织早读，记录作业缺交。", scope: "学习管理", term: activeTermLabel || "本学期", status: "在任", weeklyScore: 4, summary: "作业反馈及时，早读组织还可以更大胆。" },
       { id: "c3", classId: activeClassId, role: "劳动委员", studentId: students[2]?.id ?? "", duty: "安排和检查卫生岗位。", scope: "卫生值日", term: activeTermLabel || "本学期", status: "在任", weeklyScore: 5, summary: "检查细致，能把值日问题及时反馈给老师。" },
     ],
-    scoreExams: data.scoreExams?.length ? data.scoreExams : [defaultScoreExam(students, activeClassId)],
+    scoreExams: (data.scoreExams ?? []).map((item) => ({ ...item, classId: item.classId ?? activeClassId })),
     examReflections: (data.examReflections ?? []).map((item) => ({ ...item, classId: item.classId ?? classByStudentId.get(item.studentId) ?? activeClassId })),
     termComments: (data.termComments ?? []).map((item) => ({ ...item, classId: item.classId ?? classByStudentId.get(item.studentId) ?? activeClassId })),
     weeklyPlan: data.weeklyPlan ?? days.map((day) => ({ day: day.replace("星期", "周"), focus: "班级常规", event: "记录作业、积分、沟通事项" })),
@@ -747,7 +733,7 @@ export default function ClassroomApp({ token }: { token: string }) {
           {active === "cadres" && <Cadres data={workspace.data} update={updateData} />}
           {active === "records" && <Records data={workspace.data} update={updateData} />}
           {active === "scores" && <Scores workspaceToken={token} data={workspace.data} update={updateData} />}
-          {active === "reflection" && <Reflection data={workspace.data} update={updateData} />}
+          {active === "reflection" && <Reflection data={workspace.data} update={updateData} open={openModule} />}
           {active === "comments" && <Comments workspaceToken={token} data={workspace.data} update={updateData} />}
         </div>
       </main>
@@ -1271,7 +1257,38 @@ function MobileHomework({ data, activeClass, update, open }: { data: ClassroomDa
   </div>;
 }
 
-function MobileScores({ workspaceToken, data, activeClass, update, open }: { workspaceToken: string; data: ClassroomData; activeClass: RosterClass; update: (fn: (d: ClassroomData) => ClassroomData) => void; open: (id: ModuleId) => void }) {
+function EmptyScoreWorkspace({ data, classId, update, mobile }: { data: ClassroomData; classId: string; update: (fn: (d: ClassroomData) => ClassroomData) => void; mobile: boolean }) {
+  const [title, setTitle] = useState("");
+  const [date, setDate] = useState(today());
+  const [subjects, setSubjects] = useState("语文，数学，英语");
+  const [error, setError] = useState("");
+  function submit() {
+    const parsed = parseSubjects(subjects);
+    const result = createScoreExam(data, classId, { title, date, subjects: parsed }, makeId);
+    if (!result.exam) { setError(result.error ?? "考试创建失败。"); return; }
+    setError("");
+    update((current) => createScoreExam(current, classId, { title, date, subjects: parsed }, () => result.exam.id).data ?? current);
+    notify("考试已新增，可以开始录入成绩", "success");
+  }
+  const content = <section className={mobile ? "mobile-hero-card mobile-score-empty" : "score5-page score5-empty-workspace"}>
+    <div><span>成绩分析</span><h2>尚未建立考试</h2><p>先填写考试名称、日期和科目。新考试中的成绩保持空白，录入 0 分时才会记为真实零分。</p></div>
+    <div className={mobile ? "mobile-form-grid" : "score5-modal-form"}>
+      <label><span>考试名称</span><input value={title} onChange={(event) => setTitle(event.target.value)} placeholder="例如：期中学情检测" /></label>
+      <label><span>考试日期</span><input type="date" value={date} onChange={(event) => setDate(event.target.value)} /></label>
+      <label className="wide"><span>考试科目</span><input value={subjects} onChange={(event) => setSubjects(event.target.value)} placeholder="语文，数学，英语" /></label>
+    </div>
+    {error && <p className={mobile ? "mobile-form-error" : "score5-batch-error"} role="alert">{error}</p>}
+    <div className={mobile ? "mobile-sheet-actions single" : "score5-actions"}><button type="button" className={mobile ? "primary" : "score5-primary"} onClick={submit}>建立第一场考试</button></div>
+  </section>;
+  return mobile ? <div className="mobile-stack mobile-scores-page">{content}</div> : <><WorkbenchPageHeader icon="📈" tone="iris" title="成绩分析" description="建立第一场考试后，再录入成绩、查看趋势和核对试卷分析。" />{content}</>;
+}
+
+function MobileScores(props: { workspaceToken: string; data: ClassroomData; activeClass: RosterClass; update: (fn: (d: ClassroomData) => ClassroomData) => void; open: (id: ModuleId) => void }) {
+  if (!scoreExamsForClass(props.data, props.activeClass.id).length) return <EmptyScoreWorkspace data={props.data} classId={props.activeClass.id} update={props.update} mobile />;
+  return <MobileScoresWithExam {...props} />;
+}
+
+function MobileScoresWithExam({ workspaceToken, data, activeClass, update, open }: { workspaceToken: string; data: ClassroomData; activeClass: RosterClass; update: (fn: (d: ClassroomData) => ClassroomData) => void; open: (id: ModuleId) => void }) {
   const [selectedId, setSelectedId] = useState("");
   const [examPickerOpen, setExamPickerOpen] = useState(false);
   const [examEditorOpen, setExamEditorOpen] = useState<"new" | "edit" | "">("");
@@ -1299,9 +1316,8 @@ function MobileScores({ workspaceToken, data, activeClass, update, open }: { wor
   const [scoreWorkspaceView, setScoreWorkspaceView] = useState<"records" | "trends" | "analysis">("records");
   const [scorePage, setScorePage] = useState(1);
   const students = activeClass.students?.length ? activeClass.students : data.students;
-  const storedExams = data.scoreExams?.length ? data.scoreExams : [];
-  const classExams = storedExams.filter((item) => !item.classId || item.classId === activeClass.id);
-  const exams = classExams.length ? classExams : [defaultScoreExam(students, activeClass.id)];
+  const classExams = scoreExamsForClass(data, activeClass.id);
+  const exams = classExams;
   const [examId, setExamId] = useState(exams[0]?.id ?? "");
   const exam = exams.find((item) => item.id === examId) ?? exams[0];
   const subjects = scoreSubjects(exam);
@@ -1314,9 +1330,9 @@ function MobileScores({ workspaceToken, data, activeClass, update, open }: { wor
   const activeRanges = scoreRangesFor(exam, activeRangeSubject);
   const ranked = rows.filter((row) => {
     const text = `${row.student.name}${row.student.studentNo ?? ""}${row.student.group}${row.advice}${row.weakSubject}`;
-    const rangeScore = activeRangeSubject === "总分" ? row.total : scoreValue(exam, row.student, activeRangeSubject);
+    const rangeScore = activeRangeSubject === "总分" ? (row.complete ? row.total : null) : scoreEntry(exam, row.student.id, activeRangeSubject);
     const range = activeRanges.find((item) => item.id === scoreRangeFilter);
-    const matchRange = !range || scoreRangeFilter === "全部" || (rangeScore >= range.min && rangeScore <= range.max);
+    const matchRange = !range || scoreRangeFilter === "全部" || (rangeScore != null && rangeScore >= range.min && rangeScore <= range.max);
     const matchFollow = followFilter === "全部" || (followFilter === "已标记" && row.followUp) || (followFilter === "未标记" && !row.followUp);
     const matchGroup = groupFilter === "全部小组" || row.student.group === Number(groupFilter);
     return matchRange && matchFollow && matchGroup && (!keyword.trim() || text.includes(keyword.trim()));
@@ -1343,23 +1359,13 @@ function MobileScores({ workspaceToken, data, activeClass, update, open }: { wor
   }, [examId, examIdsKey, firstExamId]);
 
   function updateExam(nextExam: ScoreExam) {
-    update((current) => {
-      const currentExams = current.scoreExams ?? [];
-      const exists = currentExams.some((item) => item.id === nextExam.id);
-      return { ...current, scoreExams: exists ? currentExams.map((item) => item.id === nextExam.id ? nextExam : item) : [nextExam, ...currentExams] };
-    });
+    update((current) => patchScoreExam(current, activeClass.id, nextExam.id, nextExam));
   }
-  function setStudentScore(studentId: string, subject: string, value: number) {
-    const maxScore = subjectMaxScore(exam, subject);
-    const safeScore = Math.max(0, Math.min(maxScore, Number(value) || 0));
-    const nextScores = { ...exam.scores, [studentId]: { ...(exam.scores[studentId] ?? {}), [subject]: safeScore } };
-    const average = Math.round(scoreSubjects({ ...exam, scores: nextScores }).reduce((sum, item) => sum + (nextScores[studentId]?.[item] ?? 0), 0) / Math.max(1, subjects.length));
-    update((current) => ({
-      ...current,
-      students: current.students.map((student) => student.id === studentId ? { ...student, score: average } : student),
-      rosterClasses: current.rosterClasses?.map((rosterClass) => rosterClass.id === activeClass.id ? { ...rosterClass, students: rosterClass.students.map((student) => student.id === studentId ? { ...student, score: average } : student) } : rosterClass),
-      scoreExams: (current.scoreExams ?? []).some((item) => item.id === exam.id) ? (current.scoreExams ?? []).map((item) => item.id === exam.id ? { ...item, scores: nextScores } : item) : [{ ...exam, scores: nextScores }, ...(current.scoreExams ?? [])],
-    }));
+  function setStudentScore(studentId: string, subject: string, value: string) {
+    const numeric = value.trim() === "" ? null : Number(value);
+    const preview = setScoreEntries(data, activeClass.id, exam.id, [studentId], subject, numeric);
+    if (preview.error) { notify(preview.error, "error"); return; }
+    update((current) => setScoreEntries(current, activeClass.id, exam.id, [studentId], subject, numeric).data ?? current);
   }
   function openMobileScoreBatch() {
     const subject = subjectFilter !== "全部" && subjects.includes(subjectFilter) ? subjectFilter : subjects[0] ?? "";
@@ -1382,32 +1388,13 @@ function MobileScores({ workspaceToken, data, activeClass, update, open }: { wor
       setScoreBatchError("请填写有效分数。");
       return;
     }
-    const maxScore = subjectMaxScore(exam, activeBatchSubject);
-    const safeScore = Math.max(0, Math.min(maxScore, value));
-    const selectedSet = new Set(selectedIds);
-    const nextScores = { ...exam.scores };
-    selectedIds.forEach((studentId) => {
-      nextScores[studentId] = { ...(nextScores[studentId] ?? {}), [activeBatchSubject]: safeScore };
-    });
-    update((current) => ({
-      ...current,
-      students: current.students.map((student) => {
-        if (!selectedSet.has(student.id)) return student;
-        const average = Math.round(subjects.reduce((sum, subject) => sum + (nextScores[student.id]?.[subject] ?? 0), 0) / Math.max(1, subjects.length));
-        return { ...student, score: average };
-      }),
-      rosterClasses: current.rosterClasses?.map((rosterClass) => rosterClass.id === activeClass.id ? {
-        ...rosterClass,
-        students: rosterClass.students.map((student) => {
-          if (!selectedSet.has(student.id)) return student;
-          const average = Math.round(subjects.reduce((sum, subject) => sum + (nextScores[student.id]?.[subject] ?? 0), 0) / Math.max(1, subjects.length));
-          return { ...student, score: average };
-        }),
-      } : rosterClass),
-      scoreExams: (current.scoreExams ?? []).some((item) => item.id === exam.id) ? (current.scoreExams ?? []).map((item) => item.id === exam.id ? { ...item, scores: nextScores } : item) : [{ ...exam, scores: nextScores }, ...(current.scoreExams ?? [])],
-    }));
+    const safeScore = Math.max(0, Math.min(subjectMaxScore(exam, activeBatchSubject), value));
+    const preview = setScoreEntries(data, activeClass.id, exam.id, selectedIds, activeBatchSubject, safeScore);
+    if (preview.error) { setScoreBatchError(preview.error); return; }
+    update((current) => setScoreEntries(current, activeClass.id, exam.id, selectedIds, activeBatchSubject, safeScore).data ?? current);
     setScoreBatchError("");
     setScoreBatchOpen(false);
+    setSelectedIds([]);
     notify(`已给 ${selectedIds.length} 名学生录入${activeBatchSubject} ${safeScore}分`, "success");
   }
   function toggleScoreFollow(studentId: string) {
@@ -1433,45 +1420,25 @@ function MobileScores({ workspaceToken, data, activeClass, update, open }: { wor
     }
     setExamFormError("");
     if (examEditorOpen === "edit") {
-      const nextScores: ScoreExam["scores"] = {};
-      students.forEach((student) => {
-        nextScores[student.id] = {};
-        nextSubjects.forEach((subject) => { nextScores[student.id][subject] = exam.scores[student.id]?.[subject] ?? 0; });
-      });
-      const subjectMaxScores = { ...(exam.subjectMaxScores ?? {}) };
-      const scoreRanges = { ...(exam.scoreRanges ?? {}) };
-      nextSubjects.forEach((subject) => {
-        subjectMaxScores[subject] = subjectMaxScores[subject] ?? 100;
-        scoreRanges[scoreSubjectKey(subject)] = scoreRanges[scoreSubjectKey(subject)] ?? defaultScoreRanges(subjectMaxScores[subject]);
-      });
-      updateExam({ ...exam, title: examDraft.title.trim() || exam.title, date: examDraft.date || exam.date, subjects: nextSubjects, scores: nextScores, subjectMaxScores, scoreRanges });
+      const preview = editScoreExam(data, activeClass.id, exam.id, { title: examDraft.title, date: examDraft.date, subjects: nextSubjects });
+      if (preview.error) { setExamFormError(preview.error); return; }
+      update((current) => editScoreExam(current, activeClass.id, exam.id, { title: examDraft.title, date: examDraft.date, subjects: nextSubjects }).data ?? current);
       setExamEditorOpen("");
       notify("考试信息已更新", "success");
       return;
     }
-    const scores: ScoreExam["scores"] = {};
-    students.forEach((student) => {
-      scores[student.id] = {};
-      nextSubjects.forEach((subject) => { scores[student.id][subject] = 0; });
-    });
-    const nextExam: ScoreExam = { id: makeId(), classId: activeClass.id, title: examDraft.title.trim() || `考试 ${exams.length + 1}`, date: examDraft.date || today(), subjects: nextSubjects, scores, subjectMaxScores: Object.fromEntries(nextSubjects.map((subject) => [subject, 100])), scoreRanges: Object.fromEntries(nextSubjects.map((subject) => [subject, defaultScoreRanges(100)])), levels: {}, advice: {}, focusSubjects: {}, followUpStudentIds: [] };
-    update((current) => ({ ...current, scoreExams: [nextExam, ...(current.scoreExams ?? [])] }));
+    const result = createScoreExam(data, activeClass.id, { title: examDraft.title, date: examDraft.date, subjects: nextSubjects }, makeId);
+    if (!result.exam) { setExamFormError(result.error ?? "考试创建失败。"); return; }
+    const nextExam = result.exam;
+    update((current) => createScoreExam(current, activeClass.id, { title: examDraft.title, date: examDraft.date, subjects: nextSubjects }, () => nextExam.id).data ?? current);
     setExamId(nextExam.id);
     setSubjectFilter("全部");
     setExamEditorOpen("");
     notify("考试已新增", "success");
   }
   async function deleteMobileExam() {
-    if (exams.length <= 1) {
-      setExamFormError("请先新增一场考试，再删除当前考试。");
-      return;
-    }
     if (!await requestDangerConfirm(`${exam.title} 的全部成绩、跟进标记和关联反思都会删除。`, "删除考试", "确认删除")) return;
-    update((current) => ({
-      ...current,
-      scoreExams: (current.scoreExams ?? []).filter((item) => item.id !== exam.id),
-      examReflections: (current.examReflections ?? []).filter((item) => item.examId !== exam.id),
-    }));
+    update((current) => removeScoreExam(current, activeClass.id, exam.id));
     setExamId(exams.find((item) => item.id !== exam.id)?.id ?? "");
     setExamEditorOpen("");
   }
@@ -1529,9 +1496,10 @@ function MobileScores({ workspaceToken, data, activeClass, update, open }: { wor
     notify(`${filterSubjectDraft}分数区间已保存`, "success");
   }
   const selectedRow = selected ? scoreRowsFor(exam, [selected], data.examReflections ?? [])[0] : null;
-  const scoreAverageValue = rows.length ? Math.round(rows.reduce((sum, row) => sum + row.average, 0) / rows.length) : 0;
+  const enteredRows = rows.filter((row) => row.enteredCount > 0);
+  const scoreAverageValue = enteredRows.length ? Math.round(enteredRows.reduce((sum, row) => sum + row.average, 0) / enteredRows.length) : null;
   const followCount = rows.filter((row) => row.followUp).length;
-  const enteredCount = students.reduce((sum, student) => sum + subjects.filter((subject) => (exam.scores[student.id]?.[subject] ?? 0) > 0).length, 0);
+  const enteredCount = scoreEntryCount(exam, students);
   const scoreCount = students.length * subjects.length;
   const visibleIds = ranked.map((row) => row.student.id);
   const allVisibleSelected = visibleIds.length > 0 && visibleIds.every((id) => selectedIds.includes(id));
@@ -1568,12 +1536,12 @@ function MobileScores({ workspaceToken, data, activeClass, update, open }: { wor
     </section>
     <section className="mobile-overview-stats compact" aria-label="成绩分析概览">
       <span><small>录分进度</small><b>{enteredCount}/{scoreCount}</b></span>
-      <span><small>平均分</small><b>{scoreAverageValue}</b></span>
+      <span><small>已录平均</small><b>{scoreAverageValue ?? "未录入"}</b></span>
       <span><small>重点跟进</small><b>{followCount}</b></span>
     </section>
     <nav className="score5-workspace-tabs mobile-score-workspace-tabs" aria-label="成绩工作视图"><button type="button" className={scoreWorkspaceView === "records" ? "active" : ""} onClick={() => setScoreWorkspaceView("records")}>成绩录入</button><button type="button" className={scoreWorkspaceView === "trends" ? "active" : ""} onClick={() => setScoreWorkspaceView("trends")}>历次趋势</button><button type="button" className={scoreWorkspaceView === "analysis" ? "active" : ""} onClick={() => setScoreWorkspaceView("analysis")}>试卷分析</button></nav>
     {scoreWorkspaceView === "trends" && <ScoreTrends data={data} classId={activeClass.id} />}
-    {scoreWorkspaceView === "analysis" && <ScoreItemAnalysis workspaceToken={workspaceToken} exam={exam} students={students} update={update} />}
+    {scoreWorkspaceView === "analysis" && <ScoreItemAnalysis data={data} classId={activeClass.id} workspaceToken={workspaceToken} exam={exam} students={students} update={update} />}
     {scoreWorkspaceView === "records" && <><section className="mobile-score-student-toolbar">
       <label className="mobile-search"><span>查找学生</span><input value={keyword} onChange={(event) => { setKeyword(event.target.value); setScorePage(1); }} placeholder="姓名、学号或小组" /></label>
       <div>
@@ -1596,7 +1564,7 @@ function MobileScores({ workspaceToken, data, activeClass, update, open }: { wor
           <span aria-hidden="true" />
         </label>
         <button type="button" className="mobile-score-main" onClick={() => setSelectedId(row.student.id)}>
-          <span><b>{row.student.name}</b><small>总分 {row.total} · 第{row.student.group}组 · 学号 {row.student.studentNo || "未填"}</small><strong>{shownSubjects.slice(0, 3).map((subject) => <i key={subject}>{subject} {scoreValue(exam, row.student, subject)}</i>)}</strong></span>
+          <span><b>{row.student.name}</b><small>{row.complete ? `总分 ${row.total}` : `已录 ${row.enteredCount}/${subjects.length}`} · 第{row.student.group}组 · 学号 {row.student.studentNo || "未填"}</small><strong>{shownSubjects.slice(0, 3).map((subject) => <i key={subject}>{subject} {scoreEntry(exam, row.student.id, subject) ?? "未录"}</i>)}</strong></span>
         </button>
         <button type="button" className={row.followUp ? "mobile-score-follow active" : "mobile-score-follow"} onClick={() => toggleScoreFollow(row.student.id)}>{row.followUp ? "已标记" : "标记"}</button>
       </article>)}
@@ -1605,13 +1573,13 @@ function MobileScores({ workspaceToken, data, activeClass, update, open }: { wor
     </div></>}
     {selected && selectedRow && <MobileInfoSheet title={`${selected.name} · ${exam.title}`} onClose={() => setSelectedId("")}>
       <div className="mobile-detail-grid">
-        <span><small>总分</small><b>{selectedRow.total}</b></span>
-        <span><small>平均</small><b>{selectedRow.average}</b></span>
+        <span><small>总分</small><b>{selectedRow.complete ? selectedRow.total : "待补全"}</b></span>
+        <span><small>已录平均</small><b>{selectedRow.enteredCount ? selectedRow.average : "未录入"}</b></span>
         <span><small>重点跟进</small><b>{selectedRow.followUp ? "是" : "否"}</b></span>
         <span><small>学号</small><b>{selected.studentNo || "未填"}</b></span>
       </div>
       <div className="mobile-form-grid mobile-score-form">
-        {subjects.map((subject) => <label key={subject}><span>{subject}</span><input type="number" min={0} max={subjectMaxScore(exam, subject)} value={examScores?.[subject] ?? 0} onChange={(event) => setStudentScore(selected.id, subject, Number(event.target.value) || 0)} /></label>)}
+        {subjects.map((subject) => <label key={subject}><span>{subject}</span><input type="number" min={0} max={subjectMaxScore(exam, subject)} value={examScores?.[subject] ?? ""} onChange={(event) => setStudentScore(selected.id, subject, event.target.value)} placeholder="未录入" /></label>)}
         <label className="wide"><span>成绩建议</span><textarea value={exam.advice?.[selected.id] ?? selectedRow.advice} onChange={(event) => setScoreAdvice(selected.id, event.target.value)} /></label>
       </div>
       <div className="mobile-sheet-actions single"><button type="button" onClick={() => toggleScoreFollow(selected.id)}>{selectedRow.followUp ? "取消重点跟进" : "标记重点跟进"}</button></div>
@@ -1626,7 +1594,7 @@ function MobileScores({ workspaceToken, data, activeClass, update, open }: { wor
       <div className="mobile-score-batch-list">
         {batchScoreStudents.map((student) => <article key={student.id}>
           <span><b>{student.name}</b><small>学号 {student.studentNo || "未填"} · 第{student.group}组</small></span>
-          <em>当前 {activeBatchSubject ? exam.scores[student.id]?.[activeBatchSubject] ?? 0 : 0}</em>
+          <em>当前 {activeBatchSubject ? exam.scores[student.id]?.[activeBatchSubject] ?? "未录" : "未录"}</em>
         </article>)}
         {!batchScoreStudents.length && <p className="mobile-empty">请先在学生列表中选择同分学生。</p>}
       </div>
@@ -1643,7 +1611,7 @@ function MobileScores({ workspaceToken, data, activeClass, update, open }: { wor
       <div className="mobile-card-list in-sheet-list">
         {pagedVisibleExams.map((item) => {
           const itemSubjects = scoreSubjects(item);
-          const itemEntered = students.reduce((sum, student) => sum + itemSubjects.filter((subject) => (item.scores[student.id]?.[subject] ?? 0) > 0).length, 0);
+          const itemEntered = scoreEntryCount(item, students);
           const itemTotal = students.length * itemSubjects.length;
           return <button type="button" key={item.id} onClick={() => chooseExam(item.id)}><b>{item.title}</b><span>{item.date} · {itemSubjects.join("，")} · 已录 {itemEntered}/{itemTotal}</span></button>;
         })}
@@ -3217,9 +3185,11 @@ function MobileSecondaryPage({ workspaceToken, active, data, activeClass, update
   }
 
   if (active === "reflection") {
-    const storedReflectionExams = data.scoreExams?.length ? data.scoreExams : [];
-    const classReflectionExams = storedReflectionExams.filter((item) => !item.classId || item.classId === activeClass.id);
-    const reflectionExams = classReflectionExams.length ? classReflectionExams : [defaultScoreExam(students, activeClass.id)];
+    const reflectionExams = scoreExamsForClass(data, activeClass.id);
+    if (!reflectionExams.length) return <div className="mobile-stack mobile-reflection-page">
+      <MobileSectionHero title={title} text="先建立真实考试，再为学生填写考试反思。" />
+      <section className="mobile-card-list"><article><b>还没有可反思的考试</b><span>成绩分析中新增考试后，这里会显示对应学生和成绩上下文。</span><button type="button" onClick={() => open("scores")}>去成绩分析</button></article></section>
+    </div>;
     const currentReflectionExam = reflectionExams.find((item) => item.id === reflectionExamFilter) ?? reflectionExams[0];
     const currentReflectionSubjects = currentReflectionExam ? scoreSubjects(currentReflectionExam) : [];
     const currentReflectionRows = currentReflectionExam ? scoreRowsFor(currentReflectionExam, students, reflections).sort((a, b) => {
@@ -6063,28 +6033,24 @@ function Records({ data, update }: { data: ClassroomData; update: (fn: (d: Class
 }
 
 type ScoreLevel = "优秀" | "临界" | "帮扶";
-const scoreLevels: ScoreLevel[] = ["优秀", "临界", "帮扶"];
-
 function scoreSubjects(exam: ScoreExam) {
   return exam.subjects.length ? exam.subjects : ["总分"];
 }
 
 function scoreValue(exam: ScoreExam, student: Student, subject: string) {
-  return exam.scores[student.id]?.[subject] ?? student.score ?? 0;
+  return scoreEntry(exam, student.id, subject) ?? 0;
 }
 
 function scoreTotal(exam: ScoreExam, student: Student) {
-  return scoreSubjects(exam).reduce((sum, subject) => sum + scoreValue(exam, student, subject), 0);
+  return studentScoreSummary(exam, student.id).total ?? 0;
 }
 
 function scoreAverage(exam: ScoreExam, student: Student) {
-  const subjects = scoreSubjects(exam);
-  return Math.round(scoreTotal(exam, student) / Math.max(1, subjects.length));
+  return studentScoreSummary(exam, student.id).average ?? 0;
 }
 
 function scoreWeakSubject(exam: ScoreExam, student: Student) {
-  const subjects = scoreSubjects(exam);
-  return [...subjects].sort((a, b) => scoreValue(exam, student, a) - scoreValue(exam, student, b))[0] ?? "关注科目";
+  return studentScoreSummary(exam, student.id).weakSubject ?? "待录入";
 }
 
 function autoScoreLevel(average: number): ScoreLevel {
@@ -6134,22 +6100,28 @@ function scoreRangesFor(exam: ScoreExam, subject: string) {
 
 function scoreRowsFor(exam: ScoreExam, students: Student[], reflections: ExamReflection[]) {
   return students.map((student) => {
-    const total = scoreTotal(exam, student);
-    const average = scoreAverage(exam, student);
+    const summary = studentScoreSummary(exam, student.id);
+    const total = summary.total ?? 0;
+    const average = summary.average ?? 0;
     const weakSubject = exam.focusSubjects?.[student.id] ?? scoreWeakSubject(exam, student);
     const level = (exam.levels?.[student.id] as ScoreLevel | undefined) ?? autoScoreLevel(average);
-    const advice = exam.advice?.[student.id] ?? defaultScoreAdvice(level, weakSubject);
+    const advice = exam.advice?.[student.id] ?? (summary.enteredCount ? defaultScoreAdvice(level, weakSubject) : "成绩尚未录入，暂不生成跟进结论。");
     const hasReflection = reflections.some((item) => item.studentId === student.id && item.examId === exam.id);
     const followUp = Boolean(exam.followUpStudentIds?.includes(student.id));
-    return { student, total, average, weakSubject, level, advice, hasReflection, followUp };
+    return { student, total, average, weakSubject, level, advice, hasReflection, followUp, enteredCount: summary.enteredCount, complete: summary.complete };
   });
 }
 
-function Scores({ workspaceToken, data, update }: { workspaceToken: string; data: ClassroomData; update: (fn: (d: ClassroomData) => ClassroomData) => void }) {
+function Scores(props: { workspaceToken: string; data: ClassroomData; update: (fn: (d: ClassroomData) => ClassroomData) => void }) {
+  const activeClassId = props.data.activeClassId ?? props.data.rosterClasses?.[0]?.id ?? "class-1";
+  if (!scoreExamsForClass(props.data, activeClassId).length) return <EmptyScoreWorkspace data={props.data} classId={activeClassId} update={props.update} mobile={false} />;
+  return <ScoresWithExam {...props} />;
+}
+
+function ScoresWithExam({ workspaceToken, data, update }: { workspaceToken: string; data: ClassroomData; update: (fn: (d: ClassroomData) => ClassroomData) => void }) {
   const activeClassId = data.activeClassId ?? data.rosterClasses?.[0]?.id ?? "class-1";
-  const storedExams = data.scoreExams?.length ? data.scoreExams : [];
-  const classExams = storedExams.filter((item) => !item.classId || item.classId === activeClassId);
-  const exams = classExams.length ? classExams : [defaultScoreExam(data.students, activeClassId)];
+  const classExams = scoreExamsForClass(data, activeClassId);
+  const exams = classExams;
   const [examId, setExamId] = useState(exams[0]?.id ?? "");
   const exam = exams.find((item) => item.id === examId) ?? exams[0];
   const subjects = scoreSubjects(exam);
@@ -6192,9 +6164,9 @@ function Scores({ workspaceToken, data, update }: { workspaceToken: string; data
   const rows = scoreRowsFor(exam, data.students, data.examReflections ?? []);
   const visible = rows.filter((row) => {
     const text = `${row.student.name}${row.student.studentNo ?? ""}${row.advice}`;
-    const rangeScore = activeRangeSubject === "总分" ? row.total : scoreValue(exam, row.student, activeRangeSubject);
+    const rangeScore = activeRangeSubject === "总分" ? (row.complete ? row.total : null) : scoreEntry(exam, row.student.id, activeRangeSubject);
     const range = activeRanges.find((item) => item.id === scoreRangeFilter);
-    const matchRange = !range || scoreRangeFilter === "全部" || (rangeScore >= range.min && rangeScore <= range.max);
+    const matchRange = !range || scoreRangeFilter === "全部" || (rangeScore != null && rangeScore >= range.min && rangeScore <= range.max);
     const matchFollow = followFilter === "全部" || (followFilter === "已标记" && row.followUp) || (followFilter === "未标记" && !row.followUp);
     const matchGroup = groupFilter === "全部小组" || row.student.group === Number(groupFilter);
     return matchRange && matchFollow && matchGroup && (!keyword.trim() || text.includes(keyword.trim()));
@@ -6215,18 +6187,18 @@ function Scores({ workspaceToken, data, update }: { workspaceToken: string; data
   });
   const selectedVisibleIds = visible.map((row) => row.student.id).filter((id) => selectedIds.includes(id));
   const allVisibleSelected = visible.length > 0 && selectedVisibleIds.length === visible.length;
-  const average = Math.round(rows.reduce((sum, item) => sum + item.average, 0) / Math.max(1, rows.length));
-  const totalAverage = Math.round(rows.reduce((sum, item) => sum + item.total, 0) / Math.max(1, rows.length));
+  const enteredRows = rows.filter((item) => item.enteredCount > 0);
+  const average = enteredRows.length ? Math.round(enteredRows.reduce((sum, item) => sum + item.average, 0) / enteredRows.length) : null;
   const followCount = rows.filter((item) => item.followUp).length;
   const examSummaries = exams.map((item) => {
     const itemRows = scoreRowsFor(item, data.students, data.examReflections ?? []);
     const itemSubjects = scoreSubjects(item);
     const scoreCount = data.students.length * itemSubjects.length;
-    const enteredCount = data.students.reduce((sum, student) => sum + itemSubjects.filter((subject) => (item.scores[student.id]?.[subject] ?? 0) > 0).length, 0);
+    const enteredCount = scoreEntryCount(item, data.students);
     const complete = scoreCount > 0 && enteredCount >= scoreCount;
     return {
       exam: item,
-      average: Math.round(itemRows.reduce((sum, row) => sum + row.average, 0) / Math.max(1, itemRows.length)),
+      average: itemRows.some((row) => row.enteredCount) ? Math.round(itemRows.filter((row) => row.enteredCount).reduce((sum, row) => sum + row.average, 0) / itemRows.filter((row) => row.enteredCount).length) : null,
       subjects: itemSubjects,
       follow: itemRows.filter((row) => row.followUp).length,
       enteredCount,
@@ -6236,16 +6208,16 @@ function Scores({ workspaceToken, data, update }: { workspaceToken: string; data
   });
   const activeExamSummary = examSummaries.find((item) => item.exam.id === exam.id) ?? examSummaries[0];
   const scoreDistribution = [
-    { label: "90分及以上", count: rows.filter((item) => item.average >= 90).length, color: "jade" },
-    { label: "80–89分", count: rows.filter((item) => item.average >= 80 && item.average < 90).length, color: "blue" },
-    { label: "60–79分", count: rows.filter((item) => item.average >= 60 && item.average < 80).length, color: "marigold" },
-    { label: "60分以下", count: rows.filter((item) => item.average < 60).length, color: "coral" },
+    { label: "90分及以上", count: rows.filter((item) => item.complete && item.average >= 90).length, color: "jade" },
+    { label: "80–89分", count: rows.filter((item) => item.complete && item.average >= 80 && item.average < 90).length, color: "blue" },
+    { label: "60–79分", count: rows.filter((item) => item.complete && item.average >= 60 && item.average < 80).length, color: "marigold" },
+    { label: "60分以下", count: rows.filter((item) => item.complete && item.average < 60).length, color: "coral" },
   ];
   const distributionMax = Math.max(1, ...scoreDistribution.map((item) => item.count));
-  const subjectAverages = subjects.map((subject) => ({
-    subject,
-    average: Math.round(data.students.reduce((sum, student) => sum + scoreValue(exam, student, subject), 0) / Math.max(1, data.students.length)),
-  }));
+  const subjectAverages = subjects.map((subject) => {
+    const values = data.students.map((student) => scoreEntry(exam, student.id, subject)).filter((value): value is number => value != null);
+    return { subject, average: values.length ? Math.round(values.reduce((sum, value) => sum + value, 0) / values.length) : null };
+  });
   const examYearOptions = Array.from(new Set(exams.map((item) => item.date.slice(0, 4)).filter(Boolean))).sort((a, b) => b.localeCompare(a));
   const examMonthOptions = Array.from(new Set(exams.filter((item) => examYearFilter === "全部" || item.date.startsWith(examYearFilter)).map((item) => item.date.slice(0, 7)).filter(Boolean))).sort((a, b) => b.localeCompare(a));
   const visibleExams = examSummaries.filter((item) => {
@@ -6280,28 +6252,13 @@ function Scores({ workspaceToken, data, update }: { workspaceToken: string; data
   }, [examYearFilter, examMonthFilter]);
 
   function updateExam(nextExam: ScoreExam) {
-    update((current) => {
-      const currentExams = current.scoreExams ?? [];
-      const exists = currentExams.some((item) => item.id === nextExam.id);
-      return {
-        ...current,
-        scoreExams: exists
-          ? currentExams.map((item) => item.id === nextExam.id ? nextExam : item)
-          : [nextExam, ...currentExams],
-      };
-    });
+    update((current) => patchScoreExam(current, activeClassId, nextExam.id, nextExam));
   }
-  function setScore(studentId: string, subject: string, score: number) {
-    const maxScore = subjectMaxScore(exam, subject);
-    const safeScore = Math.max(0, Math.min(maxScore, score));
-    const nextScores = { ...exam.scores, [studentId]: { ...(exam.scores[studentId] ?? {}), [subject]: safeScore } };
-    update((current) => {
-      const nextExam = { ...exam, scores: nextScores };
-      const currentExams = current.scoreExams ?? [];
-      const withExam = { ...current, scoreExams: currentExams.some((item) => item.id === exam.id) ? currentExams.map((item) => item.id === exam.id ? nextExam : item) : [nextExam, ...currentExams] };
-      const average = Math.round(subjects.reduce((sum, item) => sum + (nextScores[studentId]?.[item] ?? 0), 0) / Math.max(1, subjects.length));
-      return updateClassStudents(withExam, activeClassId, (student) => student.id === studentId ? { ...student, score: average } : student);
-    });
+  function setScore(studentId: string, subject: string, value: string) {
+    const numeric = value.trim() === "" ? null : Number(value);
+    const preview = setScoreEntries(data, activeClassId, exam.id, [studentId], subject, numeric);
+    if (preview.error) { notify(preview.error, "error"); return; }
+    update((current) => setScoreEntries(current, activeClassId, exam.id, [studentId], subject, numeric).data ?? current);
   }
   function openBatchScore() {
     const subject = detailSubjectFilter !== "全部" && subjects.includes(detailSubjectFilter) ? detailSubjectFilter : subjects[0] ?? "";
@@ -6325,23 +6282,12 @@ function Scores({ workspaceToken, data, update }: { workspaceToken: string; data
       return;
     }
     const safeScore = Math.max(0, Math.min(subjectMaxScore(exam, activeBatchSubject), value));
-    const nextScores = { ...exam.scores };
-    selectedIds.forEach((studentId) => {
-      nextScores[studentId] = { ...(nextScores[studentId] ?? {}), [activeBatchSubject]: safeScore };
-    });
-    const selectedSet = new Set(selectedIds);
-    update((current) => {
-      const nextExam = { ...exam, scores: nextScores };
-      const currentExams = current.scoreExams ?? [];
-      const withExam = { ...current, scoreExams: currentExams.some((item) => item.id === exam.id) ? currentExams.map((item) => item.id === exam.id ? nextExam : item) : [nextExam, ...currentExams] };
-      return updateClassStudents(withExam, activeClassId, (student) => {
-        if (!selectedSet.has(student.id)) return student;
-        const average = Math.round(subjects.reduce((sum, subject) => sum + (nextScores[student.id]?.[subject] ?? 0), 0) / Math.max(1, subjects.length));
-        return { ...student, score: average };
-      });
-    });
+    const preview = setScoreEntries(data, activeClassId, exam.id, selectedIds, activeBatchSubject, safeScore);
+    if (preview.error) { setBatchScoreError(preview.error); return; }
+    update((current) => setScoreEntries(current, activeClassId, exam.id, selectedIds, activeBatchSubject, safeScore).data ?? current);
     setBatchScoreError("");
     setShowBatchScore(false);
+    setSelectedIds([]);
   }
   function setAdvice(studentId: string, advice: string) {
     updateExam({ ...exam, advice: { ...(exam.advice ?? {}), [studentId]: advice } });
@@ -6372,15 +6318,10 @@ function Scores({ workspaceToken, data, update }: { workspaceToken: string; data
   function confirmAddExam() {
     const nextSubjects = parseSubjects(subjectDraft);
     if (!nextSubjects.length) return;
-    const scores: ScoreExam["scores"] = {};
-    data.students.forEach((student) => {
-      scores[student.id] = {};
-      nextSubjects.forEach((subject) => { scores[student.id][subject] = 0; });
-    });
-    const subjectMaxScores = Object.fromEntries(nextSubjects.map((subject) => [subject, 100]));
-    const scoreRanges = Object.fromEntries(nextSubjects.map((subject) => [subject, defaultScoreRanges(100)]));
-    const next: ScoreExam = { id: makeId(), classId: activeClassId, title: newExamTitle.trim() || `考试 ${exams.length + 1}`, date: newExamDate || today(), subjects: nextSubjects, scores, subjectMaxScores, scoreRanges, levels: {}, advice: {}, focusSubjects: {}, followUpStudentIds: [] };
-    update((current) => ({ ...current, scoreExams: [next, ...(current.scoreExams ?? [])] }));
+    const result = createScoreExam(data, activeClassId, { title: newExamTitle, date: newExamDate, subjects: nextSubjects }, makeId);
+    if (!result.exam) { notify(result.error ?? "考试创建失败。", "error"); return; }
+    const next = result.exam;
+    update((current) => createScoreExam(current, activeClassId, { title: newExamTitle, date: newExamDate, subjects: nextSubjects }, () => next.id).data ?? current);
     setExamId(next.id);
     setDetailSubjectFilter("全部");
     setScoreRangeFilter("全部");
@@ -6393,32 +6334,17 @@ function Scores({ workspaceToken, data, update }: { workspaceToken: string; data
     setShowExamEdit(true);
   }
   async function deleteCurrentExam() {
-    if (exams.length <= 1) {
-      notify("请先新增一场考试，再删除当前考试", "info");
-      return;
-    }
     if (!await requestDangerConfirm(`${exam.title} 的全部成绩、跟进标记和关联反思都会删除。`, "删除考试", "确认删除")) return;
-    update((current) => ({
-      ...current,
-      scoreExams: (current.scoreExams ?? []).filter((item) => item.id !== exam.id),
-      examReflections: (current.examReflections ?? []).filter((item) => item.examId !== exam.id),
-    }));
+    update((current) => removeScoreExam(current, activeClassId, exam.id));
     setExamId(exams.find((item) => item.id !== exam.id)?.id ?? "");
     setShowExamEdit(false);
   }
   function confirmExamEdit() {
     const nextSubjects = parseSubjects(editSubjects);
     if (!nextSubjects.length) return;
-    const nextScores: ScoreExam["scores"] = {};
-    data.students.forEach((student) => {
-      nextScores[student.id] = {};
-      nextSubjects.forEach((subject) => { nextScores[student.id][subject] = exam.scores[student.id]?.[subject] ?? 0; });
-    });
-    const subjectMaxScores = { ...(exam.subjectMaxScores ?? {}) };
-    nextSubjects.forEach((subject) => { subjectMaxScores[subject] = subjectMaxScores[subject] ?? 100; });
-    const scoreRanges = { ...(exam.scoreRanges ?? {}) };
-    nextSubjects.forEach((subject) => { scoreRanges[subject] = scoreRanges[subject] ?? defaultScoreRanges(subjectMaxScores[subject]); });
-    updateExam({ ...exam, title: editTitle.trim() || exam.title, date: editDate || exam.date, subjects: nextSubjects, scores: nextScores, subjectMaxScores, scoreRanges });
+    const preview = editScoreExam(data, activeClassId, exam.id, { title: editTitle, date: editDate, subjects: nextSubjects });
+    if (preview.error) { notify(preview.error, "error"); return; }
+    update((current) => editScoreExam(current, activeClassId, exam.id, { title: editTitle, date: editDate, subjects: nextSubjects }).data ?? current);
     if (detailSubjectFilter !== "全部" && !nextSubjects.includes(detailSubjectFilter)) setDetailSubjectFilter("全部");
     setShowExamEdit(false);
   }
@@ -6467,24 +6393,24 @@ function Scores({ workspaceToken, data, update }: { workspaceToken: string; data
       <nav className="score5-workspace-tabs" aria-label="成绩工作视图"><button type="button" className={scoreWorkspaceView === "records" ? "active" : ""} onClick={() => setScoreWorkspaceView("records")}>成绩录入</button><button type="button" className={scoreWorkspaceView === "trends" ? "active" : ""} onClick={() => setScoreWorkspaceView("trends")}>历次趋势</button><button type="button" className={scoreWorkspaceView === "analysis" ? "active" : ""} onClick={() => setScoreWorkspaceView("analysis")}>试卷与知识点</button></nav>
 
       <section className="campus-statistics">
-        <div className="tone-iris"><span>当前平均</span><b>{average}</b><small>{subjects.join(" / ")}</small></div>
+        <div className="tone-iris"><span>已录平均</span><b>{average ?? "未录入"}</b><small>{subjects.join(" / ")} 已录成绩</small></div>
         <div className="tone-lake"><span>录分进度</span><b>{activeExamSummary?.enteredCount ?? 0}/{activeExamSummary?.scoreCount ?? 0}</b><small>{data.students.length} 名学生</small></div>
         <div className="tone-coral"><span>重点跟进</span><b>{followCount}</b><small>可从列表批量处理</small></div>
       </section>
 
       {scoreWorkspaceView === "records" && <section className="score5-insights" aria-label="本次考试概览">
         <div className="score5-distribution">
-          <header><h3>分数段分布</h3><span>按学生科目平均分</span></header>
+          <header><h3>分数段分布</h3><span>仅统计已录全科目的学生</span></header>
           <div>{scoreDistribution.map((item) => <article className={`tone-${item.color}`} key={item.label}><span><b>{item.label}</b><em>{item.count}人</em></span><i><strong style={{ width: `${Math.max(6, item.count / distributionMax * 100)}%` }} /></i></article>)}</div>
         </div>
         <div className="score5-subject-averages">
-          <header><h3>各科平均</h3><span>快速比较本次科目表现</span></header>
-          <div>{subjectAverages.map((item, index) => <article className={`tone-${["iris", "jade", "marigold", "lake", "coral"][index % 5]}`} key={item.subject}><span>{item.subject}</span><b>{item.average}</b></article>)}</div>
+          <header><h3>各科平均</h3><span>空白成绩不进入分母</span></header>
+          <div>{subjectAverages.map((item, index) => <article className={`tone-${["iris", "jade", "marigold", "lake", "coral"][index % 5]}`} key={item.subject}><span>{item.subject}</span><b>{item.average ?? "未录"}</b></article>)}</div>
         </div>
       </section>}
 
       {scoreWorkspaceView === "trends" && <ScoreTrends data={data} classId={activeClassId} />}
-      {scoreWorkspaceView === "analysis" && <ScoreItemAnalysis workspaceToken={workspaceToken} exam={exam} students={data.students} update={update} />}
+      {scoreWorkspaceView === "analysis" && <ScoreItemAnalysis data={data} classId={activeClassId} workspaceToken={workspaceToken} exam={exam} students={data.students} update={update} />}
 
       {scoreWorkspaceView === "records" && <><section className="score5-toolbar">
         <label className="score5-filter-field wide"><span>学生搜索</span><input value={keyword} onChange={(e) => setKeyword(e.target.value)} placeholder="姓名、学号或建议" /></label>
@@ -6511,12 +6437,12 @@ function Scores({ workspaceToken, data, update }: { workspaceToken: string; data
           </colgroup>
           <thead><tr><th><label className="score5-select-head"><input type="checkbox" aria-label="全选当前筛选学生" checked={allVisibleSelected} onChange={toggleSelectVisible} /><span>全选</span></label></th><th>学生</th>{tableSubjects.map((subject) => <th key={subject}>{subject}</th>)}<th>总分</th><th>平均</th><th>重点</th><th>建议</th></tr></thead>
           <tbody>
-            {visible.map(({ student, total, average, advice, followUp }) => <tr key={student.id}>
+            {visible.map(({ student, total, average, advice, followUp, enteredCount, complete }) => <tr key={student.id}>
               <td><label className="score5-check"><input type="checkbox" aria-label={`${selectedIds.includes(student.id) ? "取消选择" : "选择"}${student.name}`} checked={selectedIds.includes(student.id)} onChange={() => toggleSelect(student.id)} /></label></td>
               <td><span className="score5-student-cell">{student.name}<small>学号 {student.studentNo || "未填"}</small></span></td>
-              {tableSubjects.map((subject) => <td key={subject}><input className="score5-score-input" aria-label={`${student.name}${subject}成绩`} type="number" min={0} max={subjectMaxScore(exam, subject)} value={scoreValue(exam, student, subject)} onChange={(e) => setScore(student.id, subject, Number(e.target.value) || 0)} /></td>)}
-              <td><strong>{total}</strong></td>
-              <td><strong>{average}</strong></td>
+              {tableSubjects.map((subject) => <td key={subject}><input className="score5-score-input" aria-label={`${student.name}${subject}成绩`} type="number" min={0} max={subjectMaxScore(exam, subject)} value={scoreEntry(exam, student.id, subject) ?? ""} onChange={(e) => setScore(student.id, subject, e.target.value)} placeholder="未录" /></td>)}
+              <td><strong>{complete ? total : "待补全"}</strong></td>
+              <td><strong>{enteredCount ? average : "未录入"}</strong></td>
               <td><button type="button" className={followUp ? "active" : ""} onClick={() => toggleFollow(student.id)}>{followUp ? "已标记" : "标记"}</button></td>
               <td><textarea className="score5-advice" rows={2} aria-label={`${student.name}成绩建议`} value={advice} onChange={(e) => setAdvice(student.id, e.target.value)} /></td>
             </tr>)}
@@ -6541,7 +6467,7 @@ function Scores({ workspaceToken, data, update }: { workspaceToken: string; data
             {batchRows.map((student) => <article className="score5-batch-row" key={student.id}>
               <span><b>{student.name}</b></span>
               <span>学号 {student.studentNo || "未填"} · 第{student.group}组</span>
-              <em>{activeBatchSubject ? exam.scores[student.id]?.[activeBatchSubject] ?? 0 : 0}</em>
+              <em>{activeBatchSubject ? exam.scores[student.id]?.[activeBatchSubject] ?? "未录" : "未录"}</em>
             </article>)}
             {!batchRows.length && <p className="score5-empty">请先在学生列表中选择同分学生。</p>}
           </div>
@@ -6623,7 +6549,16 @@ function Scores({ workspaceToken, data, update }: { workspaceToken: string; data
   </>;
 }
 
-function Reflection({ data, update }: { data: ClassroomData; update: (fn: (d: ClassroomData) => ClassroomData) => void }) {
+function Reflection({ data, update, open }: { data: ClassroomData; update: (fn: (d: ClassroomData) => ClassroomData) => void; open: (id: ModuleId) => void }) {
+  const activeClassId = data.activeClassId ?? data.rosterClasses?.[0]?.id ?? "class-1";
+  if (!scoreExamsForClass(data, activeClassId).length) return <>
+    <WorkbenchPageHeader icon="📝" tone="iris" title="本次考试反思" description="先建立真实考试，再为学生填写考试反思。" />
+    <section className="reflection5-page"><section className="reflection5-current workbench-page-context"><div className="reflection5-current-main"><span>考试反思</span><h3>还没有可反思的考试</h3><p>成绩分析中新增考试后，这里会显示对应学生和成绩上下文。</p></div><div className="reflection5-actions"><button type="button" onClick={() => open("scores")}>去成绩分析</button></div></section></section>
+  </>;
+  return <ReflectionWithExam data={data} update={update} />;
+}
+
+function ReflectionWithExam({ data, update }: { data: ClassroomData; update: (fn: (d: ClassroomData) => ClassroomData) => void }) {
   const params = typeof window !== "undefined" ? new URLSearchParams(window.location.search) : null;
   const activeClassId = data.activeClassId ?? data.rosterClasses?.[0]?.id ?? "class-1";
   const initialStudentId = params?.get("studentId") || "";
@@ -6639,9 +6574,7 @@ function Reflection({ data, update }: { data: ClassroomData; update: (fn: (d: Cl
   const [examYearFilter, setExamYearFilter] = useState("全部");
   const [examMonthFilter, setExamMonthFilter] = useState("全部");
   const [examLibrarySort, setExamLibrarySort] = useState("date-desc");
-  const storedExams = data.scoreExams?.length ? data.scoreExams : [];
-  const classExams = storedExams.filter((item) => !item.classId || item.classId === activeClassId);
-  const exams = classExams.length ? classExams : [defaultScoreExam(data.students, activeClassId)];
+  const exams = scoreExamsForClass(data, activeClassId);
   const [examFilter, setExamFilter] = useState(() => exams.some((item) => item.id === initialExamId) ? initialExamId : exams[0]?.id ?? "");
   const activeStudentIds = new Set(data.students.map((student) => student.id));
   const reflections = (data.examReflections ?? []).filter((item) => activeStudentIds.has(item.studentId));
