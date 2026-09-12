@@ -46,6 +46,10 @@
 
 手机源码确认存在学生详情、新增/编辑、追加、批量编辑四类MobileInfoSheet；作业有详情和新增/编辑两类。桌面作业createOpen/editOpen使用旧role=dialog结构，确认后直接本地更新并关闭。此次未宣称脏关闭保护、嵌套焦点或手机键盘验收通过。
 
+继续逐handler核验确认：桌面作业有新增、编辑、删除、待跟进名单三类浮层/确认；手机有任务详情与任务编辑MobileInfoSheet，但源码只有openNewTask会将taskEditorOpen设为new，完全没有设为edit的触发器，因此手机“编辑/删除任务”分支实际不可达。该能力缺口必须在新页面接线时补齐，不能因为分支源码存在就登记为已可用。桌面严格排除无classId旧任务，手机兼容显示无classId任务；迁移前需明确旧数据归属策略。
+
+applyHomeworkStatuses增加目标班名册和任务归属防线：另一班/不存在ID不会写入任务statuses，也不会修改学生汇总；另一班任务ID不会只改学生汇总。保留无homeworkTasks旧数据只更新学生汇总的既有兼容。新增失败后修正并通过的跨班测试。
+
 `updateData`：只读阻止修改；一般编辑更新workspaceRef、normalizeData/scopeClassSettings，写本机草稿并置dirty。demo可本地演示但不持久化。
 `save`：沿用in-flight排队、server/local revision、409冲突锁、成功时只清对应版本草稿。
 `commitWorkspace`：先save旧编辑，再保存听写next；4.8MiB预检；并发新编辑时仅把next.dictation合回latest.data。因此它虽然命名通用，实质是听写专用提交语义。绝不能直接将其传给学生/作业新页面当通用事务。pendingDictationDraftRef也只存该路径。

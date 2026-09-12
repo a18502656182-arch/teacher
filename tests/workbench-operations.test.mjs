@@ -70,3 +70,10 @@ test('空选择与另一班学生ID不会修改当前名单', () => {
     assert.deepEqual(applyStudentBatch(students, ids, { group: '9', gender: '男', note: '新备注' }), students);
   }
 });
+test('作业状态拒绝另一班和不存在的学生ID，也不污染任务状态键', () => {
+  const data = fixture(), before = structuredClone(data);
+  for (const ids of [[], ['b-0'], ['missing']]) assert.equal(applyHomeworkStatuses(data, 'a', 'a-task', ids, '已交'), data);
+  assert.deepEqual(data, before);
+  assert.equal(data.homeworkTasks[0].statuses['b-0'], undefined);
+  assert.equal(applyHomeworkStatuses(data, 'b', 'a-task', ['b-0'], '已交'), data);
+});

@@ -4,11 +4,11 @@ import { useEffect, useMemo, useState } from "react";
 import { makeId } from "@/lib/classroom";
 import type { AttendanceRecord, AttendanceStatus, ClassroomData, Student } from "@/lib/classroom";
 import { WorkbenchPageHeader } from "./WorkbenchPageHeader";
+import { applyAttendanceChanges, localDateToday } from "./features/attendance/operations";
+import type { AttendanceChange } from "./features/attendance/operations";
 
 const attendanceStatuses: AttendanceStatus[] = ["正常", "迟到", "请假", "缺勤"];
 const statusTone: Record<AttendanceStatus, string> = { 正常: "normal", 迟到: "late", 请假: "leave", 缺勤: "absent" };
-
-function dateToday() { return new Date().toISOString().slice(0, 10); }
 
 function monthDays(month: string) {
   const [year, value] = month.split("-").map(Number);
@@ -24,20 +24,11 @@ function getActiveClass(data: ClassroomData) {
 
 function statusFor(student: Student, records: Map<string, AttendanceRecord>) { return records.get(student.id)?.status ?? student.attendance; }
 
-function updateTodayAttendance(current: ClassroomData, classId: string, changes: { studentId: string; status: AttendanceStatus }[], date: string) {
-  if (date !== dateToday()) return current;
-  const statuses = new Map(changes.map((item) => [item.studentId, item.status]));
-  const patchStudents = (students: Student[]) => students.map((student) => statuses.has(student.id) ? { ...student, attendance: statuses.get(student.id)! } : student);
-  return { ...current, students: current.activeClassId === classId ? patchStudents(current.students) : current.students, rosterClasses: current.rosterClasses?.map((item) => item.id === classId ? { ...item, students: patchStudents(item.students) } : item) };
-}
-
-type AttendanceChange = { studentId: string; status: AttendanceStatus; note?: string };
-
 export function Attendance({ data, update, mobile = false }: { data: ClassroomData; update: (fn: (data: ClassroomData) => ClassroomData) => void; mobile?: boolean }) {
   const { activeClass } = getActiveClass(data);
   const students = activeClass.students?.length ? activeClass.students : data.students;
-  const [selectedDate, setSelectedDate] = useState(dateToday);
-  const [month, setMonth] = useState(dateToday().slice(0, 7));
+  const [selectedDate, setSelectedDate] = useState(localDateToday);
+  const [month, setMonth] = useState(localDateToday().slice(0, 7));
   const [keyword, setKeyword] = useState("");
   const [statusFilter, setStatusFilter] = useState<AttendanceStatus | "全部">("全部");
   const [groupFilter, setGroupFilter] = useState("全部");
@@ -75,17 +66,7 @@ export function Attendance({ data, update, mobile = false }: { data: ClassroomDa
 
   function saveChanges(changes: AttendanceChange[]) {
     if (!changes.length) return;
-    update((current) => {
-      const changesById = new Map(changes.map((item) => [item.studentId, item]));
-      const retained = (current.attendanceRecords ?? []).filter((item) => !(item.classId === activeClass.id && item.date === selectedDate && changesById.has(item.studentId)));
-      const records = changes.map((change) => {
-        const existing = (current.attendanceRecords ?? []).find((item) => item.classId === activeClass.id && item.date === selectedDate && item.studentId === change.studentId);
-        const note = change.note ?? existing?.note ?? "";
-        if (change.status !== "请假") return { id: existing?.id ?? makeId("attendance"), classId: activeClass.id, studentId: change.studentId, date: selectedDate, createdAt: existing?.createdAt ?? Date.now(), period: existing?.period ?? "全天", status: change.status, note } as AttendanceRecord;
-        return { id: existing?.id ?? makeId("attendance"), classId: activeClass.id, studentId: change.studentId, date: selectedDate, createdAt: existing?.createdAt ?? Date.now(), period: existing?.period ?? "全天", status: "请假", leaveType: existing?.leaveType ?? "事假", reason: existing?.reason ?? "", submittedBy: existing?.submittedBy ?? "家长", contact: existing?.contact ?? "", approval: existing?.approval ?? "待确认", returnedAt: existing?.returnedAt ?? "", note } as AttendanceRecord;
-      });
-      return updateTodayAttendance({ ...current, attendanceRecords: [...retained, ...records] }, activeClass.id, changes, selectedDate);
-    });
+    update(current => applyAttendanceChanges(current, activeClass.id, changes, selectedDate, () => makeId("attendance")));
   }
 
   function setStudentStatus(studentId: string, status: AttendanceStatus) { saveChanges([{ studentId, status, note: noteDrafts[studentId] ?? recordsByStudent.get(studentId)?.note ?? "" }]); setSelectedIds([]); setMessage("考勤状态已保存"); }
@@ -95,7 +76,7 @@ export function Attendance({ data, update, mobile = false }: { data: ClassroomDa
     saveChanges([{ studentId, status: statusFor(student, recordsByStudent), note: noteDrafts[studentId] ?? "" }]);
     setSelectedIds([]); setMessage("备注已保存");
   }
-  function markAllNormal() { saveChanges(students.map((student) => ({ studentId: student.id, status: "正常", note: noteDrafts[student.id] ?? "" }))); setSelectedIds([]); setMessage(`已保存 ${students.length} 名学生为正常到校`); }
+  function markAllNormal() { saveChanges(students.map((student) => ({ studentId: student.id, status: "正常", note: noteDrafts[student.id] }))); setSelectedIds([]); setMessage(`已保存 ${students.length} 名学生为正常到校`); }
   function toggleStudent(id: string) { setSelectedIds((current) => current.includes(id) ? current.filter((item) => item !== id) : [...current, id]); }
   function toggleVisible() { setSelectedIds((current) => allVisibleSelected ? current.filter((id) => !visibleIds.includes(id)) : Array.from(new Set([...current, ...visibleIds]))); }
   function applyBatch() {
