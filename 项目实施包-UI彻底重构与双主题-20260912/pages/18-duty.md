@@ -1,6 +1,6 @@
 # 值日岗位：逐页执行卡
 
-状态：planned。模块ID：duty。源码相对 app/w/[token]（明确app/lib前缀除外）：ClassroomApp.tsx:Duty/MobileSecondaryPage。
+状态：implemented-with-global-overlay-gap（实现提交 `50f88c3`）。模块ID：duty。源码相对 app/w/[token]（明确app/lib前缀除外）：Duty.tsx、Duty.module.css、features/duty/operations.ts；接线位于ClassroomApp.tsx。
 参考：责任编排派生。派生页面使用对应页面族构图和校园token，不把缺少专属图解释为可回退旧UI。
 
 ## 保全动作（种子，实施前展开）
@@ -29,3 +29,9 @@
 
 ## 完成判据
 全部保全动作有新入口与证据；桌面/手机/主要浮层可用；参考气质和比例达标；旧布局退出；测试没有通过削弱断言变绿。结果写当前commit，不复用旧报告标pass。
+
+## 2026-09-12执行结果
+
+- 桌面与手机已改用同一独立校园值日页面；岗位检查、本周安排、岗位设置和检查台账共用当前班操作层。6/7教学日、非连续组号、未分组、固定/临时负责人、检查快照、恢复自动、台账备注、跨班、只读、失败重试和真实409均在隔离环境验证。
+- 新增值日语义插画槽与独立水彩清洁角素材；旧 `duty3-*` / `mobile-duty-*` DOM已移除，死规则留待TASK-30统一核对删除。岗位编辑脏关闭和共享学生选择portal仍是明确缺口，空班视觉A-18-03保持未运行。
+- 详细证据见 `evidence/duty-operations-20260912.md`；A-18-01、02、04至09记录本次提交。
