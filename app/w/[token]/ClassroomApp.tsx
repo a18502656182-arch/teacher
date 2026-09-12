@@ -731,7 +731,7 @@ export default function ClassroomApp({ token }: { token: string }) {
           {active === "health" && <HealthCare data={workspace.data} update={updateData} />}
           {active === "weekly" && <Weekly data={workspace.data} update={updateData} readOnly={isDemo || isReadOnly} />}
           {active === "schedule" && <ScheduleHub data={workspace.data} update={updateData} readOnly={isDemo || isReadOnly} />}
-          {active === "tools" && <ClassroomTools data={workspace.data} update={updateData} />}
+          {active === "tools" && <ClassroomTools data={workspace.data} update={updateData} readOnly={isDemo || isReadOnly} />}
           {active === "seating" && <Seating data={workspace.data} update={updateData} />}
           {active === "duty" && <Duty data={workspace.data} update={updateData} />}
           {active === "cadres" && <Cadres data={workspace.data} update={updateData} />}
@@ -3410,7 +3410,7 @@ function MobileSecondaryPage({ workspaceToken, active, data, activeClass, update
     </div>;
   }
 
-  if (active === "tools") return <div className="mobile-stack"><ClassroomTools data={data} update={update} /></div>;
+  if (active === "tools") return <div className="mobile-stack"><ClassroomTools data={data} update={update} readOnly={readOnly} /></div>;
 
   if (active === "schedule") {
     if (scheduleSurface === "我的日程") return <div className="mobile-stack mobile-schedule-page"><nav className="schedule-hub-switch mobile-schedule-hub-switch" aria-label="课程日程视图"><button type="button" onClick={() => setScheduleSurface("班级课表")}>班级课表</button><button className="active" type="button">我的日程与留痕</button></nav><TeacherAgenda data={data} update={update} mobile readOnly={readOnly} /></div>;

@@ -1,6 +1,6 @@
 # 课堂工具：逐页执行卡
 
-状态：planned。模块ID：tools。源码相对 app/w/[token]（明确app/lib前缀除外）：ClassroomTools.tsx。
+状态：inventoried-with-gap。模块ID：tools。源码相对 app/w/[token]（明确app/lib前缀除外）：ClassroomTools.tsx；共享操作：features/tools/operations.ts；局部样式：ClassroomTools.module.css。
 参考：专注工具派生。派生页面使用对应页面族构图和校园token，不把缺少专属图解释为可回退旧UI。
 
 ## 保全动作（种子，实施前展开）
@@ -29,3 +29,9 @@
 
 ## 完成判据
 全部保全动作有新入口与证据；桌面/手机/主要浮层可用；参考气质和比例达标；旧布局退出；测试没有通过削弱断言变绿。结果写当前commit，不复用旧报告标pass。
+
+## 2026-09-12 实际核验
+
+已展开随机点名、当天请假排除、不重复、全轮完成、重置、临时分组、历史和复制。共享操作层修复 UTC 日期、切班串本轮、错误请假计数、抽取顺序展示和空组；两班隔离合成工作区实际验证桌面/手机、只读、人数不足、多组、历史复制和全员请假。
+
+本卡仍未完成：生产页面继续使用 `.classroom-tools` / `.tool-*` 旧卡片结构，正式校园专注构图、旧 CSS 退出、操作级服务器确认、物理手机与弱网尚未验收，所以 `A-16-*` 不改为通过。证据见 `../evidence/classroom-tools-operations-20260912.md`。

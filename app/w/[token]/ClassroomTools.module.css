@@ -1,0 +1,7 @@
+.message {
+  margin: 0;
+  padding: 10px 14px;
+  border-radius: 8px;
+  color: var(--wb-text-2);
+  background: var(--campus-blue);
+}

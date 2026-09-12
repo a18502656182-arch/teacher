@@ -3,7 +3,7 @@
   "baselineCommit": "6e10e2dc314e09d0d72df9509730f57c5fde34e2",
   "implementationStatus": "in-progress",
   "active_task": "TASK-02",
-  "next_action": "继续TASK02课堂工具（F-16/O-16）及其余页面族逐动作/浮层核验；F-02至F-15已展开，完整保存controller及根CSS/portal隔离未完成",
+  "next_action": "继续TASK02座位分组（F-17/O-17）及其余页面族逐动作/浮层核验；F-02至F-16已展开，完整保存controller及根CSS/portal隔离未完成",
   "milestones": {
     "M0": "in-progress",
     "M1": "planned",
@@ -12,7 +12,7 @@
     "M4": "planned",
     "M5": "planned"
   },
-  "note": "线上受检源码无需要覆盖的业务差异。F02-F15已展开；课程与个人日程已统一当前班周表、事项和留痕操作，修复周外记录丢失、倒置学期、跨班关联、只读假成功、重复留痕和两端默认月份不一致，140项测试、认证集成、类型、ESLint和全站115项qa:strict通过；桌面/手机只读及隔离合成可写跨端保存已用本地Chromium/CDP实测。准备性提取不代表TASK03/04/05/09完整门槛完成；正式新页尚未切换。",
+  "note": "线上受检源码无需要覆盖的业务差异。F02-F16已展开；课堂工具已统一本机日期、当前班候选、点名轮次、非空分组、历史和复制，修复切班串状态、请假误计、抽取次序和空组，149项测试、认证集成、类型、ESLint和全站115项qa:strict通过；桌面/手机只读及隔离合成可写的全轮、人数不足、多组、历史复制、切班和全员请假已用本地Chromium/CDP实测。准备性提取不代表TASK03/04/05/09完整门槛完成；正式新页尚未切换。",
   "implementationStartCommit": "f321d5e9424e0020bdf1e56d52c31b986b503a53",
   "parallelPreparation": [
     "TASK-06",
