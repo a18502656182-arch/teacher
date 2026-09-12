@@ -161,15 +161,15 @@ A-18-06,duty,readonly,demo-readonly,1440x900;390x844,50f88c3,pass,evidence/duty-
 A-18-07,duty,save-failure,synthetic-route-unavailable,1440x900,50f88c3,pass,evidence/duty-operations-20260912.md,失败时检查结果保留并显示重试，恢复路由后同步成功
 A-18-08,duty,conflict-or-not-applicable,synthetic-two-tab-conflict,1440x900,50f88c3,pass,evidence/duty-operations-20260912.md,两个标签制造真实409，冲突层与本机草稿保留
 A-18-09,duty,legacy-css-off,demo-css-isolation,six-width,50f88c3,pass,evidence/duty-operations-20260912.md,新CSS Module类不匹配旧duty3/mobile-duty结构，115项qa通过
-A-19-01,cadres,desktop-default,,,,not-run,,不适用需说明源码依据
-A-19-02,cadres,mobile-default,,,,not-run,,不适用需说明源码依据
-A-19-03,cadres,empty,,,,not-run,,不适用需说明源码依据
-A-19-04,cadres,long-data,,,,not-run,,不适用需说明源码依据
-A-19-05,cadres,primary-editor,,,,not-run,,不适用需说明源码依据
-A-19-06,cadres,readonly,,,,not-run,,不适用需说明源码依据
-A-19-07,cadres,save-failure,,,,not-run,,不适用需说明源码依据
-A-19-08,cadres,conflict-or-not-applicable,,,,not-run,,不适用需说明源码依据
-A-19-09,cadres,legacy-css-off,,,,not-run,,不适用需说明源码依据
+A-19-01,cadres,desktop-default,synthetic-two-classes-105-plus-50,1280x720,1ec62b6,pass,evidence/cadre-operations-20260912.md,桌面岗位列表与选中详情并列且专属插画实际渲染
+A-19-02,cadres,mobile-default,synthetic-two-classes-105-plus-50,390x844;360x800;768x900,1ec62b6,pass,evidence/cadre-operations-20260912.md,手机列表到详情再到编辑可达；900断点一致且无整页横向溢出
+A-19-03,cadres,empty,formal-empty-workspace;empty-class-unit-fixture,1280x720,1ec62b6,pass,evidence/cadre-operations-20260912.md,正式空工作区显示0岗位；不再自动生成三条示例班干部
+A-19-04,cadres,long-data,synthetic-105-long-names-long-duty,1280x720;360x800,1ec62b6,pass,evidence/cadre-operations-20260912.md,第105名学生可搜索任命；长职责在列表/详情/编辑器正常换行
+A-19-05,cadres,primary-editor,synthetic-two-classes-105-plus-50,1280x720;390x844,1ec62b6,pass,evidence/cadre-operations-20260912.md,班委空岗/任命与第27组组长范围正确；空任期保存；脏取消不写半成品
+A-19-06,cadres,readonly,demo-readonly,1280x720,1ec62b6,pass,evidence/cadre-operations-20260912.md,新增编辑删除禁用；查看和复制保留
+A-19-07,cadres,save-failure,synthetic-server-unavailable,768x900,1ec62b6,pass,evidence/cadre-operations-20260912.md,失败状态和重试入口出现；已编辑履职内容仍留在本机且未宣称服务器成功
+A-19-08,cadres,conflict-or-not-applicable,synthetic-two-tab-conflict,1280x720,1ec62b6,pass,evidence/cadre-operations-20260912.md,第二标签真实409；冲突提示和草稿入口可见；载入最新后陈旧岗位消失
+A-19-09,cadres,legacy-css-off,demo-css-isolation,six-width,1ec62b6,pass,evidence/cadre-operations-20260912.md,生产DOM已无cadre3/mobile-cadres消费者；新CSS Module接管页面且115项qa通过
 A-20-01,family,desktop-default,,,,not-run,,不适用需说明源码依据
 A-20-02,family,mobile-default,,,,not-run,,不适用需说明源码依据
 A-20-03,family,empty,,,,not-run,,不适用需说明源码依据
