@@ -3,7 +3,6 @@
 import Link from 'next/link';
 import type { RosterClass } from '@/lib/classroom';
 import { CampusIcon } from './primitives';
-import { ClassSwitcher } from './ClassSwitcher';
 
 export type WorkspaceModuleId = 'dictation' | 'dashboard' | 'students' | 'attendance' | 'homework' | 'points' | 'rules' | 'growth' | 'health' | 'weekly' | 'schedule' | 'tools' | 'seating' | 'duty' | 'cadres' | 'records' | 'scores' | 'reflection' | 'comments';
 export type LearningScene = 'class' | 'family';
@@ -47,25 +46,20 @@ export function DesktopHeader({ classes, activeClass, scene, onSwitchClass, onSc
       <button type="button" aria-pressed={scene === 'class'} onClick={() => onScene('class')}><CampusIcon name="school"/>班级教学</button>
       <button type="button" aria-pressed={scene === 'family'} onClick={() => onScene('family')}><CampusIcon name="home"/>家庭学习</button>
     </nav>
-    <div className="campus-header-account"><SaveStatus {...status}/><button type="button" onClick={onAccount}><CampusIcon name="user"/>我的工作台</button></div>
+    <div className="campus-header-account"><SaveStatus {...status}/><button type="button" onClick={onAccount}><CampusIcon name={status.isDemo ? 'view' : 'user'}/>{status.isDemo ? '演示说明' : '账户与班级'}</button></div>
   </header>;
 }
 
 type WorkspaceNavProps = {
-  active: WorkspaceModuleId; classes: RosterClass[]; activeClass: RosterClass; isDemo: boolean;
-  onOpen: (id: WorkspaceModuleId) => void; onSwitch: (id: string) => void;
-  onPatch: (patch: Partial<RosterClass>) => void; onAdd: () => void; onDelete: () => void;
-  onAccount: () => void; onExport: () => void; onImport: () => void;
+  active: WorkspaceModuleId; isDemo: boolean;
+  onOpen: (id: WorkspaceModuleId) => void;
 };
-export function WorkspaceNav({ active, classes, activeClass, isDemo, onOpen, onSwitch, onPatch, onAdd, onDelete, onAccount, onExport, onImport }: WorkspaceNavProps) {
+export function WorkspaceNav({ active, isDemo, onOpen }: WorkspaceNavProps) {
   return <aside className="campus-workspace-nav">
     <nav aria-label="班级工具">{workspaceNavGroups.map(group => <details key={`${group.title}-${group.items.includes(active) ? 'active' : 'idle'}`} open={group.items.includes(active) ? true : undefined}>
       <summary>{group.title}<CampusIcon name="chevron"/></summary>
       <div>{group.items.map(id => { const item = workspaceModules.find(entry => entry.id === id)!; return <button type="button" key={id} data-module={id} aria-current={active === id ? 'page' : undefined} onClick={() => onOpen(id)}><CampusIcon name={id}/><span>{item.label}</span></button>; })}</div>
     </details>)}</nav>
-    <div className="campus-nav-utility">
-      <ClassSwitcher classes={classes} activeClass={activeClass} onSwitch={onSwitch} onPatch={onPatch} onAdd={onAdd} onDelete={onDelete} showSelector={false}/>
-      {isDemo ? <p><CampusIcon name="view"/><b>演示模式</b><span>数据不会保存</span></p> : <><button type="button" onClick={onAccount}><CampusIcon name="user"/><span><b>我的工作台</b><small>账户与使用期限</small></span></button><div><button type="button" onClick={onExport}>导出备份</button><button type="button" onClick={onImport}>恢复备份</button></div></>}
-    </div>
+    {isDemo && <div className="campus-nav-utility"><p><CampusIcon name="view"/><b>演示模式</b><span>数据不会保存</span></p></div>}
   </aside>;
 }

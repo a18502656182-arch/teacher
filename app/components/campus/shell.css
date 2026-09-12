@@ -1,10 +1,1 @@
-/* Class management is shared by the desktop utility rail and the mobile sheet. */
-.campus-class-switch { padding:0 8px 12px; border-bottom:1px solid var(--campus-line); }
-.campus-class-switch label,.campus-class-editor { display:grid; gap:6px; }
-.campus-class-switch label>span { font-size:12px; color:var(--campus-muted); }
-.campus-class-switch select,.campus-class-switch input { width:100%; min-height:40px; padding:8px 10px; border:1px solid var(--campus-line); border-radius:8px; background:var(--campus-blue); }
-.campus-class-settings summary { display:flex; align-items:center; gap:8px; padding:10px 0 0; cursor:pointer; color:var(--campus-primary); font-size:13px; }
-.campus-class-settings summary::after { content:'⌄'; margin-left:auto; }
-.campus-class-settings[open] summary::after { content:'⌃'; }
-.campus-class-settings summary .campus-icon { width:16px; height:16px; }
-.campus-class-editor { padding-top:14px; gap:12px; }
+/* Shell-specific component rules remain here; class and account editing now live in one feature dialog. */

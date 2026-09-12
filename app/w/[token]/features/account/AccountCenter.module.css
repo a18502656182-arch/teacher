@@ -1,0 +1,501 @@
+.layout {
+  display: grid;
+  grid-template-columns: 250px minmax(0, 1fr);
+  min-height: 510px;
+  background: var(--wb-work);
+}
+
+.accountRail {
+  padding: 28px 24px;
+  background: var(--wb-context);
+  border-right: 1px solid var(--wb-line);
+}
+
+.accountMark {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  margin-bottom: 30px;
+  border-radius: 12px;
+  background: var(--wb-primary);
+  color: var(--wb-on-primary);
+  transform: rotate(-2deg);
+}
+
+.accountMark svg {
+  width: 25px;
+  height: 25px;
+}
+
+.eyebrow {
+  margin: 0 0 8px;
+  color: var(--wb-primary);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .12em;
+}
+
+.accountRail h3 {
+  margin: 0;
+  color: var(--wb-ink);
+  font-size: 22px;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+.accountNote {
+  margin: 14px 0 24px;
+  color: var(--wb-muted);
+  font-size: 13px;
+  line-height: 1.75;
+}
+
+.loading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--wb-muted);
+  font-size: 13px;
+}
+
+.loading svg {
+  width: 16px;
+  height: 16px;
+}
+
+.loadError {
+  display: grid;
+  gap: 10px;
+  padding-top: 16px;
+  border-top: 1px solid var(--wb-line);
+}
+
+.loadError > svg {
+  width: 20px;
+  height: 20px;
+  color: var(--wb-danger);
+}
+
+.loadError p {
+  margin: 0;
+  color: var(--wb-danger);
+  font-size: 13px;
+}
+
+.accountFacts {
+  margin: 0;
+  border-top: 1px solid var(--wb-line);
+}
+
+.accountFacts div {
+  display: grid;
+  gap: 4px;
+  padding: 13px 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--wb-line), transparent 28%);
+}
+
+.accountFacts dt {
+  color: var(--wb-muted);
+  font-size: 12px;
+}
+
+.accountFacts dd {
+  margin: 0;
+  color: var(--wb-ink);
+  font-size: 14px;
+  font-weight: 750;
+  overflow-wrap: anywhere;
+}
+
+.accountFacts dd span {
+  color: var(--wb-success);
+}
+
+.accountFacts dd span[data-mode='readonly'] {
+  color: var(--wb-warning);
+}
+
+.workspace {
+  min-width: 0;
+  padding: 8px 30px 28px;
+}
+
+.dangerConfirm {
+  display: grid;
+  grid-template-columns: 22px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  margin-top: 18px;
+  padding: 12px 14px;
+  border: 1px solid color-mix(in srgb, var(--wb-danger), transparent 58%);
+  border-radius: var(--wb-radius-control);
+  background: var(--wb-danger-soft);
+  color: var(--wb-danger);
+}
+
+.dangerConfirm > svg {
+  width: 20px;
+  height: 20px;
+}
+
+.dangerConfirm p {
+  display: grid;
+  gap: 2px;
+  margin: 0;
+}
+
+.dangerConfirm b {
+  color: var(--wb-ink);
+  font-size: 13px;
+}
+
+.dangerConfirm span {
+  color: var(--wb-muted);
+  font-size: 11px;
+}
+
+.confirmActions {
+  display: flex;
+  gap: 8px;
+}
+
+.section {
+  padding: 24px 0 28px;
+}
+
+.section + .section {
+  border-top: 1px solid var(--wb-line);
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 18px;
+}
+
+.sectionHeader p,
+.sectionHeader h3 {
+  margin: 0;
+}
+
+.sectionHeader p {
+  margin-bottom: 2px;
+  color: var(--wb-primary);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .1em;
+}
+
+.sectionHeader h3 {
+  color: var(--wb-ink);
+  font-size: 21px;
+}
+
+.sectionHeader > span {
+  color: var(--wb-muted);
+  font-size: 12px;
+}
+
+.classWorkspace {
+  display: grid;
+  grid-template-columns: 180px minmax(0, 1fr);
+  gap: 22px;
+}
+
+.classList {
+  display: grid;
+  align-content: start;
+  max-height: 318px;
+  overflow: auto;
+  border-right: 1px solid var(--wb-line);
+}
+
+.classList button {
+  display: grid;
+  gap: 3px;
+  min-height: 61px;
+  padding: 10px 14px;
+  border: 0;
+  border-left: 3px solid transparent;
+  background: transparent;
+  color: var(--wb-ink);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.classList button:hover {
+  background: color-mix(in srgb, var(--wb-context), transparent 25%);
+}
+
+.classList button[aria-current='true'] {
+  border-left-color: var(--wb-primary);
+  background: var(--wb-context);
+}
+
+.classList span {
+  font-size: 14px;
+  font-weight: 800;
+  overflow-wrap: anywhere;
+}
+
+.classList small {
+  color: var(--wb-muted);
+  font-size: 11px;
+}
+
+.classEditor {
+  min-width: 0;
+}
+
+.editorHeading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.editorHeading > svg {
+  width: 22px;
+  height: 22px;
+  color: var(--wb-primary);
+}
+
+.editorHeading p {
+  display: grid;
+  margin: 0;
+}
+
+.editorHeading b {
+  font-size: 14px;
+}
+
+.editorHeading span {
+  color: var(--wb-muted);
+  font-size: 11px;
+}
+
+.fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.fields > :nth-child(3) {
+  grid-column: 1 / -1;
+}
+
+.classActions,
+.backupActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.classActions button,
+.backupActions button {
+  gap: 7px;
+}
+
+.classActions svg,
+.backupActions svg {
+  width: 16px;
+  height: 16px;
+}
+
+.backupCopy {
+  max-width: 650px;
+  margin: 0;
+  color: var(--wb-muted);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.backupActions p {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  color: var(--wb-muted);
+  font-size: 13px;
+}
+
+.backupActions p svg {
+  color: var(--wb-primary);
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  width: 100%;
+}
+
+.footer > p {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: 0;
+  color: var(--wb-muted);
+  font-size: 12px;
+}
+
+.footer > p[data-tone='error'] {
+  color: var(--wb-danger);
+}
+
+.footer > p svg {
+  width: 15px;
+  height: 15px;
+}
+
+.footer > div {
+  display: flex;
+  gap: 8px;
+}
+
+.footer button {
+  gap: 7px;
+}
+
+.footer button svg {
+  width: 15px;
+  height: 15px;
+}
+
+@media (max-width: 680px) {
+  .layout {
+    display: block;
+    min-height: 0;
+  }
+
+  .accountRail {
+    padding: 20px 18px;
+    border-right: 0;
+    border-bottom: 1px solid var(--wb-line);
+  }
+
+  .accountMark {
+    width: 44px;
+    height: 44px;
+    margin-bottom: 18px;
+  }
+
+  .accountRail h3 {
+    font-size: 20px;
+  }
+
+  .accountNote {
+    margin-bottom: 16px;
+  }
+
+  .accountFacts {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .accountFacts div {
+    padding: 11px 8px 0 0;
+    border-bottom: 0;
+  }
+
+  .workspace {
+    padding: 0 18px 18px;
+  }
+
+  .dangerConfirm {
+    grid-template-columns: 22px minmax(0, 1fr);
+  }
+
+  .confirmActions {
+    display: grid;
+    grid-column: 1 / -1;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .confirmActions button {
+    width: 100%;
+  }
+
+  .section {
+    padding: 20px 0;
+  }
+
+  .sectionHeader {
+    align-items: flex-start;
+    margin-bottom: 14px;
+  }
+
+  .sectionHeader h3 {
+    font-size: 19px;
+  }
+
+  .classWorkspace {
+    display: block;
+  }
+
+  .classList {
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(145px, 72%);
+    overflow-x: auto;
+    max-height: none;
+    margin: 0 -18px 18px;
+    padding: 0 18px 8px;
+    border-right: 0;
+    scroll-snap-type: x proximity;
+  }
+
+  .classList button {
+    min-height: 58px;
+    border-left: 0;
+    border-bottom: 3px solid transparent;
+    scroll-snap-align: start;
+  }
+
+  .classList button[aria-current='true'] {
+    border-bottom-color: var(--wb-primary);
+  }
+
+  .fields {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .fields > :nth-child(3) {
+    grid-column: auto;
+  }
+
+  .classActions,
+  .backupActions {
+    display: grid;
+  }
+
+  .classActions button,
+  .backupActions button {
+    width: 100%;
+  }
+
+  .footer {
+    display: grid;
+  }
+
+  .footer > div {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+}
+
+@media (max-width: 390px) {
+  .accountFacts {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .accountFacts div:last-child {
+    grid-column: 1 / -1;
+  }
+}

@@ -1,4 +1,5 @@
 .dialog { box-sizing: border-box; padding: 0; width: min(620px, calc(100% - 32px)); max-width: none; max-height: calc(100dvh - 32px); margin: auto; border: 0; border-radius: var(--wb-radius-surface); background: var(--wb-work); backdrop-filter: blur(var(--wb-material-blur)); color: var(--wb-ink); font: inherit; box-shadow: var(--wb-elevation-dialog); }
+.dialog[data-size='wide'] { width: min(960px, calc(100% - 32px)); }
 .dialog::backdrop { background: var(--wb-backdrop); }
 .frame { display: flex; flex-direction: column; max-height: calc(100dvh - 32px); }
 .header, .footer { flex-shrink: 0; padding: 16px 24px; }

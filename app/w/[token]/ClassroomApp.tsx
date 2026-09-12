@@ -21,6 +21,9 @@ import { defaultPointRules } from './features/rules/catalog';
 import { deletePointRule, patchPointRule, pointRulesForData, pointRuleUsageCount, replacePointRules, upsertPointRule } from './features/rules/operations';
 import { createScoreExam, editScoreExam, patchScoreExam, removeScoreExam, scoreEntry, scoreEntryCount, scoreExamsForClass, setScoreEntries, studentScoreSummary } from './features/scores/operations';
 import { applyStudentBatch } from './features/students/operations';
+import { AccountCenter } from './features/account/AccountCenter';
+import { addWorkspaceClass, patchWorkspaceClass, removeWorkspaceClass, switchWorkspaceClass } from './features/account/operations';
+import { useAccountCenter } from './features/account/useAccountCenter';
 import { createWorkspaceOperations } from './workspace/operations';
 import type { Workspace, LocalWorkspaceDraft } from './workspace/types';
 import { canLeaveDictation } from './dictation/navigation';
@@ -447,7 +450,6 @@ export default function ClassroomApp({ token }: { token: string }) {
   const [saveConflict, setSaveConflict] = useState(false);
   const [toast, setToast] = useState<ToastEventDetail | null>(null);
   const [confirmRequest, setConfirmRequest] = useState<ConfirmEventDetail | null>(null);
-  const [desktopAccount, setDesktopAccount] = useState<{ phone: string; expiresAt: string } | null>(null);
   const [learningScene, setLearningScene] = useState<LearningScene>('class');
   const workspaceRef = useRef<Workspace | null>(null);
   const revisionRef = useRef(0);
@@ -460,6 +462,7 @@ export default function ClassroomApp({ token }: { token: string }) {
   const backupInputRef = useRef<HTMLInputElement>(null);
   const isDemo = token === "demo";
   const isReadOnly = workspace?.accessMode === "readonly";
+  const accountCenter = useAccountCenter(isDemo);
 
   useEffect(() => {
     fetch(`/api/workspace/${token}`).then(async (res) => {
@@ -599,17 +602,6 @@ export default function ClassroomApp({ token }: { token: string }) {
     return () => media.removeEventListener("change", syncShellAccessibility);
   }, [loading, active]);
 
-  async function openDesktopAccount() {
-    try {
-      const response = await fetch("/api/auth/me", { cache: "no-store" });
-      const body = await response.json() as { user?: { phone?: string }; workspace?: { expiresAt?: string }; error?: string };
-      if (!response.ok) throw new Error(body.error || "账户信息读取失败");
-      setDesktopAccount({ phone: body.user?.phone ?? "—", expiresAt: body.workspace?.expiresAt ?? "" });
-    } catch (accountError) {
-      notify(accountError instanceof Error ? accountError.message : "账户信息读取失败", "error");
-    }
-  }
-
   function exportWorkspaceBackup() {
     const current = workspaceRef.current;
     if (!current) return;
@@ -646,6 +638,23 @@ export default function ClassroomApp({ token }: { token: string }) {
     }
   }
 
+  async function logoutCurrentWorkspace() {
+    if (dirtyRef.current && !await save()) {
+      notify("当前修改尚未同步，已取消退出；请先重试保存或导出完整备份。", "error");
+      return false;
+    }
+    try {
+      const response = await fetch("/api/auth/logout", { method: "POST" });
+      const body = await response.json().catch(() => ({})) as { error?: string };
+      if (!response.ok) throw new Error(body.error || "退出失败，请稍后重试");
+      window.location.assign("/");
+      return true;
+    } catch (logoutError) {
+      notify(logoutError instanceof Error ? logoutError.message : "退出失败，请稍后重试", "error");
+      return false;
+    }
+  }
+
   if (loading) return <div className="app-state"><div className="loader"></div><h2>正在打开班主任工作台</h2><p>正在读取班级资料…</p></div>;
   if (error && !workspace) return <div className="app-state error-state"><span>!</span><h2>暂时不能打开这个班级</h2><p>{error}</p><Link href="/">返回首页</Link></div>;
   if (!workspace) return null;
@@ -656,54 +665,36 @@ export default function ClassroomApp({ token }: { token: string }) {
   const activeClass = classes.find((item) => item.id === activeClassId) ?? classes[0];
   function switchGlobalClass(id: string) {
     if (!canLeaveDictation()) return;
-    const nextClass = classes.find((item) => item.id === id);
-    if (!nextClass || id === activeClassId) return;
-    updateData((current) => ({ ...current, activeClassId: id, students: nextClass.students }));
+    updateData((current) => {
+      const result = switchWorkspaceClass(current, id, loadedWorkspace.term);
+      if (result.error) notify(result.error, "error");
+      return result.data;
+    });
   }
 
   function patchActiveClass(patch: Partial<RosterClass>) {
     updateData((current) => {
-      const currentClasses = current.rosterClasses?.length ? current.rosterClasses : classes;
-      const rosterClasses = currentClasses.map((item) => item.id === activeClassId ? { ...item, ...patch } : item);
-      const nextClass = rosterClasses.find((item) => item.id === activeClassId) ?? rosterClasses[0];
-      return { ...current, rosterClasses, activeClassId: nextClass.id, students: nextClass.students };
+      const result = patchWorkspaceClass(current, activeClassId, patch, loadedWorkspace.term);
+      if (result.error) notify(result.error, "error");
+      return result.data;
     });
   }
 
   function addGlobalClass() {
-    const id = `class-${Date.now()}`;
-    const newClass: RosterClass = { id, name: `新班级${classes.length + 1}`, grade: "", term: activeClass?.term ?? loadedWorkspace.term, students: [] };
-    updateData((current) => ({ ...current, rosterClasses: [...classes, newClass], activeClassId: id, students: [] }));
+    const id = makeId("class");
+    updateData((current) => {
+      const result = addWorkspaceClass(current, id, loadedWorkspace.term);
+      if (result.error) notify(result.error, "error");
+      return result.data;
+    });
   }
 
   async function deleteActiveClass() {
     if (classes.length <= 1) return;
-    const confirmed = await requestDangerConfirm(`${activeClass.name} 的学生名单、作业、考试、周报和相关学生记录会一起移除。`);
-    if (!confirmed) return;
-    const removedStudentIds = new Set(activeClass.students.map((student) => student.id));
-    const removedExamIds = new Set((loadedWorkspace.data.scoreExams ?? []).filter((exam) => exam.classId === activeClassId).map((exam) => exam.id));
-    const nextClasses = classes.filter((item) => item.id !== activeClassId);
-    const nextActive = nextClasses[0];
     updateData((current) => {
-      const cleaned = removeStudentRelations(current, removedStudentIds, activeClassId);
-      return {
-        ...cleaned,
-        activeClassId: nextActive.id,
-        rosterClasses: nextClasses,
-        students: nextActive.students,
-        dictation: cleaned.dictation ? { ...cleaned.dictation, tasks: cleaned.dictation.tasks.filter(t => t.context.kind !== "class" || t.context.classId !== activeClassId) } : undefined,
-        homeworkTasks: cleaned.homeworkTasks?.filter((task) => task.classId !== activeClassId),
-        scoreExams: cleaned.scoreExams?.filter((exam) => exam.classId !== activeClassId),
-        weeklyReports: cleaned.weeklyReports?.filter((report) => report.classId !== activeClassId),
-        dutyRecords: cleaned.dutyRecords?.filter((record) => record.classId !== activeClassId),
-        classroomToolSessions: cleaned.classroomToolSessions?.filter((item) => item.classId !== activeClassId),
-        notificationDrafts: cleaned.notificationDrafts?.filter((item) => item.classId !== activeClassId),
-        guardians: cleaned.guardians?.filter((item) => item.classId !== activeClassId),
-        careProfiles: cleaned.careProfiles?.filter((item) => item.classId !== activeClassId),
-        teacherAgenda: cleaned.teacherAgenda?.filter((item) => item.classId !== activeClassId),
-        workLogs: cleaned.workLogs?.filter((item) => item.classId !== activeClassId),
-        examReflections: cleaned.examReflections?.filter((item) => !item.examId || !removedExamIds.has(item.examId)),
-      };
+      const result = removeWorkspaceClass(current, activeClassId, loadedWorkspace.term);
+      if (result.error) notify(result.error, "error");
+      return result.data;
     });
   }
 
@@ -732,23 +723,19 @@ export default function ClassroomApp({ token }: { token: string }) {
         openModule={openModule}
         update={updateData}
         switchClass={switchGlobalClass}
-        patchClass={patchActiveClass}
-        addClass={addGlobalClass}
-        deleteClass={deleteActiveClass}
         save={save}
         clearError={() => setError("")}
         isDemo={isDemo}
         isReadOnly={isReadOnly}
-        exportBackup={exportWorkspaceBackup}
-        importBackup={() => backupInputRef.current?.click()}
         saveConflict={saveConflict}
         exportDraft={exportWorkspaceBackup}
         loadLatest={loadLatestWorkspace}
+        openAccount={accountCenter.openCenter}
         learningScene={learningScene}
         switchLearningScene={switchLearningScene}
       />
-      <DesktopHeader classes={classes} activeClass={activeClass} scene={learningScene} onSwitchClass={switchGlobalClass} onScene={switchLearningScene} onAccount={openDesktopAccount} saving={saving} dirty={dirty} error={error} isDemo={isDemo} isReadOnly={isReadOnly}/>
-      <WorkspaceNav active={active} classes={classes} activeClass={activeClass} isDemo={isDemo} onOpen={openModule} onSwitch={switchGlobalClass} onPatch={patchActiveClass} onAdd={addGlobalClass} onDelete={deleteActiveClass} onAccount={openDesktopAccount} onExport={exportWorkspaceBackup} onImport={() => backupInputRef.current?.click()}/>
+      <DesktopHeader classes={classes} activeClass={activeClass} scene={learningScene} onSwitchClass={switchGlobalClass} onScene={switchLearningScene} onAccount={accountCenter.openCenter} saving={saving} dirty={dirty} error={error} isDemo={isDemo} isReadOnly={isReadOnly}/>
+      <WorkspaceNav active={active} isDemo={isDemo} onOpen={openModule}/>
       <main className="campus-workspace-main">
         {error && workspace && <div className="inline-alert" role="alert"><span>{error}</span><div>{saveConflict ? <><button type="button" onClick={exportWorkspaceBackup}>导出当前草稿</button><button type="button" onClick={() => void loadLatestWorkspace()}>载入最新版本</button></> : error.includes("请在听写页面重试保存") ? <span>请使用听写表单中的重试操作</span> : <button type="button" disabled={saving} onClick={() => void save()}>{saving ? "正在重试…" : "重试"}</button>}<button type="button" onClick={() => setError("")}>关闭</button></div></div>}
         {(isDemo || isReadOnly) && <div className="edit-mode-banner"><b>{isDemo ? "演示模式" : "只读宽限期"}</b><span>{isDemo ? "数据不会保存，AI 使用静态示例。" : "可以查看和导出，续期后恢复编辑。"}</span></div>}
@@ -782,16 +769,35 @@ export default function ClassroomApp({ token }: { token: string }) {
           <footer><button onClick={() => resolveConfirm(false)}>取消</button><button className="danger" onClick={() => resolveConfirm(true)}>{confirmRequest.confirmLabel ?? "确认删除"}</button></footer>
         </section>
       </div>}
-      {desktopAccount && <AccountDialog account={desktopAccount} onClose={() => setDesktopAccount(null)} />}
+      <AccountCenter
+        open={accountCenter.open}
+        account={accountCenter.account}
+        loading={accountCenter.loading}
+        loadError={accountCenter.error}
+        classes={classes}
+        activeClass={activeClass}
+        saving={saving}
+        dirty={dirty}
+        saveError={error}
+        isDemo={isDemo}
+        isReadOnly={isReadOnly}
+        onClose={accountCenter.closeCenter}
+        onRetryAccount={() => void accountCenter.reload()}
+        onSwitchClass={switchGlobalClass}
+        onPatchClass={patchActiveClass}
+        onAddClass={addGlobalClass}
+        onDeleteClass={deleteActiveClass}
+        onExport={exportWorkspaceBackup}
+        onImport={() => { accountCenter.closeCenter(); backupInputRef.current?.click(); }}
+        onLogout={logoutCurrentWorkspace}
+      />
       <input ref={backupInputRef} className="visually-hidden" type="file" accept="application/json,.json" aria-label="选择工作台备份文件" onChange={(event) => void importWorkspaceBackup(event.target.files?.[0])} />
     </div>
   );
 }
 
-function MobileWorkbench({ workspaceToken, workspace, classes, activeClass, active, saving, dirty, error, openModule, update, switchClass, patchClass, addClass, deleteClass, save, clearError, isDemo, isReadOnly, exportBackup, importBackup, saveConflict, exportDraft, loadLatest, learningScene, switchLearningScene }: { workspaceToken: string; workspace: Workspace; classes: RosterClass[]; activeClass: RosterClass; active: ModuleId; saving: boolean; dirty: boolean; error: string; openModule: (id: ModuleId) => void; update: (fn: (d: ClassroomData) => ClassroomData) => void; switchClass: (id: string) => void; patchClass: (patch: Partial<RosterClass>) => void; addClass: () => void; deleteClass: () => void; save: () => void; clearError: () => void; isDemo: boolean; isReadOnly: boolean; exportBackup: () => void; importBackup: () => void; saveConflict: boolean; exportDraft: () => void; loadLatest: () => Promise<void>; learningScene: LearningScene; switchLearningScene: (scene: LearningScene) => void }) {
+function MobileWorkbench({ workspaceToken, workspace, classes, activeClass, active, saving, dirty, error, openModule, update, switchClass, save, clearError, isDemo, isReadOnly, saveConflict, exportDraft, loadLatest, openAccount, learningScene, switchLearningScene }: { workspaceToken: string; workspace: Workspace; classes: RosterClass[]; activeClass: RosterClass; active: ModuleId; saving: boolean; dirty: boolean; error: string; openModule: (id: ModuleId) => void; update: (fn: (d: ClassroomData) => ClassroomData) => void; switchClass: (id: string) => void; save: () => void; clearError: () => void; isDemo: boolean; isReadOnly: boolean; saveConflict: boolean; exportDraft: () => void; loadLatest: () => Promise<void>; openAccount: () => void; learningScene: LearningScene; switchLearningScene: (scene: LearningScene) => void }) {
   const [moreOpen, setMoreOpen] = useState(false);
-  const [accountOpen, setAccountOpen] = useState(false);
-  const [account, setAccount] = useState<{ phone: string; expiresAt: string } | null>(null);
   const data = workspace.data;
   const classStudents = activeClass.students?.length ? activeClass.students : data.students;
   const activeLabel = workspaceModules.find((item) => item.id === active)?.label ?? "工作台";
@@ -814,19 +820,6 @@ function MobileWorkbench({ workspaceToken, workspace, classes, activeClass, acti
     window.setTimeout(() => document.querySelector(".mobile-screen")?.scrollTo({ top: 0, behavior: "smooth" }), 0);
   }
 
-  async function openAccount() {
-    try {
-      const response = await fetch("/api/auth/me", { cache: "no-store" });
-      const body = await response.json() as { user?: { phone?: string }; workspace?: { expiresAt?: string }; error?: string };
-      if (!response.ok) throw new Error(body.error || "账户信息读取失败");
-      setAccount({ phone: body.user?.phone ?? "—", expiresAt: body.workspace?.expiresAt ?? "" });
-      setMoreOpen(false);
-      setAccountOpen(true);
-    } catch (accountError) {
-      notify(accountError instanceof Error ? accountError.message : "账户信息读取失败", "error");
-    }
-  }
-
   return <section className="mobile-workbench" data-module={active} aria-label="手机版班主任工作台">
     <header className={`mobile-appbar ${active === 'dashboard' ? 'mobile-appbar-home' : ''}`}>
       <div className="mobile-appbar-brand"><span aria-hidden="true"><CampusIcon name={active === 'dashboard' ? 'book' : active}/></span><div><h1>{active === 'dashboard' ? '班主任工作台' : activeLabel}</h1>{active !== 'dictation' && <p>{activeClass.grade || workspace.grade || '当前班级'} · {classStudents.length}人</p>}</div></div>
@@ -836,7 +829,7 @@ function MobileWorkbench({ workspaceToken, workspace, classes, activeClass, acti
     {(isDemo || isReadOnly) && <div className="mobile-access-note"><b>{isDemo ? "演示模式" : "只读宽限期"}</b><span>{isDemo ? "数据不会保存，AI 使用静态示例" : "可以查看和导出，续期后恢复编辑"}</span></div>}
     {error && <div className="mobile-inline-alert" role="alert"><span>{error}</span><div>{saveConflict ? <><button type="button" onClick={exportDraft}>导出草稿</button><button type="button" onClick={() => void loadLatest()}>载入最新</button></> : <button type="button" disabled={saving} onClick={() => void save()}>{saving ? "重试中…" : "重试"}</button>}<button type="button" onClick={clearError}>关闭</button></div></div>}
     <main className="mobile-screen">
-      {active === "dashboard" && <MobileHome data={data} classes={classes} activeClass={activeClass} open={openModule} openFamily={() => switchLearningScene('family')} switchClass={switchClass} patchClass={patchClass} addClass={addClass} deleteClass={deleteClass} />}
+      {active === "dashboard" && <MobileHome data={data} open={openModule} openFamily={() => switchLearningScene('family')} openAccount={openAccount} />}
       {active === "students" && <MobileStudents data={data} activeClass={activeClass} update={update} />}
       {active === "attendance" && <Attendance data={data} update={update} mobile />}
       {active === "homework" && <MobileHomework data={data} activeClass={activeClass} update={update} open={openModule} />}
@@ -855,27 +848,15 @@ function MobileWorkbench({ workspaceToken, workspace, classes, activeClass, acti
       <section className="mobile-bottom-sheet" role="dialog" aria-modal="true" aria-labelledby="mobile-more-title" onMouseDown={(event) => event.stopPropagation()}>
         <header><div><span>全部工具</span><h2 id="mobile-more-title">选择要处理的事项</h2></div><button type="button" onClick={() => setMoreOpen(false)}>关闭</button></header>
         <MobileMore current={active} open={openFromMore} />
-        {!isDemo && <div className="mobile-account-actions"><button type="button" onClick={openAccount}>我的工作台</button><button type="button" onClick={() => { setMoreOpen(false); exportBackup(); }}>导出完整备份</button><button type="button" onClick={() => { setMoreOpen(false); importBackup(); }}>恢复备份</button></div>}
+        <div className="mobile-account-actions"><button type="button" onClick={() => { setMoreOpen(false); openAccount(); }}>{isDemo ? '演示工作台说明' : '账户、班级与备份'}</button></div>
       </section>
     </div>}
-    {accountOpen && account && <MobileInfoSheet title="我的工作台" onClose={() => setAccountOpen(false)}><dl className="mobile-account-brief"><div><dt>手机号</dt><dd>{account.phone}</dd></div><div><dt>使用期限</dt><dd>{account.expiresAt ? new Date(account.expiresAt).toLocaleDateString("zh-CN") : "—"}</dd></div></dl></MobileInfoSheet>}
   </section>;
 }
 
 
-function MobileHome({ data, classes, activeClass, open, openFamily, switchClass, patchClass, addClass, deleteClass }: { data: ClassroomData; classes: RosterClass[]; activeClass: RosterClass; open: (id: ModuleId) => void; openFamily: () => void; switchClass: (id: string) => void; patchClass: (patch: Partial<RosterClass>) => void; addClass: () => void; deleteClass: () => void }) {
-  const [classSheetOpen, setClassSheetOpen] = useState(false);
-  return <div className="campus-mobile-home"><Dashboard data={data} open={open} openFamily={openFamily} defaultDutyJobs={defaultDutyJobs}/><button className="mobile-class-manage" type="button" onClick={() => setClassSheetOpen(true)}><CampusIcon name="rules"/>管理班级资料</button>
-    {classSheetOpen && <MobileInfoSheet title="班级管理" onClose={() => setClassSheetOpen(false)}>
-      <div className="mobile-form-grid">
-        <label className="wide"><span>当前班级</span><select value={activeClass.id} onChange={(event) => switchClass(event.target.value)}>{classes.map((item) => <option value={item.id} key={item.id}>{item.name}（{item.students.length}人）</option>)}</select></label>
-        <label><span>班级名称</span><input value={activeClass.name} onChange={(event) => patchClass({ name: event.target.value })} placeholder="例如：三年级2班" /></label>
-        <label><span>年级</span><input value={activeClass.grade} onChange={(event) => patchClass({ grade: event.target.value })} placeholder="例如：三年级" /></label>
-        <label className="wide"><span>学期</span><input value={activeClass.term} onChange={(event) => patchClass({ term: event.target.value })} placeholder="例如：2026-2027学年第一学期" /></label>
-      </div>
-      <div className="mobile-sheet-actions"><button type="button" onClick={addClass}>新建班级</button><button type="button" disabled={classes.length <= 1} onClick={deleteClass}>删除当前</button></div>
-    </MobileInfoSheet>}
-  </div>;
+function MobileHome({ data, open, openFamily, openAccount }: { data: ClassroomData; open: (id: ModuleId) => void; openFamily: () => void; openAccount: () => void }) {
+  return <div className="campus-mobile-home"><Dashboard data={data} open={open} openFamily={openFamily} defaultDutyJobs={defaultDutyJobs}/><button className="mobile-class-manage" type="button" onClick={openAccount}><CampusIcon name="rules"/>账户、班级与备份</button></div>;
 }
 
 function MobileStudents({ data, activeClass, update }: { data: ClassroomData; activeClass: RosterClass; update: (fn: (d: ClassroomData) => ClassroomData) => void }) {
@@ -3116,12 +3097,6 @@ function MobileInfoSheet({ title, children, onClose }: { title: string; children
     </section>
   </div>;
 }
-
-function AccountDialog({ account, onClose }: { account: { phone: string; expiresAt: string }; onClose: () => void }) {
-  const titleId = useId();
-  return <div className="account-dialog-backdrop" role="presentation" onMouseDown={onClose}><section className="account-dialog" role="dialog" aria-modal="true" aria-labelledby={titleId} onMouseDown={(event) => event.stopPropagation()}><header><div><span>账户</span><h2 id={titleId}>我的工作台</h2></div><button type="button" onClick={onClose}>关闭</button></header><dl><div><dt>手机号</dt><dd>{account.phone}</dd></div><div><dt>使用期限</dt><dd>{account.expiresAt ? new Date(account.expiresAt).toLocaleDateString("zh-CN") : "—"}</dd></div></dl></section></div>;
-}
-
 
 function Students({ data, update }: { data: ClassroomData; update: (fn: (d: ClassroomData) => ClassroomData) => void }) {
   const [bulk, setBulk] = useState("");

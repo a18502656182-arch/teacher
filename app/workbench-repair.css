@@ -15690,9 +15690,6 @@ textarea:focus {
   color: var(--bs-secondary);
   font-weight: 700;
 }
-.sidebar-data-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 6px; }
-.sidebar-data-actions > button { min-height: 32px; border: 1px solid var(--campus-line); border-radius: 7px; background: var(--campus-surface); color: var(--campus-muted); font-size: 12px; font-weight: 700; }
-
 .side-nav.grouped {
   display: block;
   padding-right: 2px;
@@ -15714,45 +15711,6 @@ textarea:focus {
 }
 
 .dashboard-bs-summary.compact b { font-size: 20px; }
-
-.account-dialog-backdrop {
-  position: fixed;
-  inset: 0;
-  z-index: 1200;
-  display: grid;
-  place-items: center;
-  padding: 20px;
-  background: rgb(15 23 42 / .48);
-}
-
-.account-dialog {
-  width: min(100%, 480px);
-  overflow: hidden;
-  border: 1px solid var(--bs-border);
-  border-radius: 10px;
-  background: var(--bs-surface);
-  box-shadow: var(--workbench-shadow-dialog);
-}
-
-.account-dialog > header,
-.account-dialog > footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 16px 18px;
-}
-
-.account-dialog > header { border-bottom: 1px solid var(--bs-border); }
-.account-dialog > header span { color: var(--bs-muted); font-size: 12px; }
-.account-dialog h2 { margin: 2px 0 0; font-size: 19px; }
-.account-dialog button { min-height: 36px; padding: 0 13px; border: 1px solid var(--bs-border-strong); border-radius: 8px; background: var(--campus-surface); color: var(--bs-body); font-weight: 700; }
-.account-dialog dl { margin: 0; }
-.account-dialog dl > div { display: grid; grid-template-columns: 120px 1fr; gap: 16px; padding: 13px 18px; border-bottom: 1px solid var(--bs-border); }
-.account-dialog dt { color: var(--bs-muted); }
-.account-dialog dd { margin: 0; font-weight: 650; }
-.account-dialog > footer { justify-content: flex-end; }
-.account-dialog .danger { border-color: var(--campus-line); color: var(--bs-danger); }
 
 .homework-bootstrap-shell .score5-advice {
   min-height: 52px;
@@ -19074,14 +19032,6 @@ textarea:focus {
   font-weight: 700;
 }
 
-.account-dialog {
-  width: min(440px, calc(100vw - 32px));
-}
-
-.account-dialog dl > div:last-child {
-  border-bottom: 0;
-}
-
 @media (max-width: 900px) {
   .mobile-inline-alert {
     display: flex;
@@ -19112,35 +19062,6 @@ textarea:focus {
     font-weight: 700;
   }
 
-  .mobile-account-brief {
-    margin: 0;
-    border: 1px solid var(--mobile-line-2);
-    border-radius: 10px;
-    background: var(--campus-surface);
-    overflow: hidden;
-  }
-
-  .mobile-account-brief > div {
-    display: grid;
-    grid-template-columns: 88px 1fr;
-    gap: 12px;
-    padding: 14px;
-    border-bottom: 1px solid var(--mobile-line-soft);
-  }
-
-  .mobile-account-brief > div:last-child {
-    border-bottom: 0;
-  }
-
-  .mobile-account-brief dt {
-    color: var(--campus-muted);
-  }
-
-  .mobile-account-brief dd {
-    margin: 0;
-    color: var(--campus-ink);
-    font-weight: 700;
-  }
 }
 
 /* Desktop shell: page content owns the title; global utilities stay in navigation. */
@@ -19160,69 +19081,6 @@ textarea:focus {
     padding-top: 20px;
   }
 
-  .homework-bootstrap-shell .sidebar-utility {
-    padding-top: 10px;
-    border-top: 1px solid var(--campus-line);
-  }
-
-  .homework-bootstrap-shell .sidebar-account-entry,
-  .homework-bootstrap-shell .sidebar-demo-entry {
-    width: 100%;
-    min-height: 48px;
-    display: grid;
-    grid-template-columns: 30px minmax(0, 1fr);
-    grid-template-rows: auto auto;
-    align-items: center;
-    column-gap: 10px;
-    padding: 7px 8px;
-    border: 1px solid transparent;
-    border-radius: 8px;
-    background: transparent;
-    color: var(--campus-ink);
-    text-align: left;
-  }
-
-  .homework-bootstrap-shell .sidebar-account-entry > span,
-  .homework-bootstrap-shell .sidebar-demo-entry > span {
-    grid-row: 1 / -1;
-    width: 30px;
-    height: 30px;
-    display: grid;
-    place-items: center;
-    border-radius: 7px;
-    background: var(--campus-blue);
-    color: var(--campus-primary);
-    font-size: 12px;
-    font-weight: 800;
-  }
-
-  .homework-bootstrap-shell .sidebar-account-entry > b,
-  .homework-bootstrap-shell .sidebar-demo-entry > b {
-    align-self: end;
-    font-size: 13px;
-    line-height: 1.2;
-  }
-
-  .homework-bootstrap-shell .sidebar-account-entry > small {
-    align-self: start;
-    color: var(--campus-muted);
-    font-size: 11px;
-    line-height: 1.2;
-  }
-
-  .homework-bootstrap-shell .sidebar-account-entry:hover {
-    border-color: var(--campus-line);
-    background: var(--campus-blue);
-  }
-
-  .homework-bootstrap-shell .sidebar-account-entry:focus-visible {
-    outline: 2px solid var(--campus-primary);
-    outline-offset: 2px;
-  }
-
-  .homework-bootstrap-shell .sidebar-demo-entry {
-    grid-template-rows: auto;
-  }
 }
 
 /* 2026-08-24 彩色校园工作台：品牌壳层与公共表现层。 */
@@ -19487,37 +19345,6 @@ textarea:focus {
     background: var(--nav-accent);
     color: var(--campus-surface);
     box-shadow: none;
-  }
-
-  .homework-bootstrap-shell .sidebar-utility {
-    padding-top: 10px;
-    border-top-color: rgba(255, 255, 255, .13);
-  }
-
-  .homework-bootstrap-shell .sidebar-account-entry,
-  .homework-bootstrap-shell .sidebar-demo-entry {
-    color: var(--campus-blue);
-  }
-
-  .homework-bootstrap-shell .sidebar-account-entry > span,
-  .homework-bootstrap-shell .sidebar-demo-entry > span {
-    background: rgba(255, 255, 255, .1);
-    color: var(--campus-primary);
-  }
-
-  .homework-bootstrap-shell .sidebar-account-entry > small {
-    color: var(--campus-primary);
-  }
-
-  .homework-bootstrap-shell .sidebar-account-entry:hover {
-    border-color: rgba(255, 255, 255, .14);
-    background: rgba(255, 255, 255, .075);
-  }
-
-  .homework-bootstrap-shell .sidebar-data-actions button {
-    border-color: rgba(255, 255, 255, .16);
-    background: transparent;
-    color: var(--campus-primary);
   }
 
   .homework-bootstrap-shell .app-main {

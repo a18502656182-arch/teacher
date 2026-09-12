@@ -7,6 +7,7 @@ const app = read("app/w/[token]/ClassroomApp.tsx");
 const workspaceOperations = read("app/w/[token]/workspace/operations.ts");
 const dashboard = read("app/components/campus/Dashboard.tsx");
 const dialogBehavior = read("app/components/campus/DialogAccessibility.tsx");
+const sharedDialog = read("app/components/workbench/ui/Dialog.tsx");
 const clipboard = read("lib/clipboard.ts");
 const workspaceRoute = read("app/api/workspace/[token]/route.ts");
 const aiRoute = read("app/api/ai/comment/route.ts");
@@ -17,6 +18,10 @@ const entryController = read("app/features/entry/useEntryController.ts");
 const entryStyles = read("app/features/entry/EntryPage.module.css");
 const privacyPage = read("app/features/entry/PrivacyPage.tsx");
 const adminStyles = read("app/admin.css");
+const accountCenter = read("app/w/[token]/features/account/AccountCenter.tsx");
+const accountController = read("app/w/[token]/features/account/useAccountCenter.ts");
+const accountOperations = read("app/w/[token]/features/account/operations.ts");
+const accountStyles = read("app/w/[token]/features/account/AccountCenter.module.css");
 const adminPage = read("app/admin/page.tsx");
 const redeemRoute = read("app/api/admin/redeem-codes/route.ts");
 const adminUsersRoute = read("app/api/admin/users/route.ts");
@@ -70,6 +75,18 @@ test("privacy migration preserves the established data and AI statements", () =>
   assert.match(privacyPage, /AI 编写仅在老师主动确认后启用，并只发送当前编辑所选择的资料。/);
   assert.match(privacyPage, /管理员应先向用户提供导出文件，再执行不可恢复删除。/);
   assert.match(privacyPage, /工作台到期后进入 30 天只读宽限期/);
+});
+
+test("account center unifies account, classes, backup and current-device logout", () => {
+  assert.match(accountCenter, /账户与班级/);
+  assert.match(accountCenter, /新建空白班级/);
+  assert.match(accountCenter, /选择备份并预检/);
+  assert.match(accountCenter, /退出当前设备/);
+  assert.match(accountController, /\/api\/auth\/me/);
+  assert.match(accountOperations, /removeWorkspaceClass/);
+  assert.match(app, /\/api\/auth\/logout/);
+  assert.match(accountStyles, /grid-template-columns:\s*250px minmax\(0, 1fr\)/);
+  assert.doesNotMatch(workbenchRepair, /account-dialog|mobile-account-brief|sidebar-account-entry|sidebar-data-actions/);
 });
 
 test("formal workspace access is session-owned and demo is read-only", () => {
@@ -130,9 +147,11 @@ test("administrator views full account data while workspace account stays concis
   assert.match(adminPage, /user\.phone/);
   assert.match(adminPage, /code\.phone \|\| "未绑定"/);
   assert.match(authMeRoute, /phone: session\.phone/);
-  assert.match(app, /mobile-account-brief/);
-  assert.doesNotMatch(app, /phoneMasked/);
-  assert.doesNotMatch(app, /退出并解绑当前浏览器/);
+  assert.match(accountCenter, /account\?\.phone/);
+  assert.match(accountCenter, /当前设备/);
+  assert.doesNotMatch(accountCenter, /phoneMasked|兑换码明文|全部设备/);
+  assert.match(accountCenter, /当前浏览器会解除绑定/);
+  assert.match(accountCenter, /其他设备不受影响/);
 });
 
 test("automatic persistence stays quiet until a save fails", () => {
@@ -168,10 +187,11 @@ test("administrator can export and permanently delete user data with confirmatio
   assert.match(adminPage, /删除数据/);
 });
 
-test("desktop shell has one page title and keeps account actions in the global sidebar", () => {
+test("desktop shell has one page title and one account entry in the global header", () => {
   assert.doesNotMatch(app, /<header className="topbar">/);
-  assert.match(workspaceChrome, /campus-nav-utility/);
-  assert.match(workspaceChrome, /账户与使用期限/);
+  assert.match(workspaceChrome, /campus-header-account/);
+  assert.match(workspaceChrome, /账户与班级/);
+  assert.doesNotMatch(workspaceChrome, /sidebar-account-entry|导出备份|恢复备份/);
 });
 
 test("campus rebuild owns one shared shell and four task-oriented navigation groups", () => {
@@ -383,5 +403,6 @@ test("dialogs use unique titles and keyboard focus management", () => {
   assert.match(app, /const titleId = useId\(\)/);
   assert.match(dialogBehavior, /event\.key==='Escape'/);
   assert.match(dialogBehavior, /restoreFocus\.focus/);
+  assert.match(sharedDialog, /bodyRef\.current\.scrollTop = 0/);
   assert.doesNotMatch(app, /id="mobile-info-title"/);
 });

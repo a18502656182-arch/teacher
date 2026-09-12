@@ -167,6 +167,13 @@ async function run() {
     assert.equal(result.json.workspace.data.dictation.tasks.length, 1);
     assert.deepEqual(result.json.workspace.data.dictation.tasks[0].results, {}, "未批改不产生全对结果");
     assert.equal((saveA.response.status === 409 ? saveA : saveB).json.code, "WORKSPACE_CONFLICT");
+
+    result = await request("/api/auth/logout", { jar: userBJar, method: "POST" });
+    assert.equal(result.response.status, 200, JSON.stringify(result.json));
+    assert.equal(userBJar.has("classroom_session"), false, "退出后应清除当前会话");
+    assert.equal(userBJar.has("classroom_device"), false, "退出后应清除当前设备令牌");
+    result = await request("/api/auth/me", { jar: userBJar });
+    assert.equal(result.response.status, 401, "退出后的当前设备不得继续访问账户");
   } catch (error) {
     throw new Error(`${error instanceof Error ? error.stack : error}\nServer output:\n${output.value.slice(-5000)}`);
   } finally {
