@@ -3,7 +3,7 @@
   "baselineCommit": "6e10e2dc314e09d0d72df9509730f57c5fde34e2",
   "implementationStatus": "in-progress",
   "active_task": "TASK-02",
-  "next_action": "逐模块复核AST交互候选、handler与调用函数，展开功能/浮层账本；继续补齐独立主题和共享控件",
+  "next_action": "继续学生/作业逐handler核验；听写共享hook及新视图已独立验证，待保存边界/CSS隔离/壳层门槛后接线",
   "milestones": {
     "M0": "in-progress",
     "M1": "planned",
@@ -12,7 +12,7 @@
     "M4": "planned",
     "M5": "planned"
   },
-  "note": "已开始基础层代码与独立预览；未迁移页面。AST候选并非完整业务审计；M0/M1均未通过。",
+  "note": "TASK02仍未完成。听写新视图仅独立预览，生产旧视图共用提取hook。见evidence/grading-controller-20260912.md",
   "implementationStartCommit": "f321d5e9424e0020bdf1e56d52c31b986b503a53",
   "parallelPreparation": [
     "TASK-06",

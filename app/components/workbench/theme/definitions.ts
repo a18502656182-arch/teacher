@@ -3,7 +3,9 @@ import type { ThemeDefinition } from './contracts';
 export const campusTheme: ThemeDefinition = {
   id: 'campus', status: 'development',
   // Assets are assigned only after their actual containers have been reviewed.
-  artworkByRole: {},
+  artworkByRole: {
+    'dictation.context': { src: '/art/campus/dictation-stationery-v2.png', width: 1666, height: 944, fit: 'cover', focalPoint: [85, 50], safeTextArea: 'left', decorative: true, status: 'candidate' },
+  },
   capabilities: { blur: false, reducedMotion: true },
 };
 

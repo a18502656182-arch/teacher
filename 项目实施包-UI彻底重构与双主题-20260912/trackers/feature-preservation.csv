@@ -1,9 +1,9 @@
-﻿id,module,incumbent_source,capabilities_seed,old_handler,fields,preconditions,success,failure,new_entry,status,evidence
+id,module,incumbent_source,capabilities_seed,old_handler,fields,preconditions,success,failure,new_entry,status,evidence
 F-01,dashboard,app/components/campus/Dashboard.tsx;ClassroomApp.tsx:MobileHome,真实待办跳转、课程日程、听写摘要、值日、学生近況、家庭入口,待逐动作展开,待查,待查,待查,待查,,not-inventoried,
 F-02,students,ClassroomApp.tsx:Students/MobileStudents;StudentProfile.tsx,新增、编辑、删除关联、导入/替换名单、搜索、分页、批量编辑、档案、监护人,待逐动作展开,待查,待查,待查,待查,,not-inventoried,
 F-03,homework,ClassroomApp.tsx:Homework/MobileHomework,新增/编辑/删除任务、历史、学科月份筛选、名单搜索、批量状态、备注、跟进名单复制,待逐动作展开,待查,待查,待查,待查,,not-inventoried,
 F-04,attendance,Attendance.tsx;ClassroomApp.tsx:MobileSecondaryPage,日期/月视图、状态、请假与备注、搜索筛选、多选、批量保存、一键正常,待逐动作展开,待查,待查,待查,待查,,not-inventoried,
-F-05,dictation,dictation/Dictation.tsx;TaskEditor.tsx;Grading.tsx;WordLibrary.tsx;PersonFilter.tsx;navigation.ts,创建、参与者、人工报词材料、逐生错词、核对保存下一人、词库文本导入、课次推进、快照、复听、错词本、历史30天统计,待逐动作展开,待查,待查,待查,待查,,not-inventoried,
+F-05,dictation,dictation/Dictation.tsx;TaskEditor.tsx;Grading.tsx;WordLibrary.tsx;PersonFilter.tsx;navigation.ts,创建、参与者、人工报词材料、逐生错词、核对保存下一人、词库文本导入、课次推进、快照、复听、错词本、历史30天统计,待逐动作展开,待查,待查,待查,待查,,partially-inventoried,evidence/grading-controller-20260912.md
 F-06,points,ClassroomApp.tsx:Points/MobileSecondaryPage,选人/多选、选规则、分值、原因、提交、近期历史、撤销,待逐动作展开,待查,待查,待查,待查,,not-inventoried,
 F-07,rules,ClassroomApp.tsx:Rules/MobileSecondaryPage,新增编辑、分类搜索、启用禁用、复制、删除,待逐动作展开,待查,待查,待查,待查,,not-inventoried,
 F-08,growth,ClassroomApp.tsx:Growth/MobileSecondaryPage;StudentProfile.tsx,选学生、时间范围、分类、添加编辑记录、历史、复制导出素材,待逐动作展开,待查,待查,待查,待查,,not-inventoried,

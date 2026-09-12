@@ -8,6 +8,7 @@ import { StatusSegment } from '../../app/components/workbench/ui/StatusSegment';
 import { SelectionBar } from '../../app/components/workbench/ui/SelectionBar';
 import { Dialog } from '../../app/components/workbench/ui/Dialog';
 import './preview.css';
+import { GradingProbe } from './GradingProbe';
 
 function Preview() {
   const [glass, setGlass] = useState(false);
@@ -61,4 +62,4 @@ function ControlProbe() {
   </>;
 }
 
-createRoot(document.getElementById('root')!).render(<Preview/>);
+createRoot(document.getElementById('root')!).render(new URLSearchParams(location.search).has('grading') ? <GradingProbe/> : <Preview/>);
