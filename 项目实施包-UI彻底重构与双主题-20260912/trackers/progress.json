@@ -3,7 +3,7 @@
   "baselineCommit": "6e10e2dc314e09d0d72df9509730f57c5fde34e2",
   "implementationStatus": "in-progress",
   "active_task": "TASK-02",
-  "next_action": "继续TASK02管理员（F-23/O-23）并完成TASK29管理员页面迁移；F-22账户已迁移验证",
+  "next_action": "回补首页F-01/O-01账本并核对TASK-02完成条件，然后进入TASK-30全量移除旧UI依赖",
   "milestones": {
     "M0": "in-progress",
     "M1": "planned",
@@ -12,7 +12,7 @@
     "M4": "planned",
     "M5": "planned"
   },
-  "note": "线上受检源码无需要覆盖的业务差异。F02-F22已展开；账户、班级、备份和当前设备退出已收敛到同一AccountCenter与纯操作层，桌面/手机、空班、两班各50人、有效/无效备份、到期只读、保存失败及退出已验证；196项测试、认证集成、类型、ESLint和全站115项六宽度qa通过。下一步核验并迁移管理员F-23；共享听写核心CSS、完整根CSS退出、portal与服务器确认式通用保存仍待后续。没有生产操作。",
+  "note": "线上受检源码无需要覆盖的业务差异。F02-F23已展开；入口、隐私、账户、班级、备份、当前设备退出和管理员工作台均已完成独立迁移证据。管理员页桌面/手机、空态、30条分页、手机号/设备/续期/状态/导出删除/审计、失败保留和独立权限已验证；197项测试、扩展认证集成、ESLint和全站115项六宽度qa通过。TASK-29已完成；TASK-02仍需回补F01首页账本。共享听写核心CSS、完整根CSS退出、portal与服务器确认式通用保存仍待后续。没有生产操作。",
   "implementationStartCommit": "f321d5e9424e0020bdf1e56d52c31b986b503a53",
   "parallelPreparation": [
     "TASK-06",

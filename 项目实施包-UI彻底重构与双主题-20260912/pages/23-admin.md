@@ -1,6 +1,6 @@
 # 管理员：逐页执行卡
 
-状态：planned。模块ID：admin。源码相对 app/w/[token]（明确app/lib前缀除外）：app/admin/page.tsx;app/api/admin/*。
+状态：migrated-and-verified。模块ID：admin。旧源码：app/admin/page.tsx;app/admin.css；新实现：app/admin/features/admin/AdminConsole.tsx、AdminUserDialog.tsx、useAdminConsole.ts、api.ts、types.ts、AdminConsole.module.css。服务端仍使用app/api/admin/*。
 参考：紧凑管理表格。派生页面使用对应页面族构图和校园token，不把缺少专属图解释为可回退旧UI。
 
 ## 保全动作（种子，实施前展开）
@@ -29,3 +29,11 @@
 
 ## 完成判据
 全部保全动作有新入口与证据；桌面/手机/主要浮层可用；参考气质和比例达标；旧布局退出；测试没有通过削弱断言变绿。结果写当前commit，不复用旧报告标pass。
+
+## 2026-09-13 实施记录
+
+- 实现提交：`14222f3`；证据：`../evidence/admin-operations-20260913.md`。
+- 管理员会话、账户检索、手机号、设备、续期、状态、导出/永久删除、兑换码和审计均有新入口；接口、管理员权限和审计契约保持不变。
+- 页面改为 `features/admin` 内的页面级组件、controller和CSS Module。旧内联页面和全局 `admin.css` 已退出；共享原生对话框统一详情与危险操作，手机长内容和页脚可达。
+- 浏览器使用隔离临时数据库验证1280×720与390×844、空态、30条分页、编辑/取消/确认、失败保留和无横向溢出。生产构建、197项测试、扩展认证集成、全量ESLint和115项六宽度严格审计通过。
+- 管理员页面不属于工作区只读模式；真实物理手机、HTTPS、外部网络和线上部署不属于本记录的已验证范围。

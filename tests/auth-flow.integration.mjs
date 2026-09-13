@@ -168,12 +168,53 @@ async function run() {
     assert.deepEqual(result.json.workspace.data.dictation.tasks[0].results, {}, "未批改不产生全对结果");
     assert.equal((saveA.response.status === 409 ? saveA : saveB).json.code, "WORKSPACE_CONFLICT");
 
+    result = await request(`/api/admin/users/${userA.id}/devices`, { jar: admin });
+    const activeDevices = result.json.devices.filter((device) => device.status === "active");
+    assert.equal(activeDevices.length, 2, "管理员应看到用户当前两台有效设备");
+    const androidDevice = activeDevices.find((device) => String(device.device_name).includes("Android"));
+    assert.ok(androidDevice?.id, "应能定位Android测试设备");
+    result = await request(`/api/admin/devices/${androidDevice.id}`, { jar: admin, method: "DELETE" });
+    assert.equal(result.response.status, 200, JSON.stringify(result.json));
+    result = await request("/api/auth/me", { jar: deviceB });
+    assert.equal(result.response.status, 401, "管理员解绑后该设备会话必须失效");
+    result = await request("/api/auth/me", { jar: restoredJar });
+    assert.equal(result.response.status, 200, "解绑另一台设备不得影响当前保留设备");
+
     result = await request("/api/auth/logout", { jar: userBJar, method: "POST" });
     assert.equal(result.response.status, 200, JSON.stringify(result.json));
     assert.equal(userBJar.has("classroom_session"), false, "退出后应清除当前会话");
     assert.equal(userBJar.has("classroom_device"), false, "退出后应清除当前设备令牌");
     result = await request("/api/auth/me", { jar: userBJar });
     assert.equal(result.response.status, 401, "退出后的当前设备不得继续访问账户");
+
+    result = await request("/api/admin/users?q=13900000002&page=1", { jar: admin });
+    const userB = result.json.users[0];
+    assert.ok(userB?.id, "管理员应能按完整手机号找到第二个合成账户");
+    result = await request(`/api/admin/users/${userB.id}`, { jar: admin, method: "PATCH", body: { phone: "13800000001", status: "active" } });
+    assert.equal(result.response.status, 409, "管理员不能把账户手机号改成另一账户已使用的号码");
+    result = await request(`/api/admin/users/${userB.id}`, { jar: admin, method: "PATCH", body: { phone: "13900000022", status: "active" } });
+    assert.equal(result.response.status, 200, JSON.stringify(result.json));
+    result = await request(`/api/admin/users/${userB.id}/renew`, { jar: admin, method: "POST" });
+    assert.equal(result.response.status, 200, JSON.stringify(result.json));
+    assert.ok(Date.parse(result.json.expiresAt) > Date.now(), "续期结果必须是未来时间");
+    result = await request(`/api/admin/users/${userB.id}/data`, { jar: admin });
+    assert.equal(result.response.status, 200, JSON.stringify(result.json));
+    assert.equal(result.json.format, "classroom-user-export");
+    assert.equal(result.json.user.phone, "13900000022");
+    assert.equal(result.json.workspace.access_token, tokenB);
+    result = await request(`/api/admin/users/${userB.id}/data`, { jar: admin, method: "DELETE", body: { confirmation: "13900000002" } });
+    assert.equal(result.response.status, 400, "永久删除必须使用账户当前完整手机号确认");
+    result = await request(`/api/admin/users/${userB.id}/data`, { jar: admin, method: "DELETE", body: { confirmation: "13900000022" } });
+    assert.equal(result.response.status, 200, JSON.stringify(result.json));
+    result = await request("/api/admin/users?q=13900000022&page=1", { jar: admin });
+    assert.equal(result.json.total, 0, "永久删除后账户不得继续出现在列表");
+    result = await request(`/api/admin/redeem-codes?q=${encodeURIComponent(codeB.slice(-4))}&page=1`, { jar: admin });
+    assert.equal(result.json.codes[0].status, "disabled", "永久删除后原兑换码必须禁用");
+    result = await request("/api/admin/audit-logs", { jar: admin });
+    const auditActions = new Set(result.json.logs.map((log) => log.action));
+    for (const action of ["device.revoke", "user.phone.update", "workspace.renew", "user.data.export", "user.data.delete"]) {
+      assert.ok(auditActions.has(action), `管理操作记录缺少 ${action}`);
+    }
   } catch (error) {
     throw new Error(`${error instanceof Error ? error.stack : error}\nServer output:\n${output.value.slice(-5000)}`);
   } finally {

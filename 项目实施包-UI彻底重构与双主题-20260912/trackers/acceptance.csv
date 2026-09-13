@@ -197,12 +197,12 @@ A-22-06,account,readonly,isolated-expired-account-and-demo,1280x800;390x844,af28
 A-22-07,account,save-failure,synthetic-route-unavailable,1280x800,af28a20,pass,evidence/account-operations-20260913.md,长班名保留且显示同步失败和全局重试
 A-22-08,account,conflict-or-not-applicable,shared-workspace-conflict-regression,,af28a20,pass,evidence/account-operations-20260913.md,账户班级编辑复用全局revision与409草稿处理且自动回归通过
 A-22-09,account,legacy-css-off,module-css-and-browser,1280x800;390x844,af28a20,pass,evidence/account-operations-20260913.md,旧AccountDialog和ClassSwitcher及对应全局选择器退出
-A-23-01,admin,desktop-default,,,,not-run,,不适用需说明源码依据
-A-23-02,admin,mobile-default,,,,not-run,,不适用需说明源码依据
-A-23-03,admin,empty,,,,not-run,,不适用需说明源码依据
-A-23-04,admin,long-data,,,,not-run,,不适用需说明源码依据
-A-23-05,admin,primary-editor,,,,not-run,,不适用需说明源码依据
-A-23-06,admin,readonly,,,,not-run,,不适用需说明源码依据
-A-23-07,admin,save-failure,,,,not-run,,不适用需说明源码依据
-A-23-08,admin,conflict-or-not-applicable,,,,not-run,,不适用需说明源码依据
-A-23-09,admin,legacy-css-off,,,,not-run,,不适用需说明源码依据
+A-23-01,admin,desktop-default,synthetic-admin-2users-30codes,1280x720,14222f3,pass,evidence/admin-operations-20260913.md,登录摘要导航表格和详情已实际渲染
+A-23-02,admin,mobile-default,synthetic-admin-2users-30codes,390x844,14222f3,pass,evidence/admin-operations-20260913.md,同一业务树转字段列表且对话框页脚可达
+A-23-03,admin,empty,isolated-empty-admin,1280x720,14222f3,pass,evidence/admin-operations-20260913.md,空账户和空兑换码显示真实空态
+A-23-04,admin,long-data,synthetic-30-codes,1280x720;390x844,14222f3,pass,evidence/admin-operations-20260913.md,30条兑换码分页25加5且手机无整页横向溢出
+A-23-05,admin,primary-editor,synthetic-account-phone-device,1280x720;390x844,14222f3,pass,evidence/admin-operations-20260913.md,手机号设备续期状态导出删除确认和审计入口均可达
+A-23-06,admin,readonly,admin-session-contract,,14222f3,not-applicable,evidence/admin-operations-20260913.md,管理员页不是工作区且无演示或到期只读写入模式；仅展示用户workspaceMode
+A-23-07,admin,save-failure,synthetic-route-unavailable,390x844,14222f3,pass,evidence/admin-operations-20260913.md,网络失败保留已加载列表和搜索输入并显示重试
+A-23-08,admin,conflict-or-not-applicable,duplicate-phone-integration,,14222f3,pass,evidence/admin-operations-20260913.md,重复手机号返回409并保留编辑状态
+A-23-09,admin,legacy-css-off,admin-css-module-source-and-browser,1280x720;390x844,14222f3,pass,evidence/admin-operations-20260913.md,旧admin.css删除且页面只使用局部CSS Module

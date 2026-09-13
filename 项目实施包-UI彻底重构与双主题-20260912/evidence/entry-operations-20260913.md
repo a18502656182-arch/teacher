@@ -22,7 +22,7 @@
 
 - 首页按校园主题重建为文字任务区、教室场景和三条真实用途说明。插画通过 `ThemeArtwork` 的 `entry` 语义槽读取已有原创 `classroom-morning.webp`，不是整图背景，也没有引入参考图角色或假业务数字。
 - 手机保持同一 DOM 和业务 controller，在 390×844 下重排为单列；验证浮层使用底部工作层，最大高度为 `calc(100dvh - 12px)` 并在内部滚动。
-- 入口与隐私只使用 `EntryPage.module.css`。旧 `public-entry.css` 的入口/隐私选择器已经移除，剩余管理员规则改名为 `admin.css`；`account.css` 也不再覆盖入口按钮和页面底色。
+- 入口与隐私只使用 `EntryPage.module.css`。旧 `public-entry.css` 的入口/隐私选择器已经移除，剩余管理员规则当时改名为 `admin.css`，并已在管理员迁移阶段删除；`account.css` 也不再覆盖入口按钮和页面底色。
 - 玻璃主题只增加空的 `entry` 语义资源位，仍未提供公开切换入口，也没有复制第二套页面。
 
 ## 浮层与失败验证
