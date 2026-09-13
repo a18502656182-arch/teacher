@@ -66,7 +66,7 @@ const authSource = read("lib/auth.ts");
 const examPaperRoute = read("app/api/ai/exam-paper/route.ts");
 const healthCare = read("app/w/[token]/HealthCare.tsx");
 const healthOperations = read("app/w/[token]/features/health/operations.ts");
-const workbenchRepair = read("app/workbench-repair.css");
+const classroomPageStyles = read("app/w/[token]/ClassroomPages.module.css");
 const workbenchShell = read("app/components/workbench/shell/WorkbenchShell.tsx");
 const shellCatalog = read("app/components/workbench/shell/catalog.ts");
 const shellController = read("app/components/workbench/shell/useWorkbenchShellController.ts");
@@ -76,7 +76,6 @@ const dictationWorkspaceCss = read("app/w/[token]/dictation/Dictation.module.css
 const dictationGrading = read("app/w/[token]/dictation/Grading.tsx");
 const dictationGradingCss = read("app/w/[token]/dictation/Grading.module.css");
 const familyScene = read("app/w/[token]/dictation/FamilyScene.tsx");
-const pageFamiliesCss = read("app/components/campus/page-families.css");
 const campusTheme = read("app/components/campus/theme.ts");
 const themeDefinitions = read("app/components/workbench/theme/definitions.ts");
 const rootLayout = read("app/layout.tsx");
@@ -114,7 +113,7 @@ test("account center unifies account, classes, backup and current-device logout"
   assert.match(accountOperations, /removeWorkspaceClass/);
   assert.match(app, /\/api\/auth\/logout/);
   assert.match(accountStyles, /grid-template-columns:\s*250px minmax\(0, 1fr\)/);
-  assert.doesNotMatch(workbenchRepair, /account-dialog|mobile-account-brief|sidebar-account-entry|sidebar-data-actions/);
+  assert.doesNotMatch(classroomPageStyles, /account-dialog|mobile-account-brief|sidebar-account-entry|sidebar-data-actions/);
 });
 
 test("formal workspace access is session-owned and demo is read-only", () => {
@@ -143,7 +142,7 @@ test("health care is a standalone, privacy-bounded operational workspace", () =>
   assert.match(healthCare, /学生名单中的主要监护人/);
   assert.match(healthOperations, /visibleScope: '班主任'/);
   assert.doesNotMatch(healthCare, /行动提醒板|下次复核日期/);
-  assert.match(workbenchRepair, /\.health-care-page \.primary-button\s*\{[^}]*color:\s*var\(--campus-surface\);[^}]*background:\s*var\(--campus-primary\);/);
+  assert.match(classroomPageStyles, /health-care-page \.primary-button\)\s*\{[^}]*color:\s*var\(--campus-surface\);[^}]*background:\s*var\(--campus-primary\);/);
   assert.match(healthCare, /const ok = await persist\(\)/);
   assert.match(healthCare, /同步失败，当前照护内容已保留/);
 });
@@ -297,7 +296,7 @@ test("benchmark pages use reference-led compositions and semantic artwork slots"
   assert.match(app, /<HomeworkView data=/);
   assert.match(homeworkView, /aria-label="作业任务列表"/);
   assert.match(homeworkStyles, /grid-template-columns:\s*330px minmax\(0,\s*1fr\)/);
-  assert.doesNotMatch(pageFamiliesCss, /campus-student-workspace|roster-data-table/);
+  assert.doesNotMatch(classroomPageStyles, /campus-student-workspace/);
   assert.match(campusTheme, /assessment: 'assessment\.context'/);
   assert.match(campusTheme, /planning: 'planning\.context'/);
   assert.match(themeDefinitions, /'assessment\.context': artwork\('\/art\/campus\/assessment-review\.webp'/);

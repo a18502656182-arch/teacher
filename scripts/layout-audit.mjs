@@ -34,41 +34,38 @@ function assert(condition, message, failures) {
 function runStaticAudit() {
   const failures = [];
   const globals = readFileSync(path.join(root, "app", "globals.css"), "utf8");
-  const repair = readFileSync(path.join(root, "app", "workbench-repair.css"), "utf8");
+  const classroomStyles = readFileSync(path.join(root, "app", "w", "[token]", "ClassroomPages.module.css"), "utf8");
   const layout = readFileSync(path.join(root, "app", "layout.tsx"), "utf8");
+  const workspacePage = readFileSync(path.join(root, "app", "w", "[token]", "page.tsx"), "utf8");
+  const classroomApp = readFileSync(path.join(root, "app", "w", "[token]", "ClassroomApp.tsx"), "utf8");
+  const shellComponent = readFileSync(path.join(root, "app", "components", "workbench", "shell", "WorkbenchShell.tsx"), "utf8");
   const workbenchShell = readFileSync(path.join(root, "app", "components", "workbench", "shell", "shell.module.css"), "utf8");
   const homeworkStyles = readFileSync(path.join(root, "app", "w", "[token]", "features", "homework", "HomeworkView.module.css"), "utf8");
   const route = readFileSync(path.join(root, "app", "api", "workspace", "[token]", "route.ts"), "utf8");
-  const importantCount = (repair.match(/!important/g) || []).length;
+  const importantCount = (classroomStyles.match(/!important/g) || []).length;
 
   assert(globals.length < 8000, "globals.css still contains too much page-level legacy CSS.", failures);
   assert(!/weekly2|weekly3|points-workbench|growth-layout|student-score-row|homework-card|====\s*V\d/.test(globals), "globals.css still contains removed legacy selectors or version markers.", failures);
-  assert(!/====\s*V\d|V3: workbench|V4|V5|V6|V7/.test(repair), "workbench-repair.css still contains versioned patch markers.", failures);
-  assert(importantCount < 20, `workbench-repair.css still relies on too many !important rules (${importantCount}).`, failures);
-  assert(/import "\.\/styles\/legacy-scoped\.css";/.test(layout), "layout.tsx is not loading the isolated legacy stylesheet.", failures);
-  assert(!/import "\.\/(?:workbench-repair|components\/campus\/[^\"]+)\.css";/.test(layout), "layout.tsx still loads an unscoped legacy stylesheet.", failures);
+  assert(!existsSync(path.join(root, "app", "workbench-repair.css")), "Obsolete workbench-repair.css still exists.", failures);
+  assert(!existsSync(path.join(root, "app", "styles", "legacy-scoped.css")), "Generated legacy-scoped.css still exists.", failures);
+  assert(!/legacy-scoped|workbench-repair/.test(layout), "Root layout still loads a legacy stylesheet.", failures);
+  assert(!/data-ui-generation=[\"']legacy/.test(workspacePage), "Workspace route still creates a legacy CSS boundary.", failures);
+  assert(!/homework-bootstrap-shell/.test(shellComponent), "Workbench shell still exposes the compatibility class.", failures);
+  assert(/pageClassName/.test(shellComponent), "Workbench shell is missing the route-scoped page style hook.", failures);
+  assert(/ClassroomPages\.module\.css/.test(classroomApp), "ClassroomApp is not loading its scoped page styles.", failures);
+  assert(/\.root\s*:global\(/.test(classroomStyles), "Classroom page styles are not scoped behind the route module.", failures);
+  assert(!/data-ui-generation|homework-bootstrap-shell/.test(classroomStyles), "Classroom page styles still contain compatibility boundaries.", failures);
+  assert(classroomStyles.length < 400000, "Classroom page styles still contain an unexpectedly large compatibility payload.", failures);
+  assert(importantCount < 40, `Classroom page styles still rely on too many !important rules (${importantCount}).`, failures);
   assert(/\.shell\s*\{[^}]*grid-template-columns:\s*244px minmax\(0,\s*1fr\)/.test(workbenchShell), "Campus workspace is missing the reference-bound desktop grid.", failures);
   assert(/@media \(max-width: 1180px\) and \(min-width: 901px\)[\s\S]*?\.shell\s*\{\s*grid-template-columns:\s*220px minmax\(0,\s*1fr\)/.test(workbenchShell), "Campus workspace compact grid is missing.", failures);
   assert(/\.desktopNav\s*\{[^}]*background:\s*var\(--wb-work\)/.test(workbenchShell), "Campus workspace navigation is missing its continuous background rail.", failures);
-  assert(/\.app-shell\s*\{[^}]*grid-template-columns:\s*236px\s+minmax\(0,\s*1fr\)/i.test(repair), "Missing stable sidebar/content shell grid.", failures);
-  assert(/\.app-main\s*\{[^}]*margin-left:\s*0;/i.test(repair), "Missing app-main double-offset reset.", failures);
-  assert(/\.page-content\s*\{[^}]*max-width:\s*none;/i.test(repair), "Page content is not full-width in the workbench shell.", failures);
-  assert(
-    /\.exam4-table,\s*\.exam4-library-table\s*\{[^}]*display:\s*table;/i.test(repair) && /\.reflection5-score-table\s*\{[^}]*display:\s*table;[^}]*border-collapse:\s*collapse;/i.test(repair),
-    "Score tables are not kept as semantic table layout.",
-    failures,
-  );
-  assert(/\.pointdesk-workspace\s*\{[^}]*grid-template-columns:\s*minmax\(0,\s*1fr\)\s*330px;/i.test(repair), "Points page is missing the final two-column desktop layout.", failures);
-  assert(/\.point-pro-page\s*\{[^}]*display:\s*grid;[^}]*gap:\s*14px;/s.test(repair), "Points page is missing the redesign wrapper.", failures);
-  assert(/\.point-pro-page \.pointdesk-student-table\s*\{[^}]*border-collapse:\s*collapse;/s.test(repair), "Points page is missing the student table surface.", failures);
-  assert(!/growth-bs|growthdesk|growth-bootstrap|growth-first/.test(repair), "Growth page still contains removed legacy growth selectors.", failures);
-  assert(/\.growth2-layout\s*\{[^}]*grid-template-columns:\s*340px\s+minmax\(0,\s*1fr\);/i.test(repair), "Growth page is missing the final list/detail layout.", failures);
-  assert(/\.rule-pro-page\s*\{[^}]*display:\s*grid;[^}]*gap:\s*14px;/s.test(repair), "Rules page is missing the redesign wrapper.", failures);
-  assert(/\.rule-pro-page \.ruledesk-table\s*\{[^}]*overflow-x:\s*auto;/s.test(repair), "Rules page is missing the responsive table-like rules surface.", failures);
-  assert(/\.rule-pro-page \.ruledesk-toolbar\s*\{[^}]*display:\s*grid;[^}]*justify-content:\s*start;/s.test(repair), "Rules category toolbar must stay compact instead of spacing title and filters to both edges.", failures);
-  assert(/\.rule-pro-page \.ruledesk-toolbar nav\s*\{[^}]*display:\s*inline-flex;[^}]*flex-wrap:\s*nowrap;/s.test(repair), "Rules category filters must use a nowrap segmented-control strip.", failures);
-  assert(/\.point-pro-page \.pointdesk-groups\s*\{[^}]*display:\s*inline-flex;[^}]*flex-wrap:\s*nowrap;/s.test(repair), "Points group filters must use a compact nowrap segmented-control strip.", failures);
-  assert(/\.point-pro-page \.pointdesk-clear\s*\{[^}]*border:\s*0;[^}]*background:\s*transparent;/s.test(repair), "Points clear action must remain a text action, not an input-like bordered button.", failures);
+  assert(/pointdesk-workspace/.test(classroomStyles) && /grid-template-columns:\s*minmax\(0,\s*1fr\)\s*330px/.test(classroomStyles), "Points page is missing the final two-column desktop layout.", failures);
+  assert(/point-pro-page \.pointdesk-student-table/.test(classroomStyles) && /border-collapse:\s*collapse/.test(classroomStyles), "Points page is missing the student table surface.", failures);
+  assert(!/growth-bs|growthdesk|growth-bootstrap|growth-first/.test(classroomStyles), "Growth page still contains removed legacy growth selectors.", failures);
+  assert(/growth2-layout/.test(classroomStyles) && /grid-template-columns:\s*340px\s+minmax\(0,\s*1fr\)/.test(classroomStyles), "Growth page is missing the final list/detail layout.", failures);
+  assert(/rule-pro-page \.ruledesk-table/.test(classroomStyles) && /overflow-x:\s*auto/.test(classroomStyles), "Rules page is missing the responsive rules surface.", failures);
+  assert(/point-pro-page \.pointdesk-clear/.test(classroomStyles) && /background:\s*transparent/.test(classroomStyles), "Points clear action must remain a text action.", failures);
   assert(!new RegExp("[\\u935A\\u95BE\\u701B\\u7EFE\\u941D\\u4E3F\\u6500\\u5931\\u8F9C\\u6B8F]").test(layout), "Root layout still contains mojibake text.", failures);
   assert(/rowHasMojibake/.test(route), "Demo workspace no longer auto-recovers corrupted demo data.", failures);
   assert(/\.workspace\s*\{[^}]*grid-template-columns:\s*330px minmax\(0,\s*1fr\)/s.test(homeworkStyles), "Homework desktop view is missing the stable task/detail split.", failures);

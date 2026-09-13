@@ -51,6 +51,7 @@ import { Cadres } from "./Cadres";
 import { defaultDutyJobs } from "./features/duty/operations";
 import { NotificationDrafts } from "./NotificationDrafts";
 import { WorkbenchPageHeader } from "./WorkbenchPageHeader";
+import pageStyles from "./ClassroomPages.module.css";
 
 
 type ModuleId = WorkspaceModuleId;
@@ -286,6 +287,7 @@ export default function ClassroomApp({ token }: { token: string }) {
   return (
     <>
       <WorkbenchShell
+        pageClassName={pageStyles.root}
         active={active}
         scene={learningScene}
         classes={classes}

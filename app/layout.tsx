@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { DialogAccessibility } from "./components/campus/DialogAccessibility";
 import "./globals.css";
-import "./styles/legacy-scoped.css";
 
 export const metadata: Metadata = {
   title: "班主任工作台",

@@ -1,4 +1,3 @@
-import { LegacyScopeProbe } from './LegacyScopeProbe';
 import { useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { ThemeBoundary } from '../../app/components/workbench/theme/ThemeBoundary';
@@ -96,4 +95,4 @@ function ControlProbe() {
 }
 
 const params = new URLSearchParams(location.search);
-createRoot(document.getElementById('root')!).render(params.has('isolation') ? <LegacyScopeProbe/> : params.has('grading') ? <GradingProbe/> : params.has('artwork') ? <ArtworkProbe/> : <Preview/>);
+createRoot(document.getElementById('root')!).render(params.has('grading') ? <GradingProbe/> : params.has('artwork') ? <ArtworkProbe/> : <Preview/>);

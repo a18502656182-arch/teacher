@@ -12,6 +12,7 @@ import styles from './shell.module.css';
 type SaveState = { saving: boolean; dirty: boolean; error: string; isDemo: boolean; isReadOnly: boolean };
 
 type WorkbenchShellProps = SaveState & {
+  pageClassName?: string;
   active: WorkspaceModuleId;
   scene: LearningScene;
   classes: RosterClass[];
@@ -87,7 +88,7 @@ export function WorkbenchShell(props: WorkbenchShellProps) {
     openModule(id);
   };
 
-  return <div className={`homework-bootstrap-shell ${styles.shell}`} data-module={props.active} data-theme="campus">
+  return <div className={styles.shell} data-module={props.active} data-theme="campus">
     <ThemeBoundary className={styles.desktopHeaderBoundary}>
       <header className={styles.desktopHeader}>
         <Link className={styles.brand} href="/"><span><CampusIcon name="book"/></span><b>班主任工作台</b></Link>
@@ -110,12 +111,12 @@ export function WorkbenchShell(props: WorkbenchShellProps) {
         </header>
       </ThemeBoundary>
       <StatusNotice {...props} {...saveState}/><AccessNotice {...saveState}/>
-      <main className={`mobile-workbench mobile-screen ${styles.mobileContent}`} data-module={props.active} data-mobile-workspace-content>{props.mobileContent}</main>
+      <main className={`mobile-workbench mobile-screen ${styles.mobileContent} ${props.pageClassName ?? ''}`} data-module={props.active} data-mobile-workspace-content>{props.mobileContent}</main>
       <ThemeBoundary className={styles.mobileTabBoundary}>
         <nav className={styles.mobileTabs} aria-label="手机底部导航">{mobilePrimaryModules.map(item => <button type="button" key={item.id} aria-current={props.active === item.id ? 'page' : undefined} onClick={() => openModule(item.id)}><CampusIcon name={item.id}/><span>{item.label}</span></button>)}<button ref={moreTriggerRef} type="button" aria-expanded={moreOpen} aria-current={!primary ? 'page' : undefined} onClick={() => setMoreOpen(true)}><CampusIcon name="more"/><span>更多</span></button></nav>
       </ThemeBoundary>
       <ThemeBoundary className={styles.overlayBoundary}><Drawer open={moreOpen} title="全部工具" description="底栏之外的 15 个模块，按工作内容分组" drawerPlacement="bottom" returnFocusRef={moreTriggerRef} onRequestClose={() => setMoreOpen(false)}><div className={styles.moreGroups}>{mobileMoreGroups.map(group => <section key={group.title}><h3>{group.title}</h3><div>{group.items.map(id => <button type="button" key={id} aria-current={props.active === id ? 'page' : undefined} onClick={() => openFromMore(id)}><CampusIcon name={id}/><span>{moduleLabel(id)}</span></button>)}</div></section>)}</div><button className={styles.moreAccount} type="button" onClick={() => { setMoreOpen(false); props.onAccount(); }}>{props.isDemo ? '演示工作台说明' : '账户、班级与备份'}</button></Drawer></ThemeBoundary>
     </section>
-    <main className={styles.desktopMain}><StatusNotice {...props} {...saveState}/><AccessNotice {...saveState}/><div className="campus-workspace-content" data-family={contentFamily}>{props.desktopContent}</div></main>
+    <main className={styles.desktopMain}><StatusNotice {...props} {...saveState}/><AccessNotice {...saveState}/><div className={`campus-workspace-content ${props.pageClassName ?? ''}`} data-family={contentFamily}>{props.desktopContent}</div></main>
   </div>;
 }
