@@ -1,6 +1,6 @@
 # 课堂工具：逐页执行卡
 
-状态：inventoried-with-gap。模块ID：tools。源码相对 app/w/[token]（明确app/lib前缀除外）：ClassroomTools.tsx；共享操作：features/tools/operations.ts；局部样式：ClassroomTools.module.css。
+状态：implemented。模块ID：tools。源码相对 app/w/[token]（明确app/lib前缀除外）：ClassroomTools.tsx；共享操作：features/tools/operations.ts；局部样式：ClassroomTools.module.css。
 参考：专注工具派生。派生页面使用对应页面族构图和校园token，不把缺少专属图解释为可回退旧UI。
 
 ## 保全动作（种子，实施前展开）
@@ -35,3 +35,7 @@
 已展开随机点名、当天请假排除、不重复、全轮完成、重置、临时分组、历史和复制。共享操作层修复 UTC 日期、切班串本轮、错误请假计数、抽取顺序展示和空组；两班隔离合成工作区实际验证桌面/手机、只读、人数不足、多组、历史复制和全员请假。
 
 本卡仍未完成：生产页面继续使用 `.classroom-tools` / `.tool-*` 旧卡片结构，正式校园专注构图、旧 CSS 退出、操作级服务器确认、物理手机与弱网尚未验收，所以 `A-16-*` 不改为通过。证据见 `../evidence/classroom-tools-operations-20260912.md`。
+
+## 2026-09-13 迁移完成
+
+随机点名继续作为不落库的课堂瞬时工具；临时分组等待workspace服务器确认，失败保留本机结果和历史选择，保存中防重复。演示/只读模式禁用分组设置和生成，但随机点名、重置及复制仍可用。桌面、手机实查及六档布局通过；共享旧工具样式退出归TASK-30。证据见`../evidence/classroom-tools-implementation-20260913.md`。

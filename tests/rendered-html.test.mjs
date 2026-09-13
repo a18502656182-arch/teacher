@@ -524,9 +524,13 @@ test("classroom tools exclude leave and do not turn random picks into points", (
   assert.match(classroomToolsOperations, /item\.status === '请假'/);
   assert.match(classroomTools, /drawClassroomStudent/);
   assert.match(classroomTools, /createTemporaryGrouping/);
-  assert.match(app, /<ClassroomTools data=\{workspace\.data\} update=\{updateData\} readOnly=\{isDemo \|\| isReadOnly\}/);
+  assert.match(app, /<ClassroomTools data=\{workspace\.data\} update=\{updateData\} save=\{save\} readOnly=\{isDemo \|\| isReadOnly\}/);
   assert.match(classroomTools, /默认不写入积分/);
   assert.match(classroomTools, /本轮所有可参与学生均已抽到/);
+  assert.match(classroomTools, /async function makeGroups\(\)/);
+  assert.match(classroomTools, /const ok = await save\(\)/);
+  assert.match(classroomTools, /本机结果和当前历史选择已保留/);
+  assert.match(classroomTools, /disabled=\{readOnly \|\| busy \|\| candidates\.length < 2\}/);
 });
 
 test("points table keeps bulk selection compact and accessible", () => {

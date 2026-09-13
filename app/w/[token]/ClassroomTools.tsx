@@ -17,9 +17,10 @@ import styles from "./ClassroomTools.module.css";
 
 const today = () => localToolDate();
 
-export function ClassroomTools({ data, update, readOnly = false }: {
+export function ClassroomTools({ data, update, save, readOnly = false }: {
   data: ClassroomData;
   update: (fn: (d: ClassroomData) => ClassroomData) => void;
+  save: () => Promise<boolean>;
   readOnly?: boolean;
 }) {
   const classId = data.activeClassId ?? data.rosterClasses?.[0]?.id ?? "";
@@ -29,6 +30,7 @@ export function ClassroomTools({ data, update, readOnly = false }: {
   const picked = round.classId === classId ? round.ids : [];
   const [groupCount, setGroupCount] = useState(6);
   const [historyId, setHistoryId] = useState("");
+  const [busy, setBusy] = useState(false);
   const [notice, setNotice] = useState<{ classId: string; text: string }>({ classId, text: "" });
   const message = notice.classId === classId ? notice.text : "";
   const eligibility = useMemo(() => eligibleClassroomToolStudents(data, classId, currentDate), [classId, currentDate, data]);
@@ -60,7 +62,7 @@ export function ClassroomTools({ data, update, readOnly = false }: {
     showMessage("已重置本轮点名。");
   }
 
-  function makeGroups() {
+  async function makeGroups() {
     if (readOnly) {
       showMessage("当前为只读模式，不能保存新的临时分组。");
       return;
@@ -72,9 +74,17 @@ export function ClassroomTools({ data, update, readOnly = false }: {
     }
     update(() => result.data);
     setHistoryId(result.session.id);
+    setBusy(true);
+    showMessage("临时分组已在本机生成，正在同步到工作区。");
+    const ok = await save();
+    setBusy(false);
+    if (!ok) {
+      showMessage("分组同步失败，本机结果和当前历史选择已保留，请重试生成或等待自动同步。");
+      return;
+    }
     showMessage(result.session.groups!.length < groupCount
-      ? `可参与学生不足 ${groupCount} 人，已生成 ${result.session.groups!.length} 个非空小组并正在同步。`
-      : "临时分组已生成，正在同步到工作区。");
+      ? `可参与学生不足 ${groupCount} 人，已生成 ${result.session.groups!.length} 个非空小组并由服务器确认。`
+      : "临时分组已由服务器确认。");
   }
 
   async function copyGroups(session: NonNullable<typeof latestSession>) {
@@ -103,8 +113,8 @@ export function ClassroomTools({ data, update, readOnly = false }: {
     <section>
       <header><div><h2>临时分组</h2><span>按当前班级可参与学生随机分组，结果会保留在本页</span></div><span>{latestSession ? `${viewingHistory ? "历史记录" : "最近一次"}：${latestSession.date}` : "尚未生成"}</span></header>
       <div className="tool-groups">
-        <label><span>分组数</span><input type="number" min="2" max="12" value={groupCount} onChange={(event) => setGroupCount(Math.max(2, Math.min(12, Number(event.target.value) || 2)))} /></label>
-        <button className="primary" type="button" onClick={makeGroups} disabled={candidates.length < 2}>生成分组</button>
+        <label><span>分组数</span><input type="number" min="2" max="12" disabled={readOnly || busy} value={groupCount} onChange={(event) => setGroupCount(Math.max(2, Math.min(12, Number(event.target.value) || 2)))} /></label>
+        <button className="primary" type="button" onClick={() => void makeGroups()} disabled={readOnly || busy || candidates.length < 2}>{busy ? "同步中…" : "生成分组"}</button>
       </div>
       {candidates.length < 2 && <p className="tool-group-empty">至少需要 2 名可参与学生才能生成临时分组。</p>}
       {latestSession ? <div className="tool-group-results" aria-live="polite">
