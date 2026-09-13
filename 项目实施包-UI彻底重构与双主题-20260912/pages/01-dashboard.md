@@ -1,6 +1,6 @@
 # 首页：逐页执行卡
 
-状态：planned。模块ID：dashboard。源码相对 app/w/[token]（明确app/lib前缀除外）：app/components/campus/Dashboard.tsx;ClassroomApp.tsx:MobileHome。
+状态：inventoried-with-gaps。模块ID：dashboard。源码相对 app/w/[token]（明确app/lib前缀除外）：app/components/campus/Dashboard.tsx;ClassroomApp.tsx:MobileHome。
 参考：C1/C5。派生页面使用对应页面族构图和校园token，不把缺少专属图解释为可回退旧UI。
 
 ## 保全动作（种子，实施前展开）
@@ -29,3 +29,10 @@
 
 ## 完成判据
 全部保全动作有新入口与证据；桌面/手机/主要浮层可用；参考气质和比例达标；旧布局退出；测试没有通过削弱断言变绿。结果写当前commit，不复用旧报告标pass。
+
+## 2026-09-13 盘点记录
+
+- 盘点提交：`bc41088`；证据：`../evidence/dashboard-inventory-20260913.md`。
+- 桌面与手机共用 `Dashboard`，已有作业/考勤/听写导航、教师事项、听写摘要、值日、学生近况和家庭入口；手机只增加共享账户入口。首页无自有写入和浮层。
+- 已确认课程表未进入今日安排、作业状态未按当前名册二次过滤、沟通待跟进未按班级过滤、学生近况缺少事实来源和学生上下文等数据缺口。
+- 当前仍使用 `components/campus/Dashboard.tsx` 与全局 `dashboard.css`；A-01保持未运行，待TASK-03夹具和TASK-12/TASK-17正式迁移后验收。

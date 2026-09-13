@@ -2,17 +2,17 @@
   "packageVersion": "1.0",
   "baselineCommit": "6e10e2dc314e09d0d72df9509730f57c5fde34e2",
   "implementationStatus": "in-progress",
-  "active_task": "TASK-02",
-  "next_action": "回补首页F-01/O-01账本并核对TASK-02完成条件，然后进入TASK-30全量移除旧UI依赖",
+  "active_task": "TASK-04",
+  "next_action": "核对已提取的features纯操作与ClassroomApp剩余重复派生；移动时保持输入输出不变并补缺失零值/跨班回归",
   "milestones": {
-    "M0": "in-progress",
-    "M1": "planned",
+    "M0": "done",
+    "M1": "in-progress",
     "M2": "planned",
     "M3": "planned",
     "M4": "planned",
     "M5": "planned"
   },
-  "note": "线上受检源码无需要覆盖的业务差异。F02-F23已展开；入口、隐私、账户、班级、备份、当前设备退出和管理员工作台均已完成独立迁移证据。管理员页桌面/手机、空态、30条分页、手机号/设备/续期/状态/导出删除/审计、失败保留和独立权限已验证；197项测试、扩展认证集成、ESLint和全站115项六宽度qa通过。TASK-29已完成；TASK-02仍需回补F01首页账本。共享听写核心CSS、完整根CSS退出、portal与服务器确认式通用保存仍待后续。没有生产操作。",
+  "note": "线上受检源码无需要覆盖的业务差异。F01-F23与O01-O23源码级账本完整，TASK-02关闭；E0-E11合成夹具覆盖空白、50+50、105人、双孩子、长任务/词量、长字段、只读、保存失败、409、旧备份和4.2-4.8MiB边界，并通过当前听写/备份校验及临时SQLite回读。M0完成，TASK-04进行中。多数业务页迁移和A场景仍未完成，TASK-30前置未满足。没有生产操作。",
   "implementationStartCommit": "f321d5e9424e0020bdf1e56d52c31b986b503a53",
   "parallelPreparation": [
     "TASK-06",
