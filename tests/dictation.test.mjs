@@ -14,7 +14,7 @@ for (const name of ['classroom', 'dictation', 'workspaceBackup']) {
   await writeFile(path.join(temp, `${name}.mjs`), compiled);
 }
 after(() => rm(temp, { recursive: true, force: true }));
-const { newTask, parseWords, preserveTaskIdentity, statistics, wrongWords, assertDictation } = await import(pathToFileURL(path.join(temp, 'dictation.mjs')));
+const { newTask, parseWords, preserveTaskIdentity, recentTasks, statistics, wrongWords, assertDictation } = await import(pathToFileURL(path.join(temp, 'dictation.mjs')));
 const { parseWorkspaceBackup } = await import(pathToFileURL(path.join(temp, 'workspaceBackup.mjs')));
 const people = (prefix, count) => Array.from({length:count}, (_,i)=>({id:`${prefix}-${i}`,name:`测试学生${i+1}`,number:String(i+1)}));
 const classes = ['a','b'].map(id=>({id,name:`测试班${id}`,students:people(id,50)}));
@@ -49,6 +49,14 @@ test('复习答对保留原错词历史，统计按词次加权',()=>{
  const t=task();t.results['a-0']=['graded',[0],'2026-09-11T01:00:00Z',''];const r=newTask({...t,sourceId:t.id,words:[t.words[0]]});r.results['a-0']=['graded',[],'2026-09-11T02:00:00Z',''];
  r.date='2026-09-12';
  assert.equal(wrongWords([t,r],'a-0')[0].count,1);assert.equal(wrongWords([t,r],'a-0')[0].last,'2026-09-12');assert.equal(statistics([t,r],'a-0').rate,1/3);
+});
+
+test('近30天窗口包含首尾自然日并排除未来与第31天',()=>{
+ const rows=['2026-08-14','2026-08-15','2026-09-13','2026-09-14'].map((date,index)=>({...task(),id:`window-${index}`,date}));
+ const window=recentTasks(rows,'2026-09-13');
+ assert.equal(window.from,'2026-08-15');
+ assert.equal(window.to,'2026-09-13');
+ assert.deepEqual(window.tasks.map(item=>item.date),['2026-08-15','2026-09-13']);
 });
 test('旧版和新版完整备份均可预检',()=>{
  for(const version of [1,2]){const data=structuredClone(base);if(version===1)delete data.dictation;const text=JSON.stringify({format:'classroom-workspace-backup',version,data});assert.equal(parseWorkspaceBackup(text,Buffer.byteLength(text)).preview.students,100);}

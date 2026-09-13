@@ -1,6 +1,6 @@
 # 听写与复习：逐页执行卡
 
-状态：planned。模块ID：dictation。源码相对 app/w/[token]（明确app/lib前缀除外）：dictation/Dictation.tsx;TaskEditor.tsx;Grading.tsx;WordLibrary.tsx;PersonFilter.tsx;navigation.ts。
+状态：implemented。模块ID：dictation。源码相对 app/w/[token]（明确app/lib前缀除外）：dictation/Dictation.tsx;TaskEditor.tsx;Grading.tsx;WordLibrary.tsx;PersonFilter.tsx;navigation.ts。
 参考：C2/C6。派生页面使用对应页面族构图和校园token，不把缺少专属图解释为可回退旧UI。
 
 ## 保全动作（种子，实施前展开）

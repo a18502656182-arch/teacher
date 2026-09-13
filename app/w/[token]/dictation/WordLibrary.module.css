@@ -1,0 +1,21 @@
+.toolbar { display: flex; align-items: end; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 18px; }
+.toolbar > div { min-width: min(100%, 300px); }
+.tableScroll { overflow: auto; border-top: 1px solid var(--campus-line); }
+.tableScroll table { width: 100%; min-width: 650px; border-collapse: collapse; text-align: left; }
+.tableScroll th { background: var(--campus-blue); }
+.tableScroll th, .tableScroll td { padding: 12px; border-bottom: 1px solid var(--campus-line); }
+.tableScroll small { display: block; color: var(--campus-muted); }
+.cellActions { display: flex; gap: 2px; }
+.form { max-width: 900px; padding-bottom: 24px; }
+.form h2 { margin: 0 0 6px; font-size: 22px; }
+.form > p { color: var(--campus-muted); }
+.form fieldset { min-width: 0; margin: 0; padding: 0; border: 0; }
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 18px 0; }
+.fullField { margin: 16px 0; }
+.actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--campus-line); }
+@media (max-width: 900px) {
+  .grid { grid-template-columns: 1fr; gap: 12px; }
+  .toolbar { align-items: stretch; }
+  .toolbar > div, .toolbar > button { width: 100%; }
+  .actions { position: sticky; bottom: 60px; z-index: 3; margin-inline: -14px; padding: 12px 14px calc(12px + env(safe-area-inset-bottom)); background: var(--campus-surface); box-shadow: 0 -7px 20px rgba(23,53,74,.09); }
+}

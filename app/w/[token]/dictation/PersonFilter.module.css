@@ -1,0 +1,5 @@
+.filter { position: relative; margin: -4px 0 18px; }
+.panel { max-width: 650px; margin-top: 8px; padding: 14px; border: 1px solid var(--campus-line); border-radius: 12px; background: var(--campus-surface); box-shadow: 0 12px 34px rgba(45,76,81,.07); }
+.people { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin: 10px 0; border-top: 1px solid var(--campus-line); }
+.people button { justify-content: flex-start; border-bottom: 1px solid var(--campus-line); border-radius: 0; }
+@media (max-width: 900px) { .people { grid-template-columns: 1fr 1fr; } }

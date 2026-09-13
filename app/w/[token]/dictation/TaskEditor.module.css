@@ -1,0 +1,26 @@
+.form { max-width: 960px; padding: 4px 0 24px; color: var(--campus-ink); }
+.form h2 { margin: 0 0 6px; font-size: 22px; }
+.form > p, .form fieldset > p { color: var(--campus-muted); }
+.form fieldset { min-width: 0; margin: 0; padding: 0; border: 0; }
+.form label { font-size: 14px; }
+.form input:not([type="checkbox"]), .form select, .form textarea { width: 100%; min-height: 42px; padding: 8px 11px; border: 1px solid var(--campus-line); border-radius: 8px; color: var(--campus-ink); background: var(--campus-surface); font: inherit; }
+.form textarea { min-height: 120px; resize: vertical; }
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 18px 0; }
+.fullField { display: grid; gap: 6px; margin: 16px 0; }
+.toolbar { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin: 14px 0; }
+.toolbar > label { min-width: 210px; }
+.preview { display: flex; max-height: 160px; gap: 7px; flex-wrap: wrap; overflow: auto; padding: 12px; border-block: 1px solid var(--campus-line); background: var(--campus-blue); }
+.preview span { padding: 2px 7px; border-right: 1px solid var(--campus-line); }
+.participants { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1px solid var(--campus-line); }
+.participants label { display: flex; align-items: center; min-height: 48px; gap: 10px; padding: 10px; border-bottom: 1px solid var(--campus-line); }
+.participants input { width: 20px; height: 20px; flex: none; accent-color: var(--campus-primary); }
+.participants small { display: block; color: var(--campus-muted); }
+.actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 22px; padding-top: 16px; border-top: 1px solid var(--campus-line); }
+.error { color: var(--campus-error) !important; }
+@media (max-width: 900px) {
+  .grid { grid-template-columns: 1fr; gap: 12px; }
+  .participants { grid-template-columns: 1fr 1fr; }
+  .actions { position: sticky; bottom: 60px; z-index: 3; margin-inline: -14px; padding: 12px 14px calc(12px + env(safe-area-inset-bottom)); background: var(--campus-surface); box-shadow: 0 -7px 20px rgba(23,53,74,.09); }
+  .form input:not([type="checkbox"]), .form select, .form textarea { min-height: 46px; font-size: 16px; }
+}
+@media (max-width: 480px) { .participants { grid-template-columns: 1fr; } }

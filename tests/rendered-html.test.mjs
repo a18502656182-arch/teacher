@@ -70,9 +70,9 @@ const shellCatalog = read("app/components/workbench/shell/catalog.ts");
 const shellController = read("app/components/workbench/shell/useWorkbenchShellController.ts");
 const shellCss = read("app/components/workbench/shell/shell.module.css");
 const dictationWorkspace = read("app/w/[token]/dictation/Dictation.tsx");
+const dictationWorkspaceCss = read("app/w/[token]/dictation/Dictation.module.css");
 const dictationGrading = read("app/w/[token]/dictation/Grading.tsx");
 const dictationGradingCss = read("app/w/[token]/dictation/Grading.module.css");
-const dictationLegacyCss = read("app/w/[token]/dictation/dictation.css");
 const familyScene = read("app/w/[token]/dictation/FamilyScene.tsx");
 const pageFamiliesCss = read("app/components/campus/page-families.css");
 const campusTheme = read("app/components/campus/theme.ts");
@@ -336,7 +336,9 @@ test("dictation grading uses one central work surface with expandable material a
   assert.match(dictationGradingCss, /grid-template-columns:minmax\(0,1fr\) 272px/);
   assert.match(dictationGradingCss, /position:fixed[\s\S]*bottom:60px/);
   assert.doesNotMatch(dictationGrading, /dictation-material-pane|dictation-grading-main|campus-banner|ThemeArtwork/);
-  assert.doesNotMatch(dictationLegacyCss, /\.dictation-grading|\.dictation-material-pane|\.dictation-roster|\.dictation-savebar/);
+  assert.doesNotMatch(dictationWorkspace, /dictation\.css/);
+  assert.match(dictationWorkspace, /Dictation\.module\.css/);
+  assert.match(dictationWorkspaceCss, /\.summary/);
 });
 
 test("duty timetable follows the course schedule's custom teaching days", () => {

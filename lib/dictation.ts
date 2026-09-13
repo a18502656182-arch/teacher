@@ -12,6 +12,13 @@ export type DictationData = { version: 1; children: FamilyChild[]; books: WordBo
 export const emptyDictation = (): DictationData => ({ version: 1, children: [], books: [], tasks: [] });
 export const contextKey = (c: LearningContext) => c.kind === 'class' ? `class:${c.classId}` : `family:${c.childId}`;
 export const today = () => { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; };
+export function recentTasks(tasks: DictationTask[], end = today(), days = 30) {
+  const [year, month, day] = end.split('-').map(Number);
+  const cutoff = new Date(year, month - 1, day);
+  cutoff.setDate(cutoff.getDate() - Math.max(0, days - 1));
+  const from = `${cutoff.getFullYear()}-${String(cutoff.getMonth() + 1).padStart(2, '0')}-${String(cutoff.getDate()).padStart(2, '0')}`;
+  return { from, to: end, tasks: tasks.filter(task => task.date >= from && task.date <= end) };
+}
 export const taskState = (t: DictationTask) => Object.keys(t.results).length === t.participants.length ? '已完成' : Object.keys(t.results).length ? '批改中' : '待听写';
 export function parseWords(text: string): WordEntry[] {
   const seen = new Set<string>();
