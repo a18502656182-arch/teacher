@@ -10,8 +10,17 @@ import { SelectionBar } from '../../app/components/workbench/ui/SelectionBar';
 import { Dialog } from '../../app/components/workbench/ui/Dialog';
 import { Menu, MenuItem } from '../../app/components/workbench/ui/Menu';
 import { EmptyState, LoadingState } from '../../app/components/workbench/ui/FeedbackState';
+import { StudentPicker } from '../../app/components/workbench/ui/StudentPicker';
 import './preview.css';
 import { GradingProbe } from './GradingProbe';
+
+const SYNTHETIC_STUDENTS = Array.from({ length: 105 }, (_, index) => ({
+  id: `synthetic-student-${index + 1}`,
+  name: `合成学生${String(index + 1).padStart(3, '0')}`,
+  studentNo: String(index + 1).padStart(3, '0'),
+  group: Math.ceil((index + 1) / 5),
+  seat: index + 1,
+}));
 
 function Preview() {
   const [glass, setGlass] = useState(false);
@@ -30,7 +39,8 @@ function ControlProbe() {
   const [status, setStatus] = useState('未交');
   const [selected, setSelected] = useState(false);
   const [open, setOpen] = useState(false);
-  const [nested, setNested] = useState(false);
+  const [pickerOpen, setPickerOpen] = useState(false);
+  const [pickerSelection, setPickerSelection] = useState<string[]>(['synthetic-student-2']);
   const [note, setNote] = useState('');
   const [confirmClose, setConfirmClose] = useState(false);
   const [message, setMessage] = useState('');
@@ -59,13 +69,27 @@ function ControlProbe() {
       <Button onClick={() => setShowLoading(value => !value)}>{showLoading ? '显示空态' : '显示加载'}</Button>
     </div>{showLoading ? <LoadingState title="正在读取合成数据" detail="加载状态不伪造业务结果。"/> : <EmptyState title="当前筛选没有结果" description="调整筛选条件，或清空搜索后重新查看。" artworkRole="empty.no-results" action={<Button onClick={() => setMessage('已清空合成筛选')}>清空筛选</Button>}/>}</section>
     <p role="status" aria-live="polite">{message}</p>
-    <Dialog open={open} title="编辑任务（本地验证）" dirty={Boolean(note)} busy={busy} onRequestClose={() => note ? setConfirmClose(true) : setOpen(false)} footer={<><Button onClick={() => setNested(true)} disabled={busy}>选择学生</Button><Button intent="primary" busy={busy} onClick={simulate}>{busy ? '模拟处理中' : '模拟保存'}</Button></>}>
+    <Dialog open={open} title="编辑任务（本地验证）" dirty={Boolean(note)} busy={busy} onRequestClose={() => note ? setConfirmClose(true) : setOpen(false)} footer={<><Button onClick={() => setPickerOpen(true)} disabled={busy}>选择学生</Button><Button intent="primary" busy={busy} onClick={simulate}>{busy ? '模拟处理中' : '模拟保存'}</Button></>}>
       <Field id="probe-note" label="备注"><Textarea id="probe-note" value={note} onChange={e => setNote(e.target.value)} disabled={busy}/></Field>
       <p><label><input type="checkbox" checked={fail} onChange={e => setFail(e.target.checked)}/> 模拟保存失败</label></p>
       <p role="status">{message}</p>
       <p>这里用于检查手机短屏中的滚动、底部按钮、嵌套浮层与焦点恢复。</p>
     </Dialog>
-    <Dialog open={nested} title="选人子层（合成数据）" onRequestClose={() => setNested(false)} footer={<Button intent="primary" onClick={() => setNested(false)}>返回编辑器</Button>}><p>子层关闭后，父表单的备注应保留。</p></Dialog>
+    <StudentPicker
+      open={pickerOpen}
+      title="选择参与学生（105人合成名单）"
+      items={SYNTHETIC_STUDENTS}
+      selectedIds={pickerSelection}
+      selectionMode="multiple"
+      onConfirm={async ids => {
+        await new Promise(resolve => setTimeout(resolve, 300));
+        if (fail) throw new Error('模拟保存失败，跨页选择和当前搜索仍保留。');
+        setPickerSelection(ids);
+        setPickerOpen(false);
+        setMessage(`已确认 ${ids.length} 名合成学生；没有连接服务器`);
+      }}
+      onRequestClose={() => setPickerOpen(false)}
+    />
     <Dialog open={confirmClose} title="备注尚未完成" onRequestClose={() => setConfirmClose(false)} footer={<><Button onClick={() => setConfirmClose(false)}>继续编辑</Button><Button intent="danger" onClick={() => {setNote('');setConfirmClose(false);setOpen(false);}}>放弃样例草稿</Button></>}><p>关闭、Esc 与遮罩进入同一个离开检查。</p></Dialog>
   </>;
 }

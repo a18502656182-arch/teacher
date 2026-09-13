@@ -10,6 +10,12 @@ const selection = read('app/components/workbench/ui/SelectionBar.tsx');
 const menu = read('app/components/workbench/ui/Menu.tsx');
 const feedback = read('app/components/workbench/ui/FeedbackState.tsx');
 const styles = read('app/components/workbench/ui/controls.module.css');
+const modalLayer = read('app/components/workbench/ui/ModalLayer.tsx');
+const drawer = read('app/components/workbench/ui/Drawer.tsx');
+const picker = read('app/components/workbench/ui/StudentPicker.tsx');
+const pickerStyles = read('app/components/workbench/ui/student-picker.module.css');
+const draftPrompt = read('app/components/workbench/ui/DraftClosePrompt.tsx');
+const lookupAdapter = read('app/components/campus/StudentLookupDialog.tsx');
 
 test('按钮busy与disabled共享不可重复触发语义且保留原生类型', () => {
   assert.match(button, /type = 'button'/);
@@ -53,4 +59,30 @@ test('基础控件样式只消费主题变量并处理长文本、窄屏和减�
   assert.match(styles, /prefers-reduced-motion: reduce/);
   assert.match(styles, /env\(safe-area-inset-bottom\)/);
   assert.match(styles, /@media \(max-width: 600px\)/);
+});
+
+test('Dialog与Drawer共用原生top layer并支持子层焦点恢复', () => {
+  assert.match(modalLayer, /element\.showModal\(\)/);
+  assert.match(modalLayer, /data-workbench-dialog="next"/);
+  assert.match(modalLayer, /initialFocusRef/);
+  assert.match(modalLayer, /returnFocusRef/);
+  assert.match(modalLayer, /triggerRef\.current/);
+  assert.match(drawer, /presentation="drawer"/);
+  assert.match(draftPrompt, /继续编辑/);
+  assert.match(draftPrompt, /放弃修改/);
+});
+
+test('StudentPicker覆盖105人搜索、分页、跨页多选和失败保留契约', () => {
+  assert.match(picker, /useDeferredValue/);
+  assert.match(picker, /selectionMode === 'single' \? 'radio' : 'checkbox'/);
+  assert.match(picker, /选择本页/);
+  assert.match(picker, /选择全部结果/);
+  assert.match(picker, /Math\.ceil\(filteredItems\.length \/ safePageSize\)/);
+  assert.match(picker, /await onConfirm\(draftIds\)/);
+  assert.match(picker, /setSubmitError/);
+  assert.match(picker, /open && closePromptOpen/);
+  assert.match(lookupAdapter, /<StudentPicker/);
+  assert.match(lookupAdapter, /ThemeBoundary/);
+  assert.doesNotMatch(pickerStyles, /#[0-9a-f]{3,8}|rgba?\(/i);
+  assert.match(pickerStyles, /env\(safe-area-inset-bottom\)|max-width: 600px/);
 });

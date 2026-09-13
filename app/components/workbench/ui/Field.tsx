@@ -1,4 +1,4 @@
-import type { InputHTMLAttributes, ReactNode, SelectHTMLAttributes, TextareaHTMLAttributes } from 'react';
+import type { ComponentPropsWithRef, ReactNode } from 'react';
 import styles from './controls.module.css';
 
 export function Field({ id, label, hint, error, required, children }: {
@@ -17,15 +17,15 @@ type FieldState = { error?: string; hint?: string };
 function description(id: string | undefined, props: FieldState, existing?: string) {
   return [existing, id && props.hint && `${id}-hint`, id && props.error && `${id}-error`].filter(Boolean).join(' ') || undefined;
 }
-export function Input({ error, hint, className = '', ...props }: InputHTMLAttributes<HTMLInputElement> & FieldState) {
-  return <input {...props} className={`${styles.input} ${className}`} aria-invalid={Boolean(error) || props['aria-invalid']}
+export function Input({ error, hint, className = '', ref, ...props }: ComponentPropsWithRef<'input'> & FieldState) {
+  return <input {...props} ref={ref} className={`${styles.input} ${className}`} aria-invalid={Boolean(error) || props['aria-invalid']}
     aria-describedby={description(props.id, { error, hint }, props['aria-describedby'])}/>;
 }
-export function Textarea({ error, hint, className = '', ...props }: TextareaHTMLAttributes<HTMLTextAreaElement> & FieldState) {
-  return <textarea {...props} className={`${styles.input} ${styles.textarea} ${className}`} aria-invalid={Boolean(error) || props['aria-invalid']}
+export function Textarea({ error, hint, className = '', ref, ...props }: ComponentPropsWithRef<'textarea'> & FieldState) {
+  return <textarea {...props} ref={ref} className={`${styles.input} ${styles.textarea} ${className}`} aria-invalid={Boolean(error) || props['aria-invalid']}
     aria-describedby={description(props.id, { error, hint }, props['aria-describedby'])}/>;
 }
-export function Select({ error, hint, className = '', ...props }: SelectHTMLAttributes<HTMLSelectElement> & FieldState) {
-  return <select {...props} className={`${styles.input} ${className}`} aria-invalid={Boolean(error) || props['aria-invalid']}
+export function Select({ error, hint, className = '', ref, ...props }: ComponentPropsWithRef<'select'> & FieldState) {
+  return <select {...props} ref={ref} className={`${styles.input} ${className}`} aria-invalid={Boolean(error) || props['aria-invalid']}
     aria-describedby={description(props.id, { error, hint }, props['aria-describedby'])}/>;
 }

@@ -9,6 +9,7 @@ const workspaceController = read("app/w/[token]/workspace/useWorkspaceController
 const dashboard = read("app/components/campus/Dashboard.tsx");
 const dialogBehavior = read("app/components/campus/DialogAccessibility.tsx");
 const sharedDialog = read("app/components/workbench/ui/Dialog.tsx");
+const modalLayer = read("app/components/workbench/ui/ModalLayer.tsx");
 const clipboard = read("lib/clipboard.ts");
 const workspaceRoute = read("app/api/workspace/[token]/route.ts");
 const aiRoute = read("app/api/ai/comment/route.ts");
@@ -429,6 +430,9 @@ test("dialogs use unique titles and keyboard focus management", () => {
   assert.match(app, /const titleId = useId\(\)/);
   assert.match(dialogBehavior, /event\.key==='Escape'/);
   assert.match(dialogBehavior, /restoreFocus\.focus/);
-  assert.match(sharedDialog, /bodyRef\.current\.scrollTop = 0/);
+  assert.match(sharedDialog, /<ModalLayer/);
+  assert.match(modalLayer, /bodyRef\.current\.scrollTop = 0/);
+  assert.match(modalLayer, /data-workbench-dialog="next"/);
+  assert.match(dialogBehavior, /dialog\[data-workbench-dialog=/);
   assert.doesNotMatch(app, /id="mobile-info-title"/);
 });

@@ -32,6 +32,9 @@ export function DialogAccessibility() {
    if(!current.contains(document.activeElement)){const first=controls()[0];if(first)first.focus();else{current.tabIndex=-1;current.focus();}}
   }
   function keydown(event:KeyboardEvent){
+   // Native next-generation dialogs own the top layer while open. The legacy
+   // manager must not close or refocus a parent dialog underneath them.
+   if(document.querySelector('dialog[data-workbench-dialog="next"][open]'))return;
    if(!current)return;
    if(event.key==='Escape'){
     const close=Array.from(current.querySelectorAll<HTMLButtonElement>('button')).find(button=>!button.disabled&&visible(button)&&(/^(关闭|取消|返回)$/.test(button.getAttribute('aria-label')??'')||/^(关闭|取消|×|✕)$/.test(button.textContent?.trim()??'')));
