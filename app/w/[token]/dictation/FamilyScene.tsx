@@ -9,7 +9,7 @@ import styles from "./FamilyScene.module.css";
 
 type ConfirmAction = (message: string, title?: string, confirmLabel?: string) => Promise<boolean>;
 
-export function FamilyHeader({ profiles, child, tasks, pending, wrongCount, readOnly, onSelect, onManage, onNew, onClass }: {
+export function FamilyHeader({ profiles, child, tasks, pending, wrongCount, readOnly, onSelect, onManage, onNew }: {
   profiles: FamilyChild[];
   child?: FamilyChild;
   tasks: number;
@@ -19,13 +19,12 @@ export function FamilyHeader({ profiles, child, tasks, pending, wrongCount, read
   onSelect: (id: string) => void;
   onManage: () => void;
   onNew: () => void;
-  onClass: () => void;
 }) {
   return <>
     <header className={styles.header}>
       <div className={styles.headerCopy}><span className={styles.eyebrow}><CampusIcon name="home" />家庭学习</span><h2>{child ? `${child.name}的听写计划` : "先建立孩子档案"}</h2><p>{child ? `${tasks} 次历史任务 · ${pending} 人次待批改 · ${wrongCount} 个个人错词` : "孩子档案与班级名册完全独立，建立后再安排每日听写。"}</p></div>
       <ThemeArtwork slot="family" />
-      <div className={styles.headerActions}><button type="button" className={styles.backToClass} onClick={onClass}><CampusIcon name="school" />班级教学</button><button type="button" onClick={onManage}><CampusIcon name="user" />管理孩子</button><button type="button" className={styles.primary} onClick={child ? onNew : onManage} disabled={readOnly || Boolean(child?.archived)}><CampusIcon name="plus" />{child?.archived ? "档案已归档" : child ? "新建听写" : "新增孩子"}</button></div>
+      <div className={styles.headerActions}><button type="button" onClick={onManage}><CampusIcon name="user" />管理孩子</button><button type="button" className={styles.primary} onClick={child ? onNew : onManage} disabled={readOnly || Boolean(child?.archived)}><CampusIcon name="plus" />{child?.archived ? "档案已归档" : child ? "新建听写" : "新增孩子"}</button></div>
     </header>
     <section className={styles.childSwitch} aria-label="切换家庭孩子">
       <div><span>当前孩子</span><small>每个孩子使用独立任务、批改记录和错词统计</small></div>

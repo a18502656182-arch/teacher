@@ -56,8 +56,12 @@ const examPaperRoute = read("app/api/ai/exam-paper/route.ts");
 const healthCare = read("app/w/[token]/HealthCare.tsx");
 const healthOperations = read("app/w/[token]/features/health/operations.ts");
 const workbenchRepair = read("app/workbench-repair.css");
-const workspaceChrome = read("app/components/campus/WorkspaceChrome.tsx");
-const workspaceChromeCss = read("app/components/campus/workspace-chrome.css");
+const workbenchShell = read("app/components/workbench/shell/WorkbenchShell.tsx");
+const shellCatalog = read("app/components/workbench/shell/catalog.ts");
+const shellController = read("app/components/workbench/shell/useWorkbenchShellController.ts");
+const shellCss = read("app/components/workbench/shell/shell.module.css");
+const dictationWorkspace = read("app/w/[token]/dictation/Dictation.tsx");
+const familyScene = read("app/w/[token]/dictation/FamilyScene.tsx");
 const pageFamiliesCss = read("app/components/campus/page-families.css");
 const campusTheme = read("app/components/campus/theme.ts");
 const themeDefinitions = read("app/components/workbench/theme/definitions.ts");
@@ -111,7 +115,7 @@ test("formal workspaces start blank while demo remains the only seeded classroom
 });
 
 test("health care is a standalone, privacy-bounded operational workspace", () => {
-  assert.match(workspaceChrome, /id: 'health', label: '健康与照护'/);
+  assert.match(shellCatalog, /id: 'health', label: '健康与照护'/);
   assert.match(app, /<HealthCare data=\{workspace\.data\} update=\{updateData\}/);
   assert.match(app, /<HealthCare data=\{data\} update=\{update\} mobile/);
   assert.match(classroomTypes, /actionContexts/);
@@ -167,9 +171,9 @@ test("automatic persistence stays quiet until a save fails", () => {
   assert.match(app, /useWorkspaceController\(\{/);
   assert.match(workspaceController, /createWorkspaceOperations\(\{/);
   assert.match(workspaceOperations, /修改已保存在本机，可点击重试/);
-  assert.match(app, /"重试"/);
+  assert.match(workbenchShell, /'重试'/);
   assert.match(workspaceController, /载入服务器最新版本/);
-  assert.match(app, /导出当前草稿/);
+  assert.match(workbenchShell, /导出当前草稿/);
   assert.match(workspaceController, /beforeunload/);
   assert.match(workspaceController, /setTimeout\(\(\) => \{ void workspaceOperations\(\)\.save\(\); \}, 900\)/);
 });
@@ -213,23 +217,33 @@ test("administrator uses the shared theme, native dialog and page-scoped styles"
 
 test("desktop shell has one page title and one account entry in the global header", () => {
   assert.doesNotMatch(app, /<header className="topbar">/);
-  assert.match(workspaceChrome, /campus-header-account/);
-  assert.match(workspaceChrome, /账户与班级/);
-  assert.doesNotMatch(workspaceChrome, /sidebar-account-entry|导出备份|恢复备份/);
+  assert.match(workbenchShell, /账户与班级/);
+  assert.match(workbenchShell, /<SaveStatus/);
+  assert.doesNotMatch(workbenchShell, /sidebar-account-entry|恢复备份/);
 });
 
 test("campus rebuild owns one shared shell and four task-oriented navigation groups", () => {
-  assert.match(app, /<DesktopHeader/);
-  assert.match(app, /<WorkspaceNav/);
-  assert.match(app, /campus-workspace-content/);
-  assert.match(workspaceChrome, /title: '今日'/);
-  assert.match(workspaceChrome, /title: '学生'/);
-  assert.match(workspaceChrome, /title: '教学'/);
-  assert.match(workspaceChrome, /title: '班级'/);
-  assert.match(workspaceChromeCss, /grid-template-columns:\s*244px minmax\(0,\s*1fr\)/);
-  assert.match(workspaceChromeCss, /grid-template-rows:\s*68px minmax\(0,\s*1fr\)/);
-  assert.match(workspaceChromeCss, /\.campus-desktop-header/);
-  assert.match(workspaceChromeCss, /\.campus-workspace-nav/);
+  assert.match(app, /<WorkbenchShell/);
+  assert.doesNotMatch(app, /<DesktopHeader|<WorkspaceNav|function MobileWorkbench/);
+  assert.doesNotMatch(workbenchShell, /campus-workspace-shell|campus-desktop-header|campus-workspace-nav/);
+  assert.match(shellCatalog, /title: '今日'/);
+  assert.match(shellCatalog, /title: '学生'/);
+  assert.match(shellCatalog, /title: '教学'/);
+  assert.match(shellCatalog, /title: '班级'/);
+  assert.match(shellCss, /grid-template-columns:\s*244px minmax\(0,\s*1fr\)/);
+  assert.match(shellCss, /grid-template-rows:\s*72px minmax\(0,\s*1fr\)/);
+  assert.match(workbenchShell, /手机底部导航/);
+  assert.match(workbenchShell, /返回上一页/);
+  assert.match(workbenchShell, /data-workbench-navigation/);
+  assert.match(workbenchShell, /mobileMoreGroups\.map/);
+  assert.doesNotMatch(dictationWorkspace, /aria-label="学习场景"/);
+  assert.doesNotMatch(familyScene, /backToClass|onClass/);
+  assert.match(app, /visitedMobileModules/);
+  assert.match(workbenchShell, /scrollPositionsRef/);
+  assert.match(workbenchShell, /<Drawer/);
+  assert.match(shellController, /canLeave\(\)/);
+  assert.match(shellController, /pushState/);
+  assert.doesNotMatch(workbenchShell + shellController, /matchMedia/);
   assert.doesNotMatch(rootLayout, /legacy-theme\.css/);
 });
 
@@ -283,14 +297,14 @@ test("duty timetable follows the course schedule's custom teaching days", () => 
   assert.match(dutyPage, /gridTemplateColumns: `170px repeat\(\$\{days\.length\}/);
   assert.match(dutyOperations, /export function dutyDateForDay/);
   assert.match(dutyOperations, /export function sameDutyDay/);
-  assert.match(app, /active === "duty" && <Duty data=\{data\} update=\{update\} readOnly=\{isDemo \|\| isReadOnly\} mobile/);
+  assert.match(app, /pane\('duty', <Duty data=\{data\} update=\{update\} readOnly=\{isDemo \|\| isReadOnly\} mobile/);
   assert.doesNotMatch(app, /className="duty3-page"|className="mobile-stack mobile-duty-page"/);
 });
 
 test("attendance keeps all actions in the batch-capable main roster", () => {
   assert.match(classroomTypes, /export type AttendanceRecord/);
   assert.match(classroomTypes, /attendanceRecords\?: AttendanceRecord\[\]/);
-  assert.match(workspaceChrome, /id: 'attendance', label: '考勤与请假'/);
+  assert.match(shellCatalog, /id: 'attendance', label: '考勤与请假'/);
   assert.match(app, /active === "attendance"/);
   assert.match(attendancePage, /一键全员正常/);
   assert.match(attendancePage, /月度记录/);
@@ -399,7 +413,7 @@ test("exam reflections share guarded save logic across desktop and mobile", () =
 test("classroom tools exclude leave and do not turn random picks into points", () => {
   assert.match(classroomTypes, /export type ClassroomToolSession/);
   assert.match(classroomTypes, /classroomToolSessions\?: ClassroomToolSession\[\]/);
-  assert.match(workspaceChrome, /id: 'tools', label: '课堂工具'/);
+  assert.match(shellCatalog, /id: 'tools', label: '课堂工具'/);
   assert.match(app, /active === "tools"/);
   assert.match(classroomToolsOperations, /item\.status === '请假'/);
   assert.match(classroomTools, /drawClassroomStudent/);

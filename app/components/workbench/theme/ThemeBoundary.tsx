@@ -11,12 +11,12 @@ const ThemeContext = createContext<ThemeDefinition>(publicThemeDefinition);
 export function useWorkbenchTheme() { return useContext(ThemeContext); }
 
 /** Updating the material never changes a React key or owns any workspace state. */
-export function ThemeBoundary({ children, definition = publicThemeDefinition }: {
-  children: ReactNode; definition?: ThemeDefinition;
+export function ThemeBoundary({ children, definition = publicThemeDefinition, className }: {
+  children: ReactNode; definition?: ThemeDefinition; className?: string;
 }) {
   return <ThemeContext.Provider value={definition}>
     <div
-      className={styles.root}
+      className={`${styles.root} ${className ?? ''}`}
       data-ui-generation="next"
       data-theme={definition.id}
       data-theme-status={definition.status}

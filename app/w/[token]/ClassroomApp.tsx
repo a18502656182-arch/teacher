@@ -8,7 +8,9 @@ import Link from "next/link";
 import { lazy, Suspense } from 'react';
 import { Dashboard } from '@/app/components/campus/Dashboard';
 import { CampusIcon, MetricStrip, ThemeArtwork } from '@/app/components/campus/primitives';
-import { DesktopHeader, SaveStatus, WorkspaceNav, workspaceModules, type LearningScene, type WorkspaceModuleId } from '@/app/components/campus/WorkspaceChrome';
+import { WorkbenchShell } from '@/app/components/workbench/shell/WorkbenchShell';
+import { workspaceModules, type LearningScene, type WorkspaceModuleId } from '@/app/components/workbench/shell/catalog';
+import { useWorkbenchShellController } from '@/app/components/workbench/shell/useWorkbenchShellController';
 import { applyHomeworkStatuses } from './features/homework/operations';
 import { addGrowthEvidence, growthEvidenceForStudent } from './features/growth/operations';
 import { growthTimestamp, isInGrowthRange as inGrowthRange, type GrowthTime } from './features/growth/time-range';
@@ -136,10 +138,9 @@ async function disableAiConsent() {
 }
 
 export default function ClassroomApp({ token }: { token: string }) {
-  const [active, setActive] = useState<ModuleId>("dashboard");
   const [toast, setToast] = useState<ToastEventDetail | null>(null);
   const [confirmRequest, setConfirmRequest] = useState<ConfirmEventDetail | null>(null);
-  const [learningScene, setLearningScene] = useState<LearningScene>('class');
+  const [visitedMobileModules, setVisitedMobileModules] = useState<ModuleId[]>(['dashboard']);
   const backupInputRef = useRef<HTMLInputElement>(null);
   const {
     workspace, loading, error, dirty, saving, saveConflict, isDemo, isReadOnly,
@@ -147,16 +148,9 @@ export default function ClassroomApp({ token }: { token: string }) {
     getCurrentWorkspace, getBackupData, clearError,
   } = useWorkspaceController({ token, notify, normalizeData, scopeClassSettings });
   const accountCenter = useAccountCenter(isDemo);
-
-  useEffect(() => {
-    function syncPageFromUrl() {
-      const page = new URLSearchParams(window.location.search).get("page");
-      if (page && workspaceModules.some((item) => item.id === page)) setActive(page as ModuleId);
-    }
-    syncPageFromUrl();
-    window.addEventListener("popstate", syncPageFromUrl);
-    return () => window.removeEventListener("popstate", syncPageFromUrl);
-  }, []);
+  const shell = useWorkbenchShellController(canLeaveDictation);
+  const active = shell.active;
+  const learningScene = shell.scene;
 
   useEffect(() => {
     function handleToast(event: Event) {
@@ -175,30 +169,10 @@ export default function ClassroomApp({ token }: { token: string }) {
     };
   }, []);
 
-  function openModule(id: ModuleId) {
-    if (!canLeaveDictation()) return;
-    setActive(id);
-    const url = new URL(window.location.href);
-    url.searchParams.set("page", id);
-    window.history.replaceState({}, "", url);
+  function openModule(id: ModuleId, options?: { guard?: boolean }) {
+    if (!shell.open(id, options)) return;
+    setVisitedMobileModules(current => [...new Set([...current, active, id])]);
   }
-
-  useEffect(() => {
-    const media = window.matchMedia("(max-width: 900px)");
-    const syncShellAccessibility = () => {
-      const mobile = media.matches;
-      const mobileShell = document.querySelector<HTMLElement>(".mobile-workbench");
-      const desktopShell = document.querySelector<HTMLElement>(".campus-workspace-main");
-      for (const [element, hidden] of [[mobileShell, !mobile], [desktopShell, mobile && active !== "dictation"]] as const) {
-        if (!element) continue;
-        element.setAttribute("aria-hidden", String(hidden));
-        element.toggleAttribute("inert", hidden);
-      }
-    };
-    syncShellAccessibility();
-    media.addEventListener("change", syncShellAccessibility);
-    return () => media.removeEventListener("change", syncShellAccessibility);
-  }, [loading, active]);
 
   function exportWorkspaceBackup() {
     const current = getCurrentWorkspace();
@@ -302,43 +276,36 @@ export default function ClassroomApp({ token }: { token: string }) {
   }
 
   function switchLearningScene(scene: LearningScene) {
-    if (!canLeaveDictation()) return;
-    setLearningScene(scene);
-    if (scene === 'family' && active !== 'dictation') openModule('dictation');
+    if (!shell.setScene(scene)) return;
+    if (scene === 'family' && active !== 'dictation') openModule('dictation', { guard: false });
   }
 
   return (
-    <div className="app-shell homework-bootstrap-shell campus-workspace-shell" data-module={active} data-theme="campus">
-      <MobileWorkbench
-        workspaceToken={token}
-        workspace={workspace}
+    <>
+      <WorkbenchShell
+        active={active}
+        scene={learningScene}
         classes={classes}
         activeClass={activeClass}
-        active={active}
+        workspaceGrade={workspace.grade}
         saving={saving}
         dirty={dirty}
         error={error}
-        openModule={openModule}
-        update={updateData}
-        switchClass={switchGlobalClass}
-        save={save}
-        clearError={clearError}
         isDemo={isDemo}
         isReadOnly={isReadOnly}
         saveConflict={saveConflict}
-        exportDraft={exportWorkspaceBackup}
-        loadLatest={loadLatestWorkspace}
-        openAccount={accountCenter.openCenter}
-        learningScene={learningScene}
-        switchLearningScene={switchLearningScene}
-      />
-      <DesktopHeader classes={classes} activeClass={activeClass} scene={learningScene} onSwitchClass={switchGlobalClass} onScene={switchLearningScene} onAccount={accountCenter.openCenter} saving={saving} dirty={dirty} error={error} isDemo={isDemo} isReadOnly={isReadOnly}/>
-      <WorkspaceNav active={active} isDemo={isDemo} onOpen={openModule}/>
-      <main className="campus-workspace-main">
-        {error && workspace && <div className="inline-alert" role="alert"><span>{error}</span><div>{saveConflict ? <><button type="button" onClick={exportWorkspaceBackup}>导出当前草稿</button><button type="button" onClick={() => void loadLatestWorkspace()}>载入最新版本</button></> : error.includes("请在听写页面重试保存") ? <span>请使用听写表单中的重试操作</span> : <button type="button" disabled={saving} onClick={() => void save()}>{saving ? "正在重试…" : "重试"}</button>}<button type="button" onClick={clearError}>关闭</button></div></div>}
-        {(isDemo || isReadOnly) && <div className="edit-mode-banner"><b>{isDemo ? "演示模式" : "只读宽限期"}</b><span>{isDemo ? "数据不会保存，AI 使用静态示例。" : "可以查看和导出，续期后恢复编辑。"}</span></div>}
-        <div className="campus-workspace-content" data-family={active === 'dashboard' ? 'dashboard' : ['students','growth','points','health','records'].includes(active) ? 'student' : ['homework','dictation','attendance'].includes(active) ? 'task' : ['scores','reflection','schedule','tools'].includes(active) ? 'teaching' : 'class'}>
-          {active === "dictation" && <Suspense fallback={<p role="status">正在加载听写…</p>}><Dictation key={workspace.data.activeClassId} data={workspace.data} token={token} readOnly={isDemo || isReadOnly} commit={commitWorkspace} scene={learningScene} onSceneChange={setLearningScene}/></Suspense>}
+        onOpen={openModule}
+        onBack={shell.back}
+        onSwitchClass={switchGlobalClass}
+        onScene={switchLearningScene}
+        onAccount={accountCenter.openCenter}
+        onRetrySave={() => void save()}
+        onClearError={clearError}
+        onExportDraft={exportWorkspaceBackup}
+        onLoadLatest={() => void loadLatestWorkspace()}
+        mobileContent={<MobileWorkspaceContent workspaceToken={token} workspace={workspace} activeClass={activeClass} active={active} visited={visitedMobileModules} openModule={openModule} update={updateData} isDemo={isDemo} isReadOnly={isReadOnly} openAccount={accountCenter.openCenter} switchLearningScene={switchLearningScene} />}
+        desktopContent={<>
+          {active === "dictation" && <Suspense fallback={<p role="status">正在加载听写…</p>}><Dictation key={`${workspace.data.activeClassId}:${learningScene}`} data={workspace.data} token={token} readOnly={isDemo || isReadOnly} commit={commitWorkspace} scene={learningScene}/></Suspense>}
           {active === "dashboard" && <Dashboard defaultDutyJobs={defaultDutyJobs} data={workspace.data} open={openModule} openFamily={() => switchLearningScene('family')} />}
           {active === "students" && <Students data={workspace.data} update={updateData} />}
           {active === "attendance" && <Attendance data={workspace.data} update={updateData} />}
@@ -357,8 +324,8 @@ export default function ClassroomApp({ token }: { token: string }) {
           {active === "scores" && <Scores workspaceToken={token} data={workspace.data} update={updateData} />}
           {active === "reflection" && <Reflection data={workspace.data} update={updateData} open={openModule} readOnly={isDemo || isReadOnly} />}
           {active === "comments" && <Comments workspaceToken={token} data={workspace.data} update={updateData} readOnly={isDemo || isReadOnly} />}
-        </div>
-      </main>
+        </>}
+      />
       {toast && <div className={`workbench-toast ${toast.tone ?? "success"}`} role="status">{toast.message}</div>}
       {confirmRequest && <div className="workbench-confirm-backdrop" role="presentation" onMouseDown={() => resolveConfirm(false)}>
         <section className="workbench-confirm" role="dialog" aria-modal="true" aria-labelledby="workbench-confirm-title" onMouseDown={(event) => event.stopPropagation()}>
@@ -390,66 +357,29 @@ export default function ClassroomApp({ token }: { token: string }) {
         onLogout={logoutCurrentWorkspace}
       />
       <input ref={backupInputRef} className="visually-hidden" type="file" accept="application/json,.json" aria-label="选择工作台备份文件" onChange={(event) => void importWorkspaceBackup(event.target.files?.[0])} />
-    </div>
+    </>
   );
 }
 
-function MobileWorkbench({ workspaceToken, workspace, classes, activeClass, active, saving, dirty, error, openModule, update, switchClass, save, clearError, isDemo, isReadOnly, saveConflict, exportDraft, loadLatest, openAccount, learningScene, switchLearningScene }: { workspaceToken: string; workspace: Workspace; classes: RosterClass[]; activeClass: RosterClass; active: ModuleId; saving: boolean; dirty: boolean; error: string; openModule: (id: ModuleId) => void; update: (fn: (d: ClassroomData) => ClassroomData) => void; switchClass: (id: string) => void; save: () => void; clearError: () => void; isDemo: boolean; isReadOnly: boolean; saveConflict: boolean; exportDraft: () => void; loadLatest: () => Promise<void>; openAccount: () => void; learningScene: LearningScene; switchLearningScene: (scene: LearningScene) => void }) {
-  const [moreOpen, setMoreOpen] = useState(false);
+function MobileWorkspaceContent({ workspaceToken, workspace, activeClass, active, visited, openModule, update, isDemo, isReadOnly, openAccount, switchLearningScene }: { workspaceToken: string; workspace: Workspace; activeClass: RosterClass; active: ModuleId; visited: ModuleId[]; openModule: (id: ModuleId) => void; update: (fn: (d: ClassroomData) => ClassroomData) => void; isDemo: boolean; isReadOnly: boolean; openAccount: () => void; switchLearningScene: (scene: LearningScene) => void }) {
   const data = workspace.data;
-  const classStudents = activeClass.students?.length ? activeClass.students : data.students;
-  const activeLabel = workspaceModules.find((item) => item.id === active)?.label ?? "工作台";
-  const primaryTabs: { id: ModuleId; label: string }[] = [
-    { id: "dashboard", label: "首页" },
-    { id: "students", label: "学生" },
-    { id: "homework", label: "作业" },
-    { id: "scores", label: "成绩" },
-  ];
-  const isPrimary = primaryTabs.some((item) => item.id === active);
-
-  useEffect(() => {
-    document.querySelector(".mobile-screen")?.scrollTo({ top: 0, behavior: "auto" });
-    window.scrollTo({ top: 0, behavior: "auto" });
-  }, [active]);
-
-  function openFromMore(id: ModuleId) {
-    setMoreOpen(false);
-    openModule(id);
-    window.setTimeout(() => document.querySelector(".mobile-screen")?.scrollTo({ top: 0, behavior: "smooth" }), 0);
-  }
-
-  return <section className="mobile-workbench" data-module={active} aria-label="手机版班主任工作台">
-    <header className={`mobile-appbar ${active === 'dashboard' ? 'mobile-appbar-home' : ''}`}>
-      <div className="mobile-appbar-brand"><span aria-hidden="true"><CampusIcon name={active === 'dashboard' ? 'book' : active}/></span><div><h1>{active === 'dashboard' ? '班主任工作台' : activeLabel}</h1>{active !== 'dictation' && <p>{activeClass.grade || workspace.grade || '当前班级'} · {classStudents.length}人</p>}</div></div>
-      <SaveStatus saving={saving} dirty={dirty} error={error} isDemo={isDemo} isReadOnly={isReadOnly}/>
-      {active === 'dashboard' && <><label className="mobile-class-select"><span>当前班级</span><select value={activeClass.id} onChange={event => switchClass(event.target.value)}>{classes.map(item => <option key={item.id} value={item.id}>{item.name}（{item.students.length}人）</option>)}</select></label><nav className="mobile-domain-switch" aria-label="工作场景"><button type="button" aria-pressed={learningScene === 'class'} onClick={() => switchLearningScene('class')}>班级教学</button><button type="button" aria-pressed={learningScene === 'family'} onClick={() => switchLearningScene('family')}>家庭学习</button></nav></>}
-    </header>
-    {(isDemo || isReadOnly) && <div className="mobile-access-note"><b>{isDemo ? "演示模式" : "只读宽限期"}</b><span>{isDemo ? "数据不会保存，AI 使用静态示例" : "可以查看和导出，续期后恢复编辑"}</span></div>}
-    {error && <div className="mobile-inline-alert" role="alert"><span>{error}</span><div>{saveConflict ? <><button type="button" onClick={exportDraft}>导出草稿</button><button type="button" onClick={() => void loadLatest()}>载入最新</button></> : <button type="button" disabled={saving} onClick={() => void save()}>{saving ? "重试中…" : "重试"}</button>}<button type="button" onClick={clearError}>关闭</button></div></div>}
-    <main className="mobile-screen">
-      {active === "dashboard" && <MobileHome data={data} open={openModule} openFamily={() => switchLearningScene('family')} openAccount={openAccount} />}
-      {active === "students" && <MobileStudents data={data} activeClass={activeClass} update={update} />}
-      {active === "attendance" && <Attendance data={data} update={update} mobile />}
-      {active === "homework" && <MobileHomework data={data} activeClass={activeClass} update={update} open={openModule} />}
-      {active === "scores" && <MobileScores workspaceToken={workspaceToken} data={data} activeClass={activeClass} update={update} open={openModule} />}
-      {active === "health" && <HealthCare data={data} update={update} mobile />}
-      {active === "seating" && <Seating data={data} update={update} readOnly={isDemo || isReadOnly} mobile />}
-      {active === "duty" && <Duty data={data} update={update} readOnly={isDemo || isReadOnly} mobile />}
-      {active === "cadres" && <Cadres data={data} update={update} readOnly={isDemo || isReadOnly} mobile confirmAction={requestDangerConfirm} />}
-      {!isPrimary && active !== "attendance" && active !== "health" && active !== "dictation" && active !== "seating" && active !== "duty" && active !== "cadres" && <MobileSecondaryPage workspaceToken={workspaceToken} active={active} data={data} activeClass={activeClass} update={update} open={openModule} readOnly={isDemo || isReadOnly} />}
-    </main>
-    <nav className="mobile-tabbar" aria-label="手机底部导航">
-      {primaryTabs.map((item) => <button type="button" data-module={item.id} key={item.id} className={active === item.id ? "active" : ""} onClick={() => openModule(item.id)}><i aria-hidden="true"><CampusIcon name={item.id}/></i><span>{item.label}</span></button>)}
-      <button type="button" data-module="more" className={!isPrimary ? "active" : ""} onClick={() => setMoreOpen(true)}><i aria-hidden="true"><CampusIcon name="more"/></i><span>更多</span></button>
-    </nav>
-    {moreOpen && <div className="mobile-sheet-backdrop" role="presentation" onMouseDown={() => setMoreOpen(false)}>
-      <section className="mobile-bottom-sheet" role="dialog" aria-modal="true" aria-labelledby="mobile-more-title" onMouseDown={(event) => event.stopPropagation()}>
-        <header><div><span>全部工具</span><h2 id="mobile-more-title">选择要处理的事项</h2></div><button type="button" onClick={() => setMoreOpen(false)}>关闭</button></header>
-        <MobileMore current={active} open={openFromMore} />
-        <div className="mobile-account-actions"><button type="button" onClick={() => { setMoreOpen(false); openAccount(); }}>{isDemo ? '演示工作台说明' : '账户、班级与备份'}</button></div>
-      </section>
-    </div>}
-  </section>;
+  const visibleModules = new Set([...visited, active]);
+  const pane = (id: ModuleId, content: ReactNode) => visibleModules.has(id)
+    ? <section key={id} data-mobile-module={id} hidden={active !== id}>{content}</section>
+    : null;
+  const dedicated = new Set<ModuleId>(['dashboard', 'students', 'attendance', 'homework', 'scores', 'health', 'dictation', 'seating', 'duty', 'cadres']);
+  return <>
+      {pane('dashboard', <MobileHome data={data} open={openModule} openFamily={() => switchLearningScene('family')} openAccount={openAccount} />)}
+      {pane('students', <MobileStudents data={data} activeClass={activeClass} update={update} />)}
+      {pane('attendance', <Attendance data={data} update={update} mobile />)}
+      {pane('homework', <MobileHomework data={data} activeClass={activeClass} update={update} open={openModule} />)}
+      {pane('scores', <MobileScores workspaceToken={workspaceToken} data={data} activeClass={activeClass} update={update} open={openModule} />)}
+      {pane('health', <HealthCare data={data} update={update} mobile />)}
+      {pane('seating', <Seating data={data} update={update} readOnly={isDemo || isReadOnly} mobile />)}
+      {pane('duty', <Duty data={data} update={update} readOnly={isDemo || isReadOnly} mobile />)}
+      {pane('cadres', <Cadres data={data} update={update} readOnly={isDemo || isReadOnly} mobile confirmAction={requestDangerConfirm} />)}
+      {workspaceModules.filter(item => !dedicated.has(item.id)).map(item => pane(item.id, <MobileSecondaryPage workspaceToken={workspaceToken} active={item.id} data={data} activeClass={activeClass} update={update} open={openModule} readOnly={isDemo || isReadOnly} />))}
+  </>;
 }
 
 
@@ -1275,46 +1205,6 @@ function MobileScoresWithExam({ workspaceToken, data, activeClass, update, open 
       </div>
       <div className="mobile-sheet-actions"><button type="button" onClick={() => setRangeDrafts((list) => [...list, { id: `custom-${Date.now()}`, label: "自定义", min: 0, max: subjectMaxScore(exam, filterSubjectDraft) }])}>新增区间</button><button type="button" className="primary" onClick={saveMobileFilterEditor}>保存</button></div>
     </MobileInfoSheet>}
-  </div>;
-}
-
-function MobileMore({ current, open, compact }: { current: ModuleId; open: (id: ModuleId) => void; compact?: boolean }) {
-  const groups: { title: string; items: ModuleId[] }[] = [
-    { title: "学生与跟进", items: ["students", "dictation", "attendance", "growth", "health", "records", "comments"] },
-    { title: "学习管理", items: ["homework", "scores", "reflection", "points"] },
-    { title: "班级事务", items: ["schedule", "tools", "seating", "duty", "cadres"] },
-    { title: "输出与规则", items: ["weekly", "rules"] },
-  ];
-  const tones: Partial<Record<ModuleId, "blue" | "green" | "orange" | "violet" | "cyan" | "red" | "teal" | "amber">> = {
-    students: "blue",
-    attendance: "teal",
-    growth: "green",
-    health: "red",
-    records: "orange",
-    comments: "violet",
-    homework: "amber",
-    scores: "cyan",
-    reflection: "red",
-    points: "blue",
-    schedule: "teal",
-    tools: "violet",
-    seating: "orange",
-    duty: "green",
-    cadres: "violet",
-    weekly: "cyan",
-    rules: "amber",
-  };
-  return <div className={compact ? "mobile-more compact" : "mobile-more"}>
-    {groups.map((group) => <section key={group.title}>
-      <h2>{group.title}</h2>
-      <div>
-        {group.items.map((id) => {
-          const item = workspaceModules.find((navItem) => navItem.id === id)!;
-          const tone = tones[id] ?? "blue";
-          return <button type="button" className={`mobile-tool-icon ${tone} ${current === id ? "active" : ""}`} key={id} onClick={() => open(id)}><i><CampusIcon name={item.label}/></i><b>{item.label}</b></button>;
-        })}
-      </div>
-    </section>)}
   </div>;
 }
 
@@ -2678,7 +2568,7 @@ function MobileSecondaryPage({ workspaceToken, active, data, activeClass, update
     </div>;
   }
 
-  return <MobileMore current={active} open={open} />;
+  return null;
 }
 
 function MobileSectionHero({ title, text, action, onAction }: { title: string; text: string; action?: string; onAction?: () => void }) {

@@ -77,10 +77,6 @@
   align-self: end;
 }
 
-.headerActions .backToClass {
-  display: none;
-}
-
 .headerActions button,
 .childrenPanel > header button,
 .today > header button,
@@ -701,14 +697,6 @@
 
   .headerActions button {
     min-height: 42px;
-  }
-
-  .headerActions .backToClass {
-    display: inline-flex;
-  }
-
-  .headerActions .primary {
-    grid-column: 1 / -1;
   }
 
   .childSwitch {

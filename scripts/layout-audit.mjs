@@ -32,7 +32,7 @@ function runStaticAudit() {
   const globals = readFileSync(path.join(root, "app", "globals.css"), "utf8");
   const repair = readFileSync(path.join(root, "app", "workbench-repair.css"), "utf8");
   const layout = readFileSync(path.join(root, "app", "layout.tsx"), "utf8");
-  const workspaceChrome = readFileSync(path.join(root, "app", "components", "campus", "workspace-chrome.css"), "utf8");
+  const workbenchShell = readFileSync(path.join(root, "app", "components", "workbench", "shell", "shell.module.css"), "utf8");
   const route = readFileSync(path.join(root, "app", "api", "workspace", "[token]", "route.ts"), "utf8");
   const importantCount = (repair.match(/!important/g) || []).length;
 
@@ -42,9 +42,9 @@ function runStaticAudit() {
   assert(importantCount < 20, `workbench-repair.css still relies on too many !important rules (${importantCount}).`, failures);
   assert(/import "\.\/styles\/legacy-scoped\.css";/.test(layout), "layout.tsx is not loading the isolated legacy stylesheet.", failures);
   assert(!/import "\.\/(?:workbench-repair|components\/campus\/[^\"]+)\.css";/.test(layout), "layout.tsx still loads an unscoped legacy stylesheet.", failures);
-  assert(/\.campus-workspace-shell\{[^}]*grid-template-columns:244px minmax\(0,1fr\)/.test(workspaceChrome), "Campus workspace is missing the reference-bound desktop grid.", failures);
-  assert(/@media\(max-width:1180px\)\{[\s\S]*?html\[data-theme=campus\] \.campus-workspace-shell\{grid-template-columns:220px minmax\(0,1fr\)/.test(workspaceChrome), "Campus workspace compact grid does not override the base selector.", failures);
-  assert(/\.campus-workspace-nav\{[^}]*position:sticky;[^}]*background:#fffefa/.test(workspaceChrome), "Campus workspace navigation is missing its continuous background rail.", failures);
+  assert(/\.shell\s*\{[^}]*grid-template-columns:\s*244px minmax\(0,\s*1fr\)/.test(workbenchShell), "Campus workspace is missing the reference-bound desktop grid.", failures);
+  assert(/@media \(max-width: 1180px\) and \(min-width: 901px\)[\s\S]*?\.shell\s*\{\s*grid-template-columns:\s*220px minmax\(0,\s*1fr\)/.test(workbenchShell), "Campus workspace compact grid is missing.", failures);
+  assert(/\.desktopNav\s*\{[^}]*background:\s*var\(--wb-work\)/.test(workbenchShell), "Campus workspace navigation is missing its continuous background rail.", failures);
   assert(/\.app-shell\s*\{[^}]*grid-template-columns:\s*236px\s+minmax\(0,\s*1fr\)/i.test(repair), "Missing stable sidebar/content shell grid.", failures);
   assert(/\.app-main\s*\{[^}]*margin-left:\s*0;/i.test(repair), "Missing app-main double-offset reset.", failures);
   assert(/\.page-content\s*\{[^}]*max-width:\s*none;/i.test(repair), "Page content is not full-width in the workbench shell.", failures);
@@ -614,6 +614,13 @@ async function runRuntimeAudit(url) {
               commentDraftRetained: window.__commentDraftRetained === true,
               commentDraftRetainedAfterEvidence: window.__commentDraftRetainedAfterEvidence === true,
               commentEvidenceSheetHealthy: window.__commentEvidenceSheetHealthy === true,
+              visibleSceneSwitches: [...document.querySelectorAll('[aria-label="工作场景"], [aria-label="学习场景"]')].filter((element) => element.getClientRects().length > 0).length,
+              mobileTabItems: [...document.querySelectorAll('[aria-label="手机底部导航"] button')].map((button) => {
+                const bounds = button.getBoundingClientRect();
+                const top = document.elementFromPoint(bounds.left + bounds.width / 2, bounds.top + bounds.height / 2);
+                return { label: button.textContent?.trim(), visible: button.getClientRects().length > 0, topLabel: top?.closest('button')?.textContent?.trim() ?? top?.tagName ?? '', topClass: top?.className ?? '' };
+              }),
+              mobileBlockingLayer: [...document.querySelectorAll('[role="dialog"], dialog[open], .mobile-bottom-sheet, .health-care-backdrop')].some((element) => element.getClientRects().length > 0),
               shell: rect(shell),
               main: rect(main),
               content: rect(content),
@@ -693,6 +700,9 @@ async function runRuntimeAudit(url) {
         if (pageId === "comments" && !data?.commentDraftRetained) failures.push("Term comment editor discarded the teacher's draft after a blocked read-only save.");
         if (pageId === "comments" && !data?.commentDraftRetainedAfterEvidence) failures.push("Changing term-comment evidence overwrote the teacher's draft.");
         if (pageId === "comments" && viewport.width <= 900 && !data?.commentEvidenceSheetHealthy) failures.push("Term comment mobile evidence picker did not open as a usable nested sheet.");
+        if (["dashboard", "dictation"].includes(pageId) && data?.visibleSceneSwitches !== 1) failures.push(`Expected one visible learning-scene switch, found ${data?.visibleSceneSwitches ?? 0}.`);
+        if (data?.visibleSceneSwitches > 1) failures.push(`Learning-scene controls are duplicated (${data.visibleSceneSwitches}).`);
+        if (viewport.width <= 900 && !data?.mobileBlockingLayer && data?.mobileTabItems?.some((item) => !item.visible || item.topLabel !== item.label)) failures.push(`Mobile navigation is obscured: ${JSON.stringify(data.mobileTabItems)}.`);
         if (runtimeErrors.length) failures.push(`Browser runtime error: ${runtimeErrors[0].slice(0, 500)}`);
         if (data?.text && new RegExp("[\\u935A\\u95BE\\u701B\\u7EFE\\u941D\\u4E3F\\u6500\\u5931\\u8F9C\\u6B8F]").test(data.text)) failures.push("Visible text still contains mojibake.");
         if (data && data.scrollWidth - data.viewportWidth > 10) failures.push(`Horizontal page overflow ${Math.round(data.scrollWidth - data.viewportWidth)}px.`);
@@ -712,7 +722,7 @@ async function runRuntimeAudit(url) {
             returnByValue: true,
             expression: `(async () => {
               const scrollingElement = document.scrollingElement;
-              const sideNav = document.querySelector('.campus-workspace-nav, .side-nav');
+              const sideNav = document.querySelector('[data-workbench-navigation], .campus-workspace-nav, .side-nav');
               const sideNavMaxScroll = sideNav ? sideNav.scrollHeight - sideNav.clientHeight : 0;
               if (sideNav) sideNav.scrollTop = sideNav.scrollHeight;
               await new Promise((resolve) => setTimeout(resolve, 50));

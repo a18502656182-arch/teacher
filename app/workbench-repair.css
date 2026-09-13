@@ -7160,6 +7160,14 @@ textarea:focus {
   color: var(--campus-primary);
 }
 
+@media (max-width: 900px) {
+  .workbench-toast {
+    right: 14px;
+    bottom: calc(72px + env(safe-area-inset-bottom));
+    pointer-events: none;
+  }
+}
+
 .workbench-confirm-backdrop,
 .student-lookup-backdrop {
   position: fixed;
@@ -9051,6 +9059,15 @@ textarea:focus {
   .homework-bootstrap-shell .growth2-layout,
   .homework-bootstrap-shell .growth2-profile-head {
     grid-template-columns: minmax(0, 1fr);
+  }
+
+  .homework-bootstrap-shell .growth2-toolbar {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .homework-bootstrap-shell .growth2-search,
+  .homework-bootstrap-shell .growth2-toolbar-actions {
+    grid-column: 1 / -1;
   }
 
   .homework-bootstrap-shell .growth2-stat-row {
