@@ -11,27 +11,31 @@ import { CampusIcon, MetricStrip, ThemeArtwork } from '@/app/components/campus/p
 import { DesktopHeader, SaveStatus, WorkspaceNav, workspaceModules, type LearningScene, type WorkspaceModuleId } from '@/app/components/campus/WorkspaceChrome';
 import { applyHomeworkStatuses } from './features/homework/operations';
 import { addGrowthEvidence, growthEvidenceForStudent } from './features/growth/operations';
+import { growthTimestamp, isInGrowthRange as inGrowthRange, type GrowthTime } from './features/growth/time-range';
 import { communicationRecordsForClass, localCommunicationDate, patchCommunicationStatus, recordBelongsToClass, recordBelongsToStudent, removeCommunicationRecord, saveCommunicationRecord } from './features/records/operations';
 import { examReflectionsForClass, saveExamReflection } from './features/reflections/operations';
 import { appendTermCommentText, buildLocalTermCommentDraft, saveTermComment, termCommentsForClass } from './features/comments/operations';
 import { saveClassScheduleWeek, saveScheduleTermConfig } from './features/schedule/operations';
+import { createDefaultScheduleConfig as defaultScheduleConfig, currentLocalDate as today, normalizeScheduleCourses as normalizeMobileCourses, scheduleTermMonths, scheduleWeekDates as getScheduleWeekDates, scheduleWeeksInMonth as getScheduleWeeksInMonth } from './features/schedule/read-model';
 import { isDatedWithin, saveWeeklyReport, weeklyActivityRows, weeklyFollowRows, weeklyHomeworkMetrics, weeklyPointEventsForClass, weeklyPositiveRows, weeklyReportsForClass } from './features/weekly/operations';
 import { applyPointEvents, pointEventsForClass, undoPointEvent as undoPointEventInClass } from './features/points/operations';
 import { defaultPointRules } from './features/rules/catalog';
 import { deletePointRule, patchPointRule, pointRulesForData, pointRuleUsageCount, replacePointRules, upsertPointRule } from './features/rules/operations';
-import { createScoreExam, editScoreExam, patchScoreExam, removeScoreExam, scoreEntry, scoreEntryCount, scoreExamsForClass, setScoreEntries, studentScoreSummary } from './features/scores/operations';
+import { createScoreExam, editScoreExam, patchScoreExam, removeScoreExam, scoreEntry, scoreEntryCount, scoreExamsForClass, setScoreEntries } from './features/scores/operations';
+import { defaultScoreRanges, parseScoreSubjects as parseSubjects, scoreRangesFor, scoreRowsFor, scoreSubjectKey, scoreSubjects, scoreValue, subjectMaxScore, type ScoreLevel, type ScoreRange } from './features/scores/read-model';
 import { applyStudentBatch } from './features/students/operations';
 import { AccountCenter } from './features/account/AccountCenter';
 import { addWorkspaceClass, patchWorkspaceClass, removeWorkspaceClass, switchWorkspaceClass } from './features/account/operations';
 import { useAccountCenter } from './features/account/useAccountCenter';
 import { createWorkspaceOperations } from './workspace/operations';
+import { normalizeWorkspaceData as normalizeData, scopeWorkspaceClassSettings as scopeClassSettings } from './workspace/normalize';
 import type { Workspace, LocalWorkspaceDraft } from './workspace/types';
 import { canLeaveDictation } from './dictation/navigation';
 const Dictation = lazy(() => import('./dictation/Dictation'));
 
 import { makeId, scheduleTermLabel, scheduleTermRange } from "@/lib/classroom";
 import { parseWorkspaceBackup } from "@/lib/workspaceBackup";
-import type { ClassScheduleData, ClassroomData, CommunicationRecord, DailyFocus, ExamReflection, HomeworkTask, PointEvent, PointRule, RosterClass, ScheduleConfig, ScheduleEvent, ScheduleWeek, ScoreExam, Student, TermComment, WeeklyReport } from "@/lib/classroom";
+import type { ClassroomData, CommunicationRecord, DailyFocus, ExamReflection, HomeworkTask, PointEvent, PointRule, RosterClass, ScheduleConfig, ScheduleEvent, ScheduleWeek, ScoreExam, Student, TermComment, WeeklyReport } from "@/lib/classroom";
 import { Attendance } from "./Attendance";
 import { ScheduleHub } from "./ScheduleHub";
 import { TeacherAgenda } from "./TeacherAgenda";
@@ -42,10 +46,9 @@ import { ScoreTrends } from "./ScoreTrends";
 import { ScoreItemAnalysis } from "./ScoreItemAnalysis";
 import { ClassroomTools } from "./ClassroomTools";
 import { Seating } from "./Seating";
-import { normalizeSeatingConfig } from "./features/seating/operations";
 import { Duty } from "./Duty";
 import { Cadres } from "./Cadres";
-import { cloneDutyJobs, defaultDutyJobs, normalizeClassDutySettings } from "./features/duty/operations";
+import { defaultDutyJobs } from "./features/duty/operations";
 import { NotificationDrafts } from "./NotificationDrafts";
 import { WorkbenchPageHeader } from "./WorkbenchPageHeader";
 
@@ -130,314 +133,6 @@ async function disableAiConsent() {
   if (!response.ok) throw new Error(result.error || "AI 设置更新失败");
   notify("AI 数据授权已关闭", "success");
   return true;
-}
-
-function today() {
-  const now = new Date();
-  const month = `${now.getMonth() + 1}`.padStart(2, "0");
-  const day = `${now.getDate()}`.padStart(2, "0");
-  return `${now.getFullYear()}-${month}-${day}`;
-}
-
-function currentTimestamp() {
-  return Date.now();
-}
-
-function defaultScheduleConfig(): ScheduleConfig {
-  return {
-    schoolYear: "自定义学年/学段",
-    term: "自定义学期",
-    termStartMonth: today().slice(0, 7),
-    termEndMonth: `${today().slice(0, 4)}-12`,
-    termNote: "不同地区、不同学校开学时间不同，这里由老师自己填写。",
-    days: ["周一", "周二", "周三", "周四", "周五"],
-    periods: [
-      { label: "早读", time: "08:00-08:20" },
-      { label: "第1节", time: "08:30-09:10" },
-      { label: "第2节", time: "09:20-10:00" },
-      { label: "第3节", time: "10:20-11:00" },
-      { label: "第4节", time: "11:10-11:50" },
-      { label: "午间", time: "12:00-13:30" },
-      { label: "第5节", time: "14:00-14:40" },
-      { label: "延时", time: "16:20-17:30" },
-    ],
-  };
-}
-
-function scheduleMonthIndex(month: string) {
-  const [year, monthNumber] = month.split("-").map(Number);
-  if (!year || !monthNumber) return 0;
-  return year * 12 + monthNumber - 1;
-}
-
-function scheduleMonthFromIndex(index: number) {
-  const year = Math.floor(index / 12);
-  const month = (index % 12) + 1;
-  return `${year}-${String(month).padStart(2, "0")}`;
-}
-
-function scheduleTermMonths(config?: ScheduleConfig) {
-  const fallback = today().slice(0, 7);
-  const start = config?.termStartMonth || fallback;
-  const end = config?.termEndMonth || start;
-  const startIndex = Math.min(scheduleMonthIndex(start), scheduleMonthIndex(end));
-  const endIndex = Math.max(scheduleMonthIndex(start), scheduleMonthIndex(end));
-  const length = Math.min(24, Math.max(1, endIndex - startIndex + 1));
-  return Array.from({ length }, (_, index) => scheduleMonthFromIndex(startIndex + index));
-}
-
-function getScheduleWeekDates(month: string, weekOfMonth: number) {
-  const [year, monthNumber] = month.split("-").map(Number);
-  const safeYear = year || new Date().getFullYear();
-  const safeMonth = monthNumber || new Date().getMonth() + 1;
-  const start = new Date(safeYear, safeMonth - 1, 1 + (weekOfMonth - 1) * 7);
-  const end = new Date(safeYear, safeMonth - 1, Math.min(new Date(safeYear, safeMonth, 0).getDate(), weekOfMonth * 7));
-  return { startDate: formatScheduleDate(start), endDate: formatScheduleDate(end), label: `${safeYear}年${safeMonth}月第${weekOfMonth}周` };
-}
-
-function getScheduleWeeksInMonth(month: string) {
-  const [year, monthNumber] = month.split("-").map(Number);
-  if (!year || !monthNumber) return 4;
-  return Math.ceil(new Date(year, monthNumber, 0).getDate() / 7);
-}
-
-function formatScheduleDate(date: Date) {
-  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
-}
-
-function normalizeMobileCourses(courses: string[][] | undefined, config: ScheduleConfig) {
-  return config.days.map((_, dayIndex) => Array.from({ length: config.periods.length }, (__, periodIndex) => courses?.[dayIndex]?.[periodIndex] ?? ""));
-}
-
-function normalizeData(data: ClassroomData): ClassroomData {
-  const activeTermLabel = data.scheduleConfig ? scheduleTermLabel(data.scheduleConfig) : "";
-  const fallbackStudents = data.students.map((student, index) => ({
-    studentNo: student.studentNo ?? `${index + 1}`.padStart(2, "0"),
-    parentPhone: student.parentPhone ?? "",
-    note: student.note ?? "",
-    ...student,
-    avoidWith: student.avoidWith ?? "",
-    seatNeed: student.seatNeed ?? "无",
-    seatFixed: student.seatFixed ?? false,
-    groupLeader: student.groupLeader ?? false,
-  }));
-  const rosterClasses: RosterClass[] = data.rosterClasses?.length
-    ? data.rosterClasses.map((item, classIndex) => ({
-      id: item.id || `class-${classIndex + 1}`,
-      name: item.name || `班级${classIndex + 1}`,
-      grade: item.grade || "",
-      term: item.term || activeTermLabel || "",
-      students: item.students.map((student, index) => ({
-        studentNo: student.studentNo ?? `${index + 1}`.padStart(2, "0"),
-        parentPhone: student.parentPhone ?? "",
-        note: student.note ?? "",
-        ...student,
-        avoidWith: student.avoidWith ?? "",
-        seatNeed: student.seatNeed ?? "无",
-        seatFixed: student.seatFixed ?? false,
-        groupLeader: student.groupLeader ?? false,
-      })),
-    }))
-    : [{ id: "class-1", name: "当前班级", grade: "", term: activeTermLabel, students: fallbackStudents }];
-  const activeClassId = data.activeClassId && rosterClasses.some((item) => item.id === data.activeClassId) ? data.activeClassId : rosterClasses[0].id;
-  const students = rosterClasses.find((item) => item.id === activeClassId)?.students ?? fallbackStudents;
-  const classByStudentId = new Map<string, string>();
-  const studentsByName = new Map<string, Array<{ id: string; classId: string }>>();
-  rosterClasses.forEach((classroom) => classroom.students.forEach((student) => {
-    classByStudentId.set(student.id, classroom.id);
-    studentsByName.set(student.name, [...(studentsByName.get(student.name) ?? []), { id: student.id, classId: classroom.id }]);
-  }));
-  function resolveStudentLink(studentId?: string, studentName?: string, classId?: string) {
-    if (studentId && classByStudentId.has(studentId)) return { studentId, classId: classByStudentId.get(studentId)! };
-    const candidates = studentName ? studentsByName.get(studentName) ?? [] : [];
-    const matched = candidates.find((item) => item.classId === classId) ?? (candidates.length === 1 ? candidates[0] : candidates.find((item) => item.classId === activeClassId));
-    return { studentId: matched?.id ?? studentId ?? "", classId: matched?.classId ?? classId ?? activeClassId };
-  }
-  const columns = Math.max(2, Math.min(10, data.seatingConfig?.columns ?? 6));
-  const rows = Math.max(1, Math.min(20, Math.max(data.seatingConfig?.rows ?? 6, Math.ceil(students.length / columns))));
-  const existingGroupCount = Math.max(1, ...students.map((student) => student.group || 1));
-  const groupCount = Math.max(1, Math.min(12, data.seatingConfig?.groupCount ?? existingGroupCount));
-  const aisleAfter = (data.seatingConfig?.aisleAfter ?? Array.from({ length: Math.floor((columns - 1) / 2) }, (_, index) => (index + 1) * 2))
-    .filter((column, index, values) => column > 0 && column < columns && values.indexOf(column) === index)
-    .sort((a, b) => a - b);
-  const legacySchedule: ClassScheduleData = {
-    config: data.scheduleConfig,
-    courses: data.courses ?? [],
-    events: data.scheduleEvents ?? [],
-    focuses: data.dailyFocus ?? [],
-    weeks: data.scheduleWeeks ?? [],
-  };
-  const classSchedules = data.classSchedules ?? Object.fromEntries(rosterClasses.map((classroom) => [classroom.id, { ...legacySchedule }]));
-  const activeSchedule = classSchedules[activeClassId] ?? legacySchedule;
-  const legacySeating = { rows, columns, groupCount, aisleAfter };
-  const classSeatingConfigs = data.classSeatingConfigs ?? Object.fromEntries(rosterClasses.map((classroom) => [classroom.id, { ...legacySeating }]));
-  const activeSeating = classSeatingConfigs[activeClassId] ?? legacySeating;
-  const dutySource = { ...data, rosterClasses, activeClassId, students };
-  const classDutySettings = Object.fromEntries(rosterClasses.map(classroom => [classroom.id, normalizeClassDutySettings(dutySource, classroom.id)]));
-  const activeDuty = classDutySettings[activeClassId];
-  const rosterIdsByClass = new Map(rosterClasses.map(classroom => [classroom.id, new Set(classroom.students.map(student => student.id))]));
-  const firstTask: HomeworkTask = {
-    id: "h-default",
-    classId: activeClassId,
-    followUpStudentIds: [],
-    date: today(),
-    subject: "数学",
-    title: "今日作业",
-    statuses: Object.fromEntries(students.map((student) => [student.id, student.homework === "已交" ? "已交" : student.homework])),
-  };
-  return {
-    ...data,
-    activeClassId,
-    rosterClasses,
-    students,
-    homeworkTasks: data.homeworkTasks?.length ? data.homeworkTasks.map((task) => ({ ...task, classId: task.classId ?? rosterClasses[0].id, followUpStudentIds: task.followUpStudentIds ?? [] })) : [firstTask],
-    pointEvents: (data.pointEvents ?? []).map((event) => ({ ...event, classId: event.classId ?? classByStudentId.get(event.studentId) ?? activeClassId })),
-    growthEvidence: (data.growthEvidence ?? []).map((item) => ({ ...item, classId: item.classId ?? classByStudentId.get(item.studentId) ?? activeClassId })),
-    pointRules: pointRulesForData(data).map((rule) => ({ ...rule, enabled: rule.enabled !== false })),
-    dutyOffset: activeDuty.offset,
-    dutyJobs: cloneDutyJobs(activeDuty.jobs),
-    classDutySettings,
-    dutyRecords: (data.dutyRecords ?? []).map(record => {
-      const classId = record.classId ?? rosterClasses[0].id;
-      const studentIds = rosterIdsByClass.get(classId) ?? new Set<string>();
-      return {
-        ...record,
-        classId,
-        studentIds: (record.studentIds ?? []).filter((id, index, values) => studentIds.has(id) && values.indexOf(id) === index),
-        assignmentSource: ["auto", "fixed", "manual"].includes(record.assignmentSource ?? "") ? record.assignmentSource : (record.studentIds?.length ? "manual" : "auto"),
-      };
-    }),
-    attendanceRecords: (data.attendanceRecords ?? []).map((item) => ({
-      ...item,
-      classId: item.classId ?? classByStudentId.get(item.studentId) ?? activeClassId,
-      period: item.period ?? "全天",
-      status: ["正常", "迟到", "请假", "缺勤"].includes(item.status) ? item.status : "正常",
-      createdAt: item.createdAt ?? Date.now(),
-    })),
-    teacherAgenda: (data.teacherAgenda ?? []).map((item) => ({
-      ...item,
-      classId: item.classId ?? activeClassId,
-      relatedStudentIds: item.relatedStudentIds ?? [],
-      status: ["待处理", "进行中", "已完成", "已取消"].includes(item.status) ? item.status : "待处理",
-      createdAt: item.createdAt ?? Date.now(),
-    })),
-    workLogs: (data.workLogs ?? []).map((item) => ({
-      ...item,
-      classId: item.classId ?? activeClassId,
-      relatedStudentIds: item.relatedStudentIds ?? [],
-      createdAt: item.createdAt ?? Date.now(),
-    })),
-    classroomToolSessions: (data.classroomToolSessions ?? []).map((item) => ({ ...item, classId: item.classId ?? activeClassId, selectedStudentIds: item.selectedStudentIds ?? [], groups: item.groups ?? [], createdAt: item.createdAt ?? Date.now() })),
-    notificationDrafts: (data.notificationDrafts ?? []).map((item) => ({ ...item, classId: item.classId ?? activeClassId, date: item.date ?? today(), recipientStudentIds: item.recipientStudentIds ?? [], status: ["草稿", "已复制", "已记录回执"].includes(item.status) ? item.status : "草稿", createdAt: item.createdAt ?? Date.now() })),
-    guardians: (data.guardians ?? []).map((item) => ({ ...item, classId: item.classId ?? classByStudentId.get(item.studentId) ?? activeClassId, isPrimary: Boolean(item.isPrimary), emergencyPriority: Math.max(1, Number(item.emergencyPriority) || 2) })),
-    careProfiles: (data.careProfiles ?? []).map((item) => ({ ...item, classId: item.classId ?? classByStudentId.get(item.studentId) ?? activeClassId, visibleScope: "班主任" as const, severity: ["一般", "重要", "紧急"].includes(item.severity) ? item.severity : "一般" })),
-    records: (data.records ?? []).map((record) => ({ ...record, ...resolveStudentLink(record.studentId, record.student, record.classId), channel: record.channel ?? "面谈", followUp: record.followUp ?? "", status: record.status ?? "待跟进" })),
-    cadres: (data.cadres ?? []).map((role) => {
-      const classId = role.classId ?? classByStudentId.get(role.studentId) ?? activeClassId;
-      const roleClass = rosterClasses.find(item => item.id === classId);
-      const classStudents = roleClass?.students ?? (classId === activeClassId ? students : []);
-      const assignedStudent = classStudents.find(student => student.id === role.studentId);
-      const namedGroup = Number(role.role.match(/第?\s*(\d+)\s*组/)?.[1]);
-      const isGroupRole = role.scope === "小组管理" || role.role.includes("组长") || (Number.isInteger(role.groupNumber) && Number(role.groupNumber) > 0) || (Number.isInteger(namedGroup) && namedGroup > 0);
-      const groupNumber = isGroupRole ? (Number.isInteger(role.groupNumber) && Number(role.groupNumber) > 0 ? Number(role.groupNumber) : Number.isInteger(namedGroup) && namedGroup > 0 ? namedGroup : assignedStudent && Number.isInteger(assignedStudent.group) && assignedStudent.group > 0 ? assignedStudent.group : undefined) : undefined;
-      const rawScore = Number(role.weeklyScore);
-      return {
-        ...role,
-        classId,
-        studentId: assignedStudent?.id ?? "",
-        scope: isGroupRole ? "小组管理" : role.scope ?? "班级管理",
-        groupNumber,
-        term: role.term === "本学期" ? roleClass?.term || activeTermLabel || "本学期" : String(role.term ?? ""),
-        status: (["在任", "试用", "轮换"] as const).includes(role.status ?? "在任") ? role.status ?? "在任" : "在任",
-        weeklyScore: Number.isFinite(rawScore) ? Math.max(1, Math.min(5, Math.round(rawScore))) : 4,
-        summary: String(role.summary ?? ""),
-      };
-    }),
-    scoreExams: (data.scoreExams ?? []).map((item) => ({ ...item, classId: item.classId ?? activeClassId })),
-    examReflections: (data.examReflections ?? []).map((item) => ({ ...item, classId: item.classId ?? classByStudentId.get(item.studentId) ?? activeClassId })),
-    termComments: (data.termComments ?? []).map((item) => ({ ...item, classId: item.classId ?? classByStudentId.get(item.studentId) ?? activeClassId })),
-    weeklyPlan: data.weeklyPlan ?? days.map((day) => ({ day: day.replace("星期", "周"), focus: "班级常规", event: "记录作业、积分、沟通事项" })),
-    weeklyReports: (data.weeklyReports ?? []).map((report) => ({ ...report, classId: report.classId ?? activeClassId })),
-    courses: activeSchedule.courses,
-    scheduleConfig: activeSchedule.config,
-    scheduleEvents: activeSchedule.events,
-    dailyFocus: activeSchedule.focuses,
-    scheduleWeeks: activeSchedule.weeks,
-    seatingConfig: activeSeating,
-    classSchedules,
-    classSeatingConfigs,
-    license: data.license ?? { tier: "基础版", canExport: true, expiresAt: "2099-12-31" },
-  };
-}
-
-function scopeClassSettings(previous: ClassroomData, updated: ClassroomData): ClassroomData {
-  const previousClassId = previous.activeClassId ?? previous.rosterClasses?.[0]?.id ?? "class-1";
-  const nextClassId = updated.activeClassId ?? previousClassId;
-  const previousSchedule: ClassScheduleData = {
-    config: previous.scheduleConfig,
-    courses: previous.courses ?? [],
-    events: previous.scheduleEvents ?? [],
-    focuses: previous.dailyFocus ?? [],
-    weeks: previous.scheduleWeeks ?? [],
-  };
-  const updatedSchedule: ClassScheduleData = {
-    config: updated.scheduleConfig,
-    courses: updated.courses ?? [],
-    events: updated.scheduleEvents ?? [],
-    focuses: updated.dailyFocus ?? [],
-    weeks: updated.scheduleWeeks ?? [],
-  };
-  const remainingClassIds = new Set((updated.rosterClasses ?? []).map(classroom => classroom.id));
-  const previousClassStillExists = remainingClassIds.has(previousClassId);
-  const schedules = { ...(previous.classSchedules ?? {}), ...(updated.classSchedules ?? {}) };
-  if (previousClassStillExists) schedules[previousClassId] = nextClassId === previousClassId ? updatedSchedule : previousSchedule;
-  const seatings = { ...(previous.classSeatingConfigs ?? {}), ...(updated.classSeatingConfigs ?? {}) };
-  if (previousClassStillExists) seatings[previousClassId] = previous.seatingConfig ?? { rows: 6, columns: 6, groupCount: 6, aisleAfter: [2, 4] };
-  const previousDuty = { offset: previous.dutyOffset ?? 0, jobs: cloneDutyJobs(previous.dutyJobs?.length ? previous.dutyJobs : defaultDutyJobs) };
-  const updatedDuty = { offset: updated.dutyOffset ?? 0, jobs: cloneDutyJobs(updated.dutyJobs?.length ? updated.dutyJobs : defaultDutyJobs) };
-  const dutySettings = { ...(previous.classDutySettings ?? {}), ...(updated.classDutySettings ?? {}) };
-  if (previousClassStillExists) dutySettings[previousClassId] = nextClassId === previousClassId ? updatedDuty : previousDuty;
-  for (const classId of Object.keys(schedules)) if (!remainingClassIds.has(classId)) delete schedules[classId];
-  for (const classId of Object.keys(seatings)) if (!remainingClassIds.has(classId)) delete seatings[classId];
-  for (const classId of Object.keys(dutySettings)) if (!remainingClassIds.has(classId)) delete dutySettings[classId];
-  if (nextClassId === previousClassId) {
-    seatings[nextClassId] = updated.seatingConfig ?? seatings[nextClassId];
-    dutySettings[nextClassId] = updatedDuty;
-    return { ...updated, classSchedules: schedules, classSeatingConfigs: seatings, classDutySettings: dutySettings };
-  }
-  const targetSchedule = schedules[nextClassId] ?? (previousClassStillExists ? previousSchedule : updatedSchedule);
-  const targetStudentCount = updated.rosterClasses?.find((item) => item.id === nextClassId)?.students.length ?? updated.students.length;
-  const targetSeating = seatings[nextClassId] ?? normalizeSeatingConfig(undefined, targetStudentCount).config;
-  schedules[nextClassId] = targetSchedule;
-  if (targetSeating) seatings[nextClassId] = targetSeating;
-  const targetDuty = dutySettings[nextClassId] ?? normalizeClassDutySettings({ ...updated, classDutySettings: dutySettings, dutyJobs: previousClassStillExists ? undefined : updatedDuty.jobs, dutyOffset: previousClassStillExists ? 0 : updatedDuty.offset }, nextClassId);
-  dutySettings[nextClassId] = targetDuty;
-  return {
-    ...updated,
-    courses: targetSchedule.courses,
-    scheduleConfig: targetSchedule.config,
-    scheduleEvents: targetSchedule.events,
-    dailyFocus: targetSchedule.focuses,
-    scheduleWeeks: targetSchedule.weeks,
-    seatingConfig: targetSeating,
-    classSchedules: schedules,
-    classSeatingConfigs: seatings,
-    dutyOffset: targetDuty.offset,
-    dutyJobs: cloneDutyJobs(targetDuty.jobs),
-    classDutySettings: dutySettings,
-  };
-}
-
-
-function updateClassStudents(data: ClassroomData, classId: string, updater: (student: Student) => Student): ClassroomData {
-  const students = data.students.map(updater);
-  return {
-    ...data,
-    students,
-    rosterClasses: data.rosterClasses?.map((classroom) => classroom.id === classId
-      ? { ...classroom, students: classroom.students.map(updater) }
-      : classroom),
-  };
 }
 
 export default function ClassroomApp({ token }: { token: string }) {
@@ -4075,7 +3770,6 @@ function Rules({ data, update }: { data: ClassroomData; update: (fn: (d: Classro
 }
 
 type GrowthKind = "沟通记录" | "积分表现" | "作业记录" | "老师补充";
-type GrowthTime = "全部时间" | "近7天" | "近30天" | "本学期";
 type GrowthTimelineItem = {
   id: string;
   kind: GrowthKind;
@@ -4087,33 +3781,6 @@ type GrowthTimelineItem = {
   tone: "positive" | "attention" | "neutral";
   timestamp: number | null;
 };
-
-function growthTimestamp(value: string, createdAt?: number) {
-  if (createdAt) return createdAt;
-  const iso = value.match(/(20\d{2})[-/.年](\d{1,2})[-/.月](\d{1,2})/);
-  if (iso) return new Date(Number(iso[1]), Number(iso[2]) - 1, Number(iso[3])).getTime();
-  const now = new Date();
-  if (value.includes("今天") || value.includes("刚刚")) return now.getTime();
-  if (value.includes("昨天")) return now.getTime() - 86400000;
-  const weekDay = ["周一", "周二", "周三", "周四", "周五", "周六", "周日"].findIndex((day) => value.includes(day));
-  if (weekDay >= 0) {
-    const current = now.getDay() === 0 ? 7 : now.getDay();
-    return now.getTime() - (current - weekDay - 1) * 86400000;
-  }
-  return null;
-}
-
-function inGrowthRange(timestamp: number | null, range: GrowthTime, termStartTime?: number) {
-  if (range === "全部时间") return true;
-  if (!timestamp) return false;
-  const now = new Date();
-  if (range === "近7天") return timestamp >= now.getTime() - 7 * 86400000;
-  if (range === "近30天") return timestamp >= now.getTime() - 30 * 86400000;
-  if (termStartTime) return timestamp >= termStartTime;
-  const month = now.getMonth() + 1;
-  const start = month >= 8 ? new Date(now.getFullYear(), 7, 1) : month >= 2 ? new Date(now.getFullYear(), 1, 1) : new Date(now.getFullYear() - 1, 7, 1);
-  return timestamp >= start.getTime();
-}
 
 function Growth({ data, update }: { data: ClassroomData; update: (fn: (d: ClassroomData) => ClassroomData) => void }) {
   const [id, setId] = useState(data.students[0]?.id ?? "");
@@ -4827,86 +4494,6 @@ function Records({ data, update }: { data: ClassroomData; update: (fn: (d: Class
       </div>}
     </section>
   </>;
-}
-
-type ScoreLevel = "优秀" | "临界" | "帮扶";
-function scoreSubjects(exam: ScoreExam) {
-  return exam.subjects.length ? exam.subjects : ["总分"];
-}
-
-function scoreValue(exam: ScoreExam, student: Student, subject: string) {
-  return scoreEntry(exam, student.id, subject) ?? 0;
-}
-
-function scoreTotal(exam: ScoreExam, student: Student) {
-  return studentScoreSummary(exam, student.id).total ?? 0;
-}
-
-function scoreAverage(exam: ScoreExam, student: Student) {
-  return studentScoreSummary(exam, student.id).average ?? 0;
-}
-
-function scoreWeakSubject(exam: ScoreExam, student: Student) {
-  return studentScoreSummary(exam, student.id).weakSubject ?? "待录入";
-}
-
-function autoScoreLevel(average: number): ScoreLevel {
-  if (average < 80) return "帮扶";
-  if (average < 90) return "临界";
-  return "优秀";
-}
-
-function defaultScoreAdvice(level: ScoreLevel, _weakSubject: string) {
-  if (level === "帮扶") return "安排一次错题复盘和学生面谈，先明确本周最小改进目标。";
-  if (level === "临界") return "做一次阶段复盘，结合课堂表现和订正情况制定跟进动作。";
-  return "保持当前节奏，整理有效学习方法，可结合学生实际做经验分享。";
-}
-
-function parseSubjects(text: string) {
-  return Array.from(new Set(text.split(/[，,、\s]+/).map((item) => item.trim()).filter(Boolean)));
-}
-
-type ScoreRange = { id: string; label: string; min: number; max: number };
-
-function scoreSubjectKey(subject: string) {
-  return subject === "总分" ? "__total" : subject;
-}
-
-function subjectMaxScore(exam: ScoreExam, subject: string): number {
-  if (subject === "总分") return scoreSubjects(exam).reduce((sum, item) => sum + subjectMaxScore(exam, item), 0);
-  return exam.subjectMaxScores?.[subject] ?? 100;
-}
-
-function defaultScoreRanges(maxScore: number): ScoreRange[] {
-  const safeMax = Math.max(1, Math.round(maxScore || 100));
-  const excellentMin = Math.ceil(safeMax * 0.9);
-  const goodMin = Math.ceil(safeMax * 0.8);
-  const passMin = Math.ceil(safeMax * 0.6);
-  return [
-    { id: "excellent", label: "优秀", min: excellentMin, max: safeMax },
-    { id: "good", label: "良好", min: goodMin, max: excellentMin - 1 },
-    { id: "pass", label: "及格", min: passMin, max: goodMin - 1 },
-    { id: "fail", label: "不及格", min: 0, max: passMin - 1 },
-  ];
-}
-
-function scoreRangesFor(exam: ScoreExam, subject: string) {
-  const key = scoreSubjectKey(subject);
-  return exam.scoreRanges?.[key]?.length ? exam.scoreRanges[key] : defaultScoreRanges(subjectMaxScore(exam, subject));
-}
-
-function scoreRowsFor(exam: ScoreExam, students: Student[], reflections: ExamReflection[]) {
-  return students.map((student) => {
-    const summary = studentScoreSummary(exam, student.id);
-    const total = summary.total ?? 0;
-    const average = summary.average ?? 0;
-    const weakSubject = exam.focusSubjects?.[student.id] ?? scoreWeakSubject(exam, student);
-    const level = (exam.levels?.[student.id] as ScoreLevel | undefined) ?? autoScoreLevel(average);
-    const advice = exam.advice?.[student.id] ?? (summary.enteredCount ? defaultScoreAdvice(level, weakSubject) : "成绩尚未录入，暂不生成跟进结论。");
-    const hasReflection = reflections.some((item) => item.studentId === student.id && item.examId === exam.id);
-    const followUp = Boolean(exam.followUpStudentIds?.includes(student.id));
-    return { student, total, average, weakSubject, level, advice, hasReflection, followUp, enteredCount: summary.enteredCount, complete: summary.complete };
-  });
 }
 
 function Scores(props: { workspaceToken: string; data: ClassroomData; update: (fn: (d: ClassroomData) => ClassroomData) => void }) {
