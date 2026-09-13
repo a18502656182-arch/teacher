@@ -1620,6 +1620,9 @@ button:disabled {
 .health-care-editor > footer .care-editor-save { border: 1px solid var(--campus-primary); color: var(--campus-surface); background: var(--campus-primary); }
 .health-care-editor > footer .care-editor-save:hover:not(:disabled) { border-color: var(--campus-primary); background: var(--campus-primary); }
 .health-care-editor > footer .care-editor-save:disabled { border-color: var(--campus-line); color: var(--campus-muted); background: var(--campus-blue); opacity: 1; }
+.health-care-editor > fieldset:first-of-type { min-width: 0; min-height: 0; margin: 0; padding: 0; overflow: hidden; border: 0; }
+.health-care-editor > fieldset:first-of-type > .health-care-editor-content { height: 100%; }
+.health-care-error { margin: 0; padding: 8px 18px; color: var(--campus-error); font-size: 13px; }
 
 /* The page header receives a real primary action; this project has no global primary-button contract. */
 .health-care-page .primary-button { display: inline-flex; min-height: 38px; align-items: center; justify-content: center; padding: 0 14px; border: 1px solid var(--campus-primary); border-radius: 8px; color: var(--campus-surface); background: var(--campus-primary); font: inherit; font-size: 13px; font-weight: 700; line-height: 1; white-space: nowrap; }

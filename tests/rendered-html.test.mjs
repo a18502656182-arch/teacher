@@ -129,8 +129,8 @@ test("formal workspaces start blank while demo remains the only seeded classroom
 
 test("health care is a standalone, privacy-bounded operational workspace", () => {
   assert.match(shellCatalog, /id: 'health', label: '健康与照护'/);
-  assert.match(app, /<HealthCare data=\{workspace\.data\} update=\{updateData\}/);
-  assert.match(app, /<HealthCare data=\{data\} update=\{update\} mobile/);
+  assert.match(app, /<HealthCare data=\{workspace\.data\} update=\{updateData\} save=\{save\} readOnly=/);
+  assert.match(app, /<HealthCare data=\{data\} update=\{update\} save=\{save\} readOnly=\{isDemo \|\| isReadOnly\} mobile/);
   assert.match(classroomTypes, /actionContexts/);
   assert.match(classroomTypes, /customCategory/);
   assert.match(healthCare, /隐私边界/);
@@ -141,6 +141,19 @@ test("health care is a standalone, privacy-bounded operational workspace", () =>
   assert.match(healthOperations, /visibleScope: '班主任'/);
   assert.doesNotMatch(healthCare, /行动提醒板|下次复核日期/);
   assert.match(workbenchRepair, /\.health-care-page \.primary-button\s*\{[^}]*color:\s*var\(--campus-surface\);[^}]*background:\s*var\(--campus-primary\);/);
+  assert.match(healthCare, /const ok = await persist\(\)/);
+  assert.match(healthCare, /同步失败，当前照护内容已保留/);
+});
+
+test("growth, records and notification editors wait for workspace confirmation", () => {
+  assert.match(app, /<Growth data=\{workspace\.data\} update=\{updateData\} save=\{save\} readOnly=/);
+  assert.match(app, /function Growth\(\{ data, update, save, readOnly/);
+  assert.match(app, /同步失败，当前成长记录内容已保留/);
+  assert.match(app, /function Records\(\{ data, update, save, readOnly/);
+  assert.match(app, /同步失败，沟通内容和学生选择已保留/);
+  assert.match(notificationDrafts, /const ok = await persist\(\)/);
+  assert.match(notificationDrafts, /通知草稿和对象选择已保留/);
+  assert.match(notificationDrafts, /系统不自动外发/);
 });
 
 test("authentication keeps HTTP as an explicit temporary switch", () => {

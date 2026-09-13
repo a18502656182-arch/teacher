@@ -3,7 +3,7 @@
   "baselineCommit": "6e10e2dc314e09d0d72df9509730f57c5fde34e2",
   "implementationStatus": "in-progress",
   "active_task": null,
-  "next_action": "TASK-20已完成；执行TASK-21成长健康沟通迁移，并连续推进至TASK-28",
+  "next_action": "TASK-21已完成；执行TASK-22积分与规则迁移，并连续推进至TASK-28",
   "milestones": {
     "M0": "done",
     "M1": "done",
@@ -12,7 +12,7 @@
     "M4": "planned",
     "M5": "planned"
   },
-  "note": "线上受检源码无需要覆盖的业务差异。M0与M1完成；TASK-04至TASK-20及提前完成的TASK-29已完成。已完成任务21/33，按任务数63.6%；按剩余页面和验收工作量估计总进度约79%，这不是精确工时。考勤桌面与手机共用局部样式控制器，保存失败保留选择和草稿，105人重复批次按最后一次修改去重，只读写入口全部禁用。ESLint、42项专项、六档考勤qa:strict、生产构建、259/259自动化及认证集成通过。按用户最新指令不中途暂停，继续TASK-21至TASK-28；M2仍在进行，TASK-30前置未满足。没有生产操作。",
+  "note": "线上受检源码无需要覆盖的业务差异。M0与M1完成；TASK-04至TASK-21及提前完成的TASK-29已完成。已完成任务22/33，按任务数66.7%；按剩余页面和验收工作量估计总进度约82%，这不是精确工时。成长、健康、沟通与通知写操作等待workspace确认，失败保留编辑上下文；只读禁用写入口，复制不冒充外发。ESLint、53项专项、三页六档qa:strict、生产构建、260/260自动化及认证集成通过。共享旧样式的集中移除仍归TASK-30。按用户指令继续TASK-22至TASK-28；M2仍在进行，没有生产操作。",
   "implementationStartCommit": "f321d5e9424e0020bdf1e56d52c31b986b503a53",
   "parallelPreparation": [],
   "verifiedOnlineBaseline": "0691aba",

@@ -1,9 +1,9 @@
 # 健康与照护：逐页执行卡
 
-状态：inventoried-with-gap。模块ID：health。源码相对 app/w/[token]（明确app/lib前缀除外）：HealthCare.tsx;StudentProfile.tsx。
+状态：implemented。模块ID：health。源码相对 app/w/[token]（明确app/lib前缀除外）：HealthCare.tsx;StudentProfile.tsx。
 参考：私密记录派生。派生页面使用对应页面族构图和校园token，不把缺少专属图解释为可回退旧UI。
 
-当前检查点：健康新增/编辑/删除、班级校验、本机日期和主要监护人选择已进入 `features/health/operations.ts`；学生档案也增加班级成员和私密记录归属校验。医疗边界保持。页面DOM、浮层脏状态、保存失败上下文和旧CSS仍待迁移，详见 `evidence/growth-health-operations-20260912.md`。
+当前检查点：健康新增/编辑/删除、班级校验、本机日期和主要监护人选择使用 `features/health/operations.ts`；学生档案校验班级成员和私密记录归属。编辑器在服务器确认后关闭，失败保留内容，脏草稿阻止直接离页；只读入口禁用，医疗边界保持。共享旧样式的集中清理仍归TASK-30。
 
 ## 保全动作（种子，实施前展开）
 搜索、登记编辑、关注类型/场景自定义、可选行动字段、监护人同步。

@@ -315,15 +315,15 @@ export default function ClassroomApp({ token }: { token: string }) {
           {active === "homework" && <HomeworkView data={workspace.data} update={updateData} confirmAction={requestDangerConfirm} readOnly={isDemo || isReadOnly} />}
           {active === "points" && <Points data={workspace.data} update={updateData} />}
           {active === "rules" && <Rules data={workspace.data} update={updateData} />}
-          {active === "growth" && <Growth data={workspace.data} update={updateData} requestedStudentId={growthRequest.studentId} />}
-          {active === "health" && <HealthCare data={workspace.data} update={updateData} />}
+          {active === "growth" && <Growth data={workspace.data} update={updateData} save={save} readOnly={isDemo || isReadOnly} requestedStudentId={growthRequest.studentId} />}
+          {active === "health" && <HealthCare data={workspace.data} update={updateData} save={save} readOnly={isDemo || isReadOnly} />}
           {active === "weekly" && <Weekly data={workspace.data} update={updateData} readOnly={isDemo || isReadOnly} />}
           {active === "schedule" && <ScheduleHub data={workspace.data} update={updateData} readOnly={isDemo || isReadOnly} />}
           {active === "tools" && <ClassroomTools data={workspace.data} update={updateData} readOnly={isDemo || isReadOnly} />}
           {active === "seating" && <Seating data={workspace.data} update={updateData} readOnly={isDemo || isReadOnly} />}
           {active === "duty" && <Duty data={workspace.data} update={updateData} readOnly={isDemo || isReadOnly} />}
           {active === "cadres" && <Cadres data={workspace.data} update={updateData} readOnly={isDemo || isReadOnly} confirmAction={requestDangerConfirm} />}
-          {active === "records" && <Records data={workspace.data} update={updateData} />}
+          {active === "records" && <Records data={workspace.data} update={updateData} save={save} readOnly={isDemo || isReadOnly} />}
           {active === "scores" && <Scores workspaceToken={token} data={workspace.data} update={updateData} />}
           {active === "reflection" && <Reflection data={workspace.data} update={updateData} open={openModule} readOnly={isDemo || isReadOnly} />}
           {active === "comments" && <Comments workspaceToken={token} data={workspace.data} update={updateData} readOnly={isDemo || isReadOnly} />}
@@ -377,11 +377,11 @@ function MobileWorkspaceContent({ workspaceToken, workspace, activeClass, active
       {pane('attendance', <Attendance data={data} update={update} save={save} readOnly={isDemo || isReadOnly} mobile />)}
       {pane('homework', <HomeworkView data={data} update={update} confirmAction={requestDangerConfirm} mobile readOnly={isDemo || isReadOnly} />)}
       {pane('scores', <MobileScores workspaceToken={workspaceToken} data={data} activeClass={activeClass} update={update} open={openModule} />)}
-      {pane('health', <HealthCare data={data} update={update} mobile />)}
+      {pane('health', <HealthCare data={data} update={update} save={save} readOnly={isDemo || isReadOnly} mobile />)}
       {pane('seating', <Seating data={data} update={update} readOnly={isDemo || isReadOnly} mobile />)}
       {pane('duty', <Duty data={data} update={update} readOnly={isDemo || isReadOnly} mobile />)}
       {pane('cadres', <Cadres data={data} update={update} readOnly={isDemo || isReadOnly} mobile confirmAction={requestDangerConfirm} />)}
-      {workspaceModules.filter(item => !dedicated.has(item.id)).map(item => pane(item.id, <MobileSecondaryPage workspaceToken={workspaceToken} active={item.id} data={data} activeClass={activeClass} growthRequest={growthRequest} update={update} open={openModule} readOnly={isDemo || isReadOnly} />))}
+      {workspaceModules.filter(item => !dedicated.has(item.id)).map(item => pane(item.id, <MobileSecondaryPage workspaceToken={workspaceToken} active={item.id} data={data} activeClass={activeClass} growthRequest={growthRequest} update={update} save={save} open={openModule} readOnly={isDemo || isReadOnly} />))}
   </>;
 }
 
@@ -792,7 +792,7 @@ function MobileScoresWithExam({ workspaceToken, data, activeClass, update, open 
   </div>;
 }
 
-function MobileSecondaryPage({ workspaceToken, active, data, activeClass, growthRequest, update, open, readOnly }: { workspaceToken: string; active: ModuleId; data: ClassroomData; activeClass: RosterClass; growthRequest: { studentId: string; sequence: number }; update: (fn: (d: ClassroomData) => ClassroomData) => void; open: (id: ModuleId) => void; readOnly: boolean }) {
+function MobileSecondaryPage({ workspaceToken, active, data, activeClass, growthRequest, update, save, open, readOnly }: { workspaceToken: string; active: ModuleId; data: ClassroomData; activeClass: RosterClass; growthRequest: { studentId: string; sequence: number }; update: (fn: (d: ClassroomData) => ClassroomData) => void; save: () => Promise<boolean>; open: (id: ModuleId) => void; readOnly: boolean }) {
   const [detail, setDetail] = useState<{ title: string; children: ReactNode } | null>(null);
   const [quickPointOpen, setQuickPointOpen] = useState(false);
   const [pointRuleSheetOpen, setPointRuleSheetOpen] = useState(false);
@@ -824,6 +824,7 @@ function MobileSecondaryPage({ workspaceToken, active, data, activeClass, growth
   const [growthDetailOpen, setGrowthDetailOpen] = useState(false);
   const [growthComposerOpen, setGrowthComposerOpen] = useState(false);
   const [growthFormError, setGrowthFormError] = useState("");
+  const [growthBusy, setGrowthBusy] = useState(false);
   const [growthCopyState, setGrowthCopyState] = useState("复制摘要");
   const [growthDraft, setGrowthDraft] = useState({ date: today(), type: "表扬记录", title: "", content: "", followUp: "" });
   const [weeklyEditorOpen, setWeeklyEditorOpen] = useState(false);
@@ -857,6 +858,7 @@ function MobileSecondaryPage({ workspaceToken, active, data, activeClass, growth
   const [recordKeyword, setRecordKeyword] = useState("");
   const [recordTypeFilter, setRecordTypeFilter] = useState("全部类型");
   const [recordStatusFilter, setRecordStatusFilter] = useState<"全部状态" | CommunicationRecord["status"]>("全部状态");
+  const [recordBusy, setRecordBusy] = useState(false);
   const [reflectionEditorOpen, setReflectionEditorOpen] = useState(false);
   const [reflectionDraft, setReflectionDraft] = useState<ExamReflection>({ id: "", studentId: activeClass.students[0]?.id ?? data.students[0]?.id ?? "", examId: scoreExamsForClass(data, activeClass.id)[0]?.id, date: today(), problem: "", reason: "", action: "", familyMessage: "", teacherNote: "", status: "草稿" });
   const [reflectionKeyword, setReflectionKeyword] = useState("");
@@ -966,7 +968,8 @@ function MobileSecondaryPage({ workspaceToken, active, data, activeClass, growth
     update((current) => undoPointEventInClass(current, activeClass.id, event.id));
     notify("积分记录已撤销", "success");
   }
-  function saveRecord() {
+  async function saveRecord() {
+    if (readOnly || recordBusy) { notify("当前为只读模式，不能保存沟通记录", "error"); return; }
     const draft = {
       id: editingRecordId || undefined,
       studentId: recordDraft.studentId,
@@ -981,13 +984,18 @@ function MobileSecondaryPage({ workspaceToken, active, data, activeClass, growth
     };
     const preview = saveCommunicationRecord(data, activeClass.id, draft, () => "record-preview");
     if (preview.error) { notify(preview.error, "error"); return; }
+    setRecordBusy(true);
     update((current) => saveCommunicationRecord(current, activeClass.id, draft, makeId).data ?? current);
+    const ok = await save();
+    setRecordBusy(false);
+    if (!ok) { notify("同步失败，沟通内容和对象选择已保留，请重试", "error"); return; }
     setRecordDraft((current) => ({ ...current, date: localCommunicationDate(), home: "", content: "", opinion: "", followUp: "" }));
     setEditingRecordId("");
     setQuickRecordOpen(false);
     notify(editingRecordId ? "沟通记录已更新" : "沟通记录已添加", "success");
   }
   function openRecordEditor(record?: CommunicationRecord) {
+    if (readOnly || recordBusy) return;
     if (!record) {
       setEditingRecordId("");
       setRecordDraft({ studentId: students[0]?.id ?? "", student: students[0]?.name ?? "", type: "家校沟通", channel: "微信", date: localCommunicationDate(), purpose: "沟通情况补录", home: "", content: "", opinion: "", followUp: "" });
@@ -1012,13 +1020,19 @@ function MobileSecondaryPage({ workspaceToken, active, data, activeClass, growth
     });
     setQuickRecordOpen(true);
   }
-  function patchRecordStatus(recordId: string, status: CommunicationRecord["status"]) {
+  async function patchRecordStatus(recordId: string, status: CommunicationRecord["status"]) {
+    if (readOnly || recordBusy) return;
+    setRecordBusy(true);
     update((current) => patchCommunicationStatus(current, activeClass.id, recordId, status));
-    notify("沟通状态已更新", "success");
+    const ok = await save(); setRecordBusy(false);
+    notify(ok ? "沟通状态已更新" : "状态同步失败，本机修改已保留", ok ? "success" : "error");
   }
   async function deleteRecordMobile(recordId: string) {
-    if (!await requestDangerConfirm("确认删除这条沟通记录？")) return;
+    if (readOnly || recordBusy || !await requestDangerConfirm("确认删除这条沟通记录？")) return;
+    setRecordBusy(true);
     update((current) => removeCommunicationRecord(current, activeClass.id, recordId));
+    const ok = await save(); setRecordBusy(false);
+    if (!ok) { notify("删除同步失败，本机修改已保留", "error"); return; }
     setDetail(null);
     notify("沟通记录已删除", "success");
   }
@@ -1568,9 +1582,9 @@ function MobileSecondaryPage({ workspaceToken, active, data, activeClass, growth
       return (recordTypeFilter === "全部类型" || record.type === recordTypeFilter) && (recordStatusFilter === "全部状态" || record.status === recordStatusFilter) && (!recordKeyword.trim() || text.includes(recordKeyword.trim()));
     });
     return <div className="mobile-stack mobile-records-page">
-      <MobileSectionHero title={title} text={`${records.length} 条记录 · ${pending} 条待跟进 · 涉及 ${involved} 名学生`} action="新增" onAction={() => openRecordEditor()} />
+      <MobileSectionHero title={title} text={`${records.length} 条记录 · ${pending} 条待跟进 · 涉及 ${involved} 名学生`} action={readOnly ? undefined : "新增"} onAction={() => openRecordEditor()} />
       <section className="mobile-record-context" aria-label="家校沟通概览"><span><b>{pending}</b> 条待跟进</span><span><b>{resolved}</b> 条已处理</span><small>优先处理有明确回访日期的记录</small></section>
-      <NotificationDrafts data={data} update={update} mobile />
+      <NotificationDrafts data={data} update={update} save={save} readOnly={readOnly} mobile />
       <section className="mobile-record-filter-panel">
         <label className="mobile-search"><span>搜索沟通记录</span><input value={recordKeyword} onChange={(event) => setRecordKeyword(event.target.value)} placeholder="学生、内容、反馈、跟进或方式" /></label>
         <div>
@@ -1578,7 +1592,7 @@ function MobileSecondaryPage({ workspaceToken, active, data, activeClass, growth
           <label><span>类型</span><select value={recordTypeFilter} onChange={(event) => setRecordTypeFilter(event.target.value)}>{recordTypes.map((item) => <option key={item}>{item}</option>)}</select></label>
         </div>
       </section>
-      <section className="mobile-card-list mobile-record-list"><header><h2>沟通记录</h2><span>{shownRecords.length} 条</span></header>{shownRecords.map((record) => <button type="button" key={record.id} onClick={() => setDetail({ title: `${record.student} · ${record.type}`, children: <><div className="mobile-detail-grid"><span><small>日期</small><b>{record.date}</b></span><span><small>方式</small><b>{record.channel ?? "面谈"}</b></span><span><small>状态</small><b>{record.status ?? "待跟进"}</b></span><span><small>类型</small><b>{record.type}</b></span></div><div className="mobile-sheet-section"><h3>内容</h3><p>{record.content}</p></div><div className="mobile-sheet-section"><h3>后续跟进</h3><p>{record.followUp || "暂无跟进安排"}</p></div><div className="mobile-sheet-section"><h3>家长反馈</h3><p>{record.parentFeedback || "暂无反馈"}</p></div><div className="mobile-form-grid"><label className="wide"><span>状态</span><select value={record.status ?? "待跟进"} onChange={(event) => patchRecordStatus(record.id, event.target.value as CommunicationRecord["status"])}><option>待跟进</option><option>已跟进</option><option>已归档</option></select></label></div><div className="mobile-sheet-actions"><button type="button" onClick={() => openRecordEditor(record)}>编辑记录</button><button type="button" onClick={() => copyTextToClipboard(`${record.student}｜${record.type}｜${record.content}｜${record.followUp ?? ""}`, "已复制沟通记录")}>复制记录</button></div><div className="mobile-sheet-actions single"><button type="button" onClick={() => deleteRecordMobile(record.id)}>删除记录</button></div></> })}><b>{record.student} · {record.type}</b><span>{record.date} · {record.status ?? "待跟进"} · {record.channel ?? "面谈"}</span><small>{record.content}</small></button>)}{!shownRecords.length && <article><b>暂无记录</b><span>可以调整状态、类型或关键词筛选。</span></article>}</section>
+      <section className="mobile-card-list mobile-record-list"><header><h2>沟通记录</h2><span>{shownRecords.length} 条</span></header>{shownRecords.map((record) => <button type="button" key={record.id} onClick={() => setDetail({ title: `${record.student} · ${record.type}`, children: <><div className="mobile-detail-grid"><span><small>日期</small><b>{record.date}</b></span><span><small>方式</small><b>{record.channel ?? "面谈"}</b></span><span><small>状态</small><b>{record.status ?? "待跟进"}</b></span><span><small>类型</small><b>{record.type}</b></span></div><div className="mobile-sheet-section"><h3>内容</h3><p>{record.content}</p></div><div className="mobile-sheet-section"><h3>后续跟进</h3><p>{record.followUp || "暂无跟进安排"}</p></div><div className="mobile-sheet-section"><h3>家长反馈</h3><p>{record.parentFeedback || "暂无反馈"}</p></div><div className="mobile-form-grid"><label className="wide"><span>状态</span><select disabled={readOnly || recordBusy} value={record.status ?? "待跟进"} onChange={(event) => void patchRecordStatus(record.id, event.target.value as CommunicationRecord["status"])}><option>待跟进</option><option>已跟进</option><option>已归档</option></select></label></div><div className="mobile-sheet-actions"><button type="button" disabled={readOnly || recordBusy} onClick={() => openRecordEditor(record)}>编辑记录</button><button type="button" disabled={recordBusy} onClick={() => copyTextToClipboard(`${record.student}｜${record.type}｜${record.content}｜${record.followUp ?? ""}`, "已复制沟通记录")}>复制记录</button></div><div className="mobile-sheet-actions single"><button type="button" disabled={readOnly || recordBusy} onClick={() => deleteRecordMobile(record.id)}>删除记录</button></div></> })}><b>{record.student} · {record.type}</b><span>{record.date} · {record.status ?? "待跟进"} · {record.channel ?? "面谈"}</span><small>{record.content}</small></button>)}{!shownRecords.length && <article><b>暂无记录</b><span>可以调整状态、类型或关键词筛选。</span></article>}</section>
       {detail && <MobileInfoSheet title={detail.title} onClose={() => setDetail(null)}>{detail.children}</MobileInfoSheet>}
       {quickRecordOpen && <MobileInfoSheet title={editingRecordId ? "编辑沟通记录" : "新增沟通记录"} onClose={() => { setQuickRecordOpen(false); setEditingRecordId(""); }}>
         <div className="mobile-form-grid">
@@ -1592,7 +1606,7 @@ function MobileSecondaryPage({ workspaceToken, active, data, activeClass, growth
           <label className="wide"><span>家长反馈</span><textarea value={recordDraft.opinion} onChange={(event) => setRecordDraft({ ...recordDraft, opinion: event.target.value })} placeholder="可选，记录家长态度或配合事项" /></label>
           <label className="wide"><span>后续跟进</span><textarea value={recordDraft.followUp} onChange={(event) => setRecordDraft({ ...recordDraft, followUp: event.target.value })} placeholder="可选，例如：周五复查订正情况" /></label>
         </div>
-        <div className="mobile-sheet-actions"><button type="button" onClick={() => { setQuickRecordOpen(false); setEditingRecordId(""); }}>取消</button><button type="button" className="primary" onClick={saveRecord}>保存记录</button></div>
+        <div className="mobile-sheet-actions"><button type="button" disabled={recordBusy} onClick={() => { setQuickRecordOpen(false); setEditingRecordId(""); }}>取消</button><button type="button" className="primary" disabled={readOnly || recordBusy} onClick={saveRecord}>{recordBusy ? "保存中…" : "保存记录"}</button></div>
       </MobileInfoSheet>}
       {recordStudentPickerOpen && <StudentLookupDialog title="选择沟通学生" subtitle="搜索姓名、学号或小组后再选择，不展开全班下拉。" students={students} selectedId={recordDraft.studentId} onPick={(student) => { setRecordDraft({ ...recordDraft, studentId: student.id, student: student.name }); setRecordStudentPickerOpen(false); }} onClose={() => setRecordStudentPickerOpen(false)} />}
     </div>;
@@ -1688,12 +1702,16 @@ function MobileSecondaryPage({ workspaceToken, active, data, activeClass, growth
       setGrowthFormError("");
       setGrowthDetailOpen(true);
     }
-    function saveGrowthEvidence() {
+    async function saveGrowthEvidence() {
       if (!selectedGrowthStudent || !growthDraft.date || !growthDraft.title.trim() || !growthDraft.content.trim()) {
         setGrowthFormError("请填写日期、标题和具体事实。");
         return;
       }
+      if (readOnly || growthBusy) { setGrowthFormError("当前为只读模式，不能保存成长记录。"); return; }
+      setGrowthBusy(true);
       update((current) => addGrowthEvidence(current, activeClassId, selectedGrowthStudent.id, growthDraft, makeId).data ?? current);
+      const ok = await save(); setGrowthBusy(false);
+      if (!ok) { setGrowthFormError("同步失败，当前成长记录内容已保留，请重试。"); return; }
       setGrowthDraft({ date: today(), type: "表扬记录", title: "", content: "", followUp: "" });
       setGrowthFormError("");
       setGrowthKindFilter("全部类型");
@@ -1730,7 +1748,7 @@ function MobileSecondaryPage({ workspaceToken, active, data, activeClass, growth
       {growthDetailOpen && selectedGrowthStudent && <MobileInfoSheet title={`${selectedGrowthStudent.name} · 成长档案`} onClose={() => setGrowthDetailOpen(false)}>
         <section className="mobile-growth-focus-head">
           <div><i>{selectedGrowthStudent.name.slice(0, 1)}</i><span><b>{selectedGrowthStudent.name}</b><small>{selectedStatus} · 第{selectedGrowthStudent.group}组 · 学号 {selectedGrowthStudent.studentNo || "未填"}</small></span><em>{growthTimeline.length} 条</em></div>
-          <nav><button type="button" className="primary" onClick={() => { setGrowthDetailOpen(false); setGrowthComposerOpen(true); }}>为{selectedGrowthStudent.name}添加记录</button><button type="button" onClick={() => setDetail({ title: `${selectedGrowthStudent.name} · 成长摘要`, children: <section className="mobile-growth-summary-sheet"><div className="mobile-detail-grid"><span><small>成绩</small><b>{selectedGrowthStudent.score}</b></span><span><small>积分</small><b>{selectedGrowthStudent.points}</b></span><span><small>作业完成</small><b>{homeworkRate}%</b></span><span><small>沟通记录</small><b>{recordsForStudent.length}</b></span></div><div className="mobile-sheet-section"><h3>成长摘要</h3><p>{growthSummary}</p></div><div className="mobile-sheet-section"><h3>优势观察</h3><p>{strengths.join("\n")}</p></div><div className="mobile-sheet-section"><h3>后续跟进</h3><p>{followUps.join("\n")}</p></div><div className="mobile-sheet-actions"><button type="button" onClick={copyGrowthSummary}>{growthCopyState}</button><button type="button" onClick={() => window.print()}>导出素材</button></div></section> })}>查看自动摘要</button></nav>
+          <nav><button type="button" className="primary" disabled={readOnly || growthBusy} onClick={() => { setGrowthDetailOpen(false); setGrowthComposerOpen(true); }}>为{selectedGrowthStudent.name}添加记录</button><button type="button" onClick={() => setDetail({ title: `${selectedGrowthStudent.name} · 成长摘要`, children: <section className="mobile-growth-summary-sheet"><div className="mobile-detail-grid"><span><small>成绩</small><b>{selectedGrowthStudent.score}</b></span><span><small>积分</small><b>{selectedGrowthStudent.points}</b></span><span><small>作业完成</small><b>{homeworkRate}%</b></span><span><small>沟通记录</small><b>{recordsForStudent.length}</b></span></div><div className="mobile-sheet-section"><h3>成长摘要</h3><p>{growthSummary}</p></div><div className="mobile-sheet-section"><h3>优势观察</h3><p>{strengths.join("\n")}</p></div><div className="mobile-sheet-section"><h3>后续跟进</h3><p>{followUps.join("\n")}</p></div><div className="mobile-sheet-actions"><button type="button" onClick={copyGrowthSummary}>{growthCopyState}</button><button type="button" onClick={() => window.print()}>导出素材</button></div></section> })}>查看自动摘要</button></nav>
         </section>
         <section className="mobile-growth-record-heading"><div><h3>成长记录</h3><span>优先展示最近记录</span></div><b>{filteredGrowthTimeline.length} 条</b></section>
         <section className="mobile-form-grid mobile-growth-filter mobile-growth-sheet-filter">
@@ -1750,7 +1768,7 @@ function MobileSecondaryPage({ workspaceToken, active, data, activeClass, growth
           <label className="wide"><span>内容描述</span><textarea value={growthDraft.content} maxLength={500} onChange={(event) => setGrowthDraft({ ...growthDraft, content: event.target.value })} placeholder="记录具体事实、作品表现或老师观察。" /></label>
           <label className="wide"><span>后续观察点</span><textarea value={growthDraft.followUp} maxLength={300} onChange={(event) => setGrowthDraft({ ...growthDraft, followUp: event.target.value })} placeholder="如：下周继续观察课堂发言。" /></label>
         </div>
-        <div className="mobile-sheet-actions"><button type="button" onClick={() => setGrowthComposerOpen(false)}>取消</button><button type="button" className="primary" onClick={saveGrowthEvidence}>保存成长记录</button></div>
+        <div className="mobile-sheet-actions"><button type="button" disabled={growthBusy} onClick={() => setGrowthComposerOpen(false)}>取消</button><button type="button" className="primary" disabled={readOnly || growthBusy} onClick={saveGrowthEvidence}>{growthBusy ? "保存中…" : "保存成长记录"}</button></div>
       </MobileInfoSheet>}
     </div>;
   }
@@ -2474,7 +2492,7 @@ type GrowthTimelineItem = {
   timestamp: number | null;
 };
 
-function Growth({ data, update, requestedStudentId }: { data: ClassroomData; update: (fn: (d: ClassroomData) => ClassroomData) => void; requestedStudentId?: string }) {
+function Growth({ data, update, save, readOnly, requestedStudentId }: { data: ClassroomData; update: (fn: (d: ClassroomData) => ClassroomData) => void; save: () => Promise<boolean>; readOnly: boolean; requestedStudentId?: string }) {
   const [id, setId] = useState(requestedStudentId || data.students[0]?.id || "");
   const [keyword, setKeyword] = useState("");
   const [groupFilter, setGroupFilter] = useState("全部小组");
@@ -2486,6 +2504,7 @@ function Growth({ data, update, requestedStudentId }: { data: ClassroomData; upd
   const [page, setPage] = useState(1);
   const [showComposer, setShowComposer] = useState(false);
   const [formError, setFormError] = useState("");
+  const [busy, setBusy] = useState(false);
   const [copyState, setCopyState] = useState("复制成长摘要");
   const [draft, setDraft] = useState({ date: today(), type: "表扬记录", title: "", content: "", followUp: "" });
   useEffect(() => {
@@ -2574,9 +2593,13 @@ function Growth({ data, update, requestedStudentId }: { data: ClassroomData; upd
   function selectStudent(studentId: string) {
     setId(studentId); setPage(1); setShowComposer(false); setFormError("");
   }
-  function saveEvidence() {
+  async function saveEvidence() {
     if (!draft.date || !draft.title.trim() || !draft.content.trim()) { setFormError("请填写日期、简短标题和具体事实。"); return; }
+    if (readOnly || busy) { setFormError("当前为只读模式，不能保存成长记录。"); return; }
+    setBusy(true); setFormError("");
     update((current) => addGrowthEvidence(current, activeClassId ?? "class-1", student.id, draft, makeId).data ?? current);
+    const ok = await save(); setBusy(false);
+    if (!ok) { setFormError("同步失败，当前成长记录内容已保留，请重试。"); return; }
     setDraft({ date: today(), type: "表扬记录", title: "", content: "", followUp: "" });
     setFormError(""); setKind("全部类型"); setRange("全部时间"); setPage(1); setShowComposer(false);
   }
@@ -2589,7 +2612,7 @@ function Growth({ data, update, requestedStudentId }: { data: ClassroomData; upd
   }
 
   return <div className="growth2-page homework-bootstrap-preview">
-    <WorkbenchPageHeader icon="🌱" tone="jade" title="学生成长记录" description="选择学生，记录可观察的成长事实与后续跟进。" actions={<div className="growth2-actions"><button className="primary workbench-header-primary" onClick={() => setShowComposer(true)}>为{student.name}添加记录</button><details className="growth2-more-actions"><summary>更多</summary><button onClick={copySummary}>{copyState}</button><button onClick={() => window.print()}>导出素材</button></details></div>} />
+    <WorkbenchPageHeader icon="🌱" tone="jade" title="学生成长记录" description="选择学生，记录可观察的成长事实与后续跟进。" actions={<div className="growth2-actions"><button className="primary workbench-header-primary" disabled={readOnly || busy} onClick={() => setShowComposer(true)}>为{student.name}添加记录</button><details className="growth2-more-actions"><summary>更多</summary><button onClick={copySummary}>{copyState}</button><button onClick={() => window.print()}>导出素材</button></details></div>} />
     <section className="campus-statistics" aria-label="成长档案统计">
       <div><span>当前学生记录</span><b>{evidence.length}</b><small>自动汇入与手动补充</small></div>
       <div><span>全班覆盖</span><b>{studentsWithEvidence}</b><small>{data.students.length} 名学生</small></div>
@@ -2665,7 +2688,7 @@ function Growth({ data, update, requestedStudentId }: { data: ClassroomData; upd
           <label className="wide"><span>内容描述</span><textarea value={draft.content} maxLength={500} onChange={(event) => setDraft({ ...draft, content: event.target.value })} placeholder="记录具体事实、作品表现或老师观察。" /></label>
           <label className="wide"><span>后续观察点</span><textarea value={draft.followUp} maxLength={300} onChange={(event) => setDraft({ ...draft, followUp: event.target.value })} placeholder="如：下周继续观察课堂发言。" rows={3} /></label>
           {formError && <p className="growth2-error">{formError}</p>}
-          <footer><button onClick={() => setShowComposer(false)}>取消</button><button className="primary" onClick={saveEvidence}>保存成长记录</button></footer>
+          <footer><button disabled={busy} onClick={() => setShowComposer(false)}>取消</button><button className="primary" disabled={readOnly || busy} onClick={saveEvidence}>{busy ? "保存中…" : "保存成长记录"}</button></footer>
         </section></div>}
         <section className="growth2-panel growth2-record-panel">
           <header className="growth2-panel-head">
@@ -3034,7 +3057,7 @@ function Weekly({ data, update, readOnly }: { data: ClassroomData; update: (fn: 
   </div>;
 }
 
-function Records({ data, update }: { data: ClassroomData; update: (fn: (d: ClassroomData) => ClassroomData) => void }) {
+function Records({ data, update, save, readOnly }: { data: ClassroomData; update: (fn: (d: ClassroomData) => ClassroomData) => void; save: () => Promise<boolean>; readOnly: boolean }) {
   const [studentId, setStudentId] = useState("");
   const [studentPickerOpen, setStudentPickerOpen] = useState(false);
   const [studentPickerKeyword, setStudentPickerKeyword] = useState("");
@@ -3053,6 +3076,7 @@ function Records({ data, update }: { data: ClassroomData; update: (fn: (d: Class
   const [recordStatus, setRecordStatus] = useState("全部状态");
   const [keyword, setKeyword] = useState("");
   const [recordError, setRecordError] = useState("");
+  const [busy, setBusy] = useState(false);
   const activeClassId = data.activeClassId ?? data.rosterClasses?.[0]?.id ?? "class-1";
   const classRecords = communicationRecordsForClass(data, activeClassId);
   const selectedStudent = data.students.find((item) => item.id === studentId);
@@ -3091,6 +3115,7 @@ function Records({ data, update }: { data: ClassroomData; update: (fn: (d: Class
     return text.split("｜").find((part) => part.startsWith(`${label}：`))?.slice(label.length + 1).trim() ?? "";
   }
   function openAddRecord() {
+    if (readOnly) return;
     setEditingRecordId(null);
     setStudentId("");
     setType("家访登记");
@@ -3105,6 +3130,7 @@ function Records({ data, update }: { data: ClassroomData; update: (fn: (d: Class
     setRecordModalOpen(true);
   }
   function openEditRecord(record: CommunicationRecord) {
+    if (readOnly) return;
     const recordStudent = data.students.find((item) => item.id === record.studentId) ?? data.students.find((item) => item.name === record.student);
     setEditingRecordId(record.id);
     setStudentId(recordStudent?.id ?? "");
@@ -3119,18 +3145,24 @@ function Records({ data, update }: { data: ClassroomData; update: (fn: (d: Class
     setRecordError("");
     setRecordModalOpen(true);
   }
-  function saveRecord() {
+  async function saveRecord() {
+    if (readOnly || busy) { setRecordError("当前为只读模式，不能保存沟通记录。"); return; }
     const draft = { id: editingRecordId ?? undefined, studentId, type, channel, date: recordTime, purpose, home, content, parentFeedback: opinion, followUp };
     const preview = saveCommunicationRecord(data, activeClassId, draft, () => "record-preview");
     if (preview.error) { setRecordError(preview.error); return; }
-    setRecordError("");
+    setRecordError(""); setBusy(true);
     update((current) => saveCommunicationRecord(current, activeClassId, draft, makeId).data ?? current);
-    setRecordModalOpen(false);
+    const ok = await save(); setBusy(false);
+    if (ok) setRecordModalOpen(false);
+    else setRecordError("同步失败，沟通内容和学生选择已保留，请重试。");
   }
   async function deleteRecord(record: CommunicationRecord) {
     const confirmed = await requestDangerConfirm(`${record.student} 的这条${record.type}记录会从家校沟通台账中移除。`);
-    if (!confirmed) return;
+    if (!confirmed || readOnly || busy) return;
+    setBusy(true);
     update((current) => removeCommunicationRecord(current, activeClassId, record.id));
+    const ok = await save(); setBusy(false);
+    if (!ok) setRecordError("删除同步失败，本机修改已保留。");
   }
   const types = ["全部类型", ...Array.from(new Set(classRecords.map((record) => record.type)))];
   const visibleRecords = classRecords.filter((record) => {
@@ -3141,10 +3173,10 @@ function Records({ data, update }: { data: ClassroomData; update: (fn: (d: Class
   const resolvedCount = classRecords.filter((record) => record.status === "已跟进" || record.status === "已归档").length;
   const involvedCount = new Set(classRecords.map((record) => record.studentId ?? record.student)).size;
   return <>
-    <WorkbenchPageHeader icon="💬" tone="berry" title="沟通记录" description="按学生、类型和状态查找记录，待跟进事项优先处理。" actions={<button type="button" className="record3-primary workbench-header-primary" onClick={openAddRecord}>新增沟通记录</button>} />
+    <WorkbenchPageHeader icon="💬" tone="berry" title="沟通记录" description="按学生、类型和状态查找记录，待跟进事项优先处理。" actions={<button type="button" className="record3-primary workbench-header-primary" disabled={readOnly || busy} onClick={openAddRecord}>新增沟通记录</button>} />
     <section className="record3-page">
       <div className="record3-progressline"><span>当前班级</span><b>{classRecords.length} 条沟通记录</b><em>{followCount} 条待跟进</em><em>{resolvedCount} 条已处理</em></div>
-      <NotificationDrafts data={data} update={update} />
+      <NotificationDrafts data={data} update={update} save={save} readOnly={readOnly} />
 
       <section className="record3-ledger">
         <header>
@@ -3156,7 +3188,7 @@ function Records({ data, update }: { data: ClassroomData; update: (fn: (d: Class
         </div>
         <div className="record3-table">
           <div className="record3-head"><span>学生</span><span>沟通时间</span><span>类型/方式</span><span>沟通摘要</span><span>反馈与跟进</span><span>状态</span><span>操作</span></div>
-          {visibleRecords.length ? visibleRecords.map((r) => <article key={r.id} className="record3-row"><b><i>{r.student.slice(0,1)}</i><span>{r.student}</span></b><time>{r.date}</time><span>{r.type}<small>{r.channel ?? "面谈"}</small></span><p>{r.content}</p><p>{r.parentFeedback && <small>反馈：{r.parentFeedback}</small>}{r.followUp && <small>跟进：{r.followUp}</small>}</p><select value={r.status ?? "待跟进"} onChange={(e) => update((current) => patchCommunicationStatus(current, activeClassId, r.id, e.target.value as CommunicationRecord["status"]))}><option>待跟进</option><option>已跟进</option><option>已归档</option></select><div><button type="button" onClick={() => openEditRecord(r)}>编辑</button><button type="button" onClick={() => copyTextToClipboard(`${r.student}｜${r.type}｜${r.content}｜${r.followUp ?? ""}`, "已复制沟通记录")}>复制</button><button type="button" onClick={() => deleteRecord(r)}>删除</button></div></article>) : <div className="record3-empty">没有符合条件的沟通记录。</div>}
+          {visibleRecords.length ? visibleRecords.map((r) => <article key={r.id} className="record3-row"><b><i>{r.student.slice(0,1)}</i><span>{r.student}</span></b><time>{r.date}</time><span>{r.type}<small>{r.channel ?? "面谈"}</small></span><p>{r.content}</p><p>{r.parentFeedback && <small>反馈：{r.parentFeedback}</small>}{r.followUp && <small>跟进：{r.followUp}</small>}</p><select disabled={readOnly || busy} value={r.status ?? "待跟进"} onChange={async (e) => { setBusy(true); update((current) => patchCommunicationStatus(current, activeClassId, r.id, e.target.value as CommunicationRecord["status"])); const ok = await save(); setBusy(false); if (!ok) setRecordError("状态同步失败，本机修改已保留。"); }}><option>待跟进</option><option>已跟进</option><option>已归档</option></select><div><button type="button" disabled={readOnly || busy} onClick={() => openEditRecord(r)}>编辑</button><button type="button" disabled={busy} onClick={() => copyTextToClipboard(`${r.student}｜${r.type}｜${r.content}｜${r.followUp ?? ""}`, "已复制沟通记录")}>复制</button><button type="button" disabled={readOnly || busy} onClick={() => deleteRecord(r)}>删除</button></div></article>) : <div className="record3-empty">没有符合条件的沟通记录。</div>}
         </div>
       </section>
       {recordModalOpen && <div className="record3-modal-backdrop" onClick={() => setRecordModalOpen(false)}>
@@ -3174,7 +3206,7 @@ function Records({ data, update }: { data: ClassroomData; update: (fn: (d: Class
             <label className="wide"><span>下一步跟进</span><textarea value={followUp} onChange={(e) => setFollowUp(e.target.value)} /></label>
           </div>
           {recordError && <p className="record3-form-error" role="alert">{recordError}</p>}
-          <footer><button type="button" onClick={() => setRecordModalOpen(false)}>取消</button><button type="button" className="record3-primary" onClick={saveRecord}>{editingRecordId ? "保存修改" : "保存记录"}</button></footer>
+          <footer><button type="button" disabled={busy} onClick={() => setRecordModalOpen(false)}>取消</button><button type="button" className="record3-primary" disabled={readOnly || busy} onClick={saveRecord}>{busy ? "保存中…" : editingRecordId ? "保存修改" : "保存记录"}</button></footer>
         </section>
       </div>}
       {studentPickerOpen && <div className="record3-picker-backdrop" onClick={() => setStudentPickerOpen(false)}>

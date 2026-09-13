@@ -1,6 +1,6 @@
 # 家校沟通：逐页执行卡
 
-状态：inventoried-with-gap。模块ID：records。源码相对 `app/w/[token]`：`ClassroomApp.tsx:Records/MobileSecondaryPage`、`NotificationDrafts.tsx`、`features/records/operations.ts`、`features/notifications/operations.ts`。
+状态：implemented。模块ID：records。源码相对 `app/w/[token]`：`ClassroomApp.tsx:Records/MobileSecondaryPage`、`NotificationDrafts.tsx`、`features/records/operations.ts`、`features/notifications/operations.ts`。
 参考：C3派生。派生页面使用对应页面族构图和校园token，不把缺少专属图解释为可回退旧UI。
 
 ## 已核实业务入口
@@ -39,12 +39,12 @@
 
 迁移时将筛选、草稿和提交状态进一步收敛到页面controller；建立 `features/records` 新视图和局部样式，不复制旧DOM进新容器。依次覆盖初始、详情、新增、编辑、多人通知、长内容、空态、只读、复制失败、保存失败与冲突。在独立新界面和混合迁移环境各检查一次，确认旧CSS不参与新页外观，再退出 `record3-*` 和手机重复布局。
 
-## 未完成验收
+## TASK-21验收结果
 
-- 新校园页面DOM/CSS尚未替换，`record3-*` 与通知旧样式仍在生产组件；本卡状态不能写成已迁移。
-- 无记录、多人对象、长草稿、复制失败、100+历史、键盘/焦点、只读、服务器失败/409和跨班切换仍需真实浏览器验证。
-- 保存后关闭与服务器确认未统一，记录列表没有分页，编辑器没有脏关闭守卫。
-- 页面专项仍须证明没有外部发送、新记录不预填假事实、跟进状态真实、桌面与手机共用同一业务结果。
+- 沟通记录、通知草稿、回执和状态操作已接workspace保存回执；新增/编辑失败保留当前内容，成功才关闭。
+- 只读场景禁用新增、编辑、删除、回执和状态写入；复制仍允许，但不会宣称外发。
+- 桌面与手机实渲染及六档严格布局通过；跨班、多人对象、复制失败不改状态、日期和不重复写成长事实由专项覆盖。
+- 记录列表仍无分页；当前演示只有6条，100+历史的虚拟化留到性能任务评估。`record3-*`等共享旧样式的集中移除归TASK-30，不在此处伪称已经删除。
 
 ## 完成判据
 

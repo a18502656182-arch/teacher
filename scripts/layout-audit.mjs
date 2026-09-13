@@ -296,8 +296,10 @@ async function runRuntimeAudit(url) {
                 const style = getComputedStyle(target);
                 const rect = target.getBoundingClientRect();
                 window.__healthHeaderAction = target.classList.contains('primary-button') && rect.height >= 36 && style.backgroundColor !== 'rgba(0, 0, 0, 0)' && style.backgroundColor !== 'rgb(255, 255, 255)';
+                window.__healthReadOnly = target.disabled;
+                window.__healthReadOnlyHealthy = target.disabled;
               }
-              target?.click();
+              if (!target?.disabled) target?.click();
               return Boolean(target);
             })()`,
           });
@@ -306,6 +308,10 @@ async function runRuntimeAudit(url) {
             returnByValue: true,
             expression: `(() => {
               const input = document.querySelector('.care-student-picker input');
+              if (window.__healthReadOnly) {
+                window.__healthPickerIdle = true;
+                return true;
+              }
               window.__healthPickerIdle = Boolean(input) && !document.querySelector('.care-student-options');
               if (!input) return false;
               const setter = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value')?.set;
@@ -616,6 +622,8 @@ async function runRuntimeAudit(url) {
               text: document.body.innerText.slice(0, 300),
               teacherAgenda: [...document.querySelectorAll('.teacher-agenda')].some((element) => element.getClientRects().length > 0),
               healthEditor: Boolean(document.querySelector('.health-care-editor')),
+              healthReadOnly: window.__healthReadOnly === true,
+              healthReadOnlyHealthy: window.__healthReadOnlyHealthy === true,
               healthStudentSearch: Boolean(document.querySelector('.care-student-picker input') && document.querySelector('.care-student-options')),
               healthStudentPickerIdle: window.__healthPickerIdle === true,
               healthStudentPickerPosition: document.querySelector('.care-student-options') ? getComputedStyle(document.querySelector('.care-student-options')).position : '',
@@ -703,11 +711,12 @@ async function runRuntimeAudit(url) {
         if (data?.crampedDialogTextareas?.length) failures.push(`Dialog long-text fields are too short: ${data.crampedDialogTextareas.join(", ")}`);
         if (!data?.content) failures.push("Missing workspace content container.");
         if (pageId === "schedule" && !data?.teacherAgenda) failures.push("Schedule module did not render the teacher agenda view.");
-        if (pageId === "health" && openHealthEditor && !data?.healthEditor) failures.push("Health care module did not open its registration editor.");
-        if (pageId === "health" && openHealthEditor && !data?.healthStudentPickerIdle) failures.push("Health care student picker opens results before the teacher starts searching.");
-        if (pageId === "health" && openHealthEditor && !data?.healthStudentSearch) failures.push("Health care registration does not expose the searchable student selector.");
-        if (pageId === "health" && openHealthEditor && data?.healthStudentPickerPosition !== "static") failures.push("Health care student results overlay the following form fields.");
-        if (pageId === "health" && openHealthEditor && !data?.healthFooterActions) failures.push("Health care registration hides its save action outside the visible editor footer.");
+        if (pageId === "health" && data?.healthReadOnly && !data?.healthReadOnlyHealthy) failures.push("Health care demo does not disable its write entry.");
+        if (pageId === "health" && openHealthEditor && !data?.healthReadOnly && !data?.healthEditor) failures.push("Health care module did not open its registration editor.");
+        if (pageId === "health" && openHealthEditor && !data?.healthReadOnly && !data?.healthStudentPickerIdle) failures.push("Health care student picker opens results before the teacher starts searching.");
+        if (pageId === "health" && openHealthEditor && !data?.healthReadOnly && !data?.healthStudentSearch) failures.push("Health care registration does not expose the searchable student selector.");
+        if (pageId === "health" && openHealthEditor && !data?.healthReadOnly && data?.healthStudentPickerPosition !== "static") failures.push("Health care student results overlay the following form fields.");
+        if (pageId === "health" && openHealthEditor && !data?.healthReadOnly && !data?.healthFooterActions) failures.push("Health care registration hides its save action outside the visible editor footer.");
         if (pageId === "health" && !data?.healthHeaderAction) failures.push("Health care header primary action is not rendered as a visible primary button.");
         if (pageId === "homework" && !data?.homeworkDetail) failures.push("Homework detail did not open from its list entry.");
         if (pageId === "homework" && !data?.homeworkSelectionVisible) failures.push("Homework selection did not reveal the contextual batch bar.");
