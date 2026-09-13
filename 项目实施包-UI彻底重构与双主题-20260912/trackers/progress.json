@@ -3,7 +3,7 @@
   "baselineCommit": "6e10e2dc314e09d0d72df9509730f57c5fde34e2",
   "implementationStatus": "in-progress",
   "active_task": null,
-  "next_action": "TASK-13已完成；按用户临时规则每个任务完成即暂停，收到继续指令后执行TASK-14作业构图基准",
+  "next_action": "TASK-14已完成；按用户临时规则每个任务完成即暂停，收到继续指令后执行TASK-15听写构图基准",
   "milestones": {
     "M0": "done",
     "M1": "in-progress",
@@ -12,7 +12,7 @@
     "M4": "planned",
     "M5": "planned"
   },
-  "note": "线上受检源码无需要覆盖的业务差异。M0完成；TASK-04至TASK-13及提前完成的TASK-29已完成。已完成任务14/33，按任务数42.4%；按剩余页面和验收工作量估计总进度约61%，这不是精确工时。生产构建、246/246自动化测试、认证集成、ESLint和qa:strict通过；学生页在1536x1024与390x844实看，桌面名单加右侧详情、手机单学生Drawer、电话隐私边界和44px触控通过，独立终审0 P0/P1。按用户临时规则每个任务完成即暂停；M1仍需TASK-14至TASK-16，家庭学习按当前优先级暂不扩展，TASK-30前置未满足。没有生产操作。",
+  "note": "线上受检源码无需要覆盖的业务差异。M0完成；TASK-04至TASK-14及提前完成的TASK-29已完成。已完成任务15/33，按任务数45.5%；按剩余页面和验收工作量估计总进度约64%，这不是精确工时。生产构建、251/251自动化测试、认证集成、ESLint和qa:strict通过；作业页在1536x1024与390x844实看，桌面330px任务/右侧学生工作面、手机任务到学生Drawer、批量只在选择后出现、只读边界通过。按用户临时规则每个任务完成即暂停；M1仍需TASK-15至TASK-16，家庭学习按当前优先级暂不扩展，TASK-30前置未满足。没有生产操作。",
   "implementationStartCommit": "f321d5e9424e0020bdf1e56d52c31b986b503a53",
   "parallelPreparation": [],
   "verifiedOnlineBaseline": "0691aba",

@@ -46,6 +46,10 @@ const studentProfile = read("app/w/[token]/StudentProfile.tsx");
 const studentProfileOperations = read("app/w/[token]/features/students/profile.ts");
 const studentView = read("app/w/[token]/features/students/StudentsView.tsx");
 const studentStyles = read("app/w/[token]/features/students/StudentsView.module.css");
+const homeworkView = read("app/w/[token]/features/homework/HomeworkView.tsx");
+const homeworkController = read("app/w/[token]/features/homework/useHomeworkController.ts");
+const homeworkReadModel = read("app/w/[token]/features/homework/read-model.ts");
+const homeworkStyles = read("app/w/[token]/features/homework/HomeworkView.module.css");
 const scoreTrends = read("app/w/[token]/ScoreTrends.tsx");
 const classroomTools = read("app/w/[token]/ClassroomTools.tsx");
 const classroomToolsOperations = read("app/w/[token]/features/tools/operations.ts");
@@ -257,9 +261,10 @@ test("benchmark pages use reference-led compositions and semantic artwork slots"
   assert.match(app, /<StudentsView data=/);
   assert.match(studentView, /className=\{styles\.workspace\}/);
   assert.match(studentStyles, /grid-template-columns:minmax\(620px,1fr\) 350px/);
-  assert.match(app, /campus-homework-workspace/);
+  assert.match(app, /<HomeworkView data=/);
+  assert.match(homeworkView, /aria-label="作业任务列表"/);
+  assert.match(homeworkStyles, /grid-template-columns:\s*330px minmax\(0,\s*1fr\)/);
   assert.doesNotMatch(pageFamiliesCss, /campus-student-workspace|roster-data-table/);
-  assert.match(pageFamiliesCss, /grid-template-columns:330px minmax\(0,1fr\)/);
   assert.match(campusTheme, /assessment: 'assessment\.context'/);
   assert.match(campusTheme, /planning: 'planning\.context'/);
   assert.match(themeDefinitions, /'assessment\.context': artwork\('\/art\/campus\/assessment-review\.webp'/);
@@ -277,8 +282,8 @@ test("AI requires consent, quota and an owned workspace token", () => {
 });
 
 test("mobile workflows preserve agreed interaction rules", () => {
-  assert.match(app, /statuses: Object\.fromEntries\(students\.map\(\(student\) => \[student\.id, "已交"\]\)\)/);
-  assert.match(app, /detailSelectedIds\.length > 0/);
+  assert.match(homeworkController, /statuses: Object\.fromEntries\(students\.map\(student => \[student\.id, '已交'\]\)\)/);
+  assert.match(homeworkView, /mobileDetailOpen/);
   assert.match(app, /selectedIds\.length > 0/);
   assert.match(app, /批量录分/);
   assert.match(app, /添加成长记录 · \$\{selectedGrowthStudent\.name\}/);
@@ -286,16 +291,17 @@ test("mobile workflows preserve agreed interaction rules", () => {
   assert.match(app, /周五/);
 });
 
-test("homework batch status changes clear the completed selection and keep mobile detail focused", () => {
-  assert.match(app, /function bulkSet\(next:[\s\S]*?setSelectedStudentIds\(\[\]\);/);
-  assert.match(app, /className="homework-follow-modal"/);
-  assert.match(app, /className="follow-rank"/);
-  assert.match(app, /className="follow-student"/);
-  assert.match(app, /className="homework-follow-stats" aria-label="待跟进名单统计"/);
-  assert.doesNotMatch(app, /className="mobile-task-sheet-summary"/);
-  assert.match(app, /className="mobile-homework-selection-rail"/);
-  assert.doesNotMatch(app, /点学生可多选，点状态可直接修改/);
-  assert.match(app, /function batchSetHomeworkStatus\(status:[\s\S]*?setDetailSelectedIds\(\[\]\)/);
+test("homework uses one controller for desktop and mobile task-first workflows", () => {
+  assert.match(homeworkController, /function bulkSet\(status: HomeworkStatus\)[\s\S]*?setSelectedStudentIds\(\[\]\)/);
+  assert.match(homeworkController, /function addSelectedToFollow\(\)[\s\S]*?setSelectedStudentIds\(\[\]\)[\s\S]*?setFollowOpen\(true\)/);
+  assert.match(homeworkController, /copyFollowList/);
+  assert.match(homeworkView, /title="待跟进名单"/);
+  assert.match(homeworkView, /<SelectionBar/);
+  assert.match(homeworkView, /open=\{mobile && c\.mobileDetailOpen\}/);
+  assert.match(homeworkView, /<DraftClosePrompt/);
+  assert.match(homeworkReadModel, /task\.classId === classId/);
+  assert.doesNotMatch(app, /function Homework\(|function MobileHomework\(/);
+  assert.doesNotMatch(homeworkView, /mobile-task-sheet-summary|点学生可多选/);
 });
 
 test("duty timetable follows the course schedule's custom teaching days", () => {

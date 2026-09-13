@@ -17,15 +17,15 @@ A-02-06,students,readonly,demo-readonly,1536x1024;390x844,本任务提交,pass,e
 A-02-07,students,save-failure,E8-save-failure,automated,本任务提交,pass,evidence/students-implementation-20260913.md,一般编辑保留本机workspace草稿并由全局错误重试承接
 A-02-08,students,conflict-or-not-applicable,E9-conflict,automated,本任务提交,pass,evidence/students-implementation-20260913.md,共享workspace在409后保留草稿并锁住覆盖保存
 A-02-09,students,legacy-css-off,demo-css-isolation,1536x1024;390x844,本任务提交,pass,evidence/students-implementation-20260913.md,旧Students/MobileStudents与page-families学生构图退出且新页在ThemeBoundary内
-A-03-01,homework,desktop-default,,,,not-run,,不适用需说明源码依据
-A-03-02,homework,mobile-default,,,,not-run,,不适用需说明源码依据
-A-03-03,homework,empty,,,,not-run,,不适用需说明源码依据
-A-03-04,homework,long-data,,,,not-run,,不适用需说明源码依据
-A-03-05,homework,primary-editor,,,,not-run,,不适用需说明源码依据
-A-03-06,homework,readonly,,,,not-run,,不适用需说明源码依据
-A-03-07,homework,save-failure,,,,not-run,,不适用需说明源码依据
-A-03-08,homework,conflict-or-not-applicable,,,,not-run,,不适用需说明源码依据
-A-03-09,homework,legacy-css-off,,,,not-run,,不适用需说明源码依据
+A-03-01,homework,desktop-default,demo-readonly,1536x1024;qa-strict,本任务提交,pass,evidence/homework-implementation-20260913.md,C4左330px任务与右学生工作面实看且无横向溢出
+A-03-02,homework,mobile-default,demo-readonly,390x844;360x780,本任务提交,pass,evidence/homework-implementation-20260913.md,手机任务列表进入学生详情Drawer并保留返回上下文
+A-03-03,homework,empty,E0/E4-0,automated,本任务提交,pass,evidence/homework-implementation-20260913.md,读取模型保持0项真实空态且不补造任务
+A-03-04,homework,long-data,E2/E4/E6,automated;qa-strict,本任务提交,pass,evidence/homework-implementation-20260913.md,30项任务105人长姓名完整备注分页搜索与六档布局通过
+A-03-05,homework,primary-editor,source-and-automated,desktop;mobile,本任务提交,pass,evidence/homework-implementation-20260913.md,增改删入口四态单人批量备注筛选分页和跟进增删复制均迁入统一controller
+A-03-06,homework,readonly,demo-readonly,1536x1024;390x844;qa-strict,本任务提交,pass,evidence/homework-implementation-20260913.md,搜索筛选查看复制保留且新增编辑删除状态备注批量写入禁用
+A-03-07,homework,save-failure,E8-save-failure,automated,本任务提交,pass,evidence/homework-implementation-20260913.md,页面本地修改进入workspace草稿且共享控制器网络失败不清dirty
+A-03-08,homework,conflict-or-not-applicable,E9-conflict,automated,本任务提交,pass,evidence/homework-implementation-20260913.md,共享workspace在409后保留草稿并锁住覆盖保存
+A-03-09,homework,legacy-css-off,demo-css-isolation,1536x1024;390x844;qa-strict,本任务提交,pass,evidence/homework-implementation-20260913.md,旧Homework/MobileHomework展示退出且新CSS Module位于ThemeBoundary
 A-04-01,attendance,desktop-default,,,,not-run,,不适用需说明源码依据
 A-04-02,attendance,mobile-default,,,,not-run,,不适用需说明源码依据
 A-04-03,attendance,empty,,,,not-run,,不适用需说明源码依据

@@ -12,7 +12,7 @@ TASK-10,制作首批插画母样与变体,06,done,5fd3fc5,项目实施包-UI彻�
 TASK-11,建立共享壳层,"05,07,08,09",done,5f16aeb,项目实施包-UI彻底重构与双主题-20260912/evidence/shared-workbench-shell-20260913.md,等待用户浏览真实本地壳层；确认后执行TASK-12
 TASK-12,首页构图基准,"10,11",done,015daa3,项目实施包-UI彻底重构与双主题-20260912/evidence/dashboard-implementation-20260913.md,等待用户浏览真实本地首页；确认后执行TASK-13
 TASK-13,学生构图基准,"10,11",done,本任务提交,项目实施包-UI彻底重构与双主题-20260912/evidence/students-implementation-20260913.md,按用户临时规则暂停；收到继续指令后TASK-14
-TASK-14,作业构图基准,"10,11",planned,,,
+TASK-14,作业构图基准,"10,11",done,本任务提交,项目实施包-UI彻底重构与双主题-20260912/evidence/homework-implementation-20260913.md,按用户临时规则暂停；收到继续指令后TASK-15
 TASK-15,听写构图基准,"10,11",planned,,,
 TASK-16,标杆视觉门槛,"12,13,14,15",planned,,,
 TASK-17,接通首页学生作业全流程,16,planned,,,

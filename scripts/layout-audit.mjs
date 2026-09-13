@@ -10,7 +10,11 @@ const reportDir = process.env.QA_REPORT_DIR || path.join(tmpdir(), "classroom-la
 const reportPath = path.join(reportDir, "layout-audit.json");
 const defaultUrl = process.env.QA_URL || "http://127.0.0.1:4180/w/demo";
 const allPages = ["dictation", "dashboard", "students", "attendance", "homework", "points", "rules", "growth", "health", "weekly", "schedule", "tools", "seating", "duty", "cadres", "records", "scores", "reflection", "comments"];
-const pages = process.env.QA_PAGES ? process.env.QA_PAGES.split(",").map((value) => value.trim()).filter((value) => allPages.includes(value)) : allPages;
+const pages = process.env.QA_PAGES
+  ? process.env.QA_PAGES.split(",")
+      .map((value) => value.trim())
+      .filter((value) => allPages.includes(value))
+  : allPages;
 const screenshotDir = process.env.QA_SCREENSHOT_DIR ? path.resolve(process.env.QA_SCREENSHOT_DIR) : "";
 const scoreView = process.env.QA_SCORES_VIEW || "";
 const openHealthEditor = process.env.QA_HEALTH_OPEN_EDITOR !== "false";
@@ -33,6 +37,7 @@ function runStaticAudit() {
   const repair = readFileSync(path.join(root, "app", "workbench-repair.css"), "utf8");
   const layout = readFileSync(path.join(root, "app", "layout.tsx"), "utf8");
   const workbenchShell = readFileSync(path.join(root, "app", "components", "workbench", "shell", "shell.module.css"), "utf8");
+  const homeworkStyles = readFileSync(path.join(root, "app", "w", "[token]", "features", "homework", "HomeworkView.module.css"), "utf8");
   const route = readFileSync(path.join(root, "app", "api", "workspace", "[token]", "route.ts"), "utf8");
   const importantCount = (repair.match(/!important/g) || []).length;
 
@@ -48,7 +53,11 @@ function runStaticAudit() {
   assert(/\.app-shell\s*\{[^}]*grid-template-columns:\s*236px\s+minmax\(0,\s*1fr\)/i.test(repair), "Missing stable sidebar/content shell grid.", failures);
   assert(/\.app-main\s*\{[^}]*margin-left:\s*0;/i.test(repair), "Missing app-main double-offset reset.", failures);
   assert(/\.page-content\s*\{[^}]*max-width:\s*none;/i.test(repair), "Page content is not full-width in the workbench shell.", failures);
-  assert(/\.exam4-table,\s*\.exam4-library-table\s*\{[^}]*display:\s*table;/i.test(repair) && /\.reflection5-score-table\s*\{[^}]*display:\s*table;[^}]*border-collapse:\s*collapse;/i.test(repair), "Score tables are not kept as semantic table layout.", failures);
+  assert(
+    /\.exam4-table,\s*\.exam4-library-table\s*\{[^}]*display:\s*table;/i.test(repair) && /\.reflection5-score-table\s*\{[^}]*display:\s*table;[^}]*border-collapse:\s*collapse;/i.test(repair),
+    "Score tables are not kept as semantic table layout.",
+    failures,
+  );
   assert(/\.pointdesk-workspace\s*\{[^}]*grid-template-columns:\s*minmax\(0,\s*1fr\)\s*330px;/i.test(repair), "Points page is missing the final two-column desktop layout.", failures);
   assert(/\.point-pro-page\s*\{[^}]*display:\s*grid;[^}]*gap:\s*14px;/s.test(repair), "Points page is missing the redesign wrapper.", failures);
   assert(/\.point-pro-page \.pointdesk-student-table\s*\{[^}]*border-collapse:\s*collapse;/s.test(repair), "Points page is missing the student table surface.", failures);
@@ -62,8 +71,8 @@ function runStaticAudit() {
   assert(/\.point-pro-page \.pointdesk-clear\s*\{[^}]*border:\s*0;[^}]*background:\s*transparent;/s.test(repair), "Points clear action must remain a text action, not an input-like bordered button.", failures);
   assert(!new RegExp("[\\u935A\\u95BE\\u701B\\u7EFE\\u941D\\u4E3F\\u6500\\u5931\\u8F9C\\u6B8F]").test(layout), "Root layout still contains mojibake text.", failures);
   assert(/rowHasMojibake/.test(route), "Demo workspace no longer auto-recovers corrupted demo data.", failures);
-  assert(/\.homework-status-segment\s*\{[^}]*flex-wrap:\s*nowrap;[^}]*white-space:\s*nowrap;/s.test(repair), "Homework status options must use a nowrap segmented-control container.", failures);
-  assert(/\.homework-status-segment button\s*\{[^}]*min-width:\s*58px;[^}]*white-space:\s*nowrap;/s.test(repair), "Homework status option buttons must reserve stable width and prevent squeezed text.", failures);
+  assert(/\.workspace\s*\{[^}]*grid-template-columns:\s*330px minmax\(0,\s*1fr\)/s.test(homeworkStyles), "Homework desktop view is missing the stable task/detail split.", failures);
+  assert(/\.studentRow :global\(\[role="group"\] button\)\s*\{[^}]*min-width:\s*57px/s.test(homeworkStyles), "Homework status options do not reserve stable button width.", failures);
 
   return { name: "static", failures };
 }
@@ -79,7 +88,9 @@ function findBrowser() {
     "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe",
     "C:\\Program Files\\Microsoft\\Edge\\Application\\msedge.exe",
     "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe",
-  ].filter(Boolean).find((candidate) => existsSync(candidate));
+  ]
+    .filter(Boolean)
+    .find((candidate) => existsSync(candidate));
 }
 
 async function waitForHttp(url, timeoutMs = 45000) {
@@ -139,15 +150,21 @@ function cdpSession(wsUrl, onEvent = () => {}) {
 async function withDevServer(fn) {
   if (!args.has("--serve")) return fn(defaultUrl);
   const port = process.env.QA_PORT || "4180";
-  const server = spawn(process.platform === "win32" ? "cmd.exe" : "npm", process.platform === "win32"
-    ? ["/d", "/s", "/c", `npm.cmd run dev -- --host 127.0.0.1 --port ${port}`]
-    : ["run", "dev", "--", "--host", "127.0.0.1", "--port", port], {
-    cwd: root,
-    stdio: ["ignore", "pipe", "pipe"],
-  });
+  const server = spawn(
+    process.platform === "win32" ? "cmd.exe" : "npm",
+    process.platform === "win32" ? ["/d", "/s", "/c", `npm.cmd run dev -- --host 127.0.0.1 --port ${port}`] : ["run", "dev", "--", "--host", "127.0.0.1", "--port", port],
+    {
+      cwd: root,
+      stdio: ["ignore", "pipe", "pipe"],
+    },
+  );
   let output = "";
-  server.stdout.on("data", (chunk) => { output += chunk.toString(); });
-  server.stderr.on("data", (chunk) => { output += chunk.toString(); });
+  server.stdout.on("data", (chunk) => {
+    output += chunk.toString();
+  });
+  server.stderr.on("data", (chunk) => {
+    output += chunk.toString();
+  });
   try {
     const started = Date.now();
     let baseUrl = `http://127.0.0.1:${port}/`;
@@ -159,11 +176,7 @@ async function withDevServer(fn) {
       }
       await wait(250);
     }
-    const candidates = [
-      new URL("/w/demo", baseUrl).toString(),
-      `http://localhost:${port}/w/demo`,
-      `http://127.0.0.1:${port}/w/demo`,
-    ];
+    const candidates = [new URL("/w/demo", baseUrl).toString(), `http://localhost:${port}/w/demo`, `http://127.0.0.1:${port}/w/demo`];
     let url = candidates[0];
     let lastError;
     for (const candidate of [...new Set(candidates)]) {
@@ -181,25 +194,27 @@ async function withDevServer(fn) {
   } catch (error) {
     throw new Error(`${error.message}\nDev server output:\n${output.slice(-3000)}`);
   } finally {
-    if (process.platform === "win32" && server.pid) spawnSync("taskkill", ["/pid", String(server.pid), "/t", "/f"], { stdio: "ignore" });
+    if (process.platform === "win32" && server.pid)
+      spawnSync("taskkill", ["/pid", String(server.pid), "/t", "/f"], {
+        stdio: "ignore",
+      });
     else server.kill("SIGTERM");
   }
 }
 
 async function runRuntimeAudit(url) {
   const browserPath = findBrowser();
-  if (!browserPath) return [{ name: "runtime", failures: ["Chrome or Edge executable was not found."] }];
+  if (!browserPath)
+    return [
+      {
+        name: "runtime",
+        failures: ["Chrome or Edge executable was not found."],
+      },
+    ];
 
   const userDataDir = await mkdtemp(path.join(tmpdir(), "classroom-layout-audit-"));
   if (screenshotDir) mkdirSync(screenshotDir, { recursive: true });
-  const browserProcess = spawn(browserPath, [
-    "--headless=new",
-    "--no-sandbox",
-    "--disable-gpu",
-    "--remote-debugging-port=0",
-    `--user-data-dir=${userDataDir}`,
-    "about:blank",
-  ], { stdio: ["ignore", "ignore", "pipe"] });
+  const browserProcess = spawn(browserPath, ["--headless=new", "--no-sandbox", "--disable-gpu", "--remote-debugging-port=0", `--user-data-dir=${userDataDir}`, "about:blank"], { stdio: ["ignore", "ignore", "pipe"] });
 
   try {
     const activePortPath = path.join(userDataDir, "DevToolsActivePort");
@@ -207,7 +222,9 @@ async function runRuntimeAudit(url) {
     const [port, wsPath] = (await readFile(activePortPath, "utf8")).trim().split(/\r?\n/);
     const browser = cdpSession(`ws://127.0.0.1:${port}${wsPath}`);
     await browser.opened;
-    const target = await browser.send("Target.createTarget", { url: "about:blank" });
+    const target = await browser.send("Target.createTarget", {
+      url: "about:blank",
+    });
     const targets = await fetch(`http://127.0.0.1:${port}/json/list`).then((response) => response.json());
     const pageTarget = targets.find((item) => item.id === target.targetId);
     let runtimeErrors = [];
@@ -230,7 +247,12 @@ async function runRuntimeAudit(url) {
 
     const results = [];
     for (const viewport of viewports) {
-      await page.send("Emulation.setDeviceMetricsOverride", { width: viewport.width, height: viewport.height, deviceScaleFactor: 1, mobile: viewport.width <= 900 });
+      await page.send("Emulation.setDeviceMetricsOverride", {
+        width: viewport.width,
+        height: viewport.height,
+        deviceScaleFactor: 1,
+        mobile: viewport.width <= 900,
+      });
       for (const pageId of pages) {
         runtimeErrors = [];
         await page.send("Page.navigate", { url: `${url}?page=${pageId}` });
@@ -298,45 +320,34 @@ async function runRuntimeAudit(url) {
             returnByValue: true,
             expression: `(() => {
               const isMobile = innerWidth <= 900;
-              const target = isMobile
-                ? document.querySelector('.mobile-homework-task-list > button')
-                : document.querySelector('.homework-ledger-table .homework-row-actions .primary');
+              const target = isMobile ? document.querySelector('[aria-label="作业任务列表"] > button') : null;
               target?.click();
-              return { isMobile, opened: Boolean(target) };
+              return { isMobile, opened: !isMobile || Boolean(target) };
             })()`,
           });
           await wait(120);
-          if (viewport.width > 900) {
-            await page.send("Runtime.evaluate", {
-              returnByValue: true,
-              expression: `(() => {
-                const checkbox = document.querySelector('input[aria-label^="选择"]');
-                checkbox?.click();
-                const batch = [...document.querySelectorAll('.taskdesk-bulk button')].find((button) => button.textContent?.includes('选中设为待订正'));
-                batch?.click();
-                return Boolean(checkbox && batch);
-              })()`,
-            });
-            await wait(120);
-            await page.send("Runtime.evaluate", {
-              returnByValue: true,
-              expression: `(() => {
-                window.__homeworkSelectionCleared = ![...document.querySelectorAll('input[aria-label^="选择"]')].some((input) => input.checked);
-                document.querySelector('input[aria-label^="选择"]')?.click();
-                [...document.querySelectorAll('.taskdesk-bulk button')].find((button) => button.textContent?.includes('选中加入待跟进名单'))?.click();
-                return window.__homeworkSelectionCleared;
-              })()`,
-            });
-          } else {
-            await page.send("Runtime.evaluate", {
-              returnByValue: true,
-              expression: `(() => {
-                const row = document.querySelector('.mobile-homework-edit-row > div[role="button"]');
-                row?.click();
-                return Boolean(row);
-              })()`,
-            });
-          }
+          await page.send("Runtime.evaluate", {
+            returnByValue: true,
+            expression: `(() => {
+              const checkbox = [...document.querySelectorAll('input[type="checkbox"]')].find((input) => input.closest('article'));
+              checkbox?.click();
+              window.__homeworkSelectionVisible = Boolean(document.querySelector('[aria-label="批量操作"]'));
+              const bulk = [...document.querySelectorAll('button')].find((button) => button.textContent?.includes('批量改状态'));
+              window.__homeworkReadonlyBulkDisabled = Boolean(bulk?.disabled);
+              const menu = [...document.querySelectorAll('button')].find((button) => button.textContent?.includes('任务操作'));
+              menu?.click();
+              return Boolean(checkbox && menu);
+            })()`,
+          });
+          await wait(100);
+          await page.send("Runtime.evaluate", {
+            returnByValue: true,
+            expression: `(() => {
+              const follow = [...document.querySelectorAll('button, [role="menuitem"]')].find((item) => item.textContent?.includes('待跟进名单'));
+              follow?.click();
+              return Boolean(follow);
+            })()`,
+          });
         }
         if (pageId === "attendance") {
           await page.send("Runtime.evaluate", {
@@ -590,12 +601,12 @@ async function runRuntimeAudit(url) {
               healthStudentPickerPosition: document.querySelector('.care-student-options') ? getComputedStyle(document.querySelector('.care-student-options')).position : '',
               healthFooterActions: [...document.querySelectorAll('.health-care-editor > footer button')].filter((button) => button.getClientRects().length > 0 && button.textContent?.includes('保存登记')).length > 0,
               healthHeaderAction: window.__healthHeaderAction === true,
-              homeworkDetail: Boolean(document.querySelector('.taskdesk-detail, .mobile-bottom-sheet')),
-              homeworkFollowModal: Boolean(document.querySelector('.homework-follow-modal')),
-              homeworkSelectionCleared: window.__homeworkSelectionCleared === true,
+              homeworkDetail: Boolean(document.querySelector('[aria-label="当前作业状态统计"]')),
+              homeworkFollowModal: [...document.querySelectorAll('[role="dialog"], dialog[open]')].some((element) => element.textContent?.includes('待跟进名单')),
+              homeworkSelectionVisible: window.__homeworkSelectionVisible === true,
+              homeworkReadonlyBulkDisabled: window.__homeworkReadonlyBulkDisabled === true,
               mobileHomeworkTaskSummary: Boolean(document.querySelector('.mobile-task-sheet-summary')),
-              mobileHomeworkSelectionRail: Boolean(document.querySelector('.mobile-homework-selection-rail')),
-              mobileHomeworkSelectionVisible: Boolean(document.querySelector('.mobile-homework-edit-row.selected .mobile-homework-selection-mark')),
+              mobileHomeworkSelectionRail: Boolean(document.querySelector('article input[type="checkbox"]')),
               attendanceLedger: Boolean(document.querySelector('.attendance-ledger .attendance-roster-controls')),
               attendanceBatchBar: window.__attendanceBatchBarVisible === true,
               attendanceSelectionCleared: window.__attendanceSelectionCleared === true,
@@ -667,7 +678,7 @@ async function runRuntimeAudit(url) {
         });
         const data = result.value;
         const failures = [];
-        if (data?.crampedDialogTextareas?.length) failures.push(`Dialog long-text fields are too short: ${data.crampedDialogTextareas.join(', ')}`);
+        if (data?.crampedDialogTextareas?.length) failures.push(`Dialog long-text fields are too short: ${data.crampedDialogTextareas.join(", ")}`);
         if (!data?.content) failures.push("Missing workspace content container.");
         if (pageId === "schedule" && !data?.teacherAgenda) failures.push("Schedule module did not render the teacher agenda view.");
         if (pageId === "health" && openHealthEditor && !data?.healthEditor) failures.push("Health care module did not open its registration editor.");
@@ -677,11 +688,11 @@ async function runRuntimeAudit(url) {
         if (pageId === "health" && openHealthEditor && !data?.healthFooterActions) failures.push("Health care registration hides its save action outside the visible editor footer.");
         if (pageId === "health" && !data?.healthHeaderAction) failures.push("Health care header primary action is not rendered as a visible primary button.");
         if (pageId === "homework" && !data?.homeworkDetail) failures.push("Homework detail did not open from its list entry.");
-        if (pageId === "homework" && viewport.width > 900 && !data?.homeworkSelectionCleared) failures.push("Homework batch status action did not clear completed row selections.");
-        if (pageId === "homework" && viewport.width > 900 && !data?.homeworkFollowModal) failures.push("Homework follow-up list did not open from the detail toolbar.");
+        if (pageId === "homework" && !data?.homeworkSelectionVisible) failures.push("Homework selection did not reveal the contextual batch bar.");
+        if (pageId === "homework" && !data?.homeworkReadonlyBulkDisabled) failures.push("Homework demo did not keep write actions disabled.");
+        if (pageId === "homework" && !data?.homeworkFollowModal) failures.push("Homework follow-up list did not open from the task menu.");
         if (pageId === "homework" && viewport.width <= 900 && data?.mobileHomeworkTaskSummary) failures.push("Mobile homework detail still repeats the task summary card.");
         if (pageId === "homework" && viewport.width <= 900 && !data?.mobileHomeworkSelectionRail) failures.push("Mobile homework rows do not expose the visual selection affordance.");
-        if (pageId === "homework" && viewport.width <= 900 && !data?.mobileHomeworkSelectionVisible) failures.push("Mobile homework selection does not visibly update after tapping a student row.");
         if (pageId === "attendance" && !data?.attendanceLedger) failures.push("Attendance does not expose the searchable main roster.");
         if (pageId === "attendance" && !data?.attendanceBatchBar) failures.push("Attendance selection does not expose the batch-save controls.");
         if (pageId === "attendance" && !data?.attendanceSelectionCleared) failures.push("Attendance batch save did not clear completed row selections.");
@@ -713,7 +724,11 @@ async function runRuntimeAudit(url) {
         if (data?.clippedSurfaces?.length) failures.push(`Visible surfaces are clipped outside the viewport: ${data.clippedSurfaces.join(", ")}.`);
         if (data?.content && viewport.width >= 1000 && data.viewportWidth - data.content.right > 40) failures.push("Main content leaves an abnormal right gap.");
         if (screenshotDir) {
-          const shot = await page.send("Page.captureScreenshot", { format: "png", fromSurface: true, captureBeyondViewport: false });
+          const shot = await page.send("Page.captureScreenshot", {
+            format: "png",
+            fromSurface: true,
+            captureBeyondViewport: false,
+          });
           writeFileSync(path.join(screenshotDir, `${viewport.name}-${pageId}.png`), Buffer.from(shot.data, "base64"));
         }
         if (viewport.width >= 1000 && pageId === "seating") {
@@ -744,7 +759,11 @@ async function runRuntimeAudit(url) {
           if (sticky?.sideNavMaxScroll > 4 && sticky.sideNavScrollTop < sticky.sideNavMaxScroll - 4) failures.push("Desktop navigation cannot scroll to its final items.");
           if (!sticky?.navigationBackground || sticky.navigationBackground === "rgba(0, 0, 0, 0)") failures.push("Desktop shell is missing the continuous sidebar background rail.");
           if (screenshotDir) {
-            const scrolledShot = await page.send("Page.captureScreenshot", { format: "png", fromSurface: true, captureBeyondViewport: false });
+            const scrolledShot = await page.send("Page.captureScreenshot", {
+              format: "png",
+              fromSurface: true,
+              captureBeyondViewport: false,
+            });
             writeFileSync(path.join(screenshotDir, `${viewport.name}-${pageId}-scrolled.png`), Buffer.from(scrolledShot.data, "base64"));
           }
         }
@@ -760,7 +779,12 @@ async function runRuntimeAudit(url) {
   } finally {
     browserProcess.kill("SIGTERM");
     try {
-      rmSync(userDataDir, { recursive: true, force: true, maxRetries: 3, retryDelay: 200 });
+      rmSync(userDataDir, {
+        recursive: true,
+        force: true,
+        maxRetries: 3,
+        retryDelay: 200,
+      });
     } catch {
       // Windows can keep the browser profile locked briefly after process shutdown.
     }
@@ -769,7 +793,7 @@ async function runRuntimeAudit(url) {
 
 mkdirSync(reportDir, { recursive: true });
 const allResults = [runStaticAudit()];
-if (!args.has("--static")) allResults.push(...await withDevServer(runRuntimeAudit));
+if (!args.has("--static")) allResults.push(...(await withDevServer(runRuntimeAudit)));
 const failures = allResults.flatMap((result) => result.failures.map((failure) => `${result.name}: ${failure}`));
 writeFileSync(reportPath, JSON.stringify({ createdAt: new Date().toISOString(), results: allResults, failures }, null, 2));
 
