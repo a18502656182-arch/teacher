@@ -4,7 +4,7 @@ TASK-02,展开功能与弹窗账本,01,done,ce66702,evidence/implementation-star
 TASK-03,建立隔离测试夹具,02,done,ce66702,evidence/fixture-environment-20260913.md,TASK04核对并抽取剩余纯业务计算
 TASK-04,抽取纯业务计算,02,done,c944929,evidence/pure-business-extraction-20260913.md,TASK05抽取通用保存草稿失败重试与409控制器
 TASK-05,抽取保存与草稿操作,"03,04",done,7617c9f,evidence/workspace-controller-20260913.md,TASK06完成主题契约与token
-TASK-06,建立主题契约与token,01,in-progress,,evidence/implementation-start-20260912.md,基础层已实现并独立预览；完整契约与组件覆盖待补齐
+TASK-06,建立主题契约与token,01,done,8a9fb0e,evidence/theme-contract-20260913.md,TASK07补齐基础控件及检查器
 TASK-07,建立基础控件,06,in-progress,,evidence/implementation-start-20260912.md,基础层已实现并独立预览；完整契约与组件覆盖待补齐
 TASK-08,建立浮层与搜索选人,"05,07",planned,,,
 TASK-09,建立新旧样式隔离,"06,07",planned,,,

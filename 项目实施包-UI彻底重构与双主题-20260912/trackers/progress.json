@@ -2,8 +2,8 @@
   "packageVersion": "1.0",
   "baselineCommit": "6e10e2dc314e09d0d72df9509730f57c5fde34e2",
   "implementationStatus": "in-progress",
-  "active_task": "TASK-06",
-  "next_action": "完成校园公开、玻璃内部的语义token与资源manifest契约，验证主题值切换不重挂载且缺失资源不模糊回退",
+  "active_task": "TASK-07",
+  "next_action": "补齐Button、Field、StatusSegment、SelectionBar、加载/空态等基础控件的状态与可访问契约，并在长文本、disabled、busy及窄屏检查器中验证",
   "milestones": {
     "M0": "done",
     "M1": "in-progress",
@@ -12,11 +12,9 @@
     "M4": "planned",
     "M5": "planned"
   },
-  "note": "线上受检源码无需要覆盖的业务差异。M0完成；TASK-04纯业务读取模型与TASK-05共享工作区controller完成。一般保存、听写确认提交、草稿恢复、失败重试、队列、revision、409、备份和离开守卫已自动及隔离浏览器验证；E7至E9均已实际触发，演示一般写入口修正为真正只读。生产构建、220/220自动化测试和认证集成通过。M1继续进行，TASK-06为活动任务；多数业务页迁移和A场景仍未完成，TASK-30前置未满足。没有生产操作。",
+  "note": "线上受检源码无需要覆盖的业务差异。M0完成；TASK-04纯业务读取模型、TASK-05工作区controller和TASK-06统一主题契约完成。公开主题固定校园，玻璃只有完整内部token和空资源manifest；旧校园插画表已收敛为语义role适配。生产构建、224/224自动化测试、认证集成和115项qa:strict通过。M1继续进行，TASK-07为活动任务；多数业务页迁移和A场景仍未完成，TASK-30前置未满足。没有生产操作。",
   "implementationStartCommit": "f321d5e9424e0020bdf1e56d52c31b986b503a53",
-  "parallelPreparation": [
-    "TASK-07"
-  ],
+  "parallelPreparation": [],
   "verifiedOnlineBaseline": "0691aba",
   "onlineArchiveSha256": "F2019A92C0E1CDB850DE1D790105CBE4DD82973645188244352841F0951E1E92"
 }
