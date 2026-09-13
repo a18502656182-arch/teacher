@@ -119,7 +119,7 @@ canvas 是根画布，work 是控件与弹窗表面。ink / muted 分别承载�
 
 **The Semantic State Rule.** 状态必须同时有文字或程序化状态；错误字段使用 aria-invalid 与关联错误信息，选中状态使用 aria-pressed。
 
-玻璃探针在局部主题中替换画布、上下文、辅助色、文字、主色与边线。其 artworkByRole 为空、状态 planned，不属于公开产品色板。
+玻璃探针在局部主题中替换画布、上下文、辅助色、文字、主色、边线、表面材质与弹窗阴影。其 artworkByRole 为空、状态 planned，不属于公开产品色板；缺图直接不渲染，不能借用校园资源。
 
 ## Typography
 
@@ -143,9 +143,9 @@ Dialog 桌面宽度 min(620px, calc(100% - 32px))，最大高度 calc(100dvh - 3
 
 ## Elevation & Depth
 
-普通按钮无阴影；Dialog 使用 --wb-elevation-dialog（0 16px 56px #17354a30），遮罩为 --wb-backdrop（#17354a66）。校园 --wb-material-blur 为 0px；内部玻璃探针仅在支持 backdrop-filter 时将 work 改为 #fffffff0、blur 改为 12px，其他环境保持实色。该降级是源码行为，不等于已完成设备性能验证。
+普通按钮无阴影；Dialog 使用主题定义的 --wb-elevation-dialog 与 --wb-backdrop。校园 --wb-material-blur 为 0px；内部玻璃探针仅在支持 backdrop-filter 时将 work 改为增强表面、blur 改为12px，其他环境读取同一主题中的实色后备面。该降级是源码行为，不等于已完成设备性能验证。
 
-焦点为 3px primary 轮廓、3px offset。按钮背景过渡使用 --wb-motion-duration（120ms）与 ease-out；prefers-reduced-motion 时为 0ms。
+焦点为3px primary轮廓、3px offset。按钮背景过渡同时读取 --wb-motion-duration 与 --wb-motion-easing；声明支持减少动态的主题在 `prefers-reduced-motion` 下把时长设为0ms。
 
 **The Material Boundary Rule.** 材质只由主题变量和局部样式控制；ThemeBoundary 不改变 React key，不持有工作区状态。跨主题保持状态的实际保证仍需在具体业务接入后验证。
 
@@ -155,10 +155,10 @@ control 为按钮、字段、分段外框和批量条统一圆角；surface 用�
 
 ## Components
 
-- **ThemeBoundary / useWorkbenchTheme**：Boundary 接收 children、可选 definition（默认 campusTheme），通过 Context 提供定义，并输出 data-ui-generation="next" 与 data-theme。resolvePublicTheme 固定返回 campus。此新目录的 campus 状态仍为 development；不继承旧 campus 目录的 ready 标记。探针切换只存在于开发工具。
-- **ThemeDefinition / ArtworkAsset**：主题包含 id、status、artworkByRole、blur/reducedMotion 能力声明。ArtworkRole 为 home.scene、dictation.context、student.detail、homework.context、assessment.context、planning.context、care.context、communication.context、organization.context、family.context、empty.first-use、empty.no-results。资产契约包含 src、可选 mobileSrc、尺寸、fit、focalPoint、safeTextArea、decorative:true 和 candidate/ready 状态。campus 目前仅分配 dictation.context 候选素材（/art/campus/dictation-stationery-v2.png，1666×944，cover，焦点 85% 50%，safeTextArea:left，status:candidate），未升级为 ready；其余角色与 glass 映射仍为空。
-- **Artwork**：按 role 从当前 ThemeBoundary 读取素材；缺失时返回 null，不跨主题回退到校园插画。输出空 alt、aria-hidden 的装饰性 img，消费 src、尺寸、fit 与 focalPoint；当前不消费 mobileSrc 或 safeTextArea，也不按 candidate/ready 过滤。safeTextArea 是资产元数据，不会自动保留文字安全区；candidate 能在探针渲染不等于生产授权。
-- **GradingView（隔离探针）**：通过共享 useGradingController 获取批改状态，复用 Button、Field、Input、Select、Icon 与 Artwork；页面只请求 dictation.context，不硬编码校园资产路径。班级与家庭复用业务控制器和批改字段，家庭省略名单和上一位/下一位；换主题只改变基础层与素材定义。学生名单、错词复选框、参与状态、备注、确认与保存组成当前实现，业务可靠性、交互和生产混合样式仍须独立审核。
+- **ThemeBoundary / useWorkbenchTheme**：Boundary 接收 children、可选 definition（默认公开主题定义），通过Context提供定义，并输出主题id、状态、blur/reduced-motion能力和由definition生成的CSS变量。它不使用React key，也不持有工作区状态。resolvePublicTheme固定返回campus；探针切换只存在于开发工具。
+- **ThemeDefinition / themeCssVariables**：每个主题完整声明 id、status、semanticColors、surfaces、typography、spacing、radii、elevation、motion、artworkByRole 与 capabilities。变量转换器是共享CSS token的唯一新主题来源；玻璃拥有实色与增强表面两组明确值，CSS `@supports`只选择其一。
+- **ArtworkAsset / Artwork**：17个语义角色覆盖首页、入口、听写、学生、作业、成绩、日程、值日、组织、照护、沟通、工具、家庭、管理员和空态。资产契约包含src、可选mobileSrc、尺寸、fit、focalPoint、safeTextArea、decorative、fallback与candidate/ready状态。Artwork缺失时返回null，不跨主题回退；有mobileSrc时使用picture/source，safeTextArea和状态作为可检查元数据输出。旧`ThemeArtwork`只保留slot到语义role的适配，不再维护第二份资源表。
+- **GradingView（隔离探针）**：通过共享 useGradingController 获取批改状态，复用 Button、Field、Input、Select、Icon 与 Artwork；页面请求 dictation.grading，不硬编码校园资产路径。班级与家庭复用业务控制器和批改字段，家庭省略名单和上一位/下一位；换主题只改变基础层与素材定义。学生名单、错词复选框、参与状态、备注、确认与保存组成当前实现，业务可靠性、交互和生产混合样式仍须独立审核。
 - **Button**：接受原生 button 属性及 intent（primary / secondary / text / danger）、busy；默认 secondary、type="button"。busy 合并到 disabled 并输出 aria-busy，不自动改变文字或生成进度图标。danger 默认白底有边线，不应照抄旧版无边框危险按钮规则。
 - **Field / Input / Textarea / Select**：Field 接收 id、label、hint、error、required、children；Input 等接收原生属性与 hint/error，通过 id 关联描述并设置 aria-invalid。调用者必须将同一 id 和 hint/error 传给包装与控件；Field 不克隆 children 或自动注入属性。required 在 Field 中只显示星号，原生 required 需另传给控件。Select 不应被用于完整百人学生名单。
 - **StatusSegment**：泛型字符串 value，接收 label、options、value、onChange、disabled；输出 role="group" 和带 aria-pressed 的原生按钮。它不是 radiogroup，不提供方向键单选组行为。

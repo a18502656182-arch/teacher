@@ -1,13 +1,12 @@
 import { Icon } from '../workbench/ui/Icon';
 import { legacyIconNames } from '../workbench/ui/icons';
 import type { ButtonHTMLAttributes, ReactNode } from 'react';
-import { themes, resolveTheme, type ArtworkSlot } from './theme';
+import { Artwork } from '../workbench/theme/Artwork';
+import { artworkRoleBySlot, type ArtworkSlot } from './theme';
 export function CampusIcon({ name, className = '' }: { name: string; className?: string }) {
   return <Icon name={legacyIconNames[name] ?? name} className={`campus-icon ${className}`}/>;
 }
-// Assets are locally generated WebP files, pre-sized during asset production.
-// eslint-disable-next-line @next/next/no-img-element
-export function ThemeArtwork({ slot, className = '' }: { slot: ArtworkSlot; className?: string }) { const src = themes[resolveTheme()].artwork[slot]; return src ? <img className={`campus-art ${className}`} src={src} width="300" height="200" alt="" aria-hidden="true" decoding="async"/> : null; }
+export function ThemeArtwork({ slot, className = '' }: { slot: ArtworkSlot; className?: string }) { return <Artwork role={artworkRoleBySlot[slot]} className={`campus-art ${className}`}/>; }
 export function Button({ intent = 'secondary', className = '', children, ...props }: ButtonHTMLAttributes<HTMLButtonElement> & { intent?: 'primary' | 'secondary' | 'text' | 'danger' }) { return <button type="button" className={`campus-button campus-${intent} ${className}`} {...props}>{children}</button>; }
 export function EmptyState({ children, action }: { children: ReactNode; action?: ReactNode }) { return <div className="campus-empty"><ThemeArtwork slot="empty"/><p>{children}</p>{action}</div>; }
 export function MetricStrip({ items }: { items: { label:string; value:ReactNode; detail:string }[] }) { return <section className="campus-metric-strip" aria-label="班级概况">{items.map(item=><div key={item.label}><span>{item.label}</span><b>{item.value}</b><small>{item.detail}</small></div>)}</section>; }

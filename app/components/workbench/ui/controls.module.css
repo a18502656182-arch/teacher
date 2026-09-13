@@ -5,7 +5,7 @@
   border: 1px solid var(--wb-control-line); border-radius: var(--wb-radius-control);
   background: var(--wb-work); line-height: 1.4; font-weight: 500;
   cursor: pointer; text-decoration: none; box-shadow: none;
-  transition: background-color var(--wb-motion-duration) ease-out;
+  transition: background-color var(--wb-motion-duration) var(--wb-motion-easing);
 }
 .button[data-intent='primary'] { background: var(--wb-primary); color: var(--wb-on-primary); border-color: transparent; }
 .button[data-intent='text'] { background: transparent; border-color: transparent; color: var(--wb-primary); }

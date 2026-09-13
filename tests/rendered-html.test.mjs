@@ -59,6 +59,7 @@ const workspaceChrome = read("app/components/campus/WorkspaceChrome.tsx");
 const workspaceChromeCss = read("app/components/campus/workspace-chrome.css");
 const pageFamiliesCss = read("app/components/campus/page-families.css");
 const campusTheme = read("app/components/campus/theme.ts");
+const themeDefinitions = read("app/components/workbench/theme/definitions.ts");
 const rootLayout = read("app/layout.tsx");
 const dutyPage = read("app/w/[token]/Duty.tsx");
 const dutyOperations = read("app/w/[token]/features/duty/operations.ts");
@@ -237,9 +238,12 @@ test("benchmark pages use reference-led compositions and semantic artwork slots"
   assert.match(app, /campus-homework-workspace/);
   assert.match(pageFamiliesCss, /grid-template-columns:minmax\(620px,1fr\) 350px/);
   assert.match(pageFamiliesCss, /grid-template-columns:330px minmax\(0,1fr\)/);
-  assert.match(campusTheme, /assessment: '\/art\/campus\/assessment-review\.webp'/);
-  assert.match(campusTheme, /planning: '\/art\/campus\/class-planner\.webp'/);
-  assert.match(campusTheme, /glass: \{ status: 'planned', artwork: \{\} \}/);
+  assert.match(campusTheme, /assessment: 'assessment\.context'/);
+  assert.match(campusTheme, /planning: 'planning\.context'/);
+  assert.match(themeDefinitions, /'assessment\.context': artwork\('\/art\/campus\/assessment-review\.webp'/);
+  assert.match(themeDefinitions, /'planning\.context': artwork\('\/art\/campus\/class-planner\.webp'/);
+  assert.match(themeDefinitions, /status: 'planned'/);
+  assert.match(themeDefinitions, /artworkByRole: \{\}/);
   assert.doesNotMatch(app, /切换玻璃|玻璃主题/);
 });
 

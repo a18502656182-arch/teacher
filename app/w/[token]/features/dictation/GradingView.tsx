@@ -31,7 +31,7 @@ export function GradingView(props: GradingProps) {
       <main className={styles.main}>
         <header className={styles.context}>
           <div><h2>{task.title}</h2><p>{task.date} · {task.subject} · 本次 {task.words.length} 个词</p><span>{task.participants.length} 人参与 · {Object.keys(task.results).length} 人已处理</span></div>
-          <Artwork role="dictation.context"/>
+          <Artwork role="dictation.grading"/>
         </header>
         <div className={styles.student}>
           <div><span>当前{task.context.kind === 'class' ? '学生' : '孩子'}</span><h3>{c.student.name}<small>{c.student.number}</small></h3></div>

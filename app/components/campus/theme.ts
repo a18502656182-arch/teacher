@@ -1,25 +1,25 @@
-export type ThemeName = 'campus' | 'glass';
+import { resolvePublicTheme, type ArtworkRole, type ThemeId } from '../workbench/theme/contracts';
+
+/** Compatibility names for pages that have not yet migrated to semantic artwork roles. */
 export type ArtworkSlot = 'dashboard' | 'entry' | 'dictation' | 'family' | 'roster' | 'homework' | 'assessment' | 'planning' | 'duty' | 'cadres' | 'care' | 'communication' | 'tools' | 'admin' | 'empty';
-export type ThemeConfig = { status: 'development' | 'ready' | 'planned'; artwork: Partial<Record<ArtworkSlot,string>> };
-export const themes: Record<ThemeName, ThemeConfig> = {
-  campus: { status: 'ready', artwork: {
-    dashboard: '/art/campus/classroom-morning.webp',
-    entry: '/art/campus/classroom-morning.webp',
-    dictation: '/art/campus/word-cards.webp',
-    family: '/art/campus/family-study.webp',
-    roster: '/art/campus/student-records.webp',
-    homework: '/art/campus/homework-books.webp',
-    assessment: '/art/campus/assessment-review.webp',
-    planning: '/art/campus/class-planner.webp',
-    duty: '/art/campus/duty-cleaning.webp',
-    cadres: '/art/campus/cadres-responsibility.webp',
-    care: '/art/campus/student-records.webp',
-    communication: '/art/campus/student-records.webp',
-    tools: '/art/campus/class-planner.webp',
-    admin: '/art/campus/class-planner.webp',
-    empty: '/art/campus/word-cards.webp',
-  } },
-  glass: { status: 'planned', artwork: {} },
+export type ThemeName = ThemeId;
+
+export const artworkRoleBySlot: Record<ArtworkSlot, ArtworkRole> = {
+  dashboard: 'home.scene',
+  entry: 'entry.scene',
+  dictation: 'dictation.context',
+  family: 'family.context',
+  roster: 'student.detail',
+  homework: 'homework.context',
+  assessment: 'assessment.context',
+  planning: 'planning.context',
+  duty: 'duty.context',
+  cadres: 'organization.context',
+  care: 'care.context',
+  communication: 'communication.context',
+  tools: 'tools.context',
+  admin: 'admin.context',
+  empty: 'empty.no-results',
 };
-// Unreleased/unknown preferences fall back synchronously; no business-tree remount or theme switch UI.
-export function resolveTheme(): ThemeName { return 'campus'; }
+
+export function resolveTheme(): ThemeName { return resolvePublicTheme(); }
