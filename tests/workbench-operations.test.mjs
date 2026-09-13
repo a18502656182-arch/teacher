@@ -8,7 +8,7 @@ async function loadOperations(feature) {
   const { outputText } = ts.transpileModule(source, { compilerOptions: { module: ts.ModuleKind.ESNext, target: ts.ScriptTarget.ES2022 } });
   return import(`data:text/javascript;base64,${Buffer.from(outputText).toString('base64')}`);
 }
-const { applyHomeworkStatuses } = await loadOperations('homework');
+const { addHomeworkFollowStudents, applyHomeworkStatuses, patchHomeworkTask, removeHomeworkFollowStudent, removeHomeworkTask } = await loadOperations('homework');
 const { applyStudentBatch } = await loadOperations('students');
 function fixture(count = 50) {
   const roster = prefix => Array.from({ length: count }, (_, i) => ({ id: `${prefix}-${i}`, name: `合成${i}`, homework: '未交', group: 2, gender: '女', note: '保留备注', points: 60 }));
@@ -76,4 +76,31 @@ test('作业状态拒绝另一班和不存在的学生ID，也不污染任务状
   assert.deepEqual(data, before);
   assert.equal(data.homeworkTasks[0].statuses['b-0'], undefined);
   assert.equal(applyHomeworkStatuses(data, 'b', 'a-task', ['b-0'], '已交'), data);
+});
+
+test('同ID跨班作业的编辑删除与跟进只作用当前班唯一目标', () => {
+  const data = fixture();
+  data.homeworkTasks = [
+    { ...data.homeworkTasks[0], id: 'shared' },
+    { ...data.homeworkTasks[1], id: 'shared' },
+  ];
+  const edited = patchHomeworkTask(data, 'a', 'shared', { date: '2026-09-13', subject: '英语', title: '当前班修改' });
+  assert.equal(edited.homeworkTasks[0].title, '当前班修改');
+  assert.equal(edited.homeworkTasks[1], data.homeworkTasks[1]);
+  const followed = addHomeworkFollowStudents(edited, 'a', 'shared', ['a-0', 'b-0']);
+  assert.deepEqual(followed.homeworkTasks[0].followUpStudentIds, ['a-1', 'a-0']);
+  assert.deepEqual(followed.homeworkTasks[1].followUpStudentIds, data.homeworkTasks[1].followUpStudentIds);
+  const unfollowed = removeHomeworkFollowStudent(followed, 'a', 'shared', 'a-1');
+  assert.deepEqual(unfollowed.homeworkTasks[0].followUpStudentIds, ['a-0']);
+  const removed = removeHomeworkTask(unfollowed, 'a', 'shared');
+  assert.deepEqual(removed.homeworkTasks, [data.homeworkTasks[1]]);
+});
+
+test('当前班出现重复作业ID时拒绝歧义写入', () => {
+  const data = fixture();
+  data.homeworkTasks = [{ ...data.homeworkTasks[0], id: 'duplicate' }, { ...data.homeworkTasks[0], id: 'duplicate' }, data.homeworkTasks[1]];
+  assert.equal(patchHomeworkTask(data, 'a', 'duplicate', { date: '2026-09-13', subject: '英语', title: '不应写入' }), data);
+  assert.equal(removeHomeworkTask(data, 'a', 'duplicate'), data);
+  assert.equal(addHomeworkFollowStudents(data, 'a', 'duplicate', ['a-0']), data);
+  assert.equal(applyHomeworkStatuses(data, 'a', 'duplicate', ['a-0'], '已交'), data);
 });

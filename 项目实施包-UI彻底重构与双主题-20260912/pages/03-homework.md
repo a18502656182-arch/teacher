@@ -1,6 +1,6 @@
 # 作业追踪：逐页执行卡
 
-状态：planned。模块ID：homework。源码相对 app/w/[token]（明确app/lib前缀除外）：ClassroomApp.tsx:Homework/MobileHomework。
+状态：implemented。模块ID：homework。源码相对 app/w/[token]（明确app/lib前缀除外）：features/homework/HomeworkView.tsx;features/homework/useHomeworkController.ts;features/homework/operations.ts。
 参考：C4。派生页面使用对应页面族构图和校园token，不把缺少专属图解释为可回退旧UI。
 
 ## 保全动作（种子，实施前展开）
@@ -29,3 +29,9 @@
 
 ## 完成判据
 全部保全动作有新入口与证据；桌面/手机/主要浮层可用；参考气质和比例达标；旧布局退出；测试没有通过削弱断言变绿。结果写当前commit，不复用旧报告标pass。
+
+## 2026-09-13 实施与联调记录
+
+- 主体提交：`b27a745`；核心联调：本任务提交；证据：`../evidence/homework-implementation-20260913.md`、`../evidence/core-pages-integration-20260913.md`。
+- 桌面任务主从与手机任务→学生Drawer共用controller；新增编辑删除、筛选分页、四态、备注和跟进名单入口均已迁移，旧`Homework/MobileHomework` DOM退出。
+- 编辑、删除、状态与跟进写入按当前班唯一任务目标执行；跨班同ID只改当前班，同班重复ID拒绝歧义写入。

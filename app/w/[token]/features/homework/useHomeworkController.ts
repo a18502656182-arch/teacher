@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { copyTextToClipboard } from '@/lib/clipboard';
 import { makeId, type ClassroomData, type HomeworkTask } from '@/lib/classroom';
 import { currentLocalDate } from '../schedule/read-model';
-import { applyHomeworkStatuses } from './operations';
+import { addHomeworkFollowStudents, applyHomeworkStatuses, patchHomeworkTask, removeHomeworkFollowStudent, removeHomeworkTask } from './operations';
 import {
   HOMEWORK_STATUSES, activeHomeworkClass, filterHomeworkStudents, filterHomeworkTasks,
   homeworkStatus, homeworkTasksForClass, summarizeHomeworkTask, type HomeworkStatus,
@@ -95,7 +95,7 @@ export function useHomeworkController({ data, update, confirmAction, readOnly = 
     if (readOnly) return;
     if (!draft.date || !draft.subject.trim() || !draft.title.trim()) { setEditorError('请填写日期、学科和作业内容。'); return; }
     if (editorMode === 'edit' && selectedTask) {
-      update(current => ({ ...current, homeworkTasks: (current.homeworkTasks ?? []).map(task => task.id === selectedTask.id ? { ...task, date: draft.date, subject: draft.subject.trim(), title: draft.title.trim() } : task) }));
+      update(current => patchHomeworkTask(current, activeClass.id, selectedTask.id, { date: draft.date, subject: draft.subject.trim(), title: draft.title.trim() }));
       setMessage('作业信息已更新，正在同步。');
     } else {
       const task: HomeworkTask = { id: makeId('homework'), classId: activeClass.id, date: draft.date, subject: draft.subject.trim(), title: draft.title.trim(), statuses: Object.fromEntries(students.map(student => [student.id, '已交'])), followUpStudentIds: [] };
@@ -106,7 +106,7 @@ export function useHomeworkController({ data, update, confirmAction, readOnly = 
   }
   async function deleteTask() {
     if (!selectedTask || readOnly || !await confirmAction(`${selectedTask.subject} · ${selectedTask.title} 删除后，逐生状态和待跟进名单也会移除。`, '删除作业', '确认删除')) return;
-    update(current => ({ ...current, homeworkTasks: (current.homeworkTasks ?? []).filter(task => task.id !== selectedTask.id) }));
+    update(current => removeHomeworkTask(current, activeClass.id, selectedTask.id));
     setMobileDetailOpen(false); setSelectedTaskId(''); setSelectedStudentIds([]); setMessage('作业已删除，正在同步。');
   }
   function setStudentStatus(studentId: string, status: HomeworkStatus) {
@@ -131,12 +131,12 @@ export function useHomeworkController({ data, update, confirmAction, readOnly = 
   function addSelectedToFollow() {
     if (!selectedTask || !selectedSummary.length || readOnly) return;
     const count = selectedSummary.length;
-    update(current => ({ ...current, homeworkTasks: (current.homeworkTasks ?? []).map(task => task.id === selectedTask.id ? { ...task, followUpStudentIds: [...new Set([...(task.followUpStudentIds ?? []), ...selectedSummary])] } : task) }));
+    update(current => addHomeworkFollowStudents(current, activeClass.id, selectedTask.id, selectedSummary));
     setSelectedStudentIds([]); setFollowOpen(true); setMessage(`已加入 ${count} 名学生，正在同步。`);
   }
   function removeFollow(studentId: string) {
     if (!selectedTask || readOnly) return;
-    update(current => ({ ...current, homeworkTasks: (current.homeworkTasks ?? []).map(task => task.id === selectedTask.id ? { ...task, followUpStudentIds: (task.followUpStudentIds ?? []).filter(id => id !== studentId) } : task) }));
+    update(current => removeHomeworkFollowStudent(current, activeClass.id, selectedTask.id, studentId));
   }
   async function copyFollowList() {
     if (!selectedTask || !followStudents.length) return setMessage('待跟进名单为空，请先选择学生加入。');

@@ -1,6 +1,6 @@
 # 学生名单：逐页执行卡
 
-状态：planned。模块ID：students。源码相对 app/w/[token]（明确app/lib前缀除外）：ClassroomApp.tsx:Students/MobileStudents;StudentProfile.tsx。
+状态：implemented。模块ID：students。源码相对 app/w/[token]（明确app/lib前缀除外）：features/students/StudentsView.tsx;features/students/useStudentsController.ts;StudentProfile.tsx。
 参考：C3。派生页面使用对应页面族构图和校园token，不把缺少专属图解释为可回退旧UI。
 
 ## 保全动作（种子，实施前展开）
@@ -29,3 +29,9 @@
 
 ## 完成判据
 全部保全动作有新入口与证据；桌面/手机/主要浮层可用；参考气质和比例达标；旧布局退出；测试没有通过削弱断言变绿。结果写当前commit，不复用旧报告标pass。
+
+## 2026-09-13 实施与联调记录
+
+- 主体提交：`7e26486`；视觉门槛：`af5b33e`；证据：`../evidence/students-implementation-20260913.md`、`../evidence/core-pages-integration-20260913.md`。
+- 桌面名单+右详情、手机名单→单学生Drawer及新增/编辑/批量/导入/删除/完整档案均使用同一controller；电话与长备注只在单学生维护流程完整显示，默认名单显示近期真实状态。
+- 旧`Students/MobileStudents` DOM退出；共享Dialog、Drawer、Menu、SelectionBar和危险确认已接入。

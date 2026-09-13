@@ -3,7 +3,7 @@
   "baselineCommit": "6e10e2dc314e09d0d72df9509730f57c5fde34e2",
   "implementationStatus": "in-progress",
   "active_task": null,
-  "next_action": "TASK-16与M1已完成；执行TASK-17接通首页学生作业全流程，并连续推进至TASK-28",
+  "next_action": "TASK-17已完成；执行TASK-18听写词库与历史复习完整迁移，并连续推进至TASK-28",
   "milestones": {
     "M0": "done",
     "M1": "done",
@@ -12,7 +12,7 @@
     "M4": "planned",
     "M5": "planned"
   },
-  "note": "线上受检源码无需要覆盖的业务差异。M0与M1完成；TASK-04至TASK-16及提前完成的TASK-29已完成。已完成任务17/33，按任务数51.5%；按剩余页面和验收工作量估计总进度约69%，这不是精确工时。生产构建、253/253自动化测试、认证集成、ESLint和qa:strict通过；C1-C6已制作六组同面板并排图，浏览器使用1280x720与390x844复核，严格审计另覆盖1536x1024等六档视口；首页比例、学生近期状态列和短听写语义插画已校准。按用户最新指令不中途暂停，继续TASK-17至TASK-28；TASK-30前置未满足。没有生产操作。",
+  "note": "线上受检源码无需要覆盖的业务差异。M0与M1完成；TASK-04至TASK-17及提前完成的TASK-29已完成。已完成任务18/33，按任务数54.5%；按剩余页面和验收工作量估计总进度约72%，这不是精确工时。首页、学生、作业的新视图、动作与共享浮层已联调；浏览器核心跳转和手机Drawer通过。作业编辑、删除和跟进改为当前班唯一目标，跨班同ID不再越界，同班重复ID拒绝歧义写入。ESLint、qa:strict、生产构建、256/256自动化及认证集成通过。按用户最新指令不中途暂停，继续TASK-18至TASK-28；M2仍在进行，TASK-30前置未满足。没有生产操作。",
   "implementationStartCommit": "f321d5e9424e0020bdf1e56d52c31b986b503a53",
   "parallelPreparation": [],
   "verifiedOnlineBaseline": "0691aba",

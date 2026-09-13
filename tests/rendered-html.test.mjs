@@ -45,6 +45,7 @@ const scheduleOperations = read("app/w/[token]/features/schedule/operations.ts")
 const studentProfile = read("app/w/[token]/StudentProfile.tsx");
 const studentProfileOperations = read("app/w/[token]/features/students/profile.ts");
 const studentView = read("app/w/[token]/features/students/StudentsView.tsx");
+const studentController = read("app/w/[token]/features/students/useStudentsController.ts");
 const studentStyles = read("app/w/[token]/features/students/StudentsView.module.css");
 const homeworkView = read("app/w/[token]/features/homework/HomeworkView.tsx");
 const homeworkController = read("app/w/[token]/features/homework/useHomeworkController.ts");
@@ -308,6 +309,23 @@ test("homework uses one controller for desktop and mobile task-first workflows",
   assert.match(homeworkReadModel, /task\.classId === classId/);
   assert.doesNotMatch(app, /function Homework\(|function MobileHomework\(/);
   assert.doesNotMatch(homeworkView, /mobile-task-sheet-summary|点学生可多选/);
+});
+
+test("dashboard students and homework share the live workspace flow without legacy views", () => {
+  for (const destination of ['schedule', 'homework', 'records', 'dictation', 'duty', 'students']) {
+    assert.match(dashboard, new RegExp(`open\\('${destination}'\\)`));
+  }
+  for (const action of ['openNewStudent', 'openEditStudent', 'saveStudent', 'replaceRoster', 'appendRoster', 'applyBatch']) {
+    assert.match(studentController, new RegExp(`function ${action}\\(`));
+  }
+  for (const action of ['openNewTask', 'openEditTask', 'saveTask', 'deleteTask', 'bulkSet', 'copyFollowList']) {
+    assert.match(homeworkController, new RegExp(`function ${action}\\(`));
+  }
+  assert.match(homeworkController, /patchHomeworkTask\(current, activeClass\.id/);
+  assert.match(homeworkController, /removeHomeworkTask\(current, activeClass\.id/);
+  assert.match(workspaceOperations, /localStorage\.setItem\(`classroom-workspace-draft:/);
+  assert.match(workspaceOperations, /response\.status === 409/);
+  assert.doesNotMatch(app, /function Students\(|function MobileStudents\(|function Homework\(|function MobileHomework\(/);
 });
 
 test("dictation grading uses one central work surface with expandable material and a student queue", () => {
