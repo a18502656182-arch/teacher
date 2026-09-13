@@ -466,8 +466,7 @@
     margin: 12px -12px -12px;
     padding: 10px 12px calc(10px + env(safe-area-inset-bottom));
     border-top: 1px solid var(--campus-line);
-    background: rgba(248, 251, 255, .96);
-    backdrop-filter: blur(10px);
+    background: var(--campus-blue);
   }
 
   .root :global(.mobile-sheet-actions button) {
@@ -7575,7 +7574,6 @@
     padding: 0;
     border: 0;
     background: transparent;
-    backdrop-filter: none;
   }
 }@media (max-width: 900px) {
   .root :global(.mobile-section-summary) {
@@ -7952,8 +7950,7 @@
     margin: 12px -12px -12px;
     padding: 10px 12px calc(10px + env(safe-area-inset-bottom));
     border-top: 1px solid var(--campus-line);
-    background: rgba(248, 251, 255, .96);
-    backdrop-filter: blur(10px);
+    background: var(--campus-blue);
   }
 
   .root :global(.mobile-sheet-actions button) {
@@ -9474,7 +9471,7 @@
  .root :global([role=dialog] button) { min-height:44px; }
  .root :global([role=dialog]>header>button) { min-width:44px; }
 }@media(min-width:901px) {
- .root :global(.app-shell [class*=backdrop]:has(>[role=dialog])) { position:fixed!important; inset:0!important; z-index:1000!important; display:grid!important; place-items:center!important; padding:24px!important; overflow:hidden!important; background:rgba(23,53,74,.26)!important; backdrop-filter:blur(2px); }
+ .root :global(.app-shell [class*=backdrop]:has(>[role=dialog])) { position:fixed!important; inset:0!important; z-index:1000!important; display:grid!important; place-items:center!important; padding:24px!important; overflow:hidden!important; background:rgba(23,53,74,.32)!important; }
  .root :global(.app-shell [class*=backdrop]:has(>[role=dialog])>[role=dialog]) { position:relative!important; inset:auto!important; transform:none!important; width:min(900px,calc(100vw - 64px))!important; height:auto!important; max-height:calc(100dvh - 48px)!important; margin:0!important; overflow:auto!important; }
  .root :global(.app-shell [class*=backdrop]:has(>.score5-modal)>.score5-modal) { width:min(1120px,calc(100vw - 64px))!important; }
 }.root :global(.campus-statistics) { display:flex; flex-wrap:wrap; gap:16px 28px; padding:16px 0; margin:0 0 20px; border-bottom:1px solid var(--campus-line); }.root :global(.campus-statistics>:is(div,span,article)) { display:grid; grid-template-columns:auto auto; align-items:baseline; gap:2px 10px; min-width:130px; flex:1; background:transparent; border:0; }.root :global(.campus-statistics :is(b,strong)) { font-size:25px; line-height:1.25; color:var(--campus-ink); font-variant-numeric:tabular-nums; }.root :global(.campus-statistics :is(small,em)) { color:var(--campus-muted); font-size:12px; font-style:normal; }.root :global(.campus-statistics small:last-child) { grid-column:1 / -1; }.root :global(.campus-statistics>:is(div,span,article)>span) { color:var(--campus-muted); font-size:14px; }.root :global(.campus-statistics .normal b) { color:var(--campus-success); }.root :global(.campus-statistics .late b) { color:var(--campus-warning); }.root :global(.campus-statistics .absent b) { color:var(--campus-error); }.root :global(.point-pro-page .pointdesk-table-scroll),

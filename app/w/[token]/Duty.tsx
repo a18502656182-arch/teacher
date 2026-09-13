@@ -140,7 +140,7 @@ export function Duty({ data, update, save, readOnly = false, mobile = false, con
 
   function patchEditor(patch: Partial<DutyJob>) {
     if (!editor) return;
-    setEditorState({ classId, draft: { ...editor.draft, ...patch } });
+    setEditorState({ classId, draft: { ...editor.draft, ...patch }, baseline: editor.baseline });
   }
 
   async function closeEditor() {

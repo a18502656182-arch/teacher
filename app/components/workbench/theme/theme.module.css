@@ -11,13 +11,6 @@
   text-align: start;
 }
 
-@supports (backdrop-filter: blur(1px)) {
-  .root[data-theme-blur='available'] {
-    --wb-work: var(--wb-work-enhanced);
-    --wb-material-blur: var(--wb-material-blur-ready);
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   .root[data-reduced-motion='supported'] { --wb-motion-duration: 0ms; }
 }

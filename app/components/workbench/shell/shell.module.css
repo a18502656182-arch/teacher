@@ -1,6 +1,6 @@
 .shell { display: grid; grid-template-columns: 244px minmax(0, 1fr); grid-template-rows: 72px minmax(0, 1fr); min-height: 100dvh; background: #f7fbf8; color: #17354a; }
 .desktopHeaderBoundary { position: sticky; top: 0; z-index: 40; grid-column: 1 / -1; grid-row: 1; min-width: 0; }
-.desktopHeader { display: grid; grid-template-columns: 244px minmax(230px, 330px) minmax(330px, 1fr) auto; align-items: center; gap: 20px; height: 72px; padding-right: 20px; border-bottom: 1px solid var(--wb-line); background: var(--wb-work); backdrop-filter: blur(var(--wb-material-blur)); }
+.desktopHeader { display: grid; grid-template-columns: 244px minmax(230px, 330px) minmax(330px, 1fr) auto; align-items: center; gap: 20px; height: 72px; padding-right: 20px; border-bottom: 1px solid var(--wb-line); background: var(--wb-work); }
 .brand { display: flex; align-items: center; gap: 10px; align-self: stretch; padding: 0 20px; color: var(--wb-ink); text-decoration: none; font-size: 18px; }
 .brand > span { display: grid; place-items: center; width: 38px; height: 42px; color: var(--wb-primary); background: var(--wb-context); border-radius: var(--wb-radius-control); }
 .classPicker { display: flex; align-items: center; gap: 10px; min-width: 0; }
@@ -57,7 +57,7 @@
   .desktopHeaderBoundary, .desktopNavBoundary, .desktopMain { display: none; }
   .mobile { display: block; min-height: 100dvh; padding-bottom: calc(68px + env(safe-area-inset-bottom)); }
   .mobileHeaderBoundary { position: sticky; top: 0; z-index: 25; display: block; }
-  .mobileHeader { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 8px 12px; min-height: 64px; padding: 9px 14px; border-bottom: 1px solid var(--wb-line); background: var(--wb-work); backdrop-filter: blur(var(--wb-material-blur)); }
+  .mobileHeader { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 8px 12px; min-height: 64px; padding: 9px 14px; border-bottom: 1px solid var(--wb-line); background: var(--wb-work); }
   .mobileTitle { display: flex; align-items: center; gap: 9px; min-width: 0; }
   .mobileTitle > button { display: grid; place-items: center; width: 44px; height: 44px; flex: none; padding: 0; border: 0; border-radius: var(--wb-radius-control); background: transparent; color: var(--wb-primary); }
   .mobileTitle > button svg { transform: rotate(180deg); }
@@ -75,7 +75,7 @@
   .mobileContext button[aria-pressed='true'] { background: var(--wb-context); color: var(--wb-primary); font-weight: 700; }
   .mobileContent { min-height: calc(100dvh - 132px); }
   .mobileTabBoundary { position: fixed; z-index: 24; right: 0; bottom: 0; left: 0; display: block; }
-  .mobileTabs { display: grid; grid-template-columns: repeat(5, 1fr); min-height: 60px; padding: 5px 8px max(5px, env(safe-area-inset-bottom)); border-top: 1px solid var(--wb-line); background: var(--wb-work); backdrop-filter: blur(var(--wb-material-blur)); }
+  .mobileTabs { display: grid; grid-template-columns: repeat(5, 1fr); min-height: 60px; padding: 5px 8px max(5px, env(safe-area-inset-bottom)); border-top: 1px solid var(--wb-line); background: var(--wb-work); }
   .mobileTabs button { display: grid; place-items: center; align-content: center; gap: 2px; min-width: 0; min-height: 50px; padding: 3px; border: 0; border-radius: var(--wb-radius-control); background: transparent; color: var(--wb-muted); font: inherit; font-size: 11px; }
   .mobileTabs button[aria-current='page'] { background: var(--wb-context); color: var(--wb-primary); font-weight: 700; }
   .mobileTabs svg { width: 20px; height: 20px; }

@@ -11,7 +11,6 @@ import { CampusIcon, MetricStrip, ThemeArtwork } from '@/app/components/campus/p
 import { WorkbenchShell } from '@/app/components/workbench/shell/WorkbenchShell';
 import { workspaceModules, type LearningScene, type WorkspaceModuleId } from '@/app/components/workbench/shell/catalog';
 import { useWorkbenchShellController } from '@/app/components/workbench/shell/useWorkbenchShellController';
-import { HomeworkView } from './features/homework/HomeworkView';
 import { addGrowthEvidence, growthEvidenceForStudent } from './features/growth/operations';
 import { growthTimestamp, isInGrowthRange as inGrowthRange, type GrowthTime } from './features/growth/time-range';
 import { communicationRecordsForClass, localCommunicationDate, patchCommunicationStatus, recordBelongsToClass, recordBelongsToStudent, removeCommunicationRecord, saveCommunicationRecord } from './features/records/operations';
@@ -25,8 +24,6 @@ import { defaultPointRules } from './features/rules/catalog';
 import { deletePointRule, patchPointRule, pointRulesForData, pointRuleUsageCount, replacePointRules, upsertPointRule } from './features/rules/operations';
 import { createScoreExam, editScoreExam, patchScoreExam, removeScoreExam, scoreEntry, scoreEntryCount, scoreExamsForClass, setScoreEntries } from './features/scores/operations';
 import { defaultScoreRanges, parseScoreSubjects as parseSubjects, scoreRangesFor, scoreRowsFor, scoreSubjectKey, scoreSubjects, scoreValue, subjectMaxScore, type ScoreLevel, type ScoreRange } from './features/scores/read-model';
-import { StudentsView } from './features/students/StudentsView';
-import { AccountCenter } from './features/account/AccountCenter';
 import { addWorkspaceClass, patchWorkspaceClass, removeWorkspaceClass, switchWorkspaceClass } from './features/account/operations';
 import { useAccountCenter } from './features/account/useAccountCenter';
 import { normalizeWorkspaceData as normalizeData, scopeWorkspaceClassSettings as scopeClassSettings } from './workspace/normalize';
@@ -34,22 +31,25 @@ import type { Workspace } from './workspace/types';
 import { useWorkspaceController } from './workspace/useWorkspaceController';
 import { canLeaveDictation } from './dictation/navigation';
 const Dictation = lazy(() => import('./dictation/Dictation'));
+const HomeworkView = lazy(() => import('./features/homework/HomeworkView').then(module => ({ default: module.HomeworkView })));
+const StudentsView = lazy(() => import('./features/students/StudentsView').then(module => ({ default: module.StudentsView })));
+const Attendance = lazy(() => import('./Attendance').then(module => ({ default: module.Attendance })));
+const ScheduleHub = lazy(() => import('./ScheduleHub').then(module => ({ default: module.ScheduleHub })));
+const TeacherAgenda = lazy(() => import('./TeacherAgenda').then(module => ({ default: module.TeacherAgenda })));
+const HealthCare = lazy(() => import('./HealthCare').then(module => ({ default: module.HealthCare })));
+const ScoreTrends = lazy(() => import('./ScoreTrends').then(module => ({ default: module.ScoreTrends })));
+const ScoreItemAnalysis = lazy(() => import('./ScoreItemAnalysis').then(module => ({ default: module.ScoreItemAnalysis })));
+const ClassroomTools = lazy(() => import('./ClassroomTools').then(module => ({ default: module.ClassroomTools })));
+const Seating = lazy(() => import('./Seating').then(module => ({ default: module.Seating })));
+const Duty = lazy(() => import('./Duty').then(module => ({ default: module.Duty })));
+const Cadres = lazy(() => import('./Cadres').then(module => ({ default: module.Cadres })));
+const NotificationDrafts = lazy(() => import('./NotificationDrafts').then(module => ({ default: module.NotificationDrafts })));
+const AccountCenter = lazy(() => import('./features/account/AccountCenter').then(module => ({ default: module.AccountCenter })));
 
 import { makeId, scheduleTermLabel, scheduleTermRange } from "@/lib/classroom";
 import { parseWorkspaceBackup } from "@/lib/workspaceBackup";
 import type { ClassroomData, CommunicationRecord, DailyFocus, ExamReflection, HomeworkTask, PointEvent, PointRule, RosterClass, ScheduleConfig, ScheduleEvent, ScheduleWeek, ScoreExam, Student, TermComment, WeeklyReport } from "@/lib/classroom";
-import { Attendance } from "./Attendance";
-import { ScheduleHub } from "./ScheduleHub";
-import { TeacherAgenda } from "./TeacherAgenda";
-import { HealthCare } from "./HealthCare";
-import { ScoreTrends } from "./ScoreTrends";
-import { ScoreItemAnalysis } from "./ScoreItemAnalysis";
-import { ClassroomTools } from "./ClassroomTools";
-import { Seating } from "./Seating";
-import { Duty } from "./Duty";
-import { Cadres } from "./Cadres";
 import { defaultDutyJobs } from "./features/duty/operations";
-import { NotificationDrafts } from "./NotificationDrafts";
 import { WorkbenchPageHeader } from "./WorkbenchPageHeader";
 import pageStyles from "./ClassroomPages.module.css";
 
@@ -308,9 +308,9 @@ export default function ClassroomApp({ token }: { token: string }) {
         onClearError={clearError}
         onExportDraft={exportWorkspaceBackup}
         onLoadLatest={() => void loadLatestWorkspace()}
-        mobileContent={<MobileWorkspaceContent workspaceToken={token} workspace={workspace} activeClass={activeClass} active={active} visited={visitedMobileModules} openModule={openModule} openStudentGrowth={openStudentGrowth} growthRequest={growthRequest} update={updateData} save={save} isDemo={isDemo} isReadOnly={isReadOnly} openAccount={accountCenter.openCenter} switchLearningScene={switchLearningScene} />}
-        desktopContent={<>
-          {active === "dictation" && <Suspense fallback={<p role="status">正在加载听写…</p>}><Dictation key={`${workspace.data.activeClassId}:${learningScene}`} data={workspace.data} token={token} readOnly={isDemo || isReadOnly} commit={commitWorkspace} scene={learningScene}/></Suspense>}
+        mobileContent={<Suspense fallback={<p data-workspace-loading role="status">正在加载工作区…</p>}><MobileWorkspaceContent workspaceToken={token} workspace={workspace} activeClass={activeClass} active={active} visited={visitedMobileModules} openModule={openModule} openStudentGrowth={openStudentGrowth} growthRequest={growthRequest} update={updateData} save={save} isDemo={isDemo} isReadOnly={isReadOnly} openAccount={accountCenter.openCenter} switchLearningScene={switchLearningScene} /></Suspense>}
+        desktopContent={<Suspense fallback={<p data-workspace-loading role="status">正在加载工作区…</p>}>
+          {active === "dictation" && <Dictation key={`${workspace.data.activeClassId}:${learningScene}`} data={workspace.data} token={token} readOnly={isDemo || isReadOnly} commit={commitWorkspace} scene={learningScene}/>}
           {active === "dashboard" && <DashboardView defaultDutyJobs={defaultDutyJobs} data={workspace.data} open={openModule} openFamily={() => switchLearningScene('family')} openStudentGrowth={openStudentGrowth} />}
           {active === "students" && <StudentsView data={workspace.data} update={updateData} confirmAction={requestDangerConfirm} readOnly={isDemo || isReadOnly} />}
           {active === "attendance" && <Attendance data={workspace.data} update={updateData} save={save} readOnly={isDemo || isReadOnly} />}
@@ -329,7 +329,7 @@ export default function ClassroomApp({ token }: { token: string }) {
           {active === "scores" && <Scores workspaceToken={token} data={workspace.data} update={updateData} save={save} readOnly={isDemo || isReadOnly} />}
           {active === "reflection" && <Reflection data={workspace.data} update={updateData} save={save} open={openModule} readOnly={isDemo || isReadOnly} />}
           {active === "comments" && <Comments workspaceToken={token} data={workspace.data} update={updateData} save={save} readOnly={isDemo || isReadOnly} />}
-        </>}
+        </Suspense>}
       />
       {toast && <div className={`workbench-toast ${toast.tone ?? "success"}`} role="status">{toast.message}</div>}
       {confirmRequest && <div className="workbench-confirm-backdrop" role="presentation" onMouseDown={() => resolveConfirm(false)}>
@@ -339,7 +339,7 @@ export default function ClassroomApp({ token }: { token: string }) {
           <footer><button onClick={() => resolveConfirm(false)}>取消</button><button className="danger" onClick={() => resolveConfirm(true)}>{confirmRequest.confirmLabel ?? "确认删除"}</button></footer>
         </section>
       </div>}
-      <AccountCenter
+      <Suspense fallback={null}><AccountCenter
         open={accountCenter.open}
         account={accountCenter.account}
         loading={accountCenter.loading}
@@ -360,7 +360,7 @@ export default function ClassroomApp({ token }: { token: string }) {
         onExport={exportWorkspaceBackup}
         onImport={() => { accountCenter.closeCenter(); backupInputRef.current?.click(); }}
         onLogout={logoutCurrentWorkspace}
-      />
+      /></Suspense>
       <input ref={backupInputRef} className="visually-hidden" type="file" accept="application/json,.json" aria-label="选择工作台备份文件" onChange={(event) => void importWorkspaceBackup(event.target.files?.[0])} />
     </>
   );

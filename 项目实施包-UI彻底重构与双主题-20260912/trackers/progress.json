@@ -3,7 +3,7 @@
   "baselineCommit": "6e10e2dc314e09d0d72df9509730f57c5fde34e2",
   "implementationStatus": "in-progress",
   "active_task": null,
-  "next_action": "TASK-30已完成；执行TASK-31主题架构与性能检查",
+  "next_action": "TASK-31已完成；执行TASK-32全站教师业务与视觉验收",
   "milestones": {
     "M0": "done",
     "M1": "done",
@@ -12,7 +12,7 @@
     "M4": "planned",
     "M5": "planned"
   },
-  "note": "M0至M3完成；TASK-04至TASK-30已完成。已完成任务30/33，按任务数90.9%。旧CSS源、生成链、legacy根边界与homework-bootstrap-shell已退出；19个教师导航页面共114个页面/视口组合通过，构建、ESLint、静态审计及50项聚焦回归通过。按用户要求未修改或验收家庭教育；没有生产操作。",
+  "note": "M0至M3完成；TASK-04至TASK-31已完成。已完成任务31/33，按任务数93.9%。公开校园主题和内部预留主题均为实色无blur且不以key重挂载。主客户端JS由598589降至332249字节，超500kB警告消失；听写批改插画由1886556降至75016字节。TypeScript、ESLint、构建、聚焦回归和日程六档专项通过。按用户要求未修改或验收家庭教育；没有生产操作。",
   "implementationStartCommit": "f321d5e9424e0020bdf1e56d52c31b986b503a53",
   "parallelPreparation": [],
   "verifiedOnlineBaseline": "0691aba",

@@ -336,6 +336,16 @@ test("homework uses one controller for desktop and mobile task-first workflows",
   assert.doesNotMatch(homeworkView, /mobile-task-sheet-summary|点学生可多选/);
 });
 
+test("low-frequency workspaces load through stable lazy boundaries", () => {
+  for (const modulePath of [
+    "./Attendance", "./ScheduleHub", "./HealthCare", "./ClassroomTools",
+    "./Seating", "./Duty", "./Cadres", "./features/students/StudentsView",
+    "./features/homework/HomeworkView", "./features/account/AccountCenter",
+  ]) assert.match(app, new RegExp(`lazy\\(\\(\\) => import\\('${modulePath.replace(/[.*+?^${}()|[\\]\\\\]/g, '\\\\$&')}`));
+  assert.match(app, /desktopContent=\{<Suspense/);
+  assert.match(app, /mobileContent=\{<Suspense/);
+});
+
 test("dashboard students and homework share the live workspace flow without legacy views", () => {
   for (const destination of ['schedule', 'homework', 'records', 'dictation', 'duty', 'students']) {
     assert.match(dashboard, new RegExp(`open\\('${destination}'\\)`));

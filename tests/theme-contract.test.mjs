@@ -17,7 +17,7 @@ test('公开主题固定为校园，玻璃仅保留完整内部token且不借用
   assert.equal(runtime.publicThemeDefinition, runtime.campusTheme);
   assert.equal(runtime.campusTheme.status, 'development');
   assert.equal(runtime.glassTheme.status, 'planned');
-  assert.equal(runtime.glassTheme.capabilities.blur, true);
+  assert.equal(runtime.glassTheme.capabilities.blur, false);
   assert.deepEqual(runtime.glassTheme.artworkByRole, {});
   for (const theme of [runtime.campusTheme, runtime.glassTheme]) {
     for (const key of ['semanticColors', 'surfaces', 'typography', 'spacing', 'radii', 'elevation', 'motion', 'artworkByRole', 'capabilities']) {
@@ -46,7 +46,7 @@ test('所有共享CSS token都由主题定义或边界别名明确提供', () =>
   assert.notEqual(campusVars['--wb-canvas'], glassVars['--wb-canvas']);
   assert.notEqual(campusVars['--wb-primary'], glassVars['--wb-primary']);
   assert.equal(campusVars['--wb-material-blur-ready'], '0px');
-  assert.equal(glassVars['--wb-material-blur-ready'], '12px');
+  assert.equal(glassVars['--wb-material-blur-ready'], '0px');
 });
 
 test('校园语义插画manifest使用存在的本地资源并声明无主题回退', () => {
@@ -87,4 +87,19 @@ test('主题更新不使用React key重挂载，缺图直接为空', () => {
   assert.match(boundary, /data-theme-status=\{definition\.status\}/);
   assert.match(artwork, /if \(!asset\) return null/);
   assert.doesNotMatch(artwork, /campusTheme|\?\?\s*campus|\|\|\s*campus/);
+});
+
+test('公开与内部预留主题都使用实色材质且应用样式不启用模糊', () => {
+  assert.equal(runtime.campusTheme.capabilities.blur, false);
+  assert.equal(runtime.glassTheme.capabilities.blur, false);
+  assert.equal(runtime.campusTheme.surfaces.work.blur, '0px');
+  assert.equal(runtime.glassTheme.surfaces.work.blur, '0px');
+  const materialStyles = [
+    read('app/components/workbench/theme/theme.module.css'),
+    read('app/components/workbench/shell/shell.module.css'),
+    read('app/components/workbench/ui/controls.module.css'),
+    read('app/components/workbench/ui/dialog.module.css'),
+    read('app/w/[token]/ClassroomPages.module.css'),
+  ].join('\n');
+  assert.doesNotMatch(materialStyles, /backdrop-filter|filter:\s*blur/i);
 });

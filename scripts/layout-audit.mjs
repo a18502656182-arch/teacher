@@ -257,7 +257,7 @@ async function runRuntimeAudit(url) {
         while (Date.now() - pageReadyStarted < 15000) {
           const ready = await page.send("Runtime.evaluate", {
             returnByValue: true,
-            expression: "Boolean(document.querySelector('.campus-workspace-content, .page-content'))",
+            expression: "Boolean(document.querySelector('.campus-workspace-content, .page-content')) && !document.querySelector('[data-workspace-loading]')",
           });
           if (ready.result.value) break;
           await wait(250);
@@ -272,6 +272,15 @@ async function runRuntimeAudit(url) {
               return Boolean(target);
             })()`,
           });
+          const agendaReadyStarted = Date.now();
+          while (Date.now() - agendaReadyStarted < 15000) {
+            const agendaReady = await page.send("Runtime.evaluate", {
+              returnByValue: true,
+              expression: "Boolean(document.querySelector('.teacher-agenda')) && !document.querySelector('[data-workspace-loading]')",
+            });
+            if (agendaReady.result.value) break;
+            await wait(100);
+          }
         }
         if (pageId === "scores" && scoreView) {
           await page.send("Runtime.evaluate", {
