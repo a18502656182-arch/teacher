@@ -44,6 +44,8 @@ const scheduleHub = read("app/w/[token]/ScheduleHub.tsx");
 const scheduleOperations = read("app/w/[token]/features/schedule/operations.ts");
 const studentProfile = read("app/w/[token]/StudentProfile.tsx");
 const studentProfileOperations = read("app/w/[token]/features/students/profile.ts");
+const studentView = read("app/w/[token]/features/students/StudentsView.tsx");
+const studentStyles = read("app/w/[token]/features/students/StudentsView.module.css");
 const scoreTrends = read("app/w/[token]/ScoreTrends.tsx");
 const classroomTools = read("app/w/[token]/ClassroomTools.tsx");
 const classroomToolsOperations = read("app/w/[token]/features/tools/operations.ts");
@@ -252,9 +254,11 @@ test("campus rebuild owns one shared shell and four task-oriented navigation gro
 test("benchmark pages use reference-led compositions and semantic artwork slots", () => {
   assert.match(dashboard, /className=\{styles\.stage\}/);
   assert.match(dashboardCss, /\.stage\{/);
-  assert.match(app, /campus-student-workspace/);
+  assert.match(app, /<StudentsView data=/);
+  assert.match(studentView, /className=\{styles\.workspace\}/);
+  assert.match(studentStyles, /grid-template-columns:minmax\(620px,1fr\) 350px/);
   assert.match(app, /campus-homework-workspace/);
-  assert.match(pageFamiliesCss, /grid-template-columns:minmax\(620px,1fr\) 350px/);
+  assert.doesNotMatch(pageFamiliesCss, /campus-student-workspace|roster-data-table/);
   assert.match(pageFamiliesCss, /grid-template-columns:330px minmax\(0,1fr\)/);
   assert.match(campusTheme, /assessment: 'assessment\.context'/);
   assert.match(campusTheme, /planning: 'planning\.context'/);
@@ -361,10 +365,10 @@ test("student profile keeps guardians and care information out of the roster lis
   assert.match(classroomTypes, /export type CareProfile/);
   assert.match(classroomTypes, /guardians\?: Guardian\[\]/);
   assert.match(classroomTypes, /careProfiles\?: CareProfile\[\]/);
-  assert.match(app, /<StudentProfile student=/);
+  assert.match(studentView, /<StudentProfile student=/);
   assert.match(studentProfileOperations, /guardians: \[\.\.\.\(current\.guardians \?\? \[\]\)\.filter/);
   assert.match(studentProfile, /仅在本详情内向班主任显示/);
-  assert.match(studentProfile, /visibleScope: "班主任"/);
+  assert.match(studentProfile, /visibleScope: '班主任'/);
   assert.match(studentProfile, /考勤历史/);
   assert.match(studentProfile, /空白日期不代表缺勤/);
 });

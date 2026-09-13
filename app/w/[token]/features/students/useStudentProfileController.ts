@@ -16,6 +16,13 @@ export function useStudentProfileController({ student, data, update, onClose }: 
   const [guardians, setGuardians] = useState<Guardian[]>(() => (data.guardians ?? []).filter((item) => item.studentId === student.id && (!item.classId || item.classId === classId)));
   const [care, setCare] = useState<CareProfile[]>(() => (data.careProfiles ?? []).filter((item) => item.studentId === student.id && (!item.classId || item.classId === classId)));
   const [message, setMessage] = useState("");
+  const [initial] = useState(() => JSON.stringify({
+    residence: student.residence ?? '未填',
+    tags: (student.tags ?? []).join('、'),
+    guardians: (data.guardians ?? []).filter(item => item.studentId === student.id && (!item.classId || item.classId === classId)),
+    care: (data.careProfiles ?? []).filter(item => item.studentId === student.id && (!item.classId || item.classId === classId)),
+  }));
+  const dirty = initial !== JSON.stringify({ residence, tags, guardians, care });
   const visibleCare = useMemo(() => care, [care]);
   const attendanceHistory = useMemo(() => (data.attendanceRecords ?? []).filter((item) => item.classId === classId && item.studentId === student.id).toSorted((a, b) => b.date.localeCompare(a.date)).slice(0, 24), [classId, data.attendanceRecords, student.id]);
   function save() {
@@ -28,5 +35,5 @@ export function useStudentProfileController({ student, data, update, onClose }: 
     });
     onClose();
   }
-  return { residence, setResidence, tags, setTags, guardians, setGuardians, care, setCare, message, visibleCare, attendanceHistory, save };
+  return { residence, setResidence, tags, setTags, guardians, setGuardians, care, setCare, message, visibleCare, attendanceHistory, dirty, save };
 }

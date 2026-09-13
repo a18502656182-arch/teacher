@@ -8,15 +8,15 @@ A-01-06,dashboard,readonly,demo-readonly,1536x900;390x844,015daa3,pass,evidence/
 A-01-07,dashboard,save-failure,not-applicable,source,015daa3,not-applicable,evidence/dashboard-implementation-20260913.md,首页无保存草稿或提交动作
 A-01-08,dashboard,conflict-or-not-applicable,not-applicable,source,015daa3,not-applicable,evidence/dashboard-implementation-20260913.md,首页无版本写入因而没有自有冲突状态
 A-01-09,dashboard,legacy-css-off,demo-css-isolation,six-width,015daa3,pass,evidence/dashboard-implementation-20260913.md,旧Dashboard和dashboard.css已删除且局部CSS Module接管页面
-A-02-01,students,desktop-default,,,,not-run,,不适用需说明源码依据
-A-02-02,students,mobile-default,,,,not-run,,不适用需说明源码依据
-A-02-03,students,empty,,,,not-run,,不适用需说明源码依据
-A-02-04,students,long-data,,,,not-run,,不适用需说明源码依据
-A-02-05,students,primary-editor,,,,not-run,,不适用需说明源码依据
-A-02-06,students,readonly,,,,not-run,,不适用需说明源码依据
-A-02-07,students,save-failure,,,,not-run,,不适用需说明源码依据
-A-02-08,students,conflict-or-not-applicable,,,,not-run,,不适用需说明源码依据
-A-02-09,students,legacy-css-off,,,,not-run,,不适用需说明源码依据
+A-02-01,students,desktop-default,demo-readonly,1536x1024,本任务提交,pass,evidence/students-implementation-20260913.md,C3名单主表与350px右侧单学生事实实看通过
+A-02-02,students,mobile-default,demo-readonly,390x844,本任务提交,pass,evidence/students-implementation-20260913.md,手机名单到单学生Drawer实看且无横向溢出
+A-02-03,students,empty,E0-formal-empty-model,automated,本任务提交,pass,evidence/students-implementation-20260913.md,读取模型保持0人空名单且不补造业务数据
+A-02-04,students,long-data,E1/E2/E6,automated;qa-strict,本任务提交,pass,evidence/students-implementation-20260913.md,50/105人、长姓名和缺失电话读取与布局通过
+A-02-05,students,primary-editor,demo-readonly/source,1536x1024;390x844,本任务提交,pass,evidence/students-implementation-20260913.md,单人编辑、批量、导入预检、追加替换、档案和关联删除入口保全
+A-02-06,students,readonly,demo-readonly,1536x1024;390x844,本任务提交,pass,evidence/students-implementation-20260913.md,写入口禁用但查询详情与导出保留
+A-02-07,students,save-failure,E8-save-failure,automated,本任务提交,pass,evidence/students-implementation-20260913.md,一般编辑保留本机workspace草稿并由全局错误重试承接
+A-02-08,students,conflict-or-not-applicable,E9-conflict,automated,本任务提交,pass,evidence/students-implementation-20260913.md,共享workspace在409后保留草稿并锁住覆盖保存
+A-02-09,students,legacy-css-off,demo-css-isolation,1536x1024;390x844,本任务提交,pass,evidence/students-implementation-20260913.md,旧Students/MobileStudents与page-families学生构图退出且新页在ThemeBoundary内
 A-03-01,homework,desktop-default,,,,not-run,,不适用需说明源码依据
 A-03-02,homework,mobile-default,,,,not-run,,不适用需说明源码依据
 A-03-03,homework,empty,,,,not-run,,不适用需说明源码依据
