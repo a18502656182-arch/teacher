@@ -75,7 +75,7 @@ function normalizeTermConfig(config: ScheduleConfig, fallbackYear: number) {
   return { ...config, termStartMonth: start, termEndMonth: end };
 }
 
-export function CourseSchedule({ data, update, readOnly = false }: { data: ClassroomData; update: (fn: (d: ClassroomData) => ClassroomData) => void; readOnly?: boolean }) {
+export function CourseSchedule({ data, update, save, readOnly = false }: { data: ClassroomData; update: (fn: (d: ClassroomData) => ClassroomData) => void; save: () => Promise<boolean>; readOnly?: boolean }) {
   const storedWeeks = useMemo(() => data.scheduleWeeks ?? [], [data.scheduleWeeks]);
   const initialConfig = data.scheduleConfig ?? defaultConfig;
   const initialBaseMonth = initialConfig.termStartMonth || storedWeeks[0]?.month || formatDate(new Date()).slice(0, 7);
@@ -94,6 +94,7 @@ export function CourseSchedule({ data, update, readOnly = false }: { data: Class
   const [draftEvents, setDraftEvents] = useState<ScheduleEvent[]>([]);
   const [draftFocuses, setDraftFocuses] = useState<DailyFocus[]>([]);
   const [message, setMessage] = useState("");
+  const [busy, setBusy] = useState(false);
   const [newEvent, setNewEvent] = useState<Omit<ScheduleEvent, "id">>({ date: `${selectedMonth}-01`, title: "", type: "班会", detail: "" });
   const [newFocus, setNewFocus] = useState<Omit<DailyFocus, "id">>({ date: `${selectedMonth}-01`, focus: "", todo: "", status: "待处理" });
 
@@ -249,8 +250,8 @@ export function CourseSchedule({ data, update, readOnly = false }: { data: Class
     setIsEditingTerm(false);
   }
 
-  function saveTerm() {
-    if (readOnly) {
+  async function saveTerm() {
+    if (readOnly || busy) {
       setMessage("当前为只读模式，学期配置未保存。");
       return;
     }
@@ -266,12 +267,15 @@ export function CourseSchedule({ data, update, readOnly = false }: { data: Class
       const result = saveScheduleTermConfig(current, activeClassId, draftConfig);
       return result.data ?? current;
     });
+    setBusy(true); setMessage("");
+    const ok = await save(); setBusy(false);
+    if (!ok) { setMessage("学期配置同步失败，本机修改已保留；编辑器不会关闭。"); return; }
     setDraftConfig(nextConfig);
     setSelectedMonth(targetMonth);
     setCalendarYear(Number(targetMonth.slice(0, 4)) || calendarYear);
     setSelectedWeek(targetWeek);
     setIsEditingTerm(false);
-    setMessage("学期配置已更新，正在同步。");
+    setMessage("学期配置已由服务器确认。");
   }
 
   function startScheduleEdit() {
@@ -296,8 +300,8 @@ export function CourseSchedule({ data, update, readOnly = false }: { data: Class
     setIsEditingSchedule(false);
   }
 
-  function saveWeek() {
-    if (readOnly) {
+  async function saveWeek() {
+    if (readOnly || busy) {
       setMessage("当前为只读模式，本周课表未保存。");
       return;
     }
@@ -313,12 +317,15 @@ export function CourseSchedule({ data, update, readOnly = false }: { data: Class
       const result = saveClassScheduleWeek(current, activeClassId, input);
       return result.data ?? current;
     });
+    setBusy(true); setMessage("");
+    const ok = await save(); setBusy(false);
+    if (!ok) { setMessage("本周课表同步失败，本机修改已保留；编辑器不会关闭。"); return; }
     setDraftConfig(week.config);
     setDraftCourses(week.courses);
     setDraftEvents(week.events);
     setDraftFocuses(week.focuses);
     setIsEditingSchedule(false);
-    setMessage("本周课表已更新，正在同步。");
+    setMessage("本周课表已由服务器确认。");
   }
 
   function startEventsEdit() {
@@ -349,8 +356,8 @@ export function CourseSchedule({ data, update, readOnly = false }: { data: Class
     setIsEditingFocuses(false);
   }
 
-  function saveWeekSide(patch: Partial<Pick<ScheduleWeek, "events" | "focuses">>) {
-    if (readOnly) {
+  async function saveWeekSide(patch: Partial<Pick<ScheduleWeek, "events" | "focuses">>) {
+    if (readOnly || busy) {
       setMessage("当前为只读模式，本周日程未保存。");
       return false;
     }
@@ -366,16 +373,18 @@ export function CourseSchedule({ data, update, readOnly = false }: { data: Class
       const result = saveClassScheduleWeek(current, activeClassId, input);
       return result.data ?? current;
     });
-    setMessage("本周日程已更新，正在同步。");
-    return true;
+    setBusy(true); setMessage("");
+    const ok = await save(); setBusy(false);
+    setMessage(ok ? "本周日程已由服务器确认。" : "本周日程同步失败，本机修改已保留；编辑器不会关闭。");
+    return ok;
   }
 
-  function saveEvents() {
-    if (saveWeekSide({ events: draftEvents })) setIsEditingEvents(false);
+  async function saveEvents() {
+    if (await saveWeekSide({ events: draftEvents })) setIsEditingEvents(false);
   }
 
-  function saveFocuses() {
-    if (saveWeekSide({ focuses: draftFocuses })) setIsEditingFocuses(false);
+  async function saveFocuses() {
+    if (await saveWeekSide({ focuses: draftFocuses })) setIsEditingFocuses(false);
   }
 
   return <div className="courseplan-page homework-bootstrap-preview">
@@ -385,7 +394,7 @@ export function CourseSchedule({ data, update, readOnly = false }: { data: Class
       title="课程日程"
       description={`${scheduleTermLabel(calendarConfig)} · ${weekDates.startDate} 至 ${weekDates.endDate}`}
       actions={<div className="courseplan-heading-actions">
-        {isEditingSchedule ? <><button className="courseplan-primary workbench-header-primary" onClick={saveWeek}>保存课表</button><button onClick={cancelScheduleEdit}>取消编辑</button></> : <button className="courseplan-primary workbench-header-primary" onClick={startScheduleEdit}>编辑本周课表</button>}
+        {isEditingSchedule ? <><button className="courseplan-primary workbench-header-primary" disabled={readOnly || busy} onClick={() => void saveWeek()}>{busy ? "保存中…" : "保存课表"}</button><button disabled={busy} onClick={cancelScheduleEdit}>取消编辑</button></> : <button className="courseplan-primary workbench-header-primary" disabled={readOnly || busy} onClick={startScheduleEdit}>编辑本周课表</button>}
       </div>}
     />
 
@@ -409,7 +418,7 @@ export function CourseSchedule({ data, update, readOnly = false }: { data: Class
         <small>{weekDates.startDate} 至 {weekDates.endDate}</small>
       </div>
       <div className="courseplan-toolbar-actions">
-        {isEditingTerm ? <><button className="courseplan-primary" onClick={saveTerm}>保存学期</button><button onClick={cancelTermEdit}>取消</button></> : <button onClick={startTermEdit}>编辑学期</button>}
+        {isEditingTerm ? <><button className="courseplan-primary" disabled={readOnly || busy} onClick={() => void saveTerm()}>{busy ? "保存中…" : "保存学期"}</button><button disabled={busy} onClick={cancelTermEdit}>取消</button></> : <button disabled={readOnly || busy} onClick={startTermEdit}>编辑学期</button>}
       </div>
     </section>
 
@@ -433,7 +442,7 @@ export function CourseSchedule({ data, update, readOnly = false }: { data: Class
       <header className="courseplan-section-head">
         <div><span>{isEditingSchedule ? "编辑课表" : "本周课表"}</span><h3>{weekDates.label}</h3></div>
         <div className="courseplan-table-actions">
-          {isEditingSchedule ? <><button className="courseplan-primary" onClick={saveWeek}>保存课表</button><button onClick={cancelScheduleEdit}>取消</button><button className="courseplan-danger" onClick={clearSchedule}>清空课程</button><button onClick={addDay}>新增上课日</button><button onClick={addPeriod}>新增节次</button></> : null}
+          {isEditingSchedule ? <><button className="courseplan-primary" disabled={readOnly || busy} onClick={() => void saveWeek()}>{busy ? "保存中…" : "保存课表"}</button><button disabled={busy} onClick={cancelScheduleEdit}>取消</button><button className="courseplan-danger" disabled={readOnly || busy} onClick={clearSchedule}>清空课程</button><button disabled={readOnly || busy} onClick={addDay}>新增上课日</button><button disabled={readOnly || busy} onClick={addPeriod}>新增节次</button></> : null}
         </div>
       </header>
       <div className="courseplan-scroll">
@@ -460,7 +469,7 @@ export function CourseSchedule({ data, update, readOnly = false }: { data: Class
 
     <section className="courseplan-grid">
       <section className="courseplan-panel">
-        <header className="courseplan-section-head"><div><span>班级活动</span><h3>本周安排</h3></div>{isEditingEvents ? <div><button className="courseplan-primary" onClick={saveEvents}>保存</button><button onClick={cancelEventsEdit}>取消</button></div> : <button onClick={startEventsEdit}>编辑</button>}</header>
+        <header className="courseplan-section-head"><div><span>班级活动</span><h3>本周安排</h3></div>{isEditingEvents ? <div><button className="courseplan-primary" disabled={readOnly || busy} onClick={() => void saveEvents()}>{busy ? "保存中…" : "保存"}</button><button disabled={busy} onClick={cancelEventsEdit}>取消</button></div> : <button disabled={readOnly || busy} onClick={startEventsEdit}>编辑</button>}</header>
         {isEditingEvents && <div className="courseplan-compose event">
           <input type="date" value={newEvent.date} onChange={(event) => setNewEvent((draft) => ({ ...draft, date: event.target.value }))} />
           <select value={newEvent.type} onChange={(event) => setNewEvent((draft) => ({ ...draft, type: event.target.value as ScheduleEvent["type"] }))}>{eventTypes.map((item) => <option key={item}>{item}</option>)}</select>
@@ -476,7 +485,7 @@ export function CourseSchedule({ data, update, readOnly = false }: { data: Class
       </section>
 
       <section className="courseplan-panel">
-        <header className="courseplan-section-head"><div><span>每日重点</span><h3>本周重点事项</h3></div>{isEditingFocuses ? <div><button className="courseplan-primary" onClick={saveFocuses}>保存</button><button onClick={cancelFocusesEdit}>取消</button></div> : <button onClick={startFocusesEdit}>编辑</button>}</header>
+        <header className="courseplan-section-head"><div><span>每日重点</span><h3>本周重点事项</h3></div>{isEditingFocuses ? <div><button className="courseplan-primary" disabled={readOnly || busy} onClick={() => void saveFocuses()}>{busy ? "保存中…" : "保存"}</button><button disabled={busy} onClick={cancelFocusesEdit}>取消</button></div> : <button disabled={readOnly || busy} onClick={startFocusesEdit}>编辑</button>}</header>
         {isEditingFocuses && <div className="courseplan-compose focus">
           <input type="date" value={newFocus.date} onChange={(event) => setNewFocus((draft) => ({ ...draft, date: event.target.value }))} />
           <input value={newFocus.focus} onChange={(event) => setNewFocus((draft) => ({ ...draft, focus: event.target.value }))} placeholder="重点主题" />

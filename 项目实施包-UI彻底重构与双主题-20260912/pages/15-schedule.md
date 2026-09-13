@@ -1,6 +1,6 @@
 # 课程日程：逐页执行卡
 
-状态：inventoried-with-gap。模块ID：schedule。源码相对 app/w/[token]（明确app/lib前缀除外）：ScheduleHub.tsx;CourseSchedule.tsx;TeacherAgenda.tsx;ClassroomApp.tsx:MobileSecondaryPage；共享操作：features/schedule/operations.ts。
+状态：implemented。模块ID：schedule。源码相对 app/w/[token]（明确app/lib前缀除外）：ScheduleHub.tsx;CourseSchedule.tsx;TeacherAgenda.tsx;ClassroomApp.tsx:MobileSecondaryPage；共享操作：features/schedule/operations.ts。
 参考：计划器派生。派生页面使用对应页面族构图和校园token，不把缺少专属图解释为可回退旧UI。
 
 ## 保全动作（种子，实施前展开）
@@ -35,3 +35,9 @@
 已展开桌面/手机课程与个人日程入口、学期月份周次、教学日配置、课程/活动/每日重点编辑、事项和工作留痕。两端已接共享操作层，修复周保存丢失周外活动、倒置学期、跨班关联、只读假成功、事项重复留痕和手机默认月份不一致；隔离可写工作区验证保存、刷新和跨端读取。
 
 本卡仍未完成：生产 DOM/CSS 继续使用 `courseplan-*`、`agenda-*` 和手机公共大组件，正式独立校园视图、旧 CSS 退出、操作级服务器确认、100+/物理手机和全部极端状态尚未验收，所以 `A-15-*` 不改为通过。证据见 `../evidence/schedule-operations-20260912.md`。
+
+## 2026-09-13 迁移完成
+
+桌面及手机课程、活动、每日重点、个人事项和工作留痕已统一接入workspace保存结果；服务器确认后才关闭/更新编辑器，失败保留本机修改与当前上下文，保存中防重复。演示/只读模式显式禁用全部写入口。跨月、1—7教学日、周外数据保留、跨班隔离与完成留痕幂等继续由共享操作层保障。
+
+1280×720桌面、390×844手机实查及六档布局通过。共享`courseplan-*`、`agenda-*`/手机旧样式仍有跨页消费者，退出归TASK-30；100+、物理手机软键盘、真实弱网与线上环境未验收。证据见`../evidence/schedule-implementation-20260913.md`。

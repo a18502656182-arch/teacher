@@ -42,6 +42,7 @@ const attendancePage = read("app/w/[token]/Attendance.tsx");
 const attendanceStyles = read("app/w/[token]/features/attendance/Attendance.module.css");
 const teacherAgenda = read("app/w/[token]/TeacherAgenda.tsx");
 const scheduleHub = read("app/w/[token]/ScheduleHub.tsx");
+const courseSchedule = read("app/w/[token]/CourseSchedule.tsx");
 const scheduleOperations = read("app/w/[token]/features/schedule/operations.ts");
 const studentProfile = read("app/w/[token]/StudentProfile.tsx");
 const studentProfileOperations = read("app/w/[token]/features/students/profile.ts");
@@ -405,14 +406,21 @@ test("course scheduling keeps teacher work in the same module with traceable rec
   assert.match(classroomTypes, /export type WorkLog/);
   assert.match(classroomTypes, /teacherAgenda\?: TeacherAgendaItem\[\]/);
   assert.match(classroomTypes, /workLogs\?: WorkLog\[\]/);
-  assert.match(app, /<ScheduleHub data=\{workspace\.data\} update=\{updateData\}/);
-  assert.match(app, /<TeacherAgenda data=\{data\} update=\{update\} mobile/);
+  assert.match(app, /<ScheduleHub data=\{workspace\.data\} update=\{updateData\} save=\{save\}/);
+  assert.match(app, /<TeacherAgenda data=\{data\} update=\{update\} save=\{save\} mobile/);
   assert.match(scheduleHub, /班级课表/);
   assert.match(scheduleHub, /我的日程与留痕/);
   assert.match(teacherAgenda, /完成并留痕/);
   assert.match(teacherAgenda, /completeAgendaWithLog/);
   assert.match(scheduleOperations, /find\(log => log\.agendaId === agenda\.id\)/);
   assert.match(scheduleOperations, /agendaId: agenda\.id/);
+  assert.match(courseSchedule, /async function saveTerm\(\)/);
+  assert.match(courseSchedule, /const ok = await save\(\)/);
+  assert.match(courseSchedule, /编辑器不会关闭/);
+  assert.match(teacherAgenda, /async function saveAgenda\(\)/);
+  assert.match(teacherAgenda, /事项同步失败，本机修改已保留/);
+  assert.match(app, /async function saveScheduleEventMobile\(\)/);
+  assert.match(app, /课程同步失败，本机修改已保留/);
 });
 
 test("dashboard reuses dated teacher agenda instead of maintaining a second todo list", () => {

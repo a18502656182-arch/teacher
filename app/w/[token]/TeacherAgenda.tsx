@@ -38,7 +38,7 @@ function draftSignature(value: TeacherAgendaItem | WorkLog) {
   return JSON.stringify(value);
 }
 
-export function TeacherAgenda({ data, update, mobile = false, readOnly = false }: { data: ClassroomData; update: (fn: (d: ClassroomData) => ClassroomData) => void; mobile?: boolean; readOnly?: boolean }) {
+export function TeacherAgenda({ data, update, save, mobile = false, readOnly = false }: { data: ClassroomData; update: (fn: (d: ClassroomData) => ClassroomData) => void; save: () => Promise<boolean>; mobile?: boolean; readOnly?: boolean }) {
   const activeClassId = data.activeClassId ?? data.rosterClasses?.[0]?.id ?? "";
   const [selectedDate, setSelectedDate] = useState(dateToday);
   const [studentPickerOpen, setStudentPickerOpen] = useState(false);
@@ -47,6 +47,7 @@ export function TeacherAgenda({ data, update, mobile = false, readOnly = false }
   const [logDraft, setLogDraft] = useState<WorkLog>(() => blankLog(dateToday()));
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
+  const [busy, setBusy] = useState(false);
   const [editorBaseline, setEditorBaseline] = useState("");
   const agendas = useMemo(() => teacherAgendaForClass(data, activeClassId), [activeClassId, data]);
   const logs = useMemo(() => workLogsForClass(data, activeClassId), [activeClassId, data]);
@@ -74,8 +75,8 @@ export function TeacherAgenda({ data, update, mobile = false, readOnly = false }
     setEditor("log");
   }
 
-  function saveAgenda() {
-    if (readOnly) {
+  async function saveAgenda() {
+    if (readOnly || busy) {
       setError("当前为只读模式，事项未保存。");
       return;
     }
@@ -88,13 +89,16 @@ export function TeacherAgenda({ data, update, mobile = false, readOnly = false }
     }
     update((current) => saveTeacherAgenda(current, activeClassId, agendaDraft, () => nextId, nowIso).data ?? current);
     setAgendaDraft(preview.item!);
+    setBusy(true); setError(""); setMessage("");
+    const ok = await save(); setBusy(false);
+    if (!ok) { setError("事项同步失败，本机修改已保留；编辑器不会关闭。"); return; }
     setEditorBaseline(draftSignature(preview.item!));
     setError("");
-    setMessage("事项已更新，正在同步。确认无误后可关闭编辑器。");
+    setMessage("事项已由服务器确认，可以关闭编辑器。");
   }
 
-  function saveLog() {
-    if (readOnly) {
+  async function saveLog() {
+    if (readOnly || busy) {
       setError("当前为只读模式，工作留痕未保存。");
       return;
     }
@@ -106,13 +110,16 @@ export function TeacherAgenda({ data, update, mobile = false, readOnly = false }
     }
     update((current) => saveWorkLog(current, activeClassId, logDraft, () => nextId).data ?? current);
     setLogDraft(preview.item!);
+    setBusy(true); setError(""); setMessage("");
+    const ok = await save(); setBusy(false);
+    if (!ok) { setError("工作留痕同步失败，本机修改已保留；编辑器不会关闭。"); return; }
     setEditorBaseline(draftSignature(preview.item!));
     setError("");
-    setMessage("工作留痕已更新，正在同步。确认无误后可关闭编辑器。");
+    setMessage("工作留痕已由服务器确认，可以关闭编辑器。");
   }
 
-  function completeAndLog(item: TeacherAgendaItem) {
-    if (readOnly) {
+  async function completeAndLog(item: TeacherAgendaItem) {
+    if (readOnly || busy) {
       setMessage("当前为只读模式，事项状态和工作留痕未更改。");
       return;
     }
@@ -125,11 +132,13 @@ export function TeacherAgenda({ data, update, mobile = false, readOnly = false }
       return;
     }
     update((current) => completeAgendaWithLog(current, activeClassId, item.id, () => logId, nowIso, createdAt).data ?? current);
-    setMessage("事项已完成；对应工作留痕已保留，重复操作不会新增副本。");
+    setBusy(true); setMessage("");
+    const ok = await save(); setBusy(false);
+    setMessage(ok ? "事项完成与对应工作留痕已由服务器确认，重复操作不会新增副本。" : "完成同步失败，本机状态与留痕已保留；请重试保存。");
   }
 
   async function deleteCurrent() {
-    if (readOnly) {
+    if (readOnly || busy) {
       setError("当前为只读模式，记录未删除。");
       return;
     }
@@ -145,12 +154,15 @@ export function TeacherAgenda({ data, update, mobile = false, readOnly = false }
     if (!await requestAgendaConfirm(editor === "agenda" ? "确认删除这条个人日程？" : "确认删除这条工作留痕？", "确认删除", "确认删除")) return;
     if (editor === "agenda") update((current) => removeTeacherAgenda(current, activeClassId, agendaDraft.id).data ?? current);
     if (editor === "log") update((current) => removeWorkLog(current, activeClassId, logDraft.id).data ?? current);
+    setBusy(true); setError("");
+    const ok = await save(); setBusy(false);
+    if (!ok) { setError("删除同步失败，本机修改已保留；编辑器不会关闭。"); return; }
     setEditor(null);
-    setMessage("记录已删除，正在同步。");
+    setMessage("记录删除已由服务器确认。");
   }
 
   async function closeEditor() {
-    if (!editor) return;
+    if (!editor || busy) return;
     const currentSignature = draftSignature(editor === "agenda" ? agendaDraft : logDraft);
     if (currentSignature !== editorBaseline && !await requestAgendaConfirm("当前编辑内容尚未保存，确认关闭并放弃这些修改？", "放弃未保存修改", "放弃修改")) return;
     setStudentPickerOpen(false);
@@ -183,7 +195,7 @@ export function TeacherAgenda({ data, update, mobile = false, readOnly = false }
       <article><span>关联学生</span><b>{new Set(dayItems.flatMap((item) => item.relatedStudentIds ?? [])).size}</b><small>仅在相关事项中显示，不公开敏感信息</small></article>
     </section>
     <section className="agenda-board">
-      <header><div><span>当天安排</span><h2>{selectedDate === dateToday() ? "今天的日程" : `${selectedDate} 的日程`}</h2></div><button className="agenda-primary" type="button" onClick={() => openAgenda()}>新增事项</button></header>
+      <header><div><span>当天安排</span><h2>{selectedDate === dateToday() ? "今天的日程" : `${selectedDate} 的日程`}</h2></div><button className="agenda-primary" type="button" disabled={readOnly || busy} onClick={() => openAgenda()}>新增事项</button></header>
       <div className="agenda-list">
         {dayItems.map((item) => {
           const related = students.filter((student) => (item.relatedStudentIds ?? []).includes(student.id)).map((student) => student.name).join("、");
@@ -191,14 +203,14 @@ export function TeacherAgenda({ data, update, mobile = false, readOnly = false }
           return <article className={`agenda-item ${item.status}`} key={item.id}>
             <div className="agenda-item-time"><b>{timeLabel(item)}</b><span>{item.type}</span></div>
             <button className="agenda-item-main" type="button" onClick={() => openAgenda(item)}><b>{item.title}</b><small>{item.detail || "未填写说明"}</small>{related && <em>关联：{related}</em>}</button>
-            <div className="agenda-item-actions"><span>{item.status}</span>{item.status !== "已完成" && item.status !== "已取消" && <button type="button" onClick={() => completeAndLog(item)}>完成并留痕</button>}{item.status === "已完成" && <button type="button" onClick={() => openLog(logs.find((log) => log.agendaId === item.id))}>{hasLog ? "查看留痕" : "补充留痕"}</button>}</div>
+            <div className="agenda-item-actions"><span>{item.status}</span>{item.status !== "已完成" && item.status !== "已取消" && <button type="button" disabled={readOnly || busy} onClick={() => void completeAndLog(item)}>完成并留痕</button>}{item.status === "已完成" && <button type="button" onClick={() => openLog(logs.find((log) => log.agendaId === item.id))}>{hasLog ? "查看留痕" : "补充留痕"}</button>}</div>
           </article>;
         })}
-        {!dayItems.length && <div className="agenda-empty"><b>这一天还没有个人安排</b><span>可记录备课、批改、会议、辅导和班级事务；它们只保存在当前工作台。</span><button type="button" onClick={() => openAgenda()}>安排第一项</button></div>}
+        {!dayItems.length && <div className="agenda-empty"><b>这一天还没有个人安排</b><span>可记录备课、批改、会议、辅导和班级事务；它们只保存在当前工作台。</span><button type="button" disabled={readOnly || busy} onClick={() => openAgenda()}>安排第一项</button></div>}
       </div>
     </section>
     <section className="agenda-log-board">
-      <header><div><span>通用工作留痕</span><h2>已完成的工作记录</h2></div><button type="button" onClick={() => openLog()}>手动记录</button></header>
+      <header><div><span>通用工作留痕</span><h2>已完成的工作记录</h2></div><button type="button" disabled={readOnly || busy} onClick={() => openLog()}>手动记录</button></header>
       <div className="agenda-log-list">
         {dayLogs.map((log) => <button type="button" key={log.id} onClick={() => openLog(log)}><i>{log.type.slice(0, 1)}</i><span><b>{log.title}</b><small>{log.detail || "未填写工作说明"}</small></span><em>{log.durationMinutes ? `${log.durationMinutes} 分钟` : log.agendaId ? "由日程完成生成" : "手动记录"}</em></button>)}
         {!dayLogs.length && <div className="agenda-log-empty">完成日程时可一键生成留痕，也可直接补记当天已做的工作。</div>}
@@ -228,7 +240,7 @@ export function TeacherAgenda({ data, update, mobile = false, readOnly = false }
     </div>}
     {message && <p className="agenda-form-message" role="status">{message}</p>}
     {error && <p className="agenda-form-error" role="alert">{error}</p>}
-    <footer>{(editor === "agenda" ? agendaDraft.id : logDraft.id) && <button className="agenda-delete" type="button" onClick={() => void deleteCurrent()}>删除</button>}<span /><button type="button" onClick={() => void closeEditor()}>关闭</button><button className="agenda-primary" type="button" onClick={editor === "agenda" ? saveAgenda : saveLog}>保存</button></footer>
+    <footer>{(editor === "agenda" ? agendaDraft.id : logDraft.id) && <button className="agenda-delete" type="button" disabled={readOnly || busy} onClick={() => void deleteCurrent()}>删除</button>}<span /><button type="button" disabled={busy} onClick={() => void closeEditor()}>关闭</button><button className="agenda-primary" type="button" disabled={readOnly || busy} onClick={() => void (editor === "agenda" ? saveAgenda() : saveLog())}>{busy ? "保存中…" : "保存"}</button></footer>
   </section></div>;
 
   return <div className={`teacher-agenda ${mobile ? "teacher-agenda-mobile" : ""}`}>
