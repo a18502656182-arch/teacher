@@ -17,12 +17,17 @@ const entryPage = read("app/features/entry/EntryPage.tsx");
 const entryController = read("app/features/entry/useEntryController.ts");
 const entryStyles = read("app/features/entry/EntryPage.module.css");
 const privacyPage = read("app/features/entry/PrivacyPage.tsx");
-const adminStyles = read("app/admin.css");
+const adminStyles = read("app/admin/features/admin/AdminConsole.module.css");
 const accountCenter = read("app/w/[token]/features/account/AccountCenter.tsx");
 const accountController = read("app/w/[token]/features/account/useAccountCenter.ts");
 const accountOperations = read("app/w/[token]/features/account/operations.ts");
 const accountStyles = read("app/w/[token]/features/account/AccountCenter.module.css");
 const adminPage = read("app/admin/page.tsx");
+const adminConsole = read("app/admin/features/admin/AdminConsole.tsx");
+const adminUserDialog = read("app/admin/features/admin/AdminUserDialog.tsx");
+const adminController = read("app/admin/features/admin/useAdminConsole.ts");
+const adminApiClient = read("app/admin/features/admin/api.ts");
+const adminUi = adminPage + adminConsole + adminUserDialog + adminController + adminApiClient;
 const redeemRoute = read("app/api/admin/redeem-codes/route.ts");
 const adminUsersRoute = read("app/api/admin/users/route.ts");
 const authMeRoute = read("app/api/auth/me/route.ts");
@@ -137,15 +142,15 @@ test("administrator can generate and review short redeem codes in bulk", () => {
   assert.match(redeemRoute, /Math\.min\(50, Math\.max\(1/);
   assert.match(redeemRoute, /code_encrypted/);
   assert.match(redeemRoute, /decryptRedeemCode/);
-  assert.match(adminPage, /生成数量/);
-  assert.match(adminPage, /复制全部/);
-  assert.match(adminPage, /历史码（尾号/);
+  assert.match(adminUi, /生成数量/);
+  assert.match(adminUi, /复制全部/);
+  assert.match(adminUi, /历史码（尾号/);
 });
 
 test("administrator views full account data while workspace account stays concise", () => {
   assert.match(adminUsersRoute, /phone: String\(row\.phone\)/);
-  assert.match(adminPage, /user\.phone/);
-  assert.match(adminPage, /code\.phone \|\| "未绑定"/);
+  assert.match(adminUi, /user\.phone/);
+  assert.match(adminUi, /code\.phone \|\| '未绑定'/);
   assert.match(authMeRoute, /phone: session\.phone/);
   assert.match(accountCenter, /account\?\.phone/);
   assert.match(accountCenter, /当前设备/);
@@ -183,8 +188,21 @@ test("workspace backup restore validates file size, identities and structure bef
 test("administrator can export and permanently delete user data with confirmation", () => {
   assert.match(userDataRoute, /classroom-user-export/);
   assert.match(userDataRoute, /payload\.confirmation !== user\.phone/);
-  assert.match(adminPage, /导出/);
-  assert.match(adminPage, /删除数据/);
+  assert.match(adminUi, /导出用户完整数据/);
+  assert.match(adminUi, /永久删除账户与全部工作台数据/);
+  assert.match(adminUi, /deleteConfirmation !== selectedUser\.phone/);
+});
+
+test("administrator uses the shared theme, native dialog and page-scoped styles", () => {
+  assert.match(adminPage, /<AdminConsole/);
+  assert.match(adminConsole, /<ThemeBoundary>/);
+  assert.match(adminUserDialog, /<Dialog open/);
+  assert.match(adminController, /Promise\.all/);
+  assert.match(adminController, /setLoadError/);
+  assert.match(adminStyles, /grid-template-columns:\s*245px minmax\(0, 1fr\)/);
+  assert.match(adminStyles, /\.table thead/);
+  assert.doesNotMatch(rootLayout, /admin\.css/);
+  assert.doesNotMatch(adminStyles, /\.admin-(?:page|dialog|code-maker)/);
 });
 
 test("desktop shell has one page title and one account entry in the global header", () => {
