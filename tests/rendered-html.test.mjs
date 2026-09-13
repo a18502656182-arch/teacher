@@ -82,6 +82,8 @@ const themeDefinitions = read("app/components/workbench/theme/definitions.ts");
 const rootLayout = read("app/layout.tsx");
 const dutyPage = read("app/w/[token]/Duty.tsx");
 const dutyOperations = read("app/w/[token]/features/duty/operations.ts");
+const seatingPage = read("app/w/[token]/Seating.tsx");
+const cadresPage = read("app/w/[token]/Cadres.tsx");
 const idWriteSurfaces = [attendancePage, teacherAgenda, classroomTools, notificationDrafts, studentProfile, read("app/w/[token]/CourseSchedule.tsx"), app];
 
 test("public entry exposes only the two intended primary routes", () => {
@@ -371,8 +373,19 @@ test("duty timetable follows the course schedule's custom teaching days", () => 
   assert.match(dutyPage, /gridTemplateColumns: `170px repeat\(\$\{days\.length\}/);
   assert.match(dutyOperations, /export function dutyDateForDay/);
   assert.match(dutyOperations, /export function sameDutyDay/);
-  assert.match(app, /pane\('duty', <Duty data=\{data\} update=\{update\} readOnly=\{isDemo \|\| isReadOnly\} mobile/);
+  assert.match(app, /pane\('duty', <Duty data=\{data\} update=\{update\} save=\{save\} readOnly=\{isDemo \|\| isReadOnly\} mobile/);
   assert.doesNotMatch(app, /className="duty3-page"|className="mobile-stack mobile-duty-page"/);
+});
+
+test("seating duty and cadres wait for workspace confirmation", () => {
+  assert.match(app, /<Seating data=\{workspace\.data\} update=\{updateData\} save=\{save\}/);
+  assert.match(app, /<Cadres data=\{workspace\.data\} update=\{updateData\} save=\{save\}/);
+  assert.match(seatingPage, /async function apply\(result: SeatingMutationResult/);
+  assert.match(seatingPage, /座位同步失败，本机安排与撤销快照已保留/);
+  assert.match(dutyPage, /async function closeEditor\(\)/);
+  assert.match(dutyPage, /值日同步失败，本机修改和当前编辑上下文已保留/);
+  assert.match(cadresPage, /async function submitRole\(\)/);
+  assert.match(cadresPage, /岗位同步失败，本机修改和当前编辑内容已保留/);
 });
 
 test("attendance keeps all actions in the batch-capable main roster", () => {

@@ -33,9 +33,10 @@ function statusClass(status: CadreRole["status"]) {
   return status === "试用" ? styles.trial : status === "轮换" ? styles.rotating : styles.active;
 }
 
-export function Cadres({ data, update, readOnly = false, mobile = false, confirmAction }: {
+export function Cadres({ data, update, save, readOnly = false, mobile = false, confirmAction }: {
   data: ClassroomData;
   update: (fn: (data: ClassroomData) => ClassroomData) => void;
+  save: () => Promise<boolean>;
   readOnly?: boolean;
   mobile?: boolean;
   confirmAction: ConfirmAction;
@@ -54,6 +55,7 @@ export function Cadres({ data, update, readOnly = false, mobile = false, confirm
   const [editorState, setEditorState] = useState<EditorState | null>(null);
   const [pickerOpen, setPickerOpen] = useState(false);
   const [noticeState, setNoticeState] = useState<Notice | null>(null);
+  const [busy, setBusy] = useState(false);
   const keyword = keywordState.classId === classId ? keywordState.value : "";
   const notice = noticeState?.classId === classId ? noticeState : null;
   const editor = editorState?.classId === classId ? editorState : null;
@@ -80,6 +82,7 @@ export function Cadres({ data, update, readOnly = false, mobile = false, confirm
   }
 
   function ensureWritable() {
+    if (busy) return false;
     if (!readOnly) return true;
     show("当前为只读模式，班干部岗位未修改。", "error");
     return false;
@@ -127,7 +130,7 @@ export function Cadres({ data, update, readOnly = false, mobile = false, confirm
   }
 
   async function closeEditor() {
-    if (!editor) return;
+    if (!editor || busy) return;
     if (JSON.stringify(editor.draft) !== editor.baseline && !await confirmAction("尚未保存的岗位内容会丢失。", "放弃本次修改？", "放弃修改")) return;
     setEditorState(null);
     setPickerOpen(false);
@@ -154,7 +157,7 @@ export function Cadres({ data, update, readOnly = false, mobile = false, confirm
     patchDraft({ role: `第${group}组组长`, scope: "小组管理", groupNumber: group, studentId: student?.id ?? "" });
   }
 
-  function submitRole() {
+  async function submitRole() {
     if (!editor || !ensureWritable()) return;
     const result = saveCadreRole(data, classId, editor.draft, () => makeId("cadre"));
     if (result.error || !result.data || !result.role) {
@@ -164,9 +167,17 @@ export function Cadres({ data, update, readOnly = false, mobile = false, confirm
     update(() => result.data!);
     setSelection({ classId, roleId: result.role.id });
     if (mobile) setMobileDetail({ classId, roleId: result.role.id });
+    setBusy(true);
+    show("岗位修改已保留在本机，正在同步工作区。");
+    const ok = await save();
+    setBusy(false);
+    if (!ok) {
+      show("岗位同步失败，本机修改和当前编辑内容已保留，请重试保存。", "error");
+      return;
+    }
     setEditorState(null);
     setPickerOpen(false);
-    show(`${editor.draft.id ? "岗位已更新" : "岗位已建立"}，本机草稿正在同步。`);
+    show(`${editor.draft.id ? "岗位已更新" : "岗位已建立"}，服务器已确认。`);
   }
 
   async function removeRole(role: CadreRole) {
@@ -178,9 +189,17 @@ export function Cadres({ data, update, readOnly = false, mobile = false, confirm
       return;
     }
     update(() => result.data!);
+    setBusy(true);
+    show("岗位删除已保留在本机，正在同步工作区。");
+    const ok = await save();
+    setBusy(false);
+    if (!ok) {
+      show("岗位删除同步失败，本机修改已保留；请重试或等待自动同步。", "error");
+      return;
+    }
     setSelection(null);
     setMobileDetail(null);
-    show("岗位已移除，本机草稿正在同步。");
+    show("岗位已移除，服务器已确认。");
   }
 
   function selectRole(role: CadreRole) {
@@ -219,9 +238,9 @@ export function Cadres({ data, update, readOnly = false, mobile = false, confirm
       <section className={styles.detailCopy}><h3>岗位职责</h3><p>{role.duty}</p></section>
       <section className={styles.detailCopy}><h3>履职小结</h3><p>{role.summary?.trim() || "还没有填写本周履职小结。"}</p></section>
       <footer className={styles.detailActions}>
-        <button type="button" disabled={readOnly} onClick={() => openEditor(role)}><CampusIcon name="edit" />编辑岗位</button>
+        <button type="button" disabled={readOnly || busy} onClick={() => openEditor(role)}><CampusIcon name="edit" />编辑岗位</button>
         <button type="button" onClick={() => copyRole(role)}><CampusIcon name="copy" />复制聘任内容</button>
-        <button type="button" className={styles.dangerButton} disabled={readOnly} onClick={() => void removeRole(role)}><CampusIcon name="trash" />删除岗位</button>
+        <button type="button" className={styles.dangerButton} disabled={readOnly || busy} onClick={() => void removeRole(role)}><CampusIcon name="trash" />删除岗位</button>
       </footer>
     </section>;
   }
@@ -251,7 +270,7 @@ export function Cadres({ data, update, readOnly = false, mobile = false, confirm
   const editorKind = editor ? cadreRoleKind(editor.draft) : "班委";
 
   return <div className={`${styles.page} ${mobile ? styles.mobile : ""}`}>
-    {mobile ? <header className={styles.mobileIntro}><span><CampusIcon name="cadres" /></span><div><small>{activeClass?.name ?? "当前班级"}</small><h1>班干部岗位</h1><p>{roles.length} 个岗位 · {missingGroups.length ? `${missingGroups.length} 个小组待补齐` : "岗位分工清楚"}</p></div><ThemeArtwork slot="cadres" /></header> : <WorkbenchPageHeader icon="cadres" title="班干部" description="建立班委和小组长岗位，记录职责、任期与每周履职表现。" meta={`${activeClass?.name ?? "当前班级"} · ${students.length} 名学生`} actions={<><button type="button" className={styles.secondaryButton} onClick={copyAll} disabled={!roles.length}>复制岗位内容</button><button type="button" className={styles.primaryButton} onClick={() => openNew("班委")} disabled={readOnly}>新增班委岗位</button></>} tone="iris" />}
+    {mobile ? <header className={styles.mobileIntro}><span><CampusIcon name="cadres" /></span><div><small>{activeClass?.name ?? "当前班级"}</small><h1>班干部岗位</h1><p>{roles.length} 个岗位 · {missingGroups.length ? `${missingGroups.length} 个小组待补齐` : "岗位分工清楚"}</p></div><ThemeArtwork slot="cadres" /></header> : <WorkbenchPageHeader icon="cadres" title="班干部" description="建立班委和小组长岗位，记录职责、任期与每周履职表现。" meta={`${activeClass?.name ?? "当前班级"} · ${students.length} 名学生`} actions={<><button type="button" className={styles.secondaryButton} onClick={copyAll} disabled={!roles.length}>复制岗位内容</button><button type="button" className={styles.primaryButton} onClick={() => openNew("班委")} disabled={readOnly || busy}>新增班委岗位</button></>} tone="iris" />}
 
     {notice && <button type="button" className={`${styles.notice} ${notice.tone === "error" ? styles.error : ""}`} onClick={() => setNoticeState(null)}><span>{notice.text}</span><b>关闭</b></button>}
     {readOnly && <p className={styles.readOnlyNote}><CampusIcon name="lock" />当前为只读模式，可以查看和复制岗位内容。</p>}
@@ -269,17 +288,17 @@ export function Cadres({ data, update, readOnly = false, mobile = false, confirm
         <nav className={styles.tabs} aria-label="岗位类型">{(["全部", "班委", "小组长"] as const).map(item => <button type="button" aria-pressed={view === item} key={item} onClick={() => setView(item)}><b>{item}</b><small>{item === "全部" ? roles.length : item === "班委" ? committee.length : leaders.length}</small></button>)}</nav>
         <label className={styles.search}><CampusIcon name="search" /><span className="visually-hidden">搜索岗位或学生</span><input value={keyword} onChange={event => setKeywordState({ classId, value: event.target.value })} placeholder="搜索岗位、学生或职责" /></label>
         <label className={styles.filter}><span>状态</span><select value={statusFilter} onChange={event => setStatusFilter(event.target.value as typeof statusFilter)}><option>全部状态</option>{statuses.map(status => <option key={status}>{status}</option>)}</select></label>
-        <div className={styles.toolbarActions}><button type="button" disabled={readOnly} onClick={() => openNew("班委")}>新增班委</button><button type="button" disabled={readOnly || !groups.length} onClick={() => openNew("小组长")}>新增小组长</button></div>
+        <div className={styles.toolbarActions}><button type="button" disabled={readOnly || busy} onClick={() => openNew("班委")}>新增班委</button><button type="button" disabled={readOnly || busy || !groups.length} onClick={() => openNew("小组长")}>新增小组长</button></div>
       </section>
     </>}
 
     {showMobileDetail && selectedRole ? renderDetail(selectedRole) : <div className={styles.workspace}>{roleList}{!mobile && (selectedRole ? renderDetail(selectedRole) : <section className={styles.detailEmpty}><ThemeArtwork slot="cadres" /><h2>从左侧选择一个岗位</h2><p>查看任命学生、任期、职责和本周履职记录。</p></section>)}</div>}
 
     {editor && <div className={styles.backdrop} role="presentation" onMouseDown={() => void closeEditor()}><section className={styles.editor} role="dialog" aria-modal="true" aria-labelledby="cadre-editor-title" onMouseDown={event => event.stopPropagation()}>
-      <header><div><small>{activeClass?.name ?? "当前班级"}</small><h2 id="cadre-editor-title">{editor.draft.id ? "编辑干部岗位" : "新增干部岗位"}</h2><p>提交后才会写入工作区；取消不会保留半成品。</p></div><button type="button" aria-label="关闭岗位编辑" onClick={() => void closeEditor()}>关闭</button></header>
+      <header><div><small>{activeClass?.name ?? "当前班级"}</small><h2 id="cadre-editor-title">{editor.draft.id ? "编辑干部岗位" : "新增干部岗位"}</h2><p>提交后才会写入工作区；取消不会保留半成品。</p></div><button type="button" disabled={busy} aria-label="关闭岗位编辑" onClick={() => void closeEditor()}>关闭</button></header>
       <div className={styles.editorBody}>
         <nav className={styles.kindSwitch} aria-label="岗位类型"><button type="button" aria-pressed={editorKind === "班委"} onClick={() => changeKind("班委")}>班委岗位</button><button type="button" aria-pressed={editorKind === "小组长"} disabled={!groups.length} onClick={() => changeKind("小组长")}>小组长</button></nav>
-        <div className={styles.formGrid}>
+        <fieldset className={styles.formGrid} disabled={busy}>
           <label><span>岗位名称 <i>必填</i></span><input autoFocus value={editor.draft.role} onChange={event => patchDraft({ role: event.target.value })} placeholder="例如：学习委员" /></label>
           {editorKind === "小组长" && <label><span>负责小组 <i>必填</i></span><select value={editor.draft.groupNumber ?? ""} onChange={event => changeGroup(Number(event.target.value))}>{groups.map(group => <option key={group} value={group}>第{group}组</option>)}</select></label>}
           <label className={styles.studentField}><span>任命学生 {editorKind === "小组长" ? <i>必填</i> : <small>可稍后</small>}</span><button type="button" className={styles.studentPicker} onClick={() => setPickerOpen(true)}><span>{assigned ? <><b>{assigned.name}</b><small>学号 {assigned.studentNo || "未填"} · 第{assigned.group}组</small></> : <><b>待任命</b><small>{students.length ? "从当前班选择学生" : "当前班暂无学生"}</small></>}</span><CampusIcon name="arrow" /></button></label>
@@ -288,9 +307,9 @@ export function Cadres({ data, update, readOnly = false, mobile = false, confirm
           <label><span>本周评价</span><select value={editor.draft.weeklyScore ?? 4} onChange={event => patchDraft({ weeklyScore: Number(event.target.value) })}>{[5, 4, 3, 2, 1].map(score => <option value={score} key={score}>{score} 分</option>)}</select></label>
           <label className={styles.wide}><span>岗位职责 <i>必填</i></span><textarea value={editor.draft.duty} onChange={event => patchDraft({ duty: event.target.value })} placeholder="写清楚要负责什么、何时检查和如何反馈" /></label>
           <label className={styles.wide}><span>履职小结 <small>可留空</small></span><textarea value={editor.draft.summary ?? ""} onChange={event => patchDraft({ summary: event.target.value })} placeholder="记录本周表现和下周提醒" /></label>
-        </div>
+        </fieldset>
       </div>
-      <footer><button type="button" onClick={() => void closeEditor()}>取消</button><button type="button" className={styles.primaryButton} onClick={submitRole}>保存岗位</button></footer>
+      <footer><button type="button" disabled={busy} onClick={() => void closeEditor()}>取消</button><button type="button" className={styles.primaryButton} disabled={busy} onClick={() => void submitRole()}>{busy ? "保存中…" : "保存岗位"}</button></footer>
     </section></div>}
 
     {pickerOpen && editor && <StudentLookupDialog title={editorKind === "小组长" ? `选择第${editor.draft.groupNumber ?? "—"}组组长` : "选择任命学生"} subtitle={editorKind === "小组长" ? "候选人只来自当前小组" : "候选人只来自当前班级"} students={candidates} selectedId={editor.draft.studentId} allowClear={editorKind === "班委"} clearLabel="设为待任命" onPick={student => { patchDraft({ studentId: student.id }); setPickerOpen(false); }} onClear={() => patchDraft({ studentId: "" })} onClose={() => setPickerOpen(false)} />}

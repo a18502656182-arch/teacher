@@ -3,7 +3,7 @@
   "baselineCommit": "6e10e2dc314e09d0d72df9509730f57c5fde34e2",
   "implementationStatus": "in-progress",
   "active_task": null,
-  "next_action": "TASK-26已完成；执行TASK-27座位值日班干部迁移，并连续推进至TASK-28",
+  "next_action": "TASK-27已完成；执行TASK-28周报评语迁移",
   "milestones": {
     "M0": "done",
     "M1": "done",
@@ -12,7 +12,7 @@
     "M4": "planned",
     "M5": "planned"
   },
-  "note": "线上受检源码无需要覆盖的业务差异。M0与M1完成；TASK-04至TASK-26及提前完成的TASK-29已完成。已完成任务27/33，按任务数81.8%；按剩余页面和验收工作量估计总进度约92%，这不是精确工时。课堂随机点名保持不落库，临时分组等待workspace确认，失败保留本机结果与历史选择；只读仅禁用持久化分组。49项专项及六档布局通过，全量结果见PROJECT_STATUS。共享旧样式集中移除归TASK-30。按用户指令继续TASK-27至TASK-28；M2仍在进行，没有生产操作。",
+  "note": "线上受检源码无需要覆盖的业务差异。M0与M1完成；TASK-04至TASK-27及提前完成的TASK-29已完成。已完成任务28/33，按任务数84.8%；按剩余页面和验收工作量估计总进度约94%，这不是精确工时。座位、值日和班干部关键写入等待workspace确认；失败保留安排、撤销快照或编辑表单，值日岗位补齐脏关闭确认。74项专项、三页六档布局、构建与ESLint通过，全量结果见PROJECT_STATUS。死旧样式集中移除归TASK-30。按用户指令继续TASK-28；M2仍在进行，没有生产操作。",
   "implementationStartCommit": "f321d5e9424e0020bdf1e56d52c31b986b503a53",
   "parallelPreparation": [],
   "verifiedOnlineBaseline": "0691aba",

@@ -1,6 +1,6 @@
 # 班干部：逐页执行卡
 
-状态：implemented-with-global-picker-gap（实现提交 `1ec62b6`）。模块ID：cadres。源码相对 app/w/[token]（明确app/lib前缀除外）：Cadres.tsx、Cadres.module.css、features/cadres/operations.ts；接线位于ClassroomApp.tsx。
+状态：implemented。模块ID：cadres。源码相对 app/w/[token]（明确app/lib前缀除外）：Cadres.tsx、Cadres.module.css、features/cadres/operations.ts；接线位于ClassroomApp.tsx。
 参考：责任编排派生。派生页面使用对应页面族构图和校园token，不把缺少专属图解释为可回退旧UI。
 
 ## 保全动作（种子，实施前展开）
@@ -36,3 +36,7 @@
 - 新增班干部语义插画槽与原创透明水彩素材；旧 `cadre3-*` / `mobile-cadres-*` DOM已移除，死规则留待TASK-30统一核对删除。共享学生选择器portal与最终焦点回退仍是明确缺口。
 - 甲班105人、乙班50人、待任命班委、第27组组长、长职责、空任期、脏取消、只读、保存失败、真实409以及360/390/768手机宽度均在隔离环境验证；完整测试182/182、认证集成、TypeScript、全量ESLint和115项六宽度严格审计通过。
 - 详细证据见 `evidence/cadre-operations-20260912.md`；A-19-01至09记录本次提交。
+
+## 2026-09-13 完成补强
+
+岗位新增、编辑和删除等待workspace确认；失败保留本机修改与编辑表单，成功才关闭，保存期间禁用表单与关闭动作。候选范围、脏取消与共享选人器保持。桌面/手机实查及六档布局通过；死旧规则归TASK-30。证据见`../evidence/management-implementation-20260913.md`。

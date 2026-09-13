@@ -28,8 +28,9 @@ import styles from "./Duty.module.css";
 type DutyView = "today" | "week" | "jobs" | "ledger";
 type Notice = { classId: string; text: string; tone: "info" | "error" };
 type DayState = { classId: string; value: string };
-type JobEditor = { classId: string; draft: DutyJob };
+type JobEditor = { classId: string; draft: DutyJob; baseline: string };
 type AssignmentTarget = { classId: string; day: string; jobId: string };
+type ConfirmAction = (message: string, title?: string, confirmLabel?: string) => Promise<boolean>;
 
 const defaultDays = ["周一", "周二", "周三", "周四", "周五"];
 const viewLabels: Array<{ id: DutyView; label: string; detail: string }> = [
@@ -47,11 +48,13 @@ function shortDay(day: string) {
   return day.replace("星期", "周");
 }
 
-export function Duty({ data, update, readOnly = false, mobile = false }: {
+export function Duty({ data, update, save, readOnly = false, mobile = false, confirmAction }: {
   data: ClassroomData;
   update: (fn: (data: ClassroomData) => ClassroomData) => void;
+  save: () => Promise<boolean>;
   readOnly?: boolean;
   mobile?: boolean;
+  confirmAction: ConfirmAction;
 }) {
   const classId = data.activeClassId ?? data.rosterClasses?.[0]?.id ?? "";
   const activeClass = data.rosterClasses?.find(item => item.id === classId);
@@ -67,6 +70,7 @@ export function Duty({ data, update, readOnly = false, mobile = false }: {
   const [view, setView] = useState<DutyView>("today");
   const [dayState, setDayState] = useState<DayState>({ classId, value: days.find(day => sameDutyDay(day, currentDay)) ?? days[0] ?? defaultDays[0] });
   const [noticeState, setNoticeState] = useState<Notice | null>(null);
+  const [busy, setBusy] = useState(false);
   const [editorState, setEditorState] = useState<JobEditor | null>(null);
   const [assignState, setAssignState] = useState<AssignmentTarget | null>(null);
   const [fixedPickerOpen, setFixedPickerOpen] = useState(false);
@@ -98,28 +102,39 @@ export function Duty({ data, update, readOnly = false, mobile = false }: {
   }
 
   function ensureWritable() {
+    if (busy) return false;
     if (!readOnly) return true;
     show("当前为只读模式，值日安排未修改。", "error");
     return false;
   }
 
-  function apply(result: DutyMutationResult, success: string) {
+  async function apply(result: DutyMutationResult, success: string) {
     if (result.error || !result.data) {
       show(result.error ?? "值日操作未完成，请重试。", "error");
       return false;
     }
     update(() => result.data!);
-    show(`${success} 本机草稿正在同步。`);
+    setBusy(true);
+    show("值日修改已保留在本机，正在同步工作区。");
+    const ok = await save();
+    setBusy(false);
+    if (!ok) {
+      show("值日同步失败，本机修改和当前编辑上下文已保留，请重试或等待自动同步。", "error");
+      return false;
+    }
+    show(`${success} 服务器已确认。`);
     return true;
   }
 
-  function run(operation: () => DutyMutationResult, success: string) {
-    return ensureWritable() && apply(operation(), success);
+  async function run(operation: () => DutyMutationResult, success: string) {
+    if (!ensureWritable()) return false;
+    return await apply(operation(), success);
   }
 
   function openEditor(job?: DutyJob) {
     if (!ensureWritable()) return;
-    setEditorState({ classId, draft: job ? { ...job, studentIds: [...(job.studentIds ?? [])] } : { id: "", name: "", area: "", standard: "", studentIds: [], enabled: true } });
+    const draft = job ? { ...job, studentIds: [...(job.studentIds ?? [])] } : { id: "", name: "", area: "", standard: "", studentIds: [], enabled: true };
+    setEditorState({ classId, draft, baseline: JSON.stringify(draft) });
     setFixedPickerOpen(false);
   }
 
@@ -128,32 +143,39 @@ export function Duty({ data, update, readOnly = false, mobile = false }: {
     setEditorState({ classId, draft: { ...editor.draft, ...patch } });
   }
 
-  function submitJob() {
+  async function closeEditor() {
+    if (!editor || busy) return;
+    if (JSON.stringify(editor.draft) !== editor.baseline && !await confirmAction("尚未保存的岗位内容会丢失。", "放弃本次修改？", "放弃修改")) return;
+    setEditorState(null);
+    setFixedPickerOpen(false);
+  }
+
+  async function submitJob() {
     if (!editor || !ensureWritable()) return;
     const created = !editor.draft.id;
     const result = saveDutyJob(data, classId, editor.draft, () => makeId("duty-job"));
-    if (apply(result, created ? "值日岗位已新增。" : "值日岗位已更新。")) {
+    if (await apply(result, created ? "值日岗位已新增。" : "值日岗位已更新。")) {
       setEditorState(null);
       setFixedPickerOpen(false);
     }
   }
 
-  function rotate() {
-    run(() => rotateDutyWeek(data, classId), "轮换顺序已前进一周；固定岗位和已有检查快照保持不变。");
+  async function rotate() {
+    await run(() => rotateDutyWeek(data, classId), "轮换顺序已前进一周；固定岗位和已有检查快照保持不变。");
   }
 
-  function mark(day: string, job: DutyJob, status: "已完成" | "需返工") {
-    run(() => markDutyRecord(data, classId, day, job.id, status, () => makeId("duty-record")), `${shortDay(day)} ${job.name} 已记录为${status}。`);
+  async function mark(day: string, job: DutyJob, status: "已完成" | "需返工") {
+    await run(() => markDutyRecord(data, classId, day, job.id, status, () => makeId("duty-record")), `${shortDay(day)} ${job.name} 已记录为${status}。`);
   }
 
-  function assign(studentId?: string) {
+  async function assign(studentId?: string) {
     if (!assignTarget || !assignJob) return;
-    if (run(() => assignDutyStudent(data, classId, assignTarget.day, assignJob.id, studentId, () => makeId("duty-record")), studentId ? `已指定 ${studentById.get(studentId)?.name ?? "当前班学生"} 负责 ${assignJob.name}。` : `${assignJob.name} 已恢复自动安排。`)) setAssignState(null);
+    if (await run(() => assignDutyStudent(data, classId, assignTarget.day, assignJob.id, studentId, () => makeId("duty-record")), studentId ? `已指定 ${studentById.get(studentId)?.name ?? "当前班学生"} 负责 ${assignJob.name}。` : `${assignJob.name} 已恢复自动安排。`)) setAssignState(null);
   }
 
-  function saveRecordNote(record: DutyRecord, note: string) {
+  async function saveRecordNote(record: DutyRecord, note: string) {
     if (note === record.note) return;
-    run(() => patchDutyRecord(data, classId, record.id, { note }), "检查备注已更新。");
+    await run(() => patchDutyRecord(data, classId, record.id, { note }), "检查备注已更新。");
   }
 
   function assignment(day: string, job: DutyJob) {
@@ -166,7 +188,7 @@ export function Duty({ data, update, readOnly = false, mobile = false }: {
   }).join("；")}`).join("\n");
 
   return <div className={`${styles.page} ${mobile ? styles.mobile : ""}`} data-duty-surface="campus-v2">
-    {!mobile && <WorkbenchPageHeader icon="duty" tone="jade" title="值日岗位" description="按课程日历生成本周安排，固定学生、临时指定和检查结果都绑定当前班级。" actions={<button type="button" className={styles.headerAction} disabled={readOnly || groupInfo.groups.length < 2} onClick={rotate}>轮换下一周</button>} />}
+    {!mobile && <WorkbenchPageHeader icon="duty" tone="jade" title="值日岗位" description="按课程日历生成本周安排，固定学生、临时指定和检查结果都绑定当前班级。" actions={<button type="button" className={styles.headerAction} disabled={readOnly || busy || groupInfo.groups.length < 2} onClick={() => void rotate()}>{busy ? "同步中…" : "轮换下一周"}</button>} />}
     {mobile && <header className={styles.mobileIntro}><span><CampusIcon name="duty" /></span><div><small>{activeClass?.name ?? "当前班级"}</small><h1>本周值日安排</h1><p>{shortDay(selectedDay)} · {selectedDate}</p></div><ThemeArtwork slot="duty" /></header>}
 
     <section className={styles.metrics} aria-label="值日岗位概览">
@@ -198,15 +220,15 @@ export function Duty({ data, update, readOnly = false, mobile = false }: {
         <button type="button" disabled={!enabledJobs.length} onClick={() => void copyTextToClipboard(dutyText, "已复制本周值日表")}>复制本周安排</button>
       </aside>
       <div className={styles.checklist}>
-        <header><div><span>岗位检查</span><h2>{enabledJobs.length ? `${enabledJobs.length} 个责任区` : "暂无启用岗位"}</h2></div><button type="button" disabled={readOnly} onClick={() => openEditor()}>新增岗位</button></header>
+        <header><div><span>岗位检查</span><h2>{enabledJobs.length ? `${enabledJobs.length} 个责任区` : "暂无启用岗位"}</h2></div><button type="button" disabled={readOnly || busy} onClick={() => openEditor()}>新增岗位</button></header>
         {enabledJobs.map(job => {
           const assigned = assignment(selectedDay, job);
           const status = assigned.record?.status ?? "待检查";
           return <article className={`${styles.jobRow} ${status === "已完成" ? styles.done : status === "需返工" ? styles.rework : ""}`} key={job.id}>
             <span className={styles.jobMark} aria-hidden="true"><CampusIcon name={job.id === "dj-board" ? "book" : job.id === "dj-books" ? "records" : "duty"} /></span>
             <div className={styles.jobCopy}><span>{job.area}</span><h3>{job.name}</h3><p>{job.standard}</p></div>
-            <div className={styles.assignee}><small>{sourceLabel(assigned.source)}{assigned.groupNumber ? ` · 第${assigned.groupNumber}组` : ""}</small><b>{assigned.students.map(student => student.name).join("、") || "待安排"}</b><button type="button" disabled={readOnly} onClick={() => setAssignState({ classId, day: selectedDay, jobId: job.id })}>{assigned.source === "manual" ? "更换学生" : "临时指定"}</button></div>
-            <div className={styles.statusActions}><span data-status={status}>{status}</span><button type="button" disabled={readOnly || !assigned.students.length} aria-pressed={status === "已完成"} onClick={() => mark(selectedDay, job, "已完成")}>完成</button><button type="button" disabled={readOnly || !assigned.students.length} aria-pressed={status === "需返工"} onClick={() => mark(selectedDay, job, "需返工")}>返工</button></div>
+            <div className={styles.assignee}><small>{sourceLabel(assigned.source)}{assigned.groupNumber ? ` · 第${assigned.groupNumber}组` : ""}</small><b>{assigned.students.map(student => student.name).join("、") || "待安排"}</b><button type="button" disabled={readOnly || busy} onClick={() => setAssignState({ classId, day: selectedDay, jobId: job.id })}>{assigned.source === "manual" ? "更换学生" : "临时指定"}</button></div>
+            <div className={styles.statusActions}><span data-status={status}>{status}</span><button type="button" disabled={readOnly || busy || !assigned.students.length} aria-pressed={status === "已完成"} onClick={() => void mark(selectedDay, job, "已完成")}>完成</button><button type="button" disabled={readOnly || busy || !assigned.students.length} aria-pressed={status === "需返工"} onClick={() => void mark(selectedDay, job, "需返工")}>返工</button></div>
           </article>;
         })}
         {!enabledJobs.length && <div className={styles.empty}><ThemeArtwork slot="empty" /><b>没有启用的值日岗位</b><p>在“岗位设置”中启用现有岗位，或新增适合本班的责任区。</p><button type="button" disabled={readOnly} onClick={() => setView("jobs")}>前往岗位设置</button></div>}
@@ -214,7 +236,7 @@ export function Duty({ data, update, readOnly = false, mobile = false }: {
     </section>}
 
     {view === "week" && <section className={styles.weekPanel}>
-      <header><div><span>本周安排</span><h2>课程教学日值日表</h2><p>每个教学日使用对应的自然周日期；已有检查记录会保留当日负责人。</p></div><div><button type="button" onClick={() => void copyTextToClipboard(dutyText, "已复制本周值日表")}>复制值日表</button><button type="button" className={styles.primaryButton} disabled={readOnly || groupInfo.groups.length < 2} onClick={rotate}>轮换下一周</button></div></header>
+      <header><div><span>本周安排</span><h2>课程教学日值日表</h2><p>每个教学日使用对应的自然周日期；已有检查记录会保留当日负责人。</p></div><div><button type="button" onClick={() => void copyTextToClipboard(dutyText, "已复制本周值日表")}>复制值日表</button><button type="button" className={styles.primaryButton} disabled={readOnly || busy || groupInfo.groups.length < 2} onClick={() => void rotate()}>{busy ? "同步中…" : "轮换下一周"}</button></div></header>
       <div className={styles.weekScroll}><div className={styles.weekTable} role="table" aria-label="本周值日安排" style={{ minWidth: `${Math.max(760, days.length * 154 + 170)}px`, gridTemplateColumns: `170px repeat(${days.length}, minmax(154px, 1fr))` }}>
         <div className={styles.weekCorner} role="columnheader"><b>岗位 / 教学日</b><small>点击单元格指定学生</small></div>
         {days.map(day => <button type="button" role="columnheader" className={sameDutyDay(day, selectedDay) ? styles.selectedDay : ""} key={day} onClick={() => setDayState({ classId, value: day })}><b>{shortDay(day)}</b><small>{dutyDateForDay(day)}</small></button>)}
@@ -243,19 +265,19 @@ export function Duty({ data, update, readOnly = false, mobile = false }: {
       })}{!filteredRecords.length && <div className={styles.empty}><ThemeArtwork slot="empty" /><b>{records.length ? "没有符合条件的记录" : "还没有检查记录"}</b><p>{records.length ? "调整搜索词或状态筛选后再查看。" : "从岗位检查中确认完成或返工后，会在这里形成台账。"}</p></div>}</div>
     </section>}
 
-    {editor && <div className={styles.backdrop} role="presentation" onMouseDown={() => setEditorState(null)}><section className={styles.dialog} role="dialog" aria-modal="true" aria-labelledby="duty-editor-title" onMouseDown={event => event.stopPropagation()}>
-      <header><div><span>{editor.draft.id ? "编辑岗位" : "新增岗位"}</span><h2 id="duty-editor-title">{editor.draft.name || "填写责任区信息"}</h2><p>保存后只更新当前班级，不影响其他班的岗位与固定学生。</p></div><button type="button" onClick={() => setEditorState(null)} aria-label="关闭岗位编辑"><CampusIcon name="close" /></button></header>
+    {editor && <div className={styles.backdrop} role="presentation" onMouseDown={() => void closeEditor()}><section className={styles.dialog} role="dialog" aria-modal="true" aria-labelledby="duty-editor-title" onMouseDown={event => event.stopPropagation()}>
+      <header><div><span>{editor.draft.id ? "编辑岗位" : "新增岗位"}</span><h2 id="duty-editor-title">{editor.draft.name || "填写责任区信息"}</h2><p>保存后只更新当前班级，不影响其他班的岗位与固定学生。</p></div><button type="button" disabled={busy} onClick={() => void closeEditor()} aria-label="关闭岗位编辑"><CampusIcon name="close" /></button></header>
       <div className={styles.form}>
-        <label><span>岗位名称 <em>必填</em></span><input autoFocus value={editor.draft.name} onChange={event => patchEditor({ name: event.target.value })} placeholder="例如：植物角" /></label>
-        <label><span>启用状态</span><select value={editor.draft.enabled === false ? "disabled" : "enabled"} onChange={event => patchEditor({ enabled: event.target.value === "enabled" })}><option value="enabled">启用</option><option value="disabled">停用</option></select></label>
-        <label className={styles.wide}><span>负责区域 <em>必填</em></span><input value={editor.draft.area} onChange={event => patchEditor({ area: event.target.value })} placeholder="写清具体区域或物品" /></label>
-        <label className={styles.wide}><span>检查标准 <em>必填</em></span><textarea value={editor.draft.standard} onChange={event => patchEditor({ standard: event.target.value })} placeholder="写成可以现场核对的完成标准" /></label>
-        <label className={styles.wide}><span>固定学生</span><button type="button" className={styles.studentPicker} onClick={() => setFixedPickerOpen(true)}>{(editor.draft.studentIds ?? []).map(id => studentById.get(id)?.name).filter(Boolean).join("、") || "不固定，按小组自动轮换"}<small>点击选择或清除</small></button></label>
+        <label><span>岗位名称 <em>必填</em></span><input autoFocus disabled={busy} value={editor.draft.name} onChange={event => patchEditor({ name: event.target.value })} placeholder="例如：植物角" /></label>
+        <label><span>启用状态</span><select disabled={busy} value={editor.draft.enabled === false ? "disabled" : "enabled"} onChange={event => patchEditor({ enabled: event.target.value === "enabled" })}><option value="enabled">启用</option><option value="disabled">停用</option></select></label>
+        <label className={styles.wide}><span>负责区域 <em>必填</em></span><input disabled={busy} value={editor.draft.area} onChange={event => patchEditor({ area: event.target.value })} placeholder="写清具体区域或物品" /></label>
+        <label className={styles.wide}><span>检查标准 <em>必填</em></span><textarea disabled={busy} value={editor.draft.standard} onChange={event => patchEditor({ standard: event.target.value })} placeholder="写成可以现场核对的完成标准" /></label>
+        <label className={styles.wide}><span>固定学生</span><button type="button" disabled={busy} className={styles.studentPicker} onClick={() => setFixedPickerOpen(true)}>{(editor.draft.studentIds ?? []).map(id => studentById.get(id)?.name).filter(Boolean).join("、") || "不固定，按小组自动轮换"}<small>点击选择或清除</small></button></label>
       </div>
-      <footer><span>未保存的修改不会进入岗位列表。</span><button type="button" onClick={() => setEditorState(null)}>取消</button><button type="button" className={styles.primaryButton} onClick={submitJob}>保存岗位</button></footer>
+      <footer><span>未保存的修改不会进入岗位列表。</span><button type="button" disabled={busy} onClick={() => void closeEditor()}>取消</button><button type="button" className={styles.primaryButton} disabled={busy} onClick={() => void submitJob()}>{busy ? "保存中…" : "保存岗位"}</button></footer>
     </section></div>}
 
-    {assignTarget && assignJob && <StudentLookupDialog title="临时指定值日学生" subtitle={`${shortDay(assignTarget.day)} · ${assignJob.name} · ${dutyDateForDay(assignTarget.day)}`} students={students} selectedId={assignCurrent?.students[0]?.id} allowClear clearLabel="恢复自动安排" onPick={student => assign(student.id)} onClear={() => assign()} onClose={() => setAssignState(null)} />}
+    {assignTarget && assignJob && <StudentLookupDialog title="临时指定值日学生" subtitle={`${shortDay(assignTarget.day)} · ${assignJob.name} · ${dutyDateForDay(assignTarget.day)}`} students={students} selectedId={assignCurrent?.students[0]?.id} allowClear clearLabel="恢复自动安排" onPick={student => void assign(student.id)} onClear={() => void assign()} onClose={() => { if (!busy) setAssignState(null); }} />}
     {editor && fixedPickerOpen && <StudentLookupDialog title="选择固定值日学生" subtitle={`${editor.draft.name || "当前岗位"} · 仅限当前班级`} students={students} selectedId={editor.draft.studentIds?.[0]} allowClear clearLabel="恢复小组轮换" onPick={student => { patchEditor({ studentIds: [student.id] }); setFixedPickerOpen(false); }} onClear={() => { patchEditor({ studentIds: [] }); setFixedPickerOpen(false); }} onClose={() => setFixedPickerOpen(false)} />}
   </div>;
 }

@@ -1,6 +1,6 @@
 # 座位分组：逐页执行卡
 
-状态：implemented-with-global-conflict-gap（实现提交 `ac161ee`）。模块ID：seating。源码相对 app/w/[token]（明确app/lib前缀除外）：Seating.tsx、Seating.module.css、features/seating/operations.ts；接线位于ClassroomApp.tsx。
+状态：implemented。模块ID：seating。源码相对 app/w/[token]（明确app/lib前缀除外）：Seating.tsx、Seating.module.css、features/seating/operations.ts；接线位于ClassroomApp.tsx。
 参考：空间画布派生。派生页面使用对应页面族构图和校园token，不把缺少专属图解释为可回退旧UI。
 
 ## 保全动作（种子，实施前展开）
@@ -35,3 +35,7 @@
 - 桌面与手机已改用同一独立校园座位组件；旧桌面和手机座位DOM已从生产组件移除。105人、长姓名、固定座、避让、智能排座、换座/撤销、空班、跨班、只读和保存失败重试已用隔离浏览器验证。
 - 旧 `seat2-*` / `mobile-seat-*` 选择器不匹配新组件，但其死规则仍在根CSS中，按TASK-30统一清理。共享学生选择portal和真实浏览器409冲突仍是缺口。
 - 详细证据见 `evidence/seating-operations-20260912.md`；A-17-01至07、09记录本次提交，A-17-08保持未运行。
+
+## 2026-09-13 完成补强
+
+全部座位写入等待workspace确认；失败保留本机安排、选人上下文与撤销快照，成功后才清理瞬时选择。桌面/手机实查与六档布局通过；真实409继续由统一冲突恢复处理，死旧规则退出归TASK-30。证据见`../evidence/management-implementation-20260913.md`。

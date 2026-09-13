@@ -33,9 +33,10 @@ function draftFromConfig(classId: string, config: SeatingConfig): ConfigDraft {
   return { classId, rows: String(config.rows), columns: String(config.columns), groupCount: String(config.groupCount), aisleAfter: config.aisleAfter.join("，") };
 }
 
-export function Seating({ data, update, readOnly = false, mobile = false }: {
+export function Seating({ data, update, save, readOnly = false, mobile = false }: {
   data: ClassroomData;
   update: (fn: (data: ClassroomData) => ClassroomData) => void;
+  save: () => Promise<boolean>;
   readOnly?: boolean;
   mobile?: boolean;
 }) {
@@ -53,6 +54,7 @@ export function Seating({ data, update, readOnly = false, mobile = false }: {
   const [layoutMode, setLayoutMode] = useState<LayoutMode>("秧田式");
   const [undoSnapshot, setUndoSnapshot] = useState<SeatingSnapshot | null>(null);
   const [notice, setNotice] = useState<Notice | null>(null);
+  const [busy, setBusy] = useState(false);
   const [configDraftState, setConfigDraftState] = useState<ConfigDraft>(() => draftFromConfig(classId, config));
   const [editingSeat, setEditingSeat] = useState<{ classId: string; seat: number } | null>(null);
   const [avoidPicker, setAvoidPicker] = useState<{ classId: string; studentId: string } | null>(null);
@@ -80,30 +82,39 @@ export function Seating({ data, update, readOnly = false, mobile = false }: {
   }
 
   function ensureWritable(): boolean {
+    if (busy) return false;
     if (!readOnly) return true;
     show("当前为只读模式，座位安排未修改。", "error");
     return false;
   }
 
-  function apply(result: SeatingMutationResult, success: string, remember = true) {
+  async function apply(result: SeatingMutationResult, success: string, remember = true) {
     if (result.error || !result.data) {
       show(result.error ?? "座位调整未完成，请重试。", "error");
       return false;
     }
     update(() => result.data!);
     if (remember && result.snapshot) setUndoSnapshot(result.snapshot);
+    setBusy(true);
+    show("座位修改已保留在本机，正在同步工作区。");
+    const ok = await save();
+    setBusy(false);
+    if (!ok) {
+      show("座位同步失败，本机安排与撤销快照已保留，请重试或等待自动同步。", "error");
+      return false;
+    }
     setSelection(null);
     setDragged(null);
-    show(result.warning ? `${success} ${result.warning} 本机草稿正在同步。` : `${success} 本机草稿正在同步。`);
+    show(result.warning ? `${success} ${result.warning} 服务器已确认。` : `${success} 服务器已确认。`);
     return true;
   }
 
-  function run(operation: () => SeatingMutationResult, success: string, remember = true) {
+  async function run(operation: () => SeatingMutationResult, success: string, remember = true) {
     if (!ensureWritable()) return false;
-    return apply(operation(), success, remember);
+    return await apply(operation(), success, remember);
   }
 
-  function submitConfig(event: FormEvent) {
+  async function submitConfig(event: FormEvent) {
     event.preventDefault();
     if (!ensureWritable()) return;
     const rows = Number(configDraft.rows);
@@ -111,12 +122,12 @@ export function Seating({ data, update, readOnly = false, mobile = false }: {
     const groupCount = Number(configDraft.groupCount);
     const aisleAfter = configDraft.aisleAfter.split(/[，,、\s]+/).filter(Boolean).map(Number);
     const result = saveSeatingConfig(data, classId, { rows, columns, groupCount, aisleAfter });
-    if (!apply(result, "教室布局已更新。")) return;
+    if (!await apply(result, "教室布局已更新。")) return;
     const nextConfig = seatingConfigForClass(result.data!, classId).config;
     if (nextConfig) setConfigDraftState(draftFromConfig(classId, nextConfig));
   }
 
-  function swap(studentId: string, targetSeat: number) {
+  async function swap(studentId: string, targetSeat: number) {
     return run(() => swapSeatingStudent(data, classId, studentId, targetSeat), "座位已调整，可使用“撤销上一步”恢复。");
   }
 
@@ -136,26 +147,26 @@ export function Seating({ data, update, readOnly = false, mobile = false }: {
       show("已取消选择。");
       return;
     }
-    swap(selectedId, seat);
+    void swap(selectedId, seat);
   }
 
-  function assignStudent(studentId: string, seat: number) {
-    if (swap(studentId, seat)) setEditingSeat(null);
+  async function assignStudent(studentId: string, seat: number) {
+    if (await swap(studentId, seat)) setEditingSeat(null);
   }
 
-  function handleDrop(event: DragEvent<HTMLButtonElement>, seat: number) {
+  async function handleDrop(event: DragEvent<HTMLButtonElement>, seat: number) {
     event.preventDefault();
-    if (dragged?.classId === classId) swap(dragged.studentId, seat);
+    if (dragged?.classId === classId) await swap(dragged.studentId, seat);
     setDragged(null);
   }
 
-  function patchStudent(studentId: string, patch: Partial<Student>, success = "座位条件已更新。") {
-    run(() => patchSeatingStudent(data, classId, studentId, patch), success, false);
+  async function patchStudent(studentId: string, patch: Partial<Student>, success = "座位条件已更新。") {
+    return await run(() => patchSeatingStudent(data, classId, studentId, patch), success, false);
   }
 
-  function undo() {
+  async function undo() {
     if (!activeUndo || !ensureWritable()) return;
-    if (apply(restoreSeatingSnapshot(data, classId, activeUndo), "已撤销上一步座位调整。", false)) setUndoSnapshot(null);
+    if (await apply(restoreSeatingSnapshot(data, classId, activeUndo), "已撤销上一步座位调整。", false)) setUndoSnapshot(null);
   }
 
   function updateDraft(patch: Partial<ConfigDraft>) {
@@ -182,14 +193,14 @@ export function Seating({ data, update, readOnly = false, mobile = false }: {
 
     <section className={styles.commandBar} aria-label="座位操作">
       <div className={styles.primaryActions}>
-        <button type="button" className={styles.primaryButton} disabled={readOnly || Boolean(configResult.error)} onClick={() => run(() => arrangeSeating(data, classId), "智能排座已完成；固定座已保留，并优先处理特殊条件。")}>智能排座</button>
-        <button type="button" disabled={readOnly || Boolean(configResult.error)} onClick={() => run(() => rotateSeatingRows(data, classId), "前后排轮换已完成，固定座未移动。")}>前后排轮换</button>
+        <button type="button" className={styles.primaryButton} disabled={readOnly || busy || Boolean(configResult.error)} onClick={() => void run(() => arrangeSeating(data, classId), "智能排座已完成；固定座已保留，并优先处理特殊条件。")}>{busy ? "同步中…" : "智能排座"}</button>
+        <button type="button" disabled={readOnly || busy || Boolean(configResult.error)} onClick={() => void run(() => rotateSeatingRows(data, classId), "前后排轮换已完成，固定座未移动。")}>前后排轮换</button>
       </div>
       <details className={styles.moreActions}>
         <summary>更多操作</summary>
         <div>
-          <button type="button" disabled={readOnly || Boolean(configResult.error)} onClick={() => run(() => regroupSeating(data, classId), "已按当前座位重新分组。")}>按座位更新分组</button>
-          <button type="button" disabled={readOnly || !activeUndo} onClick={undo}>撤销上一步</button>
+          <button type="button" disabled={readOnly || busy || Boolean(configResult.error)} onClick={() => void run(() => regroupSeating(data, classId), "已按当前座位重新分组。")}>按座位更新分组</button>
+          <button type="button" disabled={readOnly || busy || !activeUndo} onClick={() => void undo()}>撤销上一步</button>
           <button type="button" onClick={() => window.print()}>打印座位表</button>
         </div>
       </details>
@@ -200,12 +211,12 @@ export function Seating({ data, update, readOnly = false, mobile = false }: {
 
     <details className={styles.configPanel}>
       <summary><span><b>教室布局</b><small>行列、分组与过道位置</small></span><em>展开配置</em></summary>
-      <form onSubmit={submitConfig}>
-        <label><span>教室排数</span><input aria-label="教室排数" type="number" min={seatingLimits.minRows} max={seatingLimits.maxRows} disabled={readOnly} value={configDraft.rows} onChange={event => updateDraft({ rows: event.target.value })} /></label>
-        <label><span>每排列数</span><input aria-label="每排列数" type="number" min={seatingLimits.minColumns} max={seatingLimits.maxColumns} disabled={readOnly} value={configDraft.columns} onChange={event => updateDraft({ columns: event.target.value })} /></label>
-        <label><span>小组数量</span><input aria-label="小组数量" type="number" min={seatingLimits.minGroups} max={seatingLimits.maxGroups} disabled={readOnly} value={configDraft.groupCount} onChange={event => updateDraft({ groupCount: event.target.value })} /></label>
-        <label className={styles.aisleField}><span>过道列后</span><input aria-label="过道列后" disabled={readOnly} value={configDraft.aisleAfter} onChange={event => updateDraft({ aisleAfter: event.target.value })} placeholder="例如 2，4" /><small>填写列号，用逗号分隔</small></label>
-        <button type="submit" disabled={readOnly}>应用布局</button>
+      <form onSubmit={event => void submitConfig(event)}>
+        <label><span>教室排数</span><input aria-label="教室排数" type="number" min={seatingLimits.minRows} max={seatingLimits.maxRows} disabled={readOnly || busy} value={configDraft.rows} onChange={event => updateDraft({ rows: event.target.value })} /></label>
+        <label><span>每排列数</span><input aria-label="每排列数" type="number" min={seatingLimits.minColumns} max={seatingLimits.maxColumns} disabled={readOnly || busy} value={configDraft.columns} onChange={event => updateDraft({ columns: event.target.value })} /></label>
+        <label><span>小组数量</span><input aria-label="小组数量" type="number" min={seatingLimits.minGroups} max={seatingLimits.maxGroups} disabled={readOnly || busy} value={configDraft.groupCount} onChange={event => updateDraft({ groupCount: event.target.value })} /></label>
+        <label className={styles.aisleField}><span>过道列后</span><input aria-label="过道列后" disabled={readOnly || busy} value={configDraft.aisleAfter} onChange={event => updateDraft({ aisleAfter: event.target.value })} placeholder="例如 2，4" /><small>填写列号，用逗号分隔</small></label>
+        <button type="submit" disabled={readOnly || busy}>{busy ? "同步中…" : "应用布局"}</button>
       </form>
     </details>
 
@@ -234,12 +245,12 @@ export function Seating({ data, update, readOnly = false, mobile = false }: {
                 style={style}
                 aria-label={`座位 ${seat}，${student?.name ?? "空座"}${student?.seatFixed ? "，固定座" : ""}`}
                 className={`${styles.seat} ${student ? styles.occupied : styles.empty} ${student?.id === selectedId ? styles.selected : ""} ${student?.seatFixed ? styles.fixed : ""} ${aisleEdge ? styles.aisle : ""} ${uCenter ? styles.uCenter : ""}`}
-                disabled={readOnly || Boolean(configResult.error)}
-                draggable={!readOnly && Boolean(student)}
+                disabled={readOnly || busy || Boolean(configResult.error)}
+                draggable={!readOnly && !busy && Boolean(student)}
                 onDragStart={() => student && setDragged({ classId, studentId: student.id })}
                 onDragEnd={() => setDragged(null)}
                 onDragOver={event => event.preventDefault()}
-                onDrop={event => handleDrop(event, seat)}
+                onDrop={event => void handleDrop(event, seat)}
                 onClick={() => chooseSeat(seat, student)}
                 onDoubleClick={event => { event.preventDefault(); if (!readOnly) { setSelection(null); setEditingSeat({ classId, seat }); } }}
               >
@@ -260,7 +271,7 @@ export function Seating({ data, update, readOnly = false, mobile = false }: {
         <div>
           {groups.map(group => <section key={group.number}>
             <h3>第 {group.number} 组 <small>{group.students.length} 人</small></h3>
-            <p>{group.students.map(student => <button type="button" disabled={readOnly} className={student.groupLeader ? styles.leader : ""} onClick={() => run(() => setSeatingGroupLeader(data, classId, student.id), `${student.name} 已设为第 ${group.number} 组组长。`, false)} key={student.id}>{student.name}{student.groupLeader ? " · 组长" : ""}</button>)}</p>
+            <p>{group.students.map(student => <button type="button" disabled={readOnly || busy} className={student.groupLeader ? styles.leader : ""} onClick={() => void run(() => setSeatingGroupLeader(data, classId, student.id), `${student.name} 已设为第 ${group.number} 组组长。`, false)} key={student.id}>{student.name}{student.groupLeader ? " · 组长" : ""}</button>)}</p>
             {!group.students.length && <p className={styles.emptyText}>暂无学生</p>}
           </section>)}
         </div>
@@ -297,7 +308,7 @@ export function Seating({ data, update, readOnly = false, mobile = false }: {
       subtitle={editingSeatStudent ? `当前：${editingSeatStudent.name}。选择其他学生后自动互换座位。` : "当前为空座。选择学生后会移动到这里。"}
       students={sortedStudents}
       selectedId={editingSeatStudent?.id}
-      onPick={student => assignStudent(student.id, editingSeatNumber)}
+      onPick={student => void assignStudent(student.id, editingSeatNumber)}
       onClose={() => setEditingSeat(null)}
     />}
     {avoidTarget && <StudentLookupDialog
@@ -307,8 +318,8 @@ export function Seating({ data, update, readOnly = false, mobile = false }: {
       selectedId={avoidTarget.avoidWith}
       allowClear
       clearLabel="设为无"
-      onPick={student => { patchStudent(avoidTarget.id, { avoidWith: student.id }); setAvoidPicker(null); }}
-      onClear={() => { patchStudent(avoidTarget.id, { avoidWith: "" }); setAvoidPicker(null); }}
+      onPick={student => void patchStudent(avoidTarget.id, { avoidWith: student.id }).then(ok => { if (ok) setAvoidPicker(null); })}
+      onClear={() => void patchStudent(avoidTarget.id, { avoidWith: "" }).then(ok => { if (ok) setAvoidPicker(null); })}
       onClose={() => setAvoidPicker(null)}
     />}
   </div>;

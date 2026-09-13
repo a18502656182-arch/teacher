@@ -320,9 +320,9 @@ export default function ClassroomApp({ token }: { token: string }) {
           {active === "weekly" && <Weekly data={workspace.data} update={updateData} readOnly={isDemo || isReadOnly} />}
           {active === "schedule" && <ScheduleHub data={workspace.data} update={updateData} save={save} readOnly={isDemo || isReadOnly} />}
           {active === "tools" && <ClassroomTools data={workspace.data} update={updateData} save={save} readOnly={isDemo || isReadOnly} />}
-          {active === "seating" && <Seating data={workspace.data} update={updateData} readOnly={isDemo || isReadOnly} />}
-          {active === "duty" && <Duty data={workspace.data} update={updateData} readOnly={isDemo || isReadOnly} />}
-          {active === "cadres" && <Cadres data={workspace.data} update={updateData} readOnly={isDemo || isReadOnly} confirmAction={requestDangerConfirm} />}
+          {active === "seating" && <Seating data={workspace.data} update={updateData} save={save} readOnly={isDemo || isReadOnly} />}
+          {active === "duty" && <Duty data={workspace.data} update={updateData} save={save} readOnly={isDemo || isReadOnly} confirmAction={requestDangerConfirm} />}
+          {active === "cadres" && <Cadres data={workspace.data} update={updateData} save={save} readOnly={isDemo || isReadOnly} confirmAction={requestDangerConfirm} />}
           {active === "records" && <Records data={workspace.data} update={updateData} save={save} readOnly={isDemo || isReadOnly} />}
           {active === "scores" && <Scores workspaceToken={token} data={workspace.data} update={updateData} save={save} readOnly={isDemo || isReadOnly} />}
           {active === "reflection" && <Reflection data={workspace.data} update={updateData} save={save} open={openModule} readOnly={isDemo || isReadOnly} />}
@@ -378,9 +378,9 @@ function MobileWorkspaceContent({ workspaceToken, workspace, activeClass, active
       {pane('homework', <HomeworkView data={data} update={update} confirmAction={requestDangerConfirm} mobile readOnly={isDemo || isReadOnly} />)}
       {pane('scores', <MobileScores workspaceToken={workspaceToken} data={data} activeClass={activeClass} update={update} save={save} readOnly={isDemo || isReadOnly} open={openModule} />)}
       {pane('health', <HealthCare data={data} update={update} save={save} readOnly={isDemo || isReadOnly} mobile />)}
-      {pane('seating', <Seating data={data} update={update} readOnly={isDemo || isReadOnly} mobile />)}
-      {pane('duty', <Duty data={data} update={update} readOnly={isDemo || isReadOnly} mobile />)}
-      {pane('cadres', <Cadres data={data} update={update} readOnly={isDemo || isReadOnly} mobile confirmAction={requestDangerConfirm} />)}
+      {pane('seating', <Seating data={data} update={update} save={save} readOnly={isDemo || isReadOnly} mobile />)}
+      {pane('duty', <Duty data={data} update={update} save={save} readOnly={isDemo || isReadOnly} mobile confirmAction={requestDangerConfirm} />)}
+      {pane('cadres', <Cadres data={data} update={update} save={save} readOnly={isDemo || isReadOnly} mobile confirmAction={requestDangerConfirm} />)}
       {workspaceModules.filter(item => !dedicated.has(item.id)).map(item => pane(item.id, <MobileSecondaryPage workspaceToken={workspaceToken} active={item.id} data={data} activeClass={activeClass} growthRequest={growthRequest} update={update} save={save} open={openModule} readOnly={isDemo || isReadOnly} />))}
   </>;
 }
