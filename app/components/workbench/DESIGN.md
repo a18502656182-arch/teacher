@@ -159,10 +159,12 @@ control 为按钮、字段、分段外框和批量条统一圆角；surface 用�
 - **ThemeDefinition / themeCssVariables**：每个主题完整声明 id、status、semanticColors、surfaces、typography、spacing、radii、elevation、motion、artworkByRole 与 capabilities。变量转换器是共享CSS token的唯一新主题来源；玻璃拥有实色与增强表面两组明确值，CSS `@supports`只选择其一。
 - **ArtworkAsset / Artwork**：17个语义角色覆盖首页、入口、听写、学生、作业、成绩、日程、值日、组织、照护、沟通、工具、家庭、管理员和空态。资产契约包含src、可选mobileSrc、尺寸、fit、focalPoint、safeTextArea、decorative、fallback与candidate/ready状态。Artwork缺失时返回null，不跨主题回退；有mobileSrc时使用picture/source，safeTextArea和状态作为可检查元数据输出。旧`ThemeArtwork`只保留slot到语义role的适配，不再维护第二份资源表。
 - **GradingView（隔离探针）**：通过共享 useGradingController 获取批改状态，复用 Button、Field、Input、Select、Icon 与 Artwork；页面请求 dictation.grading，不硬编码校园资产路径。班级与家庭复用业务控制器和批改字段，家庭省略名单和上一位/下一位；换主题只改变基础层与素材定义。学生名单、错词复选框、参与状态、备注、确认与保存组成当前实现，业务可靠性、交互和生产混合样式仍须独立审核。
-- **Button**：接受原生 button 属性及 intent（primary / secondary / text / danger）、busy；默认 secondary、type="button"。busy 合并到 disabled 并输出 aria-busy，不自动改变文字或生成进度图标。danger 默认白底有边线，不应照抄旧版无边框危险按钮规则。
+- **Button**：接受原生 button 属性及 intent（primary / secondary / text / danger）、busy；默认 secondary、type="button"。busy 合并到 disabled、输出 aria-busy，并在保留原按钮文字时显示同一套进度图标。按钮文字允许换行，窄屏长命令不得被截断。danger 默认白底有边线，不应照抄旧版无边框危险按钮规则。
 - **Field / Input / Textarea / Select**：Field 接收 id、label、hint、error、required、children；Input 等接收原生属性与 hint/error，通过 id 关联描述并设置 aria-invalid。调用者必须将同一 id 和 hint/error 传给包装与控件；Field 不克隆 children 或自动注入属性。required 在 Field 中只显示星号，原生 required 需另传给控件。Select 不应被用于完整百人学生名单。
 - **StatusSegment**：泛型字符串 value，接收 label、options、value、onChange、disabled；输出 role="group" 和带 aria-pressed 的原生按钮。它不是 radiogroup，不提供方向键单选组行为。
-- **SelectionBar**：接收 count、scopeLabel、busy、actions、onClear；count 为 0 不渲染，显示人数与选择范围。busy 只禁用内置清空按钮；外部 actions 的禁用、保存及跨页选择策略由调用者负责。
+- **SelectionBar**：接收 count、scopeLabel、busy、actions、onClear；count 为 0 不渲染，显示人数与选择范围，并以 region、aria-label 与 aria-live 暴露批量上下文。busy 只禁用内置清空按钮；外部 actions 的禁用、保存及跨页选择策略由调用者负责。手机下信息与动作纵向排列，动作占满可用宽度。
+- **Menu / MenuItem**：菜单触发器声明 aria-haspopup、aria-expanded 与 aria-controls；菜单项使用 menu/menuitem 语义。ArrowUp、ArrowDown、Home、End 在可用项间循环，Escape 关闭并把焦点还给触发器，Tab 与外部点击关闭。菜单项文字允许换行；手机菜单固定在安全区内，避免因触发器靠近边缘而横向越界。
+- **LoadingState / EmptyState**：加载状态使用 role=status 与 aria-live，并只说明正在读取，不生成业务结果；空态通过标题和描述建立可访问名称，可选语义插画缺失时直接收起图片区。空态动作由调用者提供，组件不臆造新增、刷新或清空行为。
 - **Dialog**：受控 open、title、children、可选 footer、busy、dirty、onRequestClose。使用 showModal/close，标题通过 aria-labelledby 关联；原生模态负责焦点限制和背景 inert，关闭时尝试恢复触发元素。Escape、遮罩起始点击和关闭按钮统一请求 escape / backdrop / button；busy 阻止这些请求。dirty 仅输出 data-dirty，确认放弃草稿必须由控制器处理，不能宣称组件自动保存或自动确认。
 - **Icon**：name 查共享 iconPaths，未知名称回退 book；24×24 viewBox、1.8 线宽、圆端点和圆连接。SVG 为 aria-hidden、focusable=false，操作语义需由按钮或文本提供。
 
