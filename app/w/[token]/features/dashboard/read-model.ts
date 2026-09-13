@@ -107,7 +107,10 @@ export function createDashboardReadModel(data: ClassroomData, defaultDutyJobs: r
     const current = attention.get(row.studentId);
     if (!current || row.priority > current.priority || (row.priority === current.priority && timestamp(row.date) > timestamp(current.date))) attention.set(row.studentId, row);
   };
-  for (const record of (data.attendanceRecords ?? []).filter(item => (!item.classId || item.classId === classId) && item.status !== '正常')) {
+  const attendanceNeedsFollowUp = (record: NonNullable<ClassroomData['attendanceRecords']>[number]) => record.status !== '正常'
+    && record.approval !== '已销假'
+    && (record.date === date || (record.date < date && record.approval === '待确认'));
+  for (const record of (data.attendanceRecords ?? []).filter(item => (!item.classId || item.classId === classId) && attendanceNeedsFollowUp(item))) {
     const student = students.find(item => item.id === record.studentId);
     if (student) setAttention({ studentId: student.id, name: student.name, date: record.date, source: '考勤', summary: `${record.period} · ${record.status}${record.reason ? ` · ${record.reason}` : ''}`, priority: record.status === '缺勤' ? 4 : 3 });
   }

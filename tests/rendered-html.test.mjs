@@ -350,6 +350,10 @@ test("dashboard reuses dated teacher agenda instead of maintaining a second todo
   assert.match(app, /<DashboardView data=\{data\}/);
   assert.match(app, /<DashboardView[^>]*data=\{workspace\.data\}/);
   assert.doesNotMatch(dashboard, /useState/);
+  assert.doesNotMatch(dashboard, /<main/);
+  assert.match(dashboard, /aria-labelledby="dashboard-title"/);
+  assert.match(app, /sequence: current\.sequence \+ 1/);
+  assert.match(app, /growthRequest\.sequence/);
 });
 
 test("student profile keeps guardians and care information out of the roster list", () => {

@@ -90,6 +90,19 @@ test('过期事项决定首要动作，学生提醒保留日期和事实来源',
   assert.deepEqual(model.attentionRows[0], { studentId: 'a-2', name: '甲二', date: '2026-09-13', source: '考勤', summary: '上午 · 迟到', priority: 3 });
 });
 
+test('学生提醒排除已销假和无待确认状态的历史考勤', () => {
+  const data = fixture();
+  data.attendanceRecords = [
+    { id: 'closed', classId: 'a', studentId: 'a-1', date: '2026-09-12', period: '全天', status: '请假', approval: '已销假', createdAt: 1 },
+    { id: 'historical', classId: 'a', studentId: 'a-2', date: '2026-09-11', period: '上午', status: '迟到', createdAt: 2 },
+  ];
+  let model = createDashboardReadModel(data, [], NOW);
+  assert.equal(model.attentionRows.length, 0);
+  data.attendanceRecords[1].approval = '待确认';
+  model = createDashboardReadModel(data, [], NOW);
+  assert.deepEqual(model.attentionRows.map(item => [item.studentId, item.date, item.source]), [['a-2', '2026-09-11', '考勤']]);
+});
+
 test('正式空白首页不补造任务、值日岗位、学生提醒或家庭档案', () => {
   const model = createDashboardReadModel(fixture(), [{ id: 'default', name: '默认岗位', area: '', standard: '', enabled: true }], NOW);
   assert.equal(model.scheduleRows.length, 0);

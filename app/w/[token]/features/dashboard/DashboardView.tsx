@@ -21,9 +21,9 @@ export function DashboardView({ data, defaultDutyJobs, open, openFamily, openStu
   const displayDate = new Intl.DateTimeFormat('zh-CN', { month: 'long', day: 'numeric', weekday: 'long' }).format(new Date());
   const todaySummary = model.scheduleRows.length ? `${model.scheduleRows.length} 项今日安排` : model.hasConfiguredCourses ? '今天无课，课程表已保留' : '尚未设置班级课程';
 
-  return <main className={styles.dashboard}>
+  return <div className={styles.dashboard} aria-labelledby="dashboard-title">
     <header className={styles.heading}>
-      <div><h1>{displayDate}</h1><p>{model.activeClass?.name ?? '当前班级'} · 先核对今天真正需要处理的班务</p></div>
+      <div><h1 id="dashboard-title">{displayDate}</h1><p>{model.activeClass?.name ?? '当前班级'} · 先核对今天真正需要处理的班务</p></div>
       <span>{model.students.length} 名学生</span>
     </header>
 
@@ -67,5 +67,5 @@ export function DashboardView({ data, defaultDutyJobs, open, openFamily, openStu
     </section>
 
     <aside className={styles.family} aria-label="家庭学习入口"><div><b>家庭学习工具</b><span>{model.familyChildren.length ? `${model.familyChildren.length} 个孩子档案，与班级名册隔离` : '与班级教学数据隔离，可稍后设置'}</span></div><Button intent="text" onClick={openFamily}>进入家庭学习<CampusIcon name="arrow"/></Button></aside>
-  </main>;
+  </div>;
 }

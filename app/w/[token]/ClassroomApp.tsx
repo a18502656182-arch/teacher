@@ -141,7 +141,7 @@ export default function ClassroomApp({ token }: { token: string }) {
   const [toast, setToast] = useState<ToastEventDetail | null>(null);
   const [confirmRequest, setConfirmRequest] = useState<ConfirmEventDetail | null>(null);
   const [visitedMobileModules, setVisitedMobileModules] = useState<ModuleId[]>(['dashboard']);
-  const [requestedGrowthStudentId, setRequestedGrowthStudentId] = useState('');
+  const [growthRequest, setGrowthRequest] = useState({ studentId: '', sequence: 0 });
   const backupInputRef = useRef<HTMLInputElement>(null);
   const {
     workspace, loading, error, dirty, saving, saveConflict, isDemo, isReadOnly,
@@ -176,7 +176,7 @@ export default function ClassroomApp({ token }: { token: string }) {
   }
 
   function openStudentGrowth(studentId: string) {
-    setRequestedGrowthStudentId(studentId);
+    setGrowthRequest(current => ({ studentId, sequence: current.sequence + 1 }));
     openModule('growth');
   }
 
@@ -309,7 +309,7 @@ export default function ClassroomApp({ token }: { token: string }) {
         onClearError={clearError}
         onExportDraft={exportWorkspaceBackup}
         onLoadLatest={() => void loadLatestWorkspace()}
-        mobileContent={<MobileWorkspaceContent workspaceToken={token} workspace={workspace} activeClass={activeClass} active={active} visited={visitedMobileModules} openModule={openModule} openStudentGrowth={openStudentGrowth} requestedGrowthStudentId={requestedGrowthStudentId} update={updateData} isDemo={isDemo} isReadOnly={isReadOnly} openAccount={accountCenter.openCenter} switchLearningScene={switchLearningScene} />}
+        mobileContent={<MobileWorkspaceContent workspaceToken={token} workspace={workspace} activeClass={activeClass} active={active} visited={visitedMobileModules} openModule={openModule} openStudentGrowth={openStudentGrowth} growthRequest={growthRequest} update={updateData} isDemo={isDemo} isReadOnly={isReadOnly} openAccount={accountCenter.openCenter} switchLearningScene={switchLearningScene} />}
         desktopContent={<>
           {active === "dictation" && <Suspense fallback={<p role="status">正在加载听写…</p>}><Dictation key={`${workspace.data.activeClassId}:${learningScene}`} data={workspace.data} token={token} readOnly={isDemo || isReadOnly} commit={commitWorkspace} scene={learningScene}/></Suspense>}
           {active === "dashboard" && <DashboardView defaultDutyJobs={defaultDutyJobs} data={workspace.data} open={openModule} openFamily={() => switchLearningScene('family')} openStudentGrowth={openStudentGrowth} />}
@@ -318,7 +318,7 @@ export default function ClassroomApp({ token }: { token: string }) {
           {active === "homework" && <Homework data={workspace.data} update={updateData} />}
           {active === "points" && <Points data={workspace.data} update={updateData} />}
           {active === "rules" && <Rules data={workspace.data} update={updateData} />}
-          {active === "growth" && <Growth data={workspace.data} update={updateData} requestedStudentId={requestedGrowthStudentId} />}
+          {active === "growth" && <Growth data={workspace.data} update={updateData} requestedStudentId={growthRequest.studentId} />}
           {active === "health" && <HealthCare data={workspace.data} update={updateData} />}
           {active === "weekly" && <Weekly data={workspace.data} update={updateData} readOnly={isDemo || isReadOnly} />}
           {active === "schedule" && <ScheduleHub data={workspace.data} update={updateData} readOnly={isDemo || isReadOnly} />}
@@ -367,7 +367,7 @@ export default function ClassroomApp({ token }: { token: string }) {
   );
 }
 
-function MobileWorkspaceContent({ workspaceToken, workspace, activeClass, active, visited, openModule, openStudentGrowth, requestedGrowthStudentId, update, isDemo, isReadOnly, openAccount, switchLearningScene }: { workspaceToken: string; workspace: Workspace; activeClass: RosterClass; active: ModuleId; visited: ModuleId[]; openModule: (id: ModuleId) => void; openStudentGrowth: (studentId: string) => void; requestedGrowthStudentId: string; update: (fn: (d: ClassroomData) => ClassroomData) => void; isDemo: boolean; isReadOnly: boolean; openAccount: () => void; switchLearningScene: (scene: LearningScene) => void }) {
+function MobileWorkspaceContent({ workspaceToken, workspace, activeClass, active, visited, openModule, openStudentGrowth, growthRequest, update, isDemo, isReadOnly, openAccount, switchLearningScene }: { workspaceToken: string; workspace: Workspace; activeClass: RosterClass; active: ModuleId; visited: ModuleId[]; openModule: (id: ModuleId) => void; openStudentGrowth: (studentId: string) => void; growthRequest: { studentId: string; sequence: number }; update: (fn: (d: ClassroomData) => ClassroomData) => void; isDemo: boolean; isReadOnly: boolean; openAccount: () => void; switchLearningScene: (scene: LearningScene) => void }) {
   const data = workspace.data;
   const visibleModules = new Set([...visited, active]);
   const pane = (id: ModuleId, content: ReactNode) => visibleModules.has(id)
@@ -384,7 +384,7 @@ function MobileWorkspaceContent({ workspaceToken, workspace, activeClass, active
       {pane('seating', <Seating data={data} update={update} readOnly={isDemo || isReadOnly} mobile />)}
       {pane('duty', <Duty data={data} update={update} readOnly={isDemo || isReadOnly} mobile />)}
       {pane('cadres', <Cadres data={data} update={update} readOnly={isDemo || isReadOnly} mobile confirmAction={requestDangerConfirm} />)}
-      {workspaceModules.filter(item => !dedicated.has(item.id)).map(item => pane(item.id, <MobileSecondaryPage workspaceToken={workspaceToken} active={item.id} data={data} activeClass={activeClass} requestedGrowthStudentId={requestedGrowthStudentId} update={update} open={openModule} readOnly={isDemo || isReadOnly} />))}
+      {workspaceModules.filter(item => !dedicated.has(item.id)).map(item => pane(item.id, <MobileSecondaryPage workspaceToken={workspaceToken} active={item.id} data={data} activeClass={activeClass} growthRequest={growthRequest} update={update} open={openModule} readOnly={isDemo || isReadOnly} />))}
   </>;
 }
 
@@ -1214,7 +1214,7 @@ function MobileScoresWithExam({ workspaceToken, data, activeClass, update, open 
   </div>;
 }
 
-function MobileSecondaryPage({ workspaceToken, active, data, activeClass, requestedGrowthStudentId, update, open, readOnly }: { workspaceToken: string; active: ModuleId; data: ClassroomData; activeClass: RosterClass; requestedGrowthStudentId: string; update: (fn: (d: ClassroomData) => ClassroomData) => void; open: (id: ModuleId) => void; readOnly: boolean }) {
+function MobileSecondaryPage({ workspaceToken, active, data, activeClass, growthRequest, update, open, readOnly }: { workspaceToken: string; active: ModuleId; data: ClassroomData; activeClass: RosterClass; growthRequest: { studentId: string; sequence: number }; update: (fn: (d: ClassroomData) => ClassroomData) => void; open: (id: ModuleId) => void; readOnly: boolean }) {
   const [detail, setDetail] = useState<{ title: string; children: ReactNode } | null>(null);
   const [quickPointOpen, setQuickPointOpen] = useState(false);
   const [pointRuleSheetOpen, setPointRuleSheetOpen] = useState(false);
@@ -1310,14 +1310,15 @@ function MobileSecondaryPage({ workspaceToken, active, data, activeClass, reques
   const [recordDraft, setRecordDraft] = useState({ studentId: activeClass.students[0]?.id ?? data.students[0]?.id ?? "", student: activeClass.students[0]?.name ?? data.students[0]?.name ?? "", type: "家校沟通", channel: "微信", date: localCommunicationDate(), purpose: "沟通情况补录", home: "", content: "", opinion: "", followUp: "" });
   const [ruleDraft, setRuleDraft] = useState<PointRule>({ id: "", scene: "课堂", title: "", reason: "", delta: 1, owner: "班主任", enabled: true, level: "自定义", detail: "" });
   const students = activeClass.students?.length ? activeClass.students : data.students;
+  const growthStudentIdsKey = students.map(student => student.id).join('|');
   useEffect(() => {
-    if (active === 'growth' && requestedGrowthStudentId && students.some(student => student.id === requestedGrowthStudentId)) {
-      setGrowthStudentId(requestedGrowthStudentId);
+    if (active === 'growth' && growthRequest.studentId && growthStudentIdsKey.split('|').includes(growthRequest.studentId)) {
+      setGrowthStudentId(growthRequest.studentId);
       setGrowthStudentPage(1);
       setGrowthPage(1);
       setGrowthDetailOpen(true);
     }
-  }, [active, requestedGrowthStudentId, students]);
+  }, [active, growthRequest.sequence, growthRequest.studentId, growthStudentIdsKey]);
   const mobileReflectionExams = scoreExamsForClass(data, activeClass.id);
   const mobileReflectionExamIdsKey = mobileReflectionExams.map((item) => item.id).join("|");
   const firstMobileReflectionExamId = mobileReflectionExams[0]?.id ?? "";
