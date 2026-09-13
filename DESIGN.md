@@ -137,7 +137,7 @@ components:
 
 本文于 2026-09-12 按当前校园构图重建源码刷新既有设计记录。19 个模块继续使用同一业务数据与页面树；旧深色侧栏、Emoji 模块输出和多色装饰条不再是新增界面的依据。PRODUCT.md 保留的旧视觉描述和 18 模块计数不替代当前源码，本文也不修改产品能力定义。
 
-本次直接核对 WorkspaceChrome.tsx、workspace-chrome.css、dashboard.css、page-families.css、theme.ts 与听写 dictation.css；保留既有公共组件记录。此前截图与独立 review 属于上一版证据，不自动证明此次重构通过。最新截图集由主任务保存在 classroom-campus-rebuild-final-review，构图映射见 docs/校园插画全站重建映射与验收-20260912.md。本记录提取源码事实；完整截图、交互、构建与回归结论由主任务分别记录，不证明服务器已更新。
+本次直接核对 WorkbenchShell.tsx、shell.module.css、catalog.ts、dashboard.css、page-families.css、主题定义与听写页面；保留既有公共组件记录。旧WorkspaceChrome.tsx已退出，workspace-chrome.css仅作为未迁移业务规则源等待按消费者清理，不能再代表当前壳层。截图与独立review不自动证明后续页面任务通过；构图映射见 docs/校园插画全站重建映射与验收-20260912.md。本记录提取源码事实，不证明服务器已更新。
 
 **Key Characteristics:**
 
@@ -182,7 +182,7 @@ components:
 
 ## Layout
 
-WorkspaceChrome 桌面壳层采用 68px 通栏顶栏、244px 侧栏和主工作区；顶栏包含品牌、班级、班级教学/家庭学习场景与保存状态，侧栏按四组导航组织。内容 max-width 1500px，padding 26px 30px 52px；1180px 以下用同等选择器优先级切换为 220px 紧凑列。900px 以下使用手机壳层；首页头部两行提供品牌/保存状态与班级/场景，保留底部一级导航。
+WorkbenchShell桌面采用72px通栏顶栏、244px连续侧栏和主工作区；顶栏包含品牌、班级、班级教学/家庭学习场景与真实保存状态，侧栏按今日、学生、教学、班级四组组织19模块。1180px以下收为220px侧栏，900px以下切到手机壳层。手机首页头部提供品牌/保存、班级/场景；听写头部只补场景，不重复业务页入口。底栏固定首页、学生、作业、成绩、更多，更多Drawer只呈现余下15模块。
 
 首页首区为左侧暖黄行动列表与右侧宽幅 classroom-morning 水彩场景，场景高度 318px。桌面主舞台圆角 24px；手机顺序为场景后任务，场景高 146px、舞台圆角 17px、任务主按钮整行。主按钮首屏可达是本轮构图目标，是否实现以目标视口截图为准。下方今日安排、听写、值日、学生近况按真实任务分区，桌面两列、手机单列，不把首页构图复制给数据管理页。
 
@@ -216,7 +216,7 @@ WorkspaceChrome 桌面壳层采用 68px 通栏顶栏、244px 侧栏和主工作�
 
 - **Button**：公共原语支持 primary / secondary / text / danger 四个 intent；桌面最小高 40px、手机 44px，默认内距见前置 token。具有 hover、focus-visible 和 disabled；公共按钮禁用透明度 .5，校园全局控件适配为 .55，最终取决于层叠。loading 由业务传入状态控制，不是独立 API。
 - **输入与状态分段**：白底、line 边线、control 圆角，错误字段使用 aria-invalid 和 error 边线。公共样式不等于已有共享 TextField React 组件。状态选择使用稳定尺寸的分段，选中状态必须有文字或强调。值日星期和台账状态保持按钮形式。
-- **WorkspaceChrome**：共享 DesktopHeader、WorkspaceNav 与保存状态；四导航组与顶栏场景切换继续调用同一业务树。class/family 是工作场景，不是主题切换。
+- **WorkbenchShell**：统一桌面顶栏/四组导航、手机返回/底栏/更多与保存状态；catalog保证19模块完整且更多不重复高频项，controller统一URL、模块轨迹、场景与离开守卫。class/family是工作场景，不是主题切换。
 - **Dashboard**：从传入数据呈现今日工作、今日安排、值日岗位和学生近况，链接到既有模块。浅色任务区内部使用行动列表、时间列表与表格。数字和“近况”的业务判定不由视觉规范认可，不能把阈值提示包装成客观学生评价。
 - **ClassSwitcher**：班级选择可用原生 select，名称与人数同列展示；班级设置用 details 展开，承载班名、年级、学期和增删动作。它是小规模班级枚举，不是全班学生下拉模板。
 - **StudentLookupDialog**：默认只显示按学号排序的前 12 名，可用 20 人范围段与每页 12 人浏览；搜索跨全班匹配，姓名与学号是主要入口。选中项有“当前”文字，支持可选清空动作和结果计数。可用于百人班选择，不依赖小组，也不首屏铺满全班。范围段基于排序位置，不能描述为学生号连续性保证。
