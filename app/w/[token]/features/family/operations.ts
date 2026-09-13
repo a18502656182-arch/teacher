@@ -1,5 +1,5 @@
 import type { DictationData, DictationTask, FamilyChild } from "@/lib/dictation";
-import { contextKey, statistics, today, wrongWords } from "@/lib/dictation";
+import { contextKey, recentTasks, statistics, today, wrongWords } from "@/lib/dictation";
 
 export type FamilyChildDraft = Pick<FamilyChild, "id" | "name" | "grade" | "archived">;
 
@@ -47,16 +47,13 @@ export function setFamilyChildArchived(data: DictationData, childId: string, arc
 export function familyOverview(data: DictationData, childId: string, currentDate = today()) {
   const tasks = familyTasks(data, childId);
   const todayTasks = tasks.filter(task => task.date === currentDate && !task.archived).toSorted((a, b) => b.createdAt.localeCompare(a.createdAt));
-  const cutoff = new Date(`${currentDate}T12:00:00`);
-  cutoff.setDate(cutoff.getDate() - 29);
-  const from = cutoff.toLocaleDateString("sv-SE");
-  const recentTasks = tasks.filter(task => task.date >= from && task.date <= currentDate);
-  const stats = statistics(recentTasks, childId);
+  const recent = recentTasks(tasks, currentDate);
+  const stats = statistics(recent.tasks, childId);
   const wrong = wrongWords(tasks, childId);
   return {
     tasks,
     todayTasks,
-    recentTasks,
+    recentTasks: recent.tasks,
     stats,
     wrong,
     pending: tasks.filter(task => !task.archived).reduce((count, task) => count + task.participants.filter(person => person.id === childId && !task.results[person.id]).length, 0),

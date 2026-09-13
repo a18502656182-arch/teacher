@@ -98,6 +98,14 @@ test('近30天统计按所选孩子计算，未批改不算全对', () => {
   assert.equal(overview.wrong.length, 1);
 });
 
+test('家庭近30天窗口与班级口径一致并排除未来和第31天', () => {
+  const data = fixture();
+  data.tasks.push(task('a-boundary', 'child-a', '2026-08-13', ['graded', [], '2026-08-13T09:00:00.000Z', '']));
+  data.tasks.push(task('a-future', 'child-a', '2026-09-13', ['graded', [], '2026-09-13T09:00:00.000Z', '']));
+  const overview = family.familyOverview(data, 'child-a', '2026-09-12');
+  assert.deepEqual(overview.recentTasks.map(item => item.id), ['a-today']);
+});
+
 test('空孩子没有任务和假统计', () => {
   const overview = family.familyOverview(fixture(), '', '2026-09-12');
   assert.equal(overview.tasks.length, 0);

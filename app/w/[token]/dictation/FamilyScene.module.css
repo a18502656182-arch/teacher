@@ -14,8 +14,7 @@
   overflow: hidden;
   border: 1px solid color-mix(in srgb, var(--campus-primary) 16%, var(--campus-line));
   border-radius: 18px;
-  background:
-    linear-gradient(116deg, color-mix(in srgb, var(--campus-blue) 84%, white) 0 50%, color-mix(in srgb, var(--campus-green) 72%, white) 100%);
+  background: color-mix(in srgb, var(--campus-blue) 82%, var(--campus-surface));
 }
 
 .header::after {

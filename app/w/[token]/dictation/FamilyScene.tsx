@@ -68,7 +68,7 @@ export function FamilyChildrenPanel({ profiles, activeId, busy, readOnly, onSele
   const sorted = useMemo(() => profiles.toSorted((a, b) => Number(Boolean(a.archived)) - Number(Boolean(b.archived))), [profiles]);
 
   useEffect(() => {
-    if (!dirty || busy) return;
+    if (!dirty && !busy) return;
     const guard = (event: Event) => { event.preventDefault(); setError("孩子档案还有未保存内容，请先保存或取消。"); };
     const unload = (event: BeforeUnloadEvent) => { event.preventDefault(); event.returnValue = ""; };
     window.addEventListener("classroom:before-navigate", guard);
