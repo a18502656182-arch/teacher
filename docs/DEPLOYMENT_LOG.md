@@ -1,5 +1,16 @@
 # 部署记录
 
+## 2026-09-13：教师工作台UI重构最终受控包
+
+- 状态：本地已生成、完成路径安全检查并解压验证；尚未上传或部署。
+- Git业务源码提交：`45f72d7`。TASK-33后续仅修改包外文档与追踪文件，不改变本包运行源码。
+- 文件：`classroom-deploy-teacher-workbench-ui-complete-20260913.tar.gz`；9,450,169字节。
+- SHA-256：`1D3DC54F61098CE68EC01D48FD6767132A71AAC23463A19E8AF2206F67E3167B`。
+- 白名单包含`.openai`、`app`、`build`、`db`、`drizzle`、`lib`、`public`、`worker`、`dist`及运行配置，共446个条目；`dist`来自当前已通过的`npm test`生产构建。
+- 未包含项目文档、任务包、测试、脚本、报告、运行数据、数据库、`.env.local`、密钥、`node_modules`、`.next`或历史部署包。
+- 归档成员绝对路径与上级跳转检查为0项风险，禁止成员检查为0项；独立临时目录解压成功，并确认`package.json`、`app/layout.tsx`、`app/w/[token]/ClassroomApp.tsx`、`dist/server/index.js`和听写WebP存在。
+- 对应源码已通过生产构建、260/260自动化、认证集成、TypeScript、ESLint及115项严格QA。家庭教育不纳入TASK-30至33当前验收；本条不代表生产环境、真实网络或正式数据库验证。
+
 ## 2026-09-12：接收服务器源码导出，未执行部署
 
 用户提供classroom-online-source.tar.gz，1,077,263字节，SHA-256 F2019A92C0E1CDB850DE1D790105CBE4DD82973645188244352841F0951E1E92。受检88个运行源码/资源/配置文件与0691aba对应文件一致（忽略换行差异），另有两份无引用旧CSS残留。证据支持服务器目录源码基线，不证明正在运行的构建及线上验收。无服务器写入、正式数据库操作或新部署包。

@@ -1,7 +1,7 @@
 ---
 name: 班主任工作台
 status: active-development
-lastUpdated: 2026-08-25
+lastUpdated: 2026-09-13
 ---
 
 # Product
@@ -19,7 +19,7 @@ lastUpdated: 2026-08-25
 
 - React 19、Next.js 16、Vinext、Vite、TypeScript。
 - SQLite + Drizzle ORM 保存认证、用户、兑换码、设备、会话和 workspace 数据。
-- 现有界面主要集中在 `app/w/[token]/ClassroomApp.tsx`、`app/w/[token]/CourseSchedule.tsx` 和 `app/workbench-repair.css`。
+- 当前教师界面由 `app/components/workbench/WorkbenchShell.tsx` 统一承载壳层，`app/w/[token]/ClassroomApp.tsx` 编排页面控制器与按需模块，业务规则限定在页面组件及路由级 `ClassroomPages.module.css`；旧全局 UI 生成链已经退出。
 - 当前项目不引入新的 UI 框架；视觉改造阶段不新增 npm 依赖，不执行 `npm install`。
 
 ## Users

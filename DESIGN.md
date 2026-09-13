@@ -137,7 +137,7 @@ components:
 
 本文于 2026-09-12 按当前校园构图重建源码刷新既有设计记录。19 个模块继续使用同一业务数据与页面树；旧深色侧栏、Emoji 模块输出和多色装饰条不再是新增界面的依据。PRODUCT.md 保留的旧视觉描述和 18 模块计数不替代当前源码，本文也不修改产品能力定义。
 
-本次直接核对 WorkbenchShell.tsx、shell.module.css、catalog.ts、dashboard.css、page-families.css、主题定义与听写页面；保留既有公共组件记录。旧WorkspaceChrome.tsx已退出，workspace-chrome.css仅作为未迁移业务规则源等待按消费者清理，不能再代表当前壳层。截图与独立review不自动证明后续页面任务通过；构图映射见 docs/校园插画全站重建映射与验收-20260912.md。本记录提取源码事实，不证明服务器已更新。
+本次最终核对 WorkbenchShell.tsx、shell.module.css、catalog.ts、主题定义、ClassroomApp.tsx、路由级 ClassroomPages.module.css 与听写页面；保留既有公共组件记录。旧 WorkspaceChrome、全局兼容 CSS、生成产物与生成链均已退出正式入口。截图与独立 review 不自动证明后续页面任务通过；构图映射见 docs/校园插画全站重建映射与验收-20260912.md。本记录提取源码事实，不证明服务器已更新。
 
 **Key Characteristics:**
 
@@ -194,9 +194,9 @@ WorkbenchShell桌面采用72px通栏顶栏、244px连续侧栏和主工作区；
 
 学生页采用左名单、右档案的主从结构：主名单 minmax(620px,1fr)、档案 350px，名单在局部最大 506px 高度滚动，表头 sticky。作业页采用左任务列表 330px、右状态明细，检索和任务选择在左侧，学生状态和批量操作在右侧；以“选任务—看异常—批量处理”为首要路径，长期筛选收进次级抽屉，完整备注不得挤占状态判断和快捷处理。手机不压缩双栏，而按任务列表→学生详情分步进入，返回后保留任务筛选上下文。
 
-听写批改桌面为材料 220px、中央词区 minmax(0,1fr)、名单 250px 三栏，间距 18px，高度 calc(100dvh - 120px)、min-height 520px。1180px 至 901px 为 190px / 自适应 / 210px，词项单列。中央词区独立滚动，确认与保存留在不滚动的工作区底部；短视口仍需检查首屏空间。手机隐藏两侧辅助列，显示单学生批改，保存区固定在底部导航上方 60px 并补 safe-area。
+听写批改桌面以中央批改区为主，材料区可展开，右侧保留学生队列；确认与保存不随词项列表滚走。手机重排为单学生批改，辅助材料和名单按任务进入，保存区避开底部导航并补 safe-area。具体宽度由当前局部 CSS Module 和六档视口验收约束，不再以旧三列固定像素记录为规范。
 
-**仍保留的布局样式负债：** globals.css、workbench-repair.css、页面局部 CSS 和少量内联样式仍承担历史网格、宽度、字号与控件尺寸。legacy-theme.css 已删除；homework-bootstrap-shell 仍供未迁移模块的旧选择器使用，不能将其存在误读为已完成组件迁移。新壳层和页面族 CSS 与旧全局样式仍有层叠关系。前置 token 是复用主体系，不是对这些历史几百个数值的整体认可；后续修改应在任务范围内收敛来源并按实际层叠核验，避免追加大范围覆盖。
+**仍保留的布局样式负债：** 旧 CSS 生成链、兼容源、legacy 根和 homework-bootstrap-shell 已全部删除；正式入口不再依赖旧全局 UI。当前主要负债是 `ClassroomApp.tsx` 仍承担较多编排，路由级 `ClassroomPages.module.css` 源文件约 339KB（构建 CSS 约 309KB），以及少量历史 token 漂移。后续应按真实页面族拆分消费者，不能再做机械拼接或追加新的全局覆盖。
 
 ## Elevation & Depth
 
@@ -204,7 +204,7 @@ WorkbenchShell桌面采用72px通栏顶栏、244px连续侧栏和主工作区；
 
 **The Continuous Work Surface Rule.** 一个连续流程共享工作面；只有真正独立的任务、表格、编辑或辅助区域使用容器。现有公共控件未建立统一动效 token，不从遗留 transition 清单推导新动效规范。
 
-玻璃没有实现：theme.ts 中 glass 为 planned、artwork 为空，resolveTheme 同步固定返回 campus。无公开切换入口或主题偏好存储；校园登记为 ready。手机校园顶栏已有局部半透明背景与 blur(12px)，这不是玻璃主题实现，也不能据此声称校园没有任何模糊材质。不能把未来模糊、渐变或切换效果写成当前能力。
+玻璃没有实现：theme.ts 中 glass 为 planned、artwork 为空，resolveTheme 同步固定返回 campus；无公开切换入口或主题偏好存储。校园与预留 glass 当前都使用实色表面，能力声明为无 blur，应用 CSS 已移除 backdrop-filter。不能把未来模糊、渐变或切换效果写成当前能力。
 
 ## Shapes
 
