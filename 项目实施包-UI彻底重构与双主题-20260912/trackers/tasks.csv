@@ -10,7 +10,7 @@ TASK-08,建立浮层与搜索选人,"05,07",done,f5d6c3c,evidence/overlay-studen
 TASK-09,建立新旧样式隔离,"06,07",done,94de104,evidence/legacy-style-isolation-20260913.md,TASK10制作首批校园插画母样与变体
 TASK-10,制作首批插画母样与变体,06,done,5fd3fc5,项目实施包-UI彻底重构与双主题-20260912/evidence/campus-artwork-first-batch-20260913.md,桌面/手机独立候选资源与实际裁切通过；真实页面仍按后续任务验收
 TASK-11,建立共享壳层,"05,07,08,09",done,5f16aeb,项目实施包-UI彻底重构与双主题-20260912/evidence/shared-workbench-shell-20260913.md,等待用户浏览真实本地壳层；确认后执行TASK-12
-TASK-12,首页构图基准,"10,11",planned,,,
+TASK-12,首页构图基准,"10,11",done,015daa3,项目实施包-UI彻底重构与双主题-20260912/evidence/dashboard-implementation-20260913.md,等待用户浏览真实本地首页；确认后执行TASK-13
 TASK-13,学生构图基准,"10,11",planned,,,
 TASK-14,作业构图基准,"10,11",planned,,,
 TASK-15,听写构图基准,"10,11",planned,,,

@@ -3,7 +3,7 @@
   "baselineCommit": "6e10e2dc314e09d0d72df9509730f57c5fde34e2",
   "implementationStatus": "in-progress",
   "active_task": null,
-  "next_action": "TASK-11已完成并提交；等待用户浏览真实本地共享壳层，确认后执行TASK-12完整首页",
+  "next_action": "TASK-12已完成并提交；等待用户浏览真实本地首页，确认后执行TASK-13学生构图基准",
   "milestones": {
     "M0": "done",
     "M1": "in-progress",
@@ -12,7 +12,7 @@
     "M4": "planned",
     "M5": "planned"
   },
-  "note": "线上受检源码无需要覆盖的业务差异。M0完成；TASK-04至TASK-11及提前完成的TASK-29已完成。已完成任务12/33，按任务数36.4%；按剩余页面和验收工作量估计总进度约55%，这不是精确工时。生产构建、237/237自动化测试、认证集成和115项qa:strict通过；共享壳层在六档视口通过，独立review为ship-with-notes。按用户要求停在真实本地页面；多数业务页迁移和A场景仍未完成，TASK-30前置未满足。没有生产操作。",
+  "note": "线上受检源码无需要覆盖的业务差异。M0完成；TASK-04至TASK-12及提前完成的TASK-29已完成。已完成任务13/33，按任务数39.4%；按剩余页面和验收工作量估计总进度约58%，这不是精确工时。生产构建、242/242自动化测试、认证集成和115项qa:strict通过；首页在1536/390/360视口实看，班级与名册事实隔离、目标模块及指定学生成长上下文通过，独立复核为ship且0 P0/P1。按用户要求停在真实本地首页；M1仍需TASK-13至TASK-16，家庭学习按当前优先级暂不扩展，TASK-30前置未满足。没有生产操作。",
   "implementationStartCommit": "f321d5e9424e0020bdf1e56d52c31b986b503a53",
   "parallelPreparation": [],
   "verifiedOnlineBaseline": "0691aba",

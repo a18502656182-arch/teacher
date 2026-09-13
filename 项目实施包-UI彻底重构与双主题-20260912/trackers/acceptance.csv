@@ -1,13 +1,13 @@
 id,module,scenario,fixture,viewport,commit,result,evidence,reason
-A-01-01,dashboard,desktop-default,,,,not-run,,不适用需说明源码依据
-A-01-02,dashboard,mobile-default,,,,not-run,,不适用需说明源码依据
-A-01-03,dashboard,empty,,,,not-run,,不适用需说明源码依据
-A-01-04,dashboard,long-data,,,,not-run,,不适用需说明源码依据
-A-01-05,dashboard,primary-editor,,,,not-run,,不适用需说明源码依据
-A-01-06,dashboard,readonly,,,,not-run,,不适用需说明源码依据
-A-01-07,dashboard,save-failure,,,,not-run,,不适用需说明源码依据
-A-01-08,dashboard,conflict-or-not-applicable,,,,not-run,,不适用需说明源码依据
-A-01-09,dashboard,legacy-css-off,,,,not-run,,不适用需说明源码依据
+A-01-01,dashboard,desktop-default,demo-readonly,1536x900,015daa3,pass,evidence/dashboard-implementation-20260913.md,桌面工作面实看且四个主要待办进入正确模块
+A-01-02,dashboard,mobile-default,demo-readonly,390x844;360x800,015daa3,pass,evidence/dashboard-implementation-20260913.md,薄横幅后首项操作首屏可达且360无整页横向溢出
+A-01-03,dashboard,empty,E0-formal-empty-model,automated,015daa3,pass,evidence/dashboard-implementation-20260913.md,纯读取模型确认不补造任务岗位提醒或家庭档案
+A-01-04,dashboard,long-data,E6-long-fields,automated;360x800,015daa3,pass,evidence/dashboard-implementation-20260913.md,隔离长字段夹具与局部CSS换行收缩规则通过且窄屏无溢出
+A-01-05,dashboard,primary-editor,not-applicable,source,015daa3,not-applicable,evidence/dashboard-implementation-20260913.md,首页是只读汇总和模块导航且没有编辑器
+A-01-06,dashboard,readonly,demo-readonly,1536x900;390x844,015daa3,pass,evidence/dashboard-implementation-20260913.md,查看与导航保留且首页不调用workspace写入
+A-01-07,dashboard,save-failure,not-applicable,source,015daa3,not-applicable,evidence/dashboard-implementation-20260913.md,首页无保存草稿或提交动作
+A-01-08,dashboard,conflict-or-not-applicable,not-applicable,source,015daa3,not-applicable,evidence/dashboard-implementation-20260913.md,首页无版本写入因而没有自有冲突状态
+A-01-09,dashboard,legacy-css-off,demo-css-isolation,six-width,015daa3,pass,evidence/dashboard-implementation-20260913.md,旧Dashboard和dashboard.css已删除且局部CSS Module接管页面
 A-02-01,students,desktop-default,,,,not-run,,不适用需说明源码依据
 A-02-02,students,mobile-default,,,,not-run,,不适用需说明源码依据
 A-02-03,students,empty,,,,not-run,,不适用需说明源码依据
