@@ -494,6 +494,13 @@ test("exam reflections share guarded save logic across desktop and mobile", () =
   assert.match(app, /saveExamReflection\(data, activeClass\.id/);
   assert.match(app, /saveExamReflection\(data, activeClassId/);
   assert.match(app, /当前为只读模式，反思内容未修改/);
+  assert.match(app, /<Reflection data=\{workspace\.data\} update=\{updateData\} save=\{save\}/);
+  assert.match(app, /const ok = await saveWorkspace\(\)/);
+  assert.match(app, /const ok = await save\(\); setReflectionBusy\(false\)/);
+  assert.match(app, /当前反思尚未保存，确认切换学生并放弃这些修改/);
+  assert.match(app, /当前反思尚未保存，确认关闭并放弃这些修改/);
+  assert.match(app, /编辑窗口不会关闭，请重试保存/);
+  assert.match(app, /内部家校沟通留痕已由服务器确认/);
   assert.match(app, /成绩未录入/);
   assert.match(classroomTypes, /reflectionId\?: string/);
   assert.match(reflectionOperations, /linkedRecord\?\.id \?\? createRecordId\(\)/);

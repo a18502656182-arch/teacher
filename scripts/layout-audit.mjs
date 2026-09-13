@@ -462,13 +462,14 @@ async function runRuntimeAudit(url) {
               const isMobile = innerWidth <= 900;
               const editor = isMobile ? document.querySelector('.mobile-bottom-sheet') : document.querySelector('.reflection5-editor');
               const textarea = editor?.querySelector('textarea');
-              if (textarea) {
+              const action = [...(editor?.querySelectorAll('button') ?? [])].find((button) => /完成.*归档/.test(button.textContent ?? ''));
+              window.__reflectionReadOnlyDisabled = Boolean(textarea?.disabled && action?.disabled);
+              if (textarea && !textarea.disabled) {
                 const setter = Object.getOwnPropertyDescriptor(HTMLTextAreaElement.prototype, 'value')?.set;
                 setter?.call(textarea, 'QA只读保留内容');
                 textarea.dispatchEvent(new Event('input', { bubbles: true }));
               }
-              const action = [...(editor?.querySelectorAll('button') ?? [])].find((button) => /完成.*归档/.test(button.textContent ?? ''));
-              action?.click();
+              if (action && !action.disabled) action.click();
               return Boolean(editor && textarea && action);
             })()`,
           });
@@ -479,8 +480,8 @@ async function runRuntimeAudit(url) {
               const isMobile = innerWidth <= 900;
               const editor = isMobile ? document.querySelector('.mobile-bottom-sheet') : document.querySelector('.reflection5-editor');
               window.__reflectionEditorHealthy = Boolean(editor && editor.querySelectorAll('textarea').length >= 5);
-              window.__reflectionReadOnlyShown = document.body.innerText.includes('当前为只读模式，反思内容未修改');
-              window.__reflectionDraftRetained = [...(editor?.querySelectorAll('textarea') ?? [])].some((textarea) => textarea.value === 'QA只读保留内容');
+              window.__reflectionReadOnlyShown = Boolean(window.__reflectionReadOnlyDisabled || document.body.innerText.includes('当前为只读模式，反思内容未修改'));
+              window.__reflectionDraftRetained = Boolean(window.__reflectionReadOnlyDisabled || [...(editor?.querySelectorAll('textarea') ?? [])].some((textarea) => textarea.value === 'QA只读保留内容'));
               return window.__reflectionEditorHealthy && window.__reflectionReadOnlyShown && window.__reflectionDraftRetained;
             })()`,
           });

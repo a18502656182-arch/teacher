@@ -325,7 +325,7 @@ export default function ClassroomApp({ token }: { token: string }) {
           {active === "cadres" && <Cadres data={workspace.data} update={updateData} readOnly={isDemo || isReadOnly} confirmAction={requestDangerConfirm} />}
           {active === "records" && <Records data={workspace.data} update={updateData} save={save} readOnly={isDemo || isReadOnly} />}
           {active === "scores" && <Scores workspaceToken={token} data={workspace.data} update={updateData} save={save} readOnly={isDemo || isReadOnly} />}
-          {active === "reflection" && <Reflection data={workspace.data} update={updateData} open={openModule} readOnly={isDemo || isReadOnly} />}
+          {active === "reflection" && <Reflection data={workspace.data} update={updateData} save={save} open={openModule} readOnly={isDemo || isReadOnly} />}
           {active === "comments" && <Comments workspaceToken={token} data={workspace.data} update={updateData} readOnly={isDemo || isReadOnly} />}
         </>}
       />
@@ -902,6 +902,9 @@ function MobileSecondaryPage({ workspaceToken, active, data, activeClass, growth
   const [recordBusy, setRecordBusy] = useState(false);
   const [reflectionEditorOpen, setReflectionEditorOpen] = useState(false);
   const [reflectionDraft, setReflectionDraft] = useState<ExamReflection>({ id: "", studentId: activeClass.students[0]?.id ?? data.students[0]?.id ?? "", examId: scoreExamsForClass(data, activeClass.id)[0]?.id, date: today(), problem: "", reason: "", action: "", familyMessage: "", teacherNote: "", status: "草稿" });
+  const [reflectionBusy, setReflectionBusy] = useState(false);
+  const [reflectionEditorMessage, setReflectionEditorMessage] = useState("");
+  const reflectionDraftBaseline = useRef("");
   const [reflectionKeyword, setReflectionKeyword] = useState("");
   const [reflectionStatusFilter, setReflectionStatusFilter] = useState<"全部" | ExamReflection["status"]>("全部");
   const [reflectionExamFilter, setReflectionExamFilter] = useState(scoreExamsForClass(data, activeClass.id)[0]?.id ?? "");
@@ -1386,26 +1389,36 @@ function MobileSecondaryPage({ workspaceToken, active, data, activeClass, growth
   function openReflectionEditor(item?: ExamReflection) {
     setDetail(null);
     const classExamId = reflectionExamFilter || scoreExamsForClass(data, activeClass.id)[0]?.id;
-    setReflectionDraft(item ? { ...item, examId: item.examId || classExamId } : { id: "", studentId: students[0]?.id ?? "", examId: classExamId, date: today(), problem: "", reason: "", action: "", familyMessage: "", teacherNote: "", status: "草稿" });
+    const next = item ? { ...item, examId: item.examId || classExamId } : { id: "", studentId: students[0]?.id ?? "", examId: classExamId, date: today(), problem: "", reason: "", action: "", familyMessage: "", teacherNote: "", status: "草稿" as const };
+    setReflectionDraft(next);
+    reflectionDraftBaseline.current = JSON.stringify(next);
+    setReflectionEditorMessage("");
     setReflectionEditorOpen(true);
   }
-  function saveReflectionMobile(status: ExamReflection["status"]) {
-    if (readOnly) {
-      notify("当前为只读模式，反思内容未修改", "info");
-      return;
-    }
+  async function closeReflectionEditorMobile() {
+    if (reflectionBusy) return;
+    if (JSON.stringify(reflectionDraft) !== reflectionDraftBaseline.current && !await requestDangerConfirm("当前反思尚未保存，确认关闭并放弃这些修改？", "放弃未保存反思", "放弃修改")) return;
+    setReflectionEditorOpen(false);
+    setReflectionEditorMessage("");
+  }
+  async function saveReflectionMobile(status: ExamReflection["status"]) {
+    if (readOnly || reflectionBusy) { setReflectionEditorMessage("当前为只读模式，反思内容未修改。"); return; }
     const reflectionId = reflectionDraft.id || makeId();
     const recordId = makeId();
     const input = { ...reflectionDraft, id: reflectionId };
     const preview = saveExamReflection(data, activeClass.id, input, status, () => reflectionId, () => recordId);
     if (preview.error) {
-      notify(preview.error, "error");
+      setReflectionEditorMessage(preview.error);
       return;
     }
     update((current) => saveExamReflection(current, activeClass.id, input, status, () => reflectionId, () => recordId).data ?? current);
     setReflectionDraft(preview.reflection!);
+    setReflectionBusy(true); setReflectionEditorMessage("");
+    const ok = await save(); setReflectionBusy(false);
+    if (!ok) { setReflectionEditorMessage("同步失败，本机反思已保留；编辑窗口不会关闭，请重试保存。"); return; }
+    reflectionDraftBaseline.current = JSON.stringify(preview.reflection!);
     setReflectionEditorOpen(false);
-    notify(status === "已完成" ? "反思与家校沟通留痕已更新，正在同步" : "反思草稿已更新，正在同步", "info");
+    notify(status === "已完成" ? "反思与内部家校沟通留痕已由服务器确认" : "反思草稿已由服务器确认", "success");
   }
   function commentRecordsFor(student: Student) {
     return records.filter((record) => recordBelongsToStudent(record, student, activeClass.id));
@@ -2041,7 +2054,7 @@ function MobileSecondaryPage({ workspaceToken, active, data, activeClass, growth
     const openLinkedReflection = (exam: ScoreExam, row: ReturnType<typeof scoreRowsFor>[number]) => {
       const existing = reflections.find((item) => item.examId === exam.id && item.studentId === row.student.id);
       setDetail(null);
-      setReflectionDraft(existing ? { ...existing } : {
+      const next = existing ? { ...existing } : {
         id: "",
         studentId: row.student.id,
         examId: exam.id,
@@ -2051,8 +2064,11 @@ function MobileSecondaryPage({ workspaceToken, active, data, activeClass, growth
         action: row.advice,
         familyMessage: "",
         teacherNote: "",
-        status: "草稿",
-      });
+        status: "草稿" as const,
+      };
+      setReflectionDraft(next);
+      reflectionDraftBaseline.current = JSON.stringify(next);
+      setReflectionEditorMessage("");
       setReflectionEditorOpen(true);
     };
     const filteredReflections = reflections.filter((item) => {
@@ -2087,21 +2103,22 @@ function MobileSecondaryPage({ workspaceToken, active, data, activeClass, growth
       <nav className="mobile-chip-tabs">{["全部", "草稿", "已完成"].map((item) => <button type="button" className={reflectionStatusFilter === item ? "active" : ""} key={item} onClick={() => setReflectionStatusFilter(item as typeof reflectionStatusFilter)}>{item}</button>)}</nav>
       <section className="mobile-card-list"><header><h2>已保存反思</h2><span>{filteredReflections.length} 条</span></header>{pagedReflections.map((item) => {
         const exam = reflectionExams.find((entry) => entry.id === item.examId);
-        return <button type="button" key={item.id} onClick={() => setDetail({ title: `${studentName(item.studentId)} · ${item.status}`, children: <><div className="mobile-detail-grid"><span><small>考试</small><b>{exam?.title ?? "未关联"}</b></span><span><small>日期</small><b>{item.date}</b></span></div><div className="mobile-sheet-section"><h3>主要问题</h3><p>{item.problem || "未填写"}</p></div><div className="mobile-sheet-section"><h3>原因分析</h3><p>{item.reason || "未填写"}</p></div><div className="mobile-sheet-section"><h3>行动</h3><p>{item.action || "未填写"}</p></div><div className="mobile-sheet-section"><h3>家长配合</h3><p>{item.familyMessage || "未填写"}</p></div><div className="mobile-sheet-actions"><button type="button" onClick={() => openReflectionEditor(item)}>编辑反思</button><button type="button" onClick={() => copyTextToClipboard(`${item.problem}\n${item.reason}\n${item.action}`, "已复制反思")}>复制反思</button></div></> })}><b>{studentName(item.studentId)} · {item.status}</b><span>{exam?.title ? `${exam.title} · ` : ""}{item.date} · {item.problem || "暂无问题描述"}</span></button>;
+        return <button type="button" key={item.id} onClick={() => setDetail({ title: `${studentName(item.studentId)} · ${item.status}`, children: <><div className="mobile-detail-grid"><span><small>考试</small><b>{exam?.title ?? "未关联"}</b></span><span><small>日期</small><b>{item.date}</b></span></div><div className="mobile-sheet-section"><h3>主要问题</h3><p>{item.problem || "未填写"}</p></div><div className="mobile-sheet-section"><h3>原因分析</h3><p>{item.reason || "未填写"}</p></div><div className="mobile-sheet-section"><h3>行动</h3><p>{item.action || "未填写"}</p></div><div className="mobile-sheet-section"><h3>家长配合</h3><p>{item.familyMessage || "未填写"}</p></div><div className="mobile-sheet-actions"><button type="button" disabled={readOnly || reflectionBusy} onClick={() => openReflectionEditor(item)}>编辑反思</button><button type="button" onClick={() => copyTextToClipboard(`${item.problem}\n${item.reason}\n${item.action}`, "已复制反思")}>复制反思</button></div></> })}><b>{studentName(item.studentId)} · {item.status}</b><span>{exam?.title ? `${exam.title} · ` : ""}{item.date} · {item.problem || "暂无问题描述"}</span></button>;
       })}{!filteredReflections.length && <article><b>暂无反思</b><span>切换到学生状态，选择学生后填写本次考试反思。</span></article>}{filteredReflections.length > reflectionPageSize && <div className="mobile-list-pager"><button type="button" disabled={safeReflectionSavedPage <= 1} onClick={() => setReflectionSavedPage((page) => page - 1)}>上一页</button><span>{safeReflectionSavedPage} / {reflectionSavedPageCount}</span><button type="button" disabled={safeReflectionSavedPage >= reflectionSavedPageCount} onClick={() => setReflectionSavedPage((page) => page + 1)}>下一页</button></div>}</section></>}
       {detail && <MobileInfoSheet title={detail.title} onClose={() => setDetail(null)}>{detail.children}</MobileInfoSheet>}
-      {reflectionEditorOpen && <MobileInfoSheet title={`${reflectionDraft.id ? "编辑反思" : "填写反思"} · ${studentName(reflectionDraft.studentId)}`} onClose={() => setReflectionEditorOpen(false)}>
+      {reflectionEditorOpen && <MobileInfoSheet title={`${reflectionDraft.id ? "编辑反思" : "填写反思"} · ${studentName(reflectionDraft.studentId)}`} onClose={() => void closeReflectionEditorMobile()}>
         <section className="mobile-reflection-editor-context"><span><b>{studentName(reflectionDraft.studentId)}</b><small>{reflectionExams.find((exam) => exam.id === reflectionDraft.examId)?.title ?? "当前考试"}</small></span><em>{reflectionDraft.status}</em></section>
         <div className="mobile-form-grid">
-          <label><span>日期</span><input value={reflectionDraft.date} onChange={(event) => setReflectionDraft({ ...reflectionDraft, date: event.target.value })} /></label>
-          <label><span>状态</span><select value={reflectionDraft.status} onChange={(event) => setReflectionDraft({ ...reflectionDraft, status: event.target.value as ExamReflection["status"] })}><option>草稿</option><option>已完成</option></select></label>
-          <label className="wide"><span>主要问题</span><textarea value={reflectionDraft.problem} onChange={(event) => setReflectionDraft({ ...reflectionDraft, problem: event.target.value })} /></label>
-          <label className="wide"><span>原因分析</span><textarea value={reflectionDraft.reason} onChange={(event) => setReflectionDraft({ ...reflectionDraft, reason: event.target.value })} /></label>
-          <label className="wide"><span>下一步行动</span><textarea value={reflectionDraft.action} onChange={(event) => setReflectionDraft({ ...reflectionDraft, action: event.target.value })} /></label>
-          <label className="wide"><span>写给家长</span><textarea value={reflectionDraft.familyMessage} onChange={(event) => setReflectionDraft({ ...reflectionDraft, familyMessage: event.target.value })} /></label>
-          <label className="wide"><span>班主任跟进</span><textarea value={reflectionDraft.teacherNote} onChange={(event) => setReflectionDraft({ ...reflectionDraft, teacherNote: event.target.value })} /></label>
+          <label><span>日期</span><input disabled={readOnly || reflectionBusy} value={reflectionDraft.date} onChange={(event) => setReflectionDraft({ ...reflectionDraft, date: event.target.value })} /></label>
+          <label><span>状态</span><select disabled={readOnly || reflectionBusy} value={reflectionDraft.status} onChange={(event) => setReflectionDraft({ ...reflectionDraft, status: event.target.value as ExamReflection["status"] })}><option>草稿</option><option>已完成</option></select></label>
+          <label className="wide"><span>主要问题</span><textarea disabled={readOnly || reflectionBusy} value={reflectionDraft.problem} onChange={(event) => setReflectionDraft({ ...reflectionDraft, problem: event.target.value })} /></label>
+          <label className="wide"><span>原因分析</span><textarea disabled={readOnly || reflectionBusy} value={reflectionDraft.reason} onChange={(event) => setReflectionDraft({ ...reflectionDraft, reason: event.target.value })} /></label>
+          <label className="wide"><span>下一步行动</span><textarea disabled={readOnly || reflectionBusy} value={reflectionDraft.action} onChange={(event) => setReflectionDraft({ ...reflectionDraft, action: event.target.value })} /></label>
+          <label className="wide"><span>写给家长</span><textarea disabled={readOnly || reflectionBusy} value={reflectionDraft.familyMessage} onChange={(event) => setReflectionDraft({ ...reflectionDraft, familyMessage: event.target.value })} /></label>
+          <label className="wide"><span>班主任跟进</span><textarea disabled={readOnly || reflectionBusy} value={reflectionDraft.teacherNote} onChange={(event) => setReflectionDraft({ ...reflectionDraft, teacherNote: event.target.value })} /></label>
         </div>
-        <div className="mobile-sheet-actions"><button type="button" onClick={() => saveReflectionMobile("草稿")}>保存草稿</button><button type="button" className="primary" onClick={() => saveReflectionMobile("已完成")}>完成归档</button></div>
+        {reflectionEditorMessage && <p className="mobile-form-error" role="status">{reflectionEditorMessage}</p>}
+        <div className="mobile-sheet-actions"><button type="button" disabled={readOnly || reflectionBusy} onClick={() => void saveReflectionMobile("草稿")}>{reflectionBusy ? "保存中…" : "保存草稿"}</button><button type="button" className="primary" disabled={readOnly || reflectionBusy} onClick={() => void saveReflectionMobile("已完成")}>{reflectionBusy ? "保存中…" : "完成归档"}</button></div>
       </MobileInfoSheet>}
     </div>;
   }
@@ -3781,16 +3798,16 @@ function ScoresWithExam({ workspaceToken, data, update, save, readOnly }: { work
   </>;
 }
 
-function Reflection({ data, update, open, readOnly }: { data: ClassroomData; update: (fn: (d: ClassroomData) => ClassroomData) => void; open: (id: ModuleId) => void; readOnly: boolean }) {
+function Reflection({ data, update, save, open, readOnly }: { data: ClassroomData; update: (fn: (d: ClassroomData) => ClassroomData) => void; save: () => Promise<boolean>; open: (id: ModuleId) => void; readOnly: boolean }) {
   const activeClassId = data.activeClassId ?? data.rosterClasses?.[0]?.id ?? "class-1";
   if (!scoreExamsForClass(data, activeClassId).length) return <>
     <WorkbenchPageHeader icon="📝" tone="iris" title="本次考试反思" description="先建立真实考试，再为学生填写考试反思。" />
     <section className="reflection5-page"><section className="reflection5-current workbench-page-context"><div className="reflection5-current-main"><span>考试反思</span><h3>还没有可反思的考试</h3><p>成绩分析中新增考试后，这里会显示对应学生和成绩上下文。</p></div><div className="reflection5-actions"><button type="button" onClick={() => open("scores")}>去成绩分析</button></div></section></section>
   </>;
-  return <ReflectionWithExam data={data} update={update} readOnly={readOnly} />;
+  return <ReflectionWithExam data={data} update={update} saveWorkspace={save} readOnly={readOnly} />;
 }
 
-function ReflectionWithExam({ data, update, readOnly }: { data: ClassroomData; update: (fn: (d: ClassroomData) => ClassroomData) => void; readOnly: boolean }) {
+function ReflectionWithExam({ data, update, saveWorkspace, readOnly }: { data: ClassroomData; update: (fn: (d: ClassroomData) => ClassroomData) => void; saveWorkspace: () => Promise<boolean>; readOnly: boolean }) {
   const params = typeof window !== "undefined" ? new URLSearchParams(window.location.search) : null;
   const activeClassId = data.activeClassId ?? data.rosterClasses?.[0]?.id ?? "class-1";
   const initialStudentId = params?.get("studentId") || "";
@@ -3800,6 +3817,8 @@ function ReflectionWithExam({ data, update, readOnly }: { data: ClassroomData; u
   const [page, setPage] = useState(1);
   const [examPage, setExamPage] = useState(1);
   const [savedState, setSavedState] = useState("");
+  const [reflectionBusy, setReflectionBusy] = useState(false);
+  const reflectionDraftBaseline = useRef("");
   const [showExamLibrary, setShowExamLibrary] = useState(false);
   const [examKeyword, setExamKeyword] = useState("");
   const [examSubjectFilter, setExamSubjectFilter] = useState("全部");
@@ -3869,7 +3888,7 @@ function ReflectionWithExam({ data, update, readOnly }: { data: ClassroomData; u
   });
   useEffect(() => {
     if (!selected) return;
-    setDraft(selected.reflection ?? {
+    const next = selected.reflection ?? {
       id: makeId(),
       studentId: selected.student.id,
       examId: selected.exam.id,
@@ -3879,8 +3898,10 @@ function ReflectionWithExam({ data, update, readOnly }: { data: ClassroomData; u
       action: "",
       familyMessage: "",
       teacherNote: "",
-      status: "草稿",
-    });
+      status: "草稿" as const,
+    };
+    setDraft(next);
+    reflectionDraftBaseline.current = JSON.stringify(next);
     setSavedState("");
     // The selected row is reconstructed each render; its stable keys define editor identity.
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -3898,8 +3919,18 @@ function ReflectionWithExam({ data, update, readOnly }: { data: ClassroomData; u
     if (examMonthFilter !== "全部" && examYearFilter !== "全部" && !examMonthFilter.startsWith(examYearFilter)) setExamMonthFilter("全部");
   }, [examYearFilter, examMonthFilter]);
   if (!selected) return null;
-  function save(status: ExamReflection["status"]) {
-    if (readOnly) {
+  async function selectReflection(nextKey: string) {
+    if (reflectionBusy || nextKey === selected.key) return;
+    if (JSON.stringify(draft) !== reflectionDraftBaseline.current && !await requestDangerConfirm("当前反思尚未保存，确认切换学生并放弃这些修改？", "放弃未保存反思", "放弃修改")) return;
+    setSelectedKey(nextKey);
+  }
+  async function chooseReflectionExam(nextExamId: string) {
+    if (reflectionBusy) return;
+    if (JSON.stringify(draft) !== reflectionDraftBaseline.current && !await requestDangerConfirm("当前反思尚未保存，确认切换考试并放弃这些修改？", "放弃未保存反思", "放弃修改")) return;
+    setExamFilter(nextExamId); setSelectedKey(""); setShowExamLibrary(false);
+  }
+  async function save(status: ExamReflection["status"]) {
+    if (readOnly || reflectionBusy) {
       setSavedState("当前为只读模式，反思内容未修改");
       return;
     }
@@ -3913,7 +3944,11 @@ function ReflectionWithExam({ data, update, readOnly }: { data: ClassroomData; u
     }
     update((current) => saveExamReflection(current, activeClassId, input, status, () => reflectionId, () => recordId).data ?? current);
     setDraft(preview.reflection!);
-    setSavedState(status === "已完成" ? "反思与家校沟通留痕已更新，正在同步" : "草稿已更新，正在同步");
+    setReflectionBusy(true); setSavedState("");
+    const ok = await saveWorkspace(); setReflectionBusy(false);
+    if (!ok) { setSavedState("同步失败，本机反思已保留；当前学生和编辑内容不会丢失。"); return; }
+    reflectionDraftBaseline.current = JSON.stringify(preview.reflection!);
+    setSavedState(status === "已完成" ? "反思与内部家校沟通留痕已由服务器确认" : "反思草稿已由服务器确认");
   }
   const totalMaxScore = subjectMaxScore(selected.exam, "总分");
   const statusClass = (status: string) => status === "已完成" ? "done" : status === "草稿" ? "draft" : status === "重点跟进" ? "follow" : "empty";
@@ -3937,7 +3972,7 @@ function ReflectionWithExam({ data, update, readOnly }: { data: ClassroomData; u
           <label className="reflection5-search"><span>查询学生</span><input value={keyword} onChange={(e) => setKeyword(e.target.value)} placeholder="学生姓名、学号或已填写的反思内容" /></label>
           <div className="reflection5-picker-head"><span>学生</span><span>状态</span></div>
           <div className="reflection5-picker-list">
-            {pagedRows.map((row) => <button type="button" className={row.key === selected.key ? "active" : ""} key={row.key} onClick={() => setSelectedKey(row.key)}>
+            {pagedRows.map((row) => <button type="button" disabled={reflectionBusy} className={row.key === selected.key ? "active" : ""} key={row.key} onClick={() => void selectReflection(row.key)}>
               <span><b>{row.student.name}</b><small>学号 {row.student.studentNo || "未填"}</small></span>
               <em className={`reflection5-status ${statusClass(row.status)}`}>{row.status}</em>
             </button>)}
@@ -3954,8 +3989,8 @@ function ReflectionWithExam({ data, update, readOnly }: { data: ClassroomData; u
             <span><small>{selected.complete ? "平均" : "已录平均"}</small><b>{selected.enteredCount ? selected.average : "未录入"}</b></span>
             <span><small>跟进状态</small><b>{selected.followUp ? "重点跟进" : "常规复盘"}</b></span>
           </div>
-          <div className="reflection5-form"><label><span>主要问题</span><textarea value={draft.problem} onChange={(e) => setDraft({ ...draft, problem: e.target.value })} placeholder="老师填写：这次考试最需要和学生复盘的问题。" /></label><label><span>原因分析</span><textarea value={draft.reason} onChange={(e) => setDraft({ ...draft, reason: e.target.value })} placeholder="老师填写：错因、状态、习惯或知识点问题。" /></label><label><span>下一步行动</span><textarea value={draft.action} onChange={(e) => setDraft({ ...draft, action: e.target.value })} placeholder="老师填写：订正、面谈、练习、复测等安排。" /></label><label><span>写给家长的话</span><textarea value={draft.familyMessage} onChange={(e) => setDraft({ ...draft, familyMessage: e.target.value })} placeholder="老师填写：需要家长配合的观察和提醒。" /></label><label className="wide"><span>班主任跟进</span><textarea value={draft.teacherNote} onChange={(e) => setDraft({ ...draft, teacherNote: e.target.value })} placeholder="老师填写：后续追踪节点、复查方式或备注。" /></label></div>
-          <footer><button type="button" onClick={() => save("草稿")}>保存草稿</button><button type="button" className="reflection5-primary" onClick={() => save("已完成")}>完成并归档</button></footer>
+          <div className="reflection5-form"><label><span>主要问题</span><textarea disabled={readOnly || reflectionBusy} value={draft.problem} onChange={(e) => setDraft({ ...draft, problem: e.target.value })} placeholder="老师填写：这次考试最需要和学生复盘的问题。" /></label><label><span>原因分析</span><textarea disabled={readOnly || reflectionBusy} value={draft.reason} onChange={(e) => setDraft({ ...draft, reason: e.target.value })} placeholder="老师填写：错因、状态、习惯或知识点问题。" /></label><label><span>下一步行动</span><textarea disabled={readOnly || reflectionBusy} value={draft.action} onChange={(e) => setDraft({ ...draft, action: e.target.value })} placeholder="老师填写：订正、面谈、练习、复测等安排。" /></label><label><span>写给家长的话</span><textarea disabled={readOnly || reflectionBusy} value={draft.familyMessage} onChange={(e) => setDraft({ ...draft, familyMessage: e.target.value })} placeholder="老师填写：需要家长配合的观察和提醒。" /></label><label className="wide"><span>班主任跟进</span><textarea disabled={readOnly || reflectionBusy} value={draft.teacherNote} onChange={(e) => setDraft({ ...draft, teacherNote: e.target.value })} placeholder="老师填写：后续追踪节点、复查方式或备注。" /></label></div>
+          <footer><button type="button" disabled={readOnly || reflectionBusy} onClick={() => void save("草稿")}>{reflectionBusy ? "保存中…" : "保存草稿"}</button><button type="button" className="reflection5-primary" disabled={readOnly || reflectionBusy} onClick={() => void save("已完成")}>{reflectionBusy ? "保存中…" : "完成并归档"}</button></footer>
         </div>
       </section>
     </section>
@@ -3974,7 +4009,7 @@ function ReflectionWithExam({ data, update, readOnly }: { data: ClassroomData; u
             <colgroup><col className="exam-name" /><col className="exam-date" /><col className="exam-subjects" /><col className="exam-action" /></colgroup>
             <thead><tr><th>考试名称</th><th>日期</th><th>科目</th><th>操作</th></tr></thead>
             <tbody>
-              {pagedExams.map((item) => <tr className={item.exam.id === examFilter ? "active" : ""} key={item.exam.id} onClick={() => { setExamFilter(item.exam.id); setSelectedKey(""); setShowExamLibrary(false); }}><td><b>{item.exam.title}</b></td><td>{item.exam.date}</td><td>{item.subjects.join("，")}</td><td><button type="button">{item.exam.id === examFilter ? "当前" : "打开"}</button></td></tr>)}
+              {pagedExams.map((item) => <tr className={item.exam.id === examFilter ? "active" : ""} key={item.exam.id} onClick={() => void chooseReflectionExam(item.exam.id)}><td><b>{item.exam.title}</b></td><td>{item.exam.date}</td><td>{item.subjects.join("，")}</td><td><button type="button" disabled={reflectionBusy}>{item.exam.id === examFilter ? "当前" : "打开"}</button></td></tr>)}
               {!pagedExams.length && <tr><td colSpan={4}>没有符合条件的考试。</td></tr>}
             </tbody>
           </table>

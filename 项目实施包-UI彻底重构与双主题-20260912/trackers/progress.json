@@ -3,7 +3,7 @@
   "baselineCommit": "6e10e2dc314e09d0d72df9509730f57c5fde34e2",
   "implementationStatus": "in-progress",
   "active_task": null,
-  "next_action": "TASK-23已完成；执行TASK-24考试反思迁移，并连续推进至TASK-28",
+  "next_action": "TASK-24已完成；执行TASK-25课程表/日程迁移，并连续推进至TASK-28",
   "milestones": {
     "M0": "done",
     "M1": "done",
@@ -12,7 +12,7 @@
     "M4": "planned",
     "M5": "planned"
   },
-  "note": "线上受检源码无需要覆盖的业务差异。M0与M1完成；TASK-04至TASK-23及提前完成的TASK-29已完成。已完成任务24/33，按任务数72.7%；按剩余页面和验收工作量估计总进度约86%，这不是精确工时。成绩考试管理、批量录分、重点/区间和试卷分析关键提交等待workspace确认，失败保留本机修改与当前上下文；空白、零分、不同满分和AI候选确认语义保持。ESLint、51项专项、成绩录入/试卷分析各六档布局、生产构建、262/262全量自动化及认证集成通过。共享旧样式集中移除归TASK-30。按用户指令继续TASK-24至TASK-28；M2仍在进行，没有生产操作。",
+  "note": "线上受检源码无需要覆盖的业务差异。M0与M1完成；TASK-04至TASK-24及提前完成的TASK-29已完成。已完成任务25/33，按任务数75.8%；按剩余页面和验收工作量估计总进度约88%，这不是精确工时。反思保存等待workspace确认，失败保留当前考试/学生和五项输入；桌面切换对象与手机关闭前检查脏草稿，完成只写内部留痕。ESLint、48项专项、六档布局、生产构建、262/262全量自动化及认证集成通过。共享旧样式集中移除归TASK-30。按用户指令继续TASK-25至TASK-28；M2仍在进行，没有生产操作。",
   "implementationStartCommit": "f321d5e9424e0020bdf1e56d52c31b986b503a53",
   "parallelPreparation": [],
   "verifiedOnlineBaseline": "0691aba",
