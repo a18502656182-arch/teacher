@@ -2,8 +2,8 @@
   "packageVersion": "1.0",
   "baselineCommit": "6e10e2dc314e09d0d72df9509730f57c5fde34e2",
   "implementationStatus": "in-progress",
-  "active_task": "TASK-04",
-  "next_action": "核对已提取的features纯操作与ClassroomApp剩余重复派生；移动时保持输入输出不变并补缺失零值/跨班回归",
+  "active_task": "TASK-05",
+  "next_action": "抽取一般工作区保存、本机草稿、失败重试、排队保存与409冲突控制器；保持听写专用并发合并边界并用E7至E9验证",
   "milestones": {
     "M0": "done",
     "M1": "in-progress",
@@ -12,7 +12,7 @@
     "M4": "planned",
     "M5": "planned"
   },
-  "note": "线上受检源码无需要覆盖的业务差异。F01-F23与O01-O23源码级账本完整，TASK-02关闭；E0-E11合成夹具覆盖空白、50+50、105人、双孩子、长任务/词量、长字段、只读、保存失败、409、旧备份和4.2-4.8MiB边界，并通过当前听写/备份校验及临时SQLite回读。M0完成，TASK-04进行中。多数业务页迁移和A场景仍未完成，TASK-30前置未满足。没有生产操作。",
+  "note": "线上受检源码无需要覆盖的业务差异。F01-F23与O01-O23源码级账本及E0-E11隔离夹具完成；TASK-04已把工作区规范化、日程/日期、成绩读取模型和成长时间范围从大组件抽离，并修正正式空工作区被补示例作业/周计划的问题。生产构建、217/217自动化测试和认证集成通过。M0完成，TASK-05进行中。多数业务页迁移和A场景仍未完成，TASK-30前置未满足。没有生产操作。",
   "implementationStartCommit": "f321d5e9424e0020bdf1e56d52c31b986b503a53",
   "parallelPreparation": [
     "TASK-06",
