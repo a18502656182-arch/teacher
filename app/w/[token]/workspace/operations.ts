@@ -22,8 +22,8 @@ export function createWorkspaceOperations(bindings: WorkspaceOperationBindings) 
  saveInFlightRef, pendingDictationDraftRef, saveQueuedRef, saveConflictRef,
  setWorkspace, setDirty, setSaving, setError, setSaveConflict, notify, normalizeData, scopeClassSettings } = bindings;
   function updateData(updater: (current: ClassroomData) => ClassroomData) {
-    if (isReadOnly) {
-      notify("当前处于到期宽限期，只能查看和导出", "info");
+    if (isDemo || isReadOnly) {
+      notify(isDemo ? '当前为只读演示，数据不会被修改' : '当前处于到期宽限期，只能查看和导出', 'info');
       return;
     }
     const current = workspaceRef.current;
@@ -32,17 +32,13 @@ export function createWorkspaceOperations(bindings: WorkspaceOperationBindings) 
     const next = { ...current, data: normalizeData(scopeClassSettings(current.data, updated)) };
     workspaceRef.current = next;
     setWorkspace(next);
-    if (!isDemo) {
-      try {
-        const draft: LocalWorkspaceDraft = { revision: serverRevisionRef.current, data: next.data, savedAt: Date.now() };
-        window.localStorage.setItem(`classroom-workspace-draft:${token}`, JSON.stringify(draft));
-      } catch { notify('本机草稿存储不可用，请保持页面打开并完成服务器保存', 'error'); }
-    }
-    if (!isDemo) {
-      revisionRef.current += 1;
-      dirtyRef.current = true;
-      setDirty(true);
-    }
+    try {
+      const draft: LocalWorkspaceDraft = { revision: serverRevisionRef.current, data: next.data, savedAt: Date.now() };
+      window.localStorage.setItem(`classroom-workspace-draft:${token}`, JSON.stringify(draft));
+    } catch { notify('本机草稿存储不可用，请保持页面打开并完成服务器保存', 'error'); }
+    revisionRef.current += 1;
+    dirtyRef.current = true;
+    setDirty(true);
   }
 
   async function save(): Promise<boolean> {
@@ -149,5 +145,13 @@ export function createWorkspaceOperations(bindings: WorkspaceOperationBindings) 
     try { return await request; } finally { if (saveInFlightRef.current === request) saveInFlightRef.current = null; }
   }
 
-  return { updateData, save, commitWorkspace };
+  async function ensureSavedBeforeLeave() {
+    if (pendingDictationDraftRef.current) {
+      setError('听写尚未计入正式结果，请先在听写页面重试保存，或导出完整备份后再离开');
+      return false;
+    }
+    return !dirtyRef.current || save();
+  }
+
+  return { updateData, save, commitWorkspace, ensureSavedBeforeLeave };
 }

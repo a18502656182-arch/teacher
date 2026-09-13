@@ -39,6 +39,14 @@ test('网络失败保留草稿及dirty，重试使用同一服务器版本', asy
   assert.equal(await h.save(), false); assert.equal(h.b.dirtyRef.current, true); assert.equal(h.stored.size, 1);
   assert.equal(await h.save(), true); assert.equal(h.requests[0].revision, 1);
 });
+test('本机草稿存储不可用时仍保留内存修改和dirty并明确报错', t => {
+  const h = harness(t);
+  h.storage.setItem = () => { throw new Error('storage unavailable'); };
+  h.updateData(d => ({ ...d, marker: 'memory only' }));
+  assert.equal(h.b.workspaceRef.current.data.marker, 'memory only');
+  assert.equal(h.b.dirtyRef.current, true);
+  assert.deepEqual(h.state.notices.at(-1), ['本机草稿存储不可用，请保持页面打开并完成服务器保存', 'error']);
+});
 test('409锁住后续保存，不清空本机修改', async t => {
   const h = harness(t); h.updateData(d => ({ ...d, marker: 'edited' }));
   globalThis.fetch.mock.mockImplementationOnce(async () => ({ ok: false, status: 409, json: async () => ({ code: 'WORKSPACE_CONFLICT', error: 'conflict' }) }));
@@ -59,6 +67,9 @@ test('只读与演示不能调用听写提交；只读本地编辑也被阻止',
   assert.equal(h.b.workspaceRef.current.data.marker, 'original'); assert.equal(await h.save(), true);
   assert.equal(await h.commitWorkspace(d => d), false); assert.equal(globalThis.fetch.mock.callCount(), 0);
   const demo = createWorkspaceOperations({ ...h.b, isReadOnly: false, isDemo: true });
+  demo.updateData(d => ({ ...d, marker: 'demo-forbidden' }));
+  assert.equal(h.b.workspaceRef.current.data.marker, 'original');
+  assert.deepEqual(h.state.notices.at(-1), ['当前为只读演示，数据不会被修改', 'info']);
   assert.equal(await demo.commitWorkspace(d => d), false); assert.equal(globalThis.fetch.mock.callCount(), 0);
 });
 test('听写失败不计入正式结果，保留待提交草稿', async t => {
@@ -67,6 +78,24 @@ test('听写失败不计入正式结果，保留待提交草稿', async t => {
   assert.equal(await h.commitWorkspace(d => ({ ...d, dictation: { tasks: ['new'] } })), false);
   assert.deepEqual(h.b.workspaceRef.current.data.dictation.tasks, []);
   assert.deepEqual(h.b.pendingDictationDraftRef.current.dictation.tasks, ['new']); assert.equal(h.stored.size, 1);
+});
+test('听写409保留当前草稿并锁住冲突状态', async t => {
+  const h = harness(t);
+  globalThis.fetch.mock.mockImplementationOnce(async () => ({ ok: false, status: 409, json: async () => ({ code: 'WORKSPACE_CONFLICT', error: '另一设备已更新' }) }));
+  assert.equal(await h.commitWorkspace(d => ({ ...d, dictation: { tasks: ['pending-conflict'] } })), false);
+  assert.equal(h.state.conflict, true);
+  assert.deepEqual(h.b.pendingDictationDraftRef.current.dictation.tasks, ['pending-conflict']);
+  assert.equal(h.stored.size, 1);
+  assert.match(h.state.error, /尚未计入结果/);
+});
+test('未计入正式结果的听写草稿阻止离开且不会误发第二次保存', async t => {
+  const h = harness(t);
+  globalThis.fetch.mock.mockImplementationOnce(async () => ({ ok: false, status: 500, json: async () => ({ error: 'failed' }) }));
+  assert.equal(await h.commitWorkspace(d => ({ ...d, dictation: { tasks: ['pending-leave'] } })), false);
+  const count = globalThis.fetch.mock.callCount();
+  assert.equal(await h.ensureSavedBeforeLeave(), false);
+  assert.equal(globalThis.fetch.mock.callCount(), count);
+  assert.match(h.state.error, /重试保存/);
 });
 test('听写提交中一般新编辑被保留，成功只合并听写并保留dirty', async t => {
   const h = harness(t); let release;

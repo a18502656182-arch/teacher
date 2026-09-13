@@ -27,9 +27,9 @@ import { applyStudentBatch } from './features/students/operations';
 import { AccountCenter } from './features/account/AccountCenter';
 import { addWorkspaceClass, patchWorkspaceClass, removeWorkspaceClass, switchWorkspaceClass } from './features/account/operations';
 import { useAccountCenter } from './features/account/useAccountCenter';
-import { createWorkspaceOperations } from './workspace/operations';
 import { normalizeWorkspaceData as normalizeData, scopeWorkspaceClassSettings as scopeClassSettings } from './workspace/normalize';
-import type { Workspace, LocalWorkspaceDraft } from './workspace/types';
+import type { Workspace } from './workspace/types';
+import { useWorkspaceController } from './workspace/useWorkspaceController';
 import { canLeaveDictation } from './dictation/navigation';
 const Dictation = lazy(() => import('./dictation/Dictation'));
 
@@ -136,64 +136,17 @@ async function disableAiConsent() {
 }
 
 export default function ClassroomApp({ token }: { token: string }) {
-  const [workspace, setWorkspace] = useState<Workspace | null>(null);
   const [active, setActive] = useState<ModuleId>("dashboard");
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
-  const [dirty, setDirty] = useState(false);
-  const [saving, setSaving] = useState(false);
-  const [saveConflict, setSaveConflict] = useState(false);
   const [toast, setToast] = useState<ToastEventDetail | null>(null);
   const [confirmRequest, setConfirmRequest] = useState<ConfirmEventDetail | null>(null);
   const [learningScene, setLearningScene] = useState<LearningScene>('class');
-  const workspaceRef = useRef<Workspace | null>(null);
-  const revisionRef = useRef(0);
-  const serverRevisionRef = useRef(1);
-  const dirtyRef = useRef(false);
-  const saveInFlightRef = useRef<Promise<boolean> | null>(null);
-  const pendingDictationDraftRef = useRef<ClassroomData | null>(null);
-  const saveQueuedRef = useRef(false);
-  const saveConflictRef = useRef(false);
   const backupInputRef = useRef<HTMLInputElement>(null);
-  const isDemo = token === "demo";
-  const isReadOnly = workspace?.accessMode === "readonly";
+  const {
+    workspace, loading, error, dirty, saving, saveConflict, isDemo, isReadOnly,
+    updateData, save, commitWorkspace, loadLatestWorkspace, ensureSavedBeforeLeave,
+    getCurrentWorkspace, getBackupData, clearError,
+  } = useWorkspaceController({ token, notify, normalizeData, scopeClassSettings });
   const accountCenter = useAccountCenter(isDemo);
-
-  useEffect(() => {
-    fetch(`/api/workspace/${token}`).then(async (res) => {
-      const body = await res.json() as { workspace?: Workspace; error?: string };
-      if (res.status === 401) {
-        window.location.assign("/?enter=1");
-        return;
-      }
-      if (!res.ok || !body.workspace) throw new Error(body.error || "链接读取失败");
-      const serverRevision = Number(body.workspace.revision ?? 1);
-      const draftKey = `classroom-workspace-draft:${token}`;
-      let recoveredDraft: LocalWorkspaceDraft | null = null;
-      try {
-        const stored = window.localStorage.getItem(draftKey);
-        if (stored) recoveredDraft = JSON.parse(stored) as LocalWorkspaceDraft;
-      } catch {
-        recoveredDraft = null;
-      }
-      const recoveredData = recoveredDraft?.revision === serverRevision ? recoveredDraft.data : undefined;
-      const canRecover = Boolean(recoveredData);
-      const nextWorkspace = { ...body.workspace, revision: serverRevision, data: normalizeData(recoveredData ?? body.workspace.data) };
-      serverRevisionRef.current = serverRevision;
-      workspaceRef.current = nextWorkspace;
-      setWorkspace(nextWorkspace);
-      if (canRecover) {
-        dirtyRef.current = true;
-        revisionRef.current += 1;
-        setDirty(true);
-        notify("已恢复上次未成功同步的本机草稿", "info");
-      } else if (recoveredDraft?.data) {
-        notify("检测到较旧的本机草稿，已保留在浏览器中，可从完整备份恢复", "info");
-      }
-    }).catch((err) => setError(err instanceof Error ? err.message : "链接读取失败")).finally(() => setLoading(false));
-  }, [token]);
-
-  useEffect(() => { workspaceRef.current = workspace; }, [workspace]);
 
   useEffect(() => {
     function syncPageFromUrl() {
@@ -230,56 +183,6 @@ export default function ClassroomApp({ token }: { token: string }) {
     window.history.replaceState({}, "", url);
   }
 
-  function workspaceOperations() { return createWorkspaceOperations({
-    token, isDemo, isReadOnly, workspaceRef, revisionRef, serverRevisionRef, dirtyRef,
-    saveInFlightRef, pendingDictationDraftRef, saveQueuedRef, saveConflictRef,
-    setWorkspace, setDirty, setSaving, setError, setSaveConflict, notify, normalizeData, scopeClassSettings,
-  }); }
-  function updateData(updater: (data: ClassroomData) => ClassroomData) { workspaceOperations().updateData(updater); }
-  function save() { return workspaceOperations().save(); }
-  function commitWorkspace(updater: (data: ClassroomData) => ClassroomData) { return workspaceOperations().commitWorkspace(updater); }
-
-  async function loadLatestWorkspace() {
-    try {
-      const response = await fetch(`/api/workspace/${token}`, { cache: "no-store" });
-      const body = await response.json() as { workspace?: Workspace; error?: string };
-      if (!response.ok || !body.workspace) throw new Error(body.error || "无法读取服务器最新版本");
-      const serverRevision = Number(body.workspace.revision ?? 1);
-      const latest = { ...body.workspace, revision: serverRevision, data: normalizeData(body.workspace.data) };
-      serverRevisionRef.current = serverRevision;
-      revisionRef.current = 0;
-      saveConflictRef.current = false;
-      setSaveConflict(false);
-      pendingDictationDraftRef.current = null;
-      dirtyRef.current = false;
-      workspaceRef.current = latest;
-      setWorkspace(latest);
-      setDirty(false);
-      setError("");
-      notify("已载入服务器最新版本，本机冲突草稿仍保留在浏览器中", "success");
-    } catch (loadError) {
-      setError(loadError instanceof Error ? loadError.message : "无法读取服务器最新版本");
-    }
-  }
-
-  useEffect(() => {
-    if (!dirty || isDemo || isReadOnly) return;
-    const timer = window.setTimeout(() => { void save(); }, 900);
-    return () => window.clearTimeout(timer);
-    // Autosave intentionally restarts for every local data revision.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dirty, workspace?.data, isDemo, isReadOnly]);
-
-  useEffect(() => {
-    const onBeforeUnload = (event: BeforeUnloadEvent) => {
-      if (!dirty) return;
-      event.preventDefault();
-      event.returnValue = "";
-    };
-    window.addEventListener("beforeunload", onBeforeUnload);
-    return () => window.removeEventListener("beforeunload", onBeforeUnload);
-  }, [dirty]);
-
   useEffect(() => {
     const media = window.matchMedia("(max-width: 900px)");
     const syncShellAccessibility = () => {
@@ -298,14 +201,14 @@ export default function ClassroomApp({ token }: { token: string }) {
   }, [loading, active]);
 
   function exportWorkspaceBackup() {
-    const current = workspaceRef.current;
+    const current = getCurrentWorkspace();
     if (!current) return;
     const backup = {
       format: "classroom-workspace-backup",
       version: 2,
       exportedAt: new Date().toISOString(),
       workspace: { className: current.className, grade: current.grade, term: current.term },
-      data: pendingDictationDraftRef.current ?? current.data,
+      data: getBackupData() ?? current.data,
     };
     const blob = new Blob([JSON.stringify(backup)], { type: "application/json;charset=utf-8" });
     const url = URL.createObjectURL(blob);
@@ -321,7 +224,7 @@ export default function ClassroomApp({ token }: { token: string }) {
     if (!file) return;
     try {
       const { backup, preview } = parseWorkspaceBackup(await file.text(), file.size);
-      const currentStudents = workspaceRef.current?.data.students.length ?? 0;
+      const currentStudents = getCurrentWorkspace()?.data.students.length ?? 0;
       const confirmed = await requestDangerConfirm(`备份来源：${preview.source}（${preview.exportedAt}）。将恢复 ${preview.classes} 个班级、${preview.students} 名学生、${preview.records} 条沟通记录、${preview.exams} 场考试、${preview.dictationTasks} 次听写、${preview.familyChildren} 个家庭孩子；当前工作台的 ${currentStudents} 名学生及全部数据会被替换。当前内容会先保留在本机草稿中。`, "预检通过：恢复完整备份", "确认替换并同步");
       if (!confirmed) return;
       updateData(() => normalizeData(backup.data));
@@ -334,7 +237,7 @@ export default function ClassroomApp({ token }: { token: string }) {
   }
 
   async function logoutCurrentWorkspace() {
-    if (dirtyRef.current && !await save()) {
+    if (!await ensureSavedBeforeLeave()) {
       notify("当前修改尚未同步，已取消退出；请先重试保存或导出完整备份。", "error");
       return false;
     }
@@ -419,7 +322,7 @@ export default function ClassroomApp({ token }: { token: string }) {
         update={updateData}
         switchClass={switchGlobalClass}
         save={save}
-        clearError={() => setError("")}
+        clearError={clearError}
         isDemo={isDemo}
         isReadOnly={isReadOnly}
         saveConflict={saveConflict}
@@ -432,7 +335,7 @@ export default function ClassroomApp({ token }: { token: string }) {
       <DesktopHeader classes={classes} activeClass={activeClass} scene={learningScene} onSwitchClass={switchGlobalClass} onScene={switchLearningScene} onAccount={accountCenter.openCenter} saving={saving} dirty={dirty} error={error} isDemo={isDemo} isReadOnly={isReadOnly}/>
       <WorkspaceNav active={active} isDemo={isDemo} onOpen={openModule}/>
       <main className="campus-workspace-main">
-        {error && workspace && <div className="inline-alert" role="alert"><span>{error}</span><div>{saveConflict ? <><button type="button" onClick={exportWorkspaceBackup}>导出当前草稿</button><button type="button" onClick={() => void loadLatestWorkspace()}>载入最新版本</button></> : error.includes("请在听写页面重试保存") ? <span>请使用听写表单中的重试操作</span> : <button type="button" disabled={saving} onClick={() => void save()}>{saving ? "正在重试…" : "重试"}</button>}<button type="button" onClick={() => setError("")}>关闭</button></div></div>}
+        {error && workspace && <div className="inline-alert" role="alert"><span>{error}</span><div>{saveConflict ? <><button type="button" onClick={exportWorkspaceBackup}>导出当前草稿</button><button type="button" onClick={() => void loadLatestWorkspace()}>载入最新版本</button></> : error.includes("请在听写页面重试保存") ? <span>请使用听写表单中的重试操作</span> : <button type="button" disabled={saving} onClick={() => void save()}>{saving ? "正在重试…" : "重试"}</button>}<button type="button" onClick={clearError}>关闭</button></div></div>}
         {(isDemo || isReadOnly) && <div className="edit-mode-banner"><b>{isDemo ? "演示模式" : "只读宽限期"}</b><span>{isDemo ? "数据不会保存，AI 使用静态示例。" : "可以查看和导出，续期后恢复编辑。"}</span></div>}
         <div className="campus-workspace-content" data-family={active === 'dashboard' ? 'dashboard' : ['students','growth','points','health','records'].includes(active) ? 'student' : ['homework','dictation','attendance'].includes(active) ? 'task' : ['scores','reflection','schedule','tools'].includes(active) ? 'teaching' : 'class'}>
           {active === "dictation" && <Suspense fallback={<p role="status">正在加载听写…</p>}><Dictation key={workspace.data.activeClassId} data={workspace.data} token={token} readOnly={isDemo || isReadOnly} commit={commitWorkspace} scene={learningScene} onSceneChange={setLearningScene}/></Suspense>}

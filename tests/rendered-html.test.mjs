@@ -5,6 +5,7 @@ import test from "node:test";
 const read = (path) => readFileSync(new URL(`../${path}`, import.meta.url), "utf8");
 const app = read("app/w/[token]/ClassroomApp.tsx");
 const workspaceOperations = read("app/w/[token]/workspace/operations.ts");
+const workspaceController = read("app/w/[token]/workspace/useWorkspaceController.ts");
 const dashboard = read("app/components/campus/Dashboard.tsx");
 const dialogBehavior = read("app/components/campus/DialogAccessibility.tsx");
 const sharedDialog = read("app/components/workbench/ui/Dialog.tsx");
@@ -161,11 +162,14 @@ test("administrator views full account data while workspace account stays concis
 
 test("automatic persistence stays quiet until a save fails", () => {
   assert.doesNotMatch(app, /已同步到工作台|修改会自动保存到当前工作台|立即同步|正在同步…/);
-  assert.match(app, /createWorkspaceOperations\(\{/);
+  assert.match(app, /useWorkspaceController\(\{/);
+  assert.match(workspaceController, /createWorkspaceOperations\(\{/);
   assert.match(workspaceOperations, /修改已保存在本机，可点击重试/);
   assert.match(app, /"重试"/);
-  assert.match(app, /载入服务器最新版本/);
+  assert.match(workspaceController, /载入服务器最新版本/);
   assert.match(app, /导出当前草稿/);
+  assert.match(workspaceController, /beforeunload/);
+  assert.match(workspaceController, /setTimeout\(\(\) => \{ void workspaceOperations\(\)\.save\(\); \}, 900\)/);
 });
 
 test("workspace saves use optimistic revisions and keep recoverable versions", () => {
