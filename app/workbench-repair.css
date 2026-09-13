@@ -1,4 +1,4 @@
-:root {
+[data-ui-generation="legacy"] {
   --wb-ink-teal: var(--campus-ink);
   --wb-ink-teal-deep: var(--campus-ink);
   --wb-sky: var(--campus-primary);
@@ -73,7 +73,7 @@
 @media (max-width: 920px) { .health-care-workspace { grid-template-columns: 1fr; }.health-care-action-board { display: grid; grid-template-columns: minmax(0, 1fr) minmax(220px, .8fr); }.health-care-action-board > header { grid-column: 1 / -1; }.action-board-note { margin-top: 8px; } }
 @media (max-width: 650px) { .health-care-card-list, .care-form-grid { grid-template-columns: 1fr; }.health-care-controls select { flex: 1 1 43%; }.health-care-action-board { display: block; }.health-care-backdrop { padding: 10px; }.health-care-editor { max-height: calc(100dvh - 20px); }.health-care-editor > header, .health-care-editor > footer, .health-care-editor-content { padding-left: 14px; padding-right: 14px; }.health-care-editor > footer { flex-wrap: wrap; }.health-care-editor > footer > span { display: none; }.health-care-editor > footer .danger-button { margin-right: auto; }.health-care-mobile-intro { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 10px; padding: 2px 0 7px; }.health-care-mobile-intro h1 { margin: 0; color: var(--campus-ink); font-size: 20px; }.health-care-mobile-intro p { margin: 3px 0 0; color: var(--campus-muted); font-size: 12px; } }
 
-body {
+[data-ui-generation="legacy"] {
   background: var(--bs-bg);
   color: var(--bs-body);
   font-family: "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
@@ -1542,7 +1542,7 @@ button:disabled {
 }
 
 /* Premium workbench system pass: unified, quiet, task-first UI. */
-:root {
+[data-ui-generation="legacy"] {
   --bs-primary: var(--campus-primary);
   --bs-primary-dark: var(--campus-primary);
   --bs-primary-soft: var(--campus-blue);
@@ -1566,14 +1566,12 @@ button:disabled {
   --workbench-shadow-dialog: 0 24px 70px rgb(15 23 42 / .20);
 }
 
-html,
-body,
 .app-shell,
 .mobile-workbench {
   overflow-x: hidden;
 }
 
-body {
+[data-ui-generation="legacy"] {
   background: var(--bs-bg);
   color: var(--bs-body);
 }
@@ -12831,7 +12829,7 @@ textarea:focus {
 }
 
 @media (max-width: 900px) {
-  body {
+  [data-ui-generation="legacy"] {
     background: var(--campus-blue);
   }
 
@@ -19200,7 +19198,7 @@ textarea:focus {
 }
 
 @media (min-width: 901px) {
-  body {
+  [data-ui-generation="legacy"] {
     background: var(--wb-canvas);
     color: var(--wb-text);
   }

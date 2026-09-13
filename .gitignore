@@ -1,5 +1,6 @@
 node_modules
 .next
+app/styles/legacy-scoped.css
 *.tsbuildinfo
 dist
 .wrangler

@@ -40,8 +40,8 @@ function runStaticAudit() {
   assert(!/weekly2|weekly3|points-workbench|growth-layout|student-score-row|homework-card|====\s*V\d/.test(globals), "globals.css still contains removed legacy selectors or version markers.", failures);
   assert(!/====\s*V\d|V3: workbench|V4|V5|V6|V7/.test(repair), "workbench-repair.css still contains versioned patch markers.", failures);
   assert(importantCount < 20, `workbench-repair.css still relies on too many !important rules (${importantCount}).`, failures);
-  assert(/import "\.\/workbench-repair\.css";/.test(layout), "layout.tsx is not loading workbench-repair.css.", failures);
-  assert(/import "\.\/components\/campus\/workspace-chrome\.css";/.test(layout), "layout.tsx is not loading the campus workspace shell.", failures);
+  assert(/import "\.\/styles\/legacy-scoped\.css";/.test(layout), "layout.tsx is not loading the isolated legacy stylesheet.", failures);
+  assert(!/import "\.\/(?:workbench-repair|components\/campus\/[^\"]+)\.css";/.test(layout), "layout.tsx still loads an unscoped legacy stylesheet.", failures);
   assert(/\.campus-workspace-shell\{[^}]*grid-template-columns:244px minmax\(0,1fr\)/.test(workspaceChrome), "Campus workspace is missing the reference-bound desktop grid.", failures);
   assert(/@media\(max-width:1180px\)\{[\s\S]*?html\[data-theme=campus\] \.campus-workspace-shell\{grid-template-columns:220px minmax\(0,1fr\)/.test(workspaceChrome), "Campus workspace compact grid does not override the base selector.", failures);
   assert(/\.campus-workspace-nav\{[^}]*position:sticky;[^}]*background:#fffefa/.test(workspaceChrome), "Campus workspace navigation is missing its continuous background rail.", failures);
