@@ -130,9 +130,619 @@
       "sha256": "a9e602b123f67ca73e4c1d348a906ada12a47bee5be066145902e838ed085489"
     },
     {
+      "path": "evidence-local/campus-controls-desktop.png",
+      "bytes": 48168,
+      "sha256": "03936aaf1ac6518f76c26ac5511b449208b59e8525285c3250859dfc2e19c5eb"
+    },
+    {
+      "path": "evidence-local/campus-controls-mobile.png",
+      "bytes": 55519,
+      "sha256": "2a265b13d91a403ab643480eb572ced82043f2b8a7af84410f1ec0f7a7540329"
+    },
+    {
+      "path": "evidence-local/component-detector.json",
+      "bytes": 4,
+      "sha256": "a5338d955b09046ec0b16f3a9625b7955c763aae07dc722e474e6078745f932f"
+    },
+    {
+      "path": "evidence-local/grading-desktop-20260912.png",
+      "bytes": 66408,
+      "sha256": "4c512cb59c32d557ae02c3b9e6e8c8b4620095a29e4f2da0439172c92232c516"
+    },
+    {
+      "path": "evidence-local/grading-desktop-footer-20260912.png",
+      "bytes": 40931,
+      "sha256": "4526da0fde13378c26d20930963bcb0a8802ce8b5f165b9f54d3d814517a9939"
+    },
+    {
+      "path": "evidence-local/grading-family-20260912.png",
+      "bytes": 100547,
+      "sha256": "43d410ca888dc67ac479a4ce9967df12adceb51ae5acca74853509893052cebc"
+    },
+    {
+      "path": "evidence-local/grading-mobile-20260912.png",
+      "bytes": 30645,
+      "sha256": "cd4f0a04b1886de835f0f71f43c5f43c18dd064f9a54398f7e97471c03bf47d7"
+    },
+    {
+      "path": "evidence-local/grading-mobile-direct-20260912.png",
+      "bytes": 45115,
+      "sha256": "3010c2565f3f06884e704d3ecbfc2d0c6d3a94be00aac041fe324c617400a80e"
+    },
+    {
+      "path": "evidence-local/grading-mobile-footer-20260912.png",
+      "bytes": 50143,
+      "sha256": "c59b8597caa31cc792057f60c1ac00a826376442b5ac979faa2ab9cd8eca271c"
+    },
+    {
+      "path": "evidence-local/grading-mobile-roster-20260912.png",
+      "bytes": 47998,
+      "sha256": "bdd406a0100ce84377f753c1c7743088bbdae518e5112a76c0dc169abe22a18b"
+    },
+    {
+      "path": "evidence-local/legacy-scope-20260912.png",
+      "bytes": 33504,
+      "sha256": "2d9b1455a79ff20f41a5f4951033a1541740f88a668dd2dbc15bd1f2eec4a564"
+    },
+    {
+      "path": "evidence-local/online-source-20260912/app/admin/page.tsx",
+      "bytes": 20295,
+      "sha256": "2d7e39d008b2965dffb8215e18b821a0e535f1e8e7d26c21e9145eba9d583769"
+    },
+    {
+      "path": "evidence-local/online-source-20260912/app/api/admin/audit-logs/route.ts",
+      "bytes": 793,
+      "sha256": "22132f7715823ffd8c0becc5bc8e7e8b58f0bb15a20d6e7abe9103290de68a30"
+    },
+    {
+      "path": "evidence-local/online-source-20260912/app/api/admin/devices/[id]/route.ts",
+      "bytes": 1036,
+      "sha256": "4619c7decaa291d4800621169e5bee2d1fbacf089a7784ee3a1c0e5bd9e8b3fd"
+    },
+    {
+      "path": "evidence-local/online-source-20260912/app/api/admin/redeem-codes/[id]/route.ts",
+      "bytes": 1525,
+      "sha256": "f439e79790a64c23c448ec95ccb9636be988ff4d55f8214279b67f74909db0b4"
+    },
+    {
+      "path": "evidence-local/online-source-20260912/app/api/admin/redeem-codes/route.ts",
+      "bytes": 4275,
+      "sha256": "3bba43b2733c3e42ee97da61a4030ee4880133594037472964acbd341792afa5"
+    },
+    {
+      "path": "evidence-local/online-source-20260912/app/api/admin/session/route.ts",
+      "bytes": 1820,
+      "sha256": "a08b26c62c64a93abfc604d38a34df5aee5d17edf7d5746f6d1e5d02099d155c"
+    },
+    {
+      "path": "evidence-local/online-source-20260912/app/api/admin/users/[id]/data/route.ts",
+      "bytes": 4031,
+      "sha256": "789ef57a65b55520905107aaa4131b2fc68857a9ce4f399c3cfdbfa68219dc14"
+    },
+    {
+      "path": "evidence-local/online-source-20260912/app/api/admin/users/[id]/devices/route.ts",
+      "bytes": 843,
+      "sha256": "6c2e904fda2ae1da0dc520efc8b93e5d776ca76a5738f69734f4f0f46b621917"
+    },
+    {
+      "path": "evidence-local/online-source-20260912/app/api/admin/users/[id]/renew/route.ts",
+      "bytes": 1382,
+      "sha256": "b694bc997577908f15078a43a72ba36856806a253628ae6e79259af976f94c2f"
+    },
+    {
+      "path": "evidence-local/online-source-20260912/app/api/admin/users/[id]/route.ts",
+      "bytes": 1820,
+      "sha256": "9b3caa271504ae1814772a2981114195caa03b7ebdb316c5a5f9bc8b06e1d983"
+    },
+    {
+      "path": "evidence-local/online-source-20260912/app/api/admin/users/route.ts",
+      "bytes": 1906,
+      "sha256": "24fead15c167eda482f223323bfe63768fe1eb4de9a07d1a4eb100ee2dbee5fb"
+    },
+    {
+      "path": "evidence-local/online-source-20260912/app/api/admin/workspaces/route.ts",
+      "bytes": 538,
+      "sha256": "d75fd92684f4302a031f61806097bf33aa69fe79a6522aaffa968c4208f877ec"
+    },
+    {
+      "path": "evidence-local/online-source-20260912/app/api/ai/comment/route.ts",
+      "bytes": 6028,
+      "sha256": "43ab641ae8d2dddf03de550a3d64109c19f1341713bbe74aed7b0a7c468f87c4"
+    },
+    {
+      "path": "evidence-local/online-source-20260912/app/api/ai/exam-paper/route.ts",
+      "bytes": 4144,
+      "sha256": "62463c2ef3122597d05326afae367d66fab166f752e81ef77a0f65d1b0972a53"
+    },
+    {
+      "path": "evidence-local/online-source-20260912/app/api/auth/ai-consent/route.ts",
+      "bytes": 716,
+      "sha256": "ab4e2f7045864c31dc44662b3b25848fbf728e5b5c83fcb90d28bb6850cc6559"
+    },
+    {
+      "path": "evidence-local/online-source-20260912/app/api/auth/enter/route.ts",
+      "bytes": 1019,
+      "sha256": "0af533e4516499a7169e6269e6858cb6cb6d6eabd3ca8060a7b6f8ac42fd47e9"
+    },
+    {
+      "path": "evidence-local/online-source-20260912/app/api/auth/logout/route.ts",
+      "bytes": 590,
+      "sha256": "736995296b5d0a27923fe917c0778f5658b7a399ac7328726f5ade002313e2a7"
+    },
+    {
+      "path": "evidence-local/online-source-20260912/app/api/auth/me/route.ts",
+      "bytes": 2451,
+      "sha256": "565efffe86fcaa692615aac1f91a1e5dca1976daabbf94b7accf993a5fbc858e"
+    },
+    {
+      "path": "evidence-local/online-source-20260912/app/api/knowledge/[token]/route.ts",
+      "bytes": 3646,
+      "sha256": "e9303dabdadf9571002b6850ef2d965a2d80d58dc2a7e48d3045e62df993936e"
+    },
+    {
+      "path": "evidence-local/online-source-20260912/app/api/workspace/[token]/route.ts",
+      "bytes": 8400,
+      "sha256": "a3ba2bf1f8384cb07e175558a40a7e5481cf9d29ed6debbb6aa31237f32acdc9"
+    },
+    {
+      "path": "evidence-local/online-source-20260912/app/components/campus/ClassSwitcher.tsx",
+      "bytes": 1546,
+      "sha256": "2341bf525141ba16c7244339cf2defb9dbc6d5f4e868af6584fd92a8ce15bef1"
+    },
+    {
+      "path": "evidence-local/online-source-20260912/app/components/campus/Dashboard.tsx",
+      "bytes": 7791,
+      "sha256": "7e4700fdac4ce2c814242e0a83fb058d479bfdadf252a067f63379d650209825"
+    },
+    {
+      "path": "evidence-local/online-source-20260912/app/components/campus/DialogAccessibility.tsx",
+      "bytes": 3549,
+      "sha256": "d4f87dec12570d022cb94ed9e97ebf4add34705e546f635c09393488fb957b31"
+    },
+    {
+      "path": "evidence-local/online-source-20260912/app/components/campus/PageHeader.module.css",
+      "bytes": 1817,
+      "sha256": "d6bd09c94ab7c0749a50f80b500b59e9166ab78a754a37832d6edcf6d100642a"
+    },
+    {
+      "path": "evidence-local/online-source-20260912/app/components/campus/StudentLookupDialog.tsx",
+      "bytes": 4157,
+      "sha256": "093e88c2de687dd668eff3e62d7758a0d1eaa6dbe32df1bd865ed766670148fc"
+    },
+    {
+      "path": "evidence-local/online-source-20260912/app/components/campus/WorkspaceChrome.tsx",
+      "bytes": 5655,
+      "sha256": "989f759ee75c03aa80fb345f76b81995035f1e3f429bf11b5850f1ee519f5ecd"
+    },
+    {
+      "path": "evidence-local/online-source-20260912/app/components/campus/account.css",
+      "bytes": 2182,
+      "sha256": "6fafab4db3dc9eb56840ccf614b622f3a419d0553e9f869870e4cc02e6271311"
+    },
+    {
+      "path": "evidence-local/online-source-20260912/app/components/campus/campus.css",
+      "bytes": 5030,
+      "sha256": "494fae3a0a5402b21575498c9982a3e29155a4409a10d18ef36a42807bd1c2b0"
+    },
+    {
+      "path": "evidence-local/online-source-20260912/app/components/campus/controls.css",
+      "bytes": 4755,
+      "sha256": "cf4898a4d56a3a2e7653c4617121e9825b9fed04b5787a3aec144a53fc4610b9"
+    },
+    {
+      "path": "evidence-local/online-source-20260912/app/components/campus/dashboard.css",
+      "bytes": 8990,
+      "sha256": "c6916ee99752eed9879989dc8a95faa65f5b2f638e42e8d01cf9c48ccca88b5b"
+    },
+    {
+      "path": "evidence-local/online-source-20260912/app/components/campus/legacy-theme.css",
+      "bytes": 4783,
+      "sha256": "57504cf03ded3f9aeb25f3e9a103ea8b8417fcd77d69825a02963cd9d14aaebd"
+    },
+    {
+      "path": "evidence-local/online-source-20260912/app/components/campus/mobile.css",
+      "bytes": 8686,
+      "sha256": "46e8aa1b97be4447ca77e7e5c78838b42f2de32691bd42d8909611d92aaa7a0a"
+    },
+    {
+      "path": "evidence-local/online-source-20260912/app/components/campus/page-families.css",
+      "bytes": 13580,
+      "sha256": "6ddbcfa1ff46446af8b31b1d47063dd90e2472ac6419b140a396ffef8fc1791d"
+    },
+    {
+      "path": "evidence-local/online-source-20260912/app/components/campus/primitives.tsx",
+      "bytes": 5368,
+      "sha256": "2213e39af63d8a80706b74b4d8a594451ddc1fb057c023ecb36ae4210a0a546b"
+    },
+    {
+      "path": "evidence-local/online-source-20260912/app/components/campus/shell.css",
+      "bytes": 940,
+      "sha256": "a44917cc3b2983ab4692d2971c31180f6fa1016c9b31552d308fc6f99d6bc1eb"
+    },
+    {
+      "path": "evidence-local/online-source-20260912/app/components/campus/surfaces.css",
+      "bytes": 4092,
+      "sha256": "7c4558d72f51f7d53f36c2059641a31aa55953364bf27953f177a539bc8d3fec"
+    },
+    {
+      "path": "evidence-local/online-source-20260912/app/components/campus/theme.ts",
+      "bytes": 1121,
+      "sha256": "0b24e90fdb22bb459bb8b855cdf6a164a8d81aa130e12f2debfd7b94074b2250"
+    },
+    {
+      "path": "evidence-local/online-source-20260912/app/components/campus/workspace-chrome.css",
+      "bytes": 8277,
+      "sha256": "5bc162b49db3f58871d5068cde706510e258090838fe45723c65314909d9ca05"
+    },
+    {
+      "path": "evidence-local/online-source-20260912/app/globals.css",
+      "bytes": 3003,
+      "sha256": "ebb2a7a20b0623a280625b517a1464f05aaa2b2d9062c827e4585c00456190c5"
+    },
+    {
+      "path": "evidence-local/online-source-20260912/app/icon.svg",
+      "bytes": 239,
+      "sha256": "09cd8309cd2dbbdf381eeacd86ba9c7dcf1f7fc9ae51c1af9e6efcfcd1c23d33"
+    },
+    {
+      "path": "evidence-local/online-source-20260912/app/layout.tsx",
+      "bytes": 1850,
+      "sha256": "4420478c422f00a6909ddaa671f62142138cd69765576e266511202a539f2d6e"
+    },
+    {
+      "path": "evidence-local/online-source-20260912/app/page.tsx",
+      "bytes": 6142,
+      "sha256": "215b407b7319245257a1cdf33fea6d86504831f523eb5b1a691ff69fdbf166d6"
+    },
+    {
+      "path": "evidence-local/online-source-20260912/app/privacy/page.tsx",
+      "bytes": 1383,
+      "sha256": "57d664c11a3c5466f5f286124583643f7b15cc63a240147b575fc49244b6b65c"
+    },
+    {
+      "path": "evidence-local/online-source-20260912/app/public-entry.css",
+      "bytes": 11701,
+      "sha256": "427531126e7832d8491533871b34999d0c0be239d7744b6648624c7754d032fa"
+    },
+    {
+      "path": "evidence-local/online-source-20260912/app/w/[token]/Attendance.tsx",
+      "bytes": 15680,
+      "sha256": "3fbe3987f4ce4edbf5aac944b0b3a7c75b1d4403c61024d5b54a83b046d8e94a"
+    },
+    {
+      "path": "evidence-local/online-source-20260912/app/w/[token]/ClassroomApp.tsx",
+      "bytes": 604419,
+      "sha256": "b3858e6bf19e7cdf2bcd4b64e68a95c4c54ccc30ed8320b115a712595e7943bf"
+    },
+    {
+      "path": "evidence-local/online-source-20260912/app/w/[token]/ClassroomTools.tsx",
+      "bytes": 5742,
+      "sha256": "9beda1ace843ee851e12fff6950ac819b22cd2bf28098d9c8dd6d7e5ebc58b6a"
+    },
+    {
+      "path": "evidence-local/online-source-20260912/app/w/[token]/CourseSchedule.tsx",
+      "bytes": 30733,
+      "sha256": "37b3898bf80aad0f050ae0a39bd654b981df1832b477c712c8d2d4f036e4c70f"
+    },
+    {
+      "path": "evidence-local/online-source-20260912/app/w/[token]/HealthCare.tsx",
+      "bytes": 16201,
+      "sha256": "18ac36b3c428597b01dcebdf73e19f57725601b64d1818bf7ded24e6c1b83ac3"
+    },
+    {
+      "path": "evidence-local/online-source-20260912/app/w/[token]/NotificationDrafts.tsx",
+      "bytes": 10611,
+      "sha256": "da4d9bc077ddd06b8c0288c7a45b9eaa01bb2305b93270380a990e4ddbedfbbd"
+    },
+    {
+      "path": "evidence-local/online-source-20260912/app/w/[token]/ScheduleHub.tsx",
+      "bytes": 919,
+      "sha256": "193d82b2905c663dee29dc2933d7568f82e17a2041c5dbfa6349c7b4817e271c"
+    },
+    {
+      "path": "evidence-local/online-source-20260912/app/w/[token]/ScoreItemAnalysis.tsx",
+      "bytes": 14441,
+      "sha256": "909f130cd15e9f2eafdc3861cd071f58da78ca006ae69d9bd3b970e760d05a31"
+    },
+    {
+      "path": "evidence-local/online-source-20260912/app/w/[token]/ScoreTrends.tsx",
+      "bytes": 8597,
+      "sha256": "3f2be9e1b869cdc8e91c95e5b3a65f43003d2522087de011e3307b6c18f06aa0"
+    },
+    {
+      "path": "evidence-local/online-source-20260912/app/w/[token]/StudentProfile.tsx",
+      "bytes": 9116,
+      "sha256": "66464ea9899809a3d8e0f4e79c425f2c5662b32966fb202b473f70b0b903c544"
+    },
+    {
+      "path": "evidence-local/online-source-20260912/app/w/[token]/TeacherAgenda.tsx",
+      "bytes": 15087,
+      "sha256": "7de0d6aa8291c2acb79b636d0f8b4b8ce0a5ef81ee87c2718af3c5754023c13a"
+    },
+    {
+      "path": "evidence-local/online-source-20260912/app/w/[token]/WorkbenchPageHeader.module.css",
+      "bytes": 2024,
+      "sha256": "9948d0dae32b8c2df47e3fc4d19ff266def5558e57db9ee182d96a2e2a6402f3"
+    },
+    {
+      "path": "evidence-local/online-source-20260912/app/w/[token]/WorkbenchPageHeader.tsx",
+      "bytes": 1709,
+      "sha256": "0a8139e1ab243e67988218b70edcb79c019066466a27a682a8707f2569118743"
+    },
+    {
+      "path": "evidence-local/online-source-20260912/app/w/[token]/dictation/Dictation.tsx",
+      "bytes": 14716,
+      "sha256": "8c05ae3f9468766a72b0e4a20481b62edff3a6f75dd68e5e428cf736087f0a41"
+    },
+    {
+      "path": "evidence-local/online-source-20260912/app/w/[token]/dictation/DictationSummary.tsx",
+      "bytes": 1985,
+      "sha256": "537e085bc179947a30f857d4beab990410ca0be328b16f6545c4cb8c907d7aa8"
+    },
+    {
+      "path": "evidence-local/online-source-20260912/app/w/[token]/dictation/Grading.tsx",
+      "bytes": 9506,
+      "sha256": "ba4bf03028202d58f2889433f109dc730aaa7fe67fe4d489222d67aaccce4ef3"
+    },
+    {
+      "path": "evidence-local/online-source-20260912/app/w/[token]/dictation/PersonFilter.tsx",
+      "bytes": 1271,
+      "sha256": "7b00a3cb20a251c2033d97618678abf402b779501a8e2ad8dd0e466a66d6e7da"
+    },
+    {
+      "path": "evidence-local/online-source-20260912/app/w/[token]/dictation/TaskEditor.tsx",
+      "bytes": 6337,
+      "sha256": "68eb071eb7e1ef89148eb02da646d39ac92046f00264f6eb467adfd6e90c409e"
+    },
+    {
+      "path": "evidence-local/online-source-20260912/app/w/[token]/dictation/WordLibrary.tsx",
+      "bytes": 4173,
+      "sha256": "855aedf65d173532a759b97a347c6a486632cdf46afc8c6b8edf983f71067558"
+    },
+    {
+      "path": "evidence-local/online-source-20260912/app/w/[token]/dictation/dictation.css",
+      "bytes": 10358,
+      "sha256": "040fa004f906bc0bef09eaa6ad5af5f480c18606e0e2f5783d376ba243eeafe7"
+    },
+    {
+      "path": "evidence-local/online-source-20260912/app/w/[token]/dictation/navigation.ts",
+      "bytes": 132,
+      "sha256": "8e049ee5a2fdc88b79d80fcdbb0993f42e44237845ff3f09dd92278a5e8749f3"
+    },
+    {
+      "path": "evidence-local/online-source-20260912/app/w/[token]/page.tsx",
+      "bytes": 219,
+      "sha256": "5b021d6a5f2a0de6362133fefeeb1f1f2511aafe869403e893b1deb3b38ca7c9"
+    },
+    {
+      "path": "evidence-local/online-source-20260912/app/workbench-repair.css",
+      "bytes": 563378,
+      "sha256": "4d324ef50beefec0834049ebb72cb28054f0a5fc9710ed6085744c86df86c778"
+    },
+    {
+      "path": "evidence-local/online-source-20260912/db/auth.ts",
+      "bytes": 4744,
+      "sha256": "1fb70270985e295d52edf07fe91a239781de082fba30e10989753f5b5b4bc2d9"
+    },
+    {
+      "path": "evidence-local/online-source-20260912/db/index.ts",
+      "bytes": 2423,
+      "sha256": "7d88e14955527f31c88351e819bf73815385db949e35e5fd15923d1db92d603b"
+    },
+    {
+      "path": "evidence-local/online-source-20260912/db/schema.ts",
+      "bytes": 4185,
+      "sha256": "8df76e5500c39cc24047bc00c09851ffe73f920ef91d1a6867c356827a30c582"
+    },
+    {
+      "path": "evidence-local/online-source-20260912/db/workspaces.ts",
+      "bytes": 1870,
+      "sha256": "3635f9f6a38d1cc200dc06baf23bde58d20bd4031dc26e1657e2ea74e2dde9a8"
+    },
+    {
+      "path": "evidence-local/online-source-20260912/lib/auth.ts",
+      "bytes": 23975,
+      "sha256": "6479369cb9e0ab3ac5123f0d722d1d95a4780b91b3d746046e3e7d3b9475f297"
+    },
+    {
+      "path": "evidence-local/online-source-20260912/lib/classroom.ts",
+      "bytes": 26422,
+      "sha256": "35b25d464d1f1ab0227250cc3c05211cc608bd160effcfdfc77293e14fa3e49d"
+    },
+    {
+      "path": "evidence-local/online-source-20260912/lib/clipboard.ts",
+      "bytes": 1084,
+      "sha256": "aa52361cb1ac31d7b6d49117832e6718eebc4768a78bdcc842c43a6452ff08e6"
+    },
+    {
+      "path": "evidence-local/online-source-20260912/lib/dictation.ts",
+      "bytes": 8184,
+      "sha256": "1785a5616a4083b00cbfdba21140fcc973644882d09bc21261b0ef24ea1b066e"
+    },
+    {
+      "path": "evidence-local/online-source-20260912/lib/workspaceBackup.ts",
+      "bytes": 3198,
+      "sha256": "2efa4f6265a5e5ce746af49410a2ccda3a9eb791ab9da76889d5777f95672e83"
+    },
+    {
+      "path": "evidence-local/online-source-20260912/package-lock.json",
+      "bytes": 391870,
+      "sha256": "cff6a594f0ee4f31ef364803e82d2f725669f89c761f1f35c64d4177905d5b28"
+    },
+    {
+      "path": "evidence-local/online-source-20260912/package.json",
+      "bytes": 1349,
+      "sha256": "82850d47418b88c9b8d9e00e2391502f29b6779ed92fb818075e252f3e552597"
+    },
+    {
+      "path": "evidence-local/online-source-20260912/public/art/campus/README.md",
+      "bytes": 994,
+      "sha256": "2c77311a701aa131fc5c9589b783092666a1e9d05b8f1925e152d26a37c77612"
+    },
+    {
+      "path": "evidence-local/online-source-20260912/public/art/campus/assessment-review.webp",
+      "bytes": 67956,
+      "sha256": "26ccc151c2a82899d135afc03821106d14f044d218a33c1e14342b9ec829ec04"
+    },
+    {
+      "path": "evidence-local/online-source-20260912/public/art/campus/class-planner.webp",
+      "bytes": 83380,
+      "sha256": "470b69e24c8a81696dbbd14b72e2771a3116068de82a303911d7871b9f7c610c"
+    },
+    {
+      "path": "evidence-local/online-source-20260912/public/art/campus/classroom-morning.webp",
+      "bytes": 101430,
+      "sha256": "aae786005ad687168fa4d0f04fd73fd33a7a929f5682be1db1b2463eae3fec4e"
+    },
+    {
+      "path": "evidence-local/online-source-20260912/public/art/campus/homework-books.webp",
+      "bytes": 74882,
+      "sha256": "5a82348b81d749ebf8b200f652ee2763894aec9abb0d2634f434cff26d4c0941"
+    },
+    {
+      "path": "evidence-local/online-source-20260912/public/art/campus/student-records.webp",
+      "bytes": 196672,
+      "sha256": "f2e2897fcfd4d35f3e830701b82ca5189eac299a4961493ec437d4198196ce80"
+    },
+    {
+      "path": "evidence-local/online-source-20260912/public/art/campus/study-desk.webp",
+      "bytes": 67088,
+      "sha256": "ae8af15cb52d3ff617fcd73c11d3fe1297901331ed70da5d2f7a35c04c459cf4"
+    },
+    {
+      "path": "evidence-local/online-source-20260912/public/art/campus/word-cards.webp",
+      "bytes": 12772,
+      "sha256": "a9e602b123f67ca73e4c1d348a906ada12a47bee5be066145902e838ed085489"
+    },
+    {
+      "path": "evidence-local/online-source-20260912/tsconfig.json",
+      "bytes": 715,
+      "sha256": "23757f0b7da46d56c56d37eb8810d441e1e8c211c080bd98adfb81b31d928669"
+    },
+    {
+      "path": "evidence-local/online-source-20260912/vite.config.ts",
+      "bytes": 978,
+      "sha256": "742834bbf0bd6ffba1a62bd39c95b6a5df6cb91d1a6ab02868c731e3d137d51a"
+    },
+    {
+      "path": "evidence-local/source-interactions.json",
+      "bytes": 463002,
+      "sha256": "85a7a5b5a56fe20927d05fda2b0e2e70a5e6ea04d68eef6f49f9d88d69ab7ad1"
+    },
+    {
       "path": "evidence/README.md",
       "bytes": 135,
       "sha256": "43deb05a6544322d44d48f3fc9591250037881f80ea00fd24c2286767d70401a"
+    },
+    {
+      "path": "evidence/account-operations-20260913.md",
+      "bytes": 4480,
+      "sha256": "0094a44dabd797218530658be4f2f4ed3c5c7ee3266a41f9070a86a8f14c980c"
+    },
+    {
+      "path": "evidence/admin-operations-20260913.md",
+      "bytes": 4137,
+      "sha256": "242c65f76c9007b8416c35209a57c15f9cf3e8c76eb6fc3b8616321c351c7318"
+    },
+    {
+      "path": "evidence/attendance-operations-20260912.md",
+      "bytes": 1855,
+      "sha256": "739cb951ba673a684cd31579245fb239298c703b6ca2907c618aa2c46609d180"
+    },
+    {
+      "path": "evidence/cadre-operations-20260912.md",
+      "bytes": 4887,
+      "sha256": "bfc75afca3f5a26ab42041968cf6e7d93fd2a2c90f69fb558e849880719bbcd0"
+    },
+    {
+      "path": "evidence/classroom-tools-operations-20260912.md",
+      "bytes": 4525,
+      "sha256": "70e6edf4f729b536742db45bc491197547212f6c08e6fe5b2911bcfdd989a1a4"
+    },
+    {
+      "path": "evidence/comments-operations-20260912.md",
+      "bytes": 3372,
+      "sha256": "99686166fceddd2d278b575d69a822cb4c6e36939b061040721890b30b70035d"
+    },
+    {
+      "path": "evidence/dashboard-inventory-20260913.md",
+      "bytes": 3239,
+      "sha256": "d0f2bef19495f1bc7edb4e9b0a00a7721ced349fbd065fdd33f2c57e77565dde"
+    },
+    {
+      "path": "evidence/duty-operations-20260912.md",
+      "bytes": 5702,
+      "sha256": "660ce764cac3c9b7ec0cc80c1c99f70830d1614d5a23fa9a88f7d9036e4e9956"
+    },
+    {
+      "path": "evidence/entry-operations-20260913.md",
+      "bytes": 3699,
+      "sha256": "a63753d0e219093805c2dc686cccbf4fff48795296a2c14f3473073765384dc0"
+    },
+    {
+      "path": "evidence/family-operations-20260913.md",
+      "bytes": 5092,
+      "sha256": "b7427190049cfe463d35ee8980afa4b9485c421fa605049ba7d9d9a34f8593cb"
+    },
+    {
+      "path": "evidence/fixture-environment-20260913.md",
+      "bytes": 2918,
+      "sha256": "789079b20893a6afc2f4950a20267b9c2c4b5cb12bedfbe5849cd32ee06c4e48"
+    },
+    {
+      "path": "evidence/grading-controller-20260912.md",
+      "bytes": 6080,
+      "sha256": "5554bba25c057df669215238c1a8c4bdd33985c79abd946622fd5ca776226203"
+    },
+    {
+      "path": "evidence/growth-health-operations-20260912.md",
+      "bytes": 4455,
+      "sha256": "deb7afbf97ac1110488cf0a4e1ac24f3e76362f16064fb101455ad7868b97589"
+    },
+    {
+      "path": "evidence/implementation-start-20260912.md",
+      "bytes": 2965,
+      "sha256": "b2d379d9101bd09240f628156514d7c39d32057b49de0277608e74c19c76c0da"
+    },
+    {
+      "path": "evidence/online-baseline-and-save-20260912.md",
+      "bytes": 3838,
+      "sha256": "2ccb62e2ba2cfc68cf23dbdd70fb8528eccbca8cc34ad87ad4fc0e28794573e1"
+    },
+    {
+      "path": "evidence/points-rules-operations-20260912.md",
+      "bytes": 3990,
+      "sha256": "82bcdb18acf17a741cd8a826f58120468a41bd233ff53b2884dc7b39fd0a1311"
+    },
+    {
+      "path": "evidence/pure-business-extraction-20260913.md",
+      "bytes": 2997,
+      "sha256": "e4f335eb480760cfed44a3a77acc922f01c0b0033b1afda9834c7fcc31f8ca94"
+    },
+    {
+      "path": "evidence/records-notifications-operations-20260912.md",
+      "bytes": 3249,
+      "sha256": "06da22f0b5143faa42bc07ab3433a53b90eedcac67a12562539cfb7b5b27205b"
+    },
+    {
+      "path": "evidence/reflection-operations-20260912.md",
+      "bytes": 3195,
+      "sha256": "4194a1606d62a7a44ad56c1a8f34442ba03a49411c38dbb9193f2d5788a9ed86"
+    },
+    {
+      "path": "evidence/schedule-operations-20260912.md",
+      "bytes": 4609,
+      "sha256": "15d806e3637f8a39b532722dfca5d0cb1c30e119c773287bafebce1a8b6592dd"
+    },
+    {
+      "path": "evidence/score-operations-20260912.md",
+      "bytes": 4830,
+      "sha256": "15f7932d18c60cd9b44ab26ce641944eb1151340599189135ad9006e771f5e6c"
+    },
+    {
+      "path": "evidence/seating-operations-20260912.md",
+      "bytes": 4553,
+      "sha256": "1f0fbec68d1f68ce8e7c265faee18c33cd75c57434f2b33e98cbe8edcaa9056b"
     },
     {
       "path": "evidence/source-baseline.json",
@@ -145,9 +755,34 @@
       "sha256": "e472f1d75984f28f35f1d2e002996f70e5e1e890b0a9e25c232c6d822165b43b"
     },
     {
+      "path": "evidence/student-profile-relations-20260912.md",
+      "bytes": 2357,
+      "sha256": "c8ed09e26b7309fb688f445f2075935b54a685c2558719f2506be9f30529f79c"
+    },
+    {
+      "path": "evidence/students-homework-operations-20260912.md",
+      "bytes": 7575,
+      "sha256": "68ca719bc60a7205022c5460abb7b258a8ccc97cd5d82ddf49627dd137a80c49"
+    },
+    {
+      "path": "evidence/weekly-operations-20260912.md",
+      "bytes": 2522,
+      "sha256": "732d389cedc61fad0196f47d98a20a95dec42187b652ce8ef9134c062ddefa2b"
+    },
+    {
+      "path": "evidence/workspace-controller-20260913.md",
+      "bytes": 3103,
+      "sha256": "c9351c07992ca4f55215d59cf9aad57dc29513296eb849448a172fc6c7264268"
+    },
+    {
       "path": "evidence/源码迁移定位表.md",
       "bytes": 1913,
       "sha256": "afb65f035651bcd57dbad64fb2c1f8a5e92b8100c747641672d18f068eec53af"
+    },
+    {
+      "path": "examples/README.md",
+      "bytes": 409,
+      "sha256": "4f994fcac7a80ad29bac0d5f8ed6cc628aaeb7d070569b3d90b5f743b657582c"
     },
     {
       "path": "examples/contracts.ts.txt",
@@ -163,11 +798,6 @@
       "path": "examples/migration-boundary.md",
       "bytes": 626,
       "sha256": "52215f44462f5791706333b56e07153b630d5b6e51304b9515693c8c11418f73"
-    },
-    {
-      "path": "examples/README.md",
-      "bytes": 409,
-      "sha256": "4f994fcac7a80ad29bac0d5f8ed6cc628aaeb7d070569b3d90b5f743b657582c"
     },
     {
       "path": "examples/save-transition.mjs",
@@ -206,13 +836,13 @@
     },
     {
       "path": "index.html",
-      "bytes": 9205,
-      "sha256": "f0ee7bcbc8cb6507d89aff9c8ee026e2bd78d6d2b536f19e6515738ca0f38de1"
+      "bytes": 9432,
+      "sha256": "8e41e8d6cf95795ffdaa10c6a49c29fdb9944b26b1e969a007f0268bb19250cb"
     },
     {
       "path": "pages/01-dashboard.md",
-      "bytes": 2523,
-      "sha256": "eac59b17429a0c5db8842210e2ae71d53a3eabf4b5771d324f27c4b55d1c2ebc"
+      "bytes": 3215,
+      "sha256": "dedf9f7a3b2da9bef515d9ea1f85ecab721003ba0014befe4e17f39c3eb8e736"
     },
     {
       "path": "pages/02-students.md",
@@ -236,93 +866,98 @@
     },
     {
       "path": "pages/06-points.md",
-      "bytes": 2454,
-      "sha256": "85bb486a8296ebf9e3f08f2691ab4b2c6b949e722347f6dcdcb2298227ccfcfb"
+      "bytes": 2793,
+      "sha256": "6bbf46d4ca941865712350cc22e9e70ad40c7eb89f22b86190f6ec792408d462"
     },
     {
       "path": "pages/07-rules.md",
-      "bytes": 2376,
-      "sha256": "1b696ae13a5830e2698a8f119e1f69342bc6908e838dddaec770563d9103292e"
+      "bytes": 2743,
+      "sha256": "a5566e828a9332bad0d78d3273ceac6ecab129e121a5dba1c56c9a15a43374ed"
     },
     {
       "path": "pages/08-growth.md",
-      "bytes": 2388,
-      "sha256": "0fa505f343d60863c09f2bc6d93c8a3de070dcc7b6cacb06920140a55e3b2be1"
+      "bytes": 2747,
+      "sha256": "b0c1422126790fe07cb4ccd07a8cfd742c47716ea783eb89fe59f168bd64dc3a"
     },
     {
       "path": "pages/09-health.md",
-      "bytes": 2421,
-      "sha256": "7ebe3b822188ccd3787c25ff64b72231f2e9a305214f2f999ff732b24e0196ff"
+      "bytes": 2792,
+      "sha256": "b102090a2e296b078303c66db52e2f98a1137a6644ddb88f04b338939f490e22"
     },
     {
       "path": "pages/10-records.md",
-      "bytes": 2489,
-      "sha256": "c2fb9df2f30b1a53b00753d383b3f28053a692603aaaf2f73a942e509ae4e09a"
+      "bytes": 5308,
+      "sha256": "fbab6665cd54cbf10a2c96dc7593a12a105a3f5cb2b9dcde88b42572c710aa1e"
     },
     {
       "path": "pages/11-scores.md",
-      "bytes": 2524,
-      "sha256": "d4e37f23b6403a990f9805cad0a259cd733af2dd7fec7bdacdff7b9edaed20c2"
+      "bytes": 4627,
+      "sha256": "0debf16397704a492e0bf8597d74b05867a43f20c7b52f7b39c9a588d37418af"
     },
     {
       "path": "pages/12-reflection.md",
-      "bytes": 2378,
-      "sha256": "f679c70a51623f385046144444f9387f352a7765047b9428afd1cebb933e9848"
+      "bytes": 5437,
+      "sha256": "d6760b7253acfe0857cd41111e0ce60dcf56fa59957520caa6a91f0009050d5d"
     },
     {
       "path": "pages/13-weekly.md",
-      "bytes": 2354,
-      "sha256": "3d29eabbe004fbecb59508c5cd9388781a9f038a3fe67063f89f11082b302da7"
+      "bytes": 5465,
+      "sha256": "fbdd86ac78305cfb8143acce033eae8e439d377da47729b94524e7f79019d145"
     },
     {
       "path": "pages/14-comments.md",
-      "bytes": 2442,
-      "sha256": "bbb8252de46a0a1d18439916e9f56b97aac5214f4dbf4d0da36c0c5f12378b92"
+      "bytes": 3216,
+      "sha256": "f337233254f8ae66b9ee80638779b68a43b123d35e5b551a0f7bf119f9c9370d"
     },
     {
       "path": "pages/15-schedule.md",
-      "bytes": 2521,
-      "sha256": "ad667c0d5a68748590cc832e35dad3c74470cf3af3fe423d8f26dcbb71aa922f"
+      "bytes": 3308,
+      "sha256": "a90a132bc976398a5948e99afd6d030fdf6901299fa40af00d78738cdaea212a"
     },
     {
       "path": "pages/16-tools.md",
-      "bytes": 2392,
-      "sha256": "d5fab4d149bdda6f76fe12f287e0ecae3aa543147b31faea49b7c3cdcb1d0297"
+      "bytes": 3161,
+      "sha256": "dc1ef7b174675ff17f98f3b00abe0cb2eaabf5b20476fcd9308cbf6841b1f71f"
     },
     {
       "path": "pages/17-seating.md",
-      "bytes": 2452,
-      "sha256": "889039f482b119eca786173418ab0c569adbcf1115034d85972e8544f2fdb3f0"
+      "bytes": 3163,
+      "sha256": "2cae2556a5099b765ed81268eff0267249140329ef8b0188d4bfaa1adab2c150"
     },
     {
       "path": "pages/18-duty.md",
-      "bytes": 2365,
-      "sha256": "01dd43a7616efba7bf17972d4020947e18a03c8349e54b3855ac1b9efc541d15"
+      "bytes": 3182,
+      "sha256": "dc609a2a7a13f119306533457d49e9dcac61657ed04a69e9ceb24e65216365af"
     },
     {
       "path": "pages/19-cadres.md",
-      "bytes": 2390,
-      "sha256": "3b3a9e3169efd3b9ae915695667dfebf60695155acc9ada3ee4309f583d41a21"
+      "bytes": 3422,
+      "sha256": "29b104f5c041791db8592bae9f4ea9fc961f4a539742fe2d55b1360f8a84fdef"
     },
     {
       "path": "pages/20-family.md",
-      "bytes": 2531,
-      "sha256": "22321d2a94bc0346e8ca6c414d3694cefb19a6e84bffa361b62f74908acd2148"
+      "bytes": 3826,
+      "sha256": "49e565b976f116dafaf83df187f01c4e8acc3676b2d5c73327dd5215067d7061"
     },
     {
       "path": "pages/21-entry.md",
-      "bytes": 2374,
-      "sha256": "502747da9fbb5b67e59f4b01a1ed461da6ca40115a52d88760b6b1df78eb5569"
+      "bytes": 4282,
+      "sha256": "60c32ae715b8500b1066ea24caeebcdc037dbfe20221b4bb185ad9d54a1dc13a"
     },
     {
       "path": "pages/22-account.md",
-      "bytes": 2453,
-      "sha256": "336764e9c5a6f6c0291f85d2c408a9e7775eacfa60745135bb7185244ecea750"
+      "bytes": 3412,
+      "sha256": "ee397c2df59bb5b4f494f10db931a42e8d0ad5c1322cdd85a2f353c0c71526e4"
     },
     {
       "path": "pages/23-admin.md",
-      "bytes": 2438,
-      "sha256": "c609dfdb5219adeee21d95071f25df01d92ce775c899d1c3e779bbd7d96224e3"
+      "bytes": 3491,
+      "sha256": "06c4db7a69c314dba4ff749a2b3fb9de2f3b90ae9ae88ed86273a03cdfd2b5a5"
+    },
+    {
+      "path": "references/README.md",
+      "bytes": 746,
+      "sha256": "7d3c49401c89dab2046b7459eb71ff254eb83c717ec7d46b2f933f19a3198010"
     },
     {
       "path": "references/campus/C1-桌面首页.png",
@@ -385,44 +1020,39 @@
       "sha256": "d8674060006e3f9d655cc2a6eb97d3658234ba2daeb91182cd76cf58f48a669a"
     },
     {
-      "path": "references/README.md",
-      "bytes": 746,
-      "sha256": "7d3c49401c89dab2046b7459eb71ff254eb83c717ec7d46b2f933f19a3198010"
-    },
-    {
       "path": "tasks/TASK-01.md",
-      "bytes": 1510,
-      "sha256": "fc86c56e4aa7cded8b6450b8bb090cb9674b9f23d03d50cb9177c149adeb9e02"
+      "bytes": 1635,
+      "sha256": "98f0572c3ee8ff36472a7992ca2bcaded00b9001c63bb89d69d150a21f559d51"
     },
     {
       "path": "tasks/TASK-02.md",
-      "bytes": 1517,
-      "sha256": "1cd1ee4aca56de2e8897e658b93a8ff401b174c6e06193589226cf4a33fe75d7"
+      "bytes": 2362,
+      "sha256": "3bf532aef2ce8a2531c2cccd392467e9e98e406097aa1c77f4ec057e4501c7ee"
     },
     {
       "path": "tasks/TASK-03.md",
-      "bytes": 1474,
-      "sha256": "b1407c208146e6d8c5513fb7438ded16915318be9a0d7fd757cd67f6f7137314"
+      "bytes": 2203,
+      "sha256": "e0472ba5fd46d2f3db312cc2f20749d869d4c56b39d218c3a8671ee066c346ec"
     },
     {
       "path": "tasks/TASK-04.md",
-      "bytes": 1487,
-      "sha256": "5f0495a43c4fdd7e147f278ce6d743e1904865aef55b7bcd40d1911b80f3381b"
+      "bytes": 2243,
+      "sha256": "e2a19d82f22a34cd2faf0a4eed52bb3fa88b7fa01e1e8d13c85a9e50c50709a0"
     },
     {
       "path": "tasks/TASK-05.md",
-      "bytes": 1515,
-      "sha256": "dfcd171e11cb4f3dc72b977ccf9e073b1bebb0539b17015a09976e8a659a4662"
+      "bytes": 2866,
+      "sha256": "0b53f74a9905ff144448308635647b4b5f6fa3b49e63e245e429c5f1d611c75f"
     },
     {
       "path": "tasks/TASK-06.md",
-      "bytes": 1474,
-      "sha256": "69a03835148c585a3458fcb632970bd42c535a9640ffb039aaa8b34805c9a8ff"
+      "bytes": 1606,
+      "sha256": "e0e971ab6111b357446c8ebfc144adb306931c283e65d87cb9a82fbfaa5ebad7"
     },
     {
       "path": "tasks/TASK-07.md",
-      "bytes": 1470,
-      "sha256": "9736e5affb591d2b8738027c801a4c4eeab651d5f9a019d4c92d719c9b3fddcc"
+      "bytes": 1602,
+      "sha256": "46137b74fe13cb64dad32442c6852102a49a91201cb020d87761b8d02162dd16"
     },
     {
       "path": "tasks/TASK-08.md",
@@ -531,8 +1161,8 @@
     },
     {
       "path": "tasks/TASK-29.md",
-      "bytes": 1484,
-      "sha256": "7463e03f290811df9b6fc80ed5236109b5163374949544d8fe694b9a2ea3faf0"
+      "bytes": 2901,
+      "sha256": "2c08e6fb3061edc171884246825b5382073db7671500c0ee267536dd6ba3da18"
     },
     {
       "path": "tasks/TASK-30.md",
@@ -555,19 +1185,19 @@
       "sha256": "180db3eadcc665cfa0840631ed8bcced26feea6f52a7d23fb8329d328abc5ef4"
     },
     {
+      "path": "tools/README.md",
+      "bytes": 800,
+      "sha256": "166dd721fb6c61ca2c4cf4e04a45957b3eb6aadded898bae5f72617a3b5cfe99"
+    },
+    {
       "path": "tools/check-plan.py",
-      "bytes": 1594,
-      "sha256": "51217b0e6b5e7e854fb6e99db10d32ef0bda74b4ce336a8d31999ae2128cfb7f"
+      "bytes": 1738,
+      "sha256": "c83e679552549ba4a2161d790696b8b065b0e3c48499dbac52bc3f601e26e06e"
     },
     {
       "path": "tools/check-source-drift.py",
       "bytes": 586,
       "sha256": "b57b6f4432e0a3ac55d21e575cf99dd55bdc0634aaed7a1b1940a38208539512"
-    },
-    {
-      "path": "tools/README.md",
-      "bytes": 800,
-      "sha256": "166dd721fb6c61ca2c4cf4e04a45957b3eb6aadded898bae5f72617a3b5cfe99"
     },
     {
       "path": "tools/verify-package.py",
@@ -576,33 +1206,33 @@
     },
     {
       "path": "trackers/acceptance.csv",
-      "bytes": 15352,
-      "sha256": "709b7df46dd5c47650c8b39c31c40fda3b7ce498e1f980335be39425abc2c294"
+      "bytes": 22525,
+      "sha256": "d1cd9c16e23eff280d784a9999137bde931343e98c2077924ef6e7b3ae5684e4"
     },
     {
       "path": "trackers/asset-plan.csv",
-      "bytes": 1861,
-      "sha256": "64921f95288dede6bbc763eab22ec0eb13c7d5b426e962a9e2213bf94e0a50ae"
+      "bytes": 2550,
+      "sha256": "22eefd305b1ce87f6f5e3fd27866694ad355aad935d6632455dab8d01ef7bc0d"
     },
     {
       "path": "trackers/feature-preservation.csv",
-      "bytes": 5361,
-      "sha256": "b48575b5640bee1cd5ed8615592b45289b191a6206d512dd45128cc598aacd4b"
+      "bytes": 27156,
+      "sha256": "113c48e4ac384936f04bda5e2a21761aa05f0bab8e9a1093186408217282e88b"
     },
     {
       "path": "trackers/overlay-inventory.csv",
-      "bytes": 4012,
-      "sha256": "221a664adb1afdce0251e4612fb311a697990c5bba5d64d6607c5e7a84e0fbeb"
+      "bytes": 16580,
+      "sha256": "2cc14c405c0a5a598b308e81aeafbdbec49d7b7e931e2e2b892e9e2ddbe9035b"
     },
     {
       "path": "trackers/progress.json",
-      "bytes": 495,
-      "sha256": "c3794c3ea6fe9bda7d0432a3c3f84429d2d083cc253ba3b2723f59b4a0a3a78a"
+      "bytes": 1309,
+      "sha256": "be8af34fe05141f9b08360f4c5af8c703c742242b18797c5c28e98c3e7367f03"
     },
     {
       "path": "trackers/tasks.csv",
-      "bytes": 1765,
-      "sha256": "7e99e9cafd2295fb36431590f5671f1e28153d1684cb5d600c7b829dbb8415ed"
+      "bytes": 2985,
+      "sha256": "42f49229c276586f4541515884c29268903eec2d27c2aadef043c527df574d5f"
     }
   ]
 }

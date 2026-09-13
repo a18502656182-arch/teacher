@@ -1,6 +1,6 @@
 # TASK-05 抽取保存与草稿操作
 
-状态：in-progress。前置任务：03,04。不得用历史通过替代前置门槛。
+状态：done。前置任务：03,04。不得用历史通过替代前置门槛。
 
 ## 操作
 1. 读取00、07、相关pages卡与trackers，核对当前HEAD及用户未提交差异。
@@ -16,10 +16,10 @@
 
 ## 完成记录（实施者填写）
 - 开始HEAD：`c944929`
-- 修改文件：待填
-- 保全行为/删除旧依赖：待填
-- 命令与实际结果：待填
-- 参考/实渲染证据与视口：待填
-- 未覆盖状态：待填
-- 完成提交：待填
-- 下一步：待填
+- 修改文件：`workspace/useWorkspaceController.ts`、`workspace/operations.ts`、`ClassroomApp.tsx`、`tests/workspace-operations.test.mjs`、`tests/rendered-html.test.mjs`。
+- 保全行为/删除旧依赖：工作区加载、同revision草稿恢复、900ms自动保存、dirty与beforeunload、排队保存、乐观revision、409锁定、载入最新版本、备份取待提交听写、一般保存与听写确认提交两种语义均进入共享controller；主组件删除相应状态、ref、effect和操作闭包。未计入正式结果的听写草稿阻止退出；演示模式的一般写入口修正为真正只读。
+- 命令与实际结果：`npx tsc --noEmit --pretty false --incremental false`通过；全量ESLint通过；聚焦46/46通过；完整`npm test`的生产构建、220/220自动化测试和认证集成通过。仍有既有500KB以上chunk警告。
+- 参考/实渲染证据与视口：隔离桌面浏览器实际完成E7到期正式账号只读、E8断网保留/恢复重试、E9双标签真实409；另验证`/w/demo`点击考勤状态不再改变数据。控制器没有DOM/CSS改动，本项不冒充视觉验收。详见`../evidence/workspace-controller-20260913.md`。
+- 未覆盖状态：页面自己的“已保存”提示仍有先于服务器确认的旧实现，需在对应页面迁移时逐项改为操作确认语义；物理手机、弱网、HTTPS和线上环境未验证。
+- 完成提交：`7617c9f`
+- 下一步：完成TASK-06主题契约，再完成TASK-07基础控件；随后按依赖进入浮层、隔离和标杆页面。

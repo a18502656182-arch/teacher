@@ -3,7 +3,7 @@ TASK-01,核验源码与Git,无,done,f321d5e9424e0020bdf1e56d52c31b986b503a53,evi
 TASK-02,展开功能与弹窗账本,01,done,ce66702,evidence/implementation-start-20260912.md; evidence/dashboard-inventory-20260913.md; evidence/schedule-operations-20260912.md; evidence/classroom-tools-operations-20260912.md; evidence/seating-operations-20260912.md; evidence/duty-operations-20260912.md; evidence/cadre-operations-20260912.md; evidence/family-operations-20260913.md; evidence/entry-operations-20260913.md; evidence/account-operations-20260913.md; evidence/admin-operations-20260913.md,TASK03建立E0-E11隔离夹具
 TASK-03,建立隔离测试夹具,02,done,ce66702,evidence/fixture-environment-20260913.md,TASK04核对并抽取剩余纯业务计算
 TASK-04,抽取纯业务计算,02,done,c944929,evidence/pure-business-extraction-20260913.md,TASK05抽取通用保存草稿失败重试与409控制器
-TASK-05,抽取保存与草稿操作,"03,04",in-progress,c944929,evidence/pure-business-extraction-20260913.md,抽取通用workspace controller并用E7至E9验证
+TASK-05,抽取保存与草稿操作,"03,04",done,7617c9f,evidence/workspace-controller-20260913.md,TASK06完成主题契约与token
 TASK-06,建立主题契约与token,01,in-progress,,evidence/implementation-start-20260912.md,基础层已实现并独立预览；完整契约与组件覆盖待补齐
 TASK-07,建立基础控件,06,in-progress,,evidence/implementation-start-20260912.md,基础层已实现并独立预览；完整契约与组件覆盖待补齐
 TASK-08,建立浮层与搜索选人,"05,07",planned,,,
