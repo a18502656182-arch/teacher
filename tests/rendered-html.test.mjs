@@ -449,11 +449,23 @@ test("score trends compare normalized rates and preserve missing-score meaning",
 });
 
 test("score analysis keeps new-exam entry visible on both desktop and mobile", () => {
-  assert.match(app, /className="score5-primary" onClick=\{addExam\}>新增考试<\/button>/);
-  assert.match(app, /onClick=\{openExamEdit\}>编辑考试<\/button>/);
+  assert.match(app, /className="score5-primary" disabled=\{readOnly \|\| scoreBusy\} onClick=\{addExam\}>新增考试<\/button>/);
+  assert.match(app, /disabled=\{readOnly \|\| scoreBusy\} onClick=\{openExamEdit\}>编辑考试<\/button>/);
   assert.doesNotMatch(app, /<details className="score5-more-actions">/);
   assert.match(app, /className="mobile-score-hero-actions"/);
-  assert.match(app, /className="primary" onClick=\{openNewExam\}>新增考试<\/button>/);
+  assert.match(app, /className="primary" disabled=\{readOnly \|\| scoreBusy\} onClick=\{openNewExam\}>新增考试<\/button>/);
+});
+
+test("score write flows wait for server confirmation and preserve context on failure", () => {
+  assert.match(app, /<Scores workspaceToken=\{token\} data=\{workspace\.data\} update=\{updateData\} save=\{save\} readOnly=/);
+  assert.match(app, /<MobileScores workspaceToken=\{workspaceToken\} data=\{data\} activeClass=\{activeClass\} update=\{update\} save=\{save\} readOnly=/);
+  assert.match(app, /async function applyBatchScore\(\)/);
+  assert.match(app, /async function applyMobileBatchScore\(\)/);
+  assert.match(app, /当前选择不会清空/);
+  assert.match(app, /窗口保持打开/);
+  assert.match(scoreItemAnalysis, /save: \(\) => Promise<boolean>; readOnly: boolean/);
+  assert.match(scoreItemAnalysis, /确认结果同步失败，本机修改已保留/);
+  assert.match(scoreItemAnalysis, /disabled=\{readOnly \|\| saving\}/);
 });
 
 test("exam analysis separates trend and paper workflows with teacher review", () => {

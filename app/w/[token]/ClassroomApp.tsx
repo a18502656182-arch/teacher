@@ -324,7 +324,7 @@ export default function ClassroomApp({ token }: { token: string }) {
           {active === "duty" && <Duty data={workspace.data} update={updateData} readOnly={isDemo || isReadOnly} />}
           {active === "cadres" && <Cadres data={workspace.data} update={updateData} readOnly={isDemo || isReadOnly} confirmAction={requestDangerConfirm} />}
           {active === "records" && <Records data={workspace.data} update={updateData} save={save} readOnly={isDemo || isReadOnly} />}
-          {active === "scores" && <Scores workspaceToken={token} data={workspace.data} update={updateData} />}
+          {active === "scores" && <Scores workspaceToken={token} data={workspace.data} update={updateData} save={save} readOnly={isDemo || isReadOnly} />}
           {active === "reflection" && <Reflection data={workspace.data} update={updateData} open={openModule} readOnly={isDemo || isReadOnly} />}
           {active === "comments" && <Comments workspaceToken={token} data={workspace.data} update={updateData} readOnly={isDemo || isReadOnly} />}
         </>}
@@ -376,7 +376,7 @@ function MobileWorkspaceContent({ workspaceToken, workspace, activeClass, active
       {pane('students', <StudentsView data={data} update={update} confirmAction={requestDangerConfirm} readOnly={isDemo || isReadOnly} mobile />)}
       {pane('attendance', <Attendance data={data} update={update} save={save} readOnly={isDemo || isReadOnly} mobile />)}
       {pane('homework', <HomeworkView data={data} update={update} confirmAction={requestDangerConfirm} mobile readOnly={isDemo || isReadOnly} />)}
-      {pane('scores', <MobileScores workspaceToken={workspaceToken} data={data} activeClass={activeClass} update={update} open={openModule} />)}
+      {pane('scores', <MobileScores workspaceToken={workspaceToken} data={data} activeClass={activeClass} update={update} save={save} readOnly={isDemo || isReadOnly} open={openModule} />)}
       {pane('health', <HealthCare data={data} update={update} save={save} readOnly={isDemo || isReadOnly} mobile />)}
       {pane('seating', <Seating data={data} update={update} readOnly={isDemo || isReadOnly} mobile />)}
       {pane('duty', <Duty data={data} update={update} readOnly={isDemo || isReadOnly} mobile />)}
@@ -390,17 +390,23 @@ function MobileHome({ data, open, openFamily, openAccount, openStudentGrowth }: 
   return <div className="campus-mobile-home"><DashboardView data={data} open={open} openFamily={openFamily} openStudentGrowth={openStudentGrowth} defaultDutyJobs={defaultDutyJobs}/><button className="mobile-class-manage" type="button" onClick={openAccount}><CampusIcon name="rules"/>账户、班级与备份</button></div>;
 }
 
-function EmptyScoreWorkspace({ data, classId, update, mobile }: { data: ClassroomData; classId: string; update: (fn: (d: ClassroomData) => ClassroomData) => void; mobile: boolean }) {
+function EmptyScoreWorkspace({ data, classId, update, save, readOnly, mobile }: { data: ClassroomData; classId: string; update: (fn: (d: ClassroomData) => ClassroomData) => void; save: () => Promise<boolean>; readOnly: boolean; mobile: boolean }) {
   const [title, setTitle] = useState("");
   const [date, setDate] = useState(today());
   const [subjects, setSubjects] = useState("语文，数学，英语");
   const [error, setError] = useState("");
-  function submit() {
+  const [busy, setBusy] = useState(false);
+  async function submit() {
+    if (readOnly || busy) return;
     const parsed = parseSubjects(subjects);
     const result = createScoreExam(data, classId, { title, date, subjects: parsed }, makeId);
     if (!result.exam) { setError(result.error ?? "考试创建失败。"); return; }
     setError("");
     update((current) => createScoreExam(current, classId, { title, date, subjects: parsed }, () => result.exam.id).data ?? current);
+    setBusy(true);
+    const ok = await save();
+    setBusy(false);
+    if (!ok) { setError("同步失败，本机新增的考试已保留，请重试保存后再继续录分。"); return; }
     notify("考试已新增，可以开始录入成绩", "success");
   }
   const content = <section className={mobile ? "mobile-hero-card mobile-score-empty" : "score5-page score5-empty-workspace"}>
@@ -411,17 +417,17 @@ function EmptyScoreWorkspace({ data, classId, update, mobile }: { data: Classroo
       <label className="wide"><span>考试科目</span><input value={subjects} onChange={(event) => setSubjects(event.target.value)} placeholder="语文，数学，英语" /></label>
     </div>
     {error && <p className={mobile ? "mobile-form-error" : "score5-batch-error"} role="alert">{error}</p>}
-    <div className={mobile ? "mobile-sheet-actions single" : "score5-actions"}><button type="button" className={mobile ? "primary" : "score5-primary"} onClick={submit}>建立第一场考试</button></div>
+    <div className={mobile ? "mobile-sheet-actions single" : "score5-actions"}><button type="button" className={mobile ? "primary" : "score5-primary"} disabled={readOnly || busy} onClick={() => void submit()}>{busy ? "保存中…" : readOnly ? "只读模式" : "建立第一场考试"}</button></div>
   </section>;
   return mobile ? <div className="mobile-stack mobile-scores-page">{content}</div> : <><WorkbenchPageHeader icon="📈" tone="iris" title="成绩分析" description="建立第一场考试后，再录入成绩、查看趋势和核对试卷分析。" />{content}</>;
 }
 
-function MobileScores(props: { workspaceToken: string; data: ClassroomData; activeClass: RosterClass; update: (fn: (d: ClassroomData) => ClassroomData) => void; open: (id: ModuleId) => void }) {
-  if (!scoreExamsForClass(props.data, props.activeClass.id).length) return <EmptyScoreWorkspace data={props.data} classId={props.activeClass.id} update={props.update} mobile />;
+function MobileScores(props: { workspaceToken: string; data: ClassroomData; activeClass: RosterClass; update: (fn: (d: ClassroomData) => ClassroomData) => void; save: () => Promise<boolean>; readOnly: boolean; open: (id: ModuleId) => void }) {
+  if (!scoreExamsForClass(props.data, props.activeClass.id).length) return <EmptyScoreWorkspace data={props.data} classId={props.activeClass.id} update={props.update} save={props.save} readOnly={props.readOnly} mobile />;
   return <MobileScoresWithExam {...props} />;
 }
 
-function MobileScoresWithExam({ workspaceToken, data, activeClass, update, open }: { workspaceToken: string; data: ClassroomData; activeClass: RosterClass; update: (fn: (d: ClassroomData) => ClassroomData) => void; open: (id: ModuleId) => void }) {
+function MobileScoresWithExam({ workspaceToken, data, activeClass, update, save, readOnly, open }: { workspaceToken: string; data: ClassroomData; activeClass: RosterClass; update: (fn: (d: ClassroomData) => ClassroomData) => void; save: () => Promise<boolean>; readOnly: boolean; open: (id: ModuleId) => void }) {
   const [selectedId, setSelectedId] = useState("");
   const [examPickerOpen, setExamPickerOpen] = useState(false);
   const [examEditorOpen, setExamEditorOpen] = useState<"new" | "edit" | "">("");
@@ -448,6 +454,8 @@ function MobileScoresWithExam({ workspaceToken, data, activeClass, update, open 
   const [scoreBatchError, setScoreBatchError] = useState("");
   const [scoreWorkspaceView, setScoreWorkspaceView] = useState<"records" | "trends" | "analysis">("records");
   const [scorePage, setScorePage] = useState(1);
+  const [scoreBusy, setScoreBusy] = useState(false);
+  const [scoreMessage, setScoreMessage] = useState("");
   const students = activeClass.students?.length ? activeClass.students : data.students;
   const classExams = scoreExamsForClass(data, activeClass.id);
   const exams = classExams;
@@ -495,6 +503,7 @@ function MobileScoresWithExam({ workspaceToken, data, activeClass, update, open 
     update((current) => patchScoreExam(current, activeClass.id, nextExam.id, nextExam));
   }
   function setStudentScore(studentId: string, subject: string, value: string) {
+    if (readOnly) return;
     const numeric = value.trim() === "" ? null : Number(value);
     const preview = setScoreEntries(data, activeClass.id, exam.id, [studentId], subject, numeric);
     if (preview.error) { notify(preview.error, "error"); return; }
@@ -507,7 +516,8 @@ function MobileScoresWithExam({ workspaceToken, data, activeClass, update, open 
     setScoreBatchError("");
     setScoreBatchOpen(true);
   }
-  function applyMobileBatchScore() {
+  async function applyMobileBatchScore() {
+    if (readOnly || scoreBusy) return;
     const value = Number(scoreBatchValue);
     if (!selectedIds.length) {
       setScoreBatchError("请先在学生列表中选择同分学生。");
@@ -525,14 +535,22 @@ function MobileScoresWithExam({ workspaceToken, data, activeClass, update, open 
     const preview = setScoreEntries(data, activeClass.id, exam.id, selectedIds, activeBatchSubject, safeScore);
     if (preview.error) { setScoreBatchError(preview.error); return; }
     update((current) => setScoreEntries(current, activeClass.id, exam.id, selectedIds, activeBatchSubject, safeScore).data ?? current);
+    setScoreBusy(true);
+    const ok = await save();
+    setScoreBusy(false);
+    if (!ok) { setScoreBatchError("同步失败，本机录分已保留；请重试保存，当前选择不会清空。"); return; }
     setScoreBatchError("");
     setScoreBatchOpen(false);
     setSelectedIds([]);
     notify(`已给 ${selectedIds.length} 名学生录入${activeBatchSubject} ${safeScore}分`, "success");
   }
-  function toggleScoreFollow(studentId: string) {
+  async function toggleScoreFollow(studentId: string) {
+    if (readOnly || scoreBusy) return;
     const list = exam.followUpStudentIds ?? [];
     updateExam({ ...exam, followUpStudentIds: list.includes(studentId) ? list.filter((id) => id !== studentId) : [...list, studentId] });
+    setScoreBusy(true); setScoreMessage("");
+    const ok = await save(); setScoreBusy(false);
+    setScoreMessage(ok ? "重点状态已同步" : "重点状态同步失败，本机修改已保留。");
   }
   function openNewExam() {
     setExamDraft({ title: "", date: today(), subjects: subjects.join("，") || "语文，数学，英语" });
@@ -544,7 +562,8 @@ function MobileScoresWithExam({ workspaceToken, data, activeClass, update, open 
     setExamFormError("");
     setExamEditorOpen("edit");
   }
-  function saveExamDraft() {
+  async function saveExamDraft() {
+    if (readOnly || scoreBusy) return;
     const nextSubjects = parseSubjects(examDraft.subjects);
     if (!nextSubjects.length) {
       setExamFormError("请填写至少一个考试科目。");
@@ -556,6 +575,10 @@ function MobileScoresWithExam({ workspaceToken, data, activeClass, update, open 
       const preview = editScoreExam(data, activeClass.id, exam.id, { title: examDraft.title, date: examDraft.date, subjects: nextSubjects });
       if (preview.error) { setExamFormError(preview.error); return; }
       update((current) => editScoreExam(current, activeClass.id, exam.id, { title: examDraft.title, date: examDraft.date, subjects: nextSubjects }).data ?? current);
+      setScoreBusy(true);
+      const ok = await save();
+      setScoreBusy(false);
+      if (!ok) { setExamFormError("同步失败，本机修改已保留；编辑窗口保持打开，请重试。"); return; }
       setExamEditorOpen("");
       notify("考试信息已更新", "success");
       return;
@@ -564,14 +587,21 @@ function MobileScoresWithExam({ workspaceToken, data, activeClass, update, open 
     if (!result.exam) { setExamFormError(result.error ?? "考试创建失败。"); return; }
     const nextExam = result.exam;
     update((current) => createScoreExam(current, activeClass.id, { title: examDraft.title, date: examDraft.date, subjects: nextSubjects }, () => nextExam.id).data ?? current);
+    setScoreBusy(true);
+    const ok = await save();
+    setScoreBusy(false);
+    if (!ok) { setExamFormError("同步失败，本机新增考试已保留；窗口保持打开，请重试。"); return; }
     setExamId(nextExam.id);
     setSubjectFilter("全部");
     setExamEditorOpen("");
     notify("考试已新增", "success");
   }
   async function deleteMobileExam() {
-    if (!await requestDangerConfirm(`${exam.title} 的全部成绩、跟进标记和关联反思都会删除。`, "删除考试", "确认删除")) return;
+    if (readOnly || scoreBusy || !await requestDangerConfirm(`${exam.title} 的全部成绩、跟进标记和关联反思都会删除。`, "删除考试", "确认删除")) return;
     update((current) => removeScoreExam(current, activeClass.id, exam.id));
+    setScoreBusy(true); setExamFormError("");
+    const ok = await save(); setScoreBusy(false);
+    if (!ok) { setExamFormError("删除同步失败，本机修改已保留；请重试保存。"); return; }
     setExamId(exams.find((item) => item.id !== exam.id)?.id ?? "");
     setExamEditorOpen("");
   }
@@ -584,12 +614,17 @@ function MobileScoresWithExam({ workspaceToken, data, activeClass, update, open 
     setExamPickerOpen(false);
   }
   function setScoreAdvice(studentId: string, advice: string) {
+    if (readOnly) return;
     updateExam({ ...exam, advice: { ...(exam.advice ?? {}), [studentId]: advice } });
   }
-  function batchScoreFollow(mark: boolean) {
+  async function batchScoreFollow(mark: boolean) {
+    if (readOnly || scoreBusy) return;
     const list = exam.followUpStudentIds ?? [];
     const nextList = mark ? Array.from(new Set([...list, ...selectedIds])) : list.filter((id) => !selectedIds.includes(id));
     updateExam({ ...exam, followUpStudentIds: nextList });
+    setScoreBusy(true); setScoreMessage("");
+    const ok = await save(); setScoreBusy(false);
+    if (!ok) { setScoreMessage("批量重点状态同步失败，本机修改已保留；当前选择不会清空。"); return; }
     setSelectedIds([]);
     notify(mark ? "已批量标记重点" : "已批量取消重点", "success");
   }
@@ -611,7 +646,8 @@ function MobileScoresWithExam({ workspaceToken, data, activeClass, update, open 
     setFilterEditorOpen(false);
     setRangeEditorOpen(true);
   }
-  function saveMobileFilterEditor() {
+  async function saveMobileFilterEditor() {
+    if (readOnly || scoreBusy) return;
     const key = scoreSubjectKey(filterSubjectDraft);
     const cleanRanges = rangeDrafts.map((item, index) => ({
       id: item.id || `range-${index + 1}`,
@@ -624,6 +660,9 @@ function MobileScoresWithExam({ workspaceToken, data, activeClass, update, open 
     const nextMaxScores = { ...(exam.subjectMaxScores ?? {}) };
     if (filterSubjectDraft !== "总分") nextMaxScores[filterSubjectDraft] = Math.max(1, Number(maxScoreDraft) || 100);
     updateExam({ ...exam, subjectMaxScores: nextMaxScores, scoreRanges: nextRanges });
+    setScoreBusy(true); setScoreMessage("");
+    const ok = await save(); setScoreBusy(false);
+    if (!ok) { setScoreMessage("满分与区间同步失败，本机修改已保留；编辑窗口保持打开。"); return; }
     setScoreRangeFilter("全部");
     setRangeEditorOpen(false);
     notify(`${filterSubjectDraft}分数区间已保存`, "success");
@@ -665,7 +704,7 @@ function MobileScoresWithExam({ workspaceToken, data, activeClass, update, open 
   return <div className="mobile-stack mobile-scores-page">
     <section className="mobile-hero-card">
       <div><span>当前考试</span><h2>{exam.title}</h2><p>{exam.date} · {subjects.join("，")} · 已录 {enteredCount}/{scoreCount}</p></div>
-      <div className="mobile-score-hero-actions"><button type="button" onClick={() => setExamPickerOpen(true)}>切换考试</button><button type="button" onClick={openEditExam}>编辑考试</button><button type="button" className="primary" onClick={openNewExam}>新增考试</button></div>
+      <div className="mobile-score-hero-actions"><button type="button" onClick={() => setExamPickerOpen(true)}>切换考试</button><button type="button" disabled={readOnly || scoreBusy} onClick={openEditExam}>编辑考试</button><button type="button" className="primary" disabled={readOnly || scoreBusy} onClick={openNewExam}>新增考试</button></div>
     </section>
     <section className="mobile-overview-stats compact" aria-label="成绩分析概览">
       <span><small>录分进度</small><b>{enteredCount}/{scoreCount}</b></span>
@@ -674,7 +713,8 @@ function MobileScoresWithExam({ workspaceToken, data, activeClass, update, open 
     </section>
     <nav className="score5-workspace-tabs mobile-score-workspace-tabs" aria-label="成绩工作视图"><button type="button" className={scoreWorkspaceView === "records" ? "active" : ""} onClick={() => setScoreWorkspaceView("records")}>成绩录入</button><button type="button" className={scoreWorkspaceView === "trends" ? "active" : ""} onClick={() => setScoreWorkspaceView("trends")}>历次趋势</button><button type="button" className={scoreWorkspaceView === "analysis" ? "active" : ""} onClick={() => setScoreWorkspaceView("analysis")}>试卷分析</button></nav>
     {scoreWorkspaceView === "trends" && <ScoreTrends data={data} classId={activeClass.id} />}
-    {scoreWorkspaceView === "analysis" && <ScoreItemAnalysis data={data} classId={activeClass.id} workspaceToken={workspaceToken} exam={exam} students={students} update={update} />}
+    {scoreWorkspaceView === "analysis" && <ScoreItemAnalysis data={data} classId={activeClass.id} workspaceToken={workspaceToken} exam={exam} students={students} update={update} save={save} readOnly={readOnly} />}
+    {scoreMessage && <p className="mobile-form-error" role="status">{scoreMessage}</p>}
     {scoreWorkspaceView === "records" && <><section className="mobile-score-student-toolbar">
       <label className="mobile-search"><span>查找学生</span><input value={keyword} onChange={(event) => { setKeyword(event.target.value); setScorePage(1); }} placeholder="姓名、学号或小组" /></label>
       <div>
@@ -688,7 +728,7 @@ function MobileScoresWithExam({ workspaceToken, data, activeClass, update, open 
     </section>
     {selectedIds.length > 0 && <section className="mobile-score-selection-panel active">
       <header><span>已选 <b>{selectedIds.length}</b> 人</span><button type="button" onClick={toggleVisibleScoreSelect}>{allVisibleSelected ? "取消当前全选" : "全选当前结果"}</button></header>
-      <div><button type="button" className="primary" onClick={openMobileScoreBatch}>批量录分</button><select aria-label="批量重点操作" value="" onChange={(event) => { if (event.target.value === "mark") batchScoreFollow(true); if (event.target.value === "unmark") batchScoreFollow(false); }}><option value="">重点操作</option><option value="mark">标记为重点</option><option value="unmark">取消重点</option></select></div>
+        <div><button type="button" className="primary" disabled={readOnly || scoreBusy} onClick={openMobileScoreBatch}>批量录分</button><select disabled={readOnly || scoreBusy} aria-label="批量重点操作" value="" onChange={(event) => { if (event.target.value === "mark") void batchScoreFollow(true); if (event.target.value === "unmark") void batchScoreFollow(false); }}><option value="">重点操作</option><option value="mark">标记为重点</option><option value="unmark">取消重点</option></select></div>
     </section>}
     <div className="mobile-student-list mobile-score-list">
       {pagedScoreRows.map((row) => <article className="mobile-score-row" key={row.student.id}>
@@ -699,7 +739,7 @@ function MobileScoresWithExam({ workspaceToken, data, activeClass, update, open 
         <button type="button" className="mobile-score-main" onClick={() => setSelectedId(row.student.id)}>
           <span><b>{row.student.name}</b><small>{row.complete ? `总分 ${row.total}` : `已录 ${row.enteredCount}/${subjects.length}`} · 第{row.student.group}组 · 学号 {row.student.studentNo || "未填"}</small><strong>{shownSubjects.slice(0, 3).map((subject) => <i key={subject}>{subject} {scoreEntry(exam, row.student.id, subject) ?? "未录"}</i>)}</strong></span>
         </button>
-        <button type="button" className={row.followUp ? "mobile-score-follow active" : "mobile-score-follow"} onClick={() => toggleScoreFollow(row.student.id)}>{row.followUp ? "已标记" : "标记"}</button>
+        <button type="button" disabled={readOnly || scoreBusy} className={row.followUp ? "mobile-score-follow active" : "mobile-score-follow"} onClick={() => void toggleScoreFollow(row.student.id)}>{row.followUp ? "已标记" : "标记"}</button>
       </article>)}
       {!ranked.length && <p className="mobile-empty">没有符合条件的学生。</p>}
       {ranked.length > scorePageSize && <div className="mobile-list-pager"><button type="button" disabled={safeScorePage <= 1} onClick={() => setScorePage((page) => page - 1)}>上一页</button><span>{safeScorePage} / {scorePageCount} · 共 {ranked.length} 人</span><button type="button" disabled={safeScorePage >= scorePageCount} onClick={() => setScorePage((page) => page + 1)}>下一页</button></div>}
@@ -712,10 +752,10 @@ function MobileScoresWithExam({ workspaceToken, data, activeClass, update, open 
         <span><small>学号</small><b>{selected.studentNo || "未填"}</b></span>
       </div>
       <div className="mobile-form-grid mobile-score-form">
-        {subjects.map((subject) => <label key={subject}><span>{subject}</span><input type="number" min={0} max={subjectMaxScore(exam, subject)} value={examScores?.[subject] ?? ""} onChange={(event) => setStudentScore(selected.id, subject, event.target.value)} placeholder="未录入" /></label>)}
-        <label className="wide"><span>成绩建议</span><textarea value={exam.advice?.[selected.id] ?? selectedRow.advice} onChange={(event) => setScoreAdvice(selected.id, event.target.value)} /></label>
+        {subjects.map((subject) => <label key={subject}><span>{subject}</span><input disabled={readOnly} type="number" min={0} max={subjectMaxScore(exam, subject)} value={examScores?.[subject] ?? ""} onChange={(event) => setStudentScore(selected.id, subject, event.target.value)} placeholder="未录入" /></label>)}
+        <label className="wide"><span>成绩建议</span><textarea disabled={readOnly} value={exam.advice?.[selected.id] ?? selectedRow.advice} onChange={(event) => setScoreAdvice(selected.id, event.target.value)} /></label>
       </div>
-      <div className="mobile-sheet-actions single"><button type="button" onClick={() => toggleScoreFollow(selected.id)}>{selectedRow.followUp ? "取消重点跟进" : "标记重点跟进"}</button></div>
+      <div className="mobile-sheet-actions single"><button type="button" disabled={readOnly || scoreBusy} onClick={() => void toggleScoreFollow(selected.id)}>{selectedRow.followUp ? "取消重点跟进" : "标记重点跟进"}</button></div>
     </MobileInfoSheet>}
     {scoreBatchOpen && <MobileInfoSheet title={`${exam.title} · 批量录分`} onClose={() => setScoreBatchOpen(false)}>
       <div className="mobile-form-grid mobile-score-batch-head">
@@ -731,7 +771,7 @@ function MobileScoresWithExam({ workspaceToken, data, activeClass, update, open 
         </article>)}
         {!batchScoreStudents.length && <p className="mobile-empty">请先在学生列表中选择同分学生。</p>}
       </div>
-      <div className="mobile-sheet-actions"><button type="button" onClick={() => setScoreBatchOpen(false)}>取消</button><button type="button" className="primary" disabled={!selectedIds.length || scoreBatchValue === ""} onClick={applyMobileBatchScore}>应用到已选</button></div>
+      <div className="mobile-sheet-actions"><button type="button" disabled={scoreBusy} onClick={() => setScoreBatchOpen(false)}>取消</button><button type="button" className="primary" disabled={readOnly || scoreBusy || !selectedIds.length || scoreBatchValue === ""} onClick={() => void applyMobileBatchScore()}>{scoreBusy ? "保存中…" : "应用到已选"}</button></div>
     </MobileInfoSheet>}
     {examPickerOpen && <MobileInfoSheet title="切换考试" onClose={() => setExamPickerOpen(false)}>
       <div className="mobile-form-grid mobile-exam-filter">
@@ -760,8 +800,8 @@ function MobileScoresWithExam({ workspaceToken, data, activeClass, update, open 
         <label><span>考试日期</span><input value={examDraft.date} onChange={(event) => setExamDraft({ ...examDraft, date: event.target.value })} placeholder="2026-08-07" /></label>
         <label className="wide"><span>考试科目</span><input value={examDraft.subjects} onChange={(event) => setExamDraft({ ...examDraft, subjects: event.target.value })} placeholder="语文，数学，英语" /></label>
       </div>
-      {examEditorOpen === "edit" && <div className="mobile-sheet-actions single"><button type="button" onClick={deleteMobileExam}>删除当前考试</button></div>}
-      <div className="mobile-sheet-actions"><button type="button" onClick={() => setExamEditorOpen("")}>取消</button><button type="button" className="primary" onClick={saveExamDraft}>{examEditorOpen === "new" ? "新增考试" : "保存考试"}</button></div>
+      {examEditorOpen === "edit" && <div className="mobile-sheet-actions single"><button type="button" disabled={readOnly || scoreBusy} onClick={() => void deleteMobileExam()}>删除当前考试</button></div>}
+      <div className="mobile-sheet-actions"><button type="button" disabled={scoreBusy} onClick={() => setExamEditorOpen("")}>取消</button><button type="button" className="primary" disabled={readOnly || scoreBusy} onClick={() => void saveExamDraft()}>{scoreBusy ? "保存中…" : examEditorOpen === "new" ? "新增考试" : "保存考试"}</button></div>
     </MobileInfoSheet>}
     {filterEditorOpen && <MobileInfoSheet title="筛选学生" onClose={() => setFilterEditorOpen(false)}>
       <section className="mobile-score-filter-context"><span>当前查看</span><b>{activeRangeSubject === "总分" ? "全科总分" : `${activeRangeSubject}成绩`}</b><small>科目在主页面切换，这里只筛选学生并调整列表顺序。</small></section>
@@ -787,7 +827,7 @@ function MobileScoresWithExam({ workspaceToken, data, activeClass, update, open 
           <button type="button" onClick={() => setRangeDrafts((list) => list.filter((_, i) => i !== index))}>删除</button>
         </div>)}
       </div>
-      <div className="mobile-sheet-actions"><button type="button" onClick={() => setRangeDrafts((list) => [...list, { id: `custom-${Date.now()}`, label: "自定义", min: 0, max: subjectMaxScore(exam, filterSubjectDraft) }])}>新增区间</button><button type="button" className="primary" onClick={saveMobileFilterEditor}>保存</button></div>
+      <div className="mobile-sheet-actions"><button type="button" disabled={readOnly || scoreBusy} onClick={() => setRangeDrafts((list) => [...list, { id: `custom-${Date.now()}`, label: "自定义", min: 0, max: subjectMaxScore(exam, filterSubjectDraft) }])}>新增区间</button><button type="button" className="primary" disabled={readOnly || scoreBusy} onClick={() => void saveMobileFilterEditor()}>{scoreBusy ? "保存中…" : "保存"}</button></div>
     </MobileInfoSheet>}
   </div>;
 }
@@ -3271,13 +3311,13 @@ function Records({ data, update, save, readOnly }: { data: ClassroomData; update
   </>;
 }
 
-function Scores(props: { workspaceToken: string; data: ClassroomData; update: (fn: (d: ClassroomData) => ClassroomData) => void }) {
+function Scores(props: { workspaceToken: string; data: ClassroomData; update: (fn: (d: ClassroomData) => ClassroomData) => void; save: () => Promise<boolean>; readOnly: boolean }) {
   const activeClassId = props.data.activeClassId ?? props.data.rosterClasses?.[0]?.id ?? "class-1";
-  if (!scoreExamsForClass(props.data, activeClassId).length) return <EmptyScoreWorkspace data={props.data} classId={activeClassId} update={props.update} mobile={false} />;
+  if (!scoreExamsForClass(props.data, activeClassId).length) return <EmptyScoreWorkspace data={props.data} classId={activeClassId} update={props.update} save={props.save} readOnly={props.readOnly} mobile={false} />;
   return <ScoresWithExam {...props} />;
 }
 
-function ScoresWithExam({ workspaceToken, data, update }: { workspaceToken: string; data: ClassroomData; update: (fn: (d: ClassroomData) => ClassroomData) => void }) {
+function ScoresWithExam({ workspaceToken, data, update, save, readOnly }: { workspaceToken: string; data: ClassroomData; update: (fn: (d: ClassroomData) => ClassroomData) => void; save: () => Promise<boolean>; readOnly: boolean }) {
   const activeClassId = data.activeClassId ?? data.rosterClasses?.[0]?.id ?? "class-1";
   const classExams = scoreExamsForClass(data, activeClassId);
   const exams = classExams;
@@ -3317,6 +3357,8 @@ function ScoresWithExam({ workspaceToken, data, update }: { workspaceToken: stri
   const [batchSubject, setBatchSubject] = useState("");
   const [batchScoreValue, setBatchScoreValue] = useState("");
   const [batchScoreError, setBatchScoreError] = useState("");
+  const [scoreBusy, setScoreBusy] = useState(false);
+  const [scoreMessage, setScoreMessage] = useState("");
   const tableSubjects = detailSubjectFilter !== "全部" && subjects.includes(detailSubjectFilter) ? [detailSubjectFilter] : subjects;
   const activeRangeSubject = detailSubjectFilter !== "全部" ? detailSubjectFilter : "总分";
   const activeRanges = scoreRangesFor(exam, activeRangeSubject);
@@ -3414,6 +3456,7 @@ function ScoresWithExam({ workspaceToken, data, update }: { workspaceToken: stri
     update((current) => patchScoreExam(current, activeClassId, nextExam.id, nextExam));
   }
   function setScore(studentId: string, subject: string, value: string) {
+    if (readOnly) return;
     const numeric = value.trim() === "" ? null : Number(value);
     const preview = setScoreEntries(data, activeClassId, exam.id, [studentId], subject, numeric);
     if (preview.error) { notify(preview.error, "error"); return; }
@@ -3426,7 +3469,8 @@ function ScoresWithExam({ workspaceToken, data, update }: { workspaceToken: stri
     setBatchScoreError("");
     setShowBatchScore(true);
   }
-  function applyBatchScore() {
+  async function applyBatchScore() {
+    if (readOnly || scoreBusy) return;
     const value = Number(batchScoreValue);
     if (!selectedIds.length) {
       setBatchScoreError("请先在学生列表中选择同分学生。");
@@ -3444,21 +3488,34 @@ function ScoresWithExam({ workspaceToken, data, update }: { workspaceToken: stri
     const preview = setScoreEntries(data, activeClassId, exam.id, selectedIds, activeBatchSubject, safeScore);
     if (preview.error) { setBatchScoreError(preview.error); return; }
     update((current) => setScoreEntries(current, activeClassId, exam.id, selectedIds, activeBatchSubject, safeScore).data ?? current);
+    setScoreBusy(true);
+    const ok = await save();
+    setScoreBusy(false);
+    if (!ok) { setBatchScoreError("同步失败，本机录分已保留；请重试保存，当前选择不会清空。"); return; }
     setBatchScoreError("");
     setShowBatchScore(false);
     setSelectedIds([]);
   }
   function setAdvice(studentId: string, advice: string) {
+    if (readOnly) return;
     updateExam({ ...exam, advice: { ...(exam.advice ?? {}), [studentId]: advice } });
   }
-  function toggleFollow(studentId: string) {
+  async function toggleFollow(studentId: string) {
+    if (readOnly || scoreBusy) return;
     const list = exam.followUpStudentIds ?? [];
     updateExam({ ...exam, followUpStudentIds: list.includes(studentId) ? list.filter((id) => id !== studentId) : [...list, studentId] });
+    setScoreBusy(true); setScoreMessage("");
+    const ok = await save(); setScoreBusy(false);
+    setScoreMessage(ok ? "重点状态已同步" : "重点状态同步失败，本机修改已保留。");
   }
-  function batchFollow(mark: boolean) {
+  async function batchFollow(mark: boolean) {
+    if (readOnly || scoreBusy) return;
     const list = exam.followUpStudentIds ?? [];
     const nextList = mark ? Array.from(new Set([...list, ...selectedIds])) : list.filter((id) => !selectedIds.includes(id));
     updateExam({ ...exam, followUpStudentIds: nextList });
+    setScoreBusy(true); setScoreMessage("");
+    const ok = await save(); setScoreBusy(false);
+    if (!ok) { setScoreMessage("批量重点状态同步失败，本机修改已保留；当前选择不会清空。"); return; }
     setSelectedIds([]);
   }
   function toggleSelect(studentId: string) {
@@ -3474,13 +3531,17 @@ function ScoresWithExam({ workspaceToken, data, update }: { workspaceToken: stri
     setSubjectDraft("");
     setShowExamSetup(true);
   }
-  function confirmAddExam() {
+  async function confirmAddExam() {
+    if (readOnly || scoreBusy) return;
     const nextSubjects = parseSubjects(subjectDraft);
     if (!nextSubjects.length) return;
     const result = createScoreExam(data, activeClassId, { title: newExamTitle, date: newExamDate, subjects: nextSubjects }, makeId);
     if (!result.exam) { notify(result.error ?? "考试创建失败。", "error"); return; }
     const next = result.exam;
     update((current) => createScoreExam(current, activeClassId, { title: newExamTitle, date: newExamDate, subjects: nextSubjects }, () => next.id).data ?? current);
+    setScoreBusy(true); setScoreMessage("");
+    const ok = await save(); setScoreBusy(false);
+    if (!ok) { setScoreMessage("新增考试同步失败，本机修改已保留；窗口保持打开，请重试。"); return; }
     setExamId(next.id);
     setDetailSubjectFilter("全部");
     setScoreRangeFilter("全部");
@@ -3493,17 +3554,24 @@ function ScoresWithExam({ workspaceToken, data, update }: { workspaceToken: stri
     setShowExamEdit(true);
   }
   async function deleteCurrentExam() {
-    if (!await requestDangerConfirm(`${exam.title} 的全部成绩、跟进标记和关联反思都会删除。`, "删除考试", "确认删除")) return;
+    if (readOnly || scoreBusy || !await requestDangerConfirm(`${exam.title} 的全部成绩、跟进标记和关联反思都会删除。`, "删除考试", "确认删除")) return;
     update((current) => removeScoreExam(current, activeClassId, exam.id));
+    setScoreBusy(true); setScoreMessage("");
+    const ok = await save(); setScoreBusy(false);
+    if (!ok) { setScoreMessage("删除同步失败，本机修改已保留；窗口保持打开，请重试。"); return; }
     setExamId(exams.find((item) => item.id !== exam.id)?.id ?? "");
     setShowExamEdit(false);
   }
-  function confirmExamEdit() {
+  async function confirmExamEdit() {
+    if (readOnly || scoreBusy) return;
     const nextSubjects = parseSubjects(editSubjects);
     if (!nextSubjects.length) return;
     const preview = editScoreExam(data, activeClassId, exam.id, { title: editTitle, date: editDate, subjects: nextSubjects });
     if (preview.error) { notify(preview.error, "error"); return; }
     update((current) => editScoreExam(current, activeClassId, exam.id, { title: editTitle, date: editDate, subjects: nextSubjects }).data ?? current);
+    setScoreBusy(true); setScoreMessage("");
+    const ok = await save(); setScoreBusy(false);
+    if (!ok) { setScoreMessage("考试信息同步失败，本机修改已保留；窗口保持打开，请重试。"); return; }
     if (detailSubjectFilter !== "全部" && !nextSubjects.includes(detailSubjectFilter)) setDetailSubjectFilter("全部");
     setShowExamEdit(false);
   }
@@ -3516,7 +3584,8 @@ function ScoresWithExam({ workspaceToken, data, update }: { workspaceToken: stri
     loadFilterDraft(activeRangeSubject);
     setShowFilterEditor(true);
   }
-  function saveFilterEditor() {
+  async function saveFilterEditor() {
+    if (readOnly || scoreBusy) return;
     const key = scoreSubjectKey(filterSubjectDraft);
     const cleanRanges = rangeDrafts.map((item, index) => ({
       id: item.id || `range-${index + 1}`,
@@ -3529,6 +3598,9 @@ function ScoresWithExam({ workspaceToken, data, update }: { workspaceToken: stri
     const nextMaxScores = { ...(exam.subjectMaxScores ?? {}) };
     if (filterSubjectDraft !== "总分") nextMaxScores[filterSubjectDraft] = Math.max(1, Number(maxScoreDraft) || 100);
     updateExam({ ...exam, subjectMaxScores: nextMaxScores, scoreRanges: nextRanges });
+    setScoreBusy(true); setScoreMessage("");
+    const ok = await save(); setScoreBusy(false);
+    if (!ok) { setScoreMessage("满分与区间同步失败，本机修改已保留；编辑窗口保持打开。"); return; }
     setDetailSubjectFilter(filterSubjectDraft === "总分" ? "全部" : filterSubjectDraft);
     setScoreRangeFilter(savedRanges[0]?.id ?? "全部");
     setShowFilterEditor(false);
@@ -3546,7 +3618,7 @@ function ScoresWithExam({ workspaceToken, data, update }: { workspaceToken: stri
     <section className="score5-page">
       <section className="score5-current workbench-page-context">
         <div className="score5-current-main"><i aria-hidden="true"><CampusIcon name="scores" /></i><span>当前考试</span><h3>{exam.title}</h3><p>{exam.date} · {subjects.join("，")}</p></div>
-        <div className="score5-actions"><button type="button" onClick={() => setShowExamLibrary(true)}>切换考试</button><button type="button" onClick={openExamEdit}>编辑考试</button><button type="button" className="score5-primary" onClick={addExam}>新增考试</button></div>
+        <div className="score5-actions"><button type="button" onClick={() => setShowExamLibrary(true)}>切换考试</button><button type="button" disabled={readOnly || scoreBusy} onClick={openExamEdit}>编辑考试</button><button type="button" className="score5-primary" disabled={readOnly || scoreBusy} onClick={addExam}>新增考试</button></div>
       </section>
 
       <nav className="score5-workspace-tabs" aria-label="成绩工作视图"><button type="button" className={scoreWorkspaceView === "records" ? "active" : ""} onClick={() => setScoreWorkspaceView("records")}>成绩录入</button><button type="button" className={scoreWorkspaceView === "trends" ? "active" : ""} onClick={() => setScoreWorkspaceView("trends")}>历次趋势</button><button type="button" className={scoreWorkspaceView === "analysis" ? "active" : ""} onClick={() => setScoreWorkspaceView("analysis")}>试卷与知识点</button></nav>
@@ -3569,7 +3641,8 @@ function ScoresWithExam({ workspaceToken, data, update }: { workspaceToken: stri
       </section>}
 
       {scoreWorkspaceView === "trends" && <ScoreTrends data={data} classId={activeClassId} />}
-      {scoreWorkspaceView === "analysis" && <ScoreItemAnalysis data={data} classId={activeClassId} workspaceToken={workspaceToken} exam={exam} students={data.students} update={update} />}
+      {scoreWorkspaceView === "analysis" && <ScoreItemAnalysis data={data} classId={activeClassId} workspaceToken={workspaceToken} exam={exam} students={data.students} update={update} save={save} readOnly={readOnly} />}
+      {scoreMessage && <p className="score5-batch-error" role="status">{scoreMessage}</p>}
 
       {scoreWorkspaceView === "records" && <><section className="score5-toolbar">
         <label className="score5-filter-field wide"><span>学生搜索</span><input value={keyword} onChange={(e) => setKeyword(e.target.value)} placeholder="姓名、学号或建议" /></label>
@@ -3579,8 +3652,8 @@ function ScoresWithExam({ workspaceToken, data, update }: { workspaceToken: stri
         <label className="score5-filter-field"><span>重点标记</span><select value={followFilter} onChange={(e) => setFollowFilter(e.target.value as typeof followFilter)}><option>全部</option><option>已标记</option><option>未标记</option></select></label>
         <label className="score5-filter-field"><span>排序字段</span><select value={sortKey} onChange={(e) => setSortKey(e.target.value)}><option value="priority">待处理优先</option><option value="total">总分</option><option value="average">平均分</option>{subjects.map((item) => <option value={`subject:${item}`} key={item}>{item}</option>)}<option value="studentNo">学号</option><option value="name">姓名</option></select></label>
         <label className="score5-filter-field"><span>排序方式</span><select value={sortDir} disabled={sortKey === "priority"} onChange={(e) => setSortDir(e.target.value as typeof sortDir)}>{sortKey === "priority" ? <option value="asc">未录与重点在前</option> : <><option value="desc">降序</option><option value="asc">升序</option></>}</select></label>
-        <button type="button" className="score5-filter-edit" onClick={openFilterEditor}>编辑筛选项</button>
-        <div className={`score5-selection ${selectedIds.length ? "active" : ""}`}><span>当前 {visible.length} 人</span><strong>已选 {selectedIds.length} 人</strong>{selectedIds.length > 0 && <><button type="button" onClick={openBatchScore}>批量录分</button><button type="button" onClick={() => batchFollow(true)}>批量标记重点</button><button type="button" onClick={() => batchFollow(false)}>取消重点</button></>}</div>
+        <button type="button" className="score5-filter-edit" disabled={readOnly || scoreBusy} onClick={openFilterEditor}>编辑筛选项</button>
+        <div className={`score5-selection ${selectedIds.length ? "active" : ""}`}><span>当前 {visible.length} 人</span><strong>已选 {selectedIds.length} 人</strong>{selectedIds.length > 0 && <><button type="button" disabled={readOnly || scoreBusy} onClick={openBatchScore}>批量录分</button><button type="button" disabled={readOnly || scoreBusy} onClick={() => void batchFollow(true)}>批量标记重点</button><button type="button" disabled={readOnly || scoreBusy} onClick={() => void batchFollow(false)}>取消重点</button></>}</div>
       </section>
 
       <section className="score5-table-wrap">
@@ -3599,11 +3672,11 @@ function ScoresWithExam({ workspaceToken, data, update }: { workspaceToken: stri
             {visible.map(({ student, total, average, advice, followUp, enteredCount, complete }) => <tr key={student.id}>
               <td><label className="score5-check"><input type="checkbox" aria-label={`${selectedIds.includes(student.id) ? "取消选择" : "选择"}${student.name}`} checked={selectedIds.includes(student.id)} onChange={() => toggleSelect(student.id)} /></label></td>
               <td><span className="score5-student-cell">{student.name}<small>学号 {student.studentNo || "未填"}</small></span></td>
-              {tableSubjects.map((subject) => <td key={subject}><input className="score5-score-input" aria-label={`${student.name}${subject}成绩`} type="number" min={0} max={subjectMaxScore(exam, subject)} value={scoreEntry(exam, student.id, subject) ?? ""} onChange={(e) => setScore(student.id, subject, e.target.value)} placeholder="未录" /></td>)}
+              {tableSubjects.map((subject) => <td key={subject}><input disabled={readOnly} className="score5-score-input" aria-label={`${student.name}${subject}成绩`} type="number" min={0} max={subjectMaxScore(exam, subject)} value={scoreEntry(exam, student.id, subject) ?? ""} onChange={(e) => setScore(student.id, subject, e.target.value)} placeholder="未录" /></td>)}
               <td><strong>{complete ? total : "待补全"}</strong></td>
               <td><strong>{enteredCount ? average : "未录入"}</strong></td>
-              <td><button type="button" className={followUp ? "active" : ""} onClick={() => toggleFollow(student.id)}>{followUp ? "已标记" : "标记"}</button></td>
-              <td><textarea className="score5-advice" rows={2} aria-label={`${student.name}成绩建议`} value={advice} onChange={(e) => setAdvice(student.id, e.target.value)} /></td>
+              <td><button type="button" disabled={readOnly || scoreBusy} className={followUp ? "active" : ""} onClick={() => void toggleFollow(student.id)}>{followUp ? "已标记" : "标记"}</button></td>
+              <td><textarea disabled={readOnly} className="score5-advice" rows={2} aria-label={`${student.name}成绩建议`} value={advice} onChange={(e) => setAdvice(student.id, e.target.value)} /></td>
             </tr>)}
             {!visible.length && <tr><td className="score5-empty" colSpan={tableSubjects.length + 6}>没有符合条件的学生。</td></tr>}
           </tbody>
@@ -3631,7 +3704,7 @@ function ScoresWithExam({ workspaceToken, data, update }: { workspaceToken: stri
             {!batchRows.length && <p className="score5-empty">请先在学生列表中选择同分学生。</p>}
           </div>
         </div>
-        <footer><span>{batchScoreValue === "" ? "填写同一分数后应用到已选学生。" : `将统一录入 ${activeBatchScore} 分。`}</span><button type="button" onClick={() => setShowBatchScore(false)}>取消</button><button type="button" className="score5-primary" disabled={!selectedIds.length || batchScoreValue === ""} onClick={applyBatchScore}>应用到已选</button></footer>
+        <footer><span>{batchScoreValue === "" ? "填写同一分数后应用到已选学生。" : `将统一录入 ${activeBatchScore} 分。`}</span><button type="button" disabled={scoreBusy} onClick={() => setShowBatchScore(false)}>取消</button><button type="button" className="score5-primary" disabled={readOnly || scoreBusy || !selectedIds.length || batchScoreValue === ""} onClick={() => void applyBatchScore()}>{scoreBusy ? "保存中…" : "应用到已选"}</button></footer>
       </section>
     </div>}
 
@@ -3667,7 +3740,7 @@ function ScoresWithExam({ workspaceToken, data, update }: { workspaceToken: stri
           <label><span>考试日期</span><input value={newExamDate} onChange={(e) => setNewExamDate(e.target.value)} placeholder="2026-08-03" /></label>
           <label className="wide"><span>考试科目</span><input value={subjectDraft} onChange={(e) => setSubjectDraft(e.target.value)} placeholder="例如：语文，数学，英语，或只填物理" /></label>
         </div>
-        <footer><button type="button" onClick={() => setShowExamSetup(false)}>取消</button><button type="button" className="score5-primary" disabled={!parseSubjects(subjectDraft).length} onClick={confirmAddExam}>确认新增</button></footer>
+        <footer><button type="button" disabled={scoreBusy} onClick={() => setShowExamSetup(false)}>取消</button><button type="button" className="score5-primary" disabled={readOnly || scoreBusy || !parseSubjects(subjectDraft).length} onClick={() => void confirmAddExam()}>{scoreBusy ? "保存中…" : "确认新增"}</button></footer>
       </section>
     </div>}
 
@@ -3679,7 +3752,7 @@ function ScoresWithExam({ workspaceToken, data, update }: { workspaceToken: stri
           <label><span>考试日期</span><input value={editDate} onChange={(e) => setEditDate(e.target.value)} /></label>
           <label className="wide"><span>考试科目</span><input value={editSubjects} onChange={(e) => setEditSubjects(e.target.value)} placeholder="语文，数学，英语" /></label>
         </div>
-        <footer><button type="button" className="danger-small" onClick={deleteCurrentExam}>删除考试</button><button type="button" onClick={() => setShowExamEdit(false)}>取消</button><button type="button" className="score5-primary" disabled={!parseSubjects(editSubjects).length} onClick={confirmExamEdit}>保存考试</button></footer>
+        <footer><button type="button" className="danger-small" disabled={readOnly || scoreBusy} onClick={() => void deleteCurrentExam()}>删除考试</button><button type="button" disabled={scoreBusy} onClick={() => setShowExamEdit(false)}>取消</button><button type="button" className="score5-primary" disabled={readOnly || scoreBusy || !parseSubjects(editSubjects).length} onClick={() => void confirmExamEdit()}>{scoreBusy ? "保存中…" : "保存考试"}</button></footer>
       </section>
     </div>}
 
@@ -3700,9 +3773,9 @@ function ScoresWithExam({ workspaceToken, data, update }: { workspaceToken: stri
               <button type="button" onClick={() => setRangeDrafts((list) => list.filter((_, i) => i !== index))}>删除</button>
             </div>)}
           </div>
-          <button type="button" className="score5-add-range" onClick={() => setRangeDrafts((list) => [...list, { id: `custom-${Date.now()}`, label: "自定义", min: 0, max: subjectMaxScore(exam, filterSubjectDraft) }])}>新增区间</button>
+          <button type="button" className="score5-add-range" disabled={readOnly || scoreBusy} onClick={() => setRangeDrafts((list) => [...list, { id: `custom-${Date.now()}`, label: "自定义", min: 0, max: subjectMaxScore(exam, filterSubjectDraft) }])}>新增区间</button>
         </div>
-        <footer><button type="button" onClick={() => setShowFilterEditor(false)}>取消</button><button type="button" className="score5-primary" onClick={saveFilterEditor}>保存筛选项</button></footer>
+        <footer><button type="button" disabled={scoreBusy} onClick={() => setShowFilterEditor(false)}>取消</button><button type="button" className="score5-primary" disabled={readOnly || scoreBusy} onClick={() => void saveFilterEditor()}>{scoreBusy ? "保存中…" : "保存筛选项"}</button></footer>
       </section>
     </div>}
   </>;
