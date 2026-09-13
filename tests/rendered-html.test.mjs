@@ -156,6 +156,15 @@ test("growth, records and notification editors wait for workspace confirmation",
   assert.match(notificationDrafts, /系统不自动外发/);
 });
 
+test("points and rules wait for workspace confirmation before clearing editors", () => {
+  assert.match(app, /function Points\(\{ data, update, save, readOnly/);
+  assert.match(app, /积分同步失败，学生选择和本次说明已保留/);
+  assert.match(app, /function Rules\(\{ data, update, save, readOnly/);
+  assert.match(app, /规则同步失败，新增内容已保留/);
+  assert.match(app, /if \(!ok\) \{ notify\("规则同步失败，当前编辑内容已保留"/);
+  assert.match(app, /disabled=\{readOnly \|\| busy \|\| !selected\.length/);
+});
+
 test("authentication keeps HTTP as an explicit temporary switch", () => {
   assert.match(auth, /AUTH_ALLOW_INSECURE_HTTP === "true"/);
   assert.match(auth, /INSECURE_HTTP_DISABLED/);

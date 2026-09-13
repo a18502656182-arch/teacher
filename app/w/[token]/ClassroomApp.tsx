@@ -313,8 +313,8 @@ export default function ClassroomApp({ token }: { token: string }) {
           {active === "students" && <StudentsView data={workspace.data} update={updateData} confirmAction={requestDangerConfirm} readOnly={isDemo || isReadOnly} />}
           {active === "attendance" && <Attendance data={workspace.data} update={updateData} save={save} readOnly={isDemo || isReadOnly} />}
           {active === "homework" && <HomeworkView data={workspace.data} update={updateData} confirmAction={requestDangerConfirm} readOnly={isDemo || isReadOnly} />}
-          {active === "points" && <Points data={workspace.data} update={updateData} />}
-          {active === "rules" && <Rules data={workspace.data} update={updateData} />}
+          {active === "points" && <Points data={workspace.data} update={updateData} save={save} readOnly={isDemo || isReadOnly} />}
+          {active === "rules" && <Rules data={workspace.data} update={updateData} save={save} readOnly={isDemo || isReadOnly} />}
           {active === "growth" && <Growth data={workspace.data} update={updateData} save={save} readOnly={isDemo || isReadOnly} requestedStudentId={growthRequest.studentId} />}
           {active === "health" && <HealthCare data={workspace.data} update={updateData} save={save} readOnly={isDemo || isReadOnly} />}
           {active === "weekly" && <Weekly data={workspace.data} update={updateData} readOnly={isDemo || isReadOnly} />}
@@ -806,6 +806,7 @@ function MobileSecondaryPage({ workspaceToken, active, data, activeClass, growth
   const [pointStudentKeyword, setPointStudentKeyword] = useState("");
   const [pointGroupFilter, setPointGroupFilter] = useState("全部小组");
   const [selectedPointIds, setSelectedPointIds] = useState<string[]>([]);
+  const [pointBusy, setPointBusy] = useState(false);
   const [pointView, setPointView] = useState<"录入" | "排行" | "记录">("录入");
   const [pointSort, setPointSort] = useState<"积分高优先" | "积分低优先" | "姓名" | "小组">("积分高优先");
   const [pointRuleScene, setPointRuleScene] = useState("全部规则");
@@ -887,6 +888,7 @@ function MobileSecondaryPage({ workspaceToken, active, data, activeClass, growth
   const [ruleKeyword, setRuleKeyword] = useState("");
   const [ruleCategory, setRuleCategory] = useState("全部");
   const [ruleStatusFilter, setRuleStatusFilter] = useState<"全部状态" | "启用" | "停用">("全部状态");
+  const [ruleBusy, setRuleBusy] = useState(false);
   const [recordDraft, setRecordDraft] = useState({ studentId: activeClass.students[0]?.id ?? data.students[0]?.id ?? "", student: activeClass.students[0]?.name ?? data.students[0]?.name ?? "", type: "家校沟通", channel: "微信", date: localCommunicationDate(), purpose: "沟通情况补录", home: "", content: "", opinion: "", followUp: "" });
   const [ruleDraft, setRuleDraft] = useState<PointRule>({ id: "", scene: "课堂", title: "", reason: "", delta: 1, owner: "班主任", enabled: true, level: "自定义", detail: "" });
   const students = activeClass.students?.length ? activeClass.students : data.students;
@@ -951,22 +953,29 @@ function MobileSecondaryPage({ workspaceToken, active, data, activeClass, growth
     const ids = filteredPointStudents.map((student) => student.id);
     setSelectedPointIds((current) => allPointFilteredSelected ? current.filter((id) => !ids.includes(id)) : Array.from(new Set([...current, ...ids])));
   }
-  function savePointEvent() {
+  async function savePointEvent() {
     const value = Number(pointDraft.delta) || 0;
     if (!selectedPointIds.length || !selectedPointRule || value === 0) {
       notify("请选择学生和积分规则，分值不能为 0", "error");
       return;
     }
+    if (readOnly || pointBusy) { notify("当前为只读模式，不能提交积分", "error"); return; }
     const stamp = new Date().toLocaleString("zh-CN", { year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit" });
+    setPointBusy(true);
     update((current) => applyPointEvents(current, activeClass.id, selectedPointIds, selectedPointRule, value, pointDraft.note, pointDraft.operator, stamp, makeId));
+    const ok = await save(); setPointBusy(false);
+    if (!ok) { notify("积分同步失败，学生选择和本次说明已保留", "error"); return; }
     setPointDraft((current) => ({ ...current, note: "" }));
     setSelectedPointIds([]);
     setQuickPointOpen(false);
     notify("积分记录已添加", "success");
   }
-  function undoPointEvent(event: PointEvent) {
+  async function undoPointEvent(event: PointEvent) {
+    if (readOnly || pointBusy) return;
+    setPointBusy(true);
     update((current) => undoPointEventInClass(current, activeClass.id, event.id));
-    notify("积分记录已撤销", "success");
+    const ok = await save(); setPointBusy(false);
+    notify(ok ? "积分记录已撤销" : "撤销同步失败，本机修改已保留", ok ? "success" : "error");
   }
   async function saveRecord() {
     if (readOnly || recordBusy) { notify("当前为只读模式，不能保存沟通记录", "error"); return; }
@@ -1037,32 +1046,46 @@ function MobileSecondaryPage({ workspaceToken, active, data, activeClass, growth
     notify("沟通记录已删除", "success");
   }
   function openRuleEditor(rule?: PointRule) {
+    if (readOnly || ruleBusy) return;
     setDetail(null);
     setRuleDraft(rule ? { ...rule } : { id: "", scene: "课堂", title: "", reason: "", delta: 1, owner: "班主任", enabled: true, level: "自定义", detail: "" });
     setRuleEditorOpen(true);
   }
-  function saveRuleDraft() {
+  async function saveRuleDraft() {
     if (!ruleDraft.title.trim() || !ruleDraft.reason.trim()) {
       notify("请填写规则名称和理由", "error");
       return;
     }
+    if (readOnly || ruleBusy) return;
     const nextRule: PointRule = { ...ruleDraft, id: ruleDraft.id || makeId(), title: ruleDraft.title.trim(), reason: ruleDraft.reason.trim(), delta: Number(ruleDraft.delta) || 0, owner: ruleDraft.owner.trim() || "班主任" };
+    setRuleBusy(true);
     update((current) => upsertPointRule(current, nextRule));
+    const ok = await save(); setRuleBusy(false);
+    if (!ok) { notify("规则同步失败，当前编辑内容已保留", "error"); return; }
     setRuleEditorOpen(false);
     notify("积分规则已保存", "success");
   }
-  function toggleRuleEnabled(rule: PointRule) {
+  async function toggleRuleEnabled(rule: PointRule) {
+    if (readOnly || ruleBusy) return;
+    setRuleBusy(true);
     update((current) => patchPointRule(current, rule.id, { enabled: rule.enabled === false }));
-    notify("规则状态已更新", "success");
+    const ok = await save(); setRuleBusy(false);
+    notify(ok ? "规则状态已更新" : "状态同步失败，本机修改已保留", ok ? "success" : "error");
   }
-  function copyRuleMobile(rule: PointRule) {
+  async function copyRuleMobile(rule: PointRule) {
+    if (readOnly || ruleBusy) return;
     const copied: PointRule = { ...rule, id: makeId(), title: `${rule.title} 副本`, enabled: true, level: "自定义" };
+    setRuleBusy(true);
     update((current) => replacePointRules(current, [copied, ...pointRulesForData(current)]));
-    notify("规则已复制", "success");
+    const ok = await save(); setRuleBusy(false);
+    notify(ok ? "规则已复制" : "复制同步失败，本机修改已保留", ok ? "success" : "error");
   }
   async function deleteRuleMobile(rule: PointRule) {
-    if (!await requestDangerConfirm(`确认删除规则“${rule.title}”？历史积分记录不会删除。`)) return;
+    if (readOnly || ruleBusy || !await requestDangerConfirm(`确认删除规则“${rule.title}”？历史积分记录不会删除。`)) return;
+    setRuleBusy(true);
     update((current) => deletePointRule(current, rule.id));
+    const ok = await save(); setRuleBusy(false);
+    if (!ok) { notify("删除同步失败，本机修改已保留", "error"); return; }
     setDetail(null);
     notify("规则已删除", "success");
   }
@@ -1495,7 +1518,7 @@ function MobileSecondaryPage({ workspaceToken, active, data, activeClass, growth
       });
     };
     return <div className="mobile-stack mobile-points-page">
-      <MobileSectionHero title={title} text={`${participants} 名学生已有记录 · 累计加分 ${positiveTotal} · 扣分 ${negativeTotal}`} action="选择学生" onAction={() => setQuickPointOpen(true)} />
+      <MobileSectionHero title={title} text={`${participants} 名学生已有记录 · 累计加分 ${positiveTotal} · 扣分 ${negativeTotal}`} action={readOnly ? undefined : "选择学生"} onAction={() => setQuickPointOpen(true)} />
       <section className="mobile-point-composer">
         <header>
           <div>
@@ -1504,11 +1527,11 @@ function MobileSecondaryPage({ workspaceToken, active, data, activeClass, growth
           </div>
           <strong className={Number(pointDraft.delta) >= 0 ? "positive" : "negative"}>{Number(pointDraft.delta) > 0 ? "+" : ""}{Number(pointDraft.delta) || 0}</strong>
         </header>
-        <button type="button" className="mobile-point-step" onClick={() => setQuickPointOpen(true)}>
+        <button type="button" className="mobile-point-step" disabled={readOnly || pointBusy} onClick={() => setQuickPointOpen(true)}>
           <span><small>学生</small><b>{selectedPointIds.length ? selectedStudents.map((student) => student.name).slice(0, 4).join("、") : "选择学生"}</b></span>
           <em>{selectedPointIds.length ? "修改" : "去选择"}</em>
         </button>
-        <button type="button" className="mobile-point-step" onClick={() => setPointRuleSheetOpen(true)}>
+        <button type="button" className="mobile-point-step" disabled={readOnly || pointBusy} onClick={() => setPointRuleSheetOpen(true)}>
           <span><small>规则</small><b>{selectedPointRule ? `${selectedPointRule.scene} · ${selectedPointRule.title}` : "暂无可用规则"}</b></span>
           <em>{selectedPointRule ? `${selectedPointRule.delta > 0 ? "+" : ""}${selectedPointRule.delta}` : "—"}</em>
         </button>
@@ -1518,7 +1541,7 @@ function MobileSecondaryPage({ workspaceToken, active, data, activeClass, growth
           <label><span>执行人</span><input value={pointDraft.operator} onChange={(event) => setPointDraft({ ...pointDraft, operator: event.target.value })} placeholder="班主任" /></label>
           <label className="wide"><span>补充说明</span><textarea value={pointDraft.note} onChange={(event) => setPointDraft({ ...pointDraft, note: event.target.value })} placeholder={selectedPointRule ? `默认理由：${selectedPointRule.reason || selectedPointRule.title}` : "请先到积分规则添加并启用规则"} /></label>
         </div>
-        <div className="mobile-sheet-actions"><button type="button" disabled={!selectedPointIds.length} onClick={() => setSelectedPointIds([])}>清空选择</button><button type="button" className="primary" disabled={!selectedPointIds.length || !selectedPointRule || Number(pointDraft.delta) === 0} onClick={savePointEvent}>{selectedPointIds.length ? `提交 ${selectedPointIds.length} 人` : "先选学生"}</button></div>
+        <div className="mobile-sheet-actions"><button type="button" disabled={!selectedPointIds.length || pointBusy} onClick={() => setSelectedPointIds([])}>清空选择</button><button type="button" className="primary" disabled={readOnly || pointBusy || !selectedPointIds.length || !selectedPointRule || Number(pointDraft.delta) === 0} onClick={savePointEvent}>{pointBusy ? "提交中…" : selectedPointIds.length ? `提交 ${selectedPointIds.length} 人` : "先选学生"}</button></div>
       </section>
       <section className="mobile-card-list mobile-point-rules mobile-point-rules-collapsed">
         <header><h2>常用规则</h2><button type="button" onClick={() => open("rules")}>维护</button></header>
@@ -2154,7 +2177,7 @@ function MobileSecondaryPage({ workspaceToken, active, data, activeClass, growth
       return (ruleCategory === "全部" || rule.scene === ruleCategory) && (ruleStatusFilter === "全部状态" || ruleStatusFilter === status) && (!ruleKeyword.trim() || text.includes(ruleKeyword.trim()));
     });
     return <div className="mobile-stack mobile-rules-page">
-      <MobileSectionHero title={title} text={`${ruleSource.length} 条规则 · 启用 ${enabled.length} · 停用 ${ruleSource.length - enabled.length}`} action="新增" onAction={() => openRuleEditor()} />
+      <MobileSectionHero title={title} text={`${ruleSource.length} 条规则 · 启用 ${enabled.length} · 停用 ${ruleSource.length - enabled.length}`} action={readOnly ? undefined : "新增"} onAction={() => openRuleEditor()} />
       <section className="mobile-overview-stats compact mobile-insight-rail" aria-label="积分规则概览"><span><small>规则</small><b>{ruleSource.length}</b></span><span><small>启用</small><b>{enabled.length}</b></span><span><small>停用</small><b>{ruleSource.length - enabled.length}</b></span></section>
       <label className="mobile-search"><span>搜索规则</span><input value={ruleKeyword} onChange={(event) => setRuleKeyword(event.target.value)} placeholder="分类、规则、理由、执行人或分值" /></label>
       <section className="mobile-filter-pair">
@@ -2174,7 +2197,7 @@ function MobileSecondaryPage({ workspaceToken, active, data, activeClass, growth
           <label className="wide"><span>理由</span><textarea value={ruleDraft.reason} onChange={(event) => setRuleDraft({ ...ruleDraft, reason: event.target.value })} /></label>
           <label className="wide"><span>说明</span><textarea value={ruleDraft.detail ?? ""} onChange={(event) => setRuleDraft({ ...ruleDraft, detail: event.target.value })} /></label>
         </div>
-        <div className="mobile-sheet-actions"><button type="button" onClick={() => setRuleEditorOpen(false)}>取消</button><button type="button" className="primary" onClick={saveRuleDraft}>保存规则</button></div>
+        <div className="mobile-sheet-actions"><button type="button" disabled={ruleBusy} onClick={() => setRuleEditorOpen(false)}>取消</button><button type="button" className="primary" disabled={readOnly || ruleBusy} onClick={saveRuleDraft}>{ruleBusy ? "保存中…" : "保存规则"}</button></div>
       </MobileInfoSheet>}
     </div>;
   }
@@ -2197,7 +2220,7 @@ function MobileInfoSheet({ title, children, onClose }: { title: string; children
   </div>;
 }
 
-function Points({ data, update }: { data: ClassroomData; update: (fn: (d: ClassroomData) => ClassroomData) => void }) {
+function Points({ data, update, save, readOnly }: { data: ClassroomData; update: (fn: (d: ClassroomData) => ClassroomData) => void; save: () => Promise<boolean>; readOnly: boolean }) {
   const rules = pointRulesForData(data).filter((item) => item.enabled !== false);
   const [ruleId, setRuleId] = useState(rules[0]?.id ?? "");
   const [keyword, setKeyword] = useState("");
@@ -2206,6 +2229,8 @@ function Points({ data, update }: { data: ClassroomData; update: (fn: (d: Classr
   const [note, setNote] = useState("");
   const [customDelta, setCustomDelta] = useState(rules[0]?.delta ?? 1);
   const [selected, setSelected] = useState<string[]>([]);
+  const [busy, setBusy] = useState(false);
+  const [message, setMessage] = useState("");
 
   const activeClassId = data.activeClassId ?? data.rosterClasses?.[0]?.id ?? "class-1";
   const students = data.students;
@@ -2244,16 +2269,25 @@ function Points({ data, update }: { data: ClassroomData; update: (fn: (d: Classr
     });
   }
 
-  function applyScore(studentIds: string[]) {
+  async function applyScore(studentIds: string[]) {
     if (!studentIds.length || !rule || value === 0) return;
+    if (readOnly || busy) { setMessage("当前为只读模式，不能提交积分。"); return; }
     const stamp = new Date().toLocaleString("zh-CN", { year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit" });
+    setBusy(true); setMessage("");
     update((d) => applyPointEvents(d, activeClassId, studentIds, rule, value, note, operator, stamp, makeId));
+    const ok = await save(); setBusy(false);
+    if (!ok) { setMessage("积分同步失败，学生选择和本次说明已保留，请重试。"); return; }
     setSelected([]);
     setNote("");
+    setMessage(`已由服务器确认 ${studentIds.length} 名学生的积分记录`);
   }
 
-  function undoEvent(event: PointEvent) {
+  async function undoEvent(event: PointEvent) {
+    if (readOnly || busy) return;
+    setBusy(true); setMessage("");
     update((d) => undoPointEventInClass(d, activeClassId, event.id));
+    const ok = await save(); setBusy(false);
+    setMessage(ok ? "撤销已由服务器确认" : "撤销同步失败，本机修改已保留。");
   }
 
   return <section className="point-pro-page homework-bootstrap-preview">
@@ -2271,9 +2305,9 @@ function Points({ data, update }: { data: ClassroomData; update: (fn: (d: Classr
             <span>当前筛选 {filtered.length} 人，已选 {selected.length} 人</span>
           </div>
           <div className="pointdesk-head-actions">
-            <button className="pointdesk-clear" disabled={!selected.length} onClick={() => setSelected([])}>清空</button>
-            <button className="pointdesk-primary" disabled={!selected.length || value === 0} onClick={() => applyScore(selected)}>
-              {selected.length ? `提交 ${selected.length} 人` : "请选择学生"}
+            <button className="pointdesk-clear" disabled={!selected.length || busy} onClick={() => setSelected([])}>清空</button>
+            <button className="pointdesk-primary" disabled={readOnly || busy || !selected.length || value === 0} onClick={() => void applyScore(selected)}>
+              {busy ? "提交中…" : selected.length ? `提交 ${selected.length} 人` : "请选择学生"}
             </button>
           </div>
         </header>
@@ -2288,11 +2322,11 @@ function Points({ data, update }: { data: ClassroomData; update: (fn: (d: Classr
           <div className="pointdesk-table-scroll">
             <table className="pointdesk-student-table">
               <thead>
-                <tr><th><label className="pointdesk-select-all"><input type="checkbox" aria-label="全选当前筛选学生" checked={filteredAllSelected} onChange={toggleFiltered} /><span className="visually-hidden">全选当前筛选学生</span></label></th><th>学生</th><th>考勤</th><th>小组</th><th>当前积分</th><th>作业</th></tr>
+                <tr><th><label className="pointdesk-select-all"><input type="checkbox" aria-label="全选当前筛选学生" checked={filteredAllSelected} disabled={readOnly || busy} onChange={toggleFiltered} /><span className="visually-hidden">全选当前筛选学生</span></label></th><th>学生</th><th>考勤</th><th>小组</th><th>当前积分</th><th>作业</th></tr>
               </thead>
               <tbody>
-                {filtered.map((student) => <tr className={selected.includes(student.id) ? "selected" : ""} key={student.id} onClick={() => toggleStudent(student.id)}>
-                  <td><input type="checkbox" aria-label={`选择${student.name}`} checked={selected.includes(student.id)} onChange={() => toggleStudent(student.id)} onClick={(event) => event.stopPropagation()} /></td>
+                {filtered.map((student) => <tr className={selected.includes(student.id) ? "selected" : ""} key={student.id} onClick={() => { if (!readOnly && !busy) toggleStudent(student.id); }}>
+                  <td><input type="checkbox" aria-label={`选择${student.name}`} checked={selected.includes(student.id)} disabled={readOnly || busy} onChange={() => toggleStudent(student.id)} onClick={(event) => event.stopPropagation()} /></td>
                   <td><span className="pointdesk-student"><i>{student.name.slice(0, 1)}</i><span><b>{student.name}</b><small>学号 {student.studentNo || "未填"}</small></span></span></td>
                   <td><span className={`pointdesk-attendance ${student.attendance === "正常" ? "normal" : student.attendance === "迟到" ? "late" : "leave"}`}>{student.attendance}</span></td>
                   <td><span className="pointdesk-muted">第{student.group}组</span></td>
@@ -2335,8 +2369,8 @@ function Points({ data, update }: { data: ClassroomData; update: (fn: (d: Classr
           <b>已选学生</b>
           <p>{selectedNames.slice(0, 18).join("、") || "还未选择学生"}{selectedNames.length > 18 ? ` 等 ${selectedNames.length} 人` : ""}</p>
         </div>
-        <button className="pointdesk-submit" disabled={!selected.length || value === 0} onClick={() => applyScore(selected)}>
-          {selected.length ? `给 ${selected.length} 人${actionText}` : "请选择学生"}
+        <button className="pointdesk-submit" disabled={readOnly || busy || !selected.length || value === 0} onClick={() => void applyScore(selected)}>
+          {busy ? "提交中…" : selected.length ? `给 ${selected.length} 人${actionText}` : "请选择学生"}
         </button>
       </aside>
       <details className="pointdesk-events pointdesk-history">
@@ -2349,24 +2383,27 @@ function Points({ data, update }: { data: ClassroomData; update: (fn: (d: Classr
               <span>{student?.name ?? "其他班学生"}</span>
               <em>{event.scene} · {event.reason}</em>
               <small>{event.date}</small>
-              <button onClick={() => undoEvent(event)}>撤销</button>
+              <button disabled={readOnly || busy} onClick={() => void undoEvent(event)}>撤销</button>
             </article>;
           })}
           {!classEvents.length && <div className="pointdesk-empty">还没有积分事件，提交后会出现在这里。</div>}
         </div>
       </details>
+      {message && <p className="pointdesk-message" role="status">{message}</p>}
     </div>
   </section>;
 }
 
 
-function Rules({ data, update }: { data: ClassroomData; update: (fn: (d: ClassroomData) => ClassroomData) => void }) {
+function Rules({ data, update, save, readOnly }: { data: ClassroomData; update: (fn: (d: ClassroomData) => ClassroomData) => void; save: () => Promise<boolean>; readOnly: boolean }) {
   const [category, setCategory] = useState("全部");
   const [keyword, setKeyword] = useState("");
   const [statusFilter, setStatusFilter] = useState<"全部状态" | "启用" | "停用">("全部状态");
   const [showForm, setShowForm] = useState(false);
   const [draft, setDraft] = useState({ scene: "学习", title: "", reason: "", delta: 1, owner: "班主任", level: "自定义" as PointRule["level"] });
   const [editingRule, setEditingRule] = useState<{ id: string; scene: string; title: string; reason: string; delta: number } | null>(null);
+  const [busy, setBusy] = useState(false);
+  const [message, setMessage] = useState("");
   const rules = pointRulesForData(data);
   const categories = ["全部", ...Array.from(new Set(rules.map((item) => item.scene)))];
   const visibleRules = rules.filter((item) => {
@@ -2376,41 +2413,51 @@ function Rules({ data, update }: { data: ClassroomData; update: (fn: (d: Classro
   });
   const activeRules = rules.filter((item) => item.enabled !== false);
   const usageFor = (item: PointRule) => pointRuleUsageCount(data.pointEvents ?? [], item);
-  function editRule(id: string, patch: Partial<PointRule>) {
+  async function editRule(id: string, patch: Partial<PointRule>) {
+    if (readOnly || busy) return false;
+    setBusy(true); setMessage("");
     update((d) => patchPointRule(d, id, patch));
+    const ok = await save(); setBusy(false);
+    if (!ok) setMessage("规则同步失败，本机修改已保留。");
+    return ok;
   }
   function startEditRule(item: PointRule) {
     setEditingRule({ id: item.id, scene: item.scene, title: item.title, reason: item.reason, delta: item.delta });
   }
-  function saveEditingRule() {
+  async function saveEditingRule() {
     if (!editingRule || !editingRule.title.trim() || !editingRule.reason.trim()) return;
-    editRule(editingRule.id, {
+    const ok = await editRule(editingRule.id, {
       scene: editingRule.scene.trim() || "其他",
       title: editingRule.title.trim(),
       reason: editingRule.reason.trim(),
       delta: Number(editingRule.delta) || 0,
     });
-    setEditingRule(null);
+    if (ok) setEditingRule(null);
   }
-  function addRule() {
+  async function addRule() {
     if (!draft.title.trim() || !draft.reason.trim()) return;
+    if (readOnly || busy) return;
     const newRule: PointRule = { id: makeId(), scene: draft.scene.trim() || "其他", title: draft.title.trim(), reason: draft.reason.trim(), delta: Number(draft.delta) || 0, owner: draft.owner.trim() || "班主任", enabled: true, level: draft.level, detail: "由班主任自定义添加。" };
-    update((d) => upsertPointRule(d, newRule));
+    setBusy(true); setMessage(""); update((d) => upsertPointRule(d, newRule));
+    const ok = await save(); setBusy(false);
+    if (!ok) { setMessage("规则同步失败，新增内容已保留，请重试。"); return; }
     setDraft({ scene: "学习", title: "", reason: "", delta: 1, owner: "班主任", level: "自定义" });
     setCategory(newRule.scene);
     setShowForm(false);
   }
-  function copyRule(item: PointRule) {
+  async function copyRule(item: PointRule) {
+    if (readOnly || busy) return;
     const copied: PointRule = { ...item, id: makeId(), title: `${item.title} 副本`, enabled: true, level: "自定义" };
-    update((d) => replacePointRules(d, [copied, ...pointRulesForData(d)]));
+    setBusy(true); update((d) => replacePointRules(d, [copied, ...pointRulesForData(d)]));
+    const ok = await save(); setBusy(false); setMessage(ok ? "规则副本已由服务器确认" : "复制同步失败，本机修改已保留。");
   }
   async function deleteRule(id: string) {
     const target = rules.find((item) => item.id === id);
-    if (!target || !await requestDangerConfirm(`规则“${target.title}”会从规则库移除，历史积分记录不会删除。`)) return;
-    update((d) => deletePointRule(d, id));
+    if (!target || readOnly || busy || !await requestDangerConfirm(`规则“${target.title}”会从规则库移除，历史积分记录不会删除。`)) return;
+    setBusy(true); update((d) => deletePointRule(d, id)); const ok = await save(); setBusy(false); setMessage(ok ? "规则删除已由服务器确认，历史积分未改变" : "删除同步失败，本机修改已保留。");
   }
   return <section className="rule-pro-page homework-bootstrap-preview">
-    <WorkbenchPageHeader icon="📏" tone="marigold" title="班级积分规则库" description="统一维护班级加分、扣分规则，供积分评价页快速调用。" actions={<button className="ruledesk-add workbench-header-primary" onClick={() => setShowForm((value) => !value)}>{showForm ? "收起新增" : "添加规则"}</button>} />
+    <WorkbenchPageHeader icon="📏" tone="marigold" title="班级积分规则库" description="统一维护班级加分、扣分规则，供积分评价页快速调用。" actions={<button className="ruledesk-add workbench-header-primary" disabled={readOnly || busy} onClick={() => setShowForm((value) => !value)}>{showForm ? "收起新增" : "添加规则"}</button>} />
     <div className="ruledesk-statusline"><b>{rules.length} 条规则</b><span>启用 {activeRules.length}</span><span>停用 {rules.length - activeRules.length}</span><span>历史记分 {data.pointEvents?.length ?? 0} 条</span></div>
     <section className="ruledesk-toolbar">
       <div>
@@ -2432,7 +2479,7 @@ function Rules({ data, update }: { data: ClassroomData; update: (fn: (d: Classro
       <label className="wide"><span>评价口径</span><input value={draft.reason} onChange={(event) => setDraft({ ...draft, reason: event.target.value })} placeholder="写清楚什么时候可以使用这条规则" /></label>
       <footer>
         <button onClick={() => setShowForm(false)}>取消</button>
-        <button className="primary" disabled={!draft.title.trim() || !draft.reason.trim()} onClick={addRule}>保存规则</button>
+        <button className="primary" disabled={readOnly || busy || !draft.title.trim() || !draft.reason.trim()} onClick={() => void addRule()}>{busy ? "保存中…" : "保存规则"}</button>
       </footer>
     </section>}
     <section className="ruledesk-table">
@@ -2449,7 +2496,7 @@ function Rules({ data, update }: { data: ClassroomData; update: (fn: (d: Classro
         const isEditing = editingRule?.id === item.id;
         const rowDelta = isEditing ? editingRule.delta : item.delta;
         return <article className={`${item.enabled === false ? "ruledesk-row disabled" : "ruledesk-row"}${isEditing ? " editing" : ""}`} key={item.id}>
-          <button className={item.enabled === false ? "ruledesk-status off" : "ruledesk-status on"} onClick={() => editRule(item.id, { enabled: item.enabled === false })}>{item.enabled === false ? "停用" : "启用"}</button>
+          <button className={item.enabled === false ? "ruledesk-status off" : "ruledesk-status on"} disabled={readOnly || busy} onClick={() => void editRule(item.id, { enabled: item.enabled === false })}>{item.enabled === false ? "停用" : "启用"}</button>
           {isEditing ? <>
             <input value={editingRule.scene} onChange={(event) => setEditingRule({ ...editingRule, scene: event.target.value })} />
             <input className={rowDelta >= 0 ? "ruledesk-delta positive" : "ruledesk-delta negative"} type="number" value={editingRule.delta} onChange={(event) => setEditingRule({ ...editingRule, delta: Number(event.target.value) || 0 })} />
@@ -2464,18 +2511,19 @@ function Rules({ data, update }: { data: ClassroomData; update: (fn: (d: Classro
           <span className="ruledesk-usage">{usageFor(item)} 次</span>
           <div className="ruledesk-actions">
             {isEditing ? <>
-              <button className="primary-text" disabled={!editingRule.title.trim() || !editingRule.reason.trim()} onClick={saveEditingRule}>保存</button>
+              <button className="primary-text" disabled={readOnly || busy || !editingRule.title.trim() || !editingRule.reason.trim()} onClick={() => void saveEditingRule()}>保存</button>
               <button onClick={() => setEditingRule(null)}>取消</button>
             </> : <>
-              <button onClick={() => startEditRule(item)}>编辑</button>
-              <button onClick={() => copyRule(item)}>复制</button>
-              <button className="danger" onClick={() => deleteRule(item.id)}>删除</button>
+              <button disabled={readOnly || busy} onClick={() => startEditRule(item)}>编辑</button>
+              <button disabled={readOnly || busy} onClick={() => void copyRule(item)}>复制</button>
+              <button className="danger" disabled={readOnly || busy} onClick={() => deleteRule(item.id)}>删除</button>
             </>}
           </div>
         </article>;
       })}
       {!visibleRules.length && <div className="ruledesk-empty">当前分类没有规则，可以切回全部或添加新规则。</div>}
     </section>
+    {message && <p className="ruledesk-message" role="status">{message}</p>}
   </section>;
 }
 

@@ -1,9 +1,9 @@
 # 积分评价：逐页执行卡
 
-状态：inventoried-with-gap。模块ID：points。源码相对 app/w/[token]（明确app/lib前缀除外）：ClassroomApp.tsx:Points/MobileSecondaryPage。
+状态：implemented。模块ID：points。源码相对 app/w/[token]（明确app/lib前缀除外）：ClassroomApp.tsx:Points/MobileSecondaryPage。
 参考：学生跟进派生。派生页面使用对应页面族构图和校园token，不把缺少专属图解释为可回退旧UI。
 
-当前检查点：桌面/手机已接 `features/points/operations.ts`，跨班写入、撤销归属及事件快照有纯操作回归；“本周”错误文案已按实际累计口径修正。现有DOM、浮层和旧CSS尚未迁移，失败保存仍会提前清选择，详见 `evidence/points-rules-operations-20260912.md`。
+当前检查点：桌面/手机使用 `features/points/operations.ts`，跨班写入、撤销归属及事件快照有纯操作回归；累计口径准确。提交仅在服务器确认后清选择和说明，失败保留本次上下文并防重复，只读禁用选择、提交和撤销。共享旧样式集中移除归TASK-30。
 
 ## 保全动作（种子，实施前展开）
 选人/多选、选规则、分值、原因、提交、近期历史、撤销。

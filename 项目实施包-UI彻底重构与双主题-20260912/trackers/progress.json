@@ -3,7 +3,7 @@
   "baselineCommit": "6e10e2dc314e09d0d72df9509730f57c5fde34e2",
   "implementationStatus": "in-progress",
   "active_task": null,
-  "next_action": "TASK-21已完成；执行TASK-22积分与规则迁移，并连续推进至TASK-28",
+  "next_action": "TASK-22已完成；执行TASK-23成绩分析迁移，并连续推进至TASK-28",
   "milestones": {
     "M0": "done",
     "M1": "done",
@@ -12,7 +12,7 @@
     "M4": "planned",
     "M5": "planned"
   },
-  "note": "线上受检源码无需要覆盖的业务差异。M0与M1完成；TASK-04至TASK-21及提前完成的TASK-29已完成。已完成任务22/33，按任务数66.7%；按剩余页面和验收工作量估计总进度约82%，这不是精确工时。成长、健康、沟通与通知写操作等待workspace确认，失败保留编辑上下文；只读禁用写入口，复制不冒充外发。ESLint、53项专项、三页六档qa:strict、生产构建、260/260自动化及认证集成通过。共享旧样式的集中移除仍归TASK-30。按用户指令继续TASK-22至TASK-28；M2仍在进行，没有生产操作。",
+  "note": "线上受检源码无需要覆盖的业务差异。M0与M1完成；TASK-04至TASK-22及提前完成的TASK-29已完成。已完成任务23/33，按任务数69.7%；按剩余页面和验收工作量估计总进度约84%，这不是精确工时。积分提交确认后才清选择，失败保留上下文；规则新增编辑启停复制删除都等待workspace确认，历史事件快照不追改。ESLint、45项专项、两页六档qa:strict、生产构建、261/261自动化及认证集成通过。共享旧样式集中移除归TASK-30。按用户指令继续TASK-23至TASK-28；M2仍在进行，没有生产操作。",
   "implementationStartCommit": "f321d5e9424e0020bdf1e56d52c31b986b503a53",
   "parallelPreparation": [],
   "verifiedOnlineBaseline": "0691aba",
