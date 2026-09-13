@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { makeId, type ClassroomData, type Student } from '@/lib/classroom';
 import { applyStudentBatch, type StudentBatchDraft } from './operations';
 import { removeStudentRelations } from './relations';
-import { activeRosterClass, filterStudents, makeRosterStudent, parseRosterRows, studentRecentActivity, syncRosterStudents } from './read-model';
+import { activeRosterClass, filterStudents, makeRosterStudent, parseRosterRows, studentRecentActivity, studentRecentStatus, syncRosterStudents } from './read-model';
 
 type Update = (fn: (data: ClassroomData) => ClassroomData) => void;
 type Confirm = (message: string, title?: string, confirmLabel?: string) => Promise<boolean>;
@@ -34,6 +34,7 @@ export function useStudentsController({ data, update, confirmAction }: { data: C
   const focusedStudent = students.find(student => student.id === focusedId) ?? pageItems[0] ?? students[0];
   const profileStudent = students.find(student => student.id === profileId);
   const activity = focusedStudent ? studentRecentActivity(data, activeClass.id, focusedStudent) : null;
+  const recentStatusById = useMemo(() => new Map(students.map(student => [student.id, studentRecentStatus(data, activeClass.id, student)])), [activeClass.id, data, students]);
   const filteredIds = filtered.map(student => student.id);
   const allFilteredSelected = filteredIds.length > 0 && filteredIds.every(id => selectedIds.includes(id));
   const groupOptions = [...new Set(students.map(student => student.group))].sort((a, b) => a - b);
@@ -163,5 +164,5 @@ export function useStudentsController({ data, update, confirmAction }: { data: C
     toggleSelect, toggleFiltered, clearSelection, batchOpen, setBatchOpen, batchDraft, setBatchDraft, applyBatch,
     focusedId, focusedStudent, setFocusedId, profileStudent, setProfileId, activity, editMode, setEditMode, patchStudent,
     importOpen, setImportOpen, importText, setImportText, importRows, appendRoster, replaceRoster, exportRoster,
-    studentDraft, setStudentDraft, openNewStudent, openEditStudent, saveStudent, removeStudent, message, setMessage, metrics };
+    studentDraft, setStudentDraft, openNewStudent, openEditStudent, saveStudent, removeStudent, message, setMessage, metrics, recentStatusById };
 }

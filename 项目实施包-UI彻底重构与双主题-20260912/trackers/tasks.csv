@@ -14,7 +14,7 @@ TASK-12,首页构图基准,"10,11",done,015daa3,项目实施包-UI彻底重构�
 TASK-13,学生构图基准,"10,11",done,本任务提交,项目实施包-UI彻底重构与双主题-20260912/evidence/students-implementation-20260913.md,按用户临时规则暂停；收到继续指令后TASK-14
 TASK-14,作业构图基准,"10,11",done,本任务提交,项目实施包-UI彻底重构与双主题-20260912/evidence/homework-implementation-20260913.md,按用户临时规则暂停；收到继续指令后TASK-15
 TASK-15,听写构图基准,"10,11",done,本任务提交,项目实施包-UI彻底重构与双主题-20260912/evidence/dictation-grading-implementation-20260913.md,执行TASK-16并按用户最新指令连续推进至TASK-28
-TASK-16,标杆视觉门槛,"12,13,14,15",planned,,,
+TASK-16,标杆视觉门槛,"12,13,14,15",done,本任务提交,项目实施包-UI彻底重构与双主题-20260912/evidence/benchmark-visual-gate-20260913.md,M1完成；执行TASK-17接通首页学生作业全流程
 TASK-17,接通首页学生作业全流程,16,planned,,,
 TASK-18,听写词库与历史复习,"15,16",planned,,,
 TASK-19,家庭学习完整迁移,18,planned,,,

@@ -37,6 +37,25 @@ export function studentRecentActivity(data: ClassroomData, classId: string, stud
   return { homework, attendance, records, dictation };
 }
 
+export function studentRecentStatus(data: ClassroomData, classId: string, student: Student): string {
+  const activity = studentRecentActivity(data, classId, student);
+  const candidates: Array<{ date: string; label: string }> = [];
+  const homework = activity.homework[0];
+  const attendance = activity.attendance[0];
+  const record = activity.records[0];
+  const dictation = activity.dictation;
+  if (homework) candidates.push({ date: homework.date, label: `作业 · ${homework.statuses[student.id]}` });
+  if (attendance) candidates.push({ date: attendance.date, label: `考勤 · ${attendance.status}` });
+  if (record) candidates.push({ date: record.date, label: `${record.type} · ${record.status || '已记录'}` });
+  if (dictation) {
+    const result = dictation.results[student.id];
+    const state = !result ? '待批改' : result[0] === 'graded' ? `${result[1].length} 个错词` : result[0] === 'leave' ? '请假' : '未参加';
+    candidates.push({ date: dictation.date, label: `听写 · ${state}` });
+  }
+  const latest = candidates.toSorted((a, b) => b.date.localeCompare(a.date))[0];
+  return latest ? `${latest.date.slice(5)} ${latest.label}` : '暂无近期记录';
+}
+
 export function parseRosterRows(text: string): string[] {
   return text.split(/\n+/).map(row => row.trim()).filter(Boolean);
 }

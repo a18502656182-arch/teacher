@@ -4,6 +4,7 @@ import { type DictationResult } from '@/lib/dictation';
 import { Button } from '@/app/components/workbench/ui/Button';
 import { Drawer } from '@/app/components/workbench/ui/Drawer';
 import { Field, Input, Select } from '@/app/components/workbench/ui/Field';
+import { Artwork } from '@/app/components/workbench/theme/Artwork';
 import { useGradingController, type GradingProps } from '../features/dictation/useGradingController';
 import styles from './Grading.module.css';
 
@@ -66,6 +67,7 @@ export function Grading(props: GradingProps) {
         </div>
         <div className={styles.taskIdentity}>
           <div><h2>{task.title}</h2><p>{task.date} · {task.subject} · {task.words.length} 个词</p></div>
+          {task.words.length <= 12 && <Artwork role="dictation.grading" className={styles.taskArtwork} sizes="(max-width: 900px) 118px, 260px"/>}
           <span>{completed}/{task.participants.length} 已处理</span>
         </div>
         <details className={styles.material}>

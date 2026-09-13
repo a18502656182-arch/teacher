@@ -74,21 +74,20 @@ export function StudentsView({ data, update, confirmAction, mobile = false, read
         {mobile ? <div className={styles.mobileList}>
           {c.pageItems.map(student => <article key={student.id} className={styles.mobileRow}>
             <label><input type="checkbox" checked={c.selectedIds.includes(student.id)} onChange={() => c.toggleSelect(student.id)}/><span className="sr-only">选择{student.name}</span></label>
-            <button type="button" onClick={() => c.editMode ? c.openEditStudent(student.id) : c.setFocusedId(student.id)}><i>{student.name.slice(0, 1)}</i><span><b>{student.name}</b><small>学号 {student.studentNo || '未填'} · 第{student.group}组 · 电话{student.parentPhone ? '已维护' : '未维护'}</small></span><em aria-hidden="true">›</em></button>
+            <button type="button" onClick={() => c.editMode ? c.openEditStudent(student.id) : c.setFocusedId(student.id)}><i>{student.name.slice(0, 1)}</i><span><b>{student.name}</b><small>学号 {student.studentNo || '未填'} · 第{student.group}组 · {c.recentStatusById.get(student.id)}</small></span><em aria-hidden="true">›</em></button>
           </article>)}
           {!c.pageItems.length && <div className={styles.emptyList}><ThemeArtwork slot="empty"/><b>没有符合条件的学生</b><p>调整搜索条件，或新增学生。</p></div>}
-        </div> : <div className={styles.tableWrap}><table className={styles.table}><thead><tr><th><input aria-label="选择当前筛选学生" type="checkbox" checked={c.allFilteredSelected} onChange={c.toggleFiltered}/></th><th>学号</th><th>姓名</th><th>性别</th><th>小组</th><th>家长电话</th><th>备注</th><th>操作</th></tr></thead><tbody>
+        </div> : <div className={styles.tableWrap}><table className={styles.table}><thead><tr><th><input aria-label="选择当前筛选学生" type="checkbox" checked={c.allFilteredSelected} onChange={c.toggleFiltered}/></th><th>学号</th><th>姓名</th><th>性别</th><th>小组</th><th>近期状态</th><th>操作</th></tr></thead><tbody>
           {c.pageItems.map(student => <tr key={student.id} data-focused={c.focusedStudent?.id === student.id || undefined} onClick={() => c.setFocusedId(student.id)}>
             <td><input aria-label={`选择${student.name}`} type="checkbox" checked={c.selectedIds.includes(student.id)} onClick={event => event.stopPropagation()} onChange={() => c.toggleSelect(student.id)}/></td>
             <td>{c.editMode ? <Input aria-label={`${student.name}学号`} value={student.studentNo ?? ''} onChange={event => c.patchStudent(student.id, { studentNo: event.target.value })}/> : student.studentNo || '—'}</td>
             <td><strong>{c.editMode ? <Input aria-label={`${student.name}姓名`} value={student.name} onChange={event => c.patchStudent(student.id, { name: event.target.value })}/> : student.name}</strong></td>
             <td>{c.editMode ? <Select aria-label={`${student.name}性别`} value={student.gender} onChange={event => c.patchStudent(student.id, { gender: event.target.value as Student['gender'] })}><option>女</option><option>男</option></Select> : student.gender}</td>
             <td>{c.editMode ? <Input aria-label={`${student.name}小组`} type="number" min={1} value={student.group} onChange={event => c.patchStudent(student.id, { group: Math.max(1, Number(event.target.value) || 1) })}/> : `第${student.group}组`}</td>
-            <td>{student.parentPhone ? '已维护' : '未填写'}</td>
-            <td>{c.editMode ? <Input aria-label={`${student.name}备注`} value={student.note ?? ''} onChange={event => c.patchStudent(student.id, { note: event.target.value })}/> : student.note || '—'}</td>
+            <td>{c.recentStatusById.get(student.id)}</td>
             <td>{c.editMode ? <Button intent="text" onClick={event => { event.stopPropagation(); c.openEditStudent(student.id); }}>编辑</Button> : <Button intent="text" onClick={event => { event.stopPropagation(); c.setFocusedId(student.id); }}>查看</Button>}{c.editMode && <Button intent="danger" onClick={event => { event.stopPropagation(); void c.removeStudent(student.id); }}>删除</Button>}</td>
           </tr>)}
-          {!c.pageItems.length && <tr><td colSpan={8} className={styles.emptyCell}>没有符合条件的学生。调整筛选，或新增学生。</td></tr>}
+          {!c.pageItems.length && <tr><td colSpan={7} className={styles.emptyCell}>没有符合条件的学生。调整筛选，或新增学生。</td></tr>}
         </tbody></table></div>}
         <footer className={styles.pager}><span>显示 {c.pageItems.length} / {c.filtered.length} 人</span><div><Button disabled={c.page <= 1} onClick={() => c.setPage(c.page - 1)}>上一页</Button><span>{c.page} / {c.totalPages}</span><Button disabled={c.page >= c.totalPages} onClick={() => c.setPage(c.page + 1)}>下一页</Button></div></footer>
       </div>

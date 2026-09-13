@@ -51,3 +51,13 @@ test('同步当前班名单不改写另一班', () => {
   assert.equal(next.rosterClasses[0].students[0].name, '改名后');
   assert.equal(next.rosterClasses[1], beforeOther);
 });
+
+test('名单近期状态使用当前班最新真实记录且不暴露电话或长备注', () => {
+  const sourceData = dataWith(1);
+  sourceData.homeworkTasks = [{ id: 'h-1', classId: 'a', date: '2026-09-11', title: '练习', statuses: { 's-0': '待订正' } }];
+  sourceData.attendanceRecords = [{ id: 'a-1', classId: 'a', studentId: 's-0', date: '2026-09-12', status: '请假' }];
+  sourceData.records = [{ id: 'r-1', classId: 'b', studentId: 's-0', student: '学生0', date: '2026-09-13', type: '沟通', status: '待跟进', content: '他班记录' }];
+  const label = model.studentRecentStatus(sourceData, 'a', sourceData.rosterClasses[0].students[0]);
+  assert.equal(label, '09-12 考勤 · 请假');
+  assert.doesNotMatch(label, /电话|备注|他班记录/);
+});
