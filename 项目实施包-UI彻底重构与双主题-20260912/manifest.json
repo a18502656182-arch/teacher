@@ -770,6 +770,11 @@
       "sha256": "e70f3267fc35147c69fd4cab74ce45801e23a99ad57900a4062c49a23c48aa99"
     },
     {
+      "path": "evidence/ui-primitives-20260913.md",
+      "bytes": 2418,
+      "sha256": "11d6a6913e3ad8966bfcdd65ca00ed1c631e2174f6c23dc4561076a3a9408e24"
+    },
+    {
       "path": "evidence/weekly-operations-20260912.md",
       "bytes": 2522,
       "sha256": "732d389cedc61fad0196f47d98a20a95dec42187b652ce8ef9134c062ddefa2b"
@@ -1056,8 +1061,8 @@
     },
     {
       "path": "tasks/TASK-07.md",
-      "bytes": 1602,
-      "sha256": "46137b74fe13cb64dad32442c6852102a49a91201cb020d87761b8d02162dd16"
+      "bytes": 2864,
+      "sha256": "949f12e2fd424bc035e994172f70555af35ad72b1db77dd10ad34d8d890f4a02"
     },
     {
       "path": "tasks/TASK-08.md",
@@ -1231,13 +1236,13 @@
     },
     {
       "path": "trackers/progress.json",
-      "bytes": 1272,
-      "sha256": "c20c9b4c9bfe4c2b9d41ad4f0745631e428eb854a6c03d82fd08be32ba229ba9"
+      "bytes": 1275,
+      "sha256": "f918571f1b49be895aa709687f1d07da1cdfcb324335b15c92345d9958c45648"
     },
     {
       "path": "trackers/tasks.csv",
-      "bytes": 2943,
-      "sha256": "9196f92b78bf484e785c1ef98bd95c741af2e5d162ec74491ee141eeb55cd516"
+      "bytes": 2969,
+      "sha256": "10edacaa7277b8c77adfb048a0dbbf84314aaa5f2ddba7ca797ccebe5897562f"
     }
   ]
 }

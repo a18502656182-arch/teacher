@@ -2,8 +2,8 @@
   "packageVersion": "1.0",
   "baselineCommit": "6e10e2dc314e09d0d72df9509730f57c5fde34e2",
   "implementationStatus": "in-progress",
-  "active_task": "TASK-07",
-  "next_action": "补齐Button、Field、StatusSegment、SelectionBar、加载/空态等基础控件的状态与可访问契约，并在长文本、disabled、busy及窄屏检查器中验证",
+  "active_task": null,
+  "next_action": "当前停在TASK-07完成后的用户浏览点；确认基础控件方向后启动TASK-08浮层与100+学生搜索选择",
   "milestones": {
     "M0": "done",
     "M1": "in-progress",
@@ -12,7 +12,7 @@
     "M4": "planned",
     "M5": "planned"
   },
-  "note": "线上受检源码无需要覆盖的业务差异。M0完成；TASK-04纯业务读取模型、TASK-05工作区controller和TASK-06统一主题契约完成。公开主题固定校园，玻璃只有完整内部token和空资源manifest；旧校园插画表已收敛为语义role适配。生产构建、224/224自动化测试、认证集成和115项qa:strict通过。M1继续进行，TASK-07为活动任务；多数业务页迁移和A场景仍未完成，TASK-30前置未满足。没有生产操作。",
+  "note": "线上受检源码无需要覆盖的业务差异。M0完成；TASK-04纯业务读取、TASK-05工作区controller、TASK-06主题契约和TASK-07基础控件完成。已完成任务8/33（01至07及提前完成的29），按任务数24.2%；按剩余页面和验收工作量估计总进度约45%。生产构建、229/229自动化测试、认证集成和115项qa:strict通过。按用户要求暂停在基础控件浏览点；TASK-08已具备前置条件但未启动。多数业务页迁移和A场景仍未完成，TASK-30前置未满足。没有生产操作。",
   "implementationStartCommit": "f321d5e9424e0020bdf1e56d52c31b986b503a53",
   "parallelPreparation": [],
   "verifiedOnlineBaseline": "0691aba",
