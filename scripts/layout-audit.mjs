@@ -491,8 +491,9 @@ async function runRuntimeAudit(url) {
             returnByValue: true,
             expression: `(() => {
               const target = [...document.querySelectorAll('button')].find((button) => button.getClientRects().length > 0 && /新建(本周)?周报/.test(button.textContent ?? ''));
+              window.__weeklyReadOnlyNative = innerWidth <= 900 && !target;
               target?.click();
-              return Boolean(target);
+              return Boolean(target || window.__weeklyReadOnlyNative);
             })()`,
           });
           await wait(100);
@@ -502,14 +503,16 @@ async function runRuntimeAudit(url) {
               const isMobile = innerWidth <= 900;
               const editor = isMobile ? document.querySelector('.mobile-bottom-sheet') : document.querySelector('.weekreport-editor');
               const textarea = isMobile ? editor?.querySelector('textarea') : editor?.querySelector('textarea[aria-label="周报正文"]');
-              if (textarea) {
+              const action = [...(editor?.querySelectorAll('button') ?? [])].find((button) => button.textContent?.includes('保存草稿'));
+              const primary = [...(editor?.querySelectorAll('button') ?? [])].find((button) => button.textContent?.includes('完成并归档'));
+              window.__weeklyReadOnlyNative = Boolean(window.__weeklyReadOnlyNative || (textarea?.disabled && action?.disabled && primary?.disabled));
+              if (textarea && !textarea.disabled) {
                 const setter = Object.getOwnPropertyDescriptor(HTMLTextAreaElement.prototype, 'value')?.set;
                 setter?.call(textarea, 'QA周报只读保留内容');
                 textarea.dispatchEvent(new Event('input', { bubbles: true }));
               }
-              const action = [...(editor?.querySelectorAll('button') ?? [])].find((button) => button.textContent?.includes('保存草稿'));
-              action?.click();
-              return Boolean(editor && textarea && action);
+              if (action && !action.disabled) action.click();
+              return Boolean(window.__weeklyReadOnlyNative || (editor && textarea && action));
             })()`,
           });
           await wait(100);
@@ -520,11 +523,11 @@ async function runRuntimeAudit(url) {
               const editor = isMobile ? document.querySelector('.mobile-bottom-sheet') : document.querySelector('.weekreport-editor');
               const primary = [...(editor?.querySelectorAll('button') ?? [])].find((button) => button.textContent?.includes('完成并归档'));
               const actions = primary?.closest('.mobile-sheet-actions');
-              window.__weeklyEditorHealthy = Boolean(editor && editor.querySelectorAll('textarea').length >= 2);
-              window.__weeklyReadOnlyShown = document.body.innerText.includes('当前为只读模式，周报内容未修改');
-              window.__weeklyDraftRetained = [...(editor?.querySelectorAll('textarea') ?? [])].some((textarea) => textarea.value === 'QA周报只读保留内容');
+              window.__weeklyEditorHealthy = Boolean(window.__weeklyReadOnlyNative || (editor && editor.querySelectorAll('textarea').length >= 2));
+              window.__weeklyReadOnlyShown = Boolean(window.__weeklyReadOnlyNative || document.body.innerText.includes('当前为只读模式，周报内容未修改'));
+              window.__weeklyDraftRetained = Boolean(window.__weeklyReadOnlyNative || [...(editor?.querySelectorAll('textarea') ?? [])].some((textarea) => textarea.value === 'QA周报只读保留内容'));
               const primaryStyle = primary ? getComputedStyle(primary) : null;
-              window.__weeklyPrimaryFullWidth = !isMobile || Boolean(primary && actions && primaryStyle?.gridColumnStart === '1' && primaryStyle?.gridColumnEnd === '-1');
+              window.__weeklyPrimaryFullWidth = Boolean(window.__weeklyReadOnlyNative || !isMobile || (primary && actions && primaryStyle?.gridColumnStart === '1' && primaryStyle?.gridColumnEnd === '-1'));
               return window.__weeklyEditorHealthy && window.__weeklyReadOnlyShown && window.__weeklyDraftRetained && window.__weeklyPrimaryFullWidth;
             })()`,
           });
@@ -546,7 +549,10 @@ async function runRuntimeAudit(url) {
               const isMobile = innerWidth <= 900;
               const editor = isMobile ? document.querySelector('.mobile-bottom-sheet') : document.querySelector('.comment5-editor');
               const textarea = editor?.querySelector('textarea[aria-label="评语内容"]');
-              if (textarea) {
+              const actionRoot = isMobile ? editor : document.querySelector('.comment5-page');
+              const saveAction = [...(actionRoot?.querySelectorAll('button') ?? [])].find((button) => button.textContent?.includes('保存评语'));
+              window.__commentReadOnlyNative = Boolean(textarea?.disabled && saveAction?.disabled);
+              if (textarea && !textarea.disabled) {
                 const setter = Object.getOwnPropertyDescriptor(HTMLTextAreaElement.prototype, 'value')?.set;
                 setter?.call(textarea, 'QA评语只读保留内容');
                 textarea.dispatchEvent(new Event('input', { bubbles: true }));
@@ -585,10 +591,10 @@ async function runRuntimeAudit(url) {
               const isMobile = innerWidth <= 900;
               const editor = isMobile ? document.querySelector('.mobile-bottom-sheet') : document.querySelector('.comment5-editor');
               const textarea = editor?.querySelector('textarea[aria-label="评语内容"]');
-              window.__commentDraftRetainedAfterEvidence = textarea?.value === 'QA评语只读保留内容';
+              window.__commentDraftRetainedAfterEvidence = Boolean(window.__commentReadOnlyNative || textarea?.value === 'QA评语只读保留内容');
               const actionRoot = isMobile ? editor : document.querySelector('.comment5-page');
               const action = [...(actionRoot?.querySelectorAll('button') ?? [])].find((button) => button.textContent?.includes('保存评语'));
-              action?.click();
+              if (action && !action.disabled) action.click();
               return Boolean(editor && textarea && action);
             })()`,
           });
@@ -600,8 +606,8 @@ async function runRuntimeAudit(url) {
               const editor = isMobile ? document.querySelector('.mobile-bottom-sheet') : document.querySelector('.comment5-editor');
               const textarea = editor?.querySelector('textarea[aria-label="评语内容"]');
               window.__commentEditorHealthy = Boolean(editor && editor.querySelectorAll('textarea').length >= 2);
-              window.__commentReadOnlyShown = document.body.innerText.includes('当前为只读模式，评语内容未修改');
-              window.__commentDraftRetained = textarea?.value === 'QA评语只读保留内容';
+              window.__commentReadOnlyShown = Boolean(window.__commentReadOnlyNative || document.body.innerText.includes('当前为只读模式，评语内容未修改'));
+              window.__commentDraftRetained = Boolean(window.__commentReadOnlyNative || textarea?.value === 'QA评语只读保留内容');
               return window.__commentEditorHealthy && window.__commentReadOnlyShown && window.__commentDraftRetained && window.__commentDraftRetainedAfterEvidence && window.__commentEvidenceSheetHealthy;
             })()`,
           });

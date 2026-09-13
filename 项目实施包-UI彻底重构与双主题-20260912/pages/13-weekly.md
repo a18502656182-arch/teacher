@@ -1,6 +1,6 @@
 # 班级周报：逐页执行卡
 
-状态：`inventoried-with-gap`。模块 ID：`weekly`。源码相对 `app/w/[token]`：`ClassroomApp.tsx:Weekly/MobileSecondaryPage`、`features/weekly/operations.ts`。
+状态：`implemented`。模块 ID：`weekly`。源码相对 `app/w/[token]`：`ClassroomApp.tsx:Weekly/MobileSecondaryPage`、`features/weekly/operations.ts`。
 
 参考：编辑工作区派生。页面应使用校园主题的连续工作区、明确的周次上下文和轻量教学插画；缺少专属参考图不允许回退成通用后台卡片墙。
 
@@ -47,4 +47,4 @@
 
 ## 完成判据
 
-本轮完成逐动作核验、共享操作与旧页面回归，不代表 TASK-28 周报/评语视觉迁移完成。正式完成需独立校园视图接线、旧 CSS 退出、所有失败/冲突/长数据状态和参考视觉门槛重新通过。
+TASK-28 已于 2026-09-13 完成页面接线与保存闭环：桌面切周/换版本/离开编辑和手机关闭均保护脏草稿，草稿及归档在服务器确认后才关闭或切换，失败保留编辑器、周次与输入，只读写入口原生禁用。桌面/手机实查及六档布局通过。仍被其他迁移页共享的 `weekreport-*` 命名和集中旧样式清理由 TASK-30 统一处理；物理软键盘、真实弱网与双标签409未在本项浏览器验收。证据见 `../evidence/writing-implementation-20260913.md`。

@@ -26,7 +26,7 @@ TASK-24,考试反思迁移,23,done,本任务提交,项目实施包-UI彻底重�
 TASK-25,课程与个人日程迁移,"17,08",done,本任务提交,项目实施包-UI彻底重构与双主题-20260912/evidence/schedule-implementation-20260913.md,执行TASK-26课堂工具迁移
 TASK-26,课堂工具迁移,"20,25",done,本任务提交,项目实施包-UI彻底重构与双主题-20260912/evidence/classroom-tools-implementation-20260913.md,执行TASK-27座位值日班干部迁移
 TASK-27,座位值日班干部迁移,"22,25",done,本任务提交,项目实施包-UI彻底重构与双主题-20260912/evidence/management-implementation-20260913.md,执行TASK-28周报评语迁移
-TASK-28,周报评语迁移,"21,23,24,25,27",planned,,,
+TASK-28,周报评语迁移,"21,23,24,25,27",done,本任务提交,项目实施包-UI彻底重构与双主题-20260912/evidence/writing-implementation-20260913.md,执行TASK-30全量移除旧UI依赖
 TASK-29,入口账户管理员隐私迁移,"08,11",done,14222f3,evidence/entry-operations-20260913.md; evidence/account-operations-20260913.md; evidence/admin-operations-20260913.md,TASK03至TASK28按依赖完成后再进入TASK30
 TASK-30,全量移除旧UI依赖,"19,20,21,22,23,24,25,26,27,28,29",planned,,,
 TASK-31,主题架构与性能检查,30,planned,,,

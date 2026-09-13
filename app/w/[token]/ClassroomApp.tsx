@@ -317,7 +317,7 @@ export default function ClassroomApp({ token }: { token: string }) {
           {active === "rules" && <Rules data={workspace.data} update={updateData} save={save} readOnly={isDemo || isReadOnly} />}
           {active === "growth" && <Growth data={workspace.data} update={updateData} save={save} readOnly={isDemo || isReadOnly} requestedStudentId={growthRequest.studentId} />}
           {active === "health" && <HealthCare data={workspace.data} update={updateData} save={save} readOnly={isDemo || isReadOnly} />}
-          {active === "weekly" && <Weekly data={workspace.data} update={updateData} readOnly={isDemo || isReadOnly} />}
+          {active === "weekly" && <Weekly data={workspace.data} update={updateData} save={save} readOnly={isDemo || isReadOnly} />}
           {active === "schedule" && <ScheduleHub data={workspace.data} update={updateData} save={save} readOnly={isDemo || isReadOnly} />}
           {active === "tools" && <ClassroomTools data={workspace.data} update={updateData} save={save} readOnly={isDemo || isReadOnly} />}
           {active === "seating" && <Seating data={workspace.data} update={updateData} save={save} readOnly={isDemo || isReadOnly} />}
@@ -326,7 +326,7 @@ export default function ClassroomApp({ token }: { token: string }) {
           {active === "records" && <Records data={workspace.data} update={updateData} save={save} readOnly={isDemo || isReadOnly} />}
           {active === "scores" && <Scores workspaceToken={token} data={workspace.data} update={updateData} save={save} readOnly={isDemo || isReadOnly} />}
           {active === "reflection" && <Reflection data={workspace.data} update={updateData} save={save} open={openModule} readOnly={isDemo || isReadOnly} />}
-          {active === "comments" && <Comments workspaceToken={token} data={workspace.data} update={updateData} readOnly={isDemo || isReadOnly} />}
+          {active === "comments" && <Comments workspaceToken={token} data={workspace.data} update={updateData} save={save} readOnly={isDemo || isReadOnly} />}
         </>}
       />
       {toast && <div className={`workbench-toast ${toast.tone ?? "success"}`} role="status">{toast.message}</div>}
@@ -871,6 +871,8 @@ function MobileSecondaryPage({ workspaceToken, active, data, activeClass, growth
   const [weeklyEditorOpen, setWeeklyEditorOpen] = useState(false);
   const [weeklyDraft, setWeeklyDraft] = useState({ id: "", weekOffset: 0, edition: "家长版" as WeeklyReport["edition"], title: "", content: "", nextFocus: "" });
   const [weeklyEditorMessage, setWeeklyEditorMessage] = useState("");
+  const [weeklyBusy, setWeeklyBusy] = useState(false);
+  const weeklyDraftBaseline = useRef("");
   const [weeklyView, setWeeklyView] = useState<"本周" | "归档">("本周");
   const [weeklyOffset, setWeeklyOffset] = useState(0);
   const [weeklyArchiveSearch, setWeeklyArchiveSearch] = useState("");
@@ -925,6 +927,7 @@ function MobileSecondaryPage({ workspaceToken, active, data, activeClass, growth
   const [commentTeacherInput, setCommentTeacherInput] = useState("");
   const [commentEditorMessage, setCommentEditorMessage] = useState("");
   const [commentAiBusy, setCommentAiBusy] = useState(false);
+  const [commentSaveBusy, setCommentSaveBusy] = useState(false);
   const [commentAiError, setCommentAiError] = useState("");
   const [commentSelectedRecordIds, setCommentSelectedRecordIds] = useState<string[]>([]);
   const [commentSelectedReflectionIds, setCommentSelectedReflectionIds] = useState<string[]>([]);
@@ -1176,17 +1179,27 @@ function MobileSecondaryPage({ workspaceToken, active, data, activeClass, growth
       currentMonday.setDate(currentMonday.getDate() - currentDay + 1);
       currentMonday.setHours(0, 0, 0, 0);
       const offset = Math.round((new Date(`${report.weekStart}T00:00:00`).getTime() - currentMonday.getTime()) / 604800000);
-      setWeeklyDraft({ id: report.id, weekOffset: offset, edition: report.edition, title: report.title ?? `${activeClass.name}班级周报`, content: report.content, nextFocus: report.nextFocus });
+      const nextDraft = { id: report.id, weekOffset: offset, edition: report.edition, title: report.title ?? `${activeClass.name}班级周报`, content: report.content, nextFocus: report.nextFocus };
+      setWeeklyDraft(nextDraft);
+      weeklyDraftBaseline.current = JSON.stringify(nextDraft);
     } else {
       const meta = mobileWeekMeta(weeklyOffset);
       const titleText = `${activeClass.name} · 第${meta.weekNumber}周班级周报`;
       const nextFocusText = (data.weeklyPlan ?? []).map((item) => `${item.day}：${item.focus}，${item.event}`).join("\n");
-      setWeeklyDraft({ id: "", weekOffset: weeklyOffset, edition: "家长版", title: titleText, content: "", nextFocus: nextFocusText });
+      const nextDraft = { id: "", weekOffset: weeklyOffset, edition: "家长版" as const, title: titleText, content: "", nextFocus: nextFocusText };
+      setWeeklyDraft(nextDraft);
+      weeklyDraftBaseline.current = JSON.stringify(nextDraft);
     }
     setWeeklyEditorOpen(true);
   }
-  function saveWeeklyReportMobile(status: NonNullable<WeeklyReport["status"]>) {
-    if (readOnly) {
+  async function closeWeeklyEditorMobile() {
+    if (weeklyBusy) return;
+    if (JSON.stringify(weeklyDraft) !== weeklyDraftBaseline.current && !await requestDangerConfirm("关闭后会放弃当前未保存的周报内容。", "放弃未保存周报", "放弃并关闭")) return;
+    setWeeklyEditorOpen(false);
+    setWeeklyEditorMessage("");
+  }
+  async function saveWeeklyReportMobile(status: NonNullable<WeeklyReport["status"]>) {
+    if (readOnly || weeklyBusy) {
       setWeeklyEditorMessage("当前为只读模式，周报内容未修改");
       return;
     }
@@ -1201,9 +1214,17 @@ function MobileSecondaryPage({ workspaceToken, active, data, activeClass, growth
       return;
     }
     update((current) => saveWeeklyReport(current, activeClass.id, input, status, () => reportId, nowIso).data ?? current);
+    setWeeklyBusy(true);
+    setWeeklyEditorMessage("周报修改已保留在本机，正在同步工作区。");
+    const ok = await save();
+    setWeeklyBusy(false);
+    if (!ok) {
+      setWeeklyEditorMessage("周报同步失败，本机内容和当前编辑层已保留，请重试保存。");
+      return;
+    }
     setWeeklyEditorOpen(false);
     setWeeklyDraft({ id: "", weekOffset: 0, edition: "家长版", title: "", content: "", nextFocus: "" });
-    notify(status === "已归档" ? "周报已归档，正在同步" : "周报草稿已更新，正在同步", "info");
+    notify(status === "已归档" ? "周报已归档，服务器已确认" : "周报草稿已由服务器确认", "success");
   }
   function openScheduleEditor(event?: ScheduleEvent) {
     setDetail(null);
@@ -1468,8 +1489,8 @@ function MobileSecondaryPage({ workspaceToken, active, data, activeClass, growth
     setCommentEditorOpen(true);
   }
   async function closeCommentEditorMobile() {
-    if (commentAiBusy) {
-      setCommentEditorMessage("AI帮写仍在处理中，请等待完成后再关闭。");
+    if (commentAiBusy || commentSaveBusy) {
+      setCommentEditorMessage(commentAiBusy ? "AI帮写仍在处理中，请等待完成后再关闭。" : "评语仍在保存中，请等待服务器确认。");
       return;
     }
     const original = commentDraft.id
@@ -1481,8 +1502,8 @@ function MobileSecondaryPage({ workspaceToken, active, data, activeClass, growth
     setCommentEvidenceOpen(false);
     setCommentEditorMessage("");
   }
-  function saveCommentMobile() {
-    if (readOnly) {
+  async function saveCommentMobile() {
+    if (readOnly || commentSaveBusy) {
       setCommentEditorMessage("当前为只读模式，评语内容未修改。");
       return;
     }
@@ -1496,8 +1517,17 @@ function MobileSecondaryPage({ workspaceToken, active, data, activeClass, growth
     update((current) => saveTermComment(current, activeClass.id, input, () => commentId, today()).data ?? current);
     setCommentDraft(preview.comment!);
     setCommentTermFilter(preview.comment!.term);
-    setCommentEditorMessage("评语已更新到本机草稿，正在同步；同步失败时可在当前编辑页继续处理。");
-    notify("评语已更新，正在同步", "info");
+    setCommentSaveBusy(true);
+    setCommentEditorMessage("评语已更新到本机草稿，正在同步工作区。");
+    const ok = await save();
+    setCommentSaveBusy(false);
+    if (!ok) {
+      setCommentEditorMessage("评语同步失败，本机内容和当前编辑层已保留，请重试保存。");
+      return;
+    }
+    setCommentTeacherInput("");
+    setCommentEditorMessage("评语已由服务器确认。");
+    notify("评语已由服务器确认", "success");
   }
   async function generateCommentMobile() {
     const student = students.find((item) => item.id === commentDraft.studentId);
@@ -1899,7 +1929,7 @@ function MobileSecondaryPage({ workspaceToken, active, data, activeClass, growth
     });
     const generatedPreview = generateWeeklyText(weeklyDraft.weekOffset, weeklyDraft.edition, weeklyDraft.title, weeklyDraft.nextFocus);
     return <div className="mobile-stack">
-      <MobileSectionHero title={title} text={`${weeklyMeta.label} · 关注 ${weeklyFocusRows.length} 人`} action="新建周报" onAction={() => openWeeklyEditorMobile()} />
+      <MobileSectionHero title={title} text={`${weeklyMeta.label} · 关注 ${weeklyFocusRows.length} 人`} action={readOnly ? undefined : "新建周报"} onAction={() => openWeeklyEditorMobile()} />
       <section className="mobile-overview-stats" aria-label="班级周报概览"><span><small>本周作业</small><b>{weekTasks.length}</b></span><span><small>已记录完成率</small><b>{homeworkMetrics.completionRate}%</b></span><span><small>待跟进</small><b>{followRows.length}</b></span></section>
       <nav className="mobile-weekly-view-tabs"><button type="button" className={weeklyView === "本周" ? "active" : ""} onClick={() => setWeeklyView("本周")}><b>本周概览</b><span>表现、跟进与小组</span></button><button type="button" className={weeklyView === "归档" ? "active" : ""} onClick={() => setWeeklyView("归档")}><b>周报库</b><span>{reports.length} 份历史周报</span></button></nav>
       {weeklyView === "本周" && <label className="mobile-weekly-period"><span>当前周</span><select value={weeklyOffset} onChange={(event) => setWeeklyOffset(Number(event.target.value))}>{weekChoices.map((item) => <option value={item.offset} key={item.offset}>{item.label}</option>)}</select></label>}
@@ -1912,20 +1942,20 @@ function MobileSecondaryPage({ workspaceToken, active, data, activeClass, growth
         <section className="mobile-card-list"><header><h2>历史周报</h2></header>{visibleReports.slice(0, 12).map((report) => <button type="button" key={report.id} onClick={() => setDetail({ title: report.title ?? `${report.edition} · ${report.weekStart}`, children: <><div className="mobile-detail-grid"><span><small>周次</small><b>{report.weekStart}</b></span><span><small>版本</small><b>{report.edition}</b></span><span><small>状态</small><b>{report.status ?? "已保存"}</b></span><span><small>更新</small><b>{report.updatedAt.slice(0, 10)}</b></span></div><div className="mobile-sheet-section"><h3>周报内容</h3><p>{report.content}</p></div><div className="mobile-sheet-section"><h3>下周重点</h3><p>{report.nextFocus}</p></div><div className="mobile-sheet-actions"><button type="button" onClick={() => copyTextToClipboard(`${report.content}\n\n下周重点：${report.nextFocus}`, "已复制周报")}>复制周报</button><button type="button" className="primary" onClick={() => { setDetail(null); openWeeklyEditorMobile(report); }}>继续编辑</button></div></> })}><b>{report.title ?? `${report.edition} · ${report.weekStart}`}</b><span>{report.edition} · {report.weekStart} 至 {report.weekEnd} · {report.nextFocus}</span></button>)}{!visibleReports.length && <article><b>暂无周报</b><span>当前筛选下没有周报，可以调整关键词或新建。</span></article>}</section>
       </>}
       {detail && <MobileInfoSheet title={detail.title} onClose={() => setDetail(null)}>{detail.children}</MobileInfoSheet>}
-      {weeklyEditorOpen && <MobileInfoSheet title={weeklyDraft.id ? "编辑班级周报" : "新建班级周报"} onClose={() => setWeeklyEditorOpen(false)}>
+      {weeklyEditorOpen && <MobileInfoSheet title={weeklyDraft.id ? "编辑班级周报" : "新建班级周报"} onClose={() => void closeWeeklyEditorMobile()}>
         <div className="mobile-form-grid">
-          <label className="wide"><span>周次</span><select value={weeklyDraft.weekOffset} onChange={(event) => {
+          <label className="wide"><span>周次</span><select disabled={readOnly || weeklyBusy} value={weeklyDraft.weekOffset} onChange={(event) => {
             const offset = Number(event.target.value);
             const meta = mobileWeekMeta(offset);
             setWeeklyDraft({ ...weeklyDraft, weekOffset: offset, title: weeklyDraft.title || `${activeClass.name} · 第${meta.weekNumber}周班级周报` });
           }}>{weekChoices.map((item) => <option value={item.offset} key={item.offset}>{item.label}</option>)}</select></label>
-          <label><span>版本</span><select value={weeklyDraft.edition} onChange={(event) => setWeeklyDraft({ ...weeklyDraft, edition: event.target.value as WeeklyReport["edition"] })}><option>家长版</option><option>教师版</option></select></label>
-          <label className="wide"><span>标题</span><input value={weeklyDraft.title} onChange={(event) => setWeeklyDraft({ ...weeklyDraft, title: event.target.value })} placeholder="班级周报标题" /></label>
-          <label className="wide"><span>周报内容</span><textarea value={weeklyDraft.content} onChange={(event) => setWeeklyDraft({ ...weeklyDraft, content: event.target.value })} placeholder={generatedPreview} /></label>
-          <label className="wide"><span>下周重点</span><textarea value={weeklyDraft.nextFocus} onChange={(event) => setWeeklyDraft({ ...weeklyDraft, nextFocus: event.target.value })} placeholder="例如：复查订正、联系重点学生家长、整理小组积分" /></label>
+          <label><span>版本</span><select disabled={readOnly || weeklyBusy} value={weeklyDraft.edition} onChange={(event) => setWeeklyDraft({ ...weeklyDraft, edition: event.target.value as WeeklyReport["edition"] })}><option>家长版</option><option>教师版</option></select></label>
+          <label className="wide"><span>标题</span><input disabled={readOnly || weeklyBusy} value={weeklyDraft.title} onChange={(event) => setWeeklyDraft({ ...weeklyDraft, title: event.target.value })} placeholder="班级周报标题" /></label>
+          <label className="wide"><span>周报内容</span><textarea disabled={readOnly || weeklyBusy} value={weeklyDraft.content} onChange={(event) => setWeeklyDraft({ ...weeklyDraft, content: event.target.value })} placeholder={generatedPreview} /></label>
+          <label className="wide"><span>下周重点</span><textarea disabled={readOnly || weeklyBusy} value={weeklyDraft.nextFocus} onChange={(event) => setWeeklyDraft({ ...weeklyDraft, nextFocus: event.target.value })} placeholder="例如：复查订正、联系重点学生家长、整理小组积分" /></label>
         </div>
-        <div className="mobile-sheet-actions mobile-weekly-utility-actions"><button type="button" onClick={() => setWeeklyDraft({ ...weeklyDraft, content: generatedPreview })}>自动生成正文</button><button type="button" onClick={() => copyTextToClipboard(weeklyDraft.content || generatedPreview, "已复制周报正文")}>复制正文</button></div>
-        <div className="mobile-sheet-actions mobile-weekly-submit-actions">{weeklyEditorMessage && <p className="mobile-weekly-editor-message" role="status">{weeklyEditorMessage}</p>}<button type="button" onClick={() => setWeeklyEditorOpen(false)}>取消</button><button type="button" onClick={() => saveWeeklyReportMobile("草稿")}>保存草稿</button><button type="button" className="primary" onClick={() => saveWeeklyReportMobile("已归档")}>完成并归档</button></div>
+        <div className="mobile-sheet-actions mobile-weekly-utility-actions"><button type="button" disabled={readOnly || weeklyBusy} onClick={() => setWeeklyDraft({ ...weeklyDraft, content: generatedPreview })}>自动生成正文</button><button type="button" onClick={() => copyTextToClipboard(weeklyDraft.content || generatedPreview, "已复制周报正文")}>复制正文</button></div>
+        <div className="mobile-sheet-actions mobile-weekly-submit-actions">{weeklyEditorMessage && <p className="mobile-weekly-editor-message" role="status">{weeklyEditorMessage}</p>}<button type="button" disabled={weeklyBusy} onClick={() => void closeWeeklyEditorMobile()}>取消</button><button type="button" disabled={readOnly || weeklyBusy} onClick={() => void saveWeeklyReportMobile("草稿")}>{weeklyBusy ? "保存中…" : "保存草稿"}</button><button type="button" className="primary" disabled={readOnly || weeklyBusy} onClick={() => void saveWeeklyReportMobile("已归档")}>{weeklyBusy ? "保存中…" : "完成并归档"}</button></div>
       </MobileInfoSheet>}
     </div>;
   }
@@ -2014,9 +2044,9 @@ function MobileSecondaryPage({ workspaceToken, active, data, activeClass, growth
           <span>{commentDraft.term} · 第{selectedCommentStudent.group}组 · 已选 {commentBasisCount} 条依据</span>
         </section>}
         <div className="mobile-form-grid mobile-comment-editor-form">
-          <label className="wide"><span>语气</span><select value={commentDraft.style} onChange={(event) => void changeCommentStyle(event.target.value as TermComment["style"])}><option>家长可读</option><option>温和鼓励</option><option>客观正式</option></select></label>
-          <label className="wide"><span>老师补充</span><textarea value={commentTeacherInput} onChange={(event) => setCommentTeacherInput(event.target.value)} placeholder="例如：课堂表达更主动，但作业订正还需要提醒；希望语气温和一些。" /></label>
-          <label className="wide"><span>评语内容</span><textarea aria-label="评语内容" value={commentDraft.content} onChange={(event) => { setCommentDraft({ ...commentDraft, content: event.target.value }); setCommentEditorMessage(""); }} /></label>
+          <label className="wide"><span>语气</span><select disabled={readOnly || commentAiBusy || commentSaveBusy} value={commentDraft.style} onChange={(event) => void changeCommentStyle(event.target.value as TermComment["style"])}><option>家长可读</option><option>温和鼓励</option><option>客观正式</option></select></label>
+          <label className="wide"><span>老师补充</span><textarea disabled={readOnly || commentAiBusy || commentSaveBusy} value={commentTeacherInput} onChange={(event) => setCommentTeacherInput(event.target.value)} placeholder="例如：课堂表达更主动，但作业订正还需要提醒；希望语气温和一些。" /></label>
+          <label className="wide"><span>评语内容</span><textarea disabled={readOnly || commentAiBusy || commentSaveBusy} aria-label="评语内容" value={commentDraft.content} onChange={(event) => { setCommentDraft({ ...commentDraft, content: event.target.value }); setCommentEditorMessage(""); }} /></label>
         </div>
         <div className="mobile-comment-basis-strip"><span>AI帮写依据</span><em>沟通 {selectedCommentRecords.length}</em><em>积分 {selectedCommentEvents.length}</em><em>反思 {selectedCommentReflections.length}</em></div>
         <div className="campus-editor-tools"><button type="button" onClick={() => {
@@ -2028,10 +2058,10 @@ function MobileSecondaryPage({ workspaceToken, active, data, activeClass, growth
           }
           setCommentDraft((current) => ({ ...current, content }));
           setCommentEditorMessage("已按当前选中的真实记录生成本地草稿，请检查后保存。");
-        }}>本地生成</button><button type="button" disabled={commentAiBusy} onClick={generateCommentMobile}>{commentAiBusy ? "AI帮写中" : "AI帮写"}</button></div>
+        }} disabled={readOnly || commentAiBusy || commentSaveBusy}>本地生成</button><button type="button" disabled={commentAiBusy || commentSaveBusy} onClick={generateCommentMobile}>{commentAiBusy ? "AI帮写中" : "AI帮写"}</button></div>
         {workspaceToken !== "demo" && <div className="campus-editor-tools"><button type="button" onClick={() => void disableAiConsent().catch((error) => setCommentAiError(error instanceof Error ? error.message : "AI 设置更新失败"))}>关闭 AI 数据授权</button></div>}
-        <div className="campus-editor-tools"><button type="button" onClick={() => setCommentEvidenceOpen(true)}>选择依据</button><button type="button" onClick={() => copyTextToClipboard(commentDraft.content, "已复制评语")}>复制评语</button></div>
-        <div className="mobile-sheet-actions"><button type="button" onClick={() => void closeCommentEditorMobile()}>关闭</button><button type="button" className="primary" onClick={saveCommentMobile}>保存评语</button></div>
+        <div className="campus-editor-tools"><button type="button" disabled={commentAiBusy || commentSaveBusy} onClick={() => setCommentEvidenceOpen(true)}>选择依据</button><button type="button" onClick={() => copyTextToClipboard(commentDraft.content, "已复制评语")}>复制评语</button></div>
+        <div className="mobile-sheet-actions"><button type="button" disabled={commentAiBusy || commentSaveBusy} onClick={() => void closeCommentEditorMobile()}>关闭</button><button type="button" className="primary" disabled={readOnly || commentAiBusy || commentSaveBusy} onClick={() => void saveCommentMobile()}>{commentSaveBusy ? "保存中…" : "保存评语"}</button></div>
       </MobileInfoSheet>}
       {commentEvidenceOpen && selectedCommentStudent && <MobileInfoSheet title={`${selectedCommentStudent.name} · 选择依据`} onClose={() => setCommentEvidenceOpen(false)}>
         <section className="mobile-comment-evidence-list">
@@ -2843,7 +2873,7 @@ function Growth({ data, update, save, readOnly, requestedStudentId }: { data: Cl
   </div>;
 }
 
-function Weekly({ data, update, readOnly }: { data: ClassroomData; update: (fn: (d: ClassroomData) => ClassroomData) => void; readOnly: boolean }) {
+function Weekly({ data, update, save, readOnly }: { data: ClassroomData; update: (fn: (d: ClassroomData) => ClassroomData) => void; save: () => Promise<boolean>; readOnly: boolean }) {
   type WeeklyView = "overview" | "editor" | "archive";
   type DetailPanel = "stars" | "progress" | "follow" | "groups" | "records" | null;
   const classes = data.rosterClasses?.length ? data.rosterClasses : [{ id: data.activeClassId ?? "class-1", name: "当前班级", grade: "", term: "", students: data.students }];
@@ -2855,6 +2885,7 @@ function Weekly({ data, update, readOnly }: { data: ClassroomData; update: (fn: 
   const [followFilter, setFollowFilter] = useState<"全部" | "作业" | "成绩" | "考勤">("全部");
   const [copied, setCopied] = useState(false);
   const [savedState, setSavedState] = useState("");
+  const [weeklyBusy, setWeeklyBusy] = useState(false);
   const [customDraft, setCustomDraft] = useState("");
   const [draftTouched, setDraftTouched] = useState(false);
   const [reportTitle, setReportTitle] = useState("班级周报");
@@ -2943,6 +2974,9 @@ function Weekly({ data, update, readOnly }: { data: ClassroomData; update: (fn: 
     nextFocus.trim() || "继续关注作业习惯、课堂参与和自我管理。",
   ].join("\n\n");
   const draftContent = draftTouched ? customDraft : currentSavedReport?.content ?? generatedText;
+  const weeklyDirty = reportTitle !== (currentSavedReport?.title ?? defaultTitle)
+    || nextFocus !== (currentSavedReport?.nextFocus ?? defaultPlan)
+    || (draftTouched && customDraft !== (currentSavedReport?.content ?? generatedText));
   const filteredReports = allReports.filter((report) => {
     const targetClass = classes.find((item) => item.id === report.classId);
     const keyword = archiveSearch.trim().toLowerCase();
@@ -2957,8 +2991,14 @@ function Weekly({ data, update, readOnly }: { data: ClassroomData; update: (fn: 
   const previewReport = allReports.find((report) => report.id === previewReportId);
   const previewClass = previewReport ? classes.find((item) => item.id === previewReport.classId) : undefined;
 
-  function shiftWeek(delta: number) {
-    setWeekOffset((current) => current + delta);
+  async function changeWeeklyContext(action: () => void) {
+    if (weeklyBusy) return;
+    if (view === "editor" && weeklyDirty && !await requestDangerConfirm("切换后会放弃当前未保存的周报内容。", "放弃未保存周报", "放弃并切换")) return;
+    action();
+  }
+
+  async function shiftWeek(delta: number) {
+    await changeWeeklyContext(() => setWeekOffset((current) => current + delta));
   }
 
   async function copyText(text: string) {
@@ -2969,8 +3009,8 @@ function Weekly({ data, update, readOnly }: { data: ClassroomData; update: (fn: 
     }
   }
 
-  function saveReport(status: "草稿" | "已归档") {
-    if (readOnly) {
+  async function saveReport(status: "草稿" | "已归档") {
+    if (readOnly || weeklyBusy) {
       setSavedState("当前为只读模式，周报内容未修改");
       return;
     }
@@ -2983,8 +3023,16 @@ function Weekly({ data, update, readOnly }: { data: ClassroomData; update: (fn: 
       return;
     }
     update((current) => saveWeeklyReport(current, currentClassId, input, status, () => reportId, nowText).data ?? current);
+    setWeeklyBusy(true);
+    setSavedState("周报修改已保留在本机，正在同步工作区。");
+    const ok = await save();
+    setWeeklyBusy(false);
+    if (!ok) {
+      setSavedState("周报同步失败，本机内容与当前编辑页已保留，请重试保存。");
+      return;
+    }
     setDraftTouched(false);
-    setSavedState(status === "已归档" ? "已归档，正在同步" : "草稿已更新，正在同步");
+    setSavedState(status === "已归档" ? "周报已归档，服务器已确认" : "周报草稿已由服务器确认");
     if (status === "已归档") {
       setArchivePage(1);
       setView("archive");
@@ -2997,13 +3045,15 @@ function Weekly({ data, update, readOnly }: { data: ClassroomData; update: (fn: 
     update((current) => ({ ...current, activeClassId: id, students: nextClass.students }));
   }
 
-  function openSavedReport(report: NonNullable<ClassroomData["weeklyReports"]>[number]) {
+  async function openSavedReport(report: NonNullable<ClassroomData["weeklyReports"]>[number]) {
     const offset = Math.round((new Date(report.weekStart + "T00:00:00").getTime() - currentMonday.getTime()) / 604800000);
-    switchToClass(report.classId);
-    setWeekOffset(offset);
-    setEdition(report.edition);
-    setView("editor");
-    setPreviewReportId(null);
+    await changeWeeklyContext(() => {
+      switchToClass(report.classId);
+      setWeekOffset(offset);
+      setEdition(report.edition);
+      setView("editor");
+      setPreviewReportId(null);
+    });
   }
 
   const detailTitles: Record<Exclude<DetailPanel, null>, string> = {
@@ -3015,18 +3065,18 @@ function Weekly({ data, update, readOnly }: { data: ClassroomData; update: (fn: 
   };
 
   return <div className="weekreport-page homework-bootstrap-preview">
-    <WorkbenchPageHeader icon="🗞️" tone="lake" title="周报工作台" description="按周汇总作业、积分、成长记录和跟进名单，生成可编辑、可归档的班级周报。" actions={<button className="weekreport-primary workbench-header-primary" onClick={() => { setWeekOffset(0); setView("editor"); }}>新建本周周报</button>} />
+    <WorkbenchPageHeader icon="🗞️" tone="lake" title="周报工作台" description="按周汇总作业、积分、成长记录和跟进名单，生成可编辑、可归档的班级周报。" actions={<button className="weekreport-primary workbench-header-primary" disabled={weeklyBusy} onClick={() => void changeWeeklyContext(() => { setWeekOffset(0); setView("editor"); })}>新建本周周报</button>} />
 
     <section className="weekreport-toolbar workbench-page-context">
       <nav className="weekreport-tabs" aria-label="周报页面">
-        <button className={view === "overview" ? "active" : ""} onClick={() => setView("overview")}>概览</button>
-        <button className={view === "editor" ? "active" : ""} onClick={() => setView("editor")}>编辑周报</button>
-        <button className={view === "archive" ? "active" : ""} onClick={() => setView("archive")}>周报库</button>
+        <button className={view === "overview" ? "active" : ""} onClick={() => void changeWeeklyContext(() => setView("overview"))}>概览</button>
+        <button className={view === "editor" ? "active" : ""} onClick={() => void changeWeeklyContext(() => setView("editor"))}>编辑周报</button>
+        <button className={view === "archive" ? "active" : ""} onClick={() => void changeWeeklyContext(() => setView("archive"))}>周报库</button>
       </nav>
       <div className="weekreport-fields">
         <div className="weekreport-current"><span>当前班级</span><b>{className}</b><small>班级管理在左侧统一处理</small></div>
-        <label><span>周次</span><select value={weekOffset} onChange={(event) => setWeekOffset(Number(event.target.value))}>{weekChoices.map((item) => <option key={item.offset} value={item.offset}>{item.label}</option>)}</select></label>
-        <div className="weekreport-toolbar-actions"><button onClick={() => shiftWeek(-1)}>上一周</button><button disabled={weekOffset >= 0} onClick={() => shiftWeek(1)}>下一周</button></div>
+        <label><span>周次</span><select value={weekOffset} onChange={(event) => { const next = Number(event.target.value); void changeWeeklyContext(() => setWeekOffset(next)); }}>{weekChoices.map((item) => <option key={item.offset} value={item.offset}>{item.label}</option>)}</select></label>
+        <div className="weekreport-toolbar-actions"><button onClick={() => void shiftWeek(-1)}>上一周</button><button disabled={weekOffset >= 0} onClick={() => void shiftWeek(1)}>下一周</button></div>
       </div>
     </section>
 
@@ -3108,27 +3158,27 @@ function Weekly({ data, update, readOnly }: { data: ClassroomData; update: (fn: 
         </section>
         <section>
           <span>周报版本</span>
-          <div className="weekreport-edition">{(["家长版", "教师版"] as const).map((item) => <button className={edition === item ? "active" : ""} key={item} onClick={() => setEdition(item)}><b>{item}</b><small>{item === "家长版" ? "适合班级群，不公开名单" : "保留详细跟进信息"}</small></button>)}</div>
+          <div className="weekreport-edition">{(["家长版", "教师版"] as const).map((item) => <button className={edition === item ? "active" : ""} disabled={weeklyBusy} key={item} onClick={() => void changeWeeklyContext(() => setEdition(item))}><b>{item}</b><small>{item === "家长版" ? "适合班级群，不公开名单" : "保留详细跟进信息"}</small></button>)}</div>
         </section>
         <section className="weekreport-source"><span>自动汇总来源</span><p>作业记录 <b>{weekTasks.length} 项</b></p><p>积分记录 <b>{reportPointEvents.length} 条</b></p><p>成长记录 <b>{reportRecords.length} 条</b></p><p>成绩与考勤 <b>{weeklyScoreExamCount} 场 / {weeklyAttendanceCount} 条</b></p></section>
-        <button onClick={() => { setCustomDraft(generatedText); setDraftTouched(true); setSavedState(""); }}>按当前数据重新生成</button>
+        <button disabled={readOnly || weeklyBusy} onClick={() => { setCustomDraft(generatedText); setDraftTouched(true); setSavedState(""); }}>按当前数据重新生成</button>
       </aside>
       <main className="weekreport-editor-main">
         <section className="weekreport-title-row">
-          <label><span>周报标题</span><input value={reportTitle} onChange={(event) => { setReportTitle(event.target.value); setSavedState(""); }} /></label>
+          <label><span>周报标题</span><input disabled={readOnly || weeklyBusy} value={reportTitle} onChange={(event) => { setReportTitle(event.target.value); setSavedState(""); }} /></label>
           <div><span>{draftContent.length} 字</span><span>{edition}</span></div>
         </section>
         <section className="weekreport-writing">
           <header><div><b>周报正文</b><span>自动生成只是起点，老师可以自由增删</span></div></header>
-          <textarea aria-label="周报正文" value={draftContent} onChange={(event) => { setCustomDraft(event.target.value); setDraftTouched(true); setSavedState(""); }} />
+          <textarea aria-label="周报正文" disabled={readOnly || weeklyBusy} value={draftContent} onChange={(event) => { setCustomDraft(event.target.value); setDraftTouched(true); setSavedState(""); }} />
         </section>
         <section className="weekreport-writing action">
-          <header><div><b>下周行动</b><span>写清时间、对象、动作和复查节点</span></div><button onClick={() => setNextFocus("周一｜检查作业订正，重点关注未完成学生\n周三｜与重点学生进行一次简短谈话并记录\n周五｜复盘小组表现，确定下周表扬与跟进名单")}>插入模板</button></header>
-          <textarea aria-label="下周行动计划" value={nextFocus} onChange={(event) => { setNextFocus(event.target.value); setSavedState(""); }} placeholder={"周一｜检查上周订正完成情况\n周三｜联系重点学生家长并记录沟通结果\n周五｜复盘小组积分与本周行动"} />
+          <header><div><b>下周行动</b><span>写清时间、对象、动作和复查节点</span></div><button disabled={readOnly || weeklyBusy} onClick={() => setNextFocus("周一｜检查作业订正，重点关注未完成学生\n周三｜与重点学生进行一次简短谈话并记录\n周五｜复盘小组表现，确定下周表扬与跟进名单")}>插入模板</button></header>
+          <textarea aria-label="下周行动计划" disabled={readOnly || weeklyBusy} value={nextFocus} onChange={(event) => { setNextFocus(event.target.value); setSavedState(""); }} placeholder={"周一｜检查上周订正完成情况\n周三｜联系重点学生家长并记录沟通结果\n周五｜复盘小组积分与本周行动"} />
         </section>
         <footer className="weekreport-editor-footer">
           <div>{savedState ? <b>{savedState}</b> : <span>{draftTouched ? "有未保存修改" : currentSavedReport ? "内容已保存" : "尚未保存"}</span>}</div>
-          <div><button onClick={() => copyText(draftContent)}>{copied ? "已复制" : "复制正文"}</button><button onClick={() => setView("overview")}>离开编辑</button><button onClick={() => saveReport("草稿")}>保存草稿</button><button className="primary" onClick={() => saveReport("已归档")}>完成并归档</button></div>
+          <div><button onClick={() => copyText(draftContent)}>{copied ? "已复制" : "复制正文"}</button><button disabled={weeklyBusy} onClick={() => void changeWeeklyContext(() => setView("overview"))}>离开编辑</button><button disabled={readOnly || weeklyBusy} onClick={() => void saveReport("草稿")}>{weeklyBusy ? "保存中…" : "保存草稿"}</button><button className="primary" disabled={readOnly || weeklyBusy} onClick={() => void saveReport("已归档")}>{weeklyBusy ? "保存中…" : "完成并归档"}</button></div>
         </footer>
       </main>
     </section>}
@@ -4040,7 +4090,7 @@ function ReflectionWithExam({ data, update, saveWorkspace, readOnly }: { data: C
   </>;
 }
 
-function Comments({ workspaceToken, data, update, readOnly }: { workspaceToken: string; data: ClassroomData; update: (fn: (d: ClassroomData) => ClassroomData) => void; readOnly: boolean }) {
+function Comments({ workspaceToken, data, update, save: saveWorkspace, readOnly }: { workspaceToken: string; data: ClassroomData; update: (fn: (d: ClassroomData) => ClassroomData) => void; save: () => Promise<boolean>; readOnly: boolean }) {
   const [id, setId] = useState(data.students[0]?.id ?? "");
   const [style, setStyle] = useState<TermComment["style"]>("家长可读");
   const currentTermLabel = scheduleTermLabel(data.scheduleConfig, "当前学期");
@@ -4051,6 +4101,7 @@ function Comments({ workspaceToken, data, update, readOnly }: { workspaceToken: 
   const [studentPage, setStudentPage] = useState(1);
   const [teacherInput, setTeacherInput] = useState("");
   const [aiBusy, setAiBusy] = useState(false);
+  const [saveBusy, setSaveBusy] = useState(false);
   const [aiError, setAiError] = useState("");
   const [selectedRecordIds, setSelectedRecordIds] = useState<string[]>([]);
   const [selectedReflectionIds, setSelectedReflectionIds] = useState<string[]>([]);
@@ -4108,8 +4159,8 @@ function Comments({ workspaceToken, data, update, readOnly }: { workspaceToken: 
   if (!student) return null;
   const draftDirty = draft !== (saved?.content ?? "") || Boolean(teacherInput.trim());
   async function changeCommentContext(action: () => void) {
-    if (aiBusy) {
-      setSavedState("AI帮写仍在处理中，请等待完成后再切换。");
+    if (aiBusy || saveBusy) {
+      setSavedState(aiBusy ? "AI帮写仍在处理中，请等待完成后再切换。" : "评语仍在保存中，请等待服务器确认。");
       return;
     }
     if (draftDirty && !await requestDangerConfirm("切换后会放弃当前未保存的评语内容和老师补充。", "放弃未保存评语", "放弃并切换")) return;
@@ -4126,8 +4177,8 @@ function Comments({ workspaceToken, data, update, readOnly }: { workspaceToken: 
     setDraft(comment);
     setSavedState("已按当前选中的真实记录生成本地草稿，请检查后保存。");
   }
-  function save() {
-    if (readOnly) {
+  async function saveComment() {
+    if (readOnly || saveBusy) {
       setSavedState("当前为只读模式，评语内容未修改。");
       return;
     }
@@ -4139,7 +4190,11 @@ function Comments({ workspaceToken, data, update, readOnly }: { workspaceToken: 
       return;
     }
     update((current) => saveTermComment(current, activeClassId, input, () => commentId, today()).data ?? current);
-    setSavedState("评语已更新，正在同步");
+    setSaveBusy(true);
+    setSavedState("评语修改已保留在本机，正在同步工作区。");
+    const ok = await saveWorkspace();
+    setSaveBusy(false);
+    setSavedState(ok ? "评语已由服务器确认。" : "评语同步失败，本机内容、学生和依据选择已保留，请重试保存。");
   }
   async function generateAiComment() {
     if (readOnly && workspaceToken !== "demo") {
@@ -4184,7 +4239,7 @@ function Comments({ workspaceToken, data, update, readOnly }: { workspaceToken: 
       <section className="comment5-current workbench-page-context">
         <div><span>当前学生</span><h3>{student.name}</h3><p>{term} · {style} · 学号 {student.studentNo || "未填"}</p></div>
         <label className="comment5-term-switch"><span>学期筛选</span><select value={term} onChange={(event) => { const next = event.target.value; void changeCommentContext(() => setTerm(next)); }}>{termOptions.map((item) => <option value={item} key={item}>{item}</option>)}</select><small>课程日程：{termBounds.startMonth} 至 {termBounds.endMonth}</small></label>
-        <div className="comment5-actions"><button type="button" onClick={() => void applyLocalDraft()}>套用本地草稿</button><button type="button" onClick={() => copyTextToClipboard(draft, "已复制评语")}>复制评语</button><button type="button" className="comment5-primary" onClick={save}>保存评语</button></div>
+        <div className="comment5-actions"><button type="button" disabled={readOnly || aiBusy || saveBusy} onClick={() => void applyLocalDraft()}>套用本地草稿</button><button type="button" onClick={() => copyTextToClipboard(draft, "已复制评语")}>复制评语</button><button type="button" className="comment5-primary" disabled={readOnly || aiBusy || saveBusy} onClick={() => void saveComment()}>{saveBusy ? "保存中…" : "保存评语"}</button></div>
       </section>
       <div className="comment5-progressline"><span>当前学期</span><b>已保存 {termSavedComments} 条</b><em>历史 {savedComments} 条</em><em>待填写 {termMissingCount} 人</em><em>已选依据 {aiBasisCount} 条</em></div>
       <section className="comment5-work">
@@ -4202,14 +4257,14 @@ function Comments({ workspaceToken, data, update, readOnly }: { workspaceToken: 
           <footer><button type="button" disabled={safeStudentPage <= 1} onClick={() => setStudentPage((next) => Math.max(1, next - 1))}>上一页</button><span>{safeStudentPage} / {totalStudentPages}</span><button type="button" disabled={safeStudentPage >= totalStudentPages} onClick={() => setStudentPage((next) => Math.min(totalStudentPages, next + 1))}>下一页</button></footer>
         </aside>
         <section className="comment5-editor">
-          <div className="comment5-toolbar"><label><span>语气</span><select value={style} onChange={(event) => { const next = event.target.value as TermComment["style"]; void changeCommentContext(() => setStyle(next)); }}><option>家长可读</option><option>温和鼓励</option><option>客观正式</option></select></label></div>
+          <div className="comment5-toolbar"><label><span>语气</span><select disabled={saveBusy || aiBusy} value={style} onChange={(event) => { const next = event.target.value as TermComment["style"]; void changeCommentContext(() => setStyle(next)); }}><option>家长可读</option><option>温和鼓励</option><option>客观正式</option></select></label></div>
           <section className="comment5-draft">
             <header><div><span>可编辑评语草稿</span><h3>{student.name}</h3></div><small>{draft.length} 字</small></header>
-            <textarea aria-label="评语内容" value={draft} onChange={(event) => { setDraft(event.target.value); setSavedState(""); }} />
+            <textarea aria-label="评语内容" disabled={readOnly || aiBusy || saveBusy} value={draft} onChange={(event) => { setDraft(event.target.value); setSavedState(""); }} />
           </section>
           <section className="comment5-input">
-            <label><span>老师补充</span><textarea value={teacherInput} onChange={(event) => setTeacherInput(event.target.value)} placeholder="例如：本学期课堂表达更主动，但作业订正还需要提醒；希望语气温和一些。" /></label>
-            <button type="button" className="comment5-primary" disabled={aiBusy} onClick={generateAiComment}>{aiBusy ? "AI帮写中..." : "AI帮写"}</button>
+            <label><span>老师补充</span><textarea disabled={readOnly || aiBusy || saveBusy} value={teacherInput} onChange={(event) => setTeacherInput(event.target.value)} placeholder="例如：本学期课堂表达更主动，但作业订正还需要提醒；希望语气温和一些。" /></label>
+            <button type="button" className="comment5-primary" disabled={aiBusy || saveBusy} onClick={generateAiComment}>{aiBusy ? "AI帮写中..." : "AI帮写"}</button>
             {workspaceToken !== "demo" && <button type="button" onClick={() => void disableAiConsent().catch((error) => setAiError(error instanceof Error ? error.message : "AI 设置更新失败"))}>关闭 AI 授权</button>}
           </section>
           {aiError && <button className="comment5-alert error" onClick={() => setAiError("")}>{aiError}<span>点击关闭</span></button>}

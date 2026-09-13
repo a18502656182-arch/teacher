@@ -388,6 +388,17 @@ test("seating duty and cadres wait for workspace confirmation", () => {
   assert.match(cadresPage, /岗位同步失败，本机修改和当前编辑内容已保留/);
 });
 
+test("weekly reports and term comments preserve editors until workspace confirmation", () => {
+  assert.match(app, /<Weekly data=\{workspace\.data\} update=\{updateData\} save=\{save\}/);
+  assert.match(app, /<Comments workspaceToken=\{token\} data=\{workspace\.data\} update=\{updateData\} save=\{save\}/);
+  assert.match(app, /async function saveWeeklyReportMobile/);
+  assert.match(app, /周报同步失败，本机内容和当前编辑层已保留/);
+  assert.match(app, /async function saveReport\(status: "草稿" \| "已归档"\)/);
+  assert.match(app, /async function saveCommentMobile\(\)/);
+  assert.match(app, /async function saveComment\(\)/);
+  assert.match(app, /评语同步失败，本机内容、学生和依据选择已保留/);
+});
+
 test("attendance keeps all actions in the batch-capable main roster", () => {
   assert.match(classroomTypes, /export type AttendanceRecord/);
   assert.match(classroomTypes, /attendanceRecords\?: AttendanceRecord\[\]/);

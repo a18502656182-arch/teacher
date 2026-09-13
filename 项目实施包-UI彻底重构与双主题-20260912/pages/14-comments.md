@@ -1,6 +1,6 @@
 # 期末评语：逐页执行卡
 
-状态：inventoried-with-gap。模块ID：comments。源码相对 app/w/[token]（明确app/lib前缀除外）：ClassroomApp.tsx:Comments/MobileSecondaryPage；共享操作：features/comments/operations.ts。
+状态：implemented。模块ID：comments。源码相对 app/w/[token]（明确app/lib前缀除外）：ClassroomApp.tsx:Comments/MobileSecondaryPage；共享操作：features/comments/operations.ts。
 参考：编辑工作区派生。派生页面使用对应页面族构图和校园token，不把缺少专属图解释为可回退旧UI。
 
 ## 保全动作（种子，实施前展开）
@@ -34,4 +34,6 @@
 
 已展开桌面/手机学期、学生、依据、生成、人工编辑、保存、复制与浮层入口，并将班级过滤、保存唯一性和只整理真实依据收进共享操作层。修复了跨班计数、只读假成功、本地模板编写无依据事实及证据变化覆盖手工草稿。六宽度真实浏览器已打开手机二级依据浮层，并验证草稿和只读提示保留。
 
-本卡仍未完成：生产 DOM/CSS 继续使用 `comment5-*` 和手机公共大组件，正式新视图、100+/软键盘/真实 AI 服务、页面级脏状态和旧 CSS 退出尚未验收，所以 `A-14-*` 不改为通过。证据见 `../evidence/comments-operations-20260912.md`。
+## 2026-09-13 TASK-28 完成
+
+桌面和手机评语保存均已接入workspace服务器确认：保存中禁止重复操作与对象切换，失败保留本机评语、学生、老师补充、依据选择和当前编辑层，成功才显示服务器确认。只读字段、生成草稿及保存动作原生禁用；AI仍只进入可编辑草稿。桌面/手机实查及六档布局通过。共享 `comment5-*` 命名和集中旧样式清理由TASK-30处理；100+名册、物理软键盘、真实AI服务、真实弱网和双标签409仍未在本项浏览器验收。证据见 `../evidence/writing-implementation-20260913.md`。
