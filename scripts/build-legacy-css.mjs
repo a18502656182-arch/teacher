@@ -9,7 +9,6 @@ export const legacyCssSources = [
   'app/components/campus/shell.css',
   'app/components/campus/controls.css',
   'app/components/campus/surfaces.css',
-  'app/components/campus/dashboard.css',
   'app/components/campus/mobile.css',
   'app/components/campus/account.css',
   'app/components/campus/workspace-chrome.css',

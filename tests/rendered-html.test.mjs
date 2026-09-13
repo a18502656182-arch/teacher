@@ -6,7 +6,9 @@ const read = (path) => readFileSync(new URL(`../${path}`, import.meta.url), "utf
 const app = read("app/w/[token]/ClassroomApp.tsx");
 const workspaceOperations = read("app/w/[token]/workspace/operations.ts");
 const workspaceController = read("app/w/[token]/workspace/useWorkspaceController.ts");
-const dashboard = read("app/components/campus/Dashboard.tsx");
+const dashboard = read("app/w/[token]/features/dashboard/DashboardView.tsx");
+const dashboardCss = read("app/w/[token]/features/dashboard/DashboardView.module.css");
+const dashboardReadModel = read("app/w/[token]/features/dashboard/read-model.ts");
 const dialogBehavior = read("app/components/campus/DialogAccessibility.tsx");
 const sharedDialog = read("app/components/workbench/ui/Dialog.tsx");
 const modalLayer = read("app/components/workbench/ui/ModalLayer.tsx");
@@ -248,7 +250,8 @@ test("campus rebuild owns one shared shell and four task-oriented navigation gro
 });
 
 test("benchmark pages use reference-led compositions and semantic artwork slots", () => {
-  assert.match(dashboard, /campus-dashboard-stage/);
+  assert.match(dashboard, /className=\{styles\.stage\}/);
+  assert.match(dashboardCss, /\.stage\{/);
   assert.match(app, /campus-student-workspace/);
   assert.match(app, /campus-homework-workspace/);
   assert.match(pageFamiliesCss, /grid-template-columns:minmax\(620px,1fr\) 350px/);
@@ -341,11 +344,11 @@ test("course scheduling keeps teacher work in the same module with traceable rec
 });
 
 test("dashboard reuses dated teacher agenda instead of maintaining a second todo list", () => {
-  assert.match(dashboard, /data\.teacherAgenda/);
-  assert.match(dashboard, /item\.date === date/);
-  assert.match(dashboard, /item\.status !== '已完成'/);
-  assert.match(app, /<Dashboard data=\{data\}/);
-  assert.match(app, /<Dashboard[^>]*data=\{workspace\.data\}/);
+  assert.match(dashboardReadModel, /teacherAgendaForClass/);
+  assert.match(dashboardReadModel, /item\.date === date/);
+  assert.match(dashboardReadModel, /item\.status !== '已完成'/);
+  assert.match(app, /<DashboardView data=\{data\}/);
+  assert.match(app, /<DashboardView[^>]*data=\{workspace\.data\}/);
   assert.doesNotMatch(dashboard, /useState/);
 });
 
