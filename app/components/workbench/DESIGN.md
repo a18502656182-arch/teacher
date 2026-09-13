@@ -83,7 +83,7 @@ components:
 
 **Creative North Star: "校园工作纸上的清晰操作"**
 
-本文件适用于 app/components/workbench 的新 theme / ui 基础层，并记录听写 GradingView 隔离探针对它的使用，记录日期为 2026-09-12。暖白、浅蓝和粉笔绿延续校园粉彩、水彩文具方向，正文与控件以清楚、稳定和可操作为先。它不替代根 DESIGN.md，也不证明旧页面已迁移。
+本文件适用于 app/components/workbench 的新 theme / ui 基础层，并记录听写 GradingView 与共享选人器隔离探针对它的使用，更新日期为 2026-09-13。暖白、浅蓝和粉笔绿延续校园粉彩、水彩文具方向，正文与控件以清楚、稳定和可操作为先。它不替代根 DESIGN.md，也不证明旧页面已迁移。
 
 依据为当前 contracts.ts、definitions.ts、ThemeBoundary.tsx、theme.module.css、ui 组件及 CSS Modules，以及 tools/ui-preview/README.md。已查看 evidence-local 中 campus-controls-desktop.png 与 campus-controls-mobile.png；手机图是独立文档内的 390×844 CSS 视口，不能视为真实手机软键盘测试。主任务报告局部 finish reviewer disposition 为 ship，仅限基础层。
 
@@ -166,6 +166,9 @@ control 为按钮、字段、分段外框和批量条统一圆角；surface 用�
 - **Menu / MenuItem**：菜单触发器声明 aria-haspopup、aria-expanded 与 aria-controls；菜单项使用 menu/menuitem 语义。ArrowUp、ArrowDown、Home、End 在可用项间循环，Escape 关闭并把焦点还给触发器，Tab 与外部点击关闭。菜单项文字允许换行；手机菜单固定在安全区内，避免因触发器靠近边缘而横向越界。
 - **LoadingState / EmptyState**：加载状态使用 role=status 与 aria-live，并只说明正在读取，不生成业务结果；空态通过标题和描述建立可访问名称，可选语义插画缺失时直接收起图片区。空态动作由调用者提供，组件不臆造新增、刷新或清空行为。
 - **Dialog**：受控 open、title、children、可选 footer、busy、dirty、onRequestClose。使用 showModal/close，标题通过 aria-labelledby 关联；原生模态负责焦点限制和背景 inert，关闭时尝试恢复触发元素。Escape、遮罩起始点击和关闭按钮统一请求 escape / backdrop / button；busy 阻止这些请求。dirty 仅输出 data-dirty，确认放弃草稿必须由控制器处理，不能宣称组件自动保存或自动确认。
+- **ModalLayer / Drawer**：Dialog由ModalLayer提供统一生命周期；Drawer复用同一顶层和关闭协议，桌面从右侧进入，600px以下转为底部层，正文滚动且底部动作区保留safe-area。嵌套层关闭只恢复父层内触发器，不触发旧全局Escape处理器关闭父层。
+- **DraftClosePrompt**：只负责明确询问放弃未提交修改，不自动保存；继续编辑恢复原层焦点，确认放弃才完成原关闭请求。
+- **StudentPicker**：线性名册支持105人搜索、分页、单选或跨页多选草稿；异步确认失败保留搜索、页码和选择，并将焦点移到错误摘要。旧StudentLookupDialog只作兼容适配，不能据此宣布其他旧浮层已迁移。
 - **Icon**：name 查共享 iconPaths，未知名称回退 book；24×24 viewBox、1.8 线宽、圆端点和圆连接。SVG 为 aria-hidden、focusable=false，操作语义需由按钮或文本提供。
 
 ## Do's and Don'ts

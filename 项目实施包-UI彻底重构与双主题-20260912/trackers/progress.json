@@ -3,7 +3,7 @@
   "baselineCommit": "6e10e2dc314e09d0d72df9509730f57c5fde34e2",
   "implementationStatus": "in-progress",
   "active_task": null,
-  "next_action": "当前停在TASK-07完成后的用户浏览点；确认基础控件方向后启动TASK-08浮层与100+学生搜索选择",
+  "next_action": "TASK-08已完成并验证；立即执行TASK-09新旧样式隔离",
   "milestones": {
     "M0": "done",
     "M1": "in-progress",
@@ -12,7 +12,7 @@
     "M4": "planned",
     "M5": "planned"
   },
-  "note": "线上受检源码无需要覆盖的业务差异。M0完成；TASK-04纯业务读取、TASK-05工作区controller、TASK-06主题契约和TASK-07基础控件完成。已完成任务8/33（01至07及提前完成的29），按任务数24.2%；按剩余页面和验收工作量估计总进度约45%。生产构建、229/229自动化测试、认证集成和115项qa:strict通过。按用户要求暂停在基础控件浏览点；TASK-08已具备前置条件但未启动。多数业务页迁移和A场景仍未完成，TASK-30前置未满足。没有生产操作。",
+  "note": "线上受检源码无需要覆盖的业务差异。M0完成；TASK-04至TASK-08及提前完成的TASK-29已完成。已完成任务9/33，按任务数27.3%；按剩余页面和验收工作量估计总进度约47%，这不是精确工时。生产构建、231/231自动化测试、认证集成和全量qa:strict通过；105人搜索分页、失败保留、脏关闭与嵌套焦点已在桌面和390×844 CSS视口验证。当前进入TASK-09；多数业务页迁移和A场景仍未完成，TASK-30前置未满足。没有生产操作。",
   "implementationStartCommit": "f321d5e9424e0020bdf1e56d52c31b986b503a53",
   "parallelPreparation": [],
   "verifiedOnlineBaseline": "0691aba",
