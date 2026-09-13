@@ -64,6 +64,21 @@ test('校园语义插画manifest使用存在的本地资源并声明无主题回
   for (const role of roles) assert.ok(runtime.campusTheme.artworkByRole[role], role);
 });
 
+test('首批校园场景为桌面和手机提供独立候选资源', () => {
+  const roles = ['home.scene', 'dictation.context', 'student.detail', 'homework.context'];
+  for (const role of roles) {
+    const asset = runtime.campusTheme.artworkByRole[role];
+    assert.equal(asset.status, 'candidate');
+    assert.equal(asset.width, 1200);
+    assert.equal(asset.height, 800);
+    assert.equal(asset.fit, 'cover');
+    assert.equal(asset.safeTextArea, 'left');
+    assert.ok(asset.mobileSrc, `${role} missing mobileSrc`);
+    assert.notEqual(asset.mobileSrc, asset.src);
+    assert.ok(existsSync(fileURLToPath(new URL(`../public${asset.mobileSrc}`, import.meta.url))), asset.mobileSrc);
+  }
+});
+
 test('主题更新不使用React key重挂载，缺图直接为空', () => {
   const boundary = read('app/components/workbench/theme/ThemeBoundary.tsx');
   const artwork = read('app/components/workbench/theme/Artwork.tsx');

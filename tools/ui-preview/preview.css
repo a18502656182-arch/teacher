@@ -9,3 +9,20 @@ html, body { margin: 0; padding: 0; }
 .preview-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
 .preview input[type='checkbox'] { width: 20px; height: 20px; accent-color: var(--wb-primary); vertical-align: middle; }
 @media(max-width:600px) { .preview { padding: 20px 16px; } .preview-fields { grid-template-columns: 1fr; } }
+
+.artwork-probe { display: grid; gap: 24px; max-width: 1040px; margin: auto; padding: 32px; }
+.artwork-probe header h1 { margin: 0; font-size: var(--wb-heading); }
+.artwork-probe header p { margin: 6px 0 0; color: var(--wb-muted); }
+.artwork-probe-banner { position: relative; min-height: 260px; overflow: hidden; border: 1px solid var(--wb-line); border-radius: var(--wb-radius-surface); background: var(--wb-context); }
+.artwork-probe-banner picture { position: absolute; inset: 0; }
+.artwork-probe-image { width: 100%; height: 100%; }
+.artwork-probe-banner > div { position: relative; z-index: 1; width: min(39%, 360px); padding: 38px; }
+.artwork-probe-banner h2 { margin: 0; color: var(--wb-ink); font-size: 30px; line-height: 1.25; }
+.artwork-probe-banner p { margin: 10px 0 0; color: var(--wb-muted); }
+@media(max-width:600px) {
+  .artwork-probe { gap: 16px; padding: 20px 16px; }
+  .artwork-probe-banner { min-height: 210px; border-radius: 14px; }
+  .artwork-probe-banner > div { width: 46%; padding: 24px 18px; }
+  .artwork-probe-banner h2 { font-size: 22px; }
+  .artwork-probe-banner p { font-size: 13px; }
+}

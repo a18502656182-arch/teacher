@@ -1,7 +1,8 @@
 import { resolvePublicTheme, type ArtworkAsset, type ThemeDefinition } from './contracts';
 
-const artwork = (src: string, width: number, height: number, options: Partial<Pick<ArtworkAsset, 'fit' | 'focalPoint' | 'safeTextArea'>> = {}): ArtworkAsset => ({
+const artwork = (src: string, width: number, height: number, options: Partial<Pick<ArtworkAsset, 'mobileSrc' | 'fit' | 'focalPoint' | 'safeTextArea'>> = {}): ArtworkAsset => ({
   src,
+  mobileSrc: options.mobileSrc,
   width,
   height,
   fit: options.fit ?? 'contain',
@@ -41,12 +42,12 @@ export const campusTheme = {
   elevation: { dialog: '0 16px 56px #17354a30' },
   motion: { duration: '120ms', easing: 'ease-out', decorative: 'none' },
   artworkByRole: {
-    'home.scene': artwork('/art/campus/classroom-morning.webp', 960, 640, { fit: 'cover', safeTextArea: 'left' }),
+    'home.scene': artwork('/art/campus/home-scene-v3.webp', 1200, 800, { mobileSrc: '/art/campus/home-scene-mobile-v3.webp', fit: 'cover', focalPoint: [72, 50], safeTextArea: 'left' }),
     'entry.scene': artwork('/art/campus/classroom-morning.webp', 960, 640, { fit: 'cover', safeTextArea: 'left' }),
-    'dictation.context': artwork('/art/campus/word-cards.webp', 600, 400),
+    'dictation.context': artwork('/art/campus/dictation-context-v2.webp', 1200, 800, { mobileSrc: '/art/campus/dictation-context-mobile-v2.webp', fit: 'cover', focalPoint: [74, 50], safeTextArea: 'left' }),
     'dictation.grading': artwork('/art/campus/dictation-stationery-v2.png', 1666, 944, { fit: 'cover', focalPoint: [85, 50], safeTextArea: 'left' }),
-    'student.detail': artwork('/art/campus/student-records.webp', 1100, 733),
-    'homework.context': artwork('/art/campus/homework-books.webp', 1100, 733),
+    'student.detail': artwork('/art/campus/student-detail-v2.webp', 1200, 800, { mobileSrc: '/art/campus/student-detail-mobile-v2.webp', fit: 'cover', focalPoint: [70, 50], safeTextArea: 'left' }),
+    'homework.context': artwork('/art/campus/homework-context-v2.webp', 1200, 800, { mobileSrc: '/art/campus/homework-context-mobile-v2.webp', fit: 'cover', focalPoint: [72, 50], safeTextArea: 'left' }),
     'assessment.context': artwork('/art/campus/assessment-review.webp', 1100, 733),
     'planning.context': artwork('/art/campus/class-planner.webp', 1100, 733),
     'duty.context': artwork('/art/campus/duty-cleaning.webp', 1100, 733),

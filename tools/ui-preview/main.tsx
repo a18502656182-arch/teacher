@@ -13,6 +13,7 @@ import { EmptyState, LoadingState } from '../../app/components/workbench/ui/Feed
 import { StudentPicker } from '../../app/components/workbench/ui/StudentPicker';
 import './preview.css';
 import { GradingProbe } from './GradingProbe';
+import { ArtworkProbe } from './ArtworkProbe';
 
 const SYNTHETIC_STUDENTS = Array.from({ length: 105 }, (_, index) => ({
   id: `synthetic-student-${index + 1}`,
@@ -94,4 +95,5 @@ function ControlProbe() {
   </>;
 }
 
-createRoot(document.getElementById('root')!).render(new URLSearchParams(location.search).has('isolation') ? <LegacyScopeProbe/> : new URLSearchParams(location.search).has('grading') ? <GradingProbe/> : <Preview/>);
+const params = new URLSearchParams(location.search);
+createRoot(document.getElementById('root')!).render(params.has('isolation') ? <LegacyScopeProbe/> : params.has('grading') ? <GradingProbe/> : params.has('artwork') ? <ArtworkProbe/> : <Preview/>);
