@@ -69,6 +69,9 @@ const shellCatalog = read("app/components/workbench/shell/catalog.ts");
 const shellController = read("app/components/workbench/shell/useWorkbenchShellController.ts");
 const shellCss = read("app/components/workbench/shell/shell.module.css");
 const dictationWorkspace = read("app/w/[token]/dictation/Dictation.tsx");
+const dictationGrading = read("app/w/[token]/dictation/Grading.tsx");
+const dictationGradingCss = read("app/w/[token]/dictation/Grading.module.css");
+const dictationLegacyCss = read("app/w/[token]/dictation/dictation.css");
 const familyScene = read("app/w/[token]/dictation/FamilyScene.tsx");
 const pageFamiliesCss = read("app/components/campus/page-families.css");
 const campusTheme = read("app/components/campus/theme.ts");
@@ -302,6 +305,17 @@ test("homework uses one controller for desktop and mobile task-first workflows",
   assert.match(homeworkReadModel, /task\.classId === classId/);
   assert.doesNotMatch(app, /function Homework\(|function MobileHomework\(/);
   assert.doesNotMatch(homeworkView, /mobile-task-sheet-summary|点学生可多选/);
+});
+
+test("dictation grading uses one central work surface with expandable material and a student queue", () => {
+  assert.match(dictationGrading, /<details className=\{styles\.material\}>/);
+  assert.match(dictationGrading, /确认已核对全部/);
+  assert.match(dictationGrading, /保存并下一位/);
+  assert.match(dictationGrading, /<Drawer open=\{showRoster\}/);
+  assert.match(dictationGradingCss, /grid-template-columns:minmax\(0,1fr\) 272px/);
+  assert.match(dictationGradingCss, /position:fixed[\s\S]*bottom:60px/);
+  assert.doesNotMatch(dictationGrading, /dictation-material-pane|dictation-grading-main|campus-banner|ThemeArtwork/);
+  assert.doesNotMatch(dictationLegacyCss, /\.dictation-grading|\.dictation-material-pane|\.dictation-roster|\.dictation-savebar/);
 });
 
 test("duty timetable follows the course schedule's custom teaching days", () => {
