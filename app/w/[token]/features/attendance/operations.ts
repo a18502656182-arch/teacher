@@ -21,8 +21,9 @@ export function applyAttendanceChanges(
   const validChanges = changes.filter(change => allowedIds.has(change.studentId));
   if (!validChanges.length) return current;
   const changesById = new Map(validChanges.map(change => [change.studentId, change]));
+  const uniqueChanges = [...changesById.values()];
   const retained = (current.attendanceRecords ?? []).filter(item => !(item.classId === classId && item.date === date && changesById.has(item.studentId)));
-  const records = validChanges.map(change => {
+  const records = uniqueChanges.map(change => {
     const existing = (current.attendanceRecords ?? []).find(item => item.classId === classId && item.date === date && item.studentId === change.studentId);
     const note = change.note ?? existing?.note ?? '';
     if (change.status !== '请假') return {
@@ -38,7 +39,7 @@ export function applyAttendanceChanges(
   });
   const next = { ...current, attendanceRecords: [...retained, ...records] };
   if (date !== today) return next;
-  const statuses = new Map(validChanges.map(change => [change.studentId, change.status]));
+  const statuses = new Map(uniqueChanges.map(change => [change.studentId, change.status]));
   const patchStudents = (students: Student[]) => students.map(student => statuses.has(student.id)
     ? { ...student, attendance: statuses.get(student.id)! }
     : student);

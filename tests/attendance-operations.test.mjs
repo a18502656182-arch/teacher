@@ -55,3 +55,22 @@ test('拒绝另一班和不存在学生ID，不调用ID生成器', () => {
   }
   assert.equal(calls, 0);
 });
+
+test('105人批量状态与备注同次写入且重复学生只保留最后一项', () => {
+  const students = Array.from({ length: 105 }, (_, index) => ({ id: `large-${index}`, attendance: '正常' }));
+  const data = { activeClassId: 'large', students, rosterClasses: [{ id: 'large', students }], attendanceRecords: [] };
+  let nextId = 0;
+  const changes = students.map(student => ({ studentId: student.id, status: '迟到', note: '统一备注' }));
+  changes.push({ studentId: 'large-0', status: '请假', note: '最后一次修改' });
+
+  const next = applyAttendanceChanges(data, 'large', changes, '2026-09-12', () => `record-${++nextId}`, '2026-09-12');
+
+  assert.equal(next.attendanceRecords.length, 105);
+  assert.equal(new Set(next.attendanceRecords.map(item => item.studentId)).size, 105);
+  const first = next.attendanceRecords.find(item => item.studentId === 'large-0');
+  assert.equal(first.status, '请假');
+  assert.equal(first.note, '最后一次修改');
+  assert.ok(next.attendanceRecords.filter(item => item.studentId !== 'large-0').every(item => item.status === '迟到' && item.note === '统一备注'));
+  assert.equal(next.students[0].attendance, '请假');
+  assert.ok(next.students.slice(1).every(student => student.attendance === '迟到'));
+});

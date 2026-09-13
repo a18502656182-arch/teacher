@@ -353,15 +353,29 @@ async function runRuntimeAudit(url) {
           await page.send("Runtime.evaluate", {
             returnByValue: true,
             expression: `(() => {
-              const checkbox = document.querySelector('.attendance-row-select input[type="checkbox"]');
+              const root = document.querySelector('[data-attendance="page"]');
+              const checkbox = document.querySelector('[data-attendance="row-select"] input[type="checkbox"]');
+              const statusActions = [...document.querySelectorAll('[data-attendance="status-actions"] button')];
+              const allNormal = [...document.querySelectorAll('button')].find((button) => button.textContent?.includes('一键全员正常'));
+              window.__attendanceReadOnly = root?.dataset.readOnly === 'true';
+              window.__attendanceReadOnlyHealthy = window.__attendanceReadOnly
+                ? Boolean(checkbox?.disabled && allNormal?.disabled && statusActions.length && statusActions.every((button) => button.disabled))
+                : true;
+              if (window.__attendanceReadOnly) {
+                window.__attendanceBatchBarVisible = true;
+                window.__attendanceSelectionCleared = true;
+                window.__attendanceStatusActionsHealthy = Boolean(root && document.querySelector('[data-attendance="roster"]'));
+                window.__attendanceAllNormalHealthy = Boolean(allNormal?.disabled && document.querySelector('[data-attendance="roster"]'));
+                return window.__attendanceReadOnlyHealthy;
+              }
               checkbox?.click();
-              const select = document.querySelector('.attendance-batch-bar select');
+              const select = document.querySelector('[data-attendance="batch-bar"] select');
               if (select) {
                 const setter = Object.getOwnPropertyDescriptor(HTMLSelectElement.prototype, 'value')?.set;
                 setter?.call(select, '迟到');
                 select.dispatchEvent(new Event('change', { bubbles: true }));
               }
-              window.__attendanceBatchBarVisible = Boolean(document.querySelector('.attendance-batch-bar'));
+              window.__attendanceBatchBarVisible = Boolean(document.querySelector('[data-attendance="batch-bar"]'));
               return Boolean(checkbox && select);
             })()`,
           });
@@ -369,7 +383,8 @@ async function runRuntimeAudit(url) {
           await page.send("Runtime.evaluate", {
             returnByValue: true,
             expression: `(() => {
-              const apply = document.querySelector('.attendance-batch-bar .attendance-primary');
+              if (window.__attendanceReadOnly) return true;
+              const apply = document.querySelector('[data-attendance="batch-bar"] button');
               apply?.click();
               return Boolean(apply);
             })()`,
@@ -378,7 +393,8 @@ async function runRuntimeAudit(url) {
           await page.send("Runtime.evaluate", {
             returnByValue: true,
             expression: `(() => {
-              window.__attendanceSelectionCleared = ![...document.querySelectorAll('.attendance-row-select input[type="checkbox"]')].some((input) => input.checked);
+              if (window.__attendanceReadOnly) return true;
+              window.__attendanceSelectionCleared = ![...document.querySelectorAll('[data-attendance="row-select"] input[type="checkbox"]')].some((input) => input.checked);
               return window.__attendanceSelectionCleared;
             })()`,
           });
@@ -386,7 +402,8 @@ async function runRuntimeAudit(url) {
             await page.send("Runtime.evaluate", {
               returnByValue: true,
               expression: `(() => {
-                const action = [...document.querySelectorAll('.attendance-status-actions button')].find((button) => button.textContent?.trim() === ${JSON.stringify(status)});
+                if (window.__attendanceReadOnly) return true;
+                const action = [...document.querySelectorAll('[data-attendance="status-actions"] button')].find((button) => button.textContent?.trim() === ${JSON.stringify(status)});
                 action?.click();
                 return Boolean(action);
               })()`,
@@ -395,7 +412,8 @@ async function runRuntimeAudit(url) {
             await page.send("Runtime.evaluate", {
               returnByValue: true,
               expression: `(() => {
-                window.__attendanceStatusActionsHealthy = (window.__attendanceStatusActionsHealthy ?? true) && Boolean(document.querySelector('.attendance-ledger .attendance-roster')) && !document.querySelector('nextjs-portal, [data-nextjs-dialog-overlay]');
+                if (window.__attendanceReadOnly) return true;
+                window.__attendanceStatusActionsHealthy = (window.__attendanceStatusActionsHealthy ?? true) && Boolean(document.querySelector('[data-attendance="roster"]')) && !document.querySelector('nextjs-portal, [data-nextjs-dialog-overlay]');
                 return window.__attendanceStatusActionsHealthy;
               })()`,
             });
@@ -403,7 +421,8 @@ async function runRuntimeAudit(url) {
           await page.send("Runtime.evaluate", {
             returnByValue: true,
             expression: `(() => {
-              const allNormal = [...document.querySelectorAll('.attendance-primary')].find((button) => button.textContent?.includes('一键全员正常'));
+              if (window.__attendanceReadOnly) return true;
+              const allNormal = [...document.querySelectorAll('button')].find((button) => button.textContent?.includes('一键全员正常'));
               allNormal?.click();
               return Boolean(allNormal);
             })()`,
@@ -412,7 +431,8 @@ async function runRuntimeAudit(url) {
           await page.send("Runtime.evaluate", {
             returnByValue: true,
             expression: `(() => {
-              window.__attendanceAllNormalHealthy = Boolean(document.querySelector('.attendance-ledger .attendance-roster')) && document.querySelectorAll('.attendance-status-actions button.active.normal').length > 0;
+              if (window.__attendanceReadOnly) return true;
+              window.__attendanceAllNormalHealthy = Boolean(document.querySelector('[data-attendance="roster"]')) && [...document.querySelectorAll('[data-attendance="status-actions"] button[data-status="正常"]')].some((button) => button.getAttribute('aria-pressed') === 'true');
               return window.__attendanceAllNormalHealthy;
             })()`,
           });
@@ -607,7 +627,9 @@ async function runRuntimeAudit(url) {
               homeworkReadonlyBulkDisabled: window.__homeworkReadonlyBulkDisabled === true,
               mobileHomeworkTaskSummary: Boolean(document.querySelector('.mobile-task-sheet-summary')),
               mobileHomeworkSelectionRail: Boolean(document.querySelector('article input[type="checkbox"]')),
-              attendanceLedger: Boolean(document.querySelector('.attendance-ledger .attendance-roster-controls')),
+              attendanceLedger: Boolean(document.querySelector('[data-attendance="roster"] [data-attendance="roster-controls"]')),
+              attendanceReadOnly: window.__attendanceReadOnly === true,
+              attendanceReadOnlyHealthy: window.__attendanceReadOnlyHealthy === true,
               attendanceBatchBar: window.__attendanceBatchBarVisible === true,
               attendanceSelectionCleared: window.__attendanceSelectionCleared === true,
               attendanceStatusActionsHealthy: window.__attendanceStatusActionsHealthy === true,
@@ -694,6 +716,7 @@ async function runRuntimeAudit(url) {
         if (pageId === "homework" && viewport.width <= 900 && data?.mobileHomeworkTaskSummary) failures.push("Mobile homework detail still repeats the task summary card.");
         if (pageId === "homework" && viewport.width <= 900 && !data?.mobileHomeworkSelectionRail) failures.push("Mobile homework rows do not expose the visual selection affordance.");
         if (pageId === "attendance" && !data?.attendanceLedger) failures.push("Attendance does not expose the searchable main roster.");
+        if (pageId === "attendance" && data?.attendanceReadOnly && !data?.attendanceReadOnlyHealthy) failures.push("Attendance demo does not disable every write affordance.");
         if (pageId === "attendance" && !data?.attendanceBatchBar) failures.push("Attendance selection does not expose the batch-save controls.");
         if (pageId === "attendance" && !data?.attendanceSelectionCleared) failures.push("Attendance batch save did not clear completed row selections.");
         if (pageId === "attendance" && !data?.attendanceStatusActionsHealthy) failures.push("An attendance status action caused the main roster to disappear or show an error overlay.");

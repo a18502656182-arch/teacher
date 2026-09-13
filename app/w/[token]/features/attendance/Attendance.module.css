@@ -1,0 +1,93 @@
+.page { display: grid; gap: 18px; min-width: 0; color: var(--campus-ink); }
+.headerActions, .mobileHead { display: flex; align-items: end; gap: 10px; }
+.headerActions label, .mobileHead label { display: grid; gap: 4px; color: var(--campus-muted); font-size: 12px; }
+.page input, .page select { min-height: 40px; padding: 7px 10px; border: 1px solid var(--campus-line); border-radius: 8px; color: var(--campus-ink); background: var(--campus-surface); font: inherit; }
+.primary, .selectVisible, .saveNote, .pagination button { min-height: 40px; padding: 8px 13px; border: 1px solid var(--campus-line); border-radius: 8px; color: var(--campus-ink); background: var(--campus-surface); font: inherit; font-weight: 700; cursor: pointer; }
+.primary { border-color: var(--campus-primary); color: var(--campus-surface); background: var(--campus-primary); }
+.page button:disabled, .page input:disabled, .page select:disabled { cursor: not-allowed; opacity: .5; }
+.mobileHead { display: none; justify-content: space-between; }
+.mobileHead p { margin: 0; color: var(--campus-muted); }
+
+.statistics { display: grid; grid-template-columns: repeat(4, minmax(110px, 1fr)); border-block: 1px solid var(--campus-line); }
+.statistics span { display: grid; gap: 3px; padding: 14px 16px; border-right: 1px solid var(--campus-line); }
+.statistics span:last-child { border-right: 0; }
+.statistics small { color: var(--campus-muted); }
+.statistics b { font-size: 24px; font-variant-numeric: tabular-nums; }
+.statistics span[data-status="迟到"] b { color: var(--campus-warning); }
+.statistics span[data-status="请假"] b { color: var(--campus-primary); }
+.statistics span[data-status="缺勤"] b { color: var(--campus-error); }
+.mobileAllNormal { display: none; }
+.message { display: flex; width: 100%; min-height: 42px; align-items: center; justify-content: space-between; padding: 9px 12px; border: 1px solid var(--campus-line); border-radius: 8px; color: var(--campus-primary); background: var(--campus-blue); font: inherit; text-align: left; }
+.message[data-error="true"] { border-color: var(--campus-error); color: var(--campus-error); background: var(--campus-error-soft); }
+
+.roster, .calendar { overflow: hidden; border: 1px solid var(--campus-line); border-radius: 14px; background: var(--campus-surface); }
+.rosterHeader, .calendar > header { display: flex; min-height: 68px; align-items: center; justify-content: space-between; gap: 14px; padding: 13px 16px; border-bottom: 1px solid var(--campus-line); background: var(--campus-blue); }
+.rosterHeader h3, .calendar h3 { margin: 0; font-size: 19px; }
+.rosterHeader p, .calendar p { margin: 3px 0 0; color: var(--campus-muted); font-size: 12px; }
+.controls { display: grid; grid-template-columns: minmax(240px, 1fr) 150px 130px; gap: 10px; padding: 12px 14px; border-bottom: 1px solid var(--campus-line); }
+.controls label, .batchBar label, .calendarPeriod { display: grid; min-width: 0; gap: 4px; color: var(--campus-muted); font-size: 12px; font-weight: 700; }
+.batchBar { display: grid; grid-template-columns: auto 140px minmax(220px, 1fr) auto; align-items: end; gap: 10px; padding: 11px 14px; border-bottom: 1px solid var(--campus-line); background: var(--campus-green); }
+.batchBar > strong { align-self: center; color: var(--campus-primary); white-space: nowrap; }
+.listHead, .student { display: grid; grid-template-columns: 36px minmax(150px, .8fr) minmax(252px, 1.12fr) minmax(210px, .9fr) 64px; align-items: center; gap: 12px; }
+.listHead { min-height: 38px; padding: 0 14px; border-bottom: 1px solid var(--campus-line); color: var(--campus-muted); background: var(--campus-blue); font-size: 12px; font-weight: 700; }
+.student { min-height: 66px; padding: 9px 14px; border-bottom: 1px solid var(--campus-line); }
+.student:last-child { border-bottom: 0; }
+.student[data-selected="true"] { background: var(--campus-blue); }
+.rowSelect { display: grid; place-items: center; }
+.rowSelect input { width: 20px; min-height: 20px; accent-color: var(--campus-primary); }
+.studentMain { display: flex; min-width: 0; align-items: center; gap: 10px; }
+.studentMain > i { display: grid; width: 36px; height: 36px; flex: none; place-items: center; border-radius: 50%; color: var(--campus-primary); background: var(--campus-green); font-style: normal; font-weight: 800; }
+.studentMain span { min-width: 0; }
+.studentMain b, .studentMain small { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.studentMain small { color: var(--campus-muted); font-size: 12px; }
+.statusActions { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); overflow: hidden; border: 1px solid var(--campus-line); border-radius: 8px; }
+.statusActions button { min-width: 0; min-height: 40px; padding: 4px; border: 0; border-right: 1px solid var(--campus-line); color: var(--campus-muted); background: var(--campus-surface); font: inherit; cursor: pointer; }
+.statusActions button:last-child { border-right: 0; }
+.statusActions button[aria-pressed="true"] { color: var(--campus-primary); background: var(--campus-blue); font-weight: 800; box-shadow: inset 0 -3px 0 var(--campus-primary); }
+.statusActions button[data-status="迟到"][aria-pressed="true"] { color: var(--campus-warning); background: var(--campus-yellow); box-shadow: inset 0 -3px 0 var(--campus-warning); }
+.statusActions button[data-status="缺勤"][aria-pressed="true"] { color: var(--campus-error); background: var(--campus-error-soft); box-shadow: inset 0 -3px 0 var(--campus-error); }
+.rowNote { min-width: 0; }
+.rowNote input { width: 100%; }
+.saveNote { min-width: 62px; padding-inline: 9px; }
+.empty { margin: 0; padding: 32px 16px; color: var(--campus-muted); text-align: center; }
+.pagination { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 12px; border-top: 1px solid var(--campus-line); color: var(--campus-muted); font-size: 12px; }
+.pagination button { min-height: 34px; padding: 5px 10px; }
+
+.calendar > div { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 5px; padding: 10px; }
+.calendar > div button { display: grid; min-height: 48px; align-content: center; gap: 2px; border: 1px solid var(--campus-line); border-radius: 7px; color: var(--campus-muted); background: var(--campus-surface); font: inherit; cursor: pointer; }
+.calendar > div button b { color: var(--campus-primary); font-size: 12px; }
+.calendar > div button span { font-size: 10px; }
+.calendar > div button[data-state="entered"] { background: var(--campus-green); }
+.calendar > div button[data-state="exception"] { background: var(--campus-yellow); }
+.calendar > div button[data-state="selected"] { border-color: var(--campus-primary); background: var(--campus-blue); box-shadow: inset 0 -3px 0 var(--campus-primary); }
+
+@media (max-width: 900px) {
+  .page { gap: 13px; padding: 12px 14px 96px; font-size: 16px; }
+  .mobileHead { display: flex; align-items: center; }
+  .mobileHead input, .page input, .page select { min-height: 46px; font-size: 16px; }
+  .statistics { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .statistics span { padding: 11px 5px; text-align: center; }
+  .statistics b { font-size: 22px; }
+  .statistics small { font-size: 11px; }
+  .mobileAllNormal { display: block; width: 100%; min-height: 44px; }
+  .roster { border: 0; border-radius: 0; }
+  .rosterHeader { min-height: 62px; padding: 12px 0; background: transparent; }
+  .controls { grid-template-columns: minmax(0, 1fr) 112px; padding: 10px 0; }
+  .search { grid-column: 1 / -1; }
+  .batchBar { grid-template-columns: 1fr 1fr; margin-inline: -14px; padding: 12px 14px; }
+  .batchBar > strong, .batchNote { grid-column: 1 / -1; }
+  .batchBar .primary { width: 100%; }
+  .listHead { display: none; }
+  .studentList { border-top: 1px solid var(--campus-line); }
+  .student { grid-template-columns: 28px minmax(0, 1fr); gap: 9px 10px; padding: 13px 0; }
+  .statusActions, .rowNote { grid-column: 1 / -1; }
+  .saveNote { grid-column: 2; justify-self: end; min-height: 40px; }
+  .calendar > div { grid-template-columns: repeat(7, minmax(48px, 1fr)); overflow-x: auto; }
+}
+
+@media (max-width: 430px) {
+  .mobileHead { align-items: stretch; flex-direction: column; }
+  .mobileHead label { width: 100%; }
+  .rosterHeader { align-items: flex-start; }
+  .selectVisible { padding-inline: 8px; font-size: 13px; }
+}

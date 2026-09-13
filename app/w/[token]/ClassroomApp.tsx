@@ -306,12 +306,12 @@ export default function ClassroomApp({ token }: { token: string }) {
         onClearError={clearError}
         onExportDraft={exportWorkspaceBackup}
         onLoadLatest={() => void loadLatestWorkspace()}
-        mobileContent={<MobileWorkspaceContent workspaceToken={token} workspace={workspace} activeClass={activeClass} active={active} visited={visitedMobileModules} openModule={openModule} openStudentGrowth={openStudentGrowth} growthRequest={growthRequest} update={updateData} isDemo={isDemo} isReadOnly={isReadOnly} openAccount={accountCenter.openCenter} switchLearningScene={switchLearningScene} />}
+        mobileContent={<MobileWorkspaceContent workspaceToken={token} workspace={workspace} activeClass={activeClass} active={active} visited={visitedMobileModules} openModule={openModule} openStudentGrowth={openStudentGrowth} growthRequest={growthRequest} update={updateData} save={save} isDemo={isDemo} isReadOnly={isReadOnly} openAccount={accountCenter.openCenter} switchLearningScene={switchLearningScene} />}
         desktopContent={<>
           {active === "dictation" && <Suspense fallback={<p role="status">正在加载听写…</p>}><Dictation key={`${workspace.data.activeClassId}:${learningScene}`} data={workspace.data} token={token} readOnly={isDemo || isReadOnly} commit={commitWorkspace} scene={learningScene}/></Suspense>}
           {active === "dashboard" && <DashboardView defaultDutyJobs={defaultDutyJobs} data={workspace.data} open={openModule} openFamily={() => switchLearningScene('family')} openStudentGrowth={openStudentGrowth} />}
           {active === "students" && <StudentsView data={workspace.data} update={updateData} confirmAction={requestDangerConfirm} readOnly={isDemo || isReadOnly} />}
-          {active === "attendance" && <Attendance data={workspace.data} update={updateData} />}
+          {active === "attendance" && <Attendance data={workspace.data} update={updateData} save={save} readOnly={isDemo || isReadOnly} />}
           {active === "homework" && <HomeworkView data={workspace.data} update={updateData} confirmAction={requestDangerConfirm} readOnly={isDemo || isReadOnly} />}
           {active === "points" && <Points data={workspace.data} update={updateData} />}
           {active === "rules" && <Rules data={workspace.data} update={updateData} />}
@@ -364,7 +364,7 @@ export default function ClassroomApp({ token }: { token: string }) {
   );
 }
 
-function MobileWorkspaceContent({ workspaceToken, workspace, activeClass, active, visited, openModule, openStudentGrowth, growthRequest, update, isDemo, isReadOnly, openAccount, switchLearningScene }: { workspaceToken: string; workspace: Workspace; activeClass: RosterClass; active: ModuleId; visited: ModuleId[]; openModule: (id: ModuleId) => void; openStudentGrowth: (studentId: string) => void; growthRequest: { studentId: string; sequence: number }; update: (fn: (d: ClassroomData) => ClassroomData) => void; isDemo: boolean; isReadOnly: boolean; openAccount: () => void; switchLearningScene: (scene: LearningScene) => void }) {
+function MobileWorkspaceContent({ workspaceToken, workspace, activeClass, active, visited, openModule, openStudentGrowth, growthRequest, update, save, isDemo, isReadOnly, openAccount, switchLearningScene }: { workspaceToken: string; workspace: Workspace; activeClass: RosterClass; active: ModuleId; visited: ModuleId[]; openModule: (id: ModuleId) => void; openStudentGrowth: (studentId: string) => void; growthRequest: { studentId: string; sequence: number }; update: (fn: (d: ClassroomData) => ClassroomData) => void; save: () => Promise<boolean>; isDemo: boolean; isReadOnly: boolean; openAccount: () => void; switchLearningScene: (scene: LearningScene) => void }) {
   const data = workspace.data;
   const visibleModules = new Set([...visited, active]);
   const pane = (id: ModuleId, content: ReactNode) => visibleModules.has(id)
@@ -374,7 +374,7 @@ function MobileWorkspaceContent({ workspaceToken, workspace, activeClass, active
   return <>
       {pane('dashboard', <MobileHome data={data} open={openModule} openFamily={() => switchLearningScene('family')} openAccount={openAccount} openStudentGrowth={openStudentGrowth} />)}
       {pane('students', <StudentsView data={data} update={update} confirmAction={requestDangerConfirm} readOnly={isDemo || isReadOnly} mobile />)}
-      {pane('attendance', <Attendance data={data} update={update} mobile />)}
+      {pane('attendance', <Attendance data={data} update={update} save={save} readOnly={isDemo || isReadOnly} mobile />)}
       {pane('homework', <HomeworkView data={data} update={update} confirmAction={requestDangerConfirm} mobile readOnly={isDemo || isReadOnly} />)}
       {pane('scores', <MobileScores workspaceToken={workspaceToken} data={data} activeClass={activeClass} update={update} open={openModule} />)}
       {pane('health', <HealthCare data={data} update={update} mobile />)}

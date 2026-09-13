@@ -3,7 +3,7 @@
   "baselineCommit": "6e10e2dc314e09d0d72df9509730f57c5fde34e2",
   "implementationStatus": "in-progress",
   "active_task": null,
-  "next_action": "TASK-19已完成；执行TASK-20考勤完整迁移，并连续推进至TASK-28",
+  "next_action": "TASK-20已完成；执行TASK-21成长健康沟通迁移，并连续推进至TASK-28",
   "milestones": {
     "M0": "done",
     "M1": "done",
@@ -12,7 +12,7 @@
     "M4": "planned",
     "M5": "planned"
   },
-  "note": "线上受检源码无需要覆盖的业务差异。M0与M1完成；TASK-04至TASK-20前的页面任务及提前完成的TASK-29已完成。已完成任务20/33，按任务数60.6%；按剩余页面和验收工作量估计总进度约77%，这不是精确工时。家庭学习复用局部听写核心，孩子/班级按稳定ID隔离；家庭30天窗口统一且保存中持续阻止离开。ESLint、19项专项、qa:strict、生产构建、258/258自动化及认证集成通过。按用户最新指令不中途暂停，继续TASK-20至TASK-28；M2仍在进行，TASK-30前置未满足。没有生产操作。",
+  "note": "线上受检源码无需要覆盖的业务差异。M0与M1完成；TASK-04至TASK-20及提前完成的TASK-29已完成。已完成任务21/33，按任务数63.6%；按剩余页面和验收工作量估计总进度约79%，这不是精确工时。考勤桌面与手机共用局部样式控制器，保存失败保留选择和草稿，105人重复批次按最后一次修改去重，只读写入口全部禁用。ESLint、42项专项、六档考勤qa:strict、生产构建、259/259自动化及认证集成通过。按用户最新指令不中途暂停，继续TASK-21至TASK-28；M2仍在进行，TASK-30前置未满足。没有生产操作。",
   "implementationStartCommit": "f321d5e9424e0020bdf1e56d52c31b986b503a53",
   "parallelPreparation": [],
   "verifiedOnlineBaseline": "0691aba",

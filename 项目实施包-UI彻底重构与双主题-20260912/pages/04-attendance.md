@@ -1,6 +1,6 @@
 # 考勤与请假：逐页执行卡
 
-状态：planned。模块ID：attendance。源码相对 app/w/[token]（明确app/lib前缀除外）：Attendance.tsx;ClassroomApp.tsx:MobileSecondaryPage。
+状态：implemented。模块ID：attendance。源码相对 app/w/[token]（明确app/lib前缀除外）：Attendance.tsx;ClassroomApp.tsx:MobileSecondaryPage。
 参考：C4派生。派生页面使用对应页面族构图和校园token，不把缺少专属图解释为可回退旧UI。
 
 ## 保全动作（种子，实施前展开）
