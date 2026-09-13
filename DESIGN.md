@@ -222,7 +222,7 @@ WorkspaceChrome 桌面壳层采用 68px 通栏顶栏、244px 侧栏和主工作�
 - **StudentLookupDialog**：默认只显示按学号排序的前 12 名，可用 20 人范围段与每页 12 人浏览；搜索跨全班匹配，姓名与学号是主要入口。选中项有“当前”文字，支持可选清空动作和结果计数。可用于百人班选择，不依赖小组，也不首屏铺满全班。范围段基于排序位置，不能描述为学生号连续性保证。
 - **DialogAccessibility**：根布局挂载的兼容适配器，为所匹配弹窗管理激活顺序、Tab 焦点循环、Esc 关闭、背景 inert、滚动锁及关闭后的恢复。它复用已有保存/取消处理；嵌套弹窗优先级按激活顺序。需由实际弹窗提供正确标题关联、关闭动作和结构，不能把适配器存在当作全站无障碍验收证据。
 - **弹窗外观**：浅蓝标题、白色内容、底部 sticky 动作；关闭按钮提供可理解标签，单个编辑流程保持一个明确主操作。手机搜索框可见，内容区可滚，底部操作含安全区。
-- **CampusIcon / ThemeArtwork**：线性 SVG 使用 24×24 viewBox、1.8 线宽及圆端点；装饰 SVG 隐藏于辅助技术并配真实文字。theme 的 dashboard 槽使用 classroom-morning.webp，dictation / empty 使用 word-cards.webp，roster / care / communication 使用 student-records.webp，homework 使用 homework-books.webp，assessment 使用 assessment-review.webp，planning / tools 使用 class-planner.webp。图片为本地原创资产，缺图返回 null，不能以整页 UI 截图代替素材。
+- **CampusIcon / ThemeArtwork**：线性 SVG 使用 24×24 viewBox、1.8 线宽及圆端点；装饰 SVG 隐藏于辅助技术并配真实文字。新theme的`home.scene`、`dictation.context`、`student.detail`、`homework.context`使用首批独立桌面/手机候选资源，均提供左侧文字安全区；其他角色暂沿用已登记原创资源。业务文字只由HTML提供，缺图返回null，glass不回退campus，也不能以整页UI截图代替素材。全幅暖纸场景允许不透明WebP，独立摆件才要求透明边缘。
 - **PageHeader / MetricStrip / Pager / EmptyState**：工作页头样式已放入校园 PageHeader.module.css，既有 WorkbenchPageHeader 保留业务接口；公共 PageHeader 仍并存。指标、分页与空状态按事实和动作组成；空状态使用小幅词卡，不添加填充性数据。
 - **账户与管理员界面**：account.css 复用校园背景、浅蓝表头、粉笔绿分区头、暖黄兑换码工具区与青蓝操作；账户页没有独立插画，不改变权限或账户业务逻辑。管理员手机适配采用 680px 局部断点。主任务已实际打开管理员主界面与手机号弹窗；这不等于权限回归已完成。
 - **手机列表与操作**：学生行是连续列表，姓名、学号、小组清楚分层，选中/批量与普通详情动作分开；底部导航保留。听写手机保存区沿用业务模块专用底部定位，不能与通用弹窗 footer 混为同一组件。

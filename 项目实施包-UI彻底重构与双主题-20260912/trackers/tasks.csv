@@ -8,7 +8,7 @@ TASK-06,建立主题契约与token,01,done,8a9fb0e,evidence/theme-contract-20260
 TASK-07,建立基础控件,06,done,2a55a85,evidence/ui-primitives-20260913.md,用户浏览基础控件检查器后进入TASK08
 TASK-08,建立浮层与搜索选人,"05,07",done,f5d6c3c,evidence/overlay-student-picker-20260913.md,TASK09建立新旧样式隔离
 TASK-09,建立新旧样式隔离,"06,07",done,94de104,evidence/legacy-style-isolation-20260913.md,TASK10制作首批校园插画母样与变体
-TASK-10,制作首批插画母样与变体,06,planned,,,
+TASK-10,制作首批插画母样与变体,06,done,5fd3fc5,项目实施包-UI彻底重构与双主题-20260912/evidence/campus-artwork-first-batch-20260913.md,桌面/手机独立候选资源与实际裁切通过；真实页面仍按后续任务验收
 TASK-11,建立共享壳层,"05,07,08,09",planned,,,
 TASK-12,首页构图基准,"10,11",planned,,,
 TASK-13,学生构图基准,"10,11",planned,,,

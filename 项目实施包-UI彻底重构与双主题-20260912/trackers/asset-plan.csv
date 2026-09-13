@@ -1,8 +1,8 @@
 role,theme,status,source,desktop_file,mobile_file,dimensions,crop_checked,license_note
-home.scene,campus,planned,,,,,not-run,待登记生产素材来源
-dictation.context,campus,planned,,,,,not-run,待登记生产素材来源
-student.detail,campus,planned,,,,,not-run,待登记生产素材来源
-homework.context,campus,planned,,,,,not-run,待登记生产素材来源
+home.scene,campus,candidate,OpenAI image generation；C1-C4仅作媒介/配色/构图参考,public/art/campus/home-scene-v3.webp,public/art/campus/home-scene-mobile-v3.webp,1200x800 desktop；900x560 mobile opaque WebP,pass,项目原创晨光课桌场景；无人物/动物/UI/可读文字；暖纸全幅横幅不使用alpha
+dictation.context,campus,candidate,OpenAI image generation；校园母样作风格参考,public/art/campus/dictation-context-v2.webp,public/art/campus/dictation-context-mobile-v2.webp,1200x800 desktop；900x560 mobile opaque WebP,pass,项目原创空白词卡与文具；无人物/动物/UI/可读文字；暖纸全幅横幅不使用alpha
+student.detail,campus,candidate,OpenAI image generation；校园母样作风格参考,public/art/campus/student-detail-v2.webp,public/art/campus/student-detail-mobile-v2.webp,1200x800 desktop；900x560 mobile opaque WebP,pass,项目原创空白名册与文具；已移除尺规刻度；无人物/动物/UI/可读文字
+homework.context,campus,candidate,OpenAI image generation；校园母样作风格参考,public/art/campus/homework-context-v2.webp,public/art/campus/homework-context-mobile-v2.webp,1200x800 desktop；900x560 mobile opaque WebP,pass,项目原创空白作业本与文具；无人物/动物/UI/可读文字；暖纸全幅横幅不使用alpha
 assessment.context,campus,planned,,,,,not-run,待登记生产素材来源
 planning.context,campus,planned,,,,,not-run,待登记生产素材来源
 care.context,campus,planned,,,,,not-run,待登记生产素材来源
