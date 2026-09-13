@@ -3,7 +3,7 @@
   "baselineCommit": "6e10e2dc314e09d0d72df9509730f57c5fde34e2",
   "implementationStatus": "in-progress",
   "active_task": null,
-  "next_action": "TASK-08已完成并验证；立即执行TASK-09新旧样式隔离",
+  "next_action": "TASK-09已完成并验证；立即执行TASK-10首批校园插画母样与变体",
   "milestones": {
     "M0": "done",
     "M1": "in-progress",
@@ -12,7 +12,7 @@
     "M4": "planned",
     "M5": "planned"
   },
-  "note": "线上受检源码无需要覆盖的业务差异。M0完成；TASK-04至TASK-08及提前完成的TASK-29已完成。已完成任务9/33，按任务数27.3%；按剩余页面和验收工作量估计总进度约47%，这不是精确工时。生产构建、231/231自动化测试、认证集成和全量qa:strict通过；105人搜索分页、失败保留、脏关闭与嵌套焦点已在桌面和390×844 CSS视口验证。当前进入TASK-09；多数业务页迁移和A场景仍未完成，TASK-30前置未满足。没有生产操作。",
+  "note": "线上受检源码无需要覆盖的业务差异。M0完成；TASK-04至TASK-09及提前完成的TASK-29已完成。已完成任务10/33，按任务数30.3%；按剩余页面和验收工作量估计总进度约49%，这不是精确工时。生产构建、233/233自动化测试、认证集成和115项qa:strict通过；完整旧CSS已由AST限定在legacy根并排除next子树，桌面与390×844计算样式对照通过。当前进入TASK-10；多数业务页迁移和A场景仍未完成，TASK-30前置未满足。没有生产操作。",
   "implementationStartCommit": "f321d5e9424e0020bdf1e56d52c31b986b503a53",
   "parallelPreparation": [],
   "verifiedOnlineBaseline": "0691aba",

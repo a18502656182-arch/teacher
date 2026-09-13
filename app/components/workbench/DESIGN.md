@@ -149,6 +149,8 @@ Dialog 桌面宽度 min(620px, calc(100% - 32px))，最大高度 calc(100dvh - 3
 
 **The Material Boundary Rule.** 材质只由主题变量和局部样式控制；ThemeBoundary 不改变 React key，不持有工作区状态。跨主题保持状态的实际保证仍需在具体业务接入后验证。
 
+**The Legacy Cascade Boundary Rule.** 正式根布局只加载由 `scripts/build-legacy-css.mjs` 生成的旧样式隔离产物。旧页面必须位于 `data-ui-generation="legacy"` 根内；ThemeBoundary的 `data-ui-generation="next"` 是选择器停止边界。CSS Modules不能单独证明隔离，接入新页面时仍需在完整旧CSS开启和关闭两种状态下对比计算样式。
+
 ## Shapes
 
 control 为按钮、字段、分段外框和批量条统一圆角；surface 用于弹窗。分段仅首尾保留圆角，中间选项共享外框。边框承担控件或内容分隔职责，不以重复嵌套容器替代布局。
