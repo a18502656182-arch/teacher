@@ -492,6 +492,16 @@ test("student profile keeps guardians and care information out of the roster lis
   assert.match(studentProfile, /空白日期不代表缺勤/);
 });
 
+test("student roster exposes stable visual-review regions without leaking profile data", () => {
+  assert.match(studentView, /data-students-region="overview"/);
+  assert.match(studentView, /data-students-region="workspace"/);
+  assert.match(studentView, /data-students-region="tools"/);
+  assert.match(studentView, /data-students-region="list"/);
+  assert.match(studentView, /data-students-region="detail"/);
+  assert.match(studentView, /aria-current=\{c\.focusedStudent\?\.id === student\.id \? 'true' : undefined\}/);
+  assert.match(studentStyles, /grid-template-columns:\s*minmax\(0,1fr\) 290px/);
+});
+
 test("score trends compare normalized rates and preserve missing-score meaning", () => {
   assert.match(app, /<ScoreTrends data=\{data\} classId=/);
   assert.match(scoreTrends, /按得分率比较不同满分/);

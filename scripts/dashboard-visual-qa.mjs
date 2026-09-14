@@ -32,7 +32,7 @@ function installFixture(scenario, date) {
     const payload = await response.json();
     const data = payload.workspace.data;
     payload.workspace.accessMode = 'active';
-    const count = scenario === 'large' ? 105 : 2;
+    const count = scenario === 'large' ? 105 : scenario === 'students-empty' ? 0 : 2;
     const students = Array.from({ length: count }, (_, i) => ({ id: `qa-a-${i}`, name: i === 0 ? '欧阳慕容长姓名测试同学' : `测试甲${i + 1}`, gender: '女', group: i % 4 + 1, seat: i + 1, points: 0, homework: '已交', attendance: '正常', score: 90 }));
     const other = [{ ...students[1], id: 'qa-b-0', name: '测试乙同学' }];
     data.students = students;

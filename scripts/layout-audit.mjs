@@ -5,6 +5,7 @@ import { tmpdir } from "node:os";
 import path from "node:path";
 import { execFileSync } from "node:child_process";
 import { dashboardFixtureScript, inspectDashboard } from "./dashboard-visual-qa.mjs";
+import { inspectStudents } from "./students-visual-qa.mjs";
 
 const root = process.cwd();
 const args = new Set(process.argv.slice(2));
@@ -808,6 +809,7 @@ async function runRuntimeAudit(url) {
           });
           writeFileSync(path.join(screenshotDir, `${viewport.name}-${pageId}.png`), Buffer.from(shot.data, "base64"));
         }
+        if (pageId === "students") data.studentsReview = await inspectStudents(page, viewport, screenshotDir, failures);
         if (pageId === "dashboard") {
           data.dashboardReview = await inspectDashboard(page, viewport, screenshotDir, failures);
           const clicked = await page.send("Runtime.evaluate", {
