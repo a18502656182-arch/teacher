@@ -1,0 +1,368 @@
+{
+  "schemaVersion": 1,
+  "purpose": "static-design-scope-not-approval-ledger",
+  "snapshotHead": "6963e41",
+  "startBatch": "V2",
+  "baseViewports": [
+    {
+      "id": "desktop",
+      "width": 1536,
+      "height": 1024
+    },
+    {
+      "id": "mobile",
+      "width": 390,
+      "height": 844
+    }
+  ],
+  "baseDesignSlots": 38,
+  "approvalAuthority": "trackers/visual-baseline.json and linked page records; no approval stored in this inventory",
+  "pages": [
+    {
+      "id": "dashboard",
+      "batch": "V1",
+      "label": "今日工作台",
+      "requiredDesigns": [
+        "desktop",
+        "mobile"
+      ],
+      "keyStatesToInventory": [
+        "今日班务正常",
+        "今日无课",
+        "空班首次使用",
+        "多条待办与长提醒"
+      ],
+      "requiresOwnDesign": true,
+      "history": "existing approval preserved, not whole-site design approval"
+    },
+    {
+      "id": "students",
+      "batch": "V2",
+      "label": "学生名单",
+      "requiredDesigns": [
+        "desktop",
+        "mobile"
+      ],
+      "keyStatesToInventory": [
+        "名单与已选学生详情",
+        "完整档案Drawer",
+        "新增编辑学生",
+        "导入预检与错误",
+        "批量选择与编辑",
+        "搜索无结果",
+        "105人分页与长姓名"
+      ],
+      "requiresOwnDesign": true,
+      "history": "399a5c4 rejected, redesign required"
+    },
+    {
+      "id": "homework",
+      "batch": "V2",
+      "label": "作业追踪",
+      "requiredDesigns": [
+        "desktop",
+        "mobile"
+      ],
+      "keyStatesToInventory": [
+        "任务列表与学生四态",
+        "新增编辑作业",
+        "批量标记与待保存",
+        "备注编辑",
+        "待跟进筛选",
+        "零任务与30任务"
+      ],
+      "requiresOwnDesign": true,
+      "history": "independent design not established"
+    },
+    {
+      "id": "dictation",
+      "batch": "V2",
+      "label": "听写与复习",
+      "requiredDesigns": [
+        "desktop",
+        "mobile"
+      ],
+      "keyStatesToInventory": [
+        "今日任务与材料",
+        "新建编辑任务",
+        "批改与切换学生",
+        "错词选择与复习安排",
+        "词库编辑",
+        "错词本与历史记录",
+        "200词与未参加请假"
+      ],
+      "requiresOwnDesign": true,
+      "history": "independent design not established"
+    },
+    {
+      "id": "attendance",
+      "batch": "V3",
+      "label": "考勤与请假",
+      "requiredDesigns": [
+        "desktop",
+        "mobile"
+      ],
+      "keyStatesToInventory": [
+        "日期名单与统计",
+        "批量状态备注",
+        "请假记录编辑",
+        "历史日期",
+        "105人名单"
+      ],
+      "requiresOwnDesign": true,
+      "history": "independent design not established"
+    },
+    {
+      "id": "growth",
+      "batch": "V3",
+      "label": "成长档案",
+      "requiredDesigns": [
+        "desktop",
+        "mobile"
+      ],
+      "keyStatesToInventory": [
+        "学生选择与事实时间线",
+        "新增编辑成长事实",
+        "筛选时间范围",
+        "无事实与长记录"
+      ],
+      "requiresOwnDesign": true,
+      "history": "independent design not established"
+    },
+    {
+      "id": "health",
+      "batch": "V3",
+      "label": "健康与照护",
+      "requiredDesigns": [
+        "desktop",
+        "mobile"
+      ],
+      "keyStatesToInventory": [
+        "照护行动摘要",
+        "新增编辑照护记录",
+        "学生查找与联系人最小展示",
+        "无记录"
+      ],
+      "requiresOwnDesign": true,
+      "history": "independent design not established"
+    },
+    {
+      "id": "records",
+      "batch": "V4",
+      "label": "家校沟通",
+      "requiredDesigns": [
+        "desktop",
+        "mobile"
+      ],
+      "keyStatesToInventory": [
+        "沟通列表与待跟进",
+        "新增编辑沟通",
+        "通知草稿编辑",
+        "回执与复制反馈",
+        "长记录与空记录"
+      ],
+      "requiresOwnDesign": true,
+      "history": "independent design not established"
+    },
+    {
+      "id": "scores",
+      "batch": "V4",
+      "label": "成绩分析",
+      "requiredDesigns": [
+        "desktop",
+        "mobile"
+      ],
+      "keyStatesToInventory": [
+        "考试总览",
+        "新增编辑考试",
+        "逐生与批量录分",
+        "趋势筛选",
+        "题目分析",
+        "AI候选待确认与错误",
+        "零分及未录入"
+      ],
+      "requiresOwnDesign": true,
+      "history": "independent design not established"
+    },
+    {
+      "id": "reflection",
+      "batch": "V4",
+      "label": "考试反思",
+      "requiredDesigns": [
+        "desktop",
+        "mobile"
+      ],
+      "keyStatesToInventory": [
+        "考试学生选择",
+        "反思草稿编辑",
+        "问题行动与完成",
+        "无考试或无学生"
+      ],
+      "requiresOwnDesign": true,
+      "history": "independent design not established"
+    },
+    {
+      "id": "schedule",
+      "batch": "V5",
+      "label": "课程日程",
+      "requiredDesigns": [
+        "desktop",
+        "mobile"
+      ],
+      "keyStatesToInventory": [
+        "周课表",
+        "课程编辑",
+        "教学日与学期设置",
+        "教师事项编辑",
+        "工作留痕",
+        "六七教学日与月末"
+      ],
+      "requiresOwnDesign": true,
+      "history": "independent design not established"
+    },
+    {
+      "id": "tools",
+      "batch": "V5",
+      "label": "课堂工具",
+      "requiredDesigns": [
+        "desktop",
+        "mobile"
+      ],
+      "keyStatesToInventory": [
+        "点名选择与结果",
+        "全员请假",
+        "分组设置与结果",
+        "历史结果",
+        "105人分组"
+      ],
+      "requiresOwnDesign": true,
+      "history": "independent design not established"
+    },
+    {
+      "id": "seating",
+      "batch": "V5",
+      "label": "座位分组",
+      "requiredDesigns": [
+        "desktop",
+        "mobile"
+      ],
+      "keyStatesToInventory": [
+        "座位图与讲台",
+        "学生选择与换座",
+        "条件编辑与固定座",
+        "智能排座与撤销",
+        "容量不足与105人"
+      ],
+      "requiresOwnDesign": true,
+      "history": "independent design not established"
+    },
+    {
+      "id": "duty",
+      "batch": "V6",
+      "label": "值日岗位",
+      "requiredDesigns": [
+        "desktop",
+        "mobile"
+      ],
+      "keyStatesToInventory": [
+        "今日岗位与周轮换",
+        "新增编辑岗位",
+        "指定负责人",
+        "检查备注与恢复自动",
+        "空岗位与空班"
+      ],
+      "requiresOwnDesign": true,
+      "history": "independent design not established"
+    },
+    {
+      "id": "cadres",
+      "batch": "V6",
+      "label": "班干部",
+      "requiredDesigns": [
+        "desktop",
+        "mobile"
+      ],
+      "keyStatesToInventory": [
+        "岗位与职责任期",
+        "新增编辑岗位",
+        "任命与学生选择",
+        "岗位评分",
+        "空岗与无可选组长"
+      ],
+      "requiresOwnDesign": true,
+      "history": "independent design not established"
+    },
+    {
+      "id": "rules",
+      "batch": "V6",
+      "label": "积分规则",
+      "requiredDesigns": [
+        "desktop",
+        "mobile"
+      ],
+      "keyStatesToInventory": [
+        "分类规则列表",
+        "新增编辑规则",
+        "启停状态",
+        "复制删除确认",
+        "无规则"
+      ],
+      "requiresOwnDesign": true,
+      "history": "independent design not established"
+    },
+    {
+      "id": "points",
+      "batch": "V7",
+      "label": "积分评价",
+      "requiredDesigns": [
+        "desktop",
+        "mobile"
+      ],
+      "keyStatesToInventory": [
+        "学生规则事件工作区",
+        "批量学生记分",
+        "事件撤销确认",
+        "规则查找",
+        "空事件与105人"
+      ],
+      "requiresOwnDesign": true,
+      "history": "independent design not established"
+    },
+    {
+      "id": "weekly",
+      "batch": "V7",
+      "label": "班级周报",
+      "requiredDesigns": [
+        "desktop",
+        "mobile"
+      ],
+      "keyStatesToInventory": [
+        "周报列表",
+        "周范围事实预览",
+        "正文编辑与归档",
+        "历史版本",
+        "空周数据"
+      ],
+      "requiresOwnDesign": true,
+      "history": "independent design not established"
+    },
+    {
+      "id": "comments",
+      "batch": "V7",
+      "label": "期末评语",
+      "requiredDesigns": [
+        "desktop",
+        "mobile"
+      ],
+      "keyStatesToInventory": [
+        "学生与事实来源",
+        "本地或AI候选",
+        "草稿编辑与保存",
+        "同学期历史",
+        "无事实及生成失败"
+      ],
+      "requiresOwnDesign": true,
+      "history": "independent design not established"
+    }
+  ]
+}

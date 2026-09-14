@@ -1,0 +1,39 @@
+{
+  "template": true,
+  "pageId": "REPLACE",
+  "batch": "REPLACE",
+  "phase": "not-started",
+  "brief": null,
+  "functionMap": null,
+  "geometry": null,
+  "assets": null,
+  "states": null,
+  "candidates": [],
+  "prototype": {
+    "commit": null,
+    "previewUrl": null,
+    "evidence": []
+  },
+  "designApproval": {
+    "approved": false,
+    "source": null,
+    "approvedAt": null,
+    "commit": null,
+    "evidenceHashes": []
+  },
+  "integration": {
+    "productCommit": null,
+    "designCommit": null,
+    "evidence": [],
+    "tests": []
+  },
+  "resultApproval": {
+    "approved": false,
+    "source": null,
+    "approvedAt": null,
+    "productCommit": null
+  },
+  "issues": [],
+  "nextAction": "inventory",
+  "history": []
+}
