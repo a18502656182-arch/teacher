@@ -1,0 +1,773 @@
+{
+  "productCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
+  "builtAt": "2026-09-14T05:08:17.036Z",
+  "tests": [
+    {
+      "id": "tests",
+      "command": "npm test",
+      "productCommit": "fc86f2e7d808fa6b39147ec1e749e952c5738ac5",
+      "startedAt": "2026-09-14T04:59:56.542Z",
+      "endedAt": "2026-09-14T05:00:36.898Z",
+      "exitCode": 0,
+      "log": "docs/visual-baseline/logs/V1-692665d/tests.txt",
+      "sha256": "EFFA6882414A94A75A8918235E332C28944B324CB9F587D51093250A855D977B",
+      "reusedForProductCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
+      "equivalence": "Business/build/test inputs identical; QA-only changes documented in equivalence log. Strict run has no screenshots and no synthetic fixture, so changed scroll/fixture branches were not executed.",
+      "equivalenceLog": "docs/visual-baseline/logs/V1-692665d/test-reuse-proof.txt"
+    },
+    {
+      "id": "types",
+      "command": "npx tsc --noEmit --pretty false --incremental false",
+      "productCommit": "0b1dc1fc8eea53a54f70337aed4a6331267f3357",
+      "startedAt": "2026-09-14T05:01:23.866Z",
+      "endedAt": "2026-09-14T05:01:32.629Z",
+      "exitCode": 0,
+      "log": "docs/visual-baseline/logs/V1-692665d/types.txt",
+      "sha256": "884D57CE10648F3B9EDADC97E3D8D803D3103C790ED197D6B1BDA2AD93DF8589",
+      "reusedForProductCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
+      "equivalence": "Business/build/test inputs identical; QA-only changes documented in equivalence log. Strict run has no screenshots and no synthetic fixture, so changed scroll/fixture branches were not executed.",
+      "equivalenceLog": "docs/visual-baseline/logs/V1-692665d/test-reuse-proof.txt"
+    },
+    {
+      "id": "strict",
+      "command": "npm run qa:strict",
+      "productCommit": "0b1dc1fc8eea53a54f70337aed4a6331267f3357",
+      "startedAt": "2026-09-14T05:01:44.806Z",
+      "endedAt": "2026-09-14T05:03:52.671Z",
+      "exitCode": 0,
+      "log": "docs/visual-baseline/logs/V1-692665d/strict.txt",
+      "sha256": "6434FB501DA4D5FCA855DD9A1F45FFDD39E6E0E7E8D880568FED15C5DEBC3970",
+      "reusedForProductCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
+      "equivalence": "Business/build/test inputs identical; QA-only changes documented in equivalence log. Strict run has no screenshots and no synthetic fixture, so changed scroll/fixture branches were not executed.",
+      "equivalenceLog": "docs/visual-baseline/logs/V1-692665d/test-reuse-proof.txt"
+    },
+    {
+      "id": "lint",
+      "command": "npm run lint",
+      "productCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
+      "startedAt": "2026-09-14T05:06:29.646Z",
+      "endedAt": "2026-09-14T05:06:41.876Z",
+      "exitCode": 0,
+      "log": "docs/visual-baseline/logs/V1-692665d/lint.txt",
+      "sha256": "4ED9EFE9C3B952D8F7E52BB68F69E713407B2A13E28FD903BC5C624882D0986E"
+    },
+    {
+      "id": "demo",
+      "command": "node scripts/layout-audit.mjs --serve",
+      "productCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
+      "startedAt": "2026-09-14T05:06:41.881Z",
+      "endedAt": "2026-09-14T05:07:08.909Z",
+      "exitCode": 0,
+      "log": "docs/visual-baseline/logs/V1-692665d/demo.txt",
+      "sha256": "0A6B6912E0C38412824468061247294FC2252F72981AD395E088375D97B42E85"
+    },
+    {
+      "id": "large",
+      "command": "node scripts/layout-audit.mjs --serve",
+      "productCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
+      "startedAt": "2026-09-14T05:07:08.914Z",
+      "endedAt": "2026-09-14T05:07:36.218Z",
+      "exitCode": 0,
+      "log": "docs/visual-baseline/logs/V1-692665d/large.txt",
+      "sha256": "D9E53A876B96A720B5D1AB1F696382609FB70F393363FDAF671631B61C5DAEA3"
+    },
+    {
+      "id": "empty",
+      "command": "node scripts/layout-audit.mjs --serve",
+      "productCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
+      "startedAt": "2026-09-14T05:07:36.223Z",
+      "endedAt": "2026-09-14T05:08:03.008Z",
+      "exitCode": 0,
+      "log": "docs/visual-baseline/logs/V1-692665d/empty.txt",
+      "sha256": "953D9D7E6F0866E8EFD42DD73E702F516BD9C7BFDBA1E35670857D35B1F23B6E"
+    },
+    {
+      "command": "npm run qa:visual-baseline",
+      "exitCode": 0,
+      "log": "docs/visual-baseline/logs/V1-692665d/baseline.txt",
+      "productCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
+      "sha256": "05151844CE178903114CF9BECFFDE83F9F24D3E29E27B8B4A45515826E05D1CF"
+    },
+    {
+      "command": "npm run qa:visual-gate -- --gate V1",
+      "exitCode": 1,
+      "log": "docs/visual-baseline/logs/V1-692665d/gate.txt",
+      "productCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
+      "expected": true,
+      "reason": "新版独立监工PASS尚未提供，不放行",
+      "sha256": "5C8A4FF7B3F1ED5EA281BEC2AAF11CB85841D1CD134760D2F969F79C27C72B9C"
+    }
+  ],
+  "images": [
+    {
+      "path": "docs/visual-baseline/current/V1-692665d/demo/referenceDesktop-dashboard-scroll-00.webp",
+      "kind": "desktop",
+      "viewport": "1536x1024",
+      "url": "http://localhost:4180/w/demo?page=dashboard",
+      "capturedAt": "2026-09-14T05:07:08.867Z",
+      "productCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
+      "sha256": "D2CEC94433DEC86FAC6DA224CC07012C0248A2CD62F19BF14D32685765AD5C9E",
+      "scenario": "demo",
+      "role": "continuous-scroll",
+      "scroll": {
+        "file": "referenceDesktop-dashboard-scroll-00.png",
+        "top": 0,
+        "height": 1276,
+        "clientHeight": 1024,
+        "atEnd": false
+      }
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-692665d/demo/referenceDesktop-dashboard-scroll-01.webp",
+      "kind": "desktop",
+      "viewport": "1536x1024",
+      "url": "http://localhost:4180/w/demo?page=dashboard",
+      "capturedAt": "2026-09-14T05:07:08.867Z",
+      "productCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
+      "sha256": "72102D73EB31D71B65BA8646ACE9BC80E1A4C792E7E47F8CB84A28984363FB77",
+      "scenario": "demo",
+      "role": "continuous-scroll",
+      "scroll": {
+        "file": "referenceDesktop-dashboard-scroll-01.png",
+        "top": 252,
+        "height": 1276,
+        "clientHeight": 1024,
+        "atEnd": true
+      }
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-692665d/demo/referenceDesktop-dashboard.webp",
+      "kind": "desktop",
+      "viewport": "1536x1024",
+      "url": "http://localhost:4180/w/demo?page=dashboard",
+      "capturedAt": "2026-09-14T05:07:08.867Z",
+      "productCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
+      "sha256": "D2CEC94433DEC86FAC6DA224CC07012C0248A2CD62F19BF14D32685765AD5C9E",
+      "scenario": "demo",
+      "role": "first-viewport"
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-692665d/demo/referenceMobile-action-dictation.webp",
+      "kind": "mobile",
+      "viewport": "390x844",
+      "url": "http://localhost:4180/w/demo?page=dictation",
+      "capturedAt": "2026-09-14T05:07:08.867Z",
+      "productCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
+      "sha256": "796EC251E465C02AABA96B222C9A0A401471F8E1AD237F915C3B05BE76407E90",
+      "scenario": "demo",
+      "role": "interaction",
+      "originUrl": "http://localhost:4180/w/demo?page=dashboard"
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-692665d/demo/referenceMobile-action-duty.webp",
+      "kind": "mobile",
+      "viewport": "390x844",
+      "url": "http://localhost:4180/w/demo?page=duty",
+      "capturedAt": "2026-09-14T05:07:08.867Z",
+      "productCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
+      "sha256": "8FC5893A019FDDD1AB504141201BFE8FAABCCA4DC14E8D35E679B3AD02586E0D",
+      "scenario": "demo",
+      "role": "interaction",
+      "originUrl": "http://localhost:4180/w/demo?page=dashboard"
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-692665d/demo/referenceMobile-action-homework.webp",
+      "kind": "mobile",
+      "viewport": "390x844",
+      "url": "http://localhost:4180/w/demo?page=homework",
+      "capturedAt": "2026-09-14T05:07:08.867Z",
+      "productCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
+      "sha256": "CBB6B461F857AAD4830F6DDF48734B9637F7A1E7A30844A0D84E4761300A53FA",
+      "scenario": "demo",
+      "role": "interaction",
+      "originUrl": "http://localhost:4180/w/demo?page=dashboard"
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-692665d/demo/referenceMobile-action-students.webp",
+      "kind": "mobile",
+      "viewport": "390x844",
+      "url": "http://localhost:4180/w/demo?page=students",
+      "capturedAt": "2026-09-14T05:07:08.867Z",
+      "productCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
+      "sha256": "DAA05C2687B99D09271EF77A3895223A79600B97D4856A7A7A4E55D8A165DC78",
+      "scenario": "demo",
+      "role": "interaction",
+      "originUrl": "http://localhost:4180/w/demo?page=dashboard"
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-692665d/demo/referenceMobile-dashboard-scroll-00.webp",
+      "kind": "mobile",
+      "viewport": "390x844",
+      "url": "http://localhost:4180/w/demo?page=dashboard",
+      "capturedAt": "2026-09-14T05:07:08.867Z",
+      "productCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
+      "sha256": "7CF1785A76363A1A1C6657D9F4A9F270B4BB2F4E8A4F986D10050DE44517EF06",
+      "scenario": "demo",
+      "role": "continuous-scroll",
+      "scroll": {
+        "file": "referenceMobile-dashboard-scroll-00.png",
+        "top": 0,
+        "height": 2199,
+        "clientHeight": 844,
+        "atEnd": false
+      }
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-692665d/demo/referenceMobile-dashboard-scroll-01.webp",
+      "kind": "mobile",
+      "viewport": "390x844",
+      "url": "http://localhost:4180/w/demo?page=dashboard",
+      "capturedAt": "2026-09-14T05:07:08.867Z",
+      "productCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
+      "sha256": "CE7467A2B6D8F3F97AB77DA664C5E157C6DD7D22B1DDF2E1643248CD6B1A8DE6",
+      "scenario": "demo",
+      "role": "continuous-scroll",
+      "scroll": {
+        "file": "referenceMobile-dashboard-scroll-01.png",
+        "top": 664,
+        "height": 2199,
+        "clientHeight": 844,
+        "atEnd": false
+      }
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-692665d/demo/referenceMobile-dashboard-scroll-02.webp",
+      "kind": "mobile",
+      "viewport": "390x844",
+      "url": "http://localhost:4180/w/demo?page=dashboard",
+      "capturedAt": "2026-09-14T05:07:08.867Z",
+      "productCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
+      "sha256": "C82E26D9B2B7AB8E5712D305874F0ACD496F8DC2498E64252A3E3D1C6E067297",
+      "scenario": "demo",
+      "role": "continuous-scroll",
+      "scroll": {
+        "file": "referenceMobile-dashboard-scroll-02.png",
+        "top": 1328,
+        "height": 2199,
+        "clientHeight": 844,
+        "atEnd": false
+      }
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-692665d/demo/referenceMobile-dashboard-scroll-03.webp",
+      "kind": "mobile",
+      "viewport": "390x844",
+      "url": "http://localhost:4180/w/demo?page=dashboard",
+      "capturedAt": "2026-09-14T05:07:08.867Z",
+      "productCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
+      "sha256": "D223C35966CDC300582B23AD17833CDBCE0C6341FD6F731190C35B6A196B0A3D",
+      "scenario": "demo",
+      "role": "continuous-scroll",
+      "scroll": {
+        "file": "referenceMobile-dashboard-scroll-03.png",
+        "top": 1355,
+        "height": 2199,
+        "clientHeight": 844,
+        "atEnd": true
+      }
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-692665d/demo/referenceMobile-dashboard.webp",
+      "kind": "mobile",
+      "viewport": "390x844",
+      "url": "http://localhost:4180/w/demo?page=dashboard",
+      "capturedAt": "2026-09-14T05:07:08.867Z",
+      "productCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
+      "sha256": "97BB8AB61030FF2708EF9011A6D5A5AA196F58FDE153F99B7DD5EB8B517C1CDF",
+      "scenario": "demo",
+      "role": "first-viewport"
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-692665d/large/referenceDesktop-dashboard-scroll-00.webp",
+      "kind": "desktop",
+      "viewport": "1536x1024",
+      "url": "http://localhost:4180/w/qa-visual?page=dashboard",
+      "capturedAt": "2026-09-14T05:07:36.177Z",
+      "productCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
+      "sha256": "E2972A68B20F79C93C064A6F43F76209842F00D58F82178CC4566FA3C7438822",
+      "scenario": "large",
+      "role": "continuous-scroll",
+      "scroll": {
+        "file": "referenceDesktop-dashboard-scroll-00.png",
+        "top": 0,
+        "height": 1242,
+        "clientHeight": 1024,
+        "atEnd": false
+      }
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-692665d/large/referenceDesktop-dashboard-scroll-01.webp",
+      "kind": "desktop",
+      "viewport": "1536x1024",
+      "url": "http://localhost:4180/w/qa-visual?page=dashboard",
+      "capturedAt": "2026-09-14T05:07:36.177Z",
+      "productCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
+      "sha256": "160FBA23A8B8909E75E9737C42F1675798B33933C78EE2E2F74D9BFDF6D762BA",
+      "scenario": "large",
+      "role": "continuous-scroll",
+      "scroll": {
+        "file": "referenceDesktop-dashboard-scroll-01.png",
+        "top": 218,
+        "height": 1242,
+        "clientHeight": 1024,
+        "atEnd": true
+      }
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-692665d/large/referenceDesktop-dashboard.webp",
+      "kind": "desktop",
+      "viewport": "1536x1024",
+      "url": "http://localhost:4180/w/qa-visual?page=dashboard",
+      "capturedAt": "2026-09-14T05:07:36.177Z",
+      "productCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
+      "sha256": "E2972A68B20F79C93C064A6F43F76209842F00D58F82178CC4566FA3C7438822",
+      "scenario": "large",
+      "role": "first-viewport"
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-692665d/large/referenceMobile-action-dictation.webp",
+      "kind": "mobile",
+      "viewport": "390x844",
+      "url": "http://localhost:4180/w/qa-visual?page=dictation",
+      "capturedAt": "2026-09-14T05:07:36.177Z",
+      "productCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
+      "sha256": "17C6EFCF172836B19B11AA397622F726BD88F32D41F87BCC23A020ACE1F4271C",
+      "scenario": "large",
+      "role": "interaction",
+      "originUrl": "http://localhost:4180/w/qa-visual?page=dashboard"
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-692665d/large/referenceMobile-action-duty.webp",
+      "kind": "mobile",
+      "viewport": "390x844",
+      "url": "http://localhost:4180/w/qa-visual?page=duty",
+      "capturedAt": "2026-09-14T05:07:36.177Z",
+      "productCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
+      "sha256": "D8C44C3E296E14F33412E2693CFCA9D2277B69AAEBE31210B7F08B3E7A711CF8",
+      "scenario": "large",
+      "role": "interaction",
+      "originUrl": "http://localhost:4180/w/qa-visual?page=dashboard"
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-692665d/large/referenceMobile-action-homework.webp",
+      "kind": "mobile",
+      "viewport": "390x844",
+      "url": "http://localhost:4180/w/qa-visual?page=homework",
+      "capturedAt": "2026-09-14T05:07:36.177Z",
+      "productCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
+      "sha256": "37A9017DC9BEF874E5D777C08C6C41C1631A485B663FC954270053C469A76F6F",
+      "scenario": "large",
+      "role": "interaction",
+      "originUrl": "http://localhost:4180/w/qa-visual?page=dashboard"
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-692665d/large/referenceMobile-action-students.webp",
+      "kind": "mobile",
+      "viewport": "390x844",
+      "url": "http://localhost:4180/w/qa-visual?page=students",
+      "capturedAt": "2026-09-14T05:07:36.177Z",
+      "productCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
+      "sha256": "7F82D4A8A84075EEB44411036CDFCFE7B51BB032A47AEC8921C730007862D51D",
+      "scenario": "large",
+      "role": "interaction",
+      "originUrl": "http://localhost:4180/w/qa-visual?page=dashboard"
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-692665d/large/referenceMobile-dashboard-scroll-00.webp",
+      "kind": "mobile",
+      "viewport": "390x844",
+      "url": "http://localhost:4180/w/qa-visual?page=dashboard",
+      "capturedAt": "2026-09-14T05:07:36.177Z",
+      "productCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
+      "sha256": "1D8A8D845FAAA7C4615B85BB05364E55D669EFBB8935A793381D01D0C2AB900B",
+      "scenario": "large",
+      "role": "continuous-scroll",
+      "scroll": {
+        "file": "referenceMobile-dashboard-scroll-00.png",
+        "top": 0,
+        "height": 2075,
+        "clientHeight": 844,
+        "atEnd": false
+      }
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-692665d/large/referenceMobile-dashboard-scroll-01.webp",
+      "kind": "mobile",
+      "viewport": "390x844",
+      "url": "http://localhost:4180/w/qa-visual?page=dashboard",
+      "capturedAt": "2026-09-14T05:07:36.177Z",
+      "productCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
+      "sha256": "B733CC180EA741F6FA809ABB5394142384B2066ECB3E96FD76FA54599DCCD57B",
+      "scenario": "large",
+      "role": "continuous-scroll",
+      "scroll": {
+        "file": "referenceMobile-dashboard-scroll-01.png",
+        "top": 664,
+        "height": 2075,
+        "clientHeight": 844,
+        "atEnd": false
+      }
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-692665d/large/referenceMobile-dashboard-scroll-02.webp",
+      "kind": "mobile",
+      "viewport": "390x844",
+      "url": "http://localhost:4180/w/qa-visual?page=dashboard",
+      "capturedAt": "2026-09-14T05:07:36.177Z",
+      "productCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
+      "sha256": "86CB936E6D176FD9BA160FDE2D85C48E0F117D733D6C59AE3C81A568D8EAB1D3",
+      "scenario": "large",
+      "role": "continuous-scroll",
+      "scroll": {
+        "file": "referenceMobile-dashboard-scroll-02.png",
+        "top": 1231,
+        "height": 2075,
+        "clientHeight": 844,
+        "atEnd": true
+      }
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-692665d/large/referenceMobile-dashboard.webp",
+      "kind": "mobile",
+      "viewport": "390x844",
+      "url": "http://localhost:4180/w/qa-visual?page=dashboard",
+      "capturedAt": "2026-09-14T05:07:36.177Z",
+      "productCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
+      "sha256": "70614B25BE0B2D28EF74BF1ACAC3F71208CCB042B4E0C3DC8537C3E1EA091951",
+      "scenario": "large",
+      "role": "first-viewport"
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-692665d/empty/referenceDesktop-dashboard-scroll-00.webp",
+      "kind": "desktop",
+      "viewport": "1536x1024",
+      "url": "http://localhost:4180/w/qa-visual?page=dashboard",
+      "capturedAt": "2026-09-14T05:08:02.966Z",
+      "productCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
+      "sha256": "8CE012C5A6E3179E87E1E89F5DC48837DACE04A41673208C98EEE80BDB4FFBBA",
+      "scenario": "empty",
+      "role": "continuous-scroll",
+      "scroll": {
+        "file": "referenceDesktop-dashboard-scroll-00.png",
+        "top": 0,
+        "height": 1049,
+        "clientHeight": 1024,
+        "atEnd": false
+      }
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-692665d/empty/referenceDesktop-dashboard-scroll-01.webp",
+      "kind": "desktop",
+      "viewport": "1536x1024",
+      "url": "http://localhost:4180/w/qa-visual?page=dashboard",
+      "capturedAt": "2026-09-14T05:08:02.966Z",
+      "productCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
+      "sha256": "768C342E08517B576ACBABBE175CA19C6EDC94F07A54875B512A54760DBF6164",
+      "scenario": "empty",
+      "role": "continuous-scroll",
+      "scroll": {
+        "file": "referenceDesktop-dashboard-scroll-01.png",
+        "top": 25,
+        "height": 1049,
+        "clientHeight": 1024,
+        "atEnd": true
+      }
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-692665d/empty/referenceDesktop-dashboard.webp",
+      "kind": "desktop",
+      "viewport": "1536x1024",
+      "url": "http://localhost:4180/w/qa-visual?page=dashboard",
+      "capturedAt": "2026-09-14T05:08:02.966Z",
+      "productCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
+      "sha256": "8CE012C5A6E3179E87E1E89F5DC48837DACE04A41673208C98EEE80BDB4FFBBA",
+      "scenario": "empty",
+      "role": "first-viewport"
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-692665d/empty/referenceMobile-action-dictation.webp",
+      "kind": "mobile",
+      "viewport": "390x844",
+      "url": "http://localhost:4180/w/qa-visual?page=dictation",
+      "capturedAt": "2026-09-14T05:08:02.966Z",
+      "productCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
+      "sha256": "F7BF8C6C4E98AD728CE7225904492DAA6DC723ECB292E33BB26CB79A233043DA",
+      "scenario": "empty",
+      "role": "interaction",
+      "originUrl": "http://localhost:4180/w/qa-visual?page=dashboard"
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-692665d/empty/referenceMobile-action-duty.webp",
+      "kind": "mobile",
+      "viewport": "390x844",
+      "url": "http://localhost:4180/w/qa-visual?page=duty",
+      "capturedAt": "2026-09-14T05:08:02.966Z",
+      "productCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
+      "sha256": "42ED72F0488282404B1CEFE28492E36B083CCDE18F8804C2BDE170D9FC1DCE6D",
+      "scenario": "empty",
+      "role": "interaction",
+      "originUrl": "http://localhost:4180/w/qa-visual?page=dashboard"
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-692665d/empty/referenceMobile-action-homework.webp",
+      "kind": "mobile",
+      "viewport": "390x844",
+      "url": "http://localhost:4180/w/qa-visual?page=homework",
+      "capturedAt": "2026-09-14T05:08:02.966Z",
+      "productCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
+      "sha256": "A195BC70C2CC423B1F19757C043A82E9D75B56E1AE4C9BA356062D11CEF2AE67",
+      "scenario": "empty",
+      "role": "interaction",
+      "originUrl": "http://localhost:4180/w/qa-visual?page=dashboard"
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-692665d/empty/referenceMobile-action-students.webp",
+      "kind": "mobile",
+      "viewport": "390x844",
+      "url": "http://localhost:4180/w/qa-visual?page=students",
+      "capturedAt": "2026-09-14T05:08:02.966Z",
+      "productCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
+      "sha256": "29BADCA99E0E143E25108F65B092351A59CB70D5E4E3A61AC89F7CD40FF7EF69",
+      "scenario": "empty",
+      "role": "interaction",
+      "originUrl": "http://localhost:4180/w/qa-visual?page=dashboard"
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-692665d/empty/referenceMobile-dashboard-scroll-00.webp",
+      "kind": "mobile",
+      "viewport": "390x844",
+      "url": "http://localhost:4180/w/qa-visual?page=dashboard",
+      "capturedAt": "2026-09-14T05:08:02.966Z",
+      "productCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
+      "sha256": "AF91736E3844B309F1FF83D3A0B0A9F98933D816AD4E406416BBC2FDE3AF0382",
+      "scenario": "empty",
+      "role": "continuous-scroll",
+      "scroll": {
+        "file": "referenceMobile-dashboard-scroll-00.png",
+        "top": 0,
+        "height": 1903,
+        "clientHeight": 844,
+        "atEnd": false
+      }
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-692665d/empty/referenceMobile-dashboard-scroll-01.webp",
+      "kind": "mobile",
+      "viewport": "390x844",
+      "url": "http://localhost:4180/w/qa-visual?page=dashboard",
+      "capturedAt": "2026-09-14T05:08:02.966Z",
+      "productCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
+      "sha256": "CA1CA95D8D9A4F54F10ACD126A48BA6EE8DD2DD043DEEF685FCEB9EC5022282C",
+      "scenario": "empty",
+      "role": "continuous-scroll",
+      "scroll": {
+        "file": "referenceMobile-dashboard-scroll-01.png",
+        "top": 664,
+        "height": 1903,
+        "clientHeight": 844,
+        "atEnd": false
+      }
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-692665d/empty/referenceMobile-dashboard-scroll-02.webp",
+      "kind": "mobile",
+      "viewport": "390x844",
+      "url": "http://localhost:4180/w/qa-visual?page=dashboard",
+      "capturedAt": "2026-09-14T05:08:02.966Z",
+      "productCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
+      "sha256": "F58AA7E261BE688EED95B5D42F8564A3773482D57532CBB8E4ADFADA663A22EB",
+      "scenario": "empty",
+      "role": "continuous-scroll",
+      "scroll": {
+        "file": "referenceMobile-dashboard-scroll-02.png",
+        "top": 1059,
+        "height": 1903,
+        "clientHeight": 844,
+        "atEnd": true
+      }
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-692665d/empty/referenceMobile-dashboard.webp",
+      "kind": "mobile",
+      "viewport": "390x844",
+      "url": "http://localhost:4180/w/qa-visual?page=dashboard",
+      "capturedAt": "2026-09-14T05:08:02.966Z",
+      "productCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
+      "sha256": "86E39D2BFDCFF4E0884E372672CC82515116D4A80213582D5E9BC43299B20309",
+      "scenario": "empty",
+      "role": "first-viewport"
+    },
+    {
+      "path": "docs/visual-baseline/comparisons/V1-692665d-desktop.webp",
+      "kind": "desktop",
+      "viewport": "1536x1024",
+      "url": "http://localhost:4180/w/demo?page=dashboard",
+      "capturedAt": "2026-09-14T05:07:08.867Z",
+      "productCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
+      "sha256": "C52B6C65C6448B2741C2D28D324D2FA5A9AF844E8868A66C94CC6CC6AAC8C77F",
+      "scenario": "demo",
+      "role": "comparison",
+      "referenceId": "C1"
+    },
+    {
+      "path": "docs/visual-baseline/comparisons/V1-692665d-mobile.webp",
+      "kind": "mobile",
+      "viewport": "390x844",
+      "url": "http://localhost:4180/w/demo?page=dashboard",
+      "capturedAt": "2026-09-14T05:07:08.867Z",
+      "productCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
+      "sha256": "2F82947A4BF2F744F86580D6C44BFCCE2624158D957E025685B559AD1B8BBC3D",
+      "scenario": "demo",
+      "role": "comparison",
+      "referenceId": "C5"
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-692665d/demo/desktop-continuous.webp",
+      "kind": "desktop",
+      "viewport": "1536x1024",
+      "url": "http://localhost:4180/w/demo?page=dashboard",
+      "capturedAt": "2026-09-14T05:07:08.867Z",
+      "productCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
+      "sha256": "02A7B1145835510C3245C3684D2198B674691E40D97F8FB1F4735ECC29CD701C",
+      "scenario": "demo",
+      "role": "contact-sheet",
+      "scroll": {
+        "file": "referenceDesktop-dashboard-scroll-00.png",
+        "top": 0,
+        "height": 1276,
+        "clientHeight": 1024,
+        "atEnd": false
+      },
+      "frameCount": 2,
+      "columns": 1
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-692665d/demo/mobile-continuous.webp",
+      "kind": "mobile",
+      "viewport": "390x844",
+      "url": "http://localhost:4180/w/demo?page=dashboard",
+      "capturedAt": "2026-09-14T05:07:08.867Z",
+      "productCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
+      "sha256": "1D0BDBB01F929B4671A21A233EE779C5A5443E013C438318AABAE27CCE7AE25C",
+      "scenario": "demo",
+      "role": "contact-sheet",
+      "scroll": {
+        "file": "referenceMobile-dashboard-scroll-00.png",
+        "top": 0,
+        "height": 2199,
+        "clientHeight": 844,
+        "atEnd": false
+      },
+      "frameCount": 4,
+      "columns": 3
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-692665d/large/desktop-continuous.webp",
+      "kind": "desktop",
+      "viewport": "1536x1024",
+      "url": "http://localhost:4180/w/qa-visual?page=dashboard",
+      "capturedAt": "2026-09-14T05:07:36.177Z",
+      "productCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
+      "sha256": "87BD6CAC496A57CE8859CE8DAF7BB6E22139F310C585E5EBA5D207025389B041",
+      "scenario": "large",
+      "role": "contact-sheet",
+      "scroll": {
+        "file": "referenceDesktop-dashboard-scroll-00.png",
+        "top": 0,
+        "height": 1242,
+        "clientHeight": 1024,
+        "atEnd": false
+      },
+      "frameCount": 2,
+      "columns": 1
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-692665d/large/mobile-continuous.webp",
+      "kind": "mobile",
+      "viewport": "390x844",
+      "url": "http://localhost:4180/w/qa-visual?page=dashboard",
+      "capturedAt": "2026-09-14T05:07:36.177Z",
+      "productCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
+      "sha256": "F06307DCB3CD8D0B9CE9FC02981BD29C936BE316CEA3CED4E9734E3573CDBD4B",
+      "scenario": "large",
+      "role": "contact-sheet",
+      "scroll": {
+        "file": "referenceMobile-dashboard-scroll-00.png",
+        "top": 0,
+        "height": 2075,
+        "clientHeight": 844,
+        "atEnd": false
+      },
+      "frameCount": 3,
+      "columns": 3
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-692665d/empty/desktop-continuous.webp",
+      "kind": "desktop",
+      "viewport": "1536x1024",
+      "url": "http://localhost:4180/w/qa-visual?page=dashboard",
+      "capturedAt": "2026-09-14T05:08:02.966Z",
+      "productCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
+      "sha256": "C9299A2CC6D2F33FB110CF6A9C3C8553F8A5DF160A44E460D9E610143AF194D9",
+      "scenario": "empty",
+      "role": "contact-sheet",
+      "scroll": {
+        "file": "referenceDesktop-dashboard-scroll-00.png",
+        "top": 0,
+        "height": 1049,
+        "clientHeight": 1024,
+        "atEnd": false
+      },
+      "frameCount": 2,
+      "columns": 1
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-692665d/empty/mobile-continuous.webp",
+      "kind": "mobile",
+      "viewport": "390x844",
+      "url": "http://localhost:4180/w/qa-visual?page=dashboard",
+      "capturedAt": "2026-09-14T05:08:02.966Z",
+      "productCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
+      "sha256": "9F86FF2E9A465D4D3C94365CA1B4AEAD6B7BB9DC92328E6955C1A2586A44762B",
+      "scenario": "empty",
+      "role": "contact-sheet",
+      "scroll": {
+        "file": "referenceMobile-dashboard-scroll-00.png",
+        "top": 0,
+        "height": 1903,
+        "clientHeight": 844,
+        "atEnd": false
+      },
+      "frameCount": 3,
+      "columns": 3
+    }
+  ],
+  "reports": [
+    {
+      "scenario": "strict",
+      "path": "docs/visual-baseline/logs/V1-692665d/strict-layout-audit.json",
+      "sha256": "CF8B9573939677A7E2BC8D0344289221EF1BA6338D413EF04127364E4D4620D7",
+      "productCommit": "0b1dc1fc8eea53a54f70337aed4a6331267f3357",
+      "reusedForProductCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
+      "equivalenceLog": "docs/visual-baseline/logs/V1-692665d/test-reuse-proof.txt"
+    },
+    {
+      "scenario": "demo",
+      "path": "docs/visual-baseline/logs/V1-692665d/demo-layout-audit.json",
+      "sha256": "EAE983E230B1FC6B404E752E548B62B7969D4E213407DD9E530214FB5E9E91E4",
+      "productCommit": "692665d8ad928c3ae90a52188623e2367212d0d2"
+    },
+    {
+      "scenario": "large",
+      "path": "docs/visual-baseline/logs/V1-692665d/large-layout-audit.json",
+      "sha256": "44945409DEEBD6EA52EACFACAD39DD3737691BCC48097E3DDD5DA7F03A354153",
+      "productCommit": "692665d8ad928c3ae90a52188623e2367212d0d2"
+    },
+    {
+      "scenario": "empty",
+      "path": "docs/visual-baseline/logs/V1-692665d/empty-layout-audit.json",
+      "sha256": "5CD21F300F01F83416609D9DB2090CB7215E41B073AC020B0A5067B327A4F76A",
+      "productCommit": "692665d8ad928c3ae90a52188623e2367212d0d2"
+    }
+  ]
+}

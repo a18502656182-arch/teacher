@@ -1,0 +1,10 @@
+productCommit: 692665d8ad928c3ae90a52188623e2367212d0d2
+ledgerState: working tree awaiting-supervisor-and-user-review
+command: npm run qa:visual-baseline
+exitCode: 0
+
+> ban-zhuren-workbench@0.1.0 qa:visual-baseline
+> node scripts/visual-baseline-audit.mjs
+
+Visual baseline contract OK: 19 teacher pages, 7 gates, 0 user-approved gates.
+

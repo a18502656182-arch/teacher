@@ -1,0 +1,9 @@
+sourceCommit: fc86f2e7d808fa6b39147ec1e749e952c5738ac5
+targetCommit: 692665d8ad928c3ae90a52188623e2367212d0d2
+command: git diff fc86f2e..HEAD -- app lib db drizzle worker public build tests package.json package-lock.json vite.config.ts tsconfig.json
+exitCode: 0
+output: empty
+Full commit diff:
+ scripts/dashboard-visual-qa.mjs    | 16 +++++++++++-----
+ scripts/v1-review-verification.mjs |  1 +
+ 2 files changed, 12 insertions(+), 5 deletions(-)

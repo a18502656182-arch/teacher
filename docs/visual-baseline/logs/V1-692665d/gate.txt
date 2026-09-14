@@ -1,0 +1,10 @@
+productCommit: 692665d8ad928c3ae90a52188623e2367212d0d2
+ledgerState: working tree awaiting-supervisor-and-user-review
+command: npm run qa:visual-gate -- --gate V1
+exitCode: 1
+
+> ban-zhuren-workbench@0.1.0 qa:visual-gate
+> node scripts/visual-baseline-audit.mjs --gate V1
+
+FAIL dashboard does not have an independent supervision PASS for 692665d8ad928c3ae90a52188623e2367212d0d2.
+
