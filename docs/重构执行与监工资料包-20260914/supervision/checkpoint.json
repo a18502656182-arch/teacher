@@ -1,14 +1,14 @@
 {
   "schemaVersion": 1,
-  "checkpointId": "V2-STUDENTS-399A5C4-20260914",
-  "phase": "v2-students-independent-review",
+  "checkpointId": "V2-STUDENTS-C3-DIRECTION-20260914",
+  "phase": "v2-students-direction-confirmation",
   "gate": "V2",
   "page": "students",
   "productCommit": "399a5c48b538b4cab8177d2bccb82011671db763",
   "executorThread": "codex://threads/01a09e19-8379-7f63-b537-7c54965c2044",
   "supervisorThread": null,
   "supervisionMode": "shared-checkpoint",
-  "status": "awaiting-supervisor-review",
+  "status": "awaiting-user-direction",
   "changedFiles": [
     "app/w/[token]/features/students/StudentsView.tsx",
     "app/w/[token]/features/students/StudentsView.module.css",
@@ -18,11 +18,17 @@
     "tests/rendered-html.test.mjs"
   ],
   "review": {
-    "status": "pending",
-    "reviewedProductCommit": null,
-    "report": null
+    "status": "CHANGES_REQUESTED",
+    "reviewedProductCommit": "399a5c48b538b4cab8177d2bccb82011671db763",
+    "report": "docs/重构执行与监工资料包-20260914/supervision/reviews/V2-STUDENTS-399A5C4-20260914.md",
+    "scopeCorrection": "用户否决监工的整体方向成立、仅S1阻塞判断；按C3整体构图、颜色面积和信息层级重新核定。"
   },
   "humanApproval": null,
+  "userDecision": {
+    "status": "rejected",
+    "productCommit": "399a5c48b538b4cab8177d2bccb82011671db763",
+    "source": "用户在当前执行对话明确拒绝当前学生名单视觉效果，并要求先提交参考差距—调整方案、确认后再实施。"
+  },
   "previousGate": {
     "gate": "V1",
     "approvedProductCommit": "23fcdc582575ccd50f2edeba0db9e9e2d64673db",
@@ -42,6 +48,7 @@
     "mobileComparison": "docs/visual-baseline/comparisons/V2-STUDENTS-399a5c4-mobile-before-after.webp",
     "detailComparison": "docs/visual-baseline/comparisons/V2-STUDENTS-399a5c4-detail-local.webp"
   },
+  "directionProposal": "docs/visual-baseline/V2-STUDENTS-C3-REALIGNMENT-PROPOSAL.md",
   "verifiedScenarios": [
     "demo: 32-person read-only roster",
     "large: 105-person long-name roster",
@@ -50,7 +57,7 @@
     "desktop: 1536, 1440, 1280 and 1057 column geometry"
   ],
   "knownDiagnostic": "a6a483f strict preflight failed because the new checker queried only an explicit role attribute; the product uses a native dialog element. The failed raw log is retained, the checker was corrected without changing product behavior, and all checks were rerun on 399a5c4.",
-  "nextAction": "独立监工读取本检查点、V2-STUDENTS-399a5c4-review.md及绑定证据，审查students并写新报告。只有该页PASS后才可在V2内继续homework；不得进入V3。",
+  "nextAction": "等待用户确认V2-STUDENTS-C3-REALIGNMENT-PROPOSAL.md的方向；确认前不得修改产品。确认后仅返工students并重新提交产品、同尺寸图和检查点；homework/dictation/V3继续暂停。",
   "referenceIds": [
     "C3"
   ],

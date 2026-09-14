@@ -485,11 +485,14 @@
       "referenceIds": [
         "C3"
       ],
-      "status": "ready-for-review",
+      "status": "needs-fix",
       "requiredComparisons": 2,
       "issues": [
-        "等待独立监工核对名单主区、浅绿详情栏与C3桌面方向",
-        "C3没有独立手机原图；手机按任务卡延展并以旧/新实际图、Drawer和空态证据复核"
+        "用户否决399a5c4整体视觉方向：详情栏粉笔绿色面积与名单主区区分不足",
+        "近期状态缺少语义色和扫读层级，且存在残缺时间展示",
+        "学生身份、学习记录与完整档案入口的字号、空间和主次关系弱于C3",
+        "独立概览带下推名单起点并改变首屏密度，需保留功能后重组",
+        "手机正常新增按钮文字难辨，且页面任务标题与壳层标题重复"
       ],
       "productCommit": "399a5c48b538b4cab8177d2bccb82011671db763",
       "currentEvidence": [
@@ -544,12 +547,14 @@
         }
       ],
       "supervision": {
-        "status": "pending",
-        "reviewedProductCommit": null,
-        "report": null
+        "status": "CHANGES_REQUESTED",
+        "reviewedProductCommit": "399a5c48b538b4cab8177d2bccb82011671db763",
+        "report": "docs/重构执行与监工资料包-20260914/supervision/reviews/V2-STUDENTS-399A5C4-20260914.md",
+        "scopeCorrection": "用户明确否决报告中整体方向成立、仅S1阻塞的判断；返工范围扩大为C3整体构图、颜色面积和信息层级。"
       },
       "evidenceIndex": "docs/visual-baseline/logs/V2-STUDENTS-399a5c4/evidence-index.json",
-      "submissionNotes": "docs/visual-baseline/V2-STUDENTS-399a5c4-review.md"
+      "submissionNotes": "docs/visual-baseline/V2-STUDENTS-399a5c4-review.md",
+      "directionProposal": "docs/visual-baseline/V2-STUDENTS-C3-REALIGNMENT-PROPOSAL.md"
     },
     "homework": {
       "label": "作业追踪",
