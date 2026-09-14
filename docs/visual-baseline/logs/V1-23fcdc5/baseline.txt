@@ -1,0 +1,11 @@
+productCommit: 23fcdc582575ccd50f2edeba0db9e9e2d64673db
+command: npm run qa:visual-baseline
+startedAt: 2026-09-14T07:27:33.575Z
+
+> ban-zhuren-workbench@0.1.0 qa:visual-baseline
+> node scripts/visual-baseline-audit.mjs
+
+Visual baseline contract OK: 19 teacher pages, 7 gates, 0 user-approved gates.
+
+
+exitCode: 0

@@ -70,7 +70,7 @@
       "pages": [
         "dashboard"
       ],
-      "status": "needs-fix",
+      "status": "in-progress",
       "pauseRequired": true,
       "userApproval": {
         "approved": false,
@@ -182,69 +182,90 @@
         "C1",
         "C5"
       ],
-      "status": "needs-fix",
+      "status": "ready-for-review",
       "requiredComparisons": 2,
       "issues": [
-        "R8a 教室场景主体、占比与右区融合尚未同时成立",
-        "R8b 听写文具完整但视觉重量不足、与模块下沿脱节"
+        "R8a 同源横向局部适配候选待独立监工读图确认",
+        "R8b 文具放大与下沿融合候选待独立监工读图确认"
       ],
-      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "productCommit": "23fcdc582575ccd50f2edeba0db9e9e2d64673db",
       "currentEvidence": [
         {
-          "path": "docs/visual-baseline/current/V1-04e5abf/demo/referenceDesktop-dashboard.webp",
+          "path": "docs/visual-baseline/current/V1-23fcdc5/demo/referenceDesktop-dashboard.webp",
           "kind": "desktop",
           "viewport": "1536x1024",
           "url": "http://localhost:4180/w/demo?page=dashboard",
-          "capturedAt": "2026-09-14T06:42:00.447Z",
-          "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
-          "sha256": "C5BADC05BAFFED16DF942FC7AE40A248751C3EA9E3AE8BE3956850D359BE954F",
+          "capturedAt": "2026-09-14T07:26:02.95Z",
+          "productCommit": "23fcdc582575ccd50f2edeba0db9e9e2d64673db",
+          "sha256": "046A37BC9FC45ADDB155E774D9675BFE2924173095B0ABB0469984E56F5F869D",
           "scenario": "demo",
           "role": "first-viewport"
         },
         {
-          "path": "docs/visual-baseline/current/V1-04e5abf/demo/referenceMobile-dashboard.webp",
+          "path": "docs/visual-baseline/current/V1-23fcdc5/demo/referenceMobile-dashboard.webp",
           "kind": "mobile",
           "viewport": "390x844",
           "url": "http://localhost:4180/w/demo?page=dashboard",
-          "capturedAt": "2026-09-14T06:42:00.447Z",
-          "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
-          "sha256": "BD530D7F5785BC1B7CC51CFA95E8BDABA0C1BE7DCB913EB5DCB99CE2BA4C39A9",
+          "capturedAt": "2026-09-14T07:26:02.95Z",
+          "productCommit": "23fcdc582575ccd50f2edeba0db9e9e2d64673db",
+          "sha256": "3F95B0208E9AC3CED3DB3CC88A65E2DE207DA2C8D5D2C101533167F319F0B4C8",
           "scenario": "demo",
           "role": "first-viewport"
         }
       ],
       "comparisons": [
         {
-          "path": "docs/visual-baseline/comparisons/V1-04e5abf-desktop.webp",
+          "path": "docs/visual-baseline/comparisons/V1-23fcdc5-desktop.webp",
           "kind": "desktop",
           "viewport": "1536x1024",
           "url": "http://localhost:4180/w/demo?page=dashboard",
-          "capturedAt": "2026-09-14T06:42:00.447Z",
-          "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
-          "sha256": "D95F3518F04AE2E8572D3068677B2D0B59BB45490FCD620214433D1831789606",
+          "capturedAt": "2026-09-14T07:26:02.95Z",
+          "productCommit": "23fcdc582575ccd50f2edeba0db9e9e2d64673db",
+          "sha256": "2A6950BED04B8F579623FBCAD613D06F2784A2DC1C47C6BD9B78A6ADE688D4A3",
           "scenario": "demo",
           "role": "comparison",
           "referenceId": "C1"
         },
         {
-          "path": "docs/visual-baseline/comparisons/V1-04e5abf-mobile.webp",
+          "path": "docs/visual-baseline/comparisons/V1-23fcdc5-mobile.webp",
           "kind": "mobile",
           "viewport": "390x844",
           "url": "http://localhost:4180/w/demo?page=dashboard",
-          "capturedAt": "2026-09-14T06:42:00.447Z",
-          "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
-          "sha256": "7A654FAC0A9437D53282245EC88322F6565BCAB561C8BD91381D618FDE685FFD",
+          "capturedAt": "2026-09-14T07:26:02.95Z",
+          "productCommit": "23fcdc582575ccd50f2edeba0db9e9e2d64673db",
+          "sha256": "254D4EC77DA3C68D5D6BCC21E1B707DDF18609200F1EE9DC7636E7759E63B7F8",
           "scenario": "demo",
           "role": "comparison",
           "referenceId": "C5"
         }
       ],
       "supervision": {
-        "status": "CHANGES_REQUESTED",
-        "reviewedProductCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
-        "report": "docs/重构执行与监工资料包-20260914/supervision/reviews/V1-DASHBOARD-04E5ABF-20260914.md"
+        "status": "pending",
+        "reviewedProductCommit": null,
+        "report": null
       },
       "reviewHistory": [
+        {
+          "label": "今日工作台",
+          "referenceIds": [
+            "C1",
+            "C5"
+          ],
+          "status": "needs-fix",
+          "requiredComparisons": 2,
+          "issues": [
+            "R8a 教室场景主体、占比与右区融合尚未同时成立",
+            "R8b 听写文具完整但视觉重量不足、与模块下沿脱节"
+          ],
+          "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+          "supervision": {
+            "status": "CHANGES_REQUESTED",
+            "reviewedProductCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+            "report": "docs/重构执行与监工资料包-20260914/supervision/reviews/V1-DASHBOARD-04E5ABF-20260914.md"
+          },
+          "evidenceIndex": "docs/visual-baseline/logs/V1-04e5abf/evidence-index.json",
+          "submissionNotes": "docs/visual-baseline/V1-04e5abf-review.md"
+        },
         {
           "label": "今日工作台",
           "referenceIds": [
@@ -455,8 +476,8 @@
           "submissionNotes": "docs/visual-baseline/V1-351880e-review.md"
         }
       ],
-      "evidenceIndex": "docs/visual-baseline/logs/V1-04e5abf/evidence-index.json",
-      "submissionNotes": "docs/visual-baseline/V1-04e5abf-review.md"
+      "evidenceIndex": "docs/visual-baseline/logs/V1-23fcdc5/evidence-index.json",
+      "submissionNotes": "docs/visual-baseline/V1-23fcdc5-review.md"
     },
     "students": {
       "label": "学生名单",
