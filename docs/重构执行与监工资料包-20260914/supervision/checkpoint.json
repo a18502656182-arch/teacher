@@ -1,14 +1,14 @@
 {
   "schemaVersion": 1,
   "checkpointId": "V1-DASHBOARD-23FCDC5-20260914",
-  "phase": "v1-dashboard-R8-independent-review",
+  "phase": "v1-dashboard-user-approved",
   "gate": "V1",
   "page": "dashboard",
   "productCommit": "23fcdc582575ccd50f2edeba0db9e9e2d64673db",
   "executorThread": "codex://threads/01a09e19-8379-7f63-b537-7c54965c2044",
   "supervisorThread": null,
   "supervisionMode": "shared-checkpoint",
-  "status": "awaiting-supervisor-review",
+  "status": "complete",
   "changedFiles": [
     "app/w/[token]/features/dashboard/DashboardView.module.css",
     "app/w/[token]/features/dashboard/DashboardView.tsx",
@@ -96,18 +96,24 @@
     },
     {
       "id": "visual-gate",
-      "exitCode": 1,
-      "expected": true,
-      "reason": "Independent supervisor PASS and user approval are both absent; V1 must remain blocked"
+      "command": "npm run qa:visual-gate -- --gate V1",
+      "exitCode": 0,
+      "checkedAt": "2026-09-14",
+      "reason": "Independent PASS and explicit user approval are both bound to product 23fcdc5"
     }
   ],
   "review": {
-    "status": "pending",
-    "reviewedProductCommit": null,
-    "report": null
+    "status": "PASS",
+    "reviewedProductCommit": "23fcdc582575ccd50f2edeba0db9e9e2d64673db",
+    "report": "docs/重构执行与监工资料包-20260914/supervision/reviews/V1-DASHBOARD-23FCDC5-20260914.md"
   },
-  "humanApproval": null,
-  "nextAction": "独立监工先复核23fcdc5的R8a/R8b和已关闭项回归；然后暂停由用户看图明确批准。不得开始V2。",
+  "humanApproval": {
+    "approved": true,
+    "approvedAt": "2026-09-14",
+    "commit": "23fcdc582575ccd50f2edeba0db9e9e2d64673db",
+    "source": "用户在当前执行对话明确回复：我批准 V1 首页产品提交 23fcdc582575ccd50f2edeba0db9e9e2d64673db，可以进入 V2。"
+  },
+  "nextAction": "V1门槛已校验通过；进入V2，仅依次处理students、homework、dictation。逐页监工，三页后暂停用户审核，不得进入V3。",
   "previousReview": {
     "status": "CHANGES_REQUESTED",
     "reviewedProductCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",

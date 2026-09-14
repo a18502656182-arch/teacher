@@ -70,12 +70,13 @@
       "pages": [
         "dashboard"
       ],
-      "status": "in-progress",
+      "status": "user-approved",
       "pauseRequired": true,
       "userApproval": {
-        "approved": false,
-        "approvedAt": null,
-        "commit": null
+        "approved": true,
+        "approvedAt": "2026-09-14",
+        "commit": "23fcdc582575ccd50f2edeba0db9e9e2d64673db",
+        "source": "用户在当前执行对话明确回复：我批准 V1 首页产品提交 23fcdc582575ccd50f2edeba0db9e9e2d64673db，可以进入 V2。"
       }
     },
     {
@@ -182,7 +183,7 @@
         "C1",
         "C5"
       ],
-      "status": "ready-for-review",
+      "status": "user-approved",
       "requiredComparisons": 2,
       "issues": [
         "R8a 同源横向局部适配候选待独立监工读图确认",
@@ -240,9 +241,9 @@
         }
       ],
       "supervision": {
-        "status": "pending",
-        "reviewedProductCommit": null,
-        "report": null
+        "status": "PASS",
+        "reviewedProductCommit": "23fcdc582575ccd50f2edeba0db9e9e2d64673db",
+        "report": "docs/重构执行与监工资料包-20260914/supervision/reviews/V1-DASHBOARD-23FCDC5-20260914.md"
       },
       "reviewHistory": [
         {
