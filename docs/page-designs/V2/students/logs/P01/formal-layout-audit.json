@@ -1,0 +1,398 @@
+{
+  "createdAt": "2026-09-14T12:19:25.128Z",
+  "productCommit": "efcc7067263cdeb555a385c815b64462a3a53fb9",
+  "environment": {
+    "node": "v24.19.0",
+    "platform": "win32",
+    "browser": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+    "url": "http://127.0.0.1:4180/w/demo",
+    "scenario": "unchanged-demo",
+    "fixedDate": null
+  },
+  "results": [
+    {
+      "name": "static",
+      "failures": []
+    },
+    {
+      "name": "referenceDesktop:students",
+      "data": {
+        "pageId": "students",
+        "text": "班主任工作台\n当前班级\n三年级2班（32人）\n四年级1班（18人）\n班级教学\n家庭学习\n演示模式\n演示说明\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具\n班级\n座位分组\n值日岗位\n班干部\n积分规则\n班级周报\n期末评语\n\n演示模式\n数据不会保存\n\n演示模式\n数据不会保存，AI 使用静态示例。\n三年级2班学生名单\n\n三年级 · 2026—2027学年第一学期 · 共 32 人，名单与学生事实在同一工作面。\n\n名单操作\n新增学生\n32 名学生男生 16女生 16电话已维护 32 人（100%",
+        "teacherAgenda": false,
+        "healthEditor": false,
+        "healthReadOnly": false,
+        "healthReadOnlyHealthy": false,
+        "healthStudentSearch": false,
+        "healthStudentPickerIdle": false,
+        "healthStudentPickerPosition": "",
+        "healthFooterActions": false,
+        "healthHeaderAction": false,
+        "homeworkDetail": false,
+        "homeworkFollowModal": false,
+        "homeworkSelectionVisible": false,
+        "homeworkReadonlyBulkDisabled": false,
+        "mobileHomeworkTaskSummary": false,
+        "mobileHomeworkSelectionRail": true,
+        "attendanceLedger": false,
+        "attendanceReadOnly": false,
+        "attendanceReadOnlyHealthy": false,
+        "attendanceBatchBar": false,
+        "attendanceSelectionCleared": false,
+        "attendanceStatusActionsHealthy": false,
+        "attendanceAllNormalHealthy": false,
+        "attendanceDetachedEditor": false,
+        "reflectionEditorHealthy": false,
+        "reflectionReadOnlyShown": false,
+        "reflectionDraftRetained": false,
+        "weeklyEditorHealthy": false,
+        "weeklyReadOnlyShown": false,
+        "weeklyDraftRetained": false,
+        "weeklyPrimaryFullWidth": false,
+        "commentEditorHealthy": false,
+        "commentReadOnlyShown": false,
+        "commentDraftRetained": false,
+        "commentDraftRetainedAfterEvidence": false,
+        "commentEvidenceSheetHealthy": false,
+        "visibleSceneSwitches": 1,
+        "mobileTabItems": [
+          {
+            "label": "首页",
+            "visible": false,
+            "topLabel": "A",
+            "topClass": "_brand_1jxlx_4"
+          },
+          {
+            "label": "学生",
+            "visible": false,
+            "topLabel": "A",
+            "topClass": "_brand_1jxlx_4"
+          },
+          {
+            "label": "作业",
+            "visible": false,
+            "topLabel": "A",
+            "topClass": "_brand_1jxlx_4"
+          },
+          {
+            "label": "成绩",
+            "visible": false,
+            "topLabel": "A",
+            "topClass": "_brand_1jxlx_4"
+          },
+          {
+            "label": "更多",
+            "visible": false,
+            "topLabel": "A",
+            "topClass": "_brand_1jxlx_4"
+          }
+        ],
+        "mobileBlockingLayer": false,
+        "dashboardArtwork": null,
+        "shell": null,
+        "main": null,
+        "content": {
+          "left": 244,
+          "right": 1536,
+          "top": 114.6875,
+          "bottom": 944.265625,
+          "width": 1292,
+          "height": 829.578125
+        },
+        "scrollWidth": 1536,
+        "viewportWidth": 1536,
+        "cardsInsideCards": 6,
+        "inputLikeButtons": 0,
+        "squeezedButtons": [],
+        "oversizedSegmentButtons": [],
+        "pointHeaderActionIssues": [],
+        "crowdedActionCells": 0,
+        "crampedDialogTextareas": [],
+        "clippedSurfaces": [],
+        "widestElements": [],
+        "overflowElements": [
+          {
+            "tag": "INPUT",
+            "className": "visually-hidden",
+            "clientWidth": 1,
+            "scrollWidth": 158
+          }
+        ],
+        "studentsReview": {
+          "url": "http://localhost:4180/w/demo?page=students",
+          "viewport": {
+            "width": 1536,
+            "height": 1024
+          },
+          "fixture": {
+            "scenario": "unchanged-demo"
+          },
+          "workspace": {
+            "x": 244,
+            "y": 240.6875,
+            "width": 1292,
+            "height": 703.578125,
+            "right": 1536,
+            "bottom": 944.265625
+          },
+          "list": {
+            "x": 263,
+            "y": 381.265625,
+            "width": 904,
+            "height": 492,
+            "right": 1167,
+            "bottom": 873.265625
+          },
+          "tools": {
+            "x": 263,
+            "y": 285.28125,
+            "width": 904,
+            "height": 83.984375,
+            "right": 1167,
+            "bottom": 369.265625
+          },
+          "detail": {
+            "x": 1185,
+            "y": 241.6875,
+            "width": 350,
+            "height": 701.578125,
+            "right": 1535,
+            "bottom": 943.265625
+          },
+          "overview": null,
+          "artwork": {
+            "box": {
+              "x": 1186,
+              "y": 241.6875,
+              "width": 349,
+              "height": 173,
+              "right": 1535,
+              "bottom": 414.6875
+            },
+            "source": "http://localhost:4180/art/campus/student-detail-v2.webp",
+            "fit": "cover"
+          },
+          "heading": "三年级2班学生名单",
+          "headingSize": 28,
+          "rowCount": 20,
+          "focusedRows": 1,
+          "emptyText": false,
+          "totalText": "三年级2班学生名单\n\n三年级 · 2026—2027学年第一学期 · 共 32 人，名单与学生事实在同一工作面。\n\n名单操作\n新增学生\n32 名学生男生 16女生 16电话已维护 32 人（100%）\n搜索\n小组\n全部小组\n第1组\n第2组\n第3组\n第4组\n第5组\n第6组\n第7组\n第8组\n每页\n20 人\n50 人\n编辑资料\n\t学号\t姓名\t性别\t小组\t近期状态\t操作\n\t01\t林知夏\t女\t第1组\t\n已交07-17 · 作业\n\t\n查看\n\n\t02\t陈思远\t男\t第1组\t\n待跟进18:20 · 家访准备\n\t\n查看\n\n\t03\t周雨桐\t女\t第1组\t\n已归档10:20 · 成长记录\n\t\n查看\n\n\t04\t王子谦\t男\t第1组\t\n待跟进16:45 · 作业跟进\n\t\n查看\n\n\t05\t苏沐晴\t女\t第2组\t\n已跟进19:10 · 家校沟通\n\t\n查看\n\n\t06\t赵一鸣\t男\t第2组\t\n已交07-17 · 作业\n\t\n查看\n\n\t07\t沈佳宁\t女\t第2组\t\n已交07-17 · 作业\n\t\n查看\n\n\t08\t许嘉树\t男\t第2组\t\n待订正07-17 · 作业\n\t\n查看\n\n\t09\t顾安然\t女\t第3组\t\n已复查07-17 · 作业\n\t\n查看\n\n\t10\t李明轩\t男\t第3组\t\n待跟进12:35 · 谈心记录\n\t\n查看\n\n\t11\t叶可欣\t女\t第3组\t\n已交07-17 · 作业\n\t\n查看\n\n\t12\t张景行\t男\t第3组\t\n已交07-17 · 作业\n\t\n查看\n\n\t13\t唐语柔\t女\t第4组\t\n已归档09:15 · 表扬记录\n\t\n查看\n\n\t14\t吴承泽\t男\t第4组\t\n已复查07-17 · 作业\n\t\n查看\n\n\t15\t陆星辰\t女\t第4组\t\n未交07-17 · 作业\n\t\n查看\n\n\t16\t宋芷若\t男\t第4组\t\n已交07-17 · 作业\n\t\n查看\n\n\t17\t江予安\t女\t第5组\t\n已交07-17 · 作业\n\t\n查看\n\n\t18\t何书瑶\t男\t第5组\t\n待订正07-17 · 作业\n\t\n查看\n\n\t19\t徐嘉言\t女\t第5组\t\n已复查07-17 · 作业\n\t\n查看\n\n\t20\t郑清越\t男\t第5组\t\n未交07-17 · 作业\n\t\n查看\n显示 20 / 32 人\n上一页\n1 / 2\n下一页\n正在查看 · 林知夏\n林\n林知夏\n\n学号 01 · 第1组 · 1号座位\n\n积分\n18\n近期成绩\n92\n考勤\n正常\n作业\n已交\n学习与近期记录\n计算练习第3页\n2026-07-17 · 作业\n已交\n阅读摘抄一页\n2026-07-17 · 作业\n已交\n打开完整档案",
+          "exposesPhone": false,
+          "horizontalOverflow": false,
+          "interaction": null
+        }
+      },
+      "failures": [
+        "Students desktop class overview strip is missing."
+      ]
+    },
+    {
+      "name": "referenceMobile:students",
+      "data": {
+        "pageId": "students",
+        "text": "学生名单\n\n三年级 · 32人\n\n演示模式\n演示模式\n数据不会保存，AI 使用静态示例。\n当前名单\n三年级2班 · 32人\n新增学生\n搜索\n小组\n全部小组\n第1组\n第2组\n第3组\n第4组\n第5组\n第6组\n第7组\n第8组\n编辑资料\n名单操作\n选择林知夏\n林\n林知夏\n学号 01 · 第1组\n已交\n07-17 · 作业\n›\n选择陈思远\n陈\n陈思远\n学号 02 · 第1组\n待跟进\n18:20 · 家访准备\n›\n选择周雨桐\n周\n周雨桐\n学号 03 · 第1组\n已归档\n10:20 · 成长记录\n›\n选择王子谦\n王\n王子谦\n学号 04 · 第1组\n待跟进\n16:45 · 作业跟进\n›\n选择苏沐晴\n苏\n苏沐晴",
+        "teacherAgenda": false,
+        "healthEditor": false,
+        "healthReadOnly": false,
+        "healthReadOnlyHealthy": false,
+        "healthStudentSearch": false,
+        "healthStudentPickerIdle": false,
+        "healthStudentPickerPosition": "",
+        "healthFooterActions": false,
+        "healthHeaderAction": false,
+        "homeworkDetail": false,
+        "homeworkFollowModal": false,
+        "homeworkSelectionVisible": false,
+        "homeworkReadonlyBulkDisabled": false,
+        "mobileHomeworkTaskSummary": false,
+        "mobileHomeworkSelectionRail": true,
+        "attendanceLedger": false,
+        "attendanceReadOnly": false,
+        "attendanceReadOnlyHealthy": false,
+        "attendanceBatchBar": false,
+        "attendanceSelectionCleared": false,
+        "attendanceStatusActionsHealthy": false,
+        "attendanceAllNormalHealthy": false,
+        "attendanceDetachedEditor": false,
+        "reflectionEditorHealthy": false,
+        "reflectionReadOnlyShown": false,
+        "reflectionDraftRetained": false,
+        "weeklyEditorHealthy": false,
+        "weeklyReadOnlyShown": false,
+        "weeklyDraftRetained": false,
+        "weeklyPrimaryFullWidth": false,
+        "commentEditorHealthy": false,
+        "commentReadOnlyShown": false,
+        "commentDraftRetained": false,
+        "commentDraftRetainedAfterEvidence": false,
+        "commentEvidenceSheetHealthy": false,
+        "visibleSceneSwitches": 0,
+        "mobileTabItems": [
+          {
+            "label": "首页",
+            "visible": true,
+            "topLabel": "首页",
+            "topClass": {}
+          },
+          {
+            "label": "学生",
+            "visible": true,
+            "topLabel": "学生",
+            "topClass": {}
+          },
+          {
+            "label": "作业",
+            "visible": true,
+            "topLabel": "作业",
+            "topClass": {}
+          },
+          {
+            "label": "成绩",
+            "visible": true,
+            "topLabel": "成绩",
+            "topClass": {}
+          },
+          {
+            "label": "更多",
+            "visible": true,
+            "topLabel": "更多",
+            "topClass": {}
+          }
+        ],
+        "mobileBlockingLayer": false,
+        "dashboardArtwork": null,
+        "shell": null,
+        "main": null,
+        "content": {
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        "scrollWidth": 390,
+        "viewportWidth": 390,
+        "cardsInsideCards": 6,
+        "inputLikeButtons": 0,
+        "squeezedButtons": [],
+        "oversizedSegmentButtons": [],
+        "pointHeaderActionIssues": [],
+        "crowdedActionCells": 0,
+        "crampedDialogTextareas": [],
+        "clippedSurfaces": [],
+        "widestElements": [],
+        "overflowElements": [
+          {
+            "tag": "INPUT",
+            "className": "visually-hidden",
+            "clientWidth": 1,
+            "scrollWidth": 158
+          },
+          {
+            "tag": "SPAN",
+            "className": "sr-only",
+            "clientWidth": 1,
+            "scrollWidth": 80
+          },
+          {
+            "tag": "SPAN",
+            "className": "sr-only",
+            "clientWidth": 1,
+            "scrollWidth": 80
+          },
+          {
+            "tag": "SPAN",
+            "className": "sr-only",
+            "clientWidth": 1,
+            "scrollWidth": 80
+          },
+          {
+            "tag": "SPAN",
+            "className": "sr-only",
+            "clientWidth": 1,
+            "scrollWidth": 80
+          },
+          {
+            "tag": "SPAN",
+            "className": "sr-only",
+            "clientWidth": 1,
+            "scrollWidth": 80
+          },
+          {
+            "tag": "SPAN",
+            "className": "sr-only",
+            "clientWidth": 1,
+            "scrollWidth": 80
+          },
+          {
+            "tag": "SPAN",
+            "className": "sr-only",
+            "clientWidth": 1,
+            "scrollWidth": 80
+          }
+        ],
+        "studentsReview": {
+          "url": "http://localhost:4180/w/demo?page=students",
+          "viewport": {
+            "width": 390,
+            "height": 844
+          },
+          "fixture": {
+            "scenario": "unchanged-demo"
+          },
+          "workspace": {
+            "x": 0,
+            "y": 185.125,
+            "width": 390,
+            "height": 3088.28125,
+            "right": 390,
+            "bottom": 3273.40625
+          },
+          "list": {
+            "x": 0,
+            "y": 331.3125,
+            "width": 390,
+            "height": 2840.90625,
+            "right": 390,
+            "bottom": 3172.21875
+          },
+          "tools": {
+            "x": 0,
+            "y": 185.125,
+            "width": 390,
+            "height": 146.1875,
+            "right": 390,
+            "bottom": 331.3125
+          },
+          "detail": null,
+          "overview": null,
+          "artwork": null,
+          "heading": "三年级2班 · 32人",
+          "headingSize": 24,
+          "rowCount": 20,
+          "focusedRows": 0,
+          "emptyText": false,
+          "totalText": "当前名单\n三年级2班 · 32人\n新增学生\n搜索\n小组\n全部小组\n第1组\n第2组\n第3组\n第4组\n第5组\n第6组\n第7组\n第8组\n编辑资料\n名单操作\n选择林知夏\n林\n林知夏\n学号 01 · 第1组\n已交\n07-17 · 作业\n›\n选择陈思远\n陈\n陈思远\n学号 02 · 第1组\n待跟进\n18:20 · 家访准备\n›\n选择周雨桐\n周\n周雨桐\n学号 03 · 第1组\n已归档\n10:20 · 成长记录\n›\n选择王子谦\n王\n王子谦\n学号 04 · 第1组\n待跟进\n16:45 · 作业跟进\n›\n选择苏沐晴\n苏\n苏沐晴\n学号 05 · 第2组\n已跟进\n19:10 · 家校沟通\n›\n选择赵一鸣\n赵\n赵一鸣\n学号 06 · 第2组\n已交\n07-17 · 作业\n›\n选择沈佳宁\n沈\n沈佳宁\n学号 07 · 第2组\n已交\n07-17 · 作业\n›\n选择许嘉树\n许\n许嘉树\n学号 08 · 第2组\n待订正\n07-17 · 作业\n›\n选择顾安然\n顾\n顾安然\n学号 09 · 第3组\n已复查\n07-17 · 作业\n›\n选择李明轩\n李\n李明轩\n学号 10 · 第3组\n待跟进\n12:35 · 谈心记录\n›\n选择叶可欣\n叶\n叶可欣\n学号 11 · 第3组\n已交\n07-17 · 作业\n›\n选择张景行\n张\n张景行\n学号 12 · 第3组\n已交\n07-17 · 作业\n›\n选择唐语柔\n唐\n唐语柔\n学号 13 · 第4组\n已归档\n09:15 · 表扬记录\n›\n选择吴承泽\n吴\n吴承泽\n学号 14 · 第4组\n已复查\n07-17 · 作业\n›\n选择陆星辰\n陆\n陆星辰\n学号 15 · 第4组\n未交\n07-17 · 作业\n›\n选择宋芷若\n宋\n宋芷若\n学号 16 · 第4组\n已交\n07-17 · 作业\n›\n选择江予安\n江\n江予安\n学号 17 · 第5组\n已交\n07-17 · 作业\n›\n选择何书瑶\n何\n何书瑶\n学号 18 · 第5组\n待订正\n07-17 · 作业\n›\n选择徐嘉言\n徐\n徐嘉言\n学号 19 · 第5组\n已复查\n07-17 · 作业\n›\n选择郑清越\n郑\n郑清越\n学号 20 · 第5组\n未交\n07-17 · 作业\n›\n显示 20 / 32 人\n上一页\n1 / 2\n下一页",
+          "exposesPhone": false,
+          "horizontalOverflow": false,
+          "interaction": {
+            "opened": true,
+            "title": "林知夏 · 学生概览",
+            "hasFacts": false,
+            "hasProfileAction": true,
+            "exposesPhone": false
+          }
+        }
+      },
+      "failures": [
+        "Students mobile drawer interaction is incomplete: {\"opened\":true,\"title\":\"林知夏 · 学生概览\",\"hasFacts\":false,\"hasProfileAction\":true,\"exposesPhone\":false}."
+      ]
+    }
+  ],
+  "failures": [
+    "referenceDesktop:students: Students desktop class overview strip is missing.",
+    "referenceMobile:students: Students mobile drawer interaction is incomplete: {\"opened\":true,\"title\":\"林知夏 · 学生概览\",\"hasFacts\":false,\"hasProfileAction\":true,\"exposesPhone\":false}."
+  ]
+}

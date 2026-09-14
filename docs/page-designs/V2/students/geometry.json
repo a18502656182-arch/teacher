@@ -1,0 +1,199 @@
+{
+  "breakpoints": {
+    "formSingleColumn": 600,
+    "mobile": 900,
+    "narrowDesktop": 1250
+  },
+  "measurement": "Browser DOM getBoundingClientRect and computed styles; not guessed geometry",
+  "viewports": [
+    {
+      "viewport": "1536x1024",
+      "regions": {
+        "heading": {
+          "x": 244,
+          "y": 72,
+          "width": 952,
+          "height": 131.296875,
+          "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+          "color": "rgb(16, 56, 88)",
+          "background": "rgba(0, 0, 0, 0)",
+          "padding": "30px 26px 18px",
+          "gap": "20px"
+        },
+        "H1": {
+          "x": 270,
+          "y": 102,
+          "width": 153.53125,
+          "height": 47.5,
+          "font": "750 38px / 47.5px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+          "color": "rgb(16, 56, 88)",
+          "background": "rgba(0, 0, 0, 0)",
+          "padding": "0px",
+          "gap": "normal"
+        },
+        "summary": {
+          "x": 270,
+          "y": 203.296875,
+          "width": 900,
+          "height": 57,
+          "font": "14px / 22.4px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+          "color": "rgb(72, 103, 132)",
+          "background": "rgba(0, 0, 0, 0)",
+          "padding": "12px 0px",
+          "gap": "10px 22px"
+        },
+        "tools": {
+          "x": 270,
+          "y": 268.296875,
+          "width": 900,
+          "height": 75.59375,
+          "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+          "color": "rgb(16, 56, 88)",
+          "background": "rgba(0, 0, 0, 0)",
+          "padding": "0px",
+          "gap": "10px"
+        },
+        "list": {
+          "x": 270,
+          "y": 363.890625,
+          "width": 900,
+          "height": 564,
+          "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+          "color": "rgb(16, 56, 88)",
+          "background": "rgba(0, 0, 0, 0)",
+          "padding": "0px",
+          "gap": "normal"
+        },
+        "detail": {
+          "x": 1196,
+          "y": 72,
+          "width": 340,
+          "height": 952,
+          "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+          "color": "rgb(16, 56, 88)",
+          "background": "rgb(231, 243, 232)",
+          "padding": "0px",
+          "gap": "normal"
+        },
+        "timeline": {
+          "x": 1219,
+          "y": 522.5625,
+          "width": 295,
+          "height": 168,
+          "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+          "color": "rgb(16, 56, 88)",
+          "background": "rgba(0, 0, 0, 0)",
+          "padding": "0px",
+          "gap": "10px"
+        }
+      },
+      "platformFonts": [
+        {
+          "familyName": "Microsoft YaHei",
+          "postScriptName": "MicrosoftYaHei-Bold",
+          "isCustomFont": false,
+          "glyphCount": 4
+        }
+      ]
+    },
+    {
+      "viewport": "390x844",
+      "regions": {
+        "DIV": {
+          "x": 0,
+          "y": 0,
+          "width": 375,
+          "height": 64,
+          "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+          "color": "rgb(23, 53, 74)",
+          "background": "rgb(255, 253, 248)",
+          "padding": "0px",
+          "gap": "normal"
+        },
+        "HEADER": {
+          "x": 16,
+          "y": 138,
+          "width": 343,
+          "height": 72.59375,
+          "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+          "color": "rgb(16, 56, 88)",
+          "background": "rgba(0, 0, 0, 0)",
+          "padding": "18px 0px 12px",
+          "gap": "8px"
+        },
+        "H1": {
+          "x": 112,
+          "y": 10.453125,
+          "width": 72,
+          "height": 22.5,
+          "font": "700 18px / 22.5px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+          "color": "rgb(23, 53, 74)",
+          "background": "rgba(0, 0, 0, 0)",
+          "padding": "0px",
+          "gap": "normal"
+        },
+        "summary": {
+          "x": 16,
+          "y": 210.59375,
+          "width": 343,
+          "height": 37.1875,
+          "font": "12px / 19.2px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+          "color": "rgb(72, 103, 132)",
+          "background": "rgba(0, 0, 0, 0)",
+          "padding": "4px 0px 14px",
+          "gap": "12px"
+        },
+        "tools": {
+          "x": 16,
+          "y": 247.78125,
+          "width": 343,
+          "height": 95,
+          "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+          "color": "rgb(16, 56, 88)",
+          "background": "rgba(0, 0, 0, 0)",
+          "padding": "0px",
+          "gap": "10px"
+        },
+        "list": {
+          "x": 16,
+          "y": 356.78125,
+          "width": 343,
+          "height": 414,
+          "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+          "color": "rgb(16, 56, 88)",
+          "background": "rgba(0, 0, 0, 0)",
+          "padding": "0px",
+          "gap": "normal"
+        }
+      },
+      "platformFonts": [
+        {
+          "familyName": "Microsoft YaHei",
+          "postScriptName": "MicrosoftYaHei",
+          "isCustomFont": false,
+          "glyphCount": 11
+        }
+      ]
+    }
+  ],
+  "approval": "not approved",
+  "configuredImage": {
+    "fit": "contain",
+    "desktopContainerHeight": 210,
+    "measurement": "CSS settings plus actual image/control rectangles in elementMeasurements, measured with browser DOM",
+    "mobileContainerHeight": 74,
+    "path": "app/designs/students/stationery-c01.png",
+    "mobileImageWidth": 160
+  },
+  "designCommit": "97d2121ef8e609750561d93f078065be9a29a3f6",
+  "elementMeasurements": [
+    {
+      "viewport": "1536x1024",
+      "elements": []
+    },
+    {
+      "viewport": "390x844",
+      "elements": []
+    }
+  ]
+}

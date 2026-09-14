@@ -1,139 +1,215 @@
 {
-  "stage": "inventory",
-  "basis": "source and old preservation inventory; not new design acceptance",
+  "stage": "P01-rendered-awaiting-user-review",
+  "basis": "Synthetic isolated runnable component; shared save/error/409 simulated by host; not product acceptance",
   "states": [
     {
       "stateId": "normal",
       "applicable": true,
       "fixturePlanned": "synthetic local fixture",
-      "designStatus": "not-started",
-      "integrationStatus": "not-tested-this-round"
+      "designStatus": "rendered",
+      "integrationStatus": "not-tested-this-round",
+      "evidence": [
+        "docs/page-designs/V2/students/screenshots/P01/1536-normal.png",
+        "docs/page-designs/V2/students/screenshots/P01/390-normal.png"
+      ]
     },
     {
       "stateId": "empty",
       "applicable": true,
       "fixturePlanned": "synthetic local fixture",
-      "designStatus": "not-started",
-      "integrationStatus": "not-tested-this-round"
+      "designStatus": "rendered",
+      "integrationStatus": "not-tested-this-round",
+      "evidence": [
+        "docs/page-designs/V2/students/screenshots/P01/1536-empty.png",
+        "docs/page-designs/V2/students/screenshots/P01/390-empty.png"
+      ]
     },
     {
       "stateId": "large-105",
       "applicable": true,
       "fixturePlanned": "synthetic local fixture",
-      "designStatus": "not-started",
-      "integrationStatus": "not-tested-this-round"
+      "designStatus": "rendered",
+      "integrationStatus": "not-tested-this-round",
+      "evidence": [
+        "docs/page-designs/V2/students/screenshots/P01/1536-large-105.png",
+        "docs/page-designs/V2/students/screenshots/P01/390-large-105.png"
+      ]
     },
     {
       "stateId": "long-name",
       "applicable": true,
       "fixturePlanned": "synthetic local fixture",
-      "designStatus": "not-started",
-      "integrationStatus": "not-tested-this-round"
+      "designStatus": "rendered",
+      "integrationStatus": "not-tested-this-round",
+      "evidence": [
+        "docs/page-designs/V2/students/screenshots/P01/1536-long-name.png",
+        "docs/page-designs/V2/students/screenshots/P01/390-long-name.png"
+      ]
     },
     {
       "stateId": "search-empty",
       "applicable": true,
       "fixturePlanned": "synthetic local fixture",
-      "designStatus": "not-started",
-      "integrationStatus": "not-tested-this-round"
+      "designStatus": "rendered",
+      "integrationStatus": "not-tested-this-round",
+      "evidence": [
+        "docs/page-designs/V2/students/screenshots/P01/1536-search-empty.png",
+        "docs/page-designs/V2/students/screenshots/P01/390-search-empty.png"
+      ]
     },
     {
       "stateId": "loading",
       "applicable": true,
       "fixturePlanned": "synthetic local fixture",
-      "designStatus": "not-started",
-      "integrationStatus": "not-tested-this-round"
+      "designStatus": "rendered",
+      "integrationStatus": "not-tested-this-round",
+      "evidence": [
+        "docs/page-designs/V2/students/screenshots/P01/1536-loading.png",
+        "docs/page-designs/V2/students/screenshots/P01/390-loading.png"
+      ]
     },
     {
       "stateId": "readonly",
       "applicable": true,
       "fixturePlanned": "synthetic local fixture",
-      "designStatus": "not-started",
-      "integrationStatus": "not-tested-this-round"
+      "designStatus": "rendered",
+      "integrationStatus": "not-tested-this-round",
+      "evidence": [
+        "docs/page-designs/V2/students/screenshots/P01/1536-readonly.png",
+        "docs/page-designs/V2/students/screenshots/P01/390-readonly.png"
+      ]
     },
     {
       "stateId": "saving",
       "applicable": true,
       "fixturePlanned": "explicit simulated action adapter; later isolated integration",
-      "designStatus": "not-started",
-      "integrationStatus": "not-tested-this-round"
+      "designStatus": "rendered",
+      "integrationStatus": "not-tested-this-round",
+      "evidence": [
+        "docs/page-designs/V2/students/screenshots/P01/1536-saving.png",
+        "docs/page-designs/V2/students/screenshots/P01/390-saving.png"
+      ]
     },
     {
       "stateId": "save-failure",
       "applicable": true,
       "fixturePlanned": "explicit simulated action adapter; later isolated integration",
-      "designStatus": "not-started",
-      "integrationStatus": "not-tested-this-round"
+      "designStatus": "rendered",
+      "integrationStatus": "not-tested-this-round",
+      "evidence": [
+        "docs/page-designs/V2/students/screenshots/P01/1536-save-failure.png",
+        "docs/page-designs/V2/students/screenshots/P01/390-save-failure.png"
+      ]
     },
     {
       "stateId": "conflict-409",
       "applicable": true,
       "fixturePlanned": "explicit simulated action adapter; later isolated integration",
-      "designStatus": "not-started",
-      "integrationStatus": "not-tested-this-round"
+      "designStatus": "rendered",
+      "integrationStatus": "not-tested-this-round",
+      "evidence": [
+        "docs/page-designs/V2/students/screenshots/P01/1536-conflict-409.png",
+        "docs/page-designs/V2/students/screenshots/P01/390-conflict-409.png"
+      ]
     },
     {
       "stateId": "detail-drawer",
       "applicable": true,
       "fixturePlanned": "synthetic local fixture",
-      "designStatus": "not-started",
-      "integrationStatus": "not-tested-this-round"
+      "designStatus": "rendered",
+      "integrationStatus": "not-tested-this-round",
+      "evidence": [
+        "docs/page-designs/V2/students/screenshots/P01/1536-detail-drawer.png",
+        "docs/page-designs/V2/students/screenshots/P01/390-detail-drawer.png"
+      ]
     },
     {
       "stateId": "profile",
       "applicable": true,
       "fixturePlanned": "synthetic local fixture",
-      "designStatus": "not-started",
-      "integrationStatus": "not-tested-this-round"
+      "designStatus": "rendered",
+      "integrationStatus": "not-tested-this-round",
+      "evidence": [
+        "docs/page-designs/V2/students/screenshots/P01/1536-profile.png",
+        "docs/page-designs/V2/students/screenshots/P01/390-profile.png"
+      ]
     },
     {
       "stateId": "editor",
       "applicable": true,
       "fixturePlanned": "synthetic local fixture",
-      "designStatus": "not-started",
-      "integrationStatus": "not-tested-this-round"
+      "designStatus": "rendered",
+      "integrationStatus": "not-tested-this-round",
+      "evidence": [
+        "docs/page-designs/V2/students/screenshots/P01/1536-editor.png",
+        "docs/page-designs/V2/students/screenshots/P01/390-editor.png"
+      ]
     },
     {
       "stateId": "validation",
       "applicable": true,
       "fixturePlanned": "synthetic local fixture",
-      "designStatus": "not-started",
-      "integrationStatus": "not-tested-this-round"
+      "designStatus": "rendered",
+      "integrationStatus": "not-tested-this-round",
+      "evidence": [
+        "docs/page-designs/V2/students/screenshots/P01/1536-validation.png",
+        "docs/page-designs/V2/students/screenshots/P01/390-validation.png"
+      ]
     },
     {
       "stateId": "import",
       "applicable": true,
       "fixturePlanned": "synthetic local fixture",
-      "designStatus": "not-started",
-      "integrationStatus": "not-tested-this-round"
+      "designStatus": "rendered",
+      "integrationStatus": "not-tested-this-round",
+      "evidence": [
+        "docs/page-designs/V2/students/screenshots/P01/1536-import.png",
+        "docs/page-designs/V2/students/screenshots/P01/390-import.png"
+      ]
     },
     {
       "stateId": "import-error",
       "applicable": true,
       "fixturePlanned": "synthetic local fixture",
-      "designStatus": "not-started",
-      "integrationStatus": "not-tested-this-round"
+      "designStatus": "rendered",
+      "integrationStatus": "not-tested-this-round",
+      "evidence": [
+        "docs/page-designs/V2/students/screenshots/P01/1536-import-error.png",
+        "docs/page-designs/V2/students/screenshots/P01/390-import-error.png"
+      ]
     },
     {
       "stateId": "batch",
       "applicable": true,
       "fixturePlanned": "synthetic local fixture",
-      "designStatus": "not-started",
-      "integrationStatus": "not-tested-this-round"
+      "designStatus": "rendered",
+      "integrationStatus": "not-tested-this-round",
+      "evidence": [
+        "docs/page-designs/V2/students/screenshots/P01/1536-batch.png",
+        "docs/page-designs/V2/students/screenshots/P01/390-batch.png"
+      ]
     },
     {
       "stateId": "danger-confirm",
       "applicable": true,
       "fixturePlanned": "synthetic local fixture",
-      "designStatus": "not-started",
-      "integrationStatus": "not-tested-this-round"
+      "designStatus": "rendered",
+      "integrationStatus": "not-tested-this-round",
+      "evidence": [
+        "docs/page-designs/V2/students/screenshots/P01/1536-danger-confirm.png",
+        "docs/page-designs/V2/students/screenshots/P01/390-danger-confirm.png"
+      ]
     },
     {
       "stateId": "dirty-close",
       "applicable": true,
       "fixturePlanned": "synthetic local fixture",
-      "designStatus": "not-started",
-      "integrationStatus": "not-tested-this-round"
+      "designStatus": "rendered",
+      "integrationStatus": "not-tested-this-round",
+      "evidence": [
+        "docs/page-designs/V2/students/screenshots/P01/1536-dirty-close.png",
+        "docs/page-designs/V2/students/screenshots/P01/390-dirty-close.png"
+      ]
     }
   ],
   "currentObservations": [
@@ -151,6 +227,9 @@
     }
   ],
   "notes": [
-    "normal roster and detail only; uncommitted styles incomplete"
+    "19 states x desktop/mobile rendered; 1057/360 additional coverage",
+    "Normal flow tested: validation, adding, page2 student21, search student08, batch entry",
+    "Save/409 are simulated, no formal workspace writes",
+    "Profile screenshot does not establish every profile editor/tab workflow"
   ]
 }

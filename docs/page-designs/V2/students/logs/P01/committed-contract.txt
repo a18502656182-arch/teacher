@@ -1,0 +1,1 @@
+PASS: entire TypeScript graph with three pre-existing student changes virtually replaced by committed HEAD; working files untouched.

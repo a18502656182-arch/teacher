@@ -1,0 +1,101 @@
+{
+  "dependencyHashes": [
+    {
+      "path": "app/w/[token]/features/students/useStudentsController.ts",
+      "sha256": "793593028038B874EC3F4A6474FFE2FACC15DF20CC629B2BCAB4773035A9C4B2"
+    },
+    {
+      "path": "app/w/[token]/features/students/read-model.ts",
+      "sha256": "FFD7A2D59948943F963C816C489B6E2087012943B6EBE2D362BC32855451A48B"
+    },
+    {
+      "path": "app/w/[token]/StudentProfile.tsx",
+      "sha256": "328699708BF6EC5A8E94C782660113D92A0447522C720FCB34887FBCB57F4B91"
+    },
+    {
+      "path": "app/components/workbench/theme/definitions.ts",
+      "sha256": "16BD38374AFE2DB72561E56ABC00A18B26F1BA719D4190C1410F40A22DA5D0D9"
+    },
+    {
+      "path": "app/components/workbench/shell/WorkbenchShell.tsx",
+      "sha256": "0D1852D7D99B03025ACC5A3A4D14AC696AEDAB2AEA839D2882B51C62A61DCBC7"
+    },
+    {
+      "path": "app/components/workbench/shell/shell.module.css",
+      "sha256": "25788D70E5ED978BF9FDB94F3EFD64F2CDC6668DEE0B9DBC244BBB82B95043FC"
+    }
+  ],
+  "logs": [
+    {
+      "path": "docs/page-designs/V2/students/logs/P01/baseline.txt",
+      "sha256": "DC70530E64AADF45F8BAE2082EDF6E6D01289D1B468E48364884BA5E446FF1A1"
+    },
+    {
+      "path": "docs/page-designs/V2/students/logs/P01/capture.json",
+      "sha256": "2529903827C168357713E3DD4D1C876C0616A9DB6180889668374232EC6A9947"
+    },
+    {
+      "path": "docs/page-designs/V2/students/logs/P01/committed-contract.txt",
+      "sha256": "7DB427954C063C9D25928EA0F89CA3E50B57E3EEB429C266B6AA4514EAF93AD2"
+    },
+    {
+      "path": "docs/page-designs/V2/students/logs/P01/detector.json",
+      "sha256": "EF1D3044D58507578CB7B0E076D68A2B3C7009D075E4F8FB3583EA9B396D91F2"
+    },
+    {
+      "path": "docs/page-designs/V2/students/logs/P01/final-run.txt",
+      "sha256": "D058095D130835F82126520E804801A3EE208CC8BF14F172FCE558836CB36133"
+    },
+    {
+      "path": "docs/page-designs/V2/students/logs/P01/formal-layout-audit.json",
+      "sha256": "93FADF31441E5F04EBC67BA0FE4A5C3C426FECEABB819EFD84C6273236C8F04D"
+    },
+    {
+      "path": "docs/page-designs/V2/students/logs/P01/formal-strict.txt",
+      "sha256": "B22E48E88A50EFBABE05BC6A36C5ED98A1D9A647656FBDBD689A65836788E715"
+    },
+    {
+      "path": "docs/page-designs/V2/students/logs/P01/integration-blocked.txt",
+      "sha256": "0EA4A5F7A16FEC78ED4E5B7D208487030A40F5F838FECBBD92F9DA98B488CA7F"
+    },
+    {
+      "path": "docs/page-designs/V2/students/logs/P01/lint.txt",
+      "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "path": "docs/page-designs/V2/students/logs/P01/narrow-capture.json",
+      "sha256": "D77600080713036C7F92DD7FFA1E8AC828B7FF07C97A52A1D4A66DCECE699C9D"
+    },
+    {
+      "path": "docs/page-designs/V2/students/logs/P01/product-build.txt",
+      "sha256": "C90ABB7D40FA530BAFE6DADD81ADE39215AB19A431BF922AE9411C8FD57E6F0F"
+    },
+    {
+      "path": "docs/page-designs/V2/students/logs/P01/prototype-build.txt",
+      "sha256": "2AE765704657CD247C8ABA4F7678D385BF2C4AC967B0C59CB20C70AE3FC3CDA3"
+    },
+    {
+      "path": "docs/page-designs/V2/students/logs/P01/typecheck.txt",
+      "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    }
+  ],
+  "captureSource": "design commit plus unchanged pre-existing dependency hashes; clean committed dependency compatibility separately type-checked",
+  "approval": "concept only; D and R false",
+  "deploymentPerformed": false,
+  "designCommit": "97d2121ef8e609750561d93f078065be9a29a3f6",
+  "fullSiteStrict": "not rerun this turn",
+  "checks": {
+    "typecheck": 0,
+    "isolatedCapture": "38 captures, zero failure/runtime errors; browser interaction assertions passed",
+    "committedDependencyTypecheck": 0,
+    "formalStrict": 1,
+    "formalStrictScope": "students1536/390, two unchanged baseline assertions",
+    "narrow": "8 captures at1057/360, zero failures before display-contract/path-only adjustments",
+    "integrationGateExpected": "blocked, no D",
+    "productBuild": 0,
+    "integrationGate": 1,
+    "baseline": 0,
+    "isolatedBuild": 0,
+    "eslint": 0
+  }
+}

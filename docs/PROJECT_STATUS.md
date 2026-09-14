@@ -1,5 +1,7 @@
 # 当前项目状态
 
+学生P01设计源码提交：97d2121ef8e609750561d93f078065be9a29a3f6。真实图、fixture hash、实测字体/几何及日志已绑定学生record；批准字段保持候选确认，D/R未批准。
+
 ## 最新进度：学生C01方向已确认，P01隔离可运行稿（2026-09-14）
 
 用户明确回复“方向确认”，来源绑定学生C01桌面及手机两张hash，只属于conceptApproval，未写入D/R批准。app/designs/students/StudentsDesign为独立展示组件；tools/ui-preview/students.html使用现有controller和完整档案、合成数据及固定时钟运行，未接正式业务。启动及19种状态入口见docs/page-designs/V2/students/preview/README.md。

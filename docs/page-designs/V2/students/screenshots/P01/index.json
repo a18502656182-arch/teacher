@@ -1,0 +1,206 @@
+{
+  "notes": "1536 and390 from committed design capture;1057 and360 pre-commit same visual implementation, see narrow-capture metadata; full scroll images include page scroll, not every internal list row",
+  "files": [
+    {
+      "path": "docs/page-designs/V2/students/screenshots/P01/1057-batch.png",
+      "sha256": "11782EBEA294808590F25FDECCA0C7DF6495474DA7BBF6A6EE65DA11F45EB640"
+    },
+    {
+      "path": "docs/page-designs/V2/students/screenshots/P01/1057-editor.png",
+      "sha256": "4C22DB142838FADDCFAA0013203C8DE8734FA91E4865E3107EC68357DF0C9602"
+    },
+    {
+      "path": "docs/page-designs/V2/students/screenshots/P01/1057-long-name.png",
+      "sha256": "E81B38C5172ED1F46BDBCCE357A87E6E942AB6D752826A1FAB2F764537247941"
+    },
+    {
+      "path": "docs/page-designs/V2/students/screenshots/P01/1057-normal-full.png",
+      "sha256": "B3F5C224BF5CF65D5181430EE60118E3E087B61EEE1477043FEBC159A6012724"
+    },
+    {
+      "path": "docs/page-designs/V2/students/screenshots/P01/1057-normal.png",
+      "sha256": "8DB2E040C5DD2E213008497A1D765132E3A6C96F136D5872E9F5E284924158E1"
+    },
+    {
+      "path": "docs/page-designs/V2/students/screenshots/P01/1536-batch.png",
+      "sha256": "D83788C77D428C1C19A33333874C46885849F6BE47F0B2C24E11F4A899EEFC57"
+    },
+    {
+      "path": "docs/page-designs/V2/students/screenshots/P01/1536-conflict-409.png",
+      "sha256": "5E24B6AB871078CEF6E4C0066BB139231616E73FF1FFFE1128893551E7057009"
+    },
+    {
+      "path": "docs/page-designs/V2/students/screenshots/P01/1536-danger-confirm.png",
+      "sha256": "2913C138225657FCC5A57F62950F82589C76B1CAD73D85B12693D7AA2D2D648F"
+    },
+    {
+      "path": "docs/page-designs/V2/students/screenshots/P01/1536-detail-drawer.png",
+      "sha256": "BAF471D282DBA075D8E66B528A4C4175801BBFC910DC9C666D9707D03D22A1E9"
+    },
+    {
+      "path": "docs/page-designs/V2/students/screenshots/P01/1536-dirty-close.png",
+      "sha256": "94B41B24D59FC79710633C48D7DECC9B001326F0855706B979A2CC97A78D00F8"
+    },
+    {
+      "path": "docs/page-designs/V2/students/screenshots/P01/1536-editor.png",
+      "sha256": "76C8D61C65325631E677087167E41A6E94002C2089EA0D88F391158E901ECF2E"
+    },
+    {
+      "path": "docs/page-designs/V2/students/screenshots/P01/1536-empty.png",
+      "sha256": "1AA789B2A7D969BAF836E34BD55D30490CF78B96A58D666782E4F3664248F0EC"
+    },
+    {
+      "path": "docs/page-designs/V2/students/screenshots/P01/1536-import-error.png",
+      "sha256": "D3C8EAB80C2581033F7AA84F646864B77B021DD3A1129C99D0A93417A061B177"
+    },
+    {
+      "path": "docs/page-designs/V2/students/screenshots/P01/1536-import.png",
+      "sha256": "9CE31876291D21D90FC0161D59683F4A7A3D76C1AEC6EDA5FB19DE74662B0BBA"
+    },
+    {
+      "path": "docs/page-designs/V2/students/screenshots/P01/1536-large-105.png",
+      "sha256": "4872974B3C9EEE65839BE60EDEC9688FFC2803CF74D55C6E57ABD793D5F17A17"
+    },
+    {
+      "path": "docs/page-designs/V2/students/screenshots/P01/1536-loading.png",
+      "sha256": "9D993B47C7F82DDA6408DDF8C5E45987DC791DDD5889026547D117FD67FB8821"
+    },
+    {
+      "path": "docs/page-designs/V2/students/screenshots/P01/1536-long-name.png",
+      "sha256": "66AB649B63DAC973B2765F1729BF28768F3C37F841DF5C82128589664852D46C"
+    },
+    {
+      "path": "docs/page-designs/V2/students/screenshots/P01/1536-normal-full.png",
+      "sha256": "D8C0433EDF13D48E28709696886018301FA7832179AC83F6C9CB4D962EA412F1"
+    },
+    {
+      "path": "docs/page-designs/V2/students/screenshots/P01/1536-normal.png",
+      "sha256": "E0A555C0D8EFC27CD5FEA5FD41888E9D2039DC66EE40C28708B734AFCB783F19"
+    },
+    {
+      "path": "docs/page-designs/V2/students/screenshots/P01/1536-profile.png",
+      "sha256": "B4CD93796C174AF8886090F6FE8EFA9233282F32C4C889EA8F06CF479845858B"
+    },
+    {
+      "path": "docs/page-designs/V2/students/screenshots/P01/1536-readonly.png",
+      "sha256": "2BD5D0B5CF8FD032E5A385E924B55F72820349B70B6D457EB915F6DB5F70294E"
+    },
+    {
+      "path": "docs/page-designs/V2/students/screenshots/P01/1536-save-failure.png",
+      "sha256": "D7615F41D3EF78E563497208F0174F36B983B41F66BDF8AFC0ABF6B582822CBB"
+    },
+    {
+      "path": "docs/page-designs/V2/students/screenshots/P01/1536-saving.png",
+      "sha256": "7F7FA3C2C274DAD409346411C4B9F29606D6FB4348FEF5F47E3798CAF6897C49"
+    },
+    {
+      "path": "docs/page-designs/V2/students/screenshots/P01/1536-search-empty.png",
+      "sha256": "19CA4E8CCC55AB078C51D3D5563432F4CF83F8998CEEBF9DC8F54277B5DB2BB4"
+    },
+    {
+      "path": "docs/page-designs/V2/students/screenshots/P01/1536-validation.png",
+      "sha256": "876BC5F685ECA0BCB227687867E417E480537C17FDAAF4DF65ED62C0600C26E4"
+    },
+    {
+      "path": "docs/page-designs/V2/students/screenshots/P01/360-batch.png",
+      "sha256": "073CF98EA32DE8944A2C2562DC4642E30A238FC9BFE54EAB4BA856B2002735D4"
+    },
+    {
+      "path": "docs/page-designs/V2/students/screenshots/P01/360-editor.png",
+      "sha256": "A48A3B8F4E1AE995DFCED5D73C96460FCDBA00000D212E2874E3D890049DA9BB"
+    },
+    {
+      "path": "docs/page-designs/V2/students/screenshots/P01/360-long-name.png",
+      "sha256": "12F91FD58BC690C0F52F17CC0AB9B2A7213116D92760BE462FE917F67734ACF5"
+    },
+    {
+      "path": "docs/page-designs/V2/students/screenshots/P01/360-normal-full.png",
+      "sha256": "D6BFDFC5B2ADE85425B46319CA15B8DCC9FD7BDD0685E8E012A1E5419C82176B"
+    },
+    {
+      "path": "docs/page-designs/V2/students/screenshots/P01/360-normal.png",
+      "sha256": "EC9C26588A6A7CBF8F33907287BC0A08AAF8EBB6518B7FA4D867BC6D6E8C6465"
+    },
+    {
+      "path": "docs/page-designs/V2/students/screenshots/P01/390-batch.png",
+      "sha256": "89F03609419D536457D2C4A8115101C9FB6194AA85AFDBFC62F304CD280E14F0"
+    },
+    {
+      "path": "docs/page-designs/V2/students/screenshots/P01/390-conflict-409.png",
+      "sha256": "6FE10ECAB79669D31E686AD530631B40B7DA814EC6345CF8F6BB8FB07431CC45"
+    },
+    {
+      "path": "docs/page-designs/V2/students/screenshots/P01/390-danger-confirm.png",
+      "sha256": "EC8E8C74F5C1F703AF8C64F65B3E70826AE81133F6C333DB4661C3720A42E02F"
+    },
+    {
+      "path": "docs/page-designs/V2/students/screenshots/P01/390-detail-drawer.png",
+      "sha256": "7FC52BCDC560A5697B07D13F3A8F5E03150902DF10A77113EEE9BE02A155C91A"
+    },
+    {
+      "path": "docs/page-designs/V2/students/screenshots/P01/390-dirty-close.png",
+      "sha256": "596F1C3B461D394B29DD66A115C36F2D8B4044353036454545E11F1BA48505A8"
+    },
+    {
+      "path": "docs/page-designs/V2/students/screenshots/P01/390-editor.png",
+      "sha256": "66632761BEBB79C55441F2E1469D28687A52595904BA973B1B7E4E401366B628"
+    },
+    {
+      "path": "docs/page-designs/V2/students/screenshots/P01/390-empty.png",
+      "sha256": "11C82B38DDD7AD7EB684C71764AAFEEA3CD6C449B71F28A53B38C3DA9A0DD6D3"
+    },
+    {
+      "path": "docs/page-designs/V2/students/screenshots/P01/390-import-error.png",
+      "sha256": "4BD78A66631DA478E5AA4189E49F0CE5DC18F2B82F2D03413A0E091C7AB28521"
+    },
+    {
+      "path": "docs/page-designs/V2/students/screenshots/P01/390-import.png",
+      "sha256": "590759CBF190628A221D068B2F5BB9815DAA86E9F526399A0649A6A19535639E"
+    },
+    {
+      "path": "docs/page-designs/V2/students/screenshots/P01/390-large-105.png",
+      "sha256": "C8B89D4F33703D0B77B0DCB076AA0B087C19D346729A10ACE203B92E776A1438"
+    },
+    {
+      "path": "docs/page-designs/V2/students/screenshots/P01/390-loading.png",
+      "sha256": "3D25E9D9F780D3D0C09C792AC7E9822CCE2DF4EE4B82E9F9509930EDD96D5FEC"
+    },
+    {
+      "path": "docs/page-designs/V2/students/screenshots/P01/390-long-name.png",
+      "sha256": "86E8E0EF5AB65A07F7B337F45BF8C8482DC3C160478FDC8AF0A93C1A2C1E474C"
+    },
+    {
+      "path": "docs/page-designs/V2/students/screenshots/P01/390-normal-full.png",
+      "sha256": "23D451E9FCADFC5B3589FBE5FB7DBDA9E70D07CA7D6559371B7EF1725AF0B37D"
+    },
+    {
+      "path": "docs/page-designs/V2/students/screenshots/P01/390-normal.png",
+      "sha256": "0072935BE431CC6BAFA7716919BDCD5DDB69136E617C94245F3EA34E0D0D3252"
+    },
+    {
+      "path": "docs/page-designs/V2/students/screenshots/P01/390-profile.png",
+      "sha256": "09397E00B1E45E4DB2E0DD28C89B542FFF978214CCA5EBEE18DC559A4F0CA5FF"
+    },
+    {
+      "path": "docs/page-designs/V2/students/screenshots/P01/390-readonly.png",
+      "sha256": "F16696D71088BAEBBA38A660E6B216C87CE09E1851195FB88CB44CFAD2789A66"
+    },
+    {
+      "path": "docs/page-designs/V2/students/screenshots/P01/390-save-failure.png",
+      "sha256": "72FE9BE739A604F542A3F61F18D59DE79A09D7087967834098C42D018698FA9B"
+    },
+    {
+      "path": "docs/page-designs/V2/students/screenshots/P01/390-saving.png",
+      "sha256": "AD4D7E6D30929DE4FFA055C2FDC0553E00096DD95343D64671866FF09029BB80"
+    },
+    {
+      "path": "docs/page-designs/V2/students/screenshots/P01/390-search-empty.png",
+      "sha256": "93E14E66C8A3DB5D669BA2E3502A4D62CD6C08174D00CA73EC77BA64C0317A62"
+    },
+    {
+      "path": "docs/page-designs/V2/students/screenshots/P01/390-validation.png",
+      "sha256": "7188C7FBEFF30B855B19762F75EB2FC89EF2352BA82D1BFA9BF84DEB2B798D67"
+    }
+  ],
+  "designCommit": "97d2121ef8e609750561d93f078065be9a29a3f6"
+}

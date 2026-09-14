@@ -1,0 +1,36 @@
+{
+  "otherAssets": "Existing ThemeArtwork empty-state assets and existing shared icons retained, hashes in source dependencies",
+  "font": {
+    "family": "Microsoft YaHei",
+    "distributed": false,
+    "source": "Windows installed font; CDP measured normal desktop and mobile"
+  },
+  "stage": "P01 runnable design, pending D",
+  "designCommit": "97d2121ef8e609750561d93f078065be9a29a3f6",
+  "files": [
+    {
+      "prompt": "docs/page-designs/V2/students/candidates/stationery-prompt.md",
+      "path": "app/designs/students/stationery-c01.png",
+      "sha256": "23FA1497EAD11662C9BA7ADD34BD66BB711B6FA018094ACE10B41DC03A76C47E",
+      "crop": "none; contain",
+      "purpose": "student details and mobile stationery",
+      "height": 1024,
+      "width": 1536,
+      "source": "ImageGen from approved C01 reference; standalone no text"
+    },
+    {
+      "source": "unchanged shared ThemeArtwork asset",
+      "path": "public/art/campus/student-detail-v2.webp",
+      "crop": "existing shared component fit",
+      "sha256": "FB2F9B95830104F9877A44525627EA02C2FF2EC5371B71AE7DD4B2C561F1348C",
+      "purpose": "empty state"
+    },
+    {
+      "source": "unchanged shared ThemeArtwork asset",
+      "path": "public/art/campus/word-cards.webp",
+      "crop": "existing shared component fit",
+      "sha256": "A9E602B123F67CA73E4C1D348A906ADA12A47BEE5BE066145902E838ED085489",
+      "purpose": "empty state"
+    }
+  ]
+}

@@ -1,0 +1,830 @@
+{
+  "createdAt": "2026-09-14T12:14:00.318Z",
+  "browser": {
+    "protocolVersion": "1.3",
+    "product": "Chrome/152.0.7977.82",
+    "revision": "@d04cdb24d67b081f6cf80200ffc5233f44b61109",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/152.0.0.0 Safari/537.36",
+    "jsVersion": "15.2.124.21"
+  },
+  "evidence": [
+    {
+      "stateId": "normal",
+      "viewport": "1057x900",
+      "dpr": 1,
+      "url": "http://127.0.0.1:4207/students.html?state=normal",
+      "path": "1057-normal.png",
+      "sha256": "8DB2E040C5DD2E213008497A1D765132E3A6C96F136D5872E9F5E284924158E1",
+      "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+      "platformFonts": [],
+      "info": {
+        "ready": true,
+        "width": 1057,
+        "scrollWidth": 1042,
+        "regions": {
+          "heading": {
+            "x": 220,
+            "y": 72,
+            "width": 532,
+            "height": 115.796875,
+            "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(16, 56, 88)",
+            "background": "rgba(0, 0, 0, 0)",
+            "padding": "24px 18px 16px",
+            "gap": "20px"
+          },
+          "H1": {
+            "x": 238,
+            "y": 96,
+            "width": 136.6875,
+            "height": 40,
+            "font": "750 32px / 40px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(16, 56, 88)",
+            "background": "rgba(0, 0, 0, 0)",
+            "padding": "0px",
+            "gap": "normal"
+          },
+          "summary": {
+            "x": 238,
+            "y": 187.796875,
+            "width": 496,
+            "height": 57,
+            "font": "14px / 22.4px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(72, 103, 132)",
+            "background": "rgba(0, 0, 0, 0)",
+            "padding": "12px 0px",
+            "gap": "10px 22px"
+          },
+          "tools": {
+            "x": 238,
+            "y": 252.796875,
+            "width": 496,
+            "height": 160.1875,
+            "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(16, 56, 88)",
+            "background": "rgba(0, 0, 0, 0)",
+            "padding": "0px",
+            "gap": "10px"
+          },
+          "list": {
+            "x": 238,
+            "y": 432.984375,
+            "width": 496,
+            "height": 400,
+            "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(16, 56, 88)",
+            "background": "rgba(0, 0, 0, 0)",
+            "padding": "0px",
+            "gap": "normal"
+          },
+          "detail": {
+            "x": 752,
+            "y": 72,
+            "width": 290,
+            "height": 838.984375,
+            "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(16, 56, 88)",
+            "background": "rgb(231, 243, 232)",
+            "padding": "0px",
+            "gap": "normal"
+          },
+          "timeline": {
+            "x": 769,
+            "y": 502.5625,
+            "width": 257,
+            "height": 209.96875,
+            "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(16, 56, 88)",
+            "background": "rgba(0, 0, 0, 0)",
+            "padding": "0px",
+            "gap": "10px"
+          }
+        },
+        "dialogs": [],
+        "squeezed": [],
+        "images": [
+          {
+            "src": "/art/page-designs/students-stationery-c01.png",
+            "complete": true,
+            "naturalWidth": 1536
+          }
+        ],
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "bodyText": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档"
+      }
+    },
+    {
+      "stateId": "long-name",
+      "viewport": "1057x900",
+      "dpr": 1,
+      "url": "http://127.0.0.1:4207/students.html?state=long-name",
+      "path": "1057-long-name.png",
+      "sha256": "E81B38C5172ED1F46BDBCCE357A87E6E942AB6D752826A1FAB2F764537247941",
+      "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+      "platformFonts": [],
+      "info": {
+        "ready": true,
+        "width": 1057,
+        "scrollWidth": 1042,
+        "regions": {
+          "heading": {
+            "x": 220,
+            "y": 72,
+            "width": 532,
+            "height": 115.796875,
+            "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(16, 56, 88)",
+            "background": "rgba(0, 0, 0, 0)",
+            "padding": "24px 18px 16px",
+            "gap": "20px"
+          },
+          "H1": {
+            "x": 238,
+            "y": 96,
+            "width": 147.234375,
+            "height": 40,
+            "font": "750 32px / 40px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(16, 56, 88)",
+            "background": "rgba(0, 0, 0, 0)",
+            "padding": "0px",
+            "gap": "normal"
+          },
+          "summary": {
+            "x": 238,
+            "y": 187.796875,
+            "width": 496,
+            "height": 57,
+            "font": "14px / 22.4px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(72, 103, 132)",
+            "background": "rgba(0, 0, 0, 0)",
+            "padding": "12px 0px",
+            "gap": "10px 22px"
+          },
+          "tools": {
+            "x": 238,
+            "y": 252.796875,
+            "width": 496,
+            "height": 160.1875,
+            "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(16, 56, 88)",
+            "background": "rgba(0, 0, 0, 0)",
+            "padding": "0px",
+            "gap": "10px"
+          },
+          "list": {
+            "x": 238,
+            "y": 432.984375,
+            "width": 496,
+            "height": 400,
+            "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(16, 56, 88)",
+            "background": "rgba(0, 0, 0, 0)",
+            "padding": "0px",
+            "gap": "normal"
+          },
+          "detail": {
+            "x": 752,
+            "y": 72,
+            "width": 290,
+            "height": 838.984375,
+            "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(16, 56, 88)",
+            "background": "rgb(231, 243, 232)",
+            "padding": "0px",
+            "gap": "normal"
+          },
+          "timeline": {
+            "x": 769,
+            "y": 538.953125,
+            "width": 257,
+            "height": 209.96875,
+            "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(16, 56, 88)",
+            "background": "rgba(0, 0, 0, 0)",
+            "padding": "0px",
+            "gap": "10px"
+          }
+        },
+        "dialogs": [],
+        "squeezed": [],
+        "images": [
+          {
+            "src": "/art/page-designs/students-stationery-c01.png",
+            "complete": true,
+            "naturalWidth": 1536
+          }
+        ],
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "bodyText": "班主任工作台\n当前班级\n三年级2班（105人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长"
+      }
+    },
+    {
+      "stateId": "batch",
+      "viewport": "1057x900",
+      "dpr": 1,
+      "url": "http://127.0.0.1:4207/students.html?state=batch",
+      "path": "1057-batch.png",
+      "sha256": "11782EBEA294808590F25FDECCA0C7DF6495474DA7BBF6A6EE65DA11F45EB640",
+      "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+      "platformFonts": [],
+      "info": {
+        "ready": true,
+        "width": 1057,
+        "scrollWidth": 1042,
+        "regions": {
+          "heading": {
+            "x": 220,
+            "y": 72,
+            "width": 532,
+            "height": 115.796875,
+            "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(16, 56, 88)",
+            "background": "rgba(0, 0, 0, 0)",
+            "padding": "24px 18px 16px",
+            "gap": "20px"
+          },
+          "H1": {
+            "x": 238,
+            "y": 96,
+            "width": 136.6875,
+            "height": 40,
+            "font": "750 32px / 40px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(16, 56, 88)",
+            "background": "rgba(0, 0, 0, 0)",
+            "padding": "0px",
+            "gap": "normal"
+          },
+          "summary": {
+            "x": 238,
+            "y": 187.796875,
+            "width": 496,
+            "height": 57,
+            "font": "14px / 22.4px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(72, 103, 132)",
+            "background": "rgba(0, 0, 0, 0)",
+            "padding": "12px 0px",
+            "gap": "10px 22px"
+          },
+          "tools": {
+            "x": 238,
+            "y": 252.796875,
+            "width": 496,
+            "height": 160.1875,
+            "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(16, 56, 88)",
+            "background": "rgba(0, 0, 0, 0)",
+            "padding": "0px",
+            "gap": "10px"
+          },
+          "list": {
+            "x": 238,
+            "y": 511.375,
+            "width": 496,
+            "height": 400,
+            "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(16, 56, 88)",
+            "background": "rgba(0, 0, 0, 0)",
+            "padding": "0px",
+            "gap": "normal"
+          },
+          "detail": {
+            "x": 752,
+            "y": 72,
+            "width": 290,
+            "height": 917.375,
+            "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(16, 56, 88)",
+            "background": "rgb(231, 243, 232)",
+            "padding": "0px",
+            "gap": "normal"
+          },
+          "timeline": {
+            "x": 769,
+            "y": 502.5625,
+            "width": 257,
+            "height": 209.96875,
+            "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(16, 56, 88)",
+            "background": "rgba(0, 0, 0, 0)",
+            "padding": "0px",
+            "gap": "10px"
+          }
+        },
+        "dialogs": [
+          "批量编辑 2 名学生\n\n留空表示不修改；备注填写后会覆盖原备注。\n\n关闭\n小组\n性别\n不修改\n女\n男\n备注\n取消\n应用修改"
+        ],
+        "squeezed": [],
+        "images": [
+          {
+            "src": "/art/page-designs/students-stationery-c01.png",
+            "complete": true,
+            "naturalWidth": 1536
+          }
+        ],
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "bodyText": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档"
+      }
+    },
+    {
+      "stateId": "editor",
+      "viewport": "1057x900",
+      "dpr": 1,
+      "url": "http://127.0.0.1:4207/students.html?state=editor",
+      "path": "1057-editor.png",
+      "sha256": "4C22DB142838FADDCFAA0013203C8DE8734FA91E4865E3107EC68357DF0C9602",
+      "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+      "platformFonts": [],
+      "info": {
+        "ready": true,
+        "width": 1057,
+        "scrollWidth": 1042,
+        "regions": {
+          "heading": {
+            "x": 220,
+            "y": 72,
+            "width": 532,
+            "height": 115.796875,
+            "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(16, 56, 88)",
+            "background": "rgba(0, 0, 0, 0)",
+            "padding": "24px 18px 16px",
+            "gap": "20px"
+          },
+          "H1": {
+            "x": 238,
+            "y": 96,
+            "width": 136.6875,
+            "height": 40,
+            "font": "750 32px / 40px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(16, 56, 88)",
+            "background": "rgba(0, 0, 0, 0)",
+            "padding": "0px",
+            "gap": "normal"
+          },
+          "summary": {
+            "x": 238,
+            "y": 187.796875,
+            "width": 496,
+            "height": 57,
+            "font": "14px / 22.4px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(72, 103, 132)",
+            "background": "rgba(0, 0, 0, 0)",
+            "padding": "12px 0px",
+            "gap": "10px 22px"
+          },
+          "tools": {
+            "x": 238,
+            "y": 252.796875,
+            "width": 496,
+            "height": 160.1875,
+            "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(16, 56, 88)",
+            "background": "rgba(0, 0, 0, 0)",
+            "padding": "0px",
+            "gap": "10px"
+          },
+          "list": {
+            "x": 238,
+            "y": 432.984375,
+            "width": 496,
+            "height": 400,
+            "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(16, 56, 88)",
+            "background": "rgba(0, 0, 0, 0)",
+            "padding": "0px",
+            "gap": "normal"
+          },
+          "detail": {
+            "x": 752,
+            "y": 72,
+            "width": 290,
+            "height": 838.984375,
+            "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(16, 56, 88)",
+            "background": "rgb(231, 243, 232)",
+            "padding": "0px",
+            "gap": "normal"
+          },
+          "timeline": {
+            "x": 769,
+            "y": 502.5625,
+            "width": 257,
+            "height": 209.96875,
+            "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(16, 56, 88)",
+            "background": "rgba(0, 0, 0, 0)",
+            "padding": "0px",
+            "gap": "10px"
+          }
+        },
+        "dialogs": [
+          "新增学生\n\n电话等敏感信息只在当前单学生编辑流程中显示。\n\n关闭\n姓名 *\n学号\n性别\n女\n男\n小组\n座位\n家长电话\n选填；名单页只显示是否已维护\n班务备注\n只记录班主任确需长期记住的信息\n取消\n保存学生"
+        ],
+        "squeezed": [],
+        "images": [
+          {
+            "src": "/art/page-designs/students-stationery-c01.png",
+            "complete": true,
+            "naturalWidth": 1536
+          }
+        ],
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "bodyText": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档"
+      }
+    },
+    {
+      "stateId": "normal",
+      "viewport": "360x780",
+      "dpr": 1,
+      "url": "http://127.0.0.1:4207/students.html?state=normal",
+      "path": "360-normal.png",
+      "sha256": "EC9C26588A6A7CBF8F33907287BC0A08AAF8EBB6518B7FA4D867BC6D6E8C6465",
+      "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+      "platformFonts": [],
+      "info": {
+        "ready": true,
+        "width": 360,
+        "scrollWidth": 345,
+        "regions": {
+          "DIV": {
+            "x": 0,
+            "y": 0,
+            "width": 345,
+            "height": 64,
+            "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(23, 53, 74)",
+            "background": "rgb(255, 253, 248)",
+            "padding": "0px",
+            "gap": "normal"
+          },
+          "HEADER": {
+            "x": 16,
+            "y": 138,
+            "width": 313,
+            "height": 72.59375,
+            "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(16, 56, 88)",
+            "background": "rgba(0, 0, 0, 0)",
+            "padding": "18px 0px 12px",
+            "gap": "8px"
+          },
+          "H1": {
+            "x": 63,
+            "y": 10.453125,
+            "width": 72,
+            "height": 22.5,
+            "font": "700 18px / 22.5px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(23, 53, 74)",
+            "background": "rgba(0, 0, 0, 0)",
+            "padding": "0px",
+            "gap": "normal"
+          },
+          "summary": {
+            "x": 16,
+            "y": 210.59375,
+            "width": 313,
+            "height": 37.1875,
+            "font": "12px / 19.2px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(72, 103, 132)",
+            "background": "rgba(0, 0, 0, 0)",
+            "padding": "4px 0px 14px",
+            "gap": "12px"
+          },
+          "tools": {
+            "x": 16,
+            "y": 247.78125,
+            "width": 313,
+            "height": 95,
+            "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(16, 56, 88)",
+            "background": "rgba(0, 0, 0, 0)",
+            "padding": "0px",
+            "gap": "10px"
+          },
+          "list": {
+            "x": 16,
+            "y": 356.78125,
+            "width": 313,
+            "height": 350,
+            "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(16, 56, 88)",
+            "background": "rgba(0, 0, 0, 0)",
+            "padding": "0px",
+            "gap": "normal"
+          }
+        },
+        "dialogs": [],
+        "squeezed": [],
+        "images": [
+          {
+            "src": "/art/page-designs/students-stationery-c01.png",
+            "complete": true,
+            "naturalWidth": 1536
+          }
+        ],
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "bodyText": "学生名单\n\n三年级 · 32人\n\n已保存\n三年级2班 · 32人\n新增学生\n男 16 人\n女 16 人\n电话已维护 0 人\n搜索\n小组\n全部小组\n第1组\n第2组"
+      }
+    },
+    {
+      "stateId": "long-name",
+      "viewport": "360x780",
+      "dpr": 1,
+      "url": "http://127.0.0.1:4207/students.html?state=long-name",
+      "path": "360-long-name.png",
+      "sha256": "12F91FD58BC690C0F52F17CC0AB9B2A7213116D92760BE462FE917F67734ACF5",
+      "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+      "platformFonts": [],
+      "info": {
+        "ready": true,
+        "width": 360,
+        "scrollWidth": 345,
+        "regions": {
+          "DIV": {
+            "x": 0,
+            "y": 0,
+            "width": 345,
+            "height": 64,
+            "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(23, 53, 74)",
+            "background": "rgb(255, 253, 248)",
+            "padding": "0px",
+            "gap": "normal"
+          },
+          "HEADER": {
+            "x": 16,
+            "y": 138,
+            "width": 313,
+            "height": 72.59375,
+            "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(16, 56, 88)",
+            "background": "rgba(0, 0, 0, 0)",
+            "padding": "18px 0px 12px",
+            "gap": "8px"
+          },
+          "H1": {
+            "x": 63,
+            "y": 10.453125,
+            "width": 72.515625,
+            "height": 22.5,
+            "font": "700 18px / 22.5px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(23, 53, 74)",
+            "background": "rgba(0, 0, 0, 0)",
+            "padding": "0px",
+            "gap": "normal"
+          },
+          "summary": {
+            "x": 16,
+            "y": 210.59375,
+            "width": 313,
+            "height": 37.1875,
+            "font": "12px / 19.2px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(72, 103, 132)",
+            "background": "rgba(0, 0, 0, 0)",
+            "padding": "4px 0px 14px",
+            "gap": "12px"
+          },
+          "tools": {
+            "x": 16,
+            "y": 247.78125,
+            "width": 313,
+            "height": 95,
+            "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(16, 56, 88)",
+            "background": "rgba(0, 0, 0, 0)",
+            "padding": "0px",
+            "gap": "10px"
+          },
+          "list": {
+            "x": 16,
+            "y": 356.78125,
+            "width": 313,
+            "height": 350,
+            "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(16, 56, 88)",
+            "background": "rgba(0, 0, 0, 0)",
+            "padding": "0px",
+            "gap": "normal"
+          }
+        },
+        "dialogs": [],
+        "squeezed": [],
+        "images": [
+          {
+            "src": "/art/page-designs/students-stationery-c01.png",
+            "complete": true,
+            "naturalWidth": 1536
+          }
+        ],
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "bodyText": "学生名单\n\n三年级 · 105人\n\n已保存\n三年级2班 · 105人\n新增学生\n男 53 人\n女 52 人\n电话已维护 0 人\n搜索\n小组\n全部小组\n第1组\n第"
+      }
+    },
+    {
+      "stateId": "batch",
+      "viewport": "360x780",
+      "dpr": 1,
+      "url": "http://127.0.0.1:4207/students.html?state=batch",
+      "path": "360-batch.png",
+      "sha256": "073CF98EA32DE8944A2C2562DC4642E30A238FC9BFE54EAB4BA856B2002735D4",
+      "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+      "platformFonts": [],
+      "info": {
+        "ready": true,
+        "width": 360,
+        "scrollWidth": 345,
+        "regions": {
+          "DIV": {
+            "x": 0,
+            "y": 0,
+            "width": 345,
+            "height": 64,
+            "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(23, 53, 74)",
+            "background": "rgb(255, 253, 248)",
+            "padding": "0px",
+            "gap": "normal"
+          },
+          "HEADER": {
+            "x": 16,
+            "y": 138,
+            "width": 313,
+            "height": 72.59375,
+            "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(16, 56, 88)",
+            "background": "rgba(0, 0, 0, 0)",
+            "padding": "18px 0px 12px",
+            "gap": "8px"
+          },
+          "H1": {
+            "x": 63,
+            "y": 10.453125,
+            "width": 72,
+            "height": 22.5,
+            "font": "700 18px / 22.5px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(23, 53, 74)",
+            "background": "rgba(0, 0, 0, 0)",
+            "padding": "0px",
+            "gap": "normal"
+          },
+          "summary": {
+            "x": 16,
+            "y": 210.59375,
+            "width": 313,
+            "height": 37.1875,
+            "font": "12px / 19.2px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(72, 103, 132)",
+            "background": "rgba(0, 0, 0, 0)",
+            "padding": "4px 0px 14px",
+            "gap": "12px"
+          },
+          "tools": {
+            "x": 16,
+            "y": 247.78125,
+            "width": 313,
+            "height": 95,
+            "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(16, 56, 88)",
+            "background": "rgba(0, 0, 0, 0)",
+            "padding": "0px",
+            "gap": "10px"
+          },
+          "list": {
+            "x": 16,
+            "y": 595.171875,
+            "width": 313,
+            "height": 350,
+            "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(16, 56, 88)",
+            "background": "rgba(0, 0, 0, 0)",
+            "padding": "0px",
+            "gap": "normal"
+          }
+        },
+        "dialogs": [
+          "批量编辑 2 名学生\n\n留空表示不修改；备注填写后会覆盖原备注。\n\n关闭\n小组\n性别\n不修改\n女\n男\n备注\n取消\n应用修改"
+        ],
+        "squeezed": [],
+        "images": [
+          {
+            "src": "/art/page-designs/students-stationery-c01.png",
+            "complete": true,
+            "naturalWidth": 1536
+          }
+        ],
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "bodyText": "学生名单\n\n三年级 · 32人\n\n已保存\n三年级2班 · 32人\n新增学生\n男 16 人\n女 16 人\n电话已维护 0 人\n搜索\n小组\n全部小组\n第1组\n第2组"
+      }
+    },
+    {
+      "stateId": "editor",
+      "viewport": "360x780",
+      "dpr": 1,
+      "url": "http://127.0.0.1:4207/students.html?state=editor",
+      "path": "360-editor.png",
+      "sha256": "A48A3B8F4E1AE995DFCED5D73C96460FCDBA00000D212E2874E3D890049DA9BB",
+      "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+      "platformFonts": [],
+      "info": {
+        "ready": true,
+        "width": 360,
+        "scrollWidth": 345,
+        "regions": {
+          "DIV": {
+            "x": 0,
+            "y": 0,
+            "width": 345,
+            "height": 64,
+            "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(23, 53, 74)",
+            "background": "rgb(255, 253, 248)",
+            "padding": "0px",
+            "gap": "normal"
+          },
+          "HEADER": {
+            "x": 16,
+            "y": 138,
+            "width": 313,
+            "height": 72.59375,
+            "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(16, 56, 88)",
+            "background": "rgba(0, 0, 0, 0)",
+            "padding": "18px 0px 12px",
+            "gap": "8px"
+          },
+          "H1": {
+            "x": 63,
+            "y": 10.453125,
+            "width": 72,
+            "height": 22.5,
+            "font": "700 18px / 22.5px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(23, 53, 74)",
+            "background": "rgba(0, 0, 0, 0)",
+            "padding": "0px",
+            "gap": "normal"
+          },
+          "summary": {
+            "x": 16,
+            "y": 210.59375,
+            "width": 313,
+            "height": 37.1875,
+            "font": "12px / 19.2px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(72, 103, 132)",
+            "background": "rgba(0, 0, 0, 0)",
+            "padding": "4px 0px 14px",
+            "gap": "12px"
+          },
+          "tools": {
+            "x": 16,
+            "y": 247.78125,
+            "width": 313,
+            "height": 95,
+            "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(16, 56, 88)",
+            "background": "rgba(0, 0, 0, 0)",
+            "padding": "0px",
+            "gap": "10px"
+          },
+          "list": {
+            "x": 16,
+            "y": 356.78125,
+            "width": 313,
+            "height": 350,
+            "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(16, 56, 88)",
+            "background": "rgba(0, 0, 0, 0)",
+            "padding": "0px",
+            "gap": "normal"
+          }
+        },
+        "dialogs": [
+          "新增学生\n\n电话等敏感信息只在当前单学生编辑流程中显示。\n\n关闭\n姓名 *\n学号\n性别\n女\n男\n小组\n座位\n家长电话\n选填；名单页只显示是否已维护\n班务备注\n只记录班主任确需长期记住的信息\n取消\n保存学生"
+        ],
+        "squeezed": [],
+        "images": [
+          {
+            "src": "/art/page-designs/students-stationery-c01.png",
+            "complete": true,
+            "naturalWidth": 1536
+          }
+        ],
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "bodyText": "学生名单\n\n三年级 · 32人\n\n已保存\n三年级2班 · 32人\n新增学生\n男 16 人\n女 16 人\n电话已维护 0 人\n搜索\n小组\n全部小组\n第1组\n第2组"
+      }
+    }
+  ],
+  "failures": [],
+  "interactions": [
+    {
+      "width": 1057,
+      "validation": true,
+      "added": true
+    },
+    {
+      "width": 360,
+      "validation": true,
+      "added": true
+    }
+  ],
+  "consoleErrors": []
+}
