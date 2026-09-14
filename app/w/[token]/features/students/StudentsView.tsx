@@ -58,8 +58,11 @@ export function StudentsView({ data, update, confirmAction, mobile = false, read
   const c = useStudentsController({ data, update, confirmAction });
   const importCount = c.importRows().length;
   return <ThemeBoundary><section className={`${styles.page} ${mobile ? styles.mobile : ''}`} aria-labelledby={mobile ? 'mobile-student-title' : undefined}>
-    {mobile ? <header className={styles.mobileHeader}><div><span>{c.activeClass.name}</span><h2 id="mobile-student-title">学生名单</h2></div><Button intent="primary" disabled={readOnly} onClick={c.openNewStudent}>新增学生</Button></header> : <WorkbenchPageHeader icon="students" tone="lake" title={`${c.activeClass.name}学生名单`} description={`${c.activeClass.grade || '当前年级'} · ${c.activeClass.term || '当前学期'} · 名单维护与学生事实集中在同一工作面。`} actions={<div className={styles.headerActions}><Menu label="名单操作" align="end"><MenuItem disabled={readOnly} onSelect={() => c.setImportOpen(true)}>导入名单</MenuItem><MenuItem onSelect={c.exportRoster}>导出 CSV</MenuItem></Menu><Button intent="primary" disabled={readOnly} onClick={c.openNewStudent}>新增学生</Button></div>}/>} 
-    {!mobile && <div className={styles.overview} data-students-region="overview"><MetricStrip items={[{ label: '总人数', value: c.metrics.total, detail: '当前班级' }, { label: '男生', value: c.metrics.boys, detail: '名单统计' }, { label: '女生', value: c.metrics.girls, detail: '名单统计' }, { label: '电话维护', value: `${c.metrics.phoneRate}%`, detail: `${c.metrics.withPhone} 人已填写` }]}/></div>} 
+    {mobile
+      ? <header className={styles.mobileHeader}><div><span>{c.activeClass.name}</span><h2 id="mobile-student-title">学生名单</h2></div><Button intent="primary" disabled={readOnly} onClick={c.openNewStudent}>新增学生</Button></header>
+      : <WorkbenchPageHeader icon="students" tone="lake" title={`${c.activeClass.name}学生名单`} description={`${c.activeClass.grade || '当前年级'} · ${c.activeClass.term || '当前学期'} · 名单维护与学生事实集中在同一工作面。`} actions={<div className={styles.headerActions}><Menu label="名单操作" align="end"><MenuItem disabled={readOnly} onSelect={() => c.setImportOpen(true)}>导入名单</MenuItem><MenuItem onSelect={c.exportRoster}>导出 CSV</MenuItem></Menu><Button intent="primary" disabled={readOnly} onClick={c.openNewStudent}>新增学生</Button></div>}/>
+    }
+    {!mobile && <div className={styles.overview} data-students-region="overview"><MetricStrip items={[{ label: '总人数', value: c.metrics.total, detail: '当前班级' }, { label: '男生', value: c.metrics.boys, detail: '名单统计' }, { label: '女生', value: c.metrics.girls, detail: '名单统计' }, { label: '电话维护', value: `${c.metrics.phoneRate}%`, detail: `${c.metrics.withPhone} 人已填写` }]}/></div>}
     <div className={styles.workspace} data-students-region="workspace">
       <div className={styles.master}>
         <div className={styles.tools} data-students-region="tools">
@@ -98,6 +101,12 @@ export function StudentsView({ data, update, confirmAction, mobile = false, read
     <Dialog open={c.importOpen} title="导入学生名单" description="每行一名学生，可写姓名、手机号和备注；先核对人数，再决定追加或替换。" size="wide" dirty={Boolean(c.importText)} onRequestClose={() => c.setImportOpen(false)} footer={<><span className={styles.precheck}>预检：{importCount} 人</span><Button onClick={() => c.setImportOpen(false)}>取消</Button><Button onClick={c.appendRoster}>追加名单</Button><Button intent="danger" onClick={() => void c.replaceRoster()}>替换当前名单</Button></>}><Field id="student-import" label="名单内容" hint="示例：张三 13800000001 需作业提醒"><Textarea id="student-import" value={c.importText} onChange={event => c.setImportText(event.target.value)} rows={10}/></Field></Dialog>
     <Drawer open={c.batchOpen} title={`批量编辑 ${c.selectedIds.length} 名学生`} description="留空表示不修改；备注填写后会覆盖原备注。" onRequestClose={() => c.setBatchOpen(false)} footer={<><Button onClick={() => c.setBatchOpen(false)}>取消</Button><Button intent="primary" onClick={c.applyBatch}>应用修改</Button></>}><div className={styles.batchForm}><Field id="batch-group" label="小组"><Input id="batch-group" type="number" min={1} value={c.batchDraft.group} onChange={event => c.setBatchDraft({ ...c.batchDraft, group: event.target.value })} placeholder="不修改"/></Field><Field id="batch-gender" label="性别"><Select id="batch-gender" value={c.batchDraft.gender} onChange={event => c.setBatchDraft({ ...c.batchDraft, gender: event.target.value as Student['gender'] | '不修改' })}><option>不修改</option><option>女</option><option>男</option></Select></Field><Field id="batch-note" label="备注"><Textarea id="batch-note" value={c.batchDraft.note} onChange={event => c.setBatchDraft({ ...c.batchDraft, note: event.target.value })} placeholder="留空不修改"/></Field></div></Drawer>
     <Dialog open={Boolean(c.studentDraft)} title={c.studentDraft && c.students.some(student => student.id === c.studentDraft?.id) ? '编辑学生资料' : '新增学生'} description="电话等敏感信息只在当前单学生编辑流程中显示。" dirty={Boolean(c.studentDraft?.name || c.studentDraft?.parentPhone || c.studentDraft?.note)} onRequestClose={() => c.setStudentDraft(null)} footer={<><Button onClick={() => c.setStudentDraft(null)}>取消</Button><Button intent="primary" onClick={c.saveStudent}>保存学生</Button></>}>{c.studentDraft && <StudentForm draft={c.studentDraft} setDraft={c.setStudentDraft}/>}</Dialog>
-    {c.profileStudent && <StudentProfile student={c.profileStudent} data={data} update={update} readOnly={readOnly} onClose={() => c.setProfileId('')}/>} 
+    {c.profileStudent && <StudentProfile
+      student={c.profileStudent}
+      data={data}
+      update={update}
+      readOnly={readOnly}
+      onClose={() => c.setProfileId('')}
+    />}
   </section></ThemeBoundary>;
 }
