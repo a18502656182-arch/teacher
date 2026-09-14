@@ -18,7 +18,7 @@ function DashboardScene() {
   // crop keeps the blackboard, teaching desk and foreground desk together.
   const dashboardDesktopSrc = '/art/campus/classroom-morning-wide.webp';
   return <picture data-dashboard-scene-frame><source media="(max-width: 600px)" srcSet={mobile?.mobileSrc ?? desktop.src}/>
-    <img className="campus-art" src={dashboardDesktopSrc} width={960} height={450} alt="" aria-hidden="true" decoding="async" data-artwork-role="home.scene"/>
+    <img className="campus-art" src={dashboardDesktopSrc} width={960} height={450} alt="" aria-hidden="true" decoding="async" data-artwork-role="home.scene" style={{ objectFit: 'cover' }}/>
   </picture>;
 }
 

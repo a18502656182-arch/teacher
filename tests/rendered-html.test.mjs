@@ -291,7 +291,7 @@ test("benchmark pages use reference-led compositions and semantic artwork slots"
   assert.match(dashboardCss, /\.scene :global\(\.campus-art\)\{width:100%;max-width:none;height:100%;object-fit:cover/);
   assert.match(dashboard, /dashboard-quick-title/);
   assert.match(dashboard, /data-dashboard-scene-frame/);
-  assert.doesNotMatch(dashboard, /objectFit: 'cover'/);
+  assert.match(dashboard, /classroom-morning-wide\.webp[\s\S]*objectFit: 'cover'/);
   assert.equal((dashboard.match(/className=\{styles\.taskAction\}/g) || []).length, 4);
   assert.match(dashboardCss, /\.middle\{display:grid;grid-template-columns:var\(--home-columns\)/);
   assert.match(dashboardCss, /\.lower\{display:grid;grid-template-columns:var\(--home-columns\)/);

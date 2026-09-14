@@ -134,7 +134,8 @@ export async function inspectDashboard(page, viewport, screenshotDir, failures) 
   }
   if (metrics.taskActions.some(action => !action.action || action.icon.width < 36 || action.nestedButtons)) failures.push('Dashboard task action/icon contract failed.');
   if (!metrics.visualRoles.stationeryArtwork?.source.includes('word-cards.webp') || metrics.visualRoles.stationeryArtwork.box.width < (viewport.width > 900 ? 300 : 260)) failures.push('Dashboard stationery local adaptation is too small or uses the wrong source.');
-  if (viewport.width > 900 && (!metrics.visualRoles.sceneArtwork?.source.includes('classroom-morning-wide.webp') || metrics.visualRoles.sceneArtwork.naturalWidth / metrics.visualRoles.sceneArtwork.naturalHeight < 2.1)) failures.push('Dashboard classroom must use the reviewed wide crop rather than runtime contain/cover compromise.');
+  if (!metrics.visualRoles.sceneArtwork || metrics.visualRoles.sceneArtwork.fit !== 'cover') failures.push('Dashboard classroom must own its local cover behavior instead of inheriting shared contain.');
+  if (viewport.width > 600 && (!metrics.visualRoles.sceneArtwork.source.includes('classroom-morning-wide.webp') || metrics.visualRoles.sceneArtwork.naturalWidth / metrics.visualRoles.sceneArtwork.naturalHeight < 2.1)) failures.push('Dashboard classroom must use the reviewed wide crop rather than runtime contain/cover compromise.');
   if (viewport.width > 900 && metrics.visualRoles.sceneFrame.bottom > metrics.visualRoles.sceneSummary.y + 1) failures.push('Dashboard summary overlaps the classroom frame.');
   if (viewport.width > 900) {
     for (const [a, b] of [[0, 1], [2, 3]]) {
