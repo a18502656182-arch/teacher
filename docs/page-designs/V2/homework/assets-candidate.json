@@ -1,0 +1,72 @@
+{
+  "sourceHead": "97018c9a8b72b46fad7a39f858f8372bd0468c57",
+  "images": [
+    {
+      "sha256": "B39B735553626C0BD3B5D964ED5F5A5C1719006C85D9EB6AD8C595400DDDB1E6",
+      "kind": "desktop",
+      "targetViewport": "1536x1024",
+      "approval": false,
+      "stateId": "normal",
+      "purpose": "ImageGen concept, not runnable design",
+      "pixelSize": [
+        1536,
+        1024
+      ],
+      "prompt": "docs/page-designs/V2/homework/candidates/prompts-c01.md",
+      "path": "docs/page-designs/V2/homework/candidates/homework-desktop-c01.png",
+      "inputSource": [
+        "C4-homework-desktop"
+      ],
+      "version": "C01"
+    },
+    {
+      "sha256": "1869BEDE0FE5B4CFFED7C4E9841F21E3D3BAFD4986AD9C58C2C89D57E4976DCB",
+      "kind": "mobile",
+      "targetViewport": "390x844",
+      "approval": false,
+      "stateId": "task-list",
+      "purpose": "ImageGen concept, not runnable design",
+      "pixelSize": [
+        853,
+        1844
+      ],
+      "prompt": "docs/page-designs/V2/homework/candidates/prompts-c01.md",
+      "path": "docs/page-designs/V2/homework/candidates/homework-mobile-list-c01.png",
+      "inputSource": [
+        "C4-homework-desktop"
+      ],
+      "version": "C01"
+    },
+    {
+      "sha256": "CFBD26D122691F34DA88D7C4E22504F891C09CD68BE3E6FD6F280FC8BED2CC61",
+      "kind": "mobile",
+      "targetViewport": "390x844",
+      "approval": false,
+      "stateId": "mobile-detail",
+      "purpose": "ImageGen concept, not runnable design",
+      "pixelSize": [
+        853,
+        1844
+      ],
+      "prompt": "docs/page-designs/V2/homework/candidates/prompts-c01.md",
+      "path": "docs/page-designs/V2/homework/candidates/homework-mobile-workspace-c01.png",
+      "inputSource": [
+        "C4-homework-desktop"
+      ],
+      "version": "C01"
+    }
+  ],
+  "stage": "candidate-not-frozen",
+  "generation": {
+    "promptFile": "docs/page-designs/V2/homework/candidates/prompts-c01.md",
+    "tool": "built-in ImageGen",
+    "retry": "three images returned and persisted",
+    "firstAttempt": "connection failed; no valid result files"
+  },
+  "reference": {
+    "sha256": "CADE898E1FE77C0E88343418F74AAA4400251FC77DF63518888F76A0CA604E1F",
+    "verified": true,
+    "path": "docs/visual-baseline/references/C4-homework-desktop.webp"
+  },
+  "font": "raster text; no final browser font frozen"
+}

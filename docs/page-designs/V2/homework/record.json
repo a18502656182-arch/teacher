@@ -1,13 +1,68 @@
 {
   "pageId": "homework",
   "batch": "V2",
-  "phase": "inventory",
+  "phase": "concept-review",
   "brief": "docs/page-designs/V2/homework/brief.md",
   "functionMap": "docs/page-designs/V2/homework/function-map.md",
   "geometry": null,
-  "assets": null,
+  "assets": "docs/page-designs/V2/homework/assets-candidate.json",
   "states": "docs/page-designs/V2/homework/states.json",
-  "candidates": [],
+  "candidates": [
+    {
+      "sha256": "B39B735553626C0BD3B5D964ED5F5A5C1719006C85D9EB6AD8C595400DDDB1E6",
+      "kind": "desktop",
+      "targetViewport": "1536x1024",
+      "approval": false,
+      "stateId": "normal",
+      "purpose": "ImageGen concept, not runnable design",
+      "pixelSize": [
+        1536,
+        1024
+      ],
+      "prompt": "docs/page-designs/V2/homework/candidates/prompts-c01.md",
+      "path": "docs/page-designs/V2/homework/candidates/homework-desktop-c01.png",
+      "inputSource": [
+        "C4-homework-desktop"
+      ],
+      "version": "C01"
+    },
+    {
+      "sha256": "1869BEDE0FE5B4CFFED7C4E9841F21E3D3BAFD4986AD9C58C2C89D57E4976DCB",
+      "kind": "mobile",
+      "targetViewport": "390x844",
+      "approval": false,
+      "stateId": "task-list",
+      "purpose": "ImageGen concept, not runnable design",
+      "pixelSize": [
+        853,
+        1844
+      ],
+      "prompt": "docs/page-designs/V2/homework/candidates/prompts-c01.md",
+      "path": "docs/page-designs/V2/homework/candidates/homework-mobile-list-c01.png",
+      "inputSource": [
+        "C4-homework-desktop"
+      ],
+      "version": "C01"
+    },
+    {
+      "sha256": "CFBD26D122691F34DA88D7C4E22504F891C09CD68BE3E6FD6F280FC8BED2CC61",
+      "kind": "mobile",
+      "targetViewport": "390x844",
+      "approval": false,
+      "stateId": "mobile-detail",
+      "purpose": "ImageGen concept, not runnable design",
+      "pixelSize": [
+        853,
+        1844
+      ],
+      "prompt": "docs/page-designs/V2/homework/candidates/prompts-c01.md",
+      "path": "docs/page-designs/V2/homework/candidates/homework-mobile-workspace-c01.png",
+      "inputSource": [
+        "C4-homework-desktop"
+      ],
+      "version": "C01"
+    }
+  ],
   "prototype": {
     "commit": null,
     "previewUrl": null,
@@ -38,13 +93,23 @@
       "blocking": true,
       "resolved": false,
       "description": "No runnable design or D/R approval."
+    },
+    {
+      "description": "See brief: desktop nav/icon errors and illustration overlap; generated widths; mobile hit-area size and row4 missing selected state; no runnable contract",
+      "blocking": true,
+      "resolved": false,
+      "id": "C01-RASTER-DEVIATIONS"
     }
   ],
-  "nextAction": "独立候选设计准备；本轮学生候选展示后暂停",
+  "nextAction": "等待作业C01桌面及两个手机画面方向确认，再制作隔离可运行稿",
   "history": [
     {
       "date": "2026-09-14",
       "event": "Recovered current source and established independent page inventory; no business integration."
+    },
+    {
+      "event": "生成并展示C01桌面/手机列表/手机处理三张候选，等待方向确认；首次并行调用连接失败，重试完成",
+      "date": "2026-09-14"
     }
   ],
   "sourceState": "docs/page-designs/V2/recovery/source-state.json",

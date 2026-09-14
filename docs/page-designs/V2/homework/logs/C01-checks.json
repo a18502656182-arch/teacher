@@ -1,0 +1,12 @@
+{
+  "deployment": false,
+  "newProductTestsRun": false,
+  "integrationExit": 1,
+  "date": "2026-09-14",
+  "candidateCount": 3,
+  "preExistingFourHashesUnchanged": true,
+  "integrationExpected": "blocked until V2 all three D approvals",
+  "baselineExit": 0,
+  "reason": "Candidate assets and records only; no product code changed",
+  "referenceC4HashVerified": true
+}

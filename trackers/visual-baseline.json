@@ -556,7 +556,7 @@
       "submissionNotes": "docs/visual-baseline/V2-STUDENTS-399a5c4-review.md",
       "directionProposal": "docs/visual-baseline/V2-STUDENTS-C3-REALIGNMENT-PROPOSAL.md",
       "recordPath": "docs/page-designs/V2/students/record.json",
-      "recordSha256": "815F64EA280F10D2CCFB81FCA05BA61B149C5263B9EFEE70B776B9587B65364A"
+      "recordSha256": "8C97DD46E179AC21CFB8A2D9B692C44156F08477288D7CA8C5F7AB52E96F4D37"
     },
     "homework": {
       "label": "作业追踪",
@@ -569,7 +569,7 @@
       "currentEvidence": [],
       "comparisons": [],
       "recordPath": "docs/page-designs/V2/homework/record.json",
-      "recordSha256": "9F03B3BFF4D16BC2F73778E0DC285D5648F18EE3EDD2C60625BE96F02CDC9428"
+      "recordSha256": "C5C162438D2C992818A3AF5EE44D8B89036AE5D53C7C40AFB6DCE1AB1478860B"
     },
     "dictation": {
       "label": "听写与复习",
@@ -776,6 +776,6 @@
     "legacyFields": "status/productCommit/currentEvidence/comparisons/userApproval retain historical product evidence; D/R uses linked records",
     "entry": "docs/逐页设计定稿与实施包-20260914/00-从这里开始.md",
     "activeBatch": "V2",
-    "nextAction": "students P01 runnable design for review; homework/dictation inventory; V2 D and R not approved"
+    "nextAction": "homework C01 three images awaiting concept confirmation; students P01 individually design-approved; V2 D/R not complete"
   }
 }
