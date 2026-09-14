@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-09-14",
+  "scope": "teacher-workbench-only",
+  "excluded": ["family"],
+  "allowedPageStatuses": ["not-reviewed", "needs-fix", "in-progress", "ready-for-review", "user-approved", "needs-regression-review"],
+  "references": {
+    "C1": {"label": "桌面首页", "viewport": "1536x1024", "sourceOriginal": "项目实施包-UI彻底重构与双主题-20260912/references/campus/C1-桌面首页.png", "sourceSha256": "5E201313EAF71B37E19FF3F093CA3FA4D2D7A7ADEF188A25CEB8C218B595DEBD", "committedCopy": "docs/visual-baseline/references/C1-dashboard-desktop.webp", "committedSha256": "C1A44533F6FD776562B6F10CFD348F6F24EE104E72441AF8ECD528E8806A571E"},
+    "C2": {"label": "桌面听写", "viewport": "1536x1024", "sourceOriginal": "项目实施包-UI彻底重构与双主题-20260912/references/campus/C2-桌面听写.png", "sourceSha256": "BE02BC701D9FFB7F03494E455C2AE5284F2CAA58AA7803C18B5E332DC2DBFABE", "committedCopy": "docs/visual-baseline/references/C2-dictation-desktop.webp", "committedSha256": "8A542CE301553B39BD7939D96A81D117B9016BF4ACB287C1C3CA116F9121D662"},
+    "C3": {"label": "桌面学生", "viewport": "1536x1024", "sourceOriginal": "项目实施包-UI彻底重构与双主题-20260912/references/campus/C3-桌面学生.png", "sourceSha256": "521F2BCE5F21DCAFD28CC5B327BDD066C07F041495BDCCE6481907797FC81436", "committedCopy": "docs/visual-baseline/references/C3-students-desktop.webp", "committedSha256": "628B1E18AF35CA9006CF556D255675DD81A3A6000D28D080EF2F9C33E3A7B988"},
+    "C4": {"label": "桌面作业", "viewport": "1536x1024", "sourceOriginal": "项目实施包-UI彻底重构与双主题-20260912/references/campus/C4-桌面作业.png", "sourceSha256": "534BA57E561C0E2F2DB90C4F0F2E8AC13CA2840D8BD62740B858D0F278B259DF", "committedCopy": "docs/visual-baseline/references/C4-homework-desktop.webp", "committedSha256": "CADE898E1FE77C0E88343418F74AAA4400251FC77DF63518888F76A0CA604E1F"},
+    "C5": {"label": "手机首页", "viewport": "390x844", "sourceOriginal": "项目实施包-UI彻底重构与双主题-20260912/references/campus/C5-手机首页.png", "sourceSha256": "F719E7DEFBC4A2CD087F0BCF28E335954929FED4181FF8FE9E5893845D12A7D7", "committedCopy": "docs/visual-baseline/references/C5-dashboard-mobile.webp", "committedSha256": "B883B71E6D762C6C6C84A943763734AF41A6DB16E6215EC14DDA182EFF6CE916"},
+    "C6": {"label": "手机批改", "viewport": "390x844", "sourceOriginal": "项目实施包-UI彻底重构与双主题-20260912/references/campus/C6-手机批改.png", "sourceSha256": "647082C652E5CB4E0B6924703AC434E9B269D03D2DF037B24529C8F5D92D20B9", "committedCopy": "docs/visual-baseline/references/C6-dictation-mobile.webp", "committedSha256": "5C8B64C1B16BEBEDB8F75F035F81C6DA994A9EC1A1887D493B49EB7B930E8759"}
+  },
+  "gates": [
+    {"id": "V1", "label": "首页定准", "pages": ["dashboard"], "status": "active", "pauseRequired": true, "userApproval": {"approved": false, "approvedAt": null, "commit": null}},
+    {"id": "V2", "label": "核心工作页", "pages": ["students", "homework", "dictation"], "status": "blocked", "pauseRequired": true, "userApproval": {"approved": false, "approvedAt": null, "commit": null}},
+    {"id": "V3", "label": "学生日常支持", "pages": ["attendance", "growth", "health"], "status": "blocked", "pauseRequired": true, "userApproval": {"approved": false, "approvedAt": null, "commit": null}},
+    {"id": "V4", "label": "分析与沟通", "pages": ["records", "scores", "reflection"], "status": "blocked", "pauseRequired": true, "userApproval": {"approved": false, "approvedAt": null, "commit": null}},
+    {"id": "V5", "label": "课程与空间", "pages": ["schedule", "tools", "seating"], "status": "blocked", "pauseRequired": true, "userApproval": {"approved": false, "approvedAt": null, "commit": null}},
+    {"id": "V6", "label": "班级组织", "pages": ["duty", "cadres", "rules"], "status": "blocked", "pauseRequired": true, "userApproval": {"approved": false, "approvedAt": null, "commit": null}},
+    {"id": "V7", "label": "评价与输出", "pages": ["points", "weekly", "comments"], "status": "blocked", "pauseRequired": true, "userApproval": {"approved": false, "approvedAt": null, "commit": null}}
+  ],
+  "pages": {
+    "dashboard": {"label": "今日工作台", "referenceIds": ["C1", "C5"], "status": "needs-fix", "requiredComparisons": 2, "issues": ["桌面场景图被通用campus-art固定尺寸压缩", "首屏插画视觉重量与色彩面积不足", "标题、图标与正文的尺度反差不足"], "currentEvidence": ["docs/visual-baseline/current/C1-dashboard-current-20260914.webp"], "comparisons": []},
+    "students": {"label": "学生名单", "referenceIds": ["C3"], "status": "needs-fix", "requiredComparisons": 2, "issues": ["右侧学生档案视觉重量不足", "整体仍接近统一后台工作区"], "currentEvidence": [], "comparisons": []},
+    "homework": {"label": "作业追踪", "referenceIds": ["C4"], "status": "not-reviewed", "requiredComparisons": 2, "issues": [], "currentEvidence": [], "comparisons": []},
+    "dictation": {"label": "听写与复习", "referenceIds": ["C2", "C6"], "status": "needs-fix", "requiredComparisons": 2, "issues": ["当前实现与参考稿的情境层次和插画参与度仍有明显差距"], "currentEvidence": [], "comparisons": []},
+    "attendance": {"label": "考勤与请假", "referenceIds": ["C4"], "status": "not-reviewed", "requiredComparisons": 2, "issues": [], "currentEvidence": [], "comparisons": []},
+    "growth": {"label": "成长档案", "referenceIds": ["C3"], "status": "not-reviewed", "requiredComparisons": 2, "issues": [], "currentEvidence": [], "comparisons": []},
+    "health": {"label": "健康与照护", "referenceIds": ["C3"], "status": "not-reviewed", "requiredComparisons": 2, "issues": [], "currentEvidence": [], "comparisons": []},
+    "records": {"label": "家校沟通", "referenceIds": ["C3"], "status": "not-reviewed", "requiredComparisons": 2, "issues": [], "currentEvidence": [], "comparisons": []},
+    "scores": {"label": "成绩分析", "referenceIds": ["C4"], "status": "not-reviewed", "requiredComparisons": 2, "issues": [], "currentEvidence": [], "comparisons": []},
+    "reflection": {"label": "考试反思", "referenceIds": ["C3"], "status": "not-reviewed", "requiredComparisons": 2, "issues": [], "currentEvidence": [], "comparisons": []},
+    "schedule": {"label": "课程日程", "referenceIds": ["C1"], "status": "not-reviewed", "requiredComparisons": 2, "issues": [], "currentEvidence": [], "comparisons": []},
+    "tools": {"label": "课堂工具", "referenceIds": ["C2"], "status": "not-reviewed", "requiredComparisons": 2, "issues": [], "currentEvidence": [], "comparisons": []},
+    "seating": {"label": "座位分组", "referenceIds": ["C4"], "status": "not-reviewed", "requiredComparisons": 2, "issues": [], "currentEvidence": [], "comparisons": []},
+    "duty": {"label": "值日岗位", "referenceIds": ["C4"], "status": "not-reviewed", "requiredComparisons": 2, "issues": [], "currentEvidence": [], "comparisons": []},
+    "cadres": {"label": "班干部", "referenceIds": ["C3"], "status": "not-reviewed", "requiredComparisons": 2, "issues": [], "currentEvidence": [], "comparisons": []},
+    "rules": {"label": "积分规则", "referenceIds": ["C4"], "status": "not-reviewed", "requiredComparisons": 2, "issues": [], "currentEvidence": [], "comparisons": []},
+    "points": {"label": "积分评价", "referenceIds": ["C4"], "status": "not-reviewed", "requiredComparisons": 2, "issues": [], "currentEvidence": [], "comparisons": []},
+    "weekly": {"label": "班级周报", "referenceIds": ["C1"], "status": "not-reviewed", "requiredComparisons": 2, "issues": [], "currentEvidence": [], "comparisons": []},
+    "comments": {"label": "期末评语", "referenceIds": ["C3"], "status": "not-reviewed", "requiredComparisons": 2, "issues": [], "currentEvidence": [], "comparisons": []}
+  },
+  "sharedRegressionTriggers": ["app/w/[token]/ClassroomPages.module.css", "app/components/workbench", "app/components/campus/theme", "app/components/campus/primitives", "app/globals.css"]
+}

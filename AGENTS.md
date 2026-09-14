@@ -16,6 +16,8 @@
 6. 涉及长期架构、权限、数据模型或产品边界时，再读 `docs/DECISIONS.md`
 7. 运行只读的 `git status`、`git log -5 --oneline` 和 `git remote -v`
 
+涉及教师工作台页面、共享壳层、主题、插画、全局/路由级CSS或响应式布局时，还必须读取 `VISUAL_BASELINE.md`、`trackers/visual-baseline.json` 并实际打开当前门槛参考图。聊天摘要和旧“通过”记录不能替代视觉基线。
+
 先检查用户描述是否存在错误前提、逻辑跳跃或信息缺失；区分已经验证的事实、尚未验证的判断和未来计划。不得把历史部署包、报告截图或对话恢复目录当作当前源码。
 
 ### 每次实际修改后（无需用户重复提醒）
@@ -42,6 +44,14 @@ Git 推送只保存源码和项目记忆，**不等于部署服务器**。除非
 ## 界面工作台规则
 
 This project is a homeroom-teacher daily workbench, not a marketing site or a card gallery. Follow these rules before changing any page, modal, form, table, filter area, or student picker.
+
+## 视觉纠偏门槛
+
+- 当前视觉纠偏按 `VISUAL_BASELINE.md` 的 V1-V7 执行：V1单独首页，此后每三个教师页面暂停一次；家庭教育排除。
+- 每一门完成后必须向用户展示固定视口桌面/手机实际图及参考对照，等待用户明确确认。没有确认不得开始下一门，也不得把门槛或页面写成 `user-approved`。
+- 修改共享CSS、`.campus-art`、主题、WorkbenchShell、断点或公共控件后，所有已批准门槛必须改为待回归并重新截图。
+- 自动测试、无溢出、路由可用、结构相似、已加插画或旧报告写“通过”都不能单独证明视觉通过。
+- 每次提交视觉修改时同步更新 `trackers/visual-baseline.json`；完成门槛前运行 `npm run qa:visual-gate -- --gate Vn`。
 
 ## Core Principles
 

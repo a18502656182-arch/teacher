@@ -18,7 +18,7 @@ const pages = process.env.QA_PAGES
 const screenshotDir = process.env.QA_SCREENSHOT_DIR ? path.resolve(process.env.QA_SCREENSHOT_DIR) : "";
 const scoreView = process.env.QA_SCORES_VIEW || "";
 const openHealthEditor = process.env.QA_HEALTH_OPEN_EDITOR !== "false";
-const viewports = [
+const defaultViewports = [
   { width: 1440, height: 900, name: "desktop" },
   { width: 1280, height: 900, name: "desktop1280" },
   { width: 1057, height: 900, name: "narrowDesktop" },
@@ -26,6 +26,13 @@ const viewports = [
   { width: 360, height: 780, name: "smallMobile" },
   { width: 390, height: 844, name: "mobile" },
 ];
+const viewports = process.env.QA_VIEWPORTS
+  ? process.env.QA_VIEWPORTS.split(",").map((entry) => {
+      const match = entry.trim().match(/^([A-Za-z0-9_-]+):(\d+)x(\d+)$/);
+      if (!match) throw new Error(`Invalid QA_VIEWPORTS entry: ${entry}`);
+      return { name: match[1], width: Number(match[2]), height: Number(match[3]) };
+    })
+  : defaultViewports;
 
 function assert(condition, message, failures) {
   if (!condition) failures.push(message);
