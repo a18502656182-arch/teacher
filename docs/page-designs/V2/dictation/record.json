@@ -54,5 +54,6 @@
     "approvedAt": null,
     "candidateVersion": null,
     "evidenceHashes": []
-  }
+  },
+  "inventoryCommit": "8a810a3dc56660cb54cfce71b70bc495dfdb4ff0"
 }

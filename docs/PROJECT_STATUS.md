@@ -1,5 +1,7 @@
 # 当前项目状态
 
+候选/盘点/审核迁移提交：8a810a3dc56660cb54cfce71b70bc495dfdb4ff0，已成功推送github/main。此提交没有可运行设计或产品接入；prototype.commit保持空值。后续记忆绑定提交仅补充此交付索引。未部署。
+
 ## 最新进度：学生C01待方向确认，D/R审核迁移已实施（2026-09-14）
 
 接手HEAD为9a0babd0286414ca6c8c72a2fd70ba248bd7295b。预存StudentsView.tsx、read-model.ts、useStudentsController.ts及旧监工报告四项修改作者未核实，原样保留，哈希见docs/page-designs/V2/recovery/source-state.json。未使用压缩包作为源码。

@@ -525,7 +525,7 @@
           "kind": "desktop",
           "viewport": "1536x1024",
           "url": "http://localhost:4180/w/demo?page=students",
-          "capturedAt": "2026-09-14T08:41:07.830Z",
+          "capturedAt": "2026-09-14T08:41:07.83Z",
           "productCommit": "399a5c48b538b4cab8177d2bccb82011671db763",
           "sha256": "69482F18BD70A7613A60E407D93CDCE971AA958B3BC485EAF1F931B5A5F63A29",
           "scenario": "demo",
@@ -537,7 +537,7 @@
           "kind": "mobile",
           "viewport": "390x844",
           "url": "http://localhost:4180/w/demo?page=students",
-          "capturedAt": "2026-09-14T08:41:07.830Z",
+          "capturedAt": "2026-09-14T08:41:07.83Z",
           "productCommit": "399a5c48b538b4cab8177d2bccb82011671db763",
           "sha256": "340914B6BBCADC9919623385FA6F5A0AD11E76CCA2364C3EB6C772ED7719EDD7",
           "scenario": "demo",
@@ -556,7 +556,7 @@
       "submissionNotes": "docs/visual-baseline/V2-STUDENTS-399a5c4-review.md",
       "directionProposal": "docs/visual-baseline/V2-STUDENTS-C3-REALIGNMENT-PROPOSAL.md",
       "recordPath": "docs/page-designs/V2/students/record.json",
-      "recordSha256": "560C7AB57DB74C97A7CBA10C42DD5504528D7471FCBEA190FEC8A4266222EA8D"
+      "recordSha256": "ABC28F0D518D384AC7CD4D2045273F3FCF95A54FD4C902C355A2CE6BD4260142"
     },
     "homework": {
       "label": "作业追踪",
@@ -569,7 +569,7 @@
       "currentEvidence": [],
       "comparisons": [],
       "recordPath": "docs/page-designs/V2/homework/record.json",
-      "recordSha256": "BBA6BE2160C4F1E57580326E1A7905CFFA7E38FFE32193E98A80B0FB11E722D9"
+      "recordSha256": "9F03B3BFF4D16BC2F73778E0DC285D5648F18EE3EDD2C60625BE96F02CDC9428"
     },
     "dictation": {
       "label": "听写与复习",
@@ -585,7 +585,7 @@
       "currentEvidence": [],
       "comparisons": [],
       "recordPath": "docs/page-designs/V2/dictation/record.json",
-      "recordSha256": "F981B17AE2E40668D5B48E74F4C330D39AC1C164AF84554D2ACE70806BD5B771"
+      "recordSha256": "395DFA4A3EF0FE48EC8AB6A90194D564C41D5BFD5ED6E9DF91908F94C35C1ECF"
     },
     "attendance": {
       "label": "考勤与请假",
