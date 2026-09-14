@@ -15,7 +15,6 @@ function DashboardScene() {
   const mobile = theme.artworkByRole['home.scene'];
   if (!desktop) return <ThemeArtwork slot="dashboard"/>;
   return <picture><source media="(max-width: 600px)" srcSet={mobile?.mobileSrc ?? desktop.src}/>
-    {/* eslint-disable-next-line @next/next/no-img-element */}
     <img className="campus-art" src={desktop.src} width={desktop.width} height={desktop.height} alt="" aria-hidden="true" decoding="async" data-artwork-role="home.scene" style={{ objectFit: 'cover', objectPosition: '50% 48%' }}/>
   </picture>;
 }
