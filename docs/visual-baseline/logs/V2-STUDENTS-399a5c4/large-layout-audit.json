@@ -1,0 +1,402 @@
+{
+  "createdAt": "2026-09-14T08:37:36.908Z",
+  "productCommit": "399a5c48b538b4cab8177d2bccb82011671db763",
+  "environment": {
+    "node": "v24.19.0",
+    "platform": "win32",
+    "browser": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+    "url": "http://127.0.0.1:4180/w/demo",
+    "scenario": "large",
+    "fixedDate": "2026-11-23"
+  },
+  "results": [
+    {
+      "name": "static",
+      "failures": []
+    },
+    {
+      "name": "referenceDesktop:students",
+      "data": {
+        "pageId": "students",
+        "text": "班主任工作台\n当前班级\n合成甲班（105人）\n合成乙班（1人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具\n班级\n座位分组\n值日岗位\n班干部\n积分规则\n班级周报\n期末评语\n合成甲班学生名单\n\n五年级 · 上学期 · 名单维护与学生事实集中在同一工作面。\n\n名单操作\n新增学生\n总人数\n105\n当前班级\n男生\n0\n名单统计\n女生\n105\n名单统计\n电话维护\n0%\n0 人已填写\n搜索\n小组\n全部小组\n第1组\n第2组\n第3组\n第4组\n每页\n20 人\n5",
+        "teacherAgenda": false,
+        "healthEditor": false,
+        "healthReadOnly": false,
+        "healthReadOnlyHealthy": false,
+        "healthStudentSearch": false,
+        "healthStudentPickerIdle": false,
+        "healthStudentPickerPosition": "",
+        "healthFooterActions": false,
+        "healthHeaderAction": false,
+        "homeworkDetail": false,
+        "homeworkFollowModal": false,
+        "homeworkSelectionVisible": false,
+        "homeworkReadonlyBulkDisabled": false,
+        "mobileHomeworkTaskSummary": false,
+        "mobileHomeworkSelectionRail": true,
+        "attendanceLedger": false,
+        "attendanceReadOnly": false,
+        "attendanceReadOnlyHealthy": false,
+        "attendanceBatchBar": false,
+        "attendanceSelectionCleared": false,
+        "attendanceStatusActionsHealthy": false,
+        "attendanceAllNormalHealthy": false,
+        "attendanceDetachedEditor": false,
+        "reflectionEditorHealthy": false,
+        "reflectionReadOnlyShown": false,
+        "reflectionDraftRetained": false,
+        "weeklyEditorHealthy": false,
+        "weeklyReadOnlyShown": false,
+        "weeklyDraftRetained": false,
+        "weeklyPrimaryFullWidth": false,
+        "commentEditorHealthy": false,
+        "commentReadOnlyShown": false,
+        "commentDraftRetained": false,
+        "commentDraftRetainedAfterEvidence": false,
+        "commentEvidenceSheetHealthy": false,
+        "visibleSceneSwitches": 1,
+        "mobileTabItems": [
+          {
+            "label": "首页",
+            "visible": false,
+            "topLabel": "A",
+            "topClass": "_brand_1jxlx_4"
+          },
+          {
+            "label": "学生",
+            "visible": false,
+            "topLabel": "A",
+            "topClass": "_brand_1jxlx_4"
+          },
+          {
+            "label": "作业",
+            "visible": false,
+            "topLabel": "A",
+            "topClass": "_brand_1jxlx_4"
+          },
+          {
+            "label": "成绩",
+            "visible": false,
+            "topLabel": "A",
+            "topClass": "_brand_1jxlx_4"
+          },
+          {
+            "label": "更多",
+            "visible": false,
+            "topLabel": "A",
+            "topClass": "_brand_1jxlx_4"
+          }
+        ],
+        "mobileBlockingLayer": false,
+        "dashboardArtwork": null,
+        "shell": null,
+        "main": null,
+        "content": {
+          "left": 244,
+          "right": 1536,
+          "top": 72,
+          "bottom": 951.171875,
+          "width": 1292,
+          "height": 879.171875
+        },
+        "scrollWidth": 1536,
+        "viewportWidth": 1536,
+        "cardsInsideCards": 6,
+        "inputLikeButtons": 0,
+        "squeezedButtons": [],
+        "oversizedSegmentButtons": [],
+        "pointHeaderActionIssues": [],
+        "crowdedActionCells": 0,
+        "crampedDialogTextareas": [],
+        "clippedSurfaces": [],
+        "widestElements": [],
+        "overflowElements": [
+          {
+            "tag": "INPUT",
+            "className": "visually-hidden",
+            "clientWidth": 1,
+            "scrollWidth": 158
+          }
+        ],
+        "studentsReview": {
+          "url": "http://localhost:4180/w/qa-visual?page=students",
+          "viewport": {
+            "width": 1536,
+            "height": 1024
+          },
+          "fixture": {
+            "scenario": "large",
+            "date": "2026-11-23",
+            "workspaceWrites": 0
+          },
+          "workspace": {
+            "x": 244,
+            "y": 273.1875,
+            "width": 1292,
+            "height": 677.984375,
+            "right": 1536,
+            "bottom": 951.171875
+          },
+          "list": {
+            "x": 263,
+            "y": 388.171875,
+            "width": 904,
+            "height": 492,
+            "right": 1167,
+            "bottom": 880.171875
+          },
+          "tools": {
+            "x": 263,
+            "y": 292.1875,
+            "width": 904,
+            "height": 83.984375,
+            "right": 1167,
+            "bottom": 376.171875
+          },
+          "detail": {
+            "x": 1185,
+            "y": 274.1875,
+            "width": 350,
+            "height": 675.984375,
+            "right": 1535,
+            "bottom": 950.171875
+          },
+          "overview": {
+            "x": 244,
+            "y": 198,
+            "width": 1292,
+            "height": 59.1875,
+            "right": 1536,
+            "bottom": 257.1875
+          },
+          "artwork": {
+            "box": {
+              "x": 1186,
+              "y": 274.1875,
+              "width": 349,
+              "height": 173,
+              "right": 1535,
+              "bottom": 447.1875
+            },
+            "source": "http://localhost:4180/art/campus/student-detail-v2.webp",
+            "fit": "cover"
+          },
+          "heading": "合成甲班学生名单",
+          "headingSize": 28,
+          "rowCount": 20,
+          "focusedRows": 1,
+          "emptyText": false,
+          "totalText": "合成甲班学生名单\n\n五年级 · 上学期 · 名单维护与学生事实集中在同一工作面。\n\n名单操作\n新增学生\n总人数\n105\n当前班级\n男生\n0\n名单统计\n女生\n105\n名单统计\n电话维护\n0%\n0 人已填写\n搜索\n小组\n全部小组\n第1组\n第2组\n第3组\n第4组\n每页\n20 人\n50 人\n编辑资料\n\t学号\t姓名\t性别\t小组\t近期状态\t操作\n\t01\t欧阳慕容长姓名测试同学\t女\t第1组\t11-23 考勤 · 迟到\t\n查看\n\n\t02\t测试甲2\t女\t第2组\t11-23 听写 · 待批改\t\n查看\n\n\t03\t测试甲3\t女\t第3组\t11-23 听写 · 待批改\t\n查看\n\n\t04\t测试甲4\t女\t第4组\t11-23 听写 · 待批改\t\n查看\n\n\t05\t测试甲5\t女\t第1组\t11-23 听写 · 待批改\t\n查看\n\n\t06\t测试甲6\t女\t第2组\t11-23 听写 · 待批改\t\n查看\n\n\t07\t测试甲7\t女\t第3组\t11-23 听写 · 待批改\t\n查看\n\n\t08\t测试甲8\t女\t第4组\t11-23 听写 · 待批改\t\n查看\n\n\t09\t测试甲9\t女\t第1组\t11-23 听写 · 待批改\t\n查看\n\n\t10\t测试甲10\t女\t第2组\t11-23 听写 · 待批改\t\n查看\n\n\t11\t测试甲11\t女\t第3组\t11-23 听写 · 待批改\t\n查看\n\n\t12\t测试甲12\t女\t第4组\t11-23 听写 · 待批改\t\n查看\n\n\t13\t测试甲13\t女\t第1组\t11-23 听写 · 待批改\t\n查看\n\n\t14\t测试甲14\t女\t第2组\t11-23 听写 · 待批改\t\n查看\n\n\t15\t测试甲15\t女\t第3组\t11-23 听写 · 待批改\t\n查看\n\n\t16\t测试甲16\t女\t第4组\t11-23 听写 · 待批改\t\n查看\n\n\t17\t测试甲17\t女\t第1组\t11-23 听写 · 待批改\t\n查看\n\n\t18\t测试甲18\t女\t第2组\t11-23 听写 · 待批改\t\n查看\n\n\t19\t测试甲19\t女\t第3组\t11-23 听写 · 待批改\t\n查看\n\n\t20\t测试甲20\t女\t第4组\t11-23 听写 · 待批改\t\n查看\n显示 20 / 105 人\n上一页\n1 / 6\n下一页\n正在查看 · 欧阳慕容长姓名测试同学\n欧阳慕容长姓名测试同学\n\n学号 01 · 第1组 · 1号座位\n\n完整档案\n积分\n0\n近期成绩\n90\n考勤\n正常\n作业\n已交\n最近动态\n2026-11-23 · 合成甲班长标题听写：校园生活与日常学习词语复习\n待批改\n2026-11-23 · 迟到\n合成待确认事实",
+          "exposesPhone": false,
+          "horizontalOverflow": false,
+          "interaction": null
+        }
+      },
+      "failures": []
+    },
+    {
+      "name": "referenceMobile:students",
+      "data": {
+        "pageId": "students",
+        "text": "学生名单\n\n五年级 · 105人\n\n已保存\n合成甲班\n学生名单\n新增学生\n搜索\n小组\n全部小组\n第1组\n第2组\n第3组\n第4组\n编辑资料\n名单操作\n选择欧阳慕容长姓名测试同学\n欧\n欧阳慕容长姓名测试同学\n学号 01 · 第1组 · 11-23 考勤 · 迟到\n›\n选择测试甲2\n测\n测试甲2\n学号 02 · 第2组 · 11-23 听写 · 待批改\n›\n选择测试甲3\n测\n测试甲3\n学号 03 · 第3组 · 11-23 听写 · 待批改\n›\n选择测试甲4\n测\n测试甲4\n学号 04 · 第4组 · 11-23 听写 · 待批改\n›\n选择测试甲5\n测\n测试甲5\n学号 05 · 第1组 · 11-23",
+        "teacherAgenda": false,
+        "healthEditor": false,
+        "healthReadOnly": false,
+        "healthReadOnlyHealthy": false,
+        "healthStudentSearch": false,
+        "healthStudentPickerIdle": false,
+        "healthStudentPickerPosition": "",
+        "healthFooterActions": false,
+        "healthHeaderAction": false,
+        "homeworkDetail": false,
+        "homeworkFollowModal": false,
+        "homeworkSelectionVisible": false,
+        "homeworkReadonlyBulkDisabled": false,
+        "mobileHomeworkTaskSummary": false,
+        "mobileHomeworkSelectionRail": true,
+        "attendanceLedger": false,
+        "attendanceReadOnly": false,
+        "attendanceReadOnlyHealthy": false,
+        "attendanceBatchBar": false,
+        "attendanceSelectionCleared": false,
+        "attendanceStatusActionsHealthy": false,
+        "attendanceAllNormalHealthy": false,
+        "attendanceDetachedEditor": false,
+        "reflectionEditorHealthy": false,
+        "reflectionReadOnlyShown": false,
+        "reflectionDraftRetained": false,
+        "weeklyEditorHealthy": false,
+        "weeklyReadOnlyShown": false,
+        "weeklyDraftRetained": false,
+        "weeklyPrimaryFullWidth": false,
+        "commentEditorHealthy": false,
+        "commentReadOnlyShown": false,
+        "commentDraftRetained": false,
+        "commentDraftRetainedAfterEvidence": false,
+        "commentEvidenceSheetHealthy": false,
+        "visibleSceneSwitches": 0,
+        "mobileTabItems": [
+          {
+            "label": "首页",
+            "visible": true,
+            "topLabel": "首页",
+            "topClass": {}
+          },
+          {
+            "label": "学生",
+            "visible": true,
+            "topLabel": "学生",
+            "topClass": {}
+          },
+          {
+            "label": "作业",
+            "visible": true,
+            "topLabel": "作业",
+            "topClass": {}
+          },
+          {
+            "label": "成绩",
+            "visible": true,
+            "topLabel": "成绩",
+            "topClass": {}
+          },
+          {
+            "label": "更多",
+            "visible": true,
+            "topLabel": "更多",
+            "topClass": {}
+          }
+        ],
+        "mobileBlockingLayer": false,
+        "dashboardArtwork": null,
+        "shell": null,
+        "main": null,
+        "content": {
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        "scrollWidth": 390,
+        "viewportWidth": 390,
+        "cardsInsideCards": 6,
+        "inputLikeButtons": 0,
+        "squeezedButtons": [],
+        "oversizedSegmentButtons": [],
+        "pointHeaderActionIssues": [],
+        "crowdedActionCells": 0,
+        "crampedDialogTextareas": [],
+        "clippedSurfaces": [],
+        "widestElements": [],
+        "overflowElements": [
+          {
+            "tag": "SPAN",
+            "className": "sr-only",
+            "clientWidth": 1,
+            "scrollWidth": 208
+          },
+          {
+            "tag": "INPUT",
+            "className": "visually-hidden",
+            "clientWidth": 1,
+            "scrollWidth": 158
+          },
+          {
+            "tag": "SPAN",
+            "className": "sr-only",
+            "clientWidth": 1,
+            "scrollWidth": 99
+          },
+          {
+            "tag": "SPAN",
+            "className": "sr-only",
+            "clientWidth": 1,
+            "scrollWidth": 99
+          },
+          {
+            "tag": "SPAN",
+            "className": "sr-only",
+            "clientWidth": 1,
+            "scrollWidth": 99
+          },
+          {
+            "tag": "SPAN",
+            "className": "sr-only",
+            "clientWidth": 1,
+            "scrollWidth": 99
+          },
+          {
+            "tag": "SPAN",
+            "className": "sr-only",
+            "clientWidth": 1,
+            "scrollWidth": 99
+          },
+          {
+            "tag": "SPAN",
+            "className": "sr-only",
+            "clientWidth": 1,
+            "scrollWidth": 99
+          }
+        ],
+        "studentsReview": {
+          "url": "http://localhost:4180/w/qa-visual?page=students",
+          "viewport": {
+            "width": 390,
+            "height": 844
+          },
+          "fixture": {
+            "scenario": "large",
+            "date": "2026-11-23",
+            "workspaceWrites": 0
+          },
+          "workspace": {
+            "x": 0,
+            "y": 143.984375,
+            "width": 390,
+            "height": 1647.375,
+            "right": 390,
+            "bottom": 1791.359375
+          },
+          "list": {
+            "x": 0,
+            "y": 290.171875,
+            "width": 390,
+            "height": 1400,
+            "right": 390,
+            "bottom": 1690.171875
+          },
+          "tools": {
+            "x": 0,
+            "y": 143.984375,
+            "width": 390,
+            "height": 146.1875,
+            "right": 390,
+            "bottom": 290.171875
+          },
+          "detail": null,
+          "overview": null,
+          "artwork": null,
+          "heading": "学生名单",
+          "headingSize": 24,
+          "rowCount": 20,
+          "focusedRows": 0,
+          "emptyText": false,
+          "totalText": "合成甲班\n学生名单\n新增学生\n搜索\n小组\n全部小组\n第1组\n第2组\n第3组\n第4组\n编辑资料\n名单操作\n选择欧阳慕容长姓名测试同学\n欧\n欧阳慕容长姓名测试同学\n学号 01 · 第1组 · 11-23 考勤 · 迟到\n›\n选择测试甲2\n测\n测试甲2\n学号 02 · 第2组 · 11-23 听写 · 待批改\n›\n选择测试甲3\n测\n测试甲3\n学号 03 · 第3组 · 11-23 听写 · 待批改\n›\n选择测试甲4\n测\n测试甲4\n学号 04 · 第4组 · 11-23 听写 · 待批改\n›\n选择测试甲5\n测\n测试甲5\n学号 05 · 第1组 · 11-23 听写 · 待批改\n›\n选择测试甲6\n测\n测试甲6\n学号 06 · 第2组 · 11-23 听写 · 待批改\n›\n选择测试甲7\n测\n测试甲7\n学号 07 · 第3组 · 11-23 听写 · 待批改\n›\n选择测试甲8\n测\n测试甲8\n学号 08 · 第4组 · 11-23 听写 · 待批改\n›\n选择测试甲9\n测\n测试甲9\n学号 09 · 第1组 · 11-23 听写 · 待批改\n›\n选择测试甲10\n测\n测试甲10\n学号 10 · 第2组 · 11-23 听写 · 待批改\n›\n选择测试甲11\n测\n测试甲11\n学号 11 · 第3组 · 11-23 听写 · 待批改\n›\n选择测试甲12\n测\n测试甲12\n学号 12 · 第4组 · 11-23 听写 · 待批改\n›\n选择测试甲13\n测\n测试甲13\n学号 13 · 第1组 · 11-23 听写 · 待批改\n›\n选择测试甲14\n测\n测试甲14\n学号 14 · 第2组 · 11-23 听写 · 待批改\n›\n选择测试甲15\n测\n测试甲15\n学号 15 · 第3组 · 11-23 听写 · 待批改\n›\n选择测试甲16\n测\n测试甲16\n学号 16 · 第4组 · 11-23 听写 · 待批改\n›\n选择测试甲17\n测\n测试甲17\n学号 17 · 第1组 · 11-23 听写 · 待批改\n›\n选择测试甲18\n测\n测试甲18\n学号 18 · 第2组 · 11-23 听写 · 待批改\n›\n选择测试甲19\n测\n测试甲19\n学号 19 · 第3组 · 11-23 听写 · 待批改\n›\n选择测试甲20\n测\n测试甲20\n学号 20 · 第4组 · 11-23 听写 · 待批改\n›\n显示 20 / 105 人\n上一页\n1 / 6\n下一页",
+          "exposesPhone": false,
+          "horizontalOverflow": false,
+          "interaction": {
+            "opened": true,
+            "title": "欧阳慕容长姓名测试同学 · 学生概览",
+            "hasFacts": true,
+            "hasProfileAction": true,
+            "exposesPhone": false
+          }
+        }
+      },
+      "failures": []
+    }
+  ],
+  "failures": []
+}

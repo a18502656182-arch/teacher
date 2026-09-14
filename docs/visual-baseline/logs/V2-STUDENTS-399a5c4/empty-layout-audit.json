@@ -1,0 +1,354 @@
+{
+  "createdAt": "2026-09-14T08:38:02.637Z",
+  "productCommit": "399a5c48b538b4cab8177d2bccb82011671db763",
+  "environment": {
+    "node": "v24.19.0",
+    "platform": "win32",
+    "browser": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+    "url": "http://127.0.0.1:4180/w/demo",
+    "scenario": "students-empty",
+    "fixedDate": "2026-01-05"
+  },
+  "results": [
+    {
+      "name": "static",
+      "failures": []
+    },
+    {
+      "name": "referenceDesktop:students",
+      "data": {
+        "pageId": "students",
+        "text": "班主任工作台\n当前班级\n合成甲班（0人）\n合成乙班（1人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具\n班级\n座位分组\n值日岗位\n班干部\n积分规则\n班级周报\n期末评语\n合成甲班学生名单\n\n五年级 · 上学期 · 名单维护与学生事实集中在同一工作面。\n\n名单操作\n新增学生\n总人数\n0\n当前班级\n男生\n0\n名单统计\n女生\n0\n名单统计\n电话维护\n0%\n0 人已填写\n搜索\n小组\n全部小组\n每页\n20 人\n50 人\n编辑资料\n\t学号\t姓名\t性别\t小组\t",
+        "teacherAgenda": false,
+        "healthEditor": false,
+        "healthReadOnly": false,
+        "healthReadOnlyHealthy": false,
+        "healthStudentSearch": false,
+        "healthStudentPickerIdle": false,
+        "healthStudentPickerPosition": "",
+        "healthFooterActions": false,
+        "healthHeaderAction": false,
+        "homeworkDetail": false,
+        "homeworkFollowModal": false,
+        "homeworkSelectionVisible": false,
+        "homeworkReadonlyBulkDisabled": false,
+        "mobileHomeworkTaskSummary": false,
+        "mobileHomeworkSelectionRail": false,
+        "attendanceLedger": false,
+        "attendanceReadOnly": false,
+        "attendanceReadOnlyHealthy": false,
+        "attendanceBatchBar": false,
+        "attendanceSelectionCleared": false,
+        "attendanceStatusActionsHealthy": false,
+        "attendanceAllNormalHealthy": false,
+        "attendanceDetachedEditor": false,
+        "reflectionEditorHealthy": false,
+        "reflectionReadOnlyShown": false,
+        "reflectionDraftRetained": false,
+        "weeklyEditorHealthy": false,
+        "weeklyReadOnlyShown": false,
+        "weeklyDraftRetained": false,
+        "weeklyPrimaryFullWidth": false,
+        "commentEditorHealthy": false,
+        "commentReadOnlyShown": false,
+        "commentDraftRetained": false,
+        "commentDraftRetainedAfterEvidence": false,
+        "commentEvidenceSheetHealthy": false,
+        "visibleSceneSwitches": 1,
+        "mobileTabItems": [
+          {
+            "label": "首页",
+            "visible": false,
+            "topLabel": "A",
+            "topClass": "_brand_1jxlx_4"
+          },
+          {
+            "label": "学生",
+            "visible": false,
+            "topLabel": "A",
+            "topClass": "_brand_1jxlx_4"
+          },
+          {
+            "label": "作业",
+            "visible": false,
+            "topLabel": "A",
+            "topClass": "_brand_1jxlx_4"
+          },
+          {
+            "label": "成绩",
+            "visible": false,
+            "topLabel": "A",
+            "topClass": "_brand_1jxlx_4"
+          },
+          {
+            "label": "更多",
+            "visible": false,
+            "topLabel": "A",
+            "topClass": "_brand_1jxlx_4"
+          }
+        ],
+        "mobileBlockingLayer": false,
+        "dashboardArtwork": null,
+        "shell": null,
+        "main": null,
+        "content": {
+          "left": 244,
+          "right": 1536,
+          "top": 72,
+          "bottom": 923.1875,
+          "width": 1292,
+          "height": 851.1875
+        },
+        "scrollWidth": 1536,
+        "viewportWidth": 1536,
+        "cardsInsideCards": 5,
+        "inputLikeButtons": 0,
+        "squeezedButtons": [],
+        "oversizedSegmentButtons": [],
+        "pointHeaderActionIssues": [],
+        "crowdedActionCells": 0,
+        "crampedDialogTextareas": [],
+        "clippedSurfaces": [],
+        "widestElements": [],
+        "overflowElements": [
+          {
+            "tag": "INPUT",
+            "className": "visually-hidden",
+            "clientWidth": 1,
+            "scrollWidth": 158
+          }
+        ],
+        "studentsReview": {
+          "url": "http://localhost:4180/w/qa-visual?page=students",
+          "viewport": {
+            "width": 1536,
+            "height": 1024
+          },
+          "fixture": {
+            "scenario": "students-empty",
+            "date": "2026-01-05",
+            "workspaceWrites": 0
+          },
+          "workspace": {
+            "x": 244,
+            "y": 273.1875,
+            "width": 1292,
+            "height": 650,
+            "right": 1536,
+            "bottom": 923.1875
+          },
+          "list": {
+            "x": 263,
+            "y": 388.171875,
+            "width": 904,
+            "height": 243.296875,
+            "right": 1167,
+            "bottom": 631.46875
+          },
+          "tools": {
+            "x": 263,
+            "y": 292.1875,
+            "width": 904,
+            "height": 83.984375,
+            "right": 1167,
+            "bottom": 376.171875
+          },
+          "detail": {
+            "x": 1185,
+            "y": 274.1875,
+            "width": 350,
+            "height": 648,
+            "right": 1535,
+            "bottom": 922.1875
+          },
+          "overview": {
+            "x": 244,
+            "y": 198,
+            "width": 1292,
+            "height": 59.1875,
+            "right": 1536,
+            "bottom": 257.1875
+          },
+          "artwork": {
+            "box": {
+              "x": 1255.5,
+              "y": 485.59375,
+              "width": 210,
+              "height": 160,
+              "right": 1465.5,
+              "bottom": 645.59375
+            },
+            "source": "http://localhost:4180/art/campus/student-detail-v2.webp",
+            "fit": "cover"
+          },
+          "heading": "合成甲班学生名单",
+          "headingSize": 28,
+          "rowCount": 0,
+          "focusedRows": 0,
+          "emptyText": true,
+          "totalText": "合成甲班学生名单\n\n五年级 · 上学期 · 名单维护与学生事实集中在同一工作面。\n\n名单操作\n新增学生\n总人数\n0\n当前班级\n男生\n0\n名单统计\n女生\n0\n名单统计\n电话维护\n0%\n0 人已填写\n搜索\n小组\n全部小组\n每页\n20 人\n50 人\n编辑资料\n\t学号\t姓名\t性别\t小组\t近期状态\t操作\n没有符合条件的学生。调整筛选，或新增学生。\n显示 0 / 0 人\n上一页\n1 / 1\n下一页\n\n名单为空。新增或导入学生后，可在这里查看个人动态。",
+          "exposesPhone": false,
+          "horizontalOverflow": false,
+          "interaction": null
+        }
+      },
+      "failures": []
+    },
+    {
+      "name": "referenceMobile:students",
+      "data": {
+        "pageId": "students",
+        "text": "学生名单\n\n五年级 · 0人\n\n已保存\n合成甲班\n学生名单\n新增学生\n搜索\n小组\n全部小组\n编辑资料\n名单操作\n没有符合条件的学生\n\n调整搜索条件，或新增学生。\n\n显示 0 / 0 人\n上一页\n1 / 1\n下一页\n首页\n学生\n作业\n成绩\n更多",
+        "teacherAgenda": false,
+        "healthEditor": false,
+        "healthReadOnly": false,
+        "healthReadOnlyHealthy": false,
+        "healthStudentSearch": false,
+        "healthStudentPickerIdle": false,
+        "healthStudentPickerPosition": "",
+        "healthFooterActions": false,
+        "healthHeaderAction": false,
+        "homeworkDetail": false,
+        "homeworkFollowModal": false,
+        "homeworkSelectionVisible": false,
+        "homeworkReadonlyBulkDisabled": false,
+        "mobileHomeworkTaskSummary": false,
+        "mobileHomeworkSelectionRail": false,
+        "attendanceLedger": false,
+        "attendanceReadOnly": false,
+        "attendanceReadOnlyHealthy": false,
+        "attendanceBatchBar": false,
+        "attendanceSelectionCleared": false,
+        "attendanceStatusActionsHealthy": false,
+        "attendanceAllNormalHealthy": false,
+        "attendanceDetachedEditor": false,
+        "reflectionEditorHealthy": false,
+        "reflectionReadOnlyShown": false,
+        "reflectionDraftRetained": false,
+        "weeklyEditorHealthy": false,
+        "weeklyReadOnlyShown": false,
+        "weeklyDraftRetained": false,
+        "weeklyPrimaryFullWidth": false,
+        "commentEditorHealthy": false,
+        "commentReadOnlyShown": false,
+        "commentDraftRetained": false,
+        "commentDraftRetainedAfterEvidence": false,
+        "commentEvidenceSheetHealthy": false,
+        "visibleSceneSwitches": 0,
+        "mobileTabItems": [
+          {
+            "label": "首页",
+            "visible": true,
+            "topLabel": "首页",
+            "topClass": {}
+          },
+          {
+            "label": "学生",
+            "visible": true,
+            "topLabel": "学生",
+            "topClass": {}
+          },
+          {
+            "label": "作业",
+            "visible": true,
+            "topLabel": "作业",
+            "topClass": {}
+          },
+          {
+            "label": "成绩",
+            "visible": true,
+            "topLabel": "成绩",
+            "topClass": {}
+          },
+          {
+            "label": "更多",
+            "visible": true,
+            "topLabel": "更多",
+            "topClass": {}
+          }
+        ],
+        "mobileBlockingLayer": false,
+        "dashboardArtwork": null,
+        "shell": null,
+        "main": null,
+        "content": {
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        "scrollWidth": 390,
+        "viewportWidth": 390,
+        "cardsInsideCards": 5,
+        "inputLikeButtons": 0,
+        "squeezedButtons": [],
+        "oversizedSegmentButtons": [],
+        "pointHeaderActionIssues": [],
+        "crowdedActionCells": 0,
+        "crampedDialogTextareas": [],
+        "clippedSurfaces": [],
+        "widestElements": [],
+        "overflowElements": [
+          {
+            "tag": "INPUT",
+            "className": "visually-hidden",
+            "clientWidth": 1,
+            "scrollWidth": 158
+          }
+        ],
+        "studentsReview": {
+          "url": "http://localhost:4180/w/qa-visual?page=students",
+          "viewport": {
+            "width": 390,
+            "height": 844
+          },
+          "fixture": {
+            "scenario": "students-empty",
+            "date": "2026-01-05",
+            "workspaceWrites": 0
+          },
+          "workspace": {
+            "x": 0,
+            "y": 143.984375,
+            "width": 390,
+            "height": 485.765625,
+            "right": 390,
+            "bottom": 629.75
+          },
+          "list": {
+            "x": 0,
+            "y": 290.171875,
+            "width": 390,
+            "height": 238.390625,
+            "right": 390,
+            "bottom": 528.5625
+          },
+          "tools": {
+            "x": 0,
+            "y": 143.984375,
+            "width": 390,
+            "height": 146.1875,
+            "right": 390,
+            "bottom": 290.171875
+          },
+          "detail": null,
+          "overview": null,
+          "artwork": null,
+          "heading": "学生名单",
+          "headingSize": 24,
+          "rowCount": 0,
+          "focusedRows": 0,
+          "emptyText": true,
+          "totalText": "合成甲班\n学生名单\n新增学生\n搜索\n小组\n全部小组\n编辑资料\n名单操作\n没有符合条件的学生\n\n调整搜索条件，或新增学生。\n\n显示 0 / 0 人\n上一页\n1 / 1\n下一页",
+          "exposesPhone": false,
+          "horizontalOverflow": false,
+          "interaction": null
+        }
+      },
+      "failures": []
+    }
+  ],
+  "failures": []
+}

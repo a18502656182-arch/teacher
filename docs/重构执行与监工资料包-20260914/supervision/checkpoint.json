@@ -1,161 +1,62 @@
 {
   "schemaVersion": 1,
-  "checkpointId": "V1-DASHBOARD-23FCDC5-20260914",
-  "phase": "v1-dashboard-user-approved",
-  "gate": "V1",
-  "page": "dashboard",
-  "productCommit": "23fcdc582575ccd50f2edeba0db9e9e2d64673db",
+  "checkpointId": "V2-STUDENTS-399A5C4-20260914",
+  "phase": "v2-students-independent-review",
+  "gate": "V2",
+  "page": "students",
+  "productCommit": "399a5c48b538b4cab8177d2bccb82011671db763",
   "executorThread": "codex://threads/01a09e19-8379-7f63-b537-7c54965c2044",
   "supervisorThread": null,
   "supervisionMode": "shared-checkpoint",
-  "status": "complete",
+  "status": "awaiting-supervisor-review",
   "changedFiles": [
-    "app/w/[token]/features/dashboard/DashboardView.module.css",
-    "app/w/[token]/features/dashboard/DashboardView.tsx",
-    "public/art/campus/classroom-morning-wide.webp",
+    "app/w/[token]/features/students/StudentsView.tsx",
+    "app/w/[token]/features/students/StudentsView.module.css",
+    "scripts/students-visual-qa.mjs",
+    "scripts/layout-audit.mjs",
     "scripts/dashboard-visual-qa.mjs",
     "tests/rendered-html.test.mjs"
   ],
-  "evidence": [
-    {
-      "path": "docs/visual-baseline/current/V1-23fcdc5/demo/referenceDesktop-dashboard.webp",
-      "kind": "desktop",
-      "viewport": "1536x1024",
-      "url": "http://localhost:4180/w/demo?page=dashboard",
-      "capturedAt": "2026-09-14T07:26:02.95Z",
-      "productCommit": "23fcdc582575ccd50f2edeba0db9e9e2d64673db",
-      "sha256": "046A37BC9FC45ADDB155E774D9675BFE2924173095B0ABB0469984E56F5F869D",
-      "scenario": "demo",
-      "role": "first-viewport"
-    },
-    {
-      "path": "docs/visual-baseline/current/V1-23fcdc5/demo/referenceMobile-dashboard.webp",
-      "kind": "mobile",
-      "viewport": "390x844",
-      "url": "http://localhost:4180/w/demo?page=dashboard",
-      "capturedAt": "2026-09-14T07:26:02.95Z",
-      "productCommit": "23fcdc582575ccd50f2edeba0db9e9e2d64673db",
-      "sha256": "3F95B0208E9AC3CED3DB3CC88A65E2DE207DA2C8D5D2C101533167F319F0B4C8",
-      "scenario": "demo",
-      "role": "first-viewport"
-    },
-    {
-      "path": "docs/visual-baseline/current/V1-23fcdc5/demo/desktop-continuous.webp",
-      "kind": "desktop",
-      "viewport": "1536x1024",
-      "productCommit": "23fcdc582575ccd50f2edeba0db9e9e2d64673db",
-      "sha256": "03EA340CEF2BADE3D034576700E4255EF8702AD9DF87AEC66BE37EF82068B57E",
-      "scenario": "demo",
-      "role": "contact-sheet"
-    },
-    {
-      "path": "docs/visual-baseline/current/V1-23fcdc5/demo/mobile-continuous.webp",
-      "kind": "mobile",
-      "viewport": "390x844",
-      "productCommit": "23fcdc582575ccd50f2edeba0db9e9e2d64673db",
-      "sha256": "AE7EE938CC314F7B52269584D63901BD834EFAE8FDC2A1A18C97A06B22D26F98",
-      "scenario": "demo",
-      "role": "contact-sheet"
-    },
-    {
-      "path": "docs/visual-baseline/comparisons/V1-23fcdc5-scene-desktop.webp",
-      "kind": "desktop",
-      "viewport": "1536x1024",
-      "productCommit": "23fcdc582575ccd50f2edeba0db9e9e2d64673db",
-      "sha256": "60487C65154B205B35A026945D1061FC66411EA8A51515C0E82AE9263FC7ED5C",
-      "scenario": "demo",
-      "role": "artwork-local-comparison",
-      "nativeScale": 1
-    },
-    {
-      "path": "docs/visual-baseline/comparisons/V1-23fcdc5-stationery-desktop.webp",
-      "kind": "desktop",
-      "viewport": "1536x1024",
-      "productCommit": "23fcdc582575ccd50f2edeba0db9e9e2d64673db",
-      "sha256": "607BF53AF6E82DBAF6E8A1D789EB963164EE31CEF56B8AFF466FD80BDA5E777F",
-      "scenario": "demo",
-      "role": "artwork-local-comparison",
-      "nativeScale": 1
-    },
-    {
-      "path": "docs/visual-baseline/comparisons/V1-23fcdc5-stationery-mobile.webp",
-      "kind": "mobile",
-      "viewport": "390x844",
-      "productCommit": "23fcdc582575ccd50f2edeba0db9e9e2d64673db",
-      "sha256": "4E1450EACE4067618197B3AAF2181D4930B2E5590FE3BE2742A86F76A75583EF",
-      "scenario": "demo",
-      "role": "artwork-local-comparison",
-      "nativeScale": 1
-    }
-  ],
-  "tests": [
-    {
-      "summary": "types, lint, npm test (build + 270/270 tests + auth integration), strict 115/115, demo/large/empty all passed",
-      "productCommit": "23fcdc582575ccd50f2edeba0db9e9e2d64673db",
-      "index": "docs/visual-baseline/logs/V1-23fcdc5/evidence-index.json"
-    },
-    {
-      "id": "visual-gate",
-      "command": "npm run qa:visual-gate -- --gate V1",
-      "exitCode": 0,
-      "checkedAt": "2026-09-14",
-      "reason": "Independent PASS and explicit user approval are both bound to product 23fcdc5"
-    }
-  ],
   "review": {
-    "status": "PASS",
-    "reviewedProductCommit": "23fcdc582575ccd50f2edeba0db9e9e2d64673db",
-    "report": "docs/重构执行与监工资料包-20260914/supervision/reviews/V1-DASHBOARD-23FCDC5-20260914.md"
+    "status": "pending",
+    "reviewedProductCommit": null,
+    "report": null
   },
-  "humanApproval": {
-    "approved": true,
-    "approvedAt": "2026-09-14",
-    "commit": "23fcdc582575ccd50f2edeba0db9e9e2d64673db",
-    "source": "用户在当前执行对话明确回复：我批准 V1 首页产品提交 23fcdc582575ccd50f2edeba0db9e9e2d64673db，可以进入 V2。"
+  "humanApproval": null,
+  "previousGate": {
+    "gate": "V1",
+    "approvedProductCommit": "23fcdc582575ccd50f2edeba0db9e9e2d64673db",
+    "supervision": "PASS",
+    "supervisionReport": "docs/重构执行与监工资料包-20260914/supervision/reviews/V1-DASHBOARD-23FCDC5-20260914.md",
+    "userApproval": true,
+    "approvalSource": "用户在当前执行对话明确回复：我批准 V1 首页产品提交 23fcdc582575ccd50f2edeba0db9e9e2d64673db，可以进入 V2。",
+    "currentRegressionState": "still approved; V2 changes are page-local and do not match sharedRegressionTriggers"
   },
-  "nextAction": "V1门槛已校验通过；进入V2，仅依次处理students、homework、dictation。逐页监工，三页后暂停用户审核，不得进入V3。",
-  "previousReview": {
-    "status": "CHANGES_REQUESTED",
-    "reviewedProductCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
-    "report": "docs/重构执行与监工资料包-20260914/supervision/reviews/V1-DASHBOARD-04E5ABF-20260914.md"
+  "evidence": {
+    "index": "docs/visual-baseline/logs/V2-STUDENTS-399a5c4/evidence-index.json",
+    "submissionNotes": "docs/visual-baseline/V2-STUDENTS-399a5c4-review.md",
+    "desktop": "docs/visual-baseline/current/V2-STUDENTS-399a5c4/demo/referenceDesktop-students.webp",
+    "mobile": "docs/visual-baseline/current/V2-STUDENTS-399a5c4/demo/referenceMobile-students.webp",
+    "mobileDrawer": "docs/visual-baseline/current/V2-STUDENTS-399a5c4/demo/referenceMobile-students-drawer.webp",
+    "desktopComparison": "docs/visual-baseline/comparisons/V2-STUDENTS-399a5c4-C3-desktop.webp",
+    "mobileComparison": "docs/visual-baseline/comparisons/V2-STUDENTS-399a5c4-mobile-before-after.webp",
+    "detailComparison": "docs/visual-baseline/comparisons/V2-STUDENTS-399a5c4-detail-local.webp"
   },
-  "evidenceIndex": "docs/visual-baseline/logs/V1-23fcdc5/evidence-index.json",
-  "reports": [
-    {
-      "scenario": "strict",
-      "path": "docs/visual-baseline/logs/V1-23fcdc5/strict-layout-audit.json",
-      "sha256": "81FCF4FC9E62733F11C14CA27C3940EF19124563B0952E78D00FDCB090DF52D7",
-      "productCommit": "23fcdc582575ccd50f2edeba0db9e9e2d64673db"
-    },
-    {
-      "scenario": "demo",
-      "path": "docs/visual-baseline/logs/V1-23fcdc5/demo-layout-audit.json",
-      "sha256": "982AC6191691BEFC17B19E190626BF8A9E829400BF82BDBB2E38CA51D9A6E8BF",
-      "productCommit": "23fcdc582575ccd50f2edeba0db9e9e2d64673db"
-    },
-    {
-      "scenario": "large",
-      "path": "docs/visual-baseline/logs/V1-23fcdc5/large-layout-audit.json",
-      "sha256": "B2A2C3FC673EE1A220DB3A98559582E3EE131739F35EDA829D94EB393FB49B55",
-      "productCommit": "23fcdc582575ccd50f2edeba0db9e9e2d64673db"
-    },
-    {
-      "scenario": "empty",
-      "path": "docs/visual-baseline/logs/V1-23fcdc5/empty-layout-audit.json",
-      "sha256": "C2167F477534ED5F71037B8E627A7F938DF0CD2581939976A674FA5FD074BDBA",
-      "productCommit": "23fcdc582575ccd50f2edeba0db9e9e2d64673db"
-    }
+  "verifiedScenarios": [
+    "demo: 32-person read-only roster",
+    "large: 105-person long-name roster",
+    "students-empty: true zero-person roster",
+    "mobile: roster to native Drawer and contextual batch selection",
+    "desktop: 1536, 1440, 1280 and 1057 column geometry"
   ],
-  "submissionNotes": "docs/visual-baseline/V1-23fcdc5-review.md",
+  "knownDiagnostic": "a6a483f strict preflight failed because the new checker queried only an explicit role attribute; the product uses a native dialog element. The failed raw log is retained, the checker was corrected without changing product behavior, and all checks were rerun on 399a5c4.",
+  "nextAction": "独立监工读取本检查点、V2-STUDENTS-399a5c4-review.md及绑定证据，审查students并写新报告。只有该页PASS后才可在V2内继续homework；不得进入V3。",
   "referenceIds": [
-    "C1",
-    "C5"
+    "C3"
   ],
-  "evidenceIndexSha256": "369CE9951F57DF4AC01E6D7F23FFFF2CCA9E4A6368BE78B65DE9E49E93D92CE0",
   "persistentAlignmentStandard": [
-    "AGENTS.md",
     "VISUAL_BASELINE.md",
-    "docs/DECISIONS.md",
+    "docs/visual-baseline/POSTPONED-VISUAL-OPTIMIZATIONS.md",
     "docs/重构执行与监工资料包-20260914/04-证据与验收规范.md"
   ]
 }

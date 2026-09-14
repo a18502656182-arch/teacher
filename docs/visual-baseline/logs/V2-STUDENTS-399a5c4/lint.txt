@@ -1,0 +1,11 @@
+page: students
+productCommit: 399a5c48b538b4cab8177d2bccb82011671db763
+command: npm run lint
+startedAt: 2026-09-14T08:33:37.911Z
+
+> ban-zhuren-workbench@0.1.0 lint
+> eslint . --ignore-pattern dist --ignore-pattern .next
+
+
+
+exitCode: 0

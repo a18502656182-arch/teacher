@@ -1,0 +1,5 @@
+productCommit: 399a5c48b538b4cab8177d2bccb82011671db763
+command: impeccable detect --scope layout app/w/[token]/features/students
+[]
+
+exitCode: 0

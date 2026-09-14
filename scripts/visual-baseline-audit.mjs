@@ -10,6 +10,27 @@ const reviewableStatuses = new Set(["ready-for-review", "user-approved"]);
 const evidenceKinds = new Set(["desktop", "mobile"]);
 // Assets, dependencies and build/font configuration are part of visual product identity.
 export const visualProductTriggers = ["public", "build", "package.json", "package-lock.json", "pnpm-lock.yaml", "yarn.lock", "bun.lock", "vite.config", "vinext.config", "next.config", "postcss.config", "tailwind.config", "tsconfig.json", ".openai/hosting.json"];
+const pageProductTriggers = {
+  dashboard: ["app/w/[token]/features/dashboard"],
+  students: ["app/w/[token]/features/students", "app/w/[token]/StudentProfile.tsx"],
+  homework: ["app/w/[token]/features/homework"],
+  dictation: ["app/w/[token]/dictation", "app/w/[token]/features/dictation"],
+  attendance: ["app/w/[token]/Attendance.tsx", "app/w/[token]/features/attendance"],
+  growth: ["app/w/[token]/features/growth"],
+  health: ["app/w/[token]/HealthCare.tsx", "app/w/[token]/features/health"],
+  records: ["app/w/[token]/NotificationDrafts.tsx", "app/w/[token]/features/records", "app/w/[token]/features/notifications"],
+  scores: ["app/w/[token]/ScoreTrends.tsx", "app/w/[token]/ScoreItemAnalysis.tsx", "app/w/[token]/features/scores"],
+  reflection: ["app/w/[token]/features/reflections"],
+  schedule: ["app/w/[token]/ScheduleHub.tsx", "app/w/[token]/CourseSchedule.tsx", "app/w/[token]/TeacherAgenda.tsx", "app/w/[token]/features/schedule"],
+  tools: ["app/w/[token]/ClassroomTools.tsx", "app/w/[token]/features/tools"],
+  seating: ["app/w/[token]/Seating.tsx", "app/w/[token]/features/seating"],
+  duty: ["app/w/[token]/Duty.tsx", "app/w/[token]/features/duty"],
+  cadres: ["app/w/[token]/Cadres.tsx", "app/w/[token]/features/cadres"],
+  rules: ["app/w/[token]/features/rules"],
+  points: ["app/w/[token]/features/points"],
+  weekly: ["app/w/[token]/features/weekly"],
+  comments: ["app/w/[token]/features/comments"],
+};
 
 function canonicalEvidencePath(root, file) {
   const resolved = path.resolve(root, file.replaceAll("\\", "/"));
@@ -60,6 +81,16 @@ export function matchesTrigger(file, trigger) {
   return normalizedFile === normalizedTrigger
     || normalizedFile.startsWith(`${normalizedTrigger}/`)
     || ((!path.extname(normalizedTrigger) || normalizedTrigger.endsWith('.config')) && normalizedFile.startsWith(`${normalizedTrigger}.`));
+}
+
+function isSharedProductFile(file, ledger) {
+  if (/^(lib|db|drizzle|worker|app\/api)\//.test(file)) return true;
+  const defaults = ["app/w/[token]/ClassroomApp.tsx", "app/w/[token]/WorkbenchPageHeader.tsx"];
+  return [...visualProductTriggers, ...defaults, ...(ledger.sharedRegressionTriggers ?? [])].some((trigger) => matchesTrigger(file, trigger));
+}
+
+function isPageProductFile(pageId, file) {
+  return (pageProductTriggers[pageId] ?? []).some((trigger) => matchesTrigger(file, trigger));
 }
 
 function safeEvidencePath(root, relativePath, requiredDirectory) {
@@ -162,7 +193,7 @@ export function auditVisualBaseline(root, argv = []) {
     }
     if (reviewableStatuses.has(page.status)) {
       if (!/^[A-Fa-f0-9]{40}$/.test(page.productCommit ?? "") || !gitCommitExists(root, page.productCommit)) failures.push(`${pageId} is ready without a valid product commit.`);
-      const productChanges = changedTrackedFiles(root, page.productCommit).filter((file) => /^(app|lib|db|drizzle|worker)\//.test(file) || visualProductTriggers.some((trigger) => matchesTrigger(file, trigger)));
+      const productChanges = changedTrackedFiles(root, page.productCommit).filter((file) => isSharedProductFile(file, ledger) || isPageProductFile(pageId, file));
       if (productChanges.length) failures.push(`${pageId} product files changed after its evidence commit: ${productChanges.join(", ")}.`);
       const kinds = new Set((page.currentEvidence ?? []).map((item) => item?.kind));
       const comparisonKinds = new Set((page.comparisons ?? []).map((item) => item?.kind));
@@ -183,7 +214,7 @@ export function auditVisualBaseline(root, argv = []) {
 
   for (const gate of ledger.gates ?? []) {
     if (!gate.userApproval?.approved) continue;
-    const changedSharedFiles = changedTrackedFiles(root, gate.userApproval.commit).filter((file) => [...visualProductTriggers, ...(ledger.sharedRegressionTriggers ?? [])].some((trigger) => matchesTrigger(file, trigger)));
+    const changedSharedFiles = changedTrackedFiles(root, gate.userApproval.commit).filter((file) => isSharedProductFile(file, ledger));
     if (changedSharedFiles.length) {
       if (gate.status !== "needs-regression-review") failures.push(`${gate.id} was user-approved before a shared visual file changed and must move to needs-regression-review.`);
       for (const pageId of gate.pages ?? []) {

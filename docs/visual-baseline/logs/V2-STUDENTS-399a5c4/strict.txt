@@ -1,0 +1,17 @@
+page: students
+productCommit: 399a5c48b538b4cab8177d2bccb82011671db763
+command: npm run qa:strict
+startedAt: 2026-09-14T08:34:31.776Z
+
+> ban-zhuren-workbench@0.1.0 qa:strict
+> npm run qa:visual-baseline && node scripts/layout-audit.mjs --serve
+
+
+> ban-zhuren-workbench@0.1.0 qa:visual-baseline
+> node scripts/visual-baseline-audit.mjs
+
+Visual baseline contract OK: 19 teacher pages, 7 gates, 0 user-approved gates.
+Layout audit passed: E:\文档\Codex\小红书\班主任工作台网站\.qa-shots\v2-students-confirm\strict\layout-audit.json
+
+
+exitCode: 0

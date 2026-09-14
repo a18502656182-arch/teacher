@@ -1,0 +1,366 @@
+{
+  "productCommit": "399a5c48b538b4cab8177d2bccb82011671db763",
+  "builtAt": "2026-09-14T08:52:12.575Z",
+  "tests": [
+    {
+      "id": "types",
+      "command": "npx tsc --noEmit --pretty false --incremental false",
+      "productCommit": "399a5c48b538b4cab8177d2bccb82011671db763",
+      "startedAt": "2026-09-14T08:33:29.218Z",
+      "endedAt": "2026-09-14T08:33:37.904Z",
+      "exitCode": 0,
+      "log": "docs/visual-baseline/logs/V2-STUDENTS-399a5c4/types.txt",
+      "sha256": "BD7F14C85CDBD0DB79E922B7E043DBA7BCBB85960444177BC39B99737AB5360D"
+    },
+    {
+      "id": "lint",
+      "command": "npm run lint",
+      "productCommit": "399a5c48b538b4cab8177d2bccb82011671db763",
+      "startedAt": "2026-09-14T08:33:37.911Z",
+      "endedAt": "2026-09-14T08:33:50.600Z",
+      "exitCode": 0,
+      "log": "docs/visual-baseline/logs/V2-STUDENTS-399a5c4/lint.txt",
+      "sha256": "80A1401B35363490624C56C73BB6E86D218B67B72EC09D3B274DE5110421E9A1"
+    },
+    {
+      "id": "tests",
+      "command": "npm test",
+      "productCommit": "399a5c48b538b4cab8177d2bccb82011671db763",
+      "startedAt": "2026-09-14T08:33:50.604Z",
+      "endedAt": "2026-09-14T08:34:31.767Z",
+      "exitCode": 0,
+      "log": "docs/visual-baseline/logs/V2-STUDENTS-399a5c4/tests.txt",
+      "sha256": "22C8FA6E007B0FA44BD8854D0231127C435EDDB3337AB270A5A6FB0660B360AC"
+    },
+    {
+      "id": "strict",
+      "command": "npm run qa:strict",
+      "productCommit": "399a5c48b538b4cab8177d2bccb82011671db763",
+      "startedAt": "2026-09-14T08:34:31.776Z",
+      "endedAt": "2026-09-14T08:36:44.179Z",
+      "exitCode": 0,
+      "log": "docs/visual-baseline/logs/V2-STUDENTS-399a5c4/strict.txt",
+      "sha256": "38658A160AEBB74115A31F8A888CBC6E3B2DEDF92B98AF1032389F794F07AFA3"
+    },
+    {
+      "id": "demo",
+      "command": "node scripts/layout-audit.mjs --serve",
+      "productCommit": "399a5c48b538b4cab8177d2bccb82011671db763",
+      "startedAt": "2026-09-14T08:36:44.184Z",
+      "endedAt": "2026-09-14T08:37:10.803Z",
+      "exitCode": 0,
+      "log": "docs/visual-baseline/logs/V2-STUDENTS-399a5c4/demo.txt",
+      "sha256": "6AF3C57C45EF3DBBE87EB107C143BAF2641EDAE8D6ABA030FCB34825F51854BE"
+    },
+    {
+      "id": "large",
+      "command": "node scripts/layout-audit.mjs --serve",
+      "productCommit": "399a5c48b538b4cab8177d2bccb82011671db763",
+      "startedAt": "2026-09-14T08:37:10.807Z",
+      "endedAt": "2026-09-14T08:37:36.947Z",
+      "exitCode": 0,
+      "log": "docs/visual-baseline/logs/V2-STUDENTS-399a5c4/large.txt",
+      "sha256": "5A164C22F6A70D6BEC5895CA845B482AB36B1CC499BA2189F2341208704EAC7D"
+    },
+    {
+      "id": "empty",
+      "command": "node scripts/layout-audit.mjs --serve",
+      "productCommit": "399a5c48b538b4cab8177d2bccb82011671db763",
+      "startedAt": "2026-09-14T08:37:36.953Z",
+      "endedAt": "2026-09-14T08:38:02.676Z",
+      "exitCode": 0,
+      "log": "docs/visual-baseline/logs/V2-STUDENTS-399a5c4/empty.txt",
+      "sha256": "726DC39836E54875BEFC71063D290F03CFCF569D70D34A10CDE35B994EC47C8E"
+    },
+    {
+      "id": "diagnostic-native-dialog",
+      "productCommit": "a6a483f1e2308256938811e3d6829e88f16cb36d",
+      "exitCode": 1,
+      "expected": true,
+      "resolution": "Checker assumed an explicit role attribute; native dialog semantics are now inspected through dialog[open][data-presentation=\"drawer\"]. Product behavior was unchanged.",
+      "log": "docs/visual-baseline/logs/V2-STUDENTS-399a5c4/diagnostic-a6a483f-native-dialog-check.txt",
+      "sha256": "305C4626EBFC5468AA5E6A64D935D7562A572F42E81C6CDD8C1C712DD8975C66"
+    },
+    {
+      "id": "detector",
+      "command": "impeccable detect --scope layout app/w/[token]/features/students",
+      "productCommit": "399a5c48b538b4cab8177d2bccb82011671db763",
+      "exitCode": 0,
+      "log": "docs/visual-baseline/logs/V2-STUDENTS-399a5c4/detector.txt",
+      "sha256": "36402CD6E042C6A2EC95FB550AB8A0D5DC79AA136EDF4CC53E3E3BD904F78D03"
+    }
+  ],
+  "images": [
+    {
+      "path": "docs/visual-baseline/current/V2-STUDENTS-399a5c4/demo/referenceDesktop-students-detail.webp",
+      "kind": "desktop",
+      "viewport": "1536x1024",
+      "url": "http://localhost:4180/w/demo?page=students",
+      "capturedAt": "2026-09-14T08:37:10.763Z",
+      "productCommit": "399a5c48b538b4cab8177d2bccb82011671db763",
+      "sha256": "BECC4483D4B215A3FC623860BC702191C87F2D49D63D3D99B99154936AEB1D15",
+      "scenario": "demo",
+      "role": "detail-local"
+    },
+    {
+      "path": "docs/visual-baseline/current/V2-STUDENTS-399a5c4/demo/referenceDesktop-students-workspace.webp",
+      "kind": "desktop",
+      "viewport": "1536x1024",
+      "url": "http://localhost:4180/w/demo?page=students",
+      "capturedAt": "2026-09-14T08:37:10.763Z",
+      "productCommit": "399a5c48b538b4cab8177d2bccb82011671db763",
+      "sha256": "E4A50E34A463B42D84557C4E0E362EC9639E11C4589D8E5516462A210723F217",
+      "scenario": "demo",
+      "role": "workspace-local"
+    },
+    {
+      "path": "docs/visual-baseline/current/V2-STUDENTS-399a5c4/demo/referenceDesktop-students.webp",
+      "kind": "desktop",
+      "viewport": "1536x1024",
+      "url": "http://localhost:4180/w/demo?page=students",
+      "capturedAt": "2026-09-14T08:37:10.763Z",
+      "productCommit": "399a5c48b538b4cab8177d2bccb82011671db763",
+      "sha256": "CA86CD9B4BF723D9B26CC85026B25D689C18D2DEE069E839752E56E45ECF70E1",
+      "scenario": "demo",
+      "role": "first-viewport"
+    },
+    {
+      "path": "docs/visual-baseline/current/V2-STUDENTS-399a5c4/demo/referenceMobile-students-drawer.webp",
+      "kind": "mobile",
+      "viewport": "390x844",
+      "url": "http://localhost:4180/w/demo?page=students",
+      "capturedAt": "2026-09-14T08:37:10.763Z",
+      "productCommit": "399a5c48b538b4cab8177d2bccb82011671db763",
+      "sha256": "A4E9FFC6A0BC2FB71A748EA0BBFBF3FDE0F30CD9F0FA2378F6B5904B7CF01436",
+      "scenario": "demo",
+      "role": "interaction",
+      "interaction": {
+        "opened": true,
+        "title": "林知夏 · 学生概览",
+        "hasFacts": true,
+        "hasProfileAction": true,
+        "exposesPhone": false
+      }
+    },
+    {
+      "path": "docs/visual-baseline/current/V2-STUDENTS-399a5c4/demo/referenceMobile-students-workspace.webp",
+      "kind": "mobile",
+      "viewport": "390x844",
+      "url": "http://localhost:4180/w/demo?page=students",
+      "capturedAt": "2026-09-14T08:37:10.763Z",
+      "productCommit": "399a5c48b538b4cab8177d2bccb82011671db763",
+      "sha256": "8E3CC80A2E3BF4AA05C14B18DE4D27DC577E4BF72C303B381567A40995571B98",
+      "scenario": "demo",
+      "role": "workspace-local"
+    },
+    {
+      "path": "docs/visual-baseline/current/V2-STUDENTS-399a5c4/demo/referenceMobile-students.webp",
+      "kind": "mobile",
+      "viewport": "390x844",
+      "url": "http://localhost:4180/w/demo?page=students",
+      "capturedAt": "2026-09-14T08:37:10.763Z",
+      "productCommit": "399a5c48b538b4cab8177d2bccb82011671db763",
+      "sha256": "C91C0D62A355D76933200F1087588B9C98399E301BD9C316CDEA5803FDE18DEB",
+      "scenario": "demo",
+      "role": "first-viewport"
+    },
+    {
+      "path": "docs/visual-baseline/current/V2-STUDENTS-399a5c4/large/referenceDesktop-students-detail.webp",
+      "kind": "desktop",
+      "viewport": "1536x1024",
+      "url": "http://localhost:4180/w/qa-visual?page=students",
+      "capturedAt": "2026-09-14T08:37:36.908Z",
+      "productCommit": "399a5c48b538b4cab8177d2bccb82011671db763",
+      "sha256": "40A1A4947849F9FB34867B6D80F4A77B94F3195C600F8D12D947AEC10D67A366",
+      "scenario": "large",
+      "role": "detail-local"
+    },
+    {
+      "path": "docs/visual-baseline/current/V2-STUDENTS-399a5c4/large/referenceDesktop-students-workspace.webp",
+      "kind": "desktop",
+      "viewport": "1536x1024",
+      "url": "http://localhost:4180/w/qa-visual?page=students",
+      "capturedAt": "2026-09-14T08:37:36.908Z",
+      "productCommit": "399a5c48b538b4cab8177d2bccb82011671db763",
+      "sha256": "B23DBD0094A811C506FEB7B00D3324441E45052D17A97F8FBA76715F7BE5FF93",
+      "scenario": "large",
+      "role": "workspace-local"
+    },
+    {
+      "path": "docs/visual-baseline/current/V2-STUDENTS-399a5c4/large/referenceDesktop-students.webp",
+      "kind": "desktop",
+      "viewport": "1536x1024",
+      "url": "http://localhost:4180/w/qa-visual?page=students",
+      "capturedAt": "2026-09-14T08:37:36.908Z",
+      "productCommit": "399a5c48b538b4cab8177d2bccb82011671db763",
+      "sha256": "76E1C7DEF4999BBC21FEC6CFB7559421A43925A287BBD11ECC9C668109A0713C",
+      "scenario": "large",
+      "role": "first-viewport"
+    },
+    {
+      "path": "docs/visual-baseline/current/V2-STUDENTS-399a5c4/large/referenceMobile-students-drawer.webp",
+      "kind": "mobile",
+      "viewport": "390x844",
+      "url": "http://localhost:4180/w/qa-visual?page=students",
+      "capturedAt": "2026-09-14T08:37:36.908Z",
+      "productCommit": "399a5c48b538b4cab8177d2bccb82011671db763",
+      "sha256": "78D67E6CF6305EF736DD6C6979C6B881C9513EC3EA468E92D72E0C184F0F0896",
+      "scenario": "large",
+      "role": "interaction",
+      "interaction": {
+        "opened": true,
+        "title": "欧阳慕容长姓名测试同学 · 学生概览",
+        "hasFacts": true,
+        "hasProfileAction": true,
+        "exposesPhone": false
+      }
+    },
+    {
+      "path": "docs/visual-baseline/current/V2-STUDENTS-399a5c4/large/referenceMobile-students-workspace.webp",
+      "kind": "mobile",
+      "viewport": "390x844",
+      "url": "http://localhost:4180/w/qa-visual?page=students",
+      "capturedAt": "2026-09-14T08:37:36.908Z",
+      "productCommit": "399a5c48b538b4cab8177d2bccb82011671db763",
+      "sha256": "92A77AAB94A5792F71D3D2599EEDDE8BA893B5D78A2574DD5E102DFF0DA8B5E0",
+      "scenario": "large",
+      "role": "workspace-local"
+    },
+    {
+      "path": "docs/visual-baseline/current/V2-STUDENTS-399a5c4/large/referenceMobile-students.webp",
+      "kind": "mobile",
+      "viewport": "390x844",
+      "url": "http://localhost:4180/w/qa-visual?page=students",
+      "capturedAt": "2026-09-14T08:37:36.908Z",
+      "productCommit": "399a5c48b538b4cab8177d2bccb82011671db763",
+      "sha256": "C2B23266052F0DEF3649EB42F085EFE73FBB8BF81E0ADE5B2E94594830D4A544",
+      "scenario": "large",
+      "role": "first-viewport"
+    },
+    {
+      "path": "docs/visual-baseline/current/V2-STUDENTS-399a5c4/empty/referenceDesktop-students-detail.webp",
+      "kind": "desktop",
+      "viewport": "1536x1024",
+      "url": "http://localhost:4180/w/qa-visual?page=students",
+      "capturedAt": "2026-09-14T08:38:02.637Z",
+      "productCommit": "399a5c48b538b4cab8177d2bccb82011671db763",
+      "sha256": "45EF47A0AC3B2DDF1D41393B1173EB64DD3F0CD95EFAD057B85394D1B681B447",
+      "scenario": "empty",
+      "role": "detail-local"
+    },
+    {
+      "path": "docs/visual-baseline/current/V2-STUDENTS-399a5c4/empty/referenceDesktop-students-workspace.webp",
+      "kind": "desktop",
+      "viewport": "1536x1024",
+      "url": "http://localhost:4180/w/qa-visual?page=students",
+      "capturedAt": "2026-09-14T08:38:02.637Z",
+      "productCommit": "399a5c48b538b4cab8177d2bccb82011671db763",
+      "sha256": "1F3C4F084562C5D64F614AA696FAB147186609B9987CE419D562283A1418DF19",
+      "scenario": "empty",
+      "role": "workspace-local"
+    },
+    {
+      "path": "docs/visual-baseline/current/V2-STUDENTS-399a5c4/empty/referenceDesktop-students.webp",
+      "kind": "desktop",
+      "viewport": "1536x1024",
+      "url": "http://localhost:4180/w/qa-visual?page=students",
+      "capturedAt": "2026-09-14T08:38:02.637Z",
+      "productCommit": "399a5c48b538b4cab8177d2bccb82011671db763",
+      "sha256": "B39DD03AA82B4A9AC1FC4301DDC3659AD6C755AC4C6069CBC6BCA21CF146E760",
+      "scenario": "empty",
+      "role": "first-viewport"
+    },
+    {
+      "path": "docs/visual-baseline/current/V2-STUDENTS-399a5c4/empty/referenceMobile-students-workspace.webp",
+      "kind": "mobile",
+      "viewport": "390x844",
+      "url": "http://localhost:4180/w/qa-visual?page=students",
+      "capturedAt": "2026-09-14T08:38:02.637Z",
+      "productCommit": "399a5c48b538b4cab8177d2bccb82011671db763",
+      "sha256": "68C5C5B6C22DD15B6D946052322C99B2E28F123DD09E40487037EAF96C132E80",
+      "scenario": "empty",
+      "role": "workspace-local"
+    },
+    {
+      "path": "docs/visual-baseline/current/V2-STUDENTS-399a5c4/empty/referenceMobile-students.webp",
+      "kind": "mobile",
+      "viewport": "390x844",
+      "url": "http://localhost:4180/w/qa-visual?page=students",
+      "capturedAt": "2026-09-14T08:38:02.637Z",
+      "productCommit": "399a5c48b538b4cab8177d2bccb82011671db763",
+      "sha256": "FD6583CF8A0A03A9BF7036D437637FF7CDCCF7DFEEF1EBC3CC88747843019038",
+      "scenario": "empty",
+      "role": "first-viewport"
+    },
+    {
+      "path": "docs/visual-baseline/comparisons/V2-STUDENTS-399a5c4-C3-desktop.webp",
+      "kind": "desktop",
+      "viewport": "1536x1024",
+      "url": "http://localhost:4180/w/demo?page=students",
+      "capturedAt": "2026-09-14T08:52:12.575Z",
+      "productCommit": "399a5c48b538b4cab8177d2bccb82011671db763",
+      "sha256": "69482F18BD70A7613A60E407D93CDCE971AA958B3BC485EAF1F931B5A5F63A29",
+      "scenario": "demo",
+      "role": "comparison",
+      "referenceId": "C3",
+      "referenceSource": "项目实施包-UI彻底重构与双主题-20260912/references/campus/C3-桌面学生.png"
+    },
+    {
+      "path": "docs/visual-baseline/comparisons/V2-STUDENTS-399a5c4-mobile-before-after.webp",
+      "kind": "mobile",
+      "viewport": "390x844",
+      "url": "http://localhost:4180/w/demo?page=students",
+      "capturedAt": "2026-09-14T08:52:12.575Z",
+      "productCommit": "399a5c48b538b4cab8177d2bccb82011671db763",
+      "sha256": "340914B6BBCADC9919623385FA6F5A0AD11E76CCA2364C3EB6C772ED7719EDD7",
+      "scenario": "demo",
+      "role": "comparison",
+      "referenceId": "C3",
+      "referenceRole": "desktop-direction-only; C3 has no independent mobile original",
+      "previousSource": ".qa-shots/v2-students-before/mobile-students.png"
+    },
+    {
+      "path": "docs/visual-baseline/comparisons/V2-STUDENTS-399a5c4-detail-local.webp",
+      "kind": "desktop",
+      "viewport": "1536x1024",
+      "url": "http://localhost:4180/w/demo?page=students",
+      "capturedAt": "2026-09-14T08:52:12.575Z",
+      "productCommit": "399a5c48b538b4cab8177d2bccb82011671db763",
+      "sha256": "710600D57122B724EB5157903DFCF9744674FD11BCA8863A1333B8B379ABD4ED",
+      "scenario": "demo",
+      "role": "local-comparison",
+      "referenceId": "C3",
+      "nativeScale": 1,
+      "region": "detail-rail"
+    }
+  ],
+  "reports": [
+    {
+      "scenario": "strict",
+      "path": "docs/visual-baseline/logs/V2-STUDENTS-399a5c4/strict-layout-audit.json",
+      "productCommit": "399a5c48b538b4cab8177d2bccb82011671db763",
+      "sha256": "1C23E07688F1FAB030F0BA1F2BA728B3F5B146CFF54848BAD03631E625101CB9"
+    },
+    {
+      "scenario": "demo",
+      "path": "docs/visual-baseline/logs/V2-STUDENTS-399a5c4/demo-layout-audit.json",
+      "productCommit": "399a5c48b538b4cab8177d2bccb82011671db763",
+      "sha256": "83FCF0E38099D3F215EFA08FC31A8878EADC0525B281CAA002AF05B1367A1783"
+    },
+    {
+      "scenario": "large",
+      "path": "docs/visual-baseline/logs/V2-STUDENTS-399a5c4/large-layout-audit.json",
+      "productCommit": "399a5c48b538b4cab8177d2bccb82011671db763",
+      "sha256": "A7A5241F05C9144C4F24174A0272AB920CEFE2F498781C1D27BF4311E493EBF5"
+    },
+    {
+      "scenario": "empty",
+      "path": "docs/visual-baseline/logs/V2-STUDENTS-399a5c4/empty-layout-audit.json",
+      "productCommit": "399a5c48b538b4cab8177d2bccb82011671db763",
+      "sha256": "814EC0AF59C1998D9641DD8251F5B55A549C55E3C428F9C333E54620D6CF0B9A"
+    }
+  ],
+  "notes": [
+    "C3 supplies an independent desktop reference only. Mobile evidence is explicitly previous/current actual and is not represented as an original mobile reference."
+  ]
+}

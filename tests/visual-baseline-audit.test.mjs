@@ -32,6 +32,10 @@ function fixture() {
     delete page.productCommit;
     delete page.supervision;
   }
+  for (const gate of ledger.gates) {
+    gate.status = "blocked";
+    gate.userApproval = { approved: false, approvedAt: null, commit: null };
+  }
   ledger.gates[0].status = "active";
   for (const reference of Object.values(ledger.references)) {
     for (const relative of [reference.committedCopy, reference.sourceOriginal]) {
@@ -178,4 +182,29 @@ test("shared visual changes are detected after an approved commit", () => {
   git(state.root, ["commit", "-m", "change shared visual"]);
   const failures = auditVisualBaseline(state.root).failures;
   assert.ok(failures.some((failure) => failure.includes("must move to needs-regression-review")));
+});
+
+test("a page-local change invalidates its own evidence but not an approved sibling page", () => {
+  const state = fixture();
+  const page = makeDashboardReady(state, "PASS");
+  page.status = "user-approved";
+  const gate = state.ledger.gates[0];
+  gate.status = "user-approved";
+  gate.userApproval = { approved: true, approvedAt: "2026-09-14T13:00:00+08:00", commit: state.productCommit };
+  writeJson(state.root, state.ledger);
+  git(state.root, ["add", "."]);
+  git(state.root, ["commit", "-m", "approve dashboard"]);
+  const students = path.join(state.root, "app", "w", "[token]", "features", "students", "StudentsView.tsx");
+  mkdirSync(path.dirname(students), { recursive: true });
+  writeFileSync(students, "export const studentOnly = true;\n");
+  git(state.root, ["add", "."]);
+  git(state.root, ["commit", "-m", "change students only"]);
+  assert.deepEqual(auditVisualBaseline(state.root).failures, []);
+
+  const dashboard = path.join(state.root, "app", "w", "[token]", "features", "dashboard", "DashboardView.tsx");
+  mkdirSync(path.dirname(dashboard), { recursive: true });
+  writeFileSync(dashboard, "export const dashboardChange = true;\n");
+  git(state.root, ["add", "."]);
+  git(state.root, ["commit", "-m", "change dashboard"]);
+  assert.ok(auditVisualBaseline(state.root).failures.some(failure => failure.includes("dashboard product files changed")));
 });

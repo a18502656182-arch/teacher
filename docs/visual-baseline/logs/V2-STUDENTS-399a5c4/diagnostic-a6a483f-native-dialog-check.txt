@@ -1,0 +1,20 @@
+page: students
+productCommit: a6a483f1e2308256938811e3d6829e88f16cb36d
+command: npm run qa:strict
+startedAt: 2026-09-14T08:29:54.652Z
+
+> ban-zhuren-workbench@0.1.0 qa:strict
+> npm run qa:visual-baseline && node scripts/layout-audit.mjs --serve
+
+
+> ban-zhuren-workbench@0.1.0 qa:visual-baseline
+> node scripts/visual-baseline-audit.mjs
+
+Visual baseline contract OK: 19 teacher pages, 7 gates, 0 user-approved gates.
+
+tablet:students: Students mobile drawer interaction is incomplete: {"opened":false,"title":"","exposesPhone":false}.
+smallMobile:students: Students mobile drawer interaction is incomplete: {"opened":false,"title":"","exposesPhone":false}.
+mobile:students: Students mobile drawer interaction is incomplete: {"opened":false,"title":"","exposesPhone":false}.
+Layout audit report: E:\文档\Codex\小红书\班主任工作台网站\.qa-shots\v2-students-confirm\strict\layout-audit.json
+
+exitCode: 1

@@ -87,7 +87,7 @@
         "homework",
         "dictation"
       ],
-      "status": "blocked",
+      "status": "active",
       "pauseRequired": true,
       "userApproval": {
         "approved": false,
@@ -186,8 +186,8 @@
       "status": "user-approved",
       "requiredComparisons": 2,
       "issues": [
-        "R8a 同源横向局部适配候选待独立监工读图确认",
-        "R8b 文具放大与下沿融合候选待独立监工读图确认"
+        "非阻塞后置：插画精细度仍未实施",
+        "非阻塞后置：空态自然留白仍未实施"
       ],
       "productCommit": "23fcdc582575ccd50f2edeba0db9e9e2d64673db",
       "currentEvidence": [
@@ -485,14 +485,71 @@
       "referenceIds": [
         "C3"
       ],
-      "status": "needs-fix",
+      "status": "ready-for-review",
       "requiredComparisons": 2,
       "issues": [
-        "右侧学生档案视觉重量不足",
-        "整体仍接近统一后台工作区"
+        "等待独立监工核对名单主区、浅绿详情栏与C3桌面方向",
+        "C3没有独立手机原图；手机按任务卡延展并以旧/新实际图、Drawer和空态证据复核"
       ],
-      "currentEvidence": [],
-      "comparisons": []
+      "productCommit": "399a5c48b538b4cab8177d2bccb82011671db763",
+      "currentEvidence": [
+        {
+          "path": "docs/visual-baseline/current/V2-STUDENTS-399a5c4/demo/referenceDesktop-students.webp",
+          "kind": "desktop",
+          "viewport": "1536x1024",
+          "url": "http://localhost:4180/w/demo?page=students",
+          "capturedAt": "2026-09-14T08:37:10.763Z",
+          "productCommit": "399a5c48b538b4cab8177d2bccb82011671db763",
+          "sha256": "CA86CD9B4BF723D9B26CC85026B25D689C18D2DEE069E839752E56E45ECF70E1",
+          "scenario": "demo",
+          "role": "first-viewport"
+        },
+        {
+          "path": "docs/visual-baseline/current/V2-STUDENTS-399a5c4/demo/referenceMobile-students.webp",
+          "kind": "mobile",
+          "viewport": "390x844",
+          "url": "http://localhost:4180/w/demo?page=students",
+          "capturedAt": "2026-09-14T08:37:10.763Z",
+          "productCommit": "399a5c48b538b4cab8177d2bccb82011671db763",
+          "sha256": "C91C0D62A355D76933200F1087588B9C98399E301BD9C316CDEA5803FDE18DEB",
+          "scenario": "demo",
+          "role": "first-viewport"
+        }
+      ],
+      "comparisons": [
+        {
+          "path": "docs/visual-baseline/comparisons/V2-STUDENTS-399a5c4-C3-desktop.webp",
+          "kind": "desktop",
+          "viewport": "1536x1024",
+          "url": "http://localhost:4180/w/demo?page=students",
+          "capturedAt": "2026-09-14T08:41:07.830Z",
+          "productCommit": "399a5c48b538b4cab8177d2bccb82011671db763",
+          "sha256": "69482F18BD70A7613A60E407D93CDCE971AA958B3BC485EAF1F931B5A5F63A29",
+          "scenario": "demo",
+          "role": "comparison",
+          "referenceId": "C3"
+        },
+        {
+          "path": "docs/visual-baseline/comparisons/V2-STUDENTS-399a5c4-mobile-before-after.webp",
+          "kind": "mobile",
+          "viewport": "390x844",
+          "url": "http://localhost:4180/w/demo?page=students",
+          "capturedAt": "2026-09-14T08:41:07.830Z",
+          "productCommit": "399a5c48b538b4cab8177d2bccb82011671db763",
+          "sha256": "340914B6BBCADC9919623385FA6F5A0AD11E76CCA2364C3EB6C772ED7719EDD7",
+          "scenario": "demo",
+          "role": "comparison",
+          "referenceId": "C3",
+          "referenceRole": "desktop-direction-only; no independent mobile original"
+        }
+      ],
+      "supervision": {
+        "status": "pending",
+        "reviewedProductCommit": null,
+        "report": null
+      },
+      "evidenceIndex": "docs/visual-baseline/logs/V2-STUDENTS-399a5c4/evidence-index.json",
+      "submissionNotes": "docs/visual-baseline/V2-STUDENTS-399a5c4-review.md"
     },
     "homework": {
       "label": "作业追踪",

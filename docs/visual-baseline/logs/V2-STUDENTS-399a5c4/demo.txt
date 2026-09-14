@@ -1,0 +1,8 @@
+page: students
+productCommit: 399a5c48b538b4cab8177d2bccb82011671db763
+command: node scripts/layout-audit.mjs --serve
+startedAt: 2026-09-14T08:36:44.184Z
+Layout audit passed: E:\文档\Codex\小红书\班主任工作台网站\.qa-shots\v2-students-confirm\demo\layout-audit.json
+
+
+exitCode: 0
