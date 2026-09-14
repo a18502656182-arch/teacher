@@ -74,7 +74,7 @@ export async function inspectStudents(page, viewport, screenshotDir, failures) {
     });
     await wait(180);
     interaction = await evaluate(() => {
-      const drawer = [...document.querySelectorAll('[role="dialog"]')].find(element => element.getClientRects().length > 0);
+      const drawer = [...document.querySelectorAll('dialog[open][data-presentation="drawer"], [role="dialog"]')].find(element => element.getClientRects().length > 0);
       return { opened: Boolean(drawer), title: drawer?.querySelector('h2,h3')?.textContent ?? '', hasFacts: drawer?.innerText.includes('近期成绩') && drawer?.innerText.includes('最近动态'), hasProfileAction: drawer?.innerText.includes('打开完整档案'), exposesPhone: /(?:^|\D)1\d{10}(?:\D|$)/.test(drawer?.innerText ?? '') };
     });
     if (screenshotDir && opened) {
