@@ -1,14 +1,14 @@
 {
   "schemaVersion": 1,
   "checkpointId": "V1-DASHBOARD-351880E-20260914",
-  "phase": "v1-dashboard-R6-R8-awaiting-supervision",
+  "phase": "v1-dashboard-R6-R8-alignment-rework",
   "gate": "V1",
   "page": "dashboard",
   "productCommit": "351880ee957aca334324f681be64348ce5dfc0ba",
   "executorThread": "codex://threads/01a09e19-8379-7f63-b537-7c54965c2044",
   "supervisorThread": null,
   "supervisionMode": "shared-checkpoint",
-  "status": "awaiting-supervisor-review",
+  "status": "needs-fix",
   "changedFiles": [
     "app/w/[token]/features/dashboard/DashboardView.module.css",
     "app/w/[token]/features/dashboard/DashboardView.tsx",
@@ -311,12 +311,12 @@
     }
   ],
   "review": {
-    "status": "pending",
-    "reviewedProductCommit": null,
-    "report": null
+    "status": "CHANGES_REQUESTED",
+    "reviewedProductCommit": "351880ee957aca334324f681be64348ce5dfc0ba",
+    "report": "docs/重构执行与监工资料包-20260914/supervision/reviews/V1-DASHBOARD-351880E-20260914.md"
   },
   "humanApproval": null,
-  "nextAction": "停止：监工先按本检查点复核351880e的R6–R8、R1–R5回归及完整图；收到新报告后再交用户确认。无通信工具，共享检查点等待报告；V2 blocked、humanApproval null，不自填PASS/user-approved。",
+  "nextAction": "仅修V1的R6、R8和四区对齐；补持久规范和新版本证据，先交监工再由用户看图。V2 blocked，humanApproval null。",
   "previousReview": {
     "status": "CHANGES_REQUESTED",
     "reviewedProductCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",

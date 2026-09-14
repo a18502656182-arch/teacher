@@ -57,6 +57,14 @@ This project is a homeroom-teacher daily workbench, not a marketing site or a ca
 - 每次提交视觉修改时同步更新 `trackers/visual-baseline.json`；完成门槛前运行 `npm run qa:visual-gate -- --gate Vn`。
 
 ## Core Principles
+### V1–V7持续对齐与构图验收
+
+每次视觉修改后，主动核对页面网格、上下模块列分界、列间距、标题/图标/表格及内容起点、内外边距、按钮基线、容器表达。无真实分组理由的分离/连体容器和无依据错位必须修正；不能用未经渲染验证的“故意设计”作为解释。
+
+允许有功能依据的不对称（例如课程时间列、提醒头像、插画位置），须逐项说明用途并提供局部图。不得靠等高大留白、裁内容、删真实数据或整页缩小来对齐。桌面、手机、空态及长内容均需核对；共享布局修改后复查受影响页面及已批准页面。
+
+固定视口图、连续滚动图与局部对照应同时支撑结论。自动测试通过不代表对齐与构图通过，此要求持续覆盖V1–V7，不仅适用于首页四区。
+
 
 - Design as an operational workbench first.
 - Prefer tables, toolbars, aligned fields, separators, and clear spacing.

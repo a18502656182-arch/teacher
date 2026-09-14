@@ -86,11 +86,14 @@ export async function inspectDashboard(page, viewport, screenshotDir, failures) 
     const style = getComputedStyle(primary);
     const luminance = rgb => rgb.match(/[\d.]+/g).slice(0, 3).map(Number).map(n => n / 255).map(n => n <= .04045 ? n / 12.92 : ((n + .055) / 1.055) ** 2.4).reduce((sum, n, i) => sum + n * [.2126, .7152, .0722][i], 0);
     const fg = luminance(style.color), bg = luminance(style.backgroundColor);
+    const artwork = el => el ? { box: box(el), source: el.currentSrc, naturalWidth: el.naturalWidth, naturalHeight: el.naturalHeight, fit: getComputedStyle(el).objectFit, position: getComputedStyle(el).objectPosition } : null;
     return {
       url: location.href, title: document.title, userAgent: navigator.userAgent, viewport: { width: innerWidth, height: innerHeight, dpr: devicePixelRatio },
       fixture: window.__dashboardFixture ?? { scenario: 'unchanged-demo' },
       headings: [...root.querySelectorAll('h2')].map(el => el.textContent),
       visualRoles: {
+        sceneArtwork: artwork(root.querySelector('[data-artwork-role="home.scene"]')),
+        stationeryArtwork: artwork(article.querySelector('[class*="stationery"] img')),
         heading: root.querySelector('h1')?.textContent,
         headingSize: getComputedStyle(root.querySelector('h1')).fontSize,
         dateSize: getComputedStyle(root.querySelector('header time')).fontSize,
@@ -104,6 +107,12 @@ export async function inspectDashboard(page, viewport, screenshotDir, failures) 
       primary: { color: style.color, background: style.backgroundColor, contrast: (Math.max(fg, bg) + .05) / (Math.min(fg, bg) + .05) },
       stage: box(root.querySelector('[aria-label="今日班务总览"]')),
       lower: box(root.querySelector('[class*="lower"]')),
+      alignment: [...root.querySelectorAll('article')].map(el => {
+        const header = el.querySelector('header');
+        const css = getComputedStyle(el);
+        return { title: el.querySelector('h2').textContent, box: box(el), header: box(header), icon: box(header.querySelector('.campus-icon')), heading: box(el.querySelector('h2')), content: box(header.nextElementSibling), padding: [css.paddingTop, css.paddingRight, css.paddingBottom, css.paddingLeft], border: css.borderTopWidth, radius: css.borderRadius, action: box(header.querySelector('button')), grid: getComputedStyle(el.parentElement).gridTemplateColumns, gap: getComputedStyle(el.parentElement).columnGap };
+      }),
+      taskActions: [...root.querySelectorAll('[class*="tasks"] > button:not(:last-child)')].map(el => ({ label: el.querySelector('b').textContent, action: el.querySelector('[class*="taskAction"]')?.textContent, icon: box(el.querySelector('.campus-icon')), iconPadding: getComputedStyle(el.querySelector('.campus-icon')).padding, nestedButtons: el.querySelectorAll('button').length })),
       courseCount: root.querySelectorAll('ol li').length,
       horizontalOverflow: document.documentElement.scrollWidth > innerWidth + 1,
     };
@@ -113,6 +122,17 @@ export async function inspectDashboard(page, viewport, screenshotDir, failures) 
   if (viewport.width <= 900 && metrics.date.groups.some(group => group.whiteSpace !== 'nowrap')) failures.push('Dashboard date groups can break inside a semantic word.');
   if (viewport.width > 900 && metrics.primary.contrast < 4.5) failures.push(`Dashboard primary contrast ${metrics.primary.contrast} < 4.5.`);
   if (metrics.horizontalOverflow) failures.push('Dashboard horizontal overflow.');
+  const near = (a, b) => Math.abs(a - b) <= 1;
+  const regions = metrics.alignment;
+  for (const [a, b] of (viewport.width > 900 ? [[0, 2], [1, 3]] : [[0, 1], [0, 2], [0, 3]])) {
+    for (const field of ['box', 'header', 'heading', 'icon', 'content']) {
+      if (!near(regions[a][field].x, regions[b][field].x)) failures.push(`Dashboard ${field} starts misaligned: ${regions[a].title} / ${regions[b].title}`);
+    }
+    if (!near(regions[a].box.width, regions[b].box.width) || regions[a].gap !== regions[b].gap || regions[a].radius !== regions[b].radius) failures.push('Dashboard region widths/gaps/container expressions differ.');
+  }
+  if (metrics.taskActions.some(action => !action.action || action.icon.width < 36 || action.nestedButtons)) failures.push('Dashboard task action/icon contract failed.');
+  if (metrics.visualRoles.stationeryArtwork?.fit !== 'contain') failures.push('Dashboard stationery must preserve the complete subject.');
+  if (viewport.width > 900 && metrics.visualRoles.sceneArtwork?.fit !== 'contain') failures.push('Dashboard classroom foreground must not be cover-cropped.');
   const sequence = [];
   if (screenshotDir) {
     let done = false;
@@ -148,6 +168,25 @@ export async function inspectDashboard(page, viewport, screenshotDir, failures) 
     if (!metrics.bottom.safe) failures.push('Dashboard last action is covered by the bottom navigation.');
   }
   metrics.scrollSequence = sequence;
+  metrics.localCaptures = [];
+  if (screenshotDir) {
+    for (const region of ['tasks', 'agenda', 'dictation', 'duty', 'attention', ...(viewport.width > 900 ? ['four-regions'] : [])]) {
+      const clip = await evaluate(async region => {
+        const root = [...document.querySelectorAll('[aria-labelledby="dashboard-title"]')].find(el => el.getClientRects().length);
+        const el = region === 'four-regions' ? root.querySelector('[class*="middle"]') : root.querySelector(`[class*="${region}"]`);
+        el.scrollIntoView({ block: region === 'four-regions' ? 'start' : 'center', behavior: 'instant' });
+        if (region === 'four-regions') window.scrollBy(0, -90);
+        await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+        const r = el.getBoundingClientRect();
+        const bottom = region === 'four-regions' ? root.querySelector('[class*="lower"]').getBoundingClientRect().bottom : r.bottom;
+        return { x: r.x + scrollX, y: r.y + scrollY, width: r.width, height: bottom - r.y, scale: 1 };
+      }, region);
+      const shot = await page.send('Page.captureScreenshot', { format: 'png', fromSurface: true, captureBeyondViewport: true, clip });
+      const file = `${viewport.name}-local-${region}.png`;
+      writeFileSync(path.join(screenshotDir, file), Buffer.from(shot.data, 'base64'));
+      metrics.localCaptures.push({ region, file, clip, nativeScale: 1 });
+    }
+  }
   metrics.interactions = [];
   if (viewport.width <= 900) {
     for (const [label, destination] of [['学生名单', 'students'], ['听写与复习', 'dictation'], ['作业追踪', 'homework'], ['值日安排', 'duty']]) {

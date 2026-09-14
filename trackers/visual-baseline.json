@@ -70,7 +70,7 @@
       "pages": [
         "dashboard"
       ],
-      "status": "awaiting-user-review",
+      "status": "needs-fix",
       "pauseRequired": true,
       "userApproval": {
         "approved": false,
@@ -182,10 +182,12 @@
         "C1",
         "C5"
       ],
-      "status": "ready-for-review",
+      "status": "needs-fix",
       "requiredComparisons": 2,
       "issues": [
-        "R6–R8修复候选待监工独立读图确认，不继承已撤回PASS"
+        "R6 图标本体和带文字动作区视觉重量",
+        "R8 教室前景及听写文具主体裁切",
+        "追加 四区网格、标题/图标/内容起点及容器统一"
       ],
       "productCommit": "351880ee957aca334324f681be64348ce5dfc0ba",
       "currentEvidence": [
@@ -239,9 +241,9 @@
         }
       ],
       "supervision": {
-        "status": "pending",
-        "reviewedProductCommit": null,
-        "report": null
+        "status": "CHANGES_REQUESTED",
+        "reviewedProductCommit": "351880ee957aca334324f681be64348ce5dfc0ba",
+        "report": "docs/重构执行与监工资料包-20260914/supervision/reviews/V1-DASHBOARD-351880E-20260914.md"
       },
       "reviewHistory": [
         {

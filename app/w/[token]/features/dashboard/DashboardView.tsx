@@ -14,8 +14,8 @@ function DashboardScene() {
   const desktop = theme.artworkByRole['entry.scene'];
   const mobile = theme.artworkByRole['home.scene'];
   if (!desktop) return <ThemeArtwork slot="dashboard"/>;
-  return <picture><source media="(max-width: 600px)" srcSet={mobile?.mobileSrc ?? desktop.src}/>
-    <img className="campus-art" src={desktop.src} width={desktop.width} height={desktop.height} alt="" aria-hidden="true" decoding="async" data-artwork-role="home.scene" style={{ objectFit: 'cover', objectPosition: '50% 48%' }}/>
+  return <picture data-dashboard-scene-frame><source media="(max-width: 600px)" srcSet={mobile?.mobileSrc ?? desktop.src}/>
+    <img className="campus-art" src={desktop.src} width={desktop.width} height={desktop.height} alt="" aria-hidden="true" decoding="async" data-artwork-role="home.scene"/>
   </picture>;
 }
 
@@ -55,10 +55,10 @@ export function DashboardView({ data, defaultDutyJobs, open, openFamily, openStu
     <section className={styles.stage} aria-label="今日班务总览">
       <div className={styles.tasks}>
         <div className={styles.sectionTitle}><span><CampusIcon name="check"/></span><div><h2>今天先做这些</h2><p>数字只统计当前班级和当前名册</p></div></div>
-        <button type="button" onClick={() => open('schedule')}><CampusIcon name="schedule"/><span><b>日程跟进</b><small>{model.overdueAgenda.length ? `${model.overdueAgenda.length} 项未完成事项已过日期` : todaySummary}</small></span><CampusIcon name="arrow"/></button>
-        <button type="button" onClick={() => open('homework')}><CampusIcon name="homework"/><span><b>作业跟进</b><small>{model.outstandingHomework ? `${model.outstandingHomework} 人次待处理` : '当前名册没有未完成状态'}</small></span><CampusIcon name="arrow"/></button>
-        <button type="button" onClick={() => open('records')}><CampusIcon name="records"/><span><b>家校跟进</b><small>{model.pendingCommunication.length ? `${model.pendingCommunication.length} 条约定待跟进` : '暂无待跟进沟通记录'}</small></span><CampusIcon name="arrow"/></button>
-        <button type="button" onClick={() => open('dictation')}><CampusIcon name="dictation"/><span><b>听写批改</b><small>{model.currentDictation ? `${model.currentDictation.title} · ${taskState(model.currentDictation)}` : '还没有班级听写任务'}</small></span><CampusIcon name="arrow"/></button>
+        <button type="button" onClick={() => open('schedule')}><CampusIcon name="schedule"/><span className={styles.taskCopy}><b>日程跟进</b><small>{model.overdueAgenda.length ? `${model.overdueAgenda.length} 项未完成事项已过日期` : todaySummary}</small></span><span className={styles.taskAction}>查看<CampusIcon name="arrow"/></span></button>
+        <button type="button" onClick={() => open('homework')}><CampusIcon name="homework"/><span className={styles.taskCopy}><b>作业跟进</b><small>{model.outstandingHomework ? `${model.outstandingHomework} 人次待处理` : '当前名册没有未完成状态'}</small></span><span className={styles.taskAction}>处理<CampusIcon name="arrow"/></span></button>
+        <button type="button" onClick={() => open('records')}><CampusIcon name="records"/><span className={styles.taskCopy}><b>家校跟进</b><small>{model.pendingCommunication.length ? `${model.pendingCommunication.length} 条约定待跟进` : '暂无待跟进沟通记录'}</small></span><span className={styles.taskAction}>查看<CampusIcon name="arrow"/></span></button>
+        <button type="button" onClick={() => open('dictation')}><CampusIcon name="dictation"/><span className={styles.taskCopy}><b>听写批改</b><small>{model.currentDictation ? `${model.currentDictation.title} · ${taskState(model.currentDictation)}` : '还没有班级听写任务'}</small></span><span className={styles.taskAction}>进入<CampusIcon name="arrow"/></span></button>
         <Button intent="primary" onClick={() => open(model.primary.id)}>{model.primary.label}<CampusIcon name="arrow"/></Button>
       </div>
       <div className={styles.scene}>
@@ -77,7 +77,7 @@ export function DashboardView({ data, defaultDutyJobs, open, openFamily, openStu
       <article className={styles.dictation}>
         <header><div><span><CampusIcon name="dictation"/></span><div><h2>听写与复习</h2><p>未确认的批改不会计入结果</p></div></div><Button intent="text" onClick={() => open('dictation')}>进入听写</Button></header>
         {model.currentDictation ? <div className={styles.dictationBody}><div><h3>{model.currentDictation.title}</h3><p>{model.currentDictation.date} · {model.currentDictation.words.length} 个词</p><dl><div><dt>已批改</dt><dd>{model.dictationStats?.graded ?? 0}</dd></div><div><dt>待批改</dt><dd>{model.dictationStats?.pending ?? 0}</dd></div><div><dt>错词次</dt><dd>{model.dictationStats?.wrong ?? 0}</dd></div></dl></div></div> : <div className={styles.empty}><CampusIcon name="dictation"/><div><b>还没有班级听写任务</b><p>可从词库或自定义内容开始。</p></div></div>}
-        <div className={styles.stationery} aria-hidden="true"><Artwork role="dictation.grading" className="campus-art"/></div>
+        <div className={styles.stationery} aria-hidden="true"><Artwork role="empty.first-use" className="campus-art"/></div>
       </article>
     </section>
 

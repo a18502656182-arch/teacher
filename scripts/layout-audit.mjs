@@ -689,7 +689,8 @@ async function runRuntimeAudit(url) {
               mobileBlockingLayer: [...document.querySelectorAll('[role="dialog"], dialog[open], .mobile-bottom-sheet, .health-care-backdrop')].some((element) => element.getClientRects().length > 0),
               dashboardArtwork: (() => {
                 const image = [...document.querySelectorAll('[data-artwork-role="home.scene"]')].find((candidate) => candidate.getClientRects().length > 0);
-                const container = image?.parentElement?.tagName === 'PICTURE' ? image.parentElement.parentElement : image?.parentElement;
+                const frame = image?.closest('[data-dashboard-scene-frame]');
+                const container = frame ?? (image?.parentElement?.tagName === 'PICTURE' ? image.parentElement.parentElement : image?.parentElement);
                 if (!image || !container) return null;
                 const imageStyle = getComputedStyle(image);
                 const imageRect = rect(image);
@@ -697,6 +698,7 @@ async function runRuntimeAudit(url) {
                 return {
                   image: imageRect,
                   container: containerRect,
+                  frameHeightRatio: frame ? frame.getBoundingClientRect().height / frame.parentElement.getBoundingClientRect().height : 1,
                   objectFit: imageStyle.objectFit,
                   objectPosition: imageStyle.objectPosition,
                   inlineObjectFit: image.style.objectFit,
@@ -796,7 +798,7 @@ async function runRuntimeAudit(url) {
         if (data?.pointHeaderActionIssues?.length) failures.push(`Points header actions are styled or sized incorrectly: ${data.pointHeaderActionIssues.join(", ")}.`);
         if (data?.crowdedActionCells) failures.push(`Table action cells contain too many strong buttons (${data.crowdedActionCells}).`);
         if (data?.clippedSurfaces?.length) failures.push(`Visible surfaces are clipped outside the viewport: ${data.clippedSurfaces.join(", ")}.`);
-        if (pageId === "dashboard" && (!data?.dashboardArtwork || data.dashboardArtwork.widthRatio < 0.9 || data.dashboardArtwork.heightRatio < 0.9)) failures.push(`Dashboard scene artwork does not fill its intended container: ${JSON.stringify(data?.dashboardArtwork ?? null)}.`);
+        if (pageId === "dashboard" && (!data?.dashboardArtwork || data.dashboardArtwork.widthRatio < 0.9 || data.dashboardArtwork.heightRatio < 0.9 || data.dashboardArtwork.frameHeightRatio < 0.8)) failures.push(`Dashboard scene artwork does not fill its intended frame (summary excluded, frame at least 80% of scene): ${JSON.stringify(data?.dashboardArtwork ?? null)}.`);
         if (data?.content && viewport.width >= 1000 && data.viewportWidth - data.content.right > 40) failures.push("Main content leaves an abnormal right gap.");
         if (screenshotDir) {
           const shot = await page.send("Page.captureScreenshot", {
