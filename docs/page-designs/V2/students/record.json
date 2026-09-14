@@ -1,7 +1,7 @@
 {
   "pageId": "students",
   "batch": "V2",
-  "phase": "concept-review",
+  "phase": "prototype",
   "brief": "docs/page-designs/V2/students/brief.md",
   "functionMap": "docs/page-designs/V2/students/function-map.md",
   "geometry": null,
@@ -24,7 +24,7 @@
         "C3",
         "399a5c4 actual"
       ],
-      "approval": false
+      "approval": true
     },
     {
       "version": "C01",
@@ -41,7 +41,7 @@
       "inputSource": [
         "students-desktop-c01"
       ],
-      "approval": false
+      "approval": true
     }
   ],
   "prototype": {
@@ -82,7 +82,7 @@
       "description": "See brief: oversize rail, omitted scene switch, invented notification and record arrows, selection/batch inconsistency, conflicting student02 status."
     }
   ],
-  "nextAction": "等待用户确认C01桌面与手机方向；确认后制作隔离可运行稿",
+  "nextAction": "制作并审核学生隔离可运行P01；V2三页D前不接业务",
   "history": [
     {
       "date": "2026-09-14",
@@ -91,11 +91,14 @@
   ],
   "sourceState": "docs/page-designs/V2/recovery/source-state.json",
   "conceptApproval": {
-    "approved": false,
-    "source": null,
-    "approvedAt": null,
-    "candidateVersion": null,
-    "evidenceHashes": []
+    "approved": true,
+    "source": "本任务用户在C01桌面/手机展示后明确回复：方向确认（2026-09-14）",
+    "approvedAt": "2026-09-14",
+    "candidateVersion": "C01",
+    "evidenceHashes": [
+      "DEBF43572AE299C123A0A4C8C8442DA48DC8E935CBBD4B277C42848D1AC62184",
+      "A0BCD75AC7CE63E1C5710E95B8B3ED894F08C97475BB6B64ABFAEE62C44BB0D0"
+    ]
   },
   "inventoryCommit": "8a810a3dc56660cb54cfce71b70bc495dfdb4ff0",
   "candidateCommit": "8a810a3dc56660cb54cfce71b70bc495dfdb4ff0"

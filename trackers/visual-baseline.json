@@ -556,7 +556,7 @@
       "submissionNotes": "docs/visual-baseline/V2-STUDENTS-399a5c4-review.md",
       "directionProposal": "docs/visual-baseline/V2-STUDENTS-C3-REALIGNMENT-PROPOSAL.md",
       "recordPath": "docs/page-designs/V2/students/record.json",
-      "recordSha256": "ABC28F0D518D384AC7CD4D2045273F3FCF95A54FD4C902C355A2CE6BD4260142"
+      "recordSha256": "CE0EA6D0BEF8DDD74C44CB780C474BE604010FE795736499CA22868621A0D206"
     },
     "homework": {
       "label": "作业追踪",
@@ -776,6 +776,6 @@
     "legacyFields": "status/productCommit/currentEvidence/comparisons/userApproval retain historical product evidence; D/R uses linked records",
     "entry": "docs/逐页设计定稿与实施包-20260914/00-从这里开始.md",
     "activeBatch": "V2",
-    "nextAction": "students C01 concept confirmation; no runnable design or formal integration permitted yet"
+    "nextAction": "students C01 confirmed; standalone P01 in progress; no batch D approval"
   }
 }

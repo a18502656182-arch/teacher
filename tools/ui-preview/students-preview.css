@@ -1,0 +1,13 @@
+html,body { margin:0; padding:0; font-family:'Microsoft YaHei',system-ui,sans-serif; }
+* { box-sizing:border-box; }
+button,input,textarea,select { font:inherit; }
+button,a,input,select,textarea { outline-offset:3px; }
+button { cursor:pointer; }
+button:disabled { cursor:default; }
+.sr-only { position:absolute; width:1px; height:1px; clip-path:inset(50%); overflow:hidden; }
+.design-controls { position:fixed; bottom:4px; left:8px; z-index:45; max-width:225px; background:#fff; color:#35576d; font-size:11px; border:1px solid #cbdce6; border-radius:5px; }
+.design-controls summary { cursor:pointer; padding:4px 8px; }
+.design-controls label,.design-controls p { display:block; margin:8px; }
+.design-controls select { width:100%; }
+.design-loading { padding:70px 30px; color:#35576d; background:white; }
+@media(max-width:900px) { .design-controls { position:static; max-width:none; margin:0 16px 82px; } }

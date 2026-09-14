@@ -1,5 +1,11 @@
 # 长期决策记录
 
+## 2026-09-14：隔离稿保存唯一展示实现，候选确认不升级为D
+
+用户“方向确认”只绑定学生C01两个候选hash。学生P01放在app/designs/students，正式入口不导入；后续D批准后直接复用同一组件，将现有controller/data/update注入。独立预览只模拟宿主响应，不能证明业务保存。为避免依赖在途未提交接口，显示层兼容既有字符串和结构化近期状态，排序选择仍归controller。
+
+新素材与局部规则跟随该组件，避免未接入资产触发共享首页样式回归或覆盖共享设计。当前手机插画横带是P01实际差异，尚待审看；本批三页D和R门槛不变。
+
 ## 2026-09-14：schema 3承载新审核，旧字段保留历史含义
 
 主账本recordPath/recordSha256链接逐页record；旧page.status、productCommit、currentEvidence及history不自动成为D/R批准。V1已有用户批准保留原范围。schema 2保留历史校验，schema 3不强制监工PASS；新门槛命令必须明确design-review、integration、result-review或next-batch阶段。候选图不替代可运行设计，本批三页D是接入前提，三页R是下一批前提。
