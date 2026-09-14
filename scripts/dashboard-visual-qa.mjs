@@ -133,8 +133,8 @@ export async function inspectDashboard(page, viewport, screenshotDir, failures) 
     if (!near(regions[a].box.width, regions[b].box.width) || regions[a].gap !== regions[b].gap || regions[a].radius !== regions[b].radius) failures.push('Dashboard region widths/gaps/container expressions differ.');
   }
   if (metrics.taskActions.some(action => !action.action || action.icon.width < 36 || action.nestedButtons)) failures.push('Dashboard task action/icon contract failed.');
-  if (metrics.visualRoles.stationeryArtwork?.fit !== 'contain') failures.push('Dashboard stationery must preserve the complete subject.');
-  if (viewport.width > 900 && metrics.visualRoles.sceneArtwork?.fit !== 'contain') failures.push('Dashboard classroom foreground must not be cover-cropped.');
+  if (!metrics.visualRoles.stationeryArtwork?.source.includes('word-cards.webp') || metrics.visualRoles.stationeryArtwork.box.width < (viewport.width > 900 ? 300 : 260)) failures.push('Dashboard stationery local adaptation is too small or uses the wrong source.');
+  if (viewport.width > 900 && (!metrics.visualRoles.sceneArtwork?.source.includes('classroom-morning-wide.webp') || metrics.visualRoles.sceneArtwork.naturalWidth / metrics.visualRoles.sceneArtwork.naturalHeight < 2.1)) failures.push('Dashboard classroom must use the reviewed wide crop rather than runtime contain/cover compromise.');
   if (viewport.width > 900 && metrics.visualRoles.sceneFrame.bottom > metrics.visualRoles.sceneSummary.y + 1) failures.push('Dashboard summary overlaps the classroom frame.');
   if (viewport.width > 900) {
     for (const [a, b] of [[0, 1], [2, 3]]) {
@@ -180,7 +180,7 @@ export async function inspectDashboard(page, viewport, screenshotDir, failures) 
   metrics.scrollSequence = sequence;
   metrics.localCaptures = [];
   if (screenshotDir) {
-    for (const region of ['tasks', 'agenda', 'dictation', 'duty', 'attention', ...(viewport.width > 900 ? ['four-regions'] : [])]) {
+    for (const region of ['scene', 'tasks', 'agenda', 'dictation', 'duty', 'attention', ...(viewport.width > 900 ? ['four-regions'] : [])]) {
       const clip = await evaluate(async region => {
         const root = [...document.querySelectorAll('[aria-labelledby="dashboard-title"]')].find(el => el.getClientRects().length);
         const el = region === 'four-regions' ? root.querySelector('[class*="middle"]') : root.querySelector(`[class*="${region}"]`);

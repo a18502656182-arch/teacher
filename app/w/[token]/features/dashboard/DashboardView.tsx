@@ -14,8 +14,11 @@ function DashboardScene() {
   const desktop = theme.artworkByRole['entry.scene'];
   const mobile = theme.artworkByRole['home.scene'];
   if (!desktop) return <ThemeArtwork slot="dashboard"/>;
+  // The source is 3:2 but this V1 frame is about 2.13:1. This reviewed local
+  // crop keeps the blackboard, teaching desk and foreground desk together.
+  const dashboardDesktopSrc = '/art/campus/classroom-morning-wide.webp';
   return <picture data-dashboard-scene-frame><source media="(max-width: 600px)" srcSet={mobile?.mobileSrc ?? desktop.src}/>
-    <img className="campus-art" src={desktop.src} width={desktop.width} height={desktop.height} alt="" aria-hidden="true" decoding="async" data-artwork-role="home.scene"/>
+    <img className="campus-art" src={dashboardDesktopSrc} width={960} height={450} alt="" aria-hidden="true" decoding="async" data-artwork-role="home.scene"/>
   </picture>;
 }
 

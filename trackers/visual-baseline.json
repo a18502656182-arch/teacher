@@ -70,7 +70,7 @@
       "pages": [
         "dashboard"
       ],
-      "status": "awaiting-user-review",
+      "status": "needs-fix",
       "pauseRequired": true,
       "userApproval": {
         "approved": false,
@@ -182,10 +182,11 @@
         "C1",
         "C5"
       ],
-      "status": "ready-for-review",
+      "status": "needs-fix",
       "requiredComparisons": 2,
       "issues": [
-        "R6 图标/动作、R8主体裁切及四区对齐已提交新候选，须监工独立读图；不自判关闭"
+        "R8a 教室场景主体、占比与右区融合尚未同时成立",
+        "R8b 听写文具完整但视觉重量不足、与模块下沿脱节"
       ],
       "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
       "currentEvidence": [
@@ -239,9 +240,9 @@
         }
       ],
       "supervision": {
-        "status": "pending",
-        "reviewedProductCommit": null,
-        "report": null
+        "status": "CHANGES_REQUESTED",
+        "reviewedProductCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+        "report": "docs/重构执行与监工资料包-20260914/supervision/reviews/V1-DASHBOARD-04E5ABF-20260914.md"
       },
       "reviewHistory": [
         {

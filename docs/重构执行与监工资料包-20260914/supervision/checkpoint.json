@@ -1,14 +1,14 @@
 {
   "schemaVersion": 1,
   "checkpointId": "V1-DASHBOARD-04E5ABF-20260914",
-  "phase": "v1-dashboard-R6-R8-alignment-awaiting-supervision",
+  "phase": "v1-dashboard-R8-local-adaptation",
   "gate": "V1",
   "page": "dashboard",
   "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
   "executorThread": "codex://threads/01a09e19-8379-7f63-b537-7c54965c2044",
   "supervisorThread": null,
   "supervisionMode": "shared-checkpoint",
-  "status": "awaiting-supervisor-review",
+  "status": "needs-fix",
   "changedFiles": [
     "AGENTS.md",
     "VISUAL_BASELINE.md",
@@ -425,12 +425,12 @@
     }
   ],
   "review": {
-    "status": "pending",
-    "reviewedProductCommit": null,
-    "report": null
+    "status": "CHANGES_REQUESTED",
+    "reviewedProductCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+    "report": "docs/重构执行与监工资料包-20260914/supervision/reviews/V1-DASHBOARD-04E5ABF-20260914.md"
   },
   "humanApproval": null,
-  "nextAction": "停止产品修改：请监工检查最新检查点04e5abf，合并复核351880e报告R6/R8与用户四区对齐追加要求。监工先审，再由用户看实际图明确批准V1。无通信工具，等待共享报告；V2 blocked，不自填PASS/user-approved。",
+  "nextAction": "仅继续V1 R8a/R8b局部插画适配；保留R6/R7与四区对齐。提交新产品及同版本证据后先交监工，V2 blocked、humanApproval null。",
   "previousReview": {
     "status": "CHANGES_REQUESTED",
     "reviewedProductCommit": "351880ee957aca334324f681be64348ce5dfc0ba",
