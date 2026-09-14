@@ -47,6 +47,9 @@ This project is a homeroom-teacher daily workbench, not a marketing site or a ca
 
 ## 视觉纠偏门槛
 
+- 本轮执行与监工交接资料入口为 `docs/重构执行与监工资料包-20260914/00-使用说明.md`。执行者管理代码与账本；监工仅写该包 supervision/reviews 内报告，不并行修改产品或Git索引。
+- C1-C6明确要求的功能性色彩分区、插画容器与页面构图优先于下方通用“表格优先/避免面板”偏好；后者不得用于抹掉参考图设计。真实性、可用性与禁止无意义嵌套仍有效。
+
 - 当前视觉纠偏按 `VISUAL_BASELINE.md` 的 V1-V7 执行：V1单独首页，此后每三个教师页面暂停一次；家庭教育排除。
 - 每一门完成后必须向用户展示固定视口桌面/手机实际图及参考对照，等待用户明确确认。没有确认不得开始下一门，也不得把门槛或页面写成 `user-approved`。
 - 修改共享CSS、`.campus-art`、主题、WorkbenchShell、断点或公共控件后，所有已批准门槛必须改为待回归并重新截图。
