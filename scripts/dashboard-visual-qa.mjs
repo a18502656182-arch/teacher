@@ -16,6 +16,8 @@ function installFixture(scenario, date) {
     };
   }
   if (!scenario) return;
+  // Clear only this run's synthetic workspace draft between viewport navigations.
+  window.localStorage.removeItem('classroom-workspace-draft:qa-visual');
   const nativeFetch = window.fetch.bind(window);
   window.__dashboardFixture = { scenario, date, workspaceWrites: 0 };
   window.fetch = async (input, options) => {
@@ -45,7 +47,8 @@ function installFixture(scenario, date) {
     data.scheduleEvents = [];
     data.dailyFocus = [];
     data.dutyJobs = [];
-    data.classDutySettings = { 'qa-a': { jobs: [] }, 'qa-b': { jobs: [] } };
+    const disabledJobs = [{ id: 'qa-disabled', name: '合成已停用岗位', area: '', standard: '', enabled: false }];
+    data.classDutySettings = { 'qa-a': { jobs: disabledJobs }, 'qa-b': { jobs: disabledJobs } };
     const periods = Array.from({ length: 8 }, (_, i) => ({ label: `第${i + 1}节`, time: `${String(8 + i).padStart(2, '0')}:00-${String(8 + i).padStart(2, '0')}:40` }));
     data.classSchedules = {
       'qa-a': { config: { days: [scenario === 'large' ? '周一' : '周二'], periods }, courses: [periods.map((_, i) => `合成课程${i + 1}`)], events: [], focuses: [], weeks: [] },
@@ -105,13 +108,14 @@ export async function inspectDashboard(page, viewport, screenshotDir, failures) 
   if (screenshotDir) {
     let done = false;
     for (let index = 0; index < 20 && !done; index++) {
-      const position = await evaluate((index) => {
+      const position = await evaluate(async (index) => {
         const content = [...document.querySelectorAll('[aria-labelledby="dashboard-title"]')].find(el => el.getClientRects().length);
         let scroller = content.parentElement;
         while (scroller && !(scroller.scrollHeight > scroller.clientHeight + 1 && /auto|scroll/.test(getComputedStyle(scroller).overflowY))) scroller = scroller.parentElement;
         scroller ??= document.scrollingElement;
         const step = Math.max(200, (scroller === document.scrollingElement ? innerHeight : scroller.clientHeight) - 180);
-        scroller.scrollTop = index * step;
+        scroller.scrollTo({ top: index * step, behavior: 'instant' });
+        await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
         return { top: scroller.scrollTop, height: scroller.scrollHeight, clientHeight: scroller.clientHeight, atEnd: scroller.scrollTop + scroller.clientHeight >= scroller.scrollHeight - 2 };
       }, index);
       await wait(100);
