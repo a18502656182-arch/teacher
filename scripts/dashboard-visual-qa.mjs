@@ -147,10 +147,12 @@ export async function inspectDashboard(page, viewport, screenshotDir, failures) 
       let actual;
       for (let i = 0; i < 30; i++) {
         actual = await evaluate(() => [...document.querySelectorAll('[data-module]')].find(el => el.getClientRects().length)?.dataset.module);
-        if (actual === destination) break;
+        const loaded = await evaluate(() => ![...document.querySelectorAll('[data-workspace-loading]')].some(el => el.getClientRects().length));
+        if (actual === destination && loaded) break;
         await wait(100);
       }
-      const state = await evaluate(() => ({ url: location.href, visibleHeadings: [...document.querySelectorAll('h1,h2')].filter(el => el.getClientRects().length).map(el => el.textContent), loading: Boolean(document.querySelector('[data-workspace-loading]')) }));
+      const state = await evaluate(() => ({ url: location.href, visibleHeadings: [...document.querySelectorAll('h1,h2')].filter(el => el.getClientRects().length).map(el => el.textContent), loading: [...document.querySelectorAll('[data-workspace-loading]')].some(el => el.getClientRects().length), visibleContent: document.body.innerText.slice(0, 600) }));
+      if (state.loading) failures.push(`Dashboard quick action ${label} remained loading.`);
       metrics.interactions.push({ label, expected: destination, actual, clicked, ...state });
       if (screenshotDir) {
         const shot = await page.send('Page.captureScreenshot', { format: 'png', fromSurface: true, captureBeyondViewport: false });

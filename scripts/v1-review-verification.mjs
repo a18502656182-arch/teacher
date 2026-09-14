@@ -18,6 +18,7 @@ const commands = [
 ];
 const manifest = { productCommit, startedAt: new Date().toISOString(), node: process.version, platform: process.platform, tests: [] };
 for (const [id, command, environment = {}] of commands) {
+  if (process.argv[3] && !process.argv[3].split(',').includes(id)) continue;
   const dir = path.join(out, id);
   mkdirSync(dir, { recursive: true });
   const startedAt = new Date().toISOString();
