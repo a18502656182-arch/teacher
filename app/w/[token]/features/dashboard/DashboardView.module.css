@@ -39,7 +39,9 @@
 @media(prefers-reduced-motion:reduce){.dashboard *{scroll-behavior:auto!important}}
 /* Shared anatomy inside V1 only: headers and work-surface origins, not forced equal heights. */
 .sectionTitle>span>:global(.campus-icon),.middle article>header>div>span>:global(.campus-icon),.lower article>header>div>span>:global(.campus-icon){width:36px;height:36px;stroke-width:2}
+.middle article>header>div,.lower article>header>div{align-items:flex-start}
 .middle article>header,.lower article>header{align-items:flex-start;min-height:50px}.middle article>header :global(.campus-button),.lower article>header :global(.campus-button){margin-top:3px}
 .agenda ol,.agenda>.empty,.dictationBody,.dictation>.empty,.dutyList,.attention ul{padding-inline:12px}
 .attention ul{background:var(--home-paper);border-radius:10px}.attention li button{grid-template-columns:36px minmax(62px,.45fr) minmax(0,1fr) 18px}
 @media(max-width:900px){.middle,.lower{gap:16px}.middle article>header,.lower article>header{min-height:50px}.agenda ol{padding-inline:0}.attention li button{grid-template-columns:34px minmax(58px,.38fr) minmax(0,1fr) 18px}}
+@media(min-width:901px) and (max-width:1180px){.middle article>header,.lower article>header{min-height:72px}.sceneSummary{display:grid;grid-template-columns:auto minmax(0,1fr);grid-template-rows:18px 16px;align-content:center;gap:2px 12px;height:58px;padding:6px 14px}.sceneSummary span{grid-row:span 2;align-self:center}.sceneSummary b{font-size:14px;line-height:18px}.sceneSummary small{grid-column:2;width:auto;margin:0;font-size:12px;line-height:16px;text-align:left}}

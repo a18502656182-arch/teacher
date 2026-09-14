@@ -93,6 +93,8 @@ export async function inspectDashboard(page, viewport, screenshotDir, failures) 
       headings: [...root.querySelectorAll('h2')].map(el => el.textContent),
       visualRoles: {
         sceneArtwork: artwork(root.querySelector('[data-artwork-role="home.scene"]')),
+        sceneFrame: box(root.querySelector('[data-dashboard-scene-frame]')),
+        sceneSummary: box(root.querySelector('[class*="sceneSummary"]')),
         stationeryArtwork: artwork(article.querySelector('[class*="stationery"] img')),
         heading: root.querySelector('h1')?.textContent,
         headingSize: getComputedStyle(root.querySelector('h1')).fontSize,
@@ -133,6 +135,14 @@ export async function inspectDashboard(page, viewport, screenshotDir, failures) 
   if (metrics.taskActions.some(action => !action.action || action.icon.width < 36 || action.nestedButtons)) failures.push('Dashboard task action/icon contract failed.');
   if (metrics.visualRoles.stationeryArtwork?.fit !== 'contain') failures.push('Dashboard stationery must preserve the complete subject.');
   if (viewport.width > 900 && metrics.visualRoles.sceneArtwork?.fit !== 'contain') failures.push('Dashboard classroom foreground must not be cover-cropped.');
+  if (viewport.width > 900 && metrics.visualRoles.sceneFrame.bottom > metrics.visualRoles.sceneSummary.y + 1) failures.push('Dashboard summary overlaps the classroom frame.');
+  if (viewport.width > 900) {
+    for (const [a, b] of [[0, 1], [2, 3]]) {
+      for (const field of ['heading', 'icon', 'content', 'action']) {
+        if (!near(regions[a][field].y, regions[b][field].y)) failures.push(`Dashboard row ${field} baselines differ: ${regions[a].title} / ${regions[b].title}`);
+      }
+    }
+  }
   const sequence = [];
   if (screenshotDir) {
     let done = false;
