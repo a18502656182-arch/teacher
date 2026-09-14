@@ -1,90 +1,85 @@
 {
   "schemaVersion": 1,
-  "checkpointId": "V1-DASHBOARD-692665D-20260914",
-  "phase": "v1-dashboard-rework-R6-R8",
+  "checkpointId": "V1-DASHBOARD-351880E-20260914",
+  "phase": "v1-dashboard-R6-R8-awaiting-supervision",
   "gate": "V1",
   "page": "dashboard",
-  "productCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
+  "productCommit": "351880ee957aca334324f681be64348ce5dfc0ba",
   "executorThread": "codex://threads/01a09e19-8379-7f63-b537-7c54965c2044",
   "supervisorThread": null,
   "supervisionMode": "shared-checkpoint",
-  "status": "needs-fix",
+  "status": "awaiting-supervisor-review",
   "changedFiles": [
-    "VISUAL_BASELINE.md",
     "app/w/[token]/features/dashboard/DashboardView.module.css",
     "app/w/[token]/features/dashboard/DashboardView.tsx",
     "docs/CHANGELOG.md",
     "docs/PROJECT_STATUS.md",
     "docs/重构执行与监工资料包-20260914/supervision/checkpoint.json",
-    "docs/重构执行与监工资料包-20260914/supervision/reviews/V1-DASHBOARD-25950B7-20260914.md",
+    "docs/重构执行与监工资料包-20260914/supervision/reviews/V1-DASHBOARD-692665D-20260914.md",
     "scripts/dashboard-visual-qa.mjs",
-    "scripts/layout-audit.mjs",
-    "scripts/v1-review-verification.mjs",
-    "scripts/visual-baseline-audit.mjs",
-    "tests/visual-baseline-audit.test.mjs",
     "trackers/visual-baseline.json"
   ],
   "evidence": [
     {
-      "path": "docs/visual-baseline/current/V1-692665d/demo/referenceDesktop-dashboard.webp",
+      "path": "docs/visual-baseline/current/V1-351880e/demo/referenceDesktop-dashboard.webp",
       "kind": "desktop",
       "viewport": "1536x1024",
       "url": "http://localhost:4180/w/demo?page=dashboard",
-      "capturedAt": "2026-09-14T05:07:08.867Z",
-      "productCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
-      "sha256": "D2CEC94433DEC86FAC6DA224CC07012C0248A2CD62F19BF14D32685765AD5C9E",
+      "capturedAt": "2026-09-14T05:53:06.073Z",
+      "productCommit": "351880ee957aca334324f681be64348ce5dfc0ba",
+      "sha256": "7B555544512C4B2F89DA6B2227E863603E293632C61BA88BFAD8D3C3D10805E3",
       "scenario": "demo",
       "role": "first-viewport"
     },
     {
-      "path": "docs/visual-baseline/current/V1-692665d/demo/referenceMobile-dashboard.webp",
+      "path": "docs/visual-baseline/current/V1-351880e/demo/referenceMobile-dashboard.webp",
       "kind": "mobile",
       "viewport": "390x844",
       "url": "http://localhost:4180/w/demo?page=dashboard",
-      "capturedAt": "2026-09-14T05:07:08.867Z",
-      "productCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
-      "sha256": "97BB8AB61030FF2708EF9011A6D5A5AA196F58FDE153F99B7DD5EB8B517C1CDF",
+      "capturedAt": "2026-09-14T05:53:06.073Z",
+      "productCommit": "351880ee957aca334324f681be64348ce5dfc0ba",
+      "sha256": "16C1E86849C5AFDB104ACC9F42E1D33B6FFEF819DEEB37E156DF8C9A852111B2",
       "scenario": "demo",
       "role": "first-viewport"
     },
     {
-      "path": "docs/visual-baseline/comparisons/V1-692665d-desktop.webp",
+      "path": "docs/visual-baseline/comparisons/V1-351880e-desktop.webp",
       "kind": "desktop",
       "viewport": "1536x1024",
       "url": "http://localhost:4180/w/demo?page=dashboard",
-      "capturedAt": "2026-09-14T05:07:08.867Z",
-      "productCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
-      "sha256": "C52B6C65C6448B2741C2D28D324D2FA5A9AF844E8868A66C94CC6CC6AAC8C77F",
+      "capturedAt": "2026-09-14T05:53:06.073Z",
+      "productCommit": "351880ee957aca334324f681be64348ce5dfc0ba",
+      "sha256": "ECD1B43DED7C4F582B2702FEF89732EFDD399098BDE3D5958E0AC09DC3A6A9A9",
       "scenario": "demo",
       "role": "comparison",
       "referenceId": "C1"
     },
     {
-      "path": "docs/visual-baseline/comparisons/V1-692665d-mobile.webp",
+      "path": "docs/visual-baseline/comparisons/V1-351880e-mobile.webp",
       "kind": "mobile",
       "viewport": "390x844",
       "url": "http://localhost:4180/w/demo?page=dashboard",
-      "capturedAt": "2026-09-14T05:07:08.867Z",
-      "productCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
-      "sha256": "2F82947A4BF2F744F86580D6C44BFCCE2624158D957E025685B559AD1B8BBC3D",
+      "capturedAt": "2026-09-14T05:53:06.073Z",
+      "productCommit": "351880ee957aca334324f681be64348ce5dfc0ba",
+      "sha256": "192A66907DD50242D4A648623237AB037C84F17C70D93C1F827BE312923EF102",
       "scenario": "demo",
       "role": "comparison",
       "referenceId": "C5"
     },
     {
-      "path": "docs/visual-baseline/current/V1-692665d/demo/desktop-continuous.webp",
+      "path": "docs/visual-baseline/current/V1-351880e/demo/desktop-continuous.webp",
       "kind": "desktop",
       "viewport": "1536x1024",
       "url": "http://localhost:4180/w/demo?page=dashboard",
-      "capturedAt": "2026-09-14T05:07:08.867Z",
-      "productCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
-      "sha256": "02A7B1145835510C3245C3684D2198B674691E40D97F8FB1F4735ECC29CD701C",
+      "capturedAt": "2026-09-14T05:53:06.073Z",
+      "productCommit": "351880ee957aca334324f681be64348ce5dfc0ba",
+      "sha256": "D0C3DA3389939E5958A390DFFF28AAFAD2B4A361B1148EE7AEA7DFD2CF1B530E",
       "scenario": "demo",
       "role": "contact-sheet",
       "scroll": {
         "file": "referenceDesktop-dashboard-scroll-00.png",
         "top": 0,
-        "height": 1276,
+        "height": 1294,
         "clientHeight": 1024,
         "atEnd": false
       },
@@ -92,19 +87,19 @@
       "columns": 1
     },
     {
-      "path": "docs/visual-baseline/current/V1-692665d/demo/mobile-continuous.webp",
+      "path": "docs/visual-baseline/current/V1-351880e/demo/mobile-continuous.webp",
       "kind": "mobile",
       "viewport": "390x844",
       "url": "http://localhost:4180/w/demo?page=dashboard",
-      "capturedAt": "2026-09-14T05:07:08.867Z",
-      "productCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
-      "sha256": "1D0BDBB01F929B4671A21A233EE779C5A5443E013C438318AABAE27CCE7AE25C",
+      "capturedAt": "2026-09-14T05:53:06.073Z",
+      "productCommit": "351880ee957aca334324f681be64348ce5dfc0ba",
+      "sha256": "D5600E8021D0ABB9C8D4C3C377D1DF5395DF00192CA25CE656BE43A6D2F959CB",
       "scenario": "demo",
       "role": "contact-sheet",
       "scroll": {
         "file": "referenceMobile-dashboard-scroll-00.png",
         "top": 0,
-        "height": 2199,
+        "height": 2297,
         "clientHeight": 844,
         "atEnd": false
       },
@@ -112,19 +107,19 @@
       "columns": 3
     },
     {
-      "path": "docs/visual-baseline/current/V1-692665d/large/desktop-continuous.webp",
+      "path": "docs/visual-baseline/current/V1-351880e/large/desktop-continuous.webp",
       "kind": "desktop",
       "viewport": "1536x1024",
       "url": "http://localhost:4180/w/qa-visual?page=dashboard",
-      "capturedAt": "2026-09-14T05:07:36.177Z",
-      "productCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
-      "sha256": "87BD6CAC496A57CE8859CE8DAF7BB6E22139F310C585E5EBA5D207025389B041",
+      "capturedAt": "2026-09-14T05:53:35.559Z",
+      "productCommit": "351880ee957aca334324f681be64348ce5dfc0ba",
+      "sha256": "C4247135BA197825FCE5B7057D61BC70915449B2356814B8C49DEF377DA1ACB5",
       "scenario": "large",
       "role": "contact-sheet",
       "scroll": {
         "file": "referenceDesktop-dashboard-scroll-00.png",
         "top": 0,
-        "height": 1242,
+        "height": 1270,
         "clientHeight": 1024,
         "atEnd": false
       },
@@ -132,39 +127,39 @@
       "columns": 1
     },
     {
-      "path": "docs/visual-baseline/current/V1-692665d/large/mobile-continuous.webp",
+      "path": "docs/visual-baseline/current/V1-351880e/large/mobile-continuous.webp",
       "kind": "mobile",
       "viewport": "390x844",
       "url": "http://localhost:4180/w/qa-visual?page=dashboard",
-      "capturedAt": "2026-09-14T05:07:36.177Z",
-      "productCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
-      "sha256": "F06307DCB3CD8D0B9CE9FC02981BD29C936BE316CEA3CED4E9734E3573CDBD4B",
+      "capturedAt": "2026-09-14T05:53:35.559Z",
+      "productCommit": "351880ee957aca334324f681be64348ce5dfc0ba",
+      "sha256": "72E0690F039AC3ACD169EF9DBB0D63F001A9D7B74A021EA5BB4F7D0DD2EF47BC",
       "scenario": "large",
       "role": "contact-sheet",
       "scroll": {
         "file": "referenceMobile-dashboard-scroll-00.png",
         "top": 0,
-        "height": 2075,
+        "height": 2234,
         "clientHeight": 844,
         "atEnd": false
       },
-      "frameCount": 3,
+      "frameCount": 4,
       "columns": 3
     },
     {
-      "path": "docs/visual-baseline/current/V1-692665d/empty/desktop-continuous.webp",
+      "path": "docs/visual-baseline/current/V1-351880e/empty/desktop-continuous.webp",
       "kind": "desktop",
       "viewport": "1536x1024",
       "url": "http://localhost:4180/w/qa-visual?page=dashboard",
-      "capturedAt": "2026-09-14T05:08:02.966Z",
-      "productCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
-      "sha256": "C9299A2CC6D2F33FB110CF6A9C3C8553F8A5DF160A44E460D9E610143AF194D9",
+      "capturedAt": "2026-09-14T05:54:03.772Z",
+      "productCommit": "351880ee957aca334324f681be64348ce5dfc0ba",
+      "sha256": "0593ED90F85B3A0A84A95649D2954B8E8EBE280A1D14727750FE73C6BD79EEE3",
       "scenario": "empty",
       "role": "contact-sheet",
       "scroll": {
         "file": "referenceDesktop-dashboard-scroll-00.png",
         "top": 0,
-        "height": 1049,
+        "height": 1127,
         "clientHeight": 1024,
         "atEnd": false
       },
@@ -172,170 +167,193 @@
       "columns": 1
     },
     {
-      "path": "docs/visual-baseline/current/V1-692665d/empty/mobile-continuous.webp",
+      "path": "docs/visual-baseline/current/V1-351880e/empty/mobile-continuous.webp",
       "kind": "mobile",
       "viewport": "390x844",
       "url": "http://localhost:4180/w/qa-visual?page=dashboard",
-      "capturedAt": "2026-09-14T05:08:02.966Z",
-      "productCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
-      "sha256": "9F86FF2E9A465D4D3C94365CA1B4AEAD6B7BB9DC92328E6955C1A2586A44762B",
+      "capturedAt": "2026-09-14T05:54:03.772Z",
+      "productCommit": "351880ee957aca334324f681be64348ce5dfc0ba",
+      "sha256": "DF48D038A43D15786A6AA03AD1164386F3A33EB9CC750FDFF433C369999D0C1D",
       "scenario": "empty",
       "role": "contact-sheet",
       "scroll": {
         "file": "referenceMobile-dashboard-scroll-00.png",
         "top": 0,
-        "height": 1903,
+        "height": 1972,
         "clientHeight": 844,
         "atEnd": false
       },
       "frameCount": 3,
       "columns": 3
+    },
+    {
+      "path": "docs/visual-baseline/comparisons/V1-351880e-revision-desktop.webp",
+      "kind": "desktop",
+      "viewport": "1536x1024",
+      "url": "http://localhost:4180/w/demo?page=dashboard",
+      "capturedAt": "2026-09-14T05:53:06.073Z",
+      "productCommit": "351880ee957aca334324f681be64348ce5dfc0ba",
+      "sha256": "3383457C8F70679015C09C0CE0840375AC1A44C6B18618D1F369CBDEF3256363",
+      "scenario": "demo",
+      "role": "revision-comparison",
+      "previousProductCommit": "692665d8ad928c3ae90a52188623e2367212d0d2"
     }
   ],
   "tests": [
     {
-      "id": "tests",
-      "command": "npm test",
-      "productCommit": "fc86f2e7d808fa6b39147ec1e749e952c5738ac5",
-      "startedAt": "2026-09-14T04:59:56.542Z",
-      "endedAt": "2026-09-14T05:00:36.898Z",
-      "exitCode": 0,
-      "log": "docs/visual-baseline/logs/V1-692665d/tests.txt",
-      "sha256": "EFFA6882414A94A75A8918235E332C28944B324CB9F587D51093250A855D977B",
-      "reusedForProductCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
-      "equivalence": "Business/build/test inputs identical; QA-only changes documented in equivalence log. Strict run has no screenshots and no synthetic fixture, so changed scroll/fixture branches were not executed.",
-      "equivalenceLog": "docs/visual-baseline/logs/V1-692665d/test-reuse-proof.txt"
-    },
-    {
       "id": "types",
       "command": "npx tsc --noEmit --pretty false --incremental false",
-      "productCommit": "0b1dc1fc8eea53a54f70337aed4a6331267f3357",
-      "startedAt": "2026-09-14T05:01:23.866Z",
-      "endedAt": "2026-09-14T05:01:32.629Z",
+      "productCommit": "351880ee957aca334324f681be64348ce5dfc0ba",
+      "startedAt": "2026-09-14T05:49:16.021Z",
+      "endedAt": "2026-09-14T05:49:24.894Z",
       "exitCode": 0,
-      "log": "docs/visual-baseline/logs/V1-692665d/types.txt",
-      "sha256": "884D57CE10648F3B9EDADC97E3D8D803D3103C790ED197D6B1BDA2AD93DF8589",
-      "reusedForProductCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
-      "equivalence": "Business/build/test inputs identical; QA-only changes documented in equivalence log. Strict run has no screenshots and no synthetic fixture, so changed scroll/fixture branches were not executed.",
-      "equivalenceLog": "docs/visual-baseline/logs/V1-692665d/test-reuse-proof.txt"
-    },
-    {
-      "id": "strict",
-      "command": "npm run qa:strict",
-      "productCommit": "0b1dc1fc8eea53a54f70337aed4a6331267f3357",
-      "startedAt": "2026-09-14T05:01:44.806Z",
-      "endedAt": "2026-09-14T05:03:52.671Z",
-      "exitCode": 0,
-      "log": "docs/visual-baseline/logs/V1-692665d/strict.txt",
-      "sha256": "6434FB501DA4D5FCA855DD9A1F45FFDD39E6E0E7E8D880568FED15C5DEBC3970",
-      "reusedForProductCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
-      "equivalence": "Business/build/test inputs identical; QA-only changes documented in equivalence log. Strict run has no screenshots and no synthetic fixture, so changed scroll/fixture branches were not executed.",
-      "equivalenceLog": "docs/visual-baseline/logs/V1-692665d/test-reuse-proof.txt"
+      "log": "docs/visual-baseline/logs/V1-351880e/types.txt",
+      "sha256": "E9207146765D36E75C9DBA93A2B4F323D00F6DD33585A0F36CB4BD0B12C1AB86"
     },
     {
       "id": "lint",
       "command": "npm run lint",
-      "productCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
-      "startedAt": "2026-09-14T05:06:29.646Z",
-      "endedAt": "2026-09-14T05:06:41.876Z",
+      "productCommit": "351880ee957aca334324f681be64348ce5dfc0ba",
+      "startedAt": "2026-09-14T05:49:24.900Z",
+      "endedAt": "2026-09-14T05:49:37.621Z",
       "exitCode": 0,
-      "log": "docs/visual-baseline/logs/V1-692665d/lint.txt",
-      "sha256": "4ED9EFE9C3B952D8F7E52BB68F69E713407B2A13E28FD903BC5C624882D0986E"
+      "log": "docs/visual-baseline/logs/V1-351880e/lint.txt",
+      "sha256": "D4D4936C481424020934CD7AEE0E0B1608A95DE00A1B0388D4FD9F266FB502D8"
+    },
+    {
+      "id": "tests",
+      "command": "npm test",
+      "productCommit": "351880ee957aca334324f681be64348ce5dfc0ba",
+      "startedAt": "2026-09-14T05:49:37.627Z",
+      "endedAt": "2026-09-14T05:50:18.281Z",
+      "exitCode": 0,
+      "log": "docs/visual-baseline/logs/V1-351880e/tests.txt",
+      "sha256": "88A573ECA918443D42D5541278F7163F259D5923CB740DA7B32104D5F47D6476"
+    },
+    {
+      "id": "strict",
+      "command": "npm run qa:strict",
+      "productCommit": "351880ee957aca334324f681be64348ce5dfc0ba",
+      "startedAt": "2026-09-14T05:50:18.288Z",
+      "endedAt": "2026-09-14T05:52:31.854Z",
+      "exitCode": 0,
+      "log": "docs/visual-baseline/logs/V1-351880e/strict.txt",
+      "sha256": "CA4F4A28E1109760CBF9290FEE5F7B84BF287596376BB6A124E42A5FED933890"
     },
     {
       "id": "demo",
       "command": "node scripts/layout-audit.mjs --serve",
-      "productCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
-      "startedAt": "2026-09-14T05:06:41.881Z",
-      "endedAt": "2026-09-14T05:07:08.909Z",
+      "productCommit": "351880ee957aca334324f681be64348ce5dfc0ba",
+      "startedAt": "2026-09-14T05:52:31.859Z",
+      "endedAt": "2026-09-14T05:53:06.117Z",
       "exitCode": 0,
-      "log": "docs/visual-baseline/logs/V1-692665d/demo.txt",
-      "sha256": "0A6B6912E0C38412824468061247294FC2252F72981AD395E088375D97B42E85"
+      "log": "docs/visual-baseline/logs/V1-351880e/demo.txt",
+      "sha256": "78924962D37501F486CB82685204789263D31CA1780A8B8F879B7B05CCADA370"
     },
     {
       "id": "large",
       "command": "node scripts/layout-audit.mjs --serve",
-      "productCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
-      "startedAt": "2026-09-14T05:07:08.914Z",
-      "endedAt": "2026-09-14T05:07:36.218Z",
+      "productCommit": "351880ee957aca334324f681be64348ce5dfc0ba",
+      "startedAt": "2026-09-14T05:53:06.122Z",
+      "endedAt": "2026-09-14T05:53:35.604Z",
       "exitCode": 0,
-      "log": "docs/visual-baseline/logs/V1-692665d/large.txt",
-      "sha256": "D9E53A876B96A720B5D1AB1F696382609FB70F393363FDAF671631B61C5DAEA3"
+      "log": "docs/visual-baseline/logs/V1-351880e/large.txt",
+      "sha256": "997BF81B11AC91317DB8CACC3DDD3C4FBD3CD2AD05A5202C96582E610C0F2266"
     },
     {
       "id": "empty",
       "command": "node scripts/layout-audit.mjs --serve",
-      "productCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
-      "startedAt": "2026-09-14T05:07:36.223Z",
-      "endedAt": "2026-09-14T05:08:03.008Z",
+      "productCommit": "351880ee957aca334324f681be64348ce5dfc0ba",
+      "startedAt": "2026-09-14T05:53:35.609Z",
+      "endedAt": "2026-09-14T05:54:03.811Z",
       "exitCode": 0,
-      "log": "docs/visual-baseline/logs/V1-692665d/empty.txt",
-      "sha256": "953D9D7E6F0866E8EFD42DD73E702F516BD9C7BFDBA1E35670857D35B1F23B6E"
+      "log": "docs/visual-baseline/logs/V1-351880e/empty.txt",
+      "sha256": "861D08DAA0FEBA9A6964FBA63DFCF7F345FFFB81DF1B9D6E064DF00CDBE4C39C"
     },
     {
-      "command": "npm run qa:visual-baseline",
-      "exitCode": 0,
-      "log": "docs/visual-baseline/logs/V1-692665d/baseline.txt",
-      "productCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
-      "sha256": "05151844CE178903114CF9BECFFDE83F9F24D3E29E27B8B4A45515826E05D1CF"
+      "id": "tests-first-failed",
+      "productCommit": "d3a440187dee4afa497d7e71922dba4b616aef0b",
+      "log": "docs/visual-baseline/logs/V1-351880e/tests-first-failed.txt",
+      "sha256": "A0D10E2ECD021078303231DD85056073CA171E2034A371746105F031301A8141",
+      "outcome": "historical failed attempt; retained, not accepted as pass"
     },
     {
-      "command": "npm run qa:visual-gate -- --gate V1",
+      "id": "types-cache-failed",
+      "productCommit": "d3a440187dee4afa497d7e71922dba4b616aef0b",
+      "log": "docs/visual-baseline/logs/V1-351880e/types-cache-failed.txt",
+      "sha256": "3EBF629FD0AAEFB9B5E61224DF204A08050D3E8E250D31E7F6EA5955C4E8D9EB",
+      "outcome": "historical failed attempt; retained, not accepted as pass"
+    },
+    {
+      "id": "lint-cache-failed",
+      "productCommit": "d3a440187dee4afa497d7e71922dba4b616aef0b",
+      "log": "docs/visual-baseline/logs/V1-351880e/lint-cache-failed.txt",
+      "sha256": "4352E9DA69507CC579D1B34D988DF42A14A1D14AC8C4F1A140C4F995F6B4A94C",
+      "outcome": "historical failed attempt; retained, not accepted as pass"
+    },
+    {
+      "id": "baseline",
+      "command": "npm.cmd run qa:visual-baseline",
+      "productCommit": "351880ee957aca334324f681be64348ce5dfc0ba",
+      "log": "docs/visual-baseline/logs/V1-351880e/baseline.txt",
+      "sha256": "F2581C2E61B1BBD14C8CE568806D8622928214640B62F23ADE1F50B9A50CD8AC",
+      "exitCode": 0
+    },
+    {
+      "id": "gate",
+      "command": "npm.cmd run qa:visual-gate -- --gate V1",
+      "productCommit": "351880ee957aca334324f681be64348ce5dfc0ba",
+      "log": "docs/visual-baseline/logs/V1-351880e/gate.txt",
+      "sha256": "3B7DD98CD105CE87F27FD9E024FF844D451E78466EF058DB68D8218EC4BC220F",
       "exitCode": 1,
-      "log": "docs/visual-baseline/logs/V1-692665d/gate.txt",
-      "productCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
       "expected": true,
-      "reason": "新版独立监工PASS尚未提供，不放行",
-      "sha256": "5C8A4FF7B3F1ED5EA281BEC2AAF11CB85841D1CD134760D2F969F79C27C72B9C"
+      "reason": "新版没有独立监工PASS，拒绝放行"
     }
   ],
   "review": {
+    "status": "pending",
+    "reviewedProductCommit": null,
+    "report": null
+  },
+  "humanApproval": null,
+  "nextAction": "停止：监工先按本检查点复核351880e的R6–R8、R1–R5回归及完整图；收到新报告后再交用户确认。无通信工具，共享检查点等待报告；V2 blocked、humanApproval null，不自填PASS/user-approved。",
+  "previousReview": {
     "status": "CHANGES_REQUESTED",
     "reviewedProductCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
     "report": "docs/重构执行与监工资料包-20260914/supervision/reviews/V1-DASHBOARD-692665D-20260914.md",
     "correction": "13:30撤回PASS，非STALE"
   },
-  "humanApproval": null,
-  "nextAction": "按R6–R8首页局部返工；新证据先交监工，再交用户。V2 blocked，无批准。",
-  "previousReview": {
-    "status": "CHANGES_REQUESTED",
-    "reviewedProductCommit": "25950b7d9649d0e01d64749544b8dcfaa6ce9540",
-    "report": "docs/重构执行与监工资料包-20260914/supervision/reviews/V1-DASHBOARD-25950B7-20260914.md",
-    "staleStartupReport": "docs/重构执行与监工资料包-20260914/supervision/reviews/INITIAL-NOT-REVIEWED.md"
-  },
-  "evidenceIndex": "docs/visual-baseline/logs/V1-692665d/evidence-index.json",
+  "evidenceIndex": "docs/visual-baseline/logs/V1-351880e/evidence-index.json",
   "reports": [
     {
       "scenario": "strict",
-      "path": "docs/visual-baseline/logs/V1-692665d/strict-layout-audit.json",
-      "sha256": "CF8B9573939677A7E2BC8D0344289221EF1BA6338D413EF04127364E4D4620D7",
-      "productCommit": "0b1dc1fc8eea53a54f70337aed4a6331267f3357",
-      "reusedForProductCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
-      "equivalenceLog": "docs/visual-baseline/logs/V1-692665d/test-reuse-proof.txt"
+      "path": "docs/visual-baseline/logs/V1-351880e/strict-layout-audit.json",
+      "sha256": "A2791153211FB17885387C1181C2E958A72CEADE55DC3462CF0A835EF93FAB2E",
+      "productCommit": "351880ee957aca334324f681be64348ce5dfc0ba"
     },
     {
       "scenario": "demo",
-      "path": "docs/visual-baseline/logs/V1-692665d/demo-layout-audit.json",
-      "sha256": "EAE983E230B1FC6B404E752E548B62B7969D4E213407DD9E530214FB5E9E91E4",
-      "productCommit": "692665d8ad928c3ae90a52188623e2367212d0d2"
+      "path": "docs/visual-baseline/logs/V1-351880e/demo-layout-audit.json",
+      "sha256": "C483C3E2B064410E1DE8D39EB975A5393D5060563EAB9587DBF6BC782E6A704B",
+      "productCommit": "351880ee957aca334324f681be64348ce5dfc0ba"
     },
     {
       "scenario": "large",
-      "path": "docs/visual-baseline/logs/V1-692665d/large-layout-audit.json",
-      "sha256": "44945409DEEBD6EA52EACFACAD39DD3737691BCC48097E3DDD5DA7F03A354153",
-      "productCommit": "692665d8ad928c3ae90a52188623e2367212d0d2"
+      "path": "docs/visual-baseline/logs/V1-351880e/large-layout-audit.json",
+      "sha256": "8D03A38618FC89E998F01FC819112D104F790290FA614B609FBB55F026C61D6C",
+      "productCommit": "351880ee957aca334324f681be64348ce5dfc0ba"
     },
     {
       "scenario": "empty",
-      "path": "docs/visual-baseline/logs/V1-692665d/empty-layout-audit.json",
-      "sha256": "5CD21F300F01F83416609D9DB2090CB7215E41B073AC020B0A5067B327A4F76A",
-      "productCommit": "692665d8ad928c3ae90a52188623e2367212d0d2"
+      "path": "docs/visual-baseline/logs/V1-351880e/empty-layout-audit.json",
+      "sha256": "105C15BB5EECA84BB7F756AE6EDC2B47280E273565E267611EAB4E665B9BE081",
+      "productCommit": "351880ee957aca334324f681be64348ce5dfc0ba"
     }
   ],
-  "submissionNotes": "docs/visual-baseline/V1-692665d-review.md",
+  "submissionNotes": "docs/visual-baseline/V1-351880e-review.md",
   "referenceIds": [
     "C1",
     "C5"
   ],
-  "evidenceIndexSha256": "1579F49F9FCE5B910B4D22B11ABEFB2EDD33292BE047379B64452ABA563CBFF4"
+  "evidenceIndexSha256": "A8940D2E5A69522102F8383C7535BC633888F347FD595C4817D992AD7BF58A68"
 }

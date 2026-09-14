@@ -1,0 +1,531 @@
+productCommit: d3a440187dee4afa497d7e71922dba4b616aef0b
+command: npm test
+startedAt: 2026-09-14T05:39:22.580Z
+
+> ban-zhuren-workbench@0.1.0 test
+> npm run qa:visual-baseline && npm run build && node --test tests/visual-baseline-audit.test.mjs tests/shell-controller.test.mjs tests/rendered-html.test.mjs tests/student-read-model.test.mjs tests/homework-read-model.test.mjs tests/theme-contract.test.mjs tests/ui-primitives.test.mjs tests/dictation.test.mjs tests/workbench-operations.test.mjs tests/workspace-operations.test.mjs tests/workspace-fixtures.test.mjs tests/workspace-normalize.test.mjs tests/business-read-models.test.mjs tests/dashboard-read-model.test.mjs tests/student-relations.test.mjs tests/student-profile.test.mjs tests/attendance-operations.test.mjs tests/points-rules-operations.test.mjs tests/growth-health-operations.test.mjs tests/records-notifications-operations.test.mjs tests/score-operations.test.mjs tests/reflection-operations.test.mjs tests/weekly-operations.test.mjs tests/comment-operations.test.mjs tests/schedule-operations.test.mjs tests/classroom-tools-operations.test.mjs tests/seating-operations.test.mjs tests/duty-operations.test.mjs tests/cadre-operations.test.mjs tests/family-operations.test.mjs tests/account-operations.test.mjs && node tests/auth-flow.integration.mjs
+
+
+> ban-zhuren-workbench@0.1.0 qa:visual-baseline
+> node scripts/visual-baseline-audit.mjs
+
+Visual baseline contract OK: 19 teacher pages, 7 gates, 0 user-approved gates.
+
+> ban-zhuren-workbench@0.1.0 build
+> vinext build
+
+
+  vinext build  (Vite 8.0.13)
+
+[1/5] analyze client references...
+[2Ktransforming...✓ 174 modules transformed.
+rendering chunks...
+✓ built in 1.65s
+[2/5] analyze server references...
+[2Ktransforming...✓ 184 modules transformed.
+rendering chunks...
+✓ built in 4.33s
+[3/5] build rsc environment...
+[2Ktransforming...✓ 180 modules transformed.
+rendering chunks...
+computing gzip size...
+✓ built in 2.48s
+[4/5] build client environment...
+[2Ktransforming...✓ 191 modules transformed.
+rendering chunks...
+computing gzip size...
+✓ built in 5.14s
+[5/5] build ssr environment...
+[2Ktransforming...✓ 190 modules transformed.
+rendering chunks...
+computing gzip size...
+✓ built in 2.15s
+[0m
+  Route (app)
+  ┌ ? /                           
+  ├ ? /admin                      
+  ├ λ /api/admin/audit-logs       
+  ├ λ /api/admin/devices/:id      
+  ├ λ /api/admin/redeem-codes     
+  ├ λ /api/admin/redeem-codes/:id 
+  ├ λ /api/admin/session          
+  ├ λ /api/admin/users            
+  ├ λ /api/admin/users/:id        
+  ├ λ /api/admin/users/:id/data   
+  ├ λ /api/admin/users/:id/devices
+  ├ λ /api/admin/users/:id/renew  
+  ├ λ /api/admin/workspaces       
+  ├ λ /api/ai/comment             
+  ├ λ /api/ai/exam-paper          
+  ├ λ /api/auth/ai-consent        
+  ├ λ /api/auth/enter             
+  ├ λ /api/auth/logout            
+  ├ λ /api/auth/me                
+  ├ λ /api/knowledge/:token       
+  ├ λ /api/workspace/:token       
+  ├ ? /privacy                    
+  └ ƒ /w/:token                   
+
+  λ API  ƒ Dynamic  ? Unknown
+
+  ? Some routes could not be classified. vinext currently uses static analysis
+    and cannot detect dynamic API usage (headers(), cookies(), etc.) at build time.
+    Automatic classification will be improved in a future release.
+
+  Build complete. Run `vinext start` to start the production server.
+
+✔ 两班各50人切换与编辑只更新目标班 (2.8644ms)
+✔ 新班级为空且不复制学生、听写或另一班资料 (0.3942ms)
+✔ 删除班级清理该班关联并保留另一班与家庭历史 (1.2914ms)
+✔ 失效班级与删除最后一个班级均拒绝写入 (0.3932ms)
+✔ 今天按本机年月日生成，不经过UTC日期截取 (2.1343ms)
+✔ 一键状态变更未提供备注时保留原备注，并只更新目标班 (1.4394ms)
+✔ 历史日期只写台账，不覆盖学生当前考勤汇总 (13.4137ms)
+✔ 拒绝另一班和不存在学生ID，不调用ID生成器 (12.0885ms)
+✔ 105人批量状态与备注同次写入且重复学生只保留最后一项 (1.7463ms)
+✔ 日程默认值使用本机日期，学期月份与月末短周保持原计算 (11.9631ms)
+✔ 日程只按教学日和节次投影，不修改或补造输入课程内容 (0.5752ms)
+✔ 成绩读取区分真实零分和未录入，未录入不生成跟进结论 (0.8543ms)
+✔ 成绩科目、满分和区间派生保留去重、自定义及零值边界 (0.7336ms)
+✔ 成长时间范围在固定本机时间下处理日期、相对日期和学期边界 (0.6407ms)
+✔ 岗位与学生严格按班级读取，旧岗位按唯一学生归属解析 (36.605ms)
+✔ 小组编号只使用正整数并支持不连续组号 (1.3589ms)
+✔ 班委候选人为全班，小组长候选人只来自目标小组 (0.5818ms)
+✔ 未设置组长统计使用岗位小组，不拿任意同组学生误判 (0.5265ms)
+✔ 班委可先建空岗，空任期和长职责原样保存且不影响其他数据 (0.5933ms)
+✔ 小组长必须选择当前班已有小组及该组学生 (0.6739ms)
+✔ 更新不能越班或改写其他岗位，评分和状态必须有效 (0.4682ms)
+✔ 删除严格按班级，重复编号和不存在班级均会拒绝 (0.3564ms)
+✔ 聘书文案不把待任命岗位伪装成真实任命 (0.3187ms)
+✔ 空班保持空岗位且班委空岗仍可建立，小组长不能虚构小组 (0.6217ms)
+✔ 课堂工具日期使用本机年月日，不经UTC截取 (9.9771ms)
+✔ 候选人只来自当前班，并只统计名册内当天请假学生 (1.8231ms)
+✔ 随机点名按抽取顺序去重，并清理不属于当前候选人的旧轮次ID (0.8973ms)
+✔ 全轮完成和全员请假都有明确结果，不重复返回学生 (0.3897ms)
+✔ 人数少于请求组数时只生成非空小组，且不写积分或家庭数据 (0.9905ms)
+✔ 105人长名单随机分组不遗漏不重复，组间人数最多相差1 (0.6983ms)
+✔ 分组历史严格按班级过滤，旧无班级记录只归当前活动班 (0.4019ms)
+✔ 复制文本按历史快照顺序输出，移除学生不泄露其他班姓名 (0.4777ms)
+✔ 非法分组数、人数不足和重复记录ID都拒绝写入 (0.4396ms)
+✔ 评语列表按显式班级与当前名册双重隔离，并兼容无班级旧记录 (3.4752ms)
+✔ 新建评语清理字段、写入班级且不改变输入和家庭数据 (1.5823ms)
+✔ 同学生同学期同语气使用原ID稳定更新而不重复 (0.4144ms)
+✔ 保存拒绝跨班ID、改绑学生、重复目标、无效字段和失效班级 (0.9922ms)
+✔ 无任何选中依据时本地生成返回空内容，不补写学生表现 (0.4143ms)
+✔ 本地生成只整理传入的沟通、积分、反思和教师补充 (0.7535ms)
+✔ 反思没有行动时不会声称已有改进计划 (0.3805ms)
+✔ 追加文字不会在空草稿前产生句号，并统一句末标点 (0.1979ms)
+✔ 首页作业与沟通数字只统计当前班级和当前名册 (22.2514ms)
+✔ 个人事项为空时仍按真实教学日显示课程，不把周日夹成周五 (0.86ms)
+✔ 过期事项决定首要动作，学生提醒保留日期和事实来源 (2.0633ms)
+✔ 学生提醒排除已销假和无待确认状态的历史考勤 (0.4691ms)
+✔ 正式空白首页不补造任务、值日岗位、学生提醒或家庭档案 (0.3131ms)
+容量基线：1496331 bytes；生成、校验与序列化 77.3ms（不含网络或数据库）
+本机SQLite WAL合成20版写入与回读 433.6ms；此数值不是线上延迟承诺。
+✔ 未批改、请假和未参加均不进入正确率分母 (5.1381ms)
+✔ 材料和参与者是独立快照，复听创建新结果 (0.3692ms)
+✔ 编辑未批改的复习/归档任务保留来源、归档和身份字段 (0.3494ms)
+✔ 两班与家庭孩子禁止交叉参与 (1.5751ms)
+✔ 非法错词索引和未参加带错词被拒绝 (0.8324ms)
+✔ 复习答对保留原错词历史，统计按词次加权 (22.1047ms)
+✔ 近30天窗口包含首尾自然日并排除未来与第31天 (0.7924ms)
+✔ 旧版和新版完整备份均可预检 (1.2543ms)
+✔ 已批改任务禁止改材料，作业删除不破坏历史关联 (1.9044ms)
+✔ 两班各50人、100教学日、每日20词的学期容量 (529.5184ms)
+✔ 教学日使用当前自然周的本地日期，星期别名视为同一天 (1.2195ms)
+✔ 六天和七天教学日按有学生的小组轮换，不要求连续组号 (2.8685ms)
+✔ 未分组学生被明确列出且不会使自动轮换崩溃 (0.8401ms)
+✔ 固定学生优先于自动轮换且轮换不会覆盖固定配置 (0.7638ms)
+✔ 岗位保存校验必填项和固定学生班级，且严格更新目标班 (0.6444ms)
+✔ 手动指定只接受当前班学生并保留为日期快照 (0.6745ms)
+✔ 恢复自动轮换保留已存在的检查状态和备注 (0.4331ms)
+✔ 检查操作保存当日负责人快照，不把自动分配误标为手动 (0.5289ms)
+✔ 检查与备注写入不能越过班级边界 (0.4499ms)
+✔ 同一岗位在不同教学日使用各自日期和唯一记录 (12.5592ms)
+✔ 新班级无独立配置时使用干净默认值，不继承活动班固定学生 (0.6214ms)
+✔ 停用岗位不能检查，空班不能生成虚假完成记录 (0.7679ms)
+✔ 新增孩子清洗字段并保留词库与历史任务 (3.1414ms)
+✔ 重名孩子按ID保持独立，编辑不会改绑或复制历史 (0.621ms)
+✔ 归档和恢复只改档案状态，词库与全部历史保留 (0.8201ms)
+✔ 家庭任务严格按childId筛选，不吸收班级学生或另一孩子 (0.8064ms)
+✔ 近30天统计按所选孩子计算，未批改不算全对 (18.9521ms)
+✔ 家庭近30天窗口与班级口径一致并排除未来和第31天 (0.5156ms)
+✔ 空孩子没有任务和假统计 (0.2663ms)
+✔ 失效档案与过长字段被拒绝且不生成ID (0.3812ms)
+✔ 归档孩子保留旧任务但服务端校验拒绝新增任务 (1.576ms)
+✔ 成长事实写入当前班快照并保留另一班与家庭数据 (3.0221ms)
+✔ 成长事实拒绝另一班、空字段，并过滤沟通台账留下的重复副本 (0.5138ms)
+✔ 照护默认日期使用本机年月日，不经过UTC字符串截取 (3.0896ms)
+✔ 照护登记只写当前班学生并清洗最小行动字段 (2.0792ms)
+✔ 照护保存拒绝另一班学生和不属于当前班的编辑记录 (0.4552ms)
+✔ 照护删除只接受当前班记录 (0.3488ms)
+✔ 监护人同步优先当前班主联系人，再按紧急顺序 (0.3411ms)
+✔ 作业读取覆盖 0、3、30 项任务，并严格隔离当前班级 (2.5259ms)
+✔ 105 人四态汇总准确，任务状态优先于学生默认状态 (2.0742ms)
+✔ 任务筛选支持倒置日期、学科、月份、状态、小组与学生条件 (1.7703ms)
+✔ 任务的学生关键词、状态和小组必须由同一名学生命中 (0.4326ms)
+✔ 学生搜索覆盖姓名、学号和完整备注，不暴露家长电话且不修改输入 (0.5727ms)
+✔ 两班各50人：批量记分只更新当前班并保留家庭数据 (3.3511ms)
+✔ 105人全选去重后逐人建立快照，零分与非法班级不写入 (0.5784ms)
+✔ 撤销只接受当前班事件，旧事件仍按学生归属兼容 (0.5188ms)
+✔ 班级事件列表优先使用classId，旧记录才按当前名册归属 (0.3303ms)
+✔ 旧备份空规则仍显示默认目录，首次修改后可保留真正空目录 (0.4627ms)
+✔ 规则编辑不追改历史快照，使用次数优先稳定ruleId并兼容旧快照 (0.3779ms)
+✔ 两班各50人且存在同名学生时，沟通保存只按学生ID写当前班 (3.028ms)
+✔ 沟通编辑保留状态并拒绝他班学生、空内容和跨班目标 (0.5908ms)
+✔ 沟通状态与删除不能用他班记录ID越界修改 (0.4089ms)
+✔ 沟通列表优先显式classId并兼容已能唯一归属的旧记录 (0.3556ms)
+✔ 通知草稿保留多人对象和历史状态，不会编辑成全班通知 (0.9518ms)
+✔ 通知草稿校验空内容、跨班对象与跨班编辑目标 (1.8468ms)
+✔ 通知复制、回执与删除只操作当前班草稿 (0.5275ms)
+✔ 沟通和通知日期都使用本机年月日，不经过UTC截取 (0.2234ms)
+✔ 反思列表按班级、学生和考试共同隔离，并兼容可唯一归属的旧记录 (2.3859ms)
+✔ 保存草稿会清理文本并补齐班级，但不生成沟通记录或移除跟进 (1.6434ms)
+✔ 完成反思生成可追溯的内部记录，并只移除当前学生的当前考试跟进 (0.7165ms)
+✔ 重复完成同一反思会更新一条留痕而不重复追加 (0.8519ms)
+✔ 反思保存拒绝空问题、他班学生、他班考试和跨班编辑目标 (0.5371ms)
+✔ 已保存反思不能改绑其他学生或考试 (0.7933ms)
+✔ 旧无考试反思首次编辑可补当前考试，之后保持关联稳定 (0.5718ms)
+✔ 反思日期使用本机年月日 (1.9096ms)
+✔ public entry exposes only the two intended primary routes (2.7366ms)
+✔ privacy migration preserves the established data and AI statements (0.3128ms)
+✔ account center unifies account, classes, backup and current-device logout (0.9151ms)
+✔ formal workspace access is session-owned and demo is read-only (0.2874ms)
+✔ formal workspaces start blank while demo remains the only seeded classroom (0.5104ms)
+✔ health care is a standalone, privacy-bounded operational workspace (0.5643ms)
+✔ growth, records and notification editors wait for workspace confirmation (0.6092ms)
+✔ points and rules wait for workspace confirmation before clearing editors (0.4529ms)
+✔ authentication keeps HTTP as an explicit temporary switch (0.2624ms)
+✔ administrator password accepts the chosen eight-character minimum (0.351ms)
+✔ administrator can generate and review short redeem codes in bulk (0.3337ms)
+✔ administrator views full account data while workspace account stays concise (0.2944ms)
+✔ automatic persistence stays quiet until a save fails (0.6663ms)
+✔ workspace saves use optimistic revisions and keep recoverable versions (0.1321ms)
+✔ workspace backup restore validates file size, identities and structure before replacement (0.1456ms)
+✔ administrator can export and permanently delete user data with confirmation (0.2048ms)
+✔ administrator uses the shared theme, native dialog and page-scoped styles (0.2458ms)
+✔ desktop shell has one page title and one account entry in the global header (0.3662ms)
+✔ campus rebuild owns one shared shell and four task-oriented navigation groups (1.1906ms)
+✔ benchmark pages use reference-led compositions and semantic artwork slots (0.898ms)
+✔ AI requires consent, quota and an owned workspace token (0.2085ms)
+✔ mobile workflows preserve agreed interaction rules (0.3832ms)
+✔ homework uses one controller for desktop and mobile task-first workflows (0.5866ms)
+✔ low-frequency workspaces load through stable lazy boundaries (0.4158ms)
+✔ dashboard students and homework share the live workspace flow without legacy views (0.7908ms)
+✔ dictation grading uses one central work surface with expandable material and a student queue (0.2645ms)
+✔ duty timetable follows the course schedule's custom teaching days (0.4013ms)
+✔ seating duty and cadres wait for workspace confirmation (0.1609ms)
+✔ weekly reports and term comments preserve editors until workspace confirmation (0.5188ms)
+✔ attendance keeps all actions in the batch-capable main roster (0.4057ms)
+✔ client write flows keep working when randomUUID is unavailable on HTTP (0.4516ms)
+✔ course scheduling keeps teacher work in the same module with traceable records (0.3847ms)
+✔ dashboard reuses dated teacher agenda instead of maintaining a second todo list (0.3109ms)
+✔ student profile keeps guardians and care information out of the roster list (0.1844ms)
+✔ score trends compare normalized rates and preserve missing-score meaning (0.151ms)
+✔ score analysis keeps new-exam entry visible on both desktop and mobile (0.522ms)
+✔ score write flows wait for server confirmation and preserve context on failure (0.2603ms)
+✔ exam analysis separates trend and paper workflows with teacher review (0.5702ms)
+✔ exam reflections share guarded save logic across desktop and mobile (0.5943ms)
+✔ classroom tools exclude leave and do not turn random picks into points (0.2628ms)
+✔ points table keeps bulk selection compact and accessible (0.2009ms)
+✔ notification drafts are copyable records, never a claimed external send (0.1719ms)
+✔ dialogs use unique titles and keyboard focus management (0.32ms)
+✔ 本机日期不经UTC截取，月周范围包含月末短周 (3.0413ms)
+✔ 保存周课表稳定更新并保留未进入周表的旧活动、他班和家庭数据 (2.2126ms)
+✔ 六天和七天教学日可保存，重复、超限和倒置月份被拒绝 (1.1498ms)
+✔ 周保存拒绝周外日期、空标题、重复标识和其他周占用的标识 (0.6842ms)
+✔ 学期配置只更新当前班标签并拒绝失效班级 (0.2974ms)
+✔ 个人日程和工作留痕严格按班级过滤并兼容活动班旧数据 (0.3042ms)
+✔ 事项保存保留多人关联、清理字段并正确维护完成时间 (2.4162ms)
+✔ 事项保存拒绝跨班编辑、他班学生、倒置时间和无效日期 (1.9173ms)
+✔ 完成并留痕在重复操作时幂等，且不修改另一班记录 (0.7586ms)
+✔ 留痕保存和删除校验班级、关联事项、学生及耗时 (2.8037ms)
+✔ 新考试为50名学生建立空记录，不把未录入预写为零分 (10.1146ms)
+✔ 真实零分计入录入数，空白保持null且不生成总分 (0.9806ms)
+✔ 编辑科目只保留真实已录值，新科目继续为空白 (1.4762ms)
+✔ 逐生录分可清回未录入，且只同步当前班摘要 (1.5093ms)
+✔ 105人批量录入保留零分并拒绝混入另一班对象 (1.251ms)
+✔ 成绩操作拒绝他班考试、他班学生、空科目和非法值 (0.3562ms)
+✔ 考试补丁和删除都校验班级，删除仅清理对应反思 (0.8131ms)
+✔ 考试列表兼容旧无classId记录，并按本机日期生成 (1.9585ms)
+✔ 人工分析项按当前班保存，真实零分计入而空白可清除 (0.7039ms)
+✔ AI候选在教师确认前不进统计，确认操作幂等 (0.6842ms)
+✔ 试卷候选状态不能通过他班考试ID修改或越过待核对直接确认 (0.2586ms)
+✔ 105人配置可保存，容量不足、非整数和超上限配置被拒绝 (2.9702ms)
+✔ 换座交换占用座或移入空座，不遗漏学生且不触碰另一班与家庭数据 (1.4963ms)
+✔ 一步撤销绑定班级，并在名册变化后拒绝恢复旧快照 (0.5946ms)
+✔ 105人智能排座修复重复和越界座位，固定座保留且全员唯一 (28.8518ms)
+✔ 智能排座优先方位需求并避免可满足的不能同桌关系 (3.731ms)
+✔ 前后排轮换不移动固定座，不重复不丢失并按新座位更新小组 (0.8753ms)
+✔ 学生条件校验当前班、身高、小组与避让对象，组长在组内保持唯一 (0.8592ms)
+✔ 破损座位会阻止手动交换和轮换，但允许智能排座修复 (0.7688ms)
+✔ 非活动班操作只更新目标班和对应配置，不污染活动班根数据 (0.6171ms)
+✔ 空班可保留座位图，只有一名可移动学生时轮换给出明确错误 (2.0463ms)
+✔ 新班级不会继承其他班已经保存的座位布局 (0.6282ms)
+✔ 手机模块历史连续返回且返回不会新增历史项 (1.7479ms)
+✔ 浏览器前进与替换可重建当前模块轨迹 (0.2539ms)
+✔ 四组目录覆盖19模块且更多只包含底栏之外15项 (0.3975ms)
+✔ 档案保存清洗字段并只更新目标学生与当前班 (5.221ms)
+✔ 无效电话不产生数据，家庭孩子与原数据不变 (1.7904ms)
+✔ 空姓名联系人被忽略，空字段不伪造联系人关系 (0.5334ms)
+✔ 档案保存拒绝另一班学生，并保留显式属于另一班的同ID私密记录 (0.2988ms)
+✔ 学生读取覆盖 0、50、105 人并保持班级隔离 (1.8153ms)
+✔ 搜索支持长姓名、缺失电话、学号与小组，且不修改输入 (1.3086ms)
+✔ 名单解析不补造成绩或积分，并保留可选电话和备注 (0.6233ms)
+✔ 同步当前班名单不改写另一班 (0.3047ms)
+✔ 名单近期状态使用当前班最新真实记录且不暴露电话或长备注 (11.0469ms)
+✔ 删除一名学生不删除同一考试其他学生的反思 (2.7636ms)
+✔ 听写只清理选中学生，保留家庭/他班/未受影响的空任务 (0.3787ms)
+✔ 关联清理保留未选数据、另一班成绩和旧无ID沟通记录 (0.3308ms)
+✔ 公开主题固定为校园，玻璃仅保留完整内部token且不借用校园插画 (1.9549ms)
+✔ 所有共享CSS token都由主题定义或边界别名明确提供 (2.242ms)
+✔ 校园语义插画manifest使用存在的本地资源并声明无主题回退 (3.9155ms)
+✔ 首批校园场景为桌面和手机提供独立候选资源 (0.902ms)
+✔ 主题更新不使用React key重挂载，缺图直接为空 (1.0102ms)
+✔ 公开与内部预留主题都使用实色材质且应用样式不启用模糊 (3.9167ms)
+✔ 按钮busy与disabled共享不可重复触发语义且保留原生类型 (1.5942ms)
+✔ 字段标签、提示和错误建立真实可访问关系 (0.3013ms)
+✔ 状态分段、批量条和菜单使用各自的交互语义 (0.2475ms)
+✔ 加载与空态不生成业务结果并保留文字替代 (0.1579ms)
+✔ 基础控件样式只消费主题变量并处理长文本、窄屏和减少动态 (0.2424ms)
+✔ Dialog与Drawer共用原生top layer并支持子层焦点恢复 (0.1489ms)
+✔ StudentPicker覆盖105人搜索、分页、跨页多选和失败保留契约 (0.1769ms)
+✔ extensionless trigger matches actual theme and primitive files (1.0911ms)
+✔ ready evidence requires distinct desktop and mobile records bound to a product commit (1056.7142ms)
+✔ path traversal is rejected even when evidence names the persistent directory (724.3437ms)
+✔ one file cannot impersonate two evidence slots (681.221ms)
+✔ two desktop records cannot satisfy the mobile requirement (690.3876ms)
+✔ equivalent normalized paths cannot impersonate different evidence (2153.4859ms)
+✔ committed assets and visual configuration invalidate evidence and prior approvals (5313.348ms)
+✔ page approval cannot exist without approval on its gate (682.1399ms)
+✔ gate command keeps supervision PASS separate from visual readiness (697.8883ms)
+✔ shared visual changes are detected after an approved commit (959.8547ms)
+✔ 周报列表只返回显式属于当前班的报告 (1.8994ms)
+✔ 保存草稿清理字段、保持输入不可变并保留另一班与家庭数据 (2.3328ms)
+✔ 同班同周同版本稳定更新，完成归档写入归档时间 (0.3826ms)
+✔ 保存拒绝跨班编辑、重复目标、空正文和无效日期 (0.83ms)
+✔ 作业指标只统计任务内真实逐生状态，不用学生当前状态填补历史 (0.3736ms)
+✔ 积分证据严格按班级、学生和有效日期范围过滤 (0.3267ms)
+✔ 成长与沟通按周合并，并排除沟通双写副本、他班和无日期记录 (9.7036ms)
+✔ 正向名单聚合同一学生且不把扣分当表扬 (0.3543ms)
+✔ 跟进只使用本周真实作业、标准化考试和考勤记录 (0.9587ms)
+✔ 日期范围只接受真实本地日历日期并包含首尾日 (0.2394ms)
+✔ 两班各50人：批量作业只更新目标任务与班级名册，不改变家庭记录 (2.8006ms)
+✔ 已复查保留任务四态，学生汇总仍兼容为已交 (0.284ms)
+✔ 105人全选与逐生操作获得相同业务结果 (3.438ms)
+✔ 旧数据缺少可选班级/任务字段仍保持原兼容结构 (0.2152ms)
+✔ 学生批量空字段不清空已有资料，未选学生保持不变 (0.4206ms)
+✔ 学生批量字段沿用原校正规则，不覆盖积分等非目标字段 (0.1672ms)
+✔ 空选择与另一班学生ID不会修改当前名单 (0.1856ms)
+✔ 作业状态拒绝另一班和不存在的学生ID，也不污染任务状态键 (0.5041ms)
+✔ 同ID跨班作业的编辑删除与跟进只作用当前班唯一目标 (0.5151ms)
+✔ 当前班出现重复作业ID时拒绝歧义写入 (0.3305ms)
+✔ E0至E11场景编号完整且不会共享可变数据 (2.507ms)
+✔ E0正式空白且E1两班各50人身份唯一 (0.5113ms)
+✔ E2单班105人适配长名单 (0.241ms)
+✔ E3两个重名孩子按稳定ID隔离且不进入班级名册 (1.1771ms)
+✔ E4覆盖0、3、30条作业且E5覆盖8、12、60、200词 (2.0232ms)
+✔ E6长字段保留且不使用真实身份信息 (0.6572ms)
+✔ E7只读、E8保存失败与E9冲突具有明确行为契约 (0.396ms)
+✔ E10旧备份与当前备份均通过真实预检 (17.7809ms)
+✔ E11位于4.2至4.8MB之间且通过听写和备份校验 (738.2538ms)
+✔ 全部场景可写入隔离临时SQLite并无仓库数据库路径 (778.3905ms)
+✔ 正式空工作区保持空作业和空周计划 (3.8471ms)
+✔ 仅为旧数据中完全缺失的作业字段建立兼容任务 (0.4928ms)
+✔ 两班关系按稳定学生ID归属且零值不被默认值覆盖 (1.4439ms)
+✔ 同名学生优先使用显式班级且无班级旧记录只落活动班 (0.6171ms)
+✔ 切班时根课程座位和值日切到目标班且保留原班映射 (0.6713ms)
+✔ 一般本地编辑先保留草稿，服务器确认后才清dirty (1.8091ms)
+✔ 网络失败保留草稿及dirty，重试使用同一服务器版本 (0.6331ms)
+✔ 本机草稿存储不可用时仍保留内存修改和dirty并明确报错 (1.4ms)
+✔ 409锁住后续保存，不清空本机修改 (0.7317ms)
+✔ 保存期间新编辑不被旧响应清除，排队保存使用新revision (0.699ms)
+✔ 只读与演示不能调用听写提交；只读本地编辑也被阻止 (0.7446ms)
+✔ 听写失败不计入正式结果，保留待提交草稿 (0.6785ms)
+✔ 听写409保留当前草稿并锁住冲突状态 (0.6939ms)
+✔ 未计入正式结果的听写草稿阻止离开且不会误发第二次保存 (0.5221ms)
+✔ 听写提交中一般新编辑被保留，成功只合并听写并保留dirty (0.6015ms)
+✔ 容量预检阻止超限听写请求且不改变正式结果 (13.4199ms)
+ℹ tests 270
+ℹ suites 0
+ℹ pass 270
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 14094.3558
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mProxy environment variables detected. We'll use your proxy for fetch requests.[0m
+
+
+[33m[PLUGIN_TIMINGS] [0mYour build spent significant time in plugins. Here is a breakdown:
+  - rsc:scan-strip (86%)
+  - vite:css (5%)
+  - vinext:optimize-imports (4%)
+  - vite-plugin-commonjs (1%)
+See https://rolldown.rs/options/checks#plugintimings for more details.
+
+[33m[PLUGIN_TIMINGS] [0mYour build spent significant time in plugins. Here is a breakdown:
+  - vinext:rsc-client-reference-loaders (84%)
+  - vinext:strip-server-exports (5%)
+  - vite:css (3%)
+  - vinext:image-imports (2%)
+  - vite-plugin-commonjs (1%)
+See https://rolldown.rs/options/checks#plugintimings for more details.
+
+file:///E:/%E6%96%87%E6%A1%A3/Codex/%E5%B0%8F%E7%BA%A2%E4%B9%A6/%E7%8F%AD%E4%B8%BB%E4%BB%BB%E5%B7%A5%E4%BD%9C%E5%8F%B0%E7%BD%91%E7%AB%99/tests/auth-flow.integration.mjs:219
+    throw new Error(`${error instanceof Error ? error.stack : error}\nServer output:\n${output.value.slice(-5000)}`);
+          ^
+
+Error: Error: 本地测试服务启动超时
+ext.js: 4ms, application-code: 19ms)
+ GET / 404 in 23ms (next.js: 4ms, application-code: 19ms)
+ GET / 404 in 34ms (next.js: 12ms, application-code: 22ms)
+ GET / 404 in 20ms (next.js: 3ms, application-code: 17ms)
+ GET / 404 in 22ms (next.js: 3ms, application-code: 19ms)
+ GET / 404 in 30ms (next.js: 5ms, application-code: 25ms)
+ GET / 404 in 24ms (next.js: 3ms, application-code: 21ms)
+ GET / 404 in 20ms (next.js: 3ms, application-code: 18ms)
+ GET / 404 in 21ms (next.js: 3ms, application-code: 18ms)
+ GET / 404 in 29ms (next.js: 6ms, application-code: 23ms)
+ GET / 404 in 23ms (next.js: 3ms, application-code: 20ms)
+ GET / 404 in 22ms (next.js: 3ms, application-code: 19ms)
+ GET / 404 in 22ms (next.js: 3ms, application-code: 18ms)
+ GET / 404 in 23ms (next.js: 3ms, application-code: 20ms)
+ GET / 404 in 22ms (next.js: 3ms, application-code: 19ms)
+ GET / 404 in 27ms (next.js: 4ms, application-code: 23ms)
+ GET / 404 in 78ms (next.js: 6ms, application-code: 72ms)
+ GET / 404 in 46ms (next.js: 6ms, application-code: 40ms)
+ GET / 404 in 45ms (next.js: 7ms, application-code: 39ms)
+ GET / 404 in 42ms (next.js: 6ms, application-code: 36ms)
+ GET / 404 in 42ms (next.js: 6ms, application-code: 35ms)
+ GET / 404 in 44ms (next.js: 7ms, application-code: 37ms)
+ GET / 404 in 42ms (next.js: 7ms, application-code: 35ms)
+ GET / 404 in 42ms (next.js: 7ms, application-code: 36ms)
+ GET / 404 in 41ms (next.js: 6ms, application-code: 35ms)
+ GET / 404 in 73ms (next.js: 6ms, application-code: 68ms)
+ GET / 404 in 44ms (next.js: 6ms, application-code: 37ms)
+ GET / 404 in 46ms (next.js: 7ms, application-code: 39ms)
+ GET / 404 in 41ms (next.js: 6ms, application-code: 35ms)
+ GET / 404 in 40ms (next.js: 6ms, application-code: 34ms)
+ GET / 404 in 49ms (next.js: 8ms, application-code: 41ms)
+ GET / 404 in 41ms (next.js: 6ms, application-code: 35ms)
+ GET / 404 in 49ms (next.js: 6ms, application-code: 42ms)
+ GET / 404 in 67ms (next.js: 6ms, application-code: 61ms)
+ GET / 404 in 79ms (next.js: 7ms, application-code: 73ms)
+ GET / 404 in 43ms (next.js: 7ms, application-code: 36ms)
+ GET / 404 in 44ms (next.js: 7ms, application-code: 37ms)
+ GET / 404 in 44ms (next.js: 8ms, application-code: 37ms)
+ GET / 404 in 53ms (next.js: 15ms, application-code: 38ms)
+ GET / 404 in 42ms (next.js: 7ms, application-code: 35ms)
+ GET / 404 in 47ms (next.js: 7ms, application-code: 40ms)
+ GET / 404 in 45ms (next.js: 7ms, application-code: 39ms)
+ GET / 404 in 41ms (next.js: 6ms, application-code: 35ms)
+ GET / 404 in 46ms (next.js: 8ms, application-code: 38ms)
+ GET / 404 in 77ms (next.js: 7ms, application-code: 71ms)
+ GET / 404 in 44ms (next.js: 7ms, application-code: 37ms)
+ GET / 404 in 73ms (next.js: 7ms, application-code: 66ms)
+ GET / 404 in 43ms (next.js: 7ms, application-code: 36ms)
+ GET / 404 in 43ms (next.js: 7ms, application-code: 36ms)
+ GET / 404 in 690ms (next.js: 653ms, application-code: 37ms)
+ GET / 404 in 43ms (next.js: 7ms, application-code: 37ms)
+ GET / 404 in 41ms (next.js: 6ms, application-code: 35ms)
+
+    at waitForServer (file:///E:/%E6%96%87%E6%A1%A3/Codex/%E5%B0%8F%E7%BA%A2%E4%B9%A6/%E7%8F%AD%E4%B8%BB%E4%BB%BB%E5%B7%A5%E4%BD%9C%E5%8F%B0%E7%BD%91%E7%AB%99/tests/auth-flow.integration.mjs:50:9)
+    at async run (file:///E:/%E6%96%87%E6%A1%A3/Codex/%E5%B0%8F%E7%BA%A2%E4%B9%A6/%E7%8F%AD%E4%B8%BB%E4%BB%BB%E5%B7%A5%E4%BD%9C%E5%8F%B0%E7%BD%91%E7%AB%99/tests/auth-flow.integration.mjs:77:5)
+    at async file:///E:/%E6%96%87%E6%A1%A3/Codex/%E5%B0%8F%E7%BA%A2%E4%B9%A6/%E7%8F%AD%E4%B8%BB%E4%BB%BB%E5%B7%A5%E4%BD%9C%E5%8F%B0%E7%BD%91%E7%AB%99/tests/auth-flow.integration.mjs:233:1
+Server output:
+ 20ms)
+ GET / 404 in 23ms (next.js: 3ms, application-code: 20ms)
+ GET / 404 in 24ms (next.js: 4ms, application-code: 21ms)
+ GET / 404 in 40ms (next.js: 3ms, application-code: 37ms)
+ GET / 404 in 28ms (next.js: 3ms, application-code: 25ms)
+ GET / 404 in 23ms (next.js: 3ms, application-code: 20ms)
+ GET / 404 in 23ms (next.js: 3ms, application-code: 20ms)
+ GET / 404 in 24ms (next.js: 5ms, application-code: 19ms)
+ GET / 404 in 20ms (next.js: 3ms, application-code: 17ms)
+ GET / 404 in 22ms (next.js: 4ms, application-code: 18ms)
+ GET / 404 in 22ms (next.js: 3ms, application-code: 19ms)
+ GET / 404 in 22ms (next.js: 4ms, application-code: 18ms)
+ GET / 404 in 26ms (next.js: 8ms, application-code: 18ms)
+ GET / 404 in 43ms (next.js: 3ms, application-code: 40ms)
+ GET / 404 in 22ms (next.js: 3ms, application-code: 19ms)
+ GET / 404 in 22ms (next.js: 3ms, application-code: 19ms)
+ GET / 404 in 26ms (next.js: 5ms, application-code: 21ms)
+ GET / 404 in 22ms (next.js: 3ms, application-code: 19ms)
+ GET / 404 in 22ms (next.js: 3ms, application-code: 19ms)
+ GET / 404 in 24ms (next.js: 4ms, application-code: 20ms)
+ GET / 404 in 23ms (next.js: 3ms, application-code: 19ms)
+ GET / 404 in 24ms (next.js: 3ms, application-code: 20ms)
+ GET / 404 in 23ms (next.js: 4ms, application-code: 18ms)
+ GET / 404 in 51ms (next.js: 3ms, application-code: 47ms)
+ GET / 404 in 25ms (next.js: 3ms, application-code: 22ms)
+ GET / 404 in 21ms (next.js: 3ms, application-code: 18ms)
+ GET / 404 in 22ms (next.js: 3ms, application-code: 19ms)
+ GET / 404 in 22ms (next.js: 3ms, application-code: 19ms)
+ GET / 404 in 23ms (next.js: 4ms, application-code: 18ms)
+ GET / 404 in 23ms (next.js: 3ms, application-code: 20ms)
+ GET / 404 in 23ms (next.js: 3ms, application-code: 21ms)
+ GET / 404 in 27ms (next.js: 6ms, application-code: 21ms)
+ GET / 404 in 36ms (next.js: 3ms, application-code: 33ms)
+ GET / 404 in 22ms (next.js: 3ms, application-code: 18ms)
+ GET / 404 in 22ms (next.js: 3ms, application-code: 19ms)
+ GET / 404 in 23ms (next.js: 4ms, application-code: 19ms)
+ GET / 404 in 23ms (next.js: 4ms, application-code: 19ms)
+ GET / 404 in 34ms (next.js: 12ms, application-code: 22ms)
+ GET / 404 in 20ms (next.js: 3ms, application-code: 17ms)
+ GET / 404 in 22ms (next.js: 3ms, application-code: 19ms)
+ GET / 404 in 30ms (next.js: 5ms, application-code: 25ms)
+ GET / 404 in 24ms (next.js: 3ms, application-code: 21ms)
+ GET / 404 in 20ms (next.js: 3ms, application-code: 18ms)
+ GET / 404 in 21ms (next.js: 3ms, application-code: 18ms)
+ GET / 404 in 29ms (next.js: 6ms, application-code: 23ms)
+ GET / 404 in 23ms (next.js: 3ms, application-code: 20ms)
+ GET / 404 in 22ms (next.js: 3ms, application-code: 19ms)
+ GET / 404 in 22ms (next.js: 3ms, application-code: 18ms)
+ GET / 404 in 23ms (next.js: 3ms, application-code: 20ms)
+ GET / 404 in 22ms (next.js: 3ms, application-code: 19ms)
+ GET / 404 in 27ms (next.js: 4ms, application-code: 23ms)
+ GET / 404 in 78ms (next.js: 6ms, application-code: 72ms)
+ GET / 404 in 46ms (next.js: 6ms, application-code: 40ms)
+ GET / 404 in 45ms (next.js: 7ms, application-code: 39ms)
+ GET / 404 in 42ms (next.js: 6ms, application-code: 36ms)
+ GET / 404 in 42ms (next.js: 6ms, application-code: 35ms)
+ GET / 404 in 44ms (next.js: 7ms, application-code: 37ms)
+ GET / 404 in 42ms (next.js: 7ms, application-code: 35ms)
+ GET / 404 in 42ms (next.js: 7ms, application-code: 36ms)
+ GET / 404 in 41ms (next.js: 6ms, application-code: 35ms)
+ GET / 404 in 73ms (next.js: 6ms, application-code: 68ms)
+ GET / 404 in 44ms (next.js: 6ms, application-code: 37ms)
+ GET / 404 in 46ms (next.js: 7ms, application-code: 39ms)
+ GET / 404 in 41ms (next.js: 6ms, application-code: 35ms)
+ GET / 404 in 40ms (next.js: 6ms, application-code: 34ms)
+ GET / 404 in 49ms (next.js: 8ms, application-code: 41ms)
+ GET / 404 in 41ms (next.js: 6ms, application-code: 35ms)
+ GET / 404 in 49ms (next.js: 6ms, application-code: 42ms)
+ GET / 404 in 67ms (next.js: 6ms, application-code: 61ms)
+ GET / 404 in 79ms (next.js: 7ms, application-code: 73ms)
+ GET / 404 in 43ms (next.js: 7ms, application-code: 36ms)
+ GET / 404 in 44ms (next.js: 7ms, application-code: 37ms)
+ GET / 404 in 44ms (next.js: 8ms, application-code: 37ms)
+ GET / 404 in 53ms (next.js: 15ms, application-code: 38ms)
+ GET / 404 in 42ms (next.js: 7ms, application-code: 35ms)
+ GET / 404 in 47ms (next.js: 7ms, application-code: 40ms)
+ GET / 404 in 45ms (next.js: 7ms, application-code: 39ms)
+ GET / 404 in 41ms (next.js: 6ms, application-code: 35ms)
+ GET / 404 in 46ms (next.js: 8ms, application-code: 38ms)
+ GET / 404 in 77ms (next.js: 7ms, application-code: 71ms)
+ GET / 404 in 44ms (next.js: 7ms, application-code: 37ms)
+ GET / 404 in 73ms (next.js: 7ms, application-code: 66ms)
+ GET / 404 in 43ms (next.js: 7ms, application-code: 36ms)
+ GET / 404 in 43ms (next.js: 7ms, application-code: 36ms)
+ GET / 404 in 690ms (next.js: 653ms, application-code: 37ms)
+ GET / 404 in 43ms (next.js: 7ms, application-code: 37ms)
+ GET / 404 in 41ms (next.js: 6ms, application-code: 35ms)
+
+    at run (file:///E:/%E6%96%87%E6%A1%A3/Codex/%E5%B0%8F%E7%BA%A2%E4%B9%A6/%E7%8F%AD%E4%B8%BB%E4%BB%BB%E5%B7%A5%E4%BD%9C%E5%8F%B0%E7%BD%91%E7%AB%99/tests/auth-flow.integration.mjs:219:11)
+    at async file:///E:/%E6%96%87%E6%A1%A3/Codex/%E5%B0%8F%E7%BA%A2%E4%B9%A6/%E7%8F%AD%E4%B8%BB%E4%BB%BB%E5%B7%A5%E4%BD%9C%E5%8F%B0%E7%BD%91%E7%AB%99/tests/auth-flow.integration.mjs:233:1
+
+Node.js v24.19.0
+
+exitCode: 1

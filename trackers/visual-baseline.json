@@ -70,7 +70,7 @@
       "pages": [
         "dashboard"
       ],
-      "status": "needs-fix",
+      "status": "awaiting-user-review",
       "pauseRequired": true,
       "userApproval": {
         "approved": false,
@@ -182,69 +182,66 @@
         "C1",
         "C5"
       ],
-      "status": "needs-fix",
+      "status": "ready-for-review",
       "requiredComparisons": 2,
       "issues": [
-        "R6 语义色彩角色",
-        "R7 白色工作面与彩色外层",
-        "R8 标题重心与插画分布"
+        "R6–R8修复候选待监工独立读图确认，不继承已撤回PASS"
       ],
-      "productCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
+      "productCommit": "351880ee957aca334324f681be64348ce5dfc0ba",
       "currentEvidence": [
         {
-          "path": "docs/visual-baseline/current/V1-692665d/demo/referenceDesktop-dashboard.webp",
+          "path": "docs/visual-baseline/current/V1-351880e/demo/referenceDesktop-dashboard.webp",
           "kind": "desktop",
           "viewport": "1536x1024",
           "url": "http://localhost:4180/w/demo?page=dashboard",
-          "capturedAt": "2026-09-14T05:07:08.867Z",
-          "productCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
-          "sha256": "D2CEC94433DEC86FAC6DA224CC07012C0248A2CD62F19BF14D32685765AD5C9E",
+          "capturedAt": "2026-09-14T05:53:06.073Z",
+          "productCommit": "351880ee957aca334324f681be64348ce5dfc0ba",
+          "sha256": "7B555544512C4B2F89DA6B2227E863603E293632C61BA88BFAD8D3C3D10805E3",
           "scenario": "demo",
           "role": "first-viewport"
         },
         {
-          "path": "docs/visual-baseline/current/V1-692665d/demo/referenceMobile-dashboard.webp",
+          "path": "docs/visual-baseline/current/V1-351880e/demo/referenceMobile-dashboard.webp",
           "kind": "mobile",
           "viewport": "390x844",
           "url": "http://localhost:4180/w/demo?page=dashboard",
-          "capturedAt": "2026-09-14T05:07:08.867Z",
-          "productCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
-          "sha256": "97BB8AB61030FF2708EF9011A6D5A5AA196F58FDE153F99B7DD5EB8B517C1CDF",
+          "capturedAt": "2026-09-14T05:53:06.073Z",
+          "productCommit": "351880ee957aca334324f681be64348ce5dfc0ba",
+          "sha256": "16C1E86849C5AFDB104ACC9F42E1D33B6FFEF819DEEB37E156DF8C9A852111B2",
           "scenario": "demo",
           "role": "first-viewport"
         }
       ],
       "comparisons": [
         {
-          "path": "docs/visual-baseline/comparisons/V1-692665d-desktop.webp",
+          "path": "docs/visual-baseline/comparisons/V1-351880e-desktop.webp",
           "kind": "desktop",
           "viewport": "1536x1024",
           "url": "http://localhost:4180/w/demo?page=dashboard",
-          "capturedAt": "2026-09-14T05:07:08.867Z",
-          "productCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
-          "sha256": "C52B6C65C6448B2741C2D28D324D2FA5A9AF844E8868A66C94CC6CC6AAC8C77F",
+          "capturedAt": "2026-09-14T05:53:06.073Z",
+          "productCommit": "351880ee957aca334324f681be64348ce5dfc0ba",
+          "sha256": "ECD1B43DED7C4F582B2702FEF89732EFDD399098BDE3D5958E0AC09DC3A6A9A9",
           "scenario": "demo",
           "role": "comparison",
           "referenceId": "C1"
         },
         {
-          "path": "docs/visual-baseline/comparisons/V1-692665d-mobile.webp",
+          "path": "docs/visual-baseline/comparisons/V1-351880e-mobile.webp",
           "kind": "mobile",
           "viewport": "390x844",
           "url": "http://localhost:4180/w/demo?page=dashboard",
-          "capturedAt": "2026-09-14T05:07:08.867Z",
-          "productCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
-          "sha256": "2F82947A4BF2F744F86580D6C44BFCCE2624158D957E025685B559AD1B8BBC3D",
+          "capturedAt": "2026-09-14T05:53:06.073Z",
+          "productCommit": "351880ee957aca334324f681be64348ce5dfc0ba",
+          "sha256": "192A66907DD50242D4A648623237AB037C84F17C70D93C1F827BE312923EF102",
           "scenario": "demo",
           "role": "comparison",
           "referenceId": "C5"
         }
       ],
       "supervision": {
-        "status": "CHANGES_REQUESTED",
-        "reviewedProductCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
-        "report": "docs/重构执行与监工资料包-20260914/supervision/reviews/V1-DASHBOARD-692665D-20260914.md",
-        "correction": "13:30撤回PASS，非STALE"
+        "status": "pending",
+        "reviewedProductCommit": null,
+        "report": null
       },
       "reviewHistory": [
         {
@@ -310,10 +307,83 @@
             "reviewedProductCommit": "25950b7d9649d0e01d64749544b8dcfaa6ce9540",
             "report": "docs/重构执行与监工资料包-20260914/supervision/reviews/V1-DASHBOARD-25950B7-20260914.md"
           }
+        },
+        {
+          "label": "今日工作台",
+          "referenceIds": [
+            "C1",
+            "C5"
+          ],
+          "status": "needs-fix",
+          "requiredComparisons": 2,
+          "issues": [
+            "R6 语义色彩角色",
+            "R7 白色工作面与彩色外层",
+            "R8 标题重心与插画分布"
+          ],
+          "productCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
+          "currentEvidence": [
+            {
+              "path": "docs/visual-baseline/current/V1-692665d/demo/referenceDesktop-dashboard.webp",
+              "kind": "desktop",
+              "viewport": "1536x1024",
+              "url": "http://localhost:4180/w/demo?page=dashboard",
+              "capturedAt": "2026-09-14T05:07:08.867Z",
+              "productCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
+              "sha256": "D2CEC94433DEC86FAC6DA224CC07012C0248A2CD62F19BF14D32685765AD5C9E",
+              "scenario": "demo",
+              "role": "first-viewport"
+            },
+            {
+              "path": "docs/visual-baseline/current/V1-692665d/demo/referenceMobile-dashboard.webp",
+              "kind": "mobile",
+              "viewport": "390x844",
+              "url": "http://localhost:4180/w/demo?page=dashboard",
+              "capturedAt": "2026-09-14T05:07:08.867Z",
+              "productCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
+              "sha256": "97BB8AB61030FF2708EF9011A6D5A5AA196F58FDE153F99B7DD5EB8B517C1CDF",
+              "scenario": "demo",
+              "role": "first-viewport"
+            }
+          ],
+          "comparisons": [
+            {
+              "path": "docs/visual-baseline/comparisons/V1-692665d-desktop.webp",
+              "kind": "desktop",
+              "viewport": "1536x1024",
+              "url": "http://localhost:4180/w/demo?page=dashboard",
+              "capturedAt": "2026-09-14T05:07:08.867Z",
+              "productCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
+              "sha256": "C52B6C65C6448B2741C2D28D324D2FA5A9AF844E8868A66C94CC6CC6AAC8C77F",
+              "scenario": "demo",
+              "role": "comparison",
+              "referenceId": "C1"
+            },
+            {
+              "path": "docs/visual-baseline/comparisons/V1-692665d-mobile.webp",
+              "kind": "mobile",
+              "viewport": "390x844",
+              "url": "http://localhost:4180/w/demo?page=dashboard",
+              "capturedAt": "2026-09-14T05:07:08.867Z",
+              "productCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
+              "sha256": "2F82947A4BF2F744F86580D6C44BFCCE2624158D957E025685B559AD1B8BBC3D",
+              "scenario": "demo",
+              "role": "comparison",
+              "referenceId": "C5"
+            }
+          ],
+          "supervision": {
+            "status": "CHANGES_REQUESTED",
+            "reviewedProductCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
+            "report": "docs/重构执行与监工资料包-20260914/supervision/reviews/V1-DASHBOARD-692665D-20260914.md",
+            "correction": "13:30撤回PASS，非STALE"
+          },
+          "evidenceIndex": "docs/visual-baseline/logs/V1-692665d/evidence-index.json",
+          "submissionNotes": "docs/visual-baseline/V1-692665d-review.md"
         }
       ],
-      "evidenceIndex": "docs/visual-baseline/logs/V1-692665d/evidence-index.json",
-      "submissionNotes": "docs/visual-baseline/V1-692665d-review.md"
+      "evidenceIndex": "docs/visual-baseline/logs/V1-351880e/evidence-index.json",
+      "submissionNotes": "docs/visual-baseline/V1-351880e-review.md"
     },
     "students": {
       "label": "学生名单",

@@ -1,0 +1,22 @@
+productCommit: d3a440187dee4afa497d7e71922dba4b616aef0b
+command: npx tsc --noEmit --pretty false --incremental false
+startedAt: 2026-09-14T05:41:30.374Z
+.next/dev/types/routes.d.ts(56,1): error TS1434: Unexpected keyword or identifier.
+.next/dev/types/routes.d.ts(56,9): error TS1002: Unterminated string literal.
+.next/dev/types/routes.d.ts(57,23): error TS1005: ';' expected.
+.next/dev/types/routes.d.ts(58,25): error TS1005: ';' expected.
+.next/dev/types/routes.d.ts(59,20): error TS1005: ';' expected.
+.next/dev/types/routes.d.ts(60,21): error TS1005: ';' expected.
+.next/dev/types/routes.d.ts(61,17): error TS1005: ';' expected.
+.next/dev/types/routes.d.ts(62,27): error TS1005: ';' expected.
+.next/dev/types/routes.d.ts(62,38): error TS1005: ';' expected.
+.next/dev/types/routes.d.ts(63,27): error TS1005: ';' expected.
+.next/dev/types/routes.d.ts(63,38): error TS1005: ';' expected.
+.next/dev/types/routes.d.ts(64,13): error TS1005: ';' expected.
+.next/dev/types/routes.d.ts(65,15): error TS1005: ';' expected.
+.next/dev/types/routes.d.ts(65,26): error TS1005: ';' expected.
+.next/dev/types/routes.d.ts(66,1): error TS1128: Declaration or statement expected.
+.next/dev/types/validator.ts(17,62): error TS1434: Unexpected keyword or identifier.
+
+
+exitCode: 2

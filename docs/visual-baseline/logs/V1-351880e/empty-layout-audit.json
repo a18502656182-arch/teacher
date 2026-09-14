@@ -1,0 +1,653 @@
+{
+  "createdAt": "2026-09-14T05:54:03.772Z",
+  "productCommit": "351880ee957aca334324f681be64348ce5dfc0ba",
+  "environment": {
+    "node": "v24.19.0",
+    "platform": "win32",
+    "browser": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+    "url": "http://127.0.0.1:4180/w/demo",
+    "scenario": "empty",
+    "fixedDate": "2026-01-05"
+  },
+  "results": [
+    {
+      "name": "static",
+      "failures": []
+    },
+    {
+      "name": "referenceDesktop:dashboard",
+      "data": {
+        "pageId": "dashboard",
+        "text": "班主任工作台\n当前班级\n合成甲班（2人）\n合成乙班（1人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具\n班级\n座位分组\n值日岗位\n班干部\n积分规则\n班级周报\n期末评语\n今天的班务\n1月5日 星期一\n\n合成甲班 · 先核对今天真正需要处理的班务\n\n2 名学生\n今天先做这些\n\n数字只统计当前班级和当前名册\n\n日程跟进\n今天无课，课程表已保留\n作业跟进\n当前名册没有未完成状态\n家校跟进\n暂无待跟进沟通记录\n听写批改\n还没有班级听写任务\n登记今日考勤\n",
+        "teacherAgenda": false,
+        "healthEditor": false,
+        "healthReadOnly": false,
+        "healthReadOnlyHealthy": false,
+        "healthStudentSearch": false,
+        "healthStudentPickerIdle": false,
+        "healthStudentPickerPosition": "",
+        "healthFooterActions": false,
+        "healthHeaderAction": false,
+        "homeworkDetail": false,
+        "homeworkFollowModal": false,
+        "homeworkSelectionVisible": false,
+        "homeworkReadonlyBulkDisabled": false,
+        "mobileHomeworkTaskSummary": false,
+        "mobileHomeworkSelectionRail": false,
+        "attendanceLedger": false,
+        "attendanceReadOnly": false,
+        "attendanceReadOnlyHealthy": false,
+        "attendanceBatchBar": false,
+        "attendanceSelectionCleared": false,
+        "attendanceStatusActionsHealthy": false,
+        "attendanceAllNormalHealthy": false,
+        "attendanceDetachedEditor": false,
+        "reflectionEditorHealthy": false,
+        "reflectionReadOnlyShown": false,
+        "reflectionDraftRetained": false,
+        "weeklyEditorHealthy": false,
+        "weeklyReadOnlyShown": false,
+        "weeklyDraftRetained": false,
+        "weeklyPrimaryFullWidth": false,
+        "commentEditorHealthy": false,
+        "commentReadOnlyShown": false,
+        "commentDraftRetained": false,
+        "commentDraftRetainedAfterEvidence": false,
+        "commentEvidenceSheetHealthy": false,
+        "visibleSceneSwitches": 1,
+        "mobileTabItems": [
+          {
+            "label": "首页",
+            "visible": false,
+            "topLabel": "A",
+            "topClass": "_brand_1jxlx_4"
+          },
+          {
+            "label": "学生",
+            "visible": false,
+            "topLabel": "A",
+            "topClass": "_brand_1jxlx_4"
+          },
+          {
+            "label": "作业",
+            "visible": false,
+            "topLabel": "A",
+            "topClass": "_brand_1jxlx_4"
+          },
+          {
+            "label": "成绩",
+            "visible": false,
+            "topLabel": "A",
+            "topClass": "_brand_1jxlx_4"
+          },
+          {
+            "label": "更多",
+            "visible": false,
+            "topLabel": "A",
+            "topClass": "_brand_1jxlx_4"
+          }
+        ],
+        "mobileBlockingLayer": false,
+        "dashboardArtwork": {
+          "image": {
+            "left": 908.03125,
+            "right": 1520.984375,
+            "top": 157.578125,
+            "bottom": 502.921875,
+            "width": 612.953125,
+            "height": 345.34375
+          },
+          "container": {
+            "left": 908.03125,
+            "right": 1520.984375,
+            "top": 157.578125,
+            "bottom": 502.921875,
+            "width": 612.953125,
+            "height": 345.34375
+          },
+          "objectFit": "cover",
+          "objectPosition": "50% 48%",
+          "inlineObjectFit": "cover",
+          "widthRatio": 1,
+          "heightRatio": 1
+        },
+        "shell": null,
+        "main": null,
+        "content": {
+          "left": 244,
+          "right": 1521,
+          "top": 72,
+          "bottom": 1126.609375,
+          "width": 1277,
+          "height": 1054.609375
+        },
+        "scrollWidth": 1521,
+        "viewportWidth": 1536,
+        "cardsInsideCards": 4,
+        "inputLikeButtons": 0,
+        "squeezedButtons": [],
+        "oversizedSegmentButtons": [],
+        "pointHeaderActionIssues": [],
+        "crowdedActionCells": 0,
+        "crampedDialogTextareas": [],
+        "clippedSurfaces": [],
+        "widestElements": [],
+        "overflowElements": [
+          {
+            "tag": "INPUT",
+            "className": "visually-hidden",
+            "clientWidth": 1,
+            "scrollWidth": 158
+          }
+        ],
+        "dashboardReview": {
+          "url": "http://localhost:4180/w/qa-visual?page=dashboard",
+          "title": "班主任工作台",
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/152.0.0.0 Safari/537.36",
+          "viewport": {
+            "width": 1536,
+            "height": 1024,
+            "dpr": 1
+          },
+          "fixture": {
+            "scenario": "empty",
+            "date": "2026-01-05",
+            "workspaceWrites": 0
+          },
+          "headings": [
+            "今天先做这些",
+            "今日课程与班务",
+            "听写与复习",
+            "常用操作",
+            "值日岗位",
+            "学生事实提醒"
+          ],
+          "visualRoles": {
+            "heading": "今天的班务",
+            "headingSize": "32px",
+            "dateSize": "18px",
+            "scene": "http://localhost:4180/art/campus/classroom-morning.webp",
+            "stationery": {
+              "x": 987.625,
+              "y": 698.265625,
+              "width": 533.375,
+              "height": 116,
+              "bottom": 814.265625
+            },
+            "sections": [
+              {
+                "title": "今日课程与班务",
+                "background": "rgb(234, 245, 252)",
+                "icon": "rgb(38, 98, 135)"
+              },
+              {
+                "title": "听写与复习",
+                "background": "rgb(237, 245, 238)",
+                "icon": "rgb(57, 117, 82)"
+              },
+              {
+                "title": "值日岗位",
+                "background": "color(srgb 1 0.958274 0.871843)",
+                "icon": "rgb(135, 82, 11)"
+              },
+              {
+                "title": "学生事实提醒",
+                "background": "rgb(255, 255, 255)",
+                "icon": "rgb(57, 117, 82)"
+              }
+            ],
+            "subjects": []
+          },
+          "dictation": {
+            "state": "empty",
+            "image": null,
+            "picture": null,
+            "text": {
+              "x": 1065.625,
+              "y": 622.515625,
+              "width": 419.375,
+              "height": 51.5,
+              "bottom": 674.015625
+            },
+            "textContent": "还没有班级听写任务\n\n可从词库或自定义内容开始。",
+            "body": {
+              "x": 1007.625,
+              "y": 598.265625,
+              "width": 493.375,
+              "height": 100,
+              "bottom": 698.265625
+            }
+          },
+          "date": {
+            "groups": [
+              {
+                "text": "1月5日",
+                "box": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 0,
+                  "height": 0,
+                  "bottom": 0
+                },
+                "whiteSpace": "normal"
+              },
+              {
+                "text": "星期一",
+                "box": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 0,
+                  "height": 0,
+                  "bottom": 0
+                },
+                "whiteSpace": "normal"
+              }
+            ]
+          },
+          "primary": {
+            "color": "rgb(255, 255, 255)",
+            "background": "rgb(20, 119, 138)",
+            "contrast": 5.203854263342246
+          },
+          "stage": {
+            "x": 244,
+            "y": 157.578125,
+            "width": 1277,
+            "height": 345.34375,
+            "bottom": 502.921875
+          },
+          "lower": {
+            "x": 244,
+            "y": 832.265625,
+            "width": 1277,
+            "height": 207.34375,
+            "bottom": 1039.609375
+          },
+          "courseCount": 0,
+          "horizontalOverflow": false,
+          "bottom": {
+            "lastAction": "进入家庭学习",
+            "lastActionBottom": 1010.609375,
+            "navigationTop": 1024,
+            "safe": true
+          },
+          "scrollSequence": [
+            {
+              "file": "referenceDesktop-dashboard-scroll-00.png",
+              "top": 0,
+              "height": 1127,
+              "clientHeight": 1024,
+              "atEnd": false
+            },
+            {
+              "file": "referenceDesktop-dashboard-scroll-01.png",
+              "top": 103,
+              "height": 1127,
+              "clientHeight": 1024,
+              "atEnd": true
+            }
+          ],
+          "interactions": []
+        },
+        "dashboardInteraction": {
+          "clicked": true,
+          "url": "http://localhost:4180/w/qa-visual?page=schedule",
+          "scheduleVisible": true,
+          "titleVisible": false
+        }
+      },
+      "failures": []
+    },
+    {
+      "name": "referenceMobile:dashboard",
+      "data": {
+        "pageId": "dashboard",
+        "text": "班主任工作台\n\n五年级 · 2人\n\n已保存\n当前班级\n合成甲班（2人）\n合成乙班（1人）\n班级教学\n家庭学习\n今天先做这些\n\n数字只统计当前班级和当前名册\n\n日程跟进\n今天无课，课程表已保留\n作业跟进\n当前名册没有未完成状态\n家校跟进\n暂无待跟进沟通记录\n听写批改\n还没有班级听写任务\n今天\n1月5日\n星期一\n今日课程与班务\n\n课程、活动和个人事项按时间合并\n\n完整日程\n今天没有排课或待办\n\n课程表仍保留在“课程日程”，这里只显示当天内容。\n\n听写与复习\n\n未确认的批改不会计入结果\n\n进入听写\n还没有班级听写任务\n\n可从词库或自定义内容开始。\n\n常用操作\n学生名单\n听写与复习\n作业追踪\n值日安排",
+        "teacherAgenda": false,
+        "healthEditor": false,
+        "healthReadOnly": false,
+        "healthReadOnlyHealthy": false,
+        "healthStudentSearch": false,
+        "healthStudentPickerIdle": false,
+        "healthStudentPickerPosition": "",
+        "healthFooterActions": false,
+        "healthHeaderAction": false,
+        "homeworkDetail": false,
+        "homeworkFollowModal": false,
+        "homeworkSelectionVisible": false,
+        "homeworkReadonlyBulkDisabled": false,
+        "mobileHomeworkTaskSummary": false,
+        "mobileHomeworkSelectionRail": false,
+        "attendanceLedger": false,
+        "attendanceReadOnly": false,
+        "attendanceReadOnlyHealthy": false,
+        "attendanceBatchBar": false,
+        "attendanceSelectionCleared": false,
+        "attendanceStatusActionsHealthy": false,
+        "attendanceAllNormalHealthy": false,
+        "attendanceDetachedEditor": false,
+        "reflectionEditorHealthy": false,
+        "reflectionReadOnlyShown": false,
+        "reflectionDraftRetained": false,
+        "weeklyEditorHealthy": false,
+        "weeklyReadOnlyShown": false,
+        "weeklyDraftRetained": false,
+        "weeklyPrimaryFullWidth": false,
+        "commentEditorHealthy": false,
+        "commentReadOnlyShown": false,
+        "commentDraftRetained": false,
+        "commentDraftRetainedAfterEvidence": false,
+        "commentEvidenceSheetHealthy": false,
+        "visibleSceneSwitches": 1,
+        "mobileTabItems": [
+          {
+            "label": "首页",
+            "visible": true,
+            "topLabel": "首页",
+            "topClass": {}
+          },
+          {
+            "label": "学生",
+            "visible": true,
+            "topLabel": "学生",
+            "topClass": {}
+          },
+          {
+            "label": "作业",
+            "visible": true,
+            "topLabel": "作业",
+            "topClass": {}
+          },
+          {
+            "label": "成绩",
+            "visible": true,
+            "topLabel": "成绩",
+            "topClass": {}
+          },
+          {
+            "label": "更多",
+            "visible": true,
+            "topLabel": "更多",
+            "topClass": {}
+          }
+        ],
+        "mobileBlockingLayer": false,
+        "dashboardArtwork": {
+          "image": {
+            "left": 0,
+            "right": 390,
+            "top": 115.09375,
+            "bottom": 279.09375,
+            "width": 390,
+            "height": 164
+          },
+          "container": {
+            "left": 0,
+            "right": 390,
+            "top": 115.09375,
+            "bottom": 279.09375,
+            "width": 390,
+            "height": 164
+          },
+          "objectFit": "cover",
+          "objectPosition": "50% 48%",
+          "inlineObjectFit": "cover",
+          "widthRatio": 1,
+          "heightRatio": 1
+        },
+        "shell": null,
+        "main": null,
+        "content": {
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "width": 0,
+          "height": 0
+        },
+        "scrollWidth": 390,
+        "viewportWidth": 390,
+        "cardsInsideCards": 4,
+        "inputLikeButtons": 0,
+        "squeezedButtons": [],
+        "oversizedSegmentButtons": [],
+        "pointHeaderActionIssues": [],
+        "crowdedActionCells": 0,
+        "crampedDialogTextareas": [],
+        "clippedSurfaces": [],
+        "widestElements": [],
+        "overflowElements": [
+          {
+            "tag": "INPUT",
+            "className": "visually-hidden",
+            "clientWidth": 1,
+            "scrollWidth": 158
+          },
+          {
+            "tag": "SPAN",
+            "className": "",
+            "clientWidth": 1,
+            "scrollWidth": 16
+          }
+        ],
+        "dashboardReview": {
+          "url": "http://localhost:4180/w/qa-visual?page=dashboard",
+          "title": "班主任工作台",
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/152.0.0.0 Safari/537.36",
+          "viewport": {
+            "width": 390,
+            "height": 844,
+            "dpr": 1
+          },
+          "fixture": {
+            "scenario": "empty",
+            "date": "2026-01-05",
+            "workspaceWrites": 0
+          },
+          "headings": [
+            "今天先做这些",
+            "今日课程与班务",
+            "听写与复习",
+            "常用操作",
+            "值日岗位",
+            "学生事实提醒"
+          ],
+          "visualRoles": {
+            "heading": "今天的班务",
+            "headingSize": "32px",
+            "dateSize": "18px",
+            "scene": "http://localhost:4180/art/campus/home-scene-mobile-v3.webp",
+            "stationery": {
+              "x": 0,
+              "y": 1030.625,
+              "width": 390,
+              "height": 96,
+              "bottom": 1126.625
+            },
+            "sections": [
+              {
+                "title": "今日课程与班务",
+                "background": "rgb(255, 255, 255)",
+                "icon": "rgb(38, 98, 135)"
+              },
+              {
+                "title": "听写与复习",
+                "background": "rgb(237, 245, 238)",
+                "icon": "rgb(57, 117, 82)"
+              },
+              {
+                "title": "值日岗位",
+                "background": "color(srgb 1 0.958274 0.871843)",
+                "icon": "rgb(135, 82, 11)"
+              },
+              {
+                "title": "学生事实提醒",
+                "background": "rgb(255, 255, 255)",
+                "icon": "rgb(57, 117, 82)"
+              }
+            ],
+            "subjects": []
+          },
+          "dictation": {
+            "state": "empty",
+            "image": null,
+            "picture": null,
+            "text": {
+              "x": 73,
+              "y": 954.875,
+              "width": 286,
+              "height": 51.5,
+              "bottom": 1006.375
+            },
+            "textContent": "还没有班级听写任务\n\n可从词库或自定义内容开始。",
+            "body": {
+              "x": 15,
+              "y": 930.625,
+              "width": 360,
+              "height": 100,
+              "bottom": 1030.625
+            }
+          },
+          "date": {
+            "groups": [
+              {
+                "text": "1月5日",
+                "box": {
+                  "x": 88.8125,
+                  "y": 174.34375,
+                  "width": 48.515625,
+                  "height": 21.75,
+                  "bottom": 196.09375
+                },
+                "whiteSpace": "nowrap"
+              },
+              {
+                "text": "星期一",
+                "box": {
+                  "x": 88.8125,
+                  "y": 198.09375,
+                  "width": 48.515625,
+                  "height": 21.75,
+                  "bottom": 219.84375
+                },
+                "whiteSpace": "nowrap"
+              }
+            ]
+          },
+          "primary": {
+            "color": "rgb(255, 255, 255)",
+            "background": "rgb(20, 119, 138)",
+            "contrast": 5.203854263342246
+          },
+          "stage": {
+            "x": 0,
+            "y": 115.09375,
+            "width": 390,
+            "height": 502.84375,
+            "bottom": 617.9375
+          },
+          "lower": {
+            "x": 0,
+            "y": 1368.625,
+            "width": 390,
+            "height": 412.6875,
+            "bottom": 1781.3125
+          },
+          "courseCount": 0,
+          "horizontalOverflow": false,
+          "bottom": {
+            "lastAction": "进入家庭学习",
+            "lastActionBottom": 725.3125,
+            "navigationTop": 783,
+            "safe": true
+          },
+          "scrollSequence": [
+            {
+              "file": "referenceMobile-dashboard-scroll-00.png",
+              "top": 0,
+              "height": 1972,
+              "clientHeight": 844,
+              "atEnd": false
+            },
+            {
+              "file": "referenceMobile-dashboard-scroll-01.png",
+              "top": 664,
+              "height": 1972,
+              "clientHeight": 844,
+              "atEnd": false
+            },
+            {
+              "file": "referenceMobile-dashboard-scroll-02.png",
+              "top": 1128,
+              "height": 1972,
+              "clientHeight": 844,
+              "atEnd": true
+            }
+          ],
+          "interactions": [
+            {
+              "label": "学生名单",
+              "expected": "students",
+              "actual": "students",
+              "clicked": true,
+              "url": "http://localhost:4180/w/qa-visual?page=students",
+              "visibleHeadings": [
+                "学生名单",
+                "学生名单"
+              ],
+              "loading": false,
+              "visibleContent": "学生名单\n\n五年级 · 2人\n\n已保存\n合成甲班\n学生名单\n新增学生\n搜索\n小组\n全部小组\n第1组\n第2组\n编辑资料\n名单操作\n选择欧阳慕容长姓名测试同学\n欧\n欧阳慕容长姓名测试同学\n学号 01 · 第1组 · 暂无近期记录\n›\n选择测试甲2\n测\n测试甲2\n学号 02 · 第2组 · 暂无近期记录\n›\n显示 2 / 2 人\n上一页\n1 / 1\n下一页\n首页\n学生\n作业\n成绩\n更多"
+            },
+            {
+              "label": "听写与复习",
+              "expected": "dictation",
+              "actual": "dictation",
+              "clicked": true,
+              "url": "http://localhost:4180/w/qa-visual?page=dictation",
+              "visibleHeadings": [
+                "听写与复习"
+              ],
+              "loading": false,
+              "visibleContent": "听写与复习\n\n五年级 · 2人\n\n已保存\n班级教学\n家庭学习\n首页\n学生\n作业\n成绩\n更多\n合成甲班 · 2人\n任务\n词库\n错词本\n记录与统计\n搜索任务\n学科\n全部学科\n日期\n重置\n\n暂无匹配任务，可新建听写或从词库选择材料。\n\n0至0 / 共0项\n上一页\n1 / 1\n下一页\n工作区占用 0.01 / 5 MB。归档保留记录且不减小备份；接近上限时先导出完整备份再整理历史。"
+            },
+            {
+              "label": "作业追踪",
+              "expected": "homework",
+              "actual": "homework",
+              "clicked": true,
+              "url": "http://localhost:4180/w/qa-visual?page=homework",
+              "visibleHeadings": [
+                "作业追踪",
+                "作业追踪"
+              ],
+              "loading": false,
+              "visibleContent": "作业追踪\n\n五年级 · 2人\n\n已保存\n合成甲班\n作业追踪\n新增作业\n搜索作业\n学科\n全部学科\n高级筛选\n找到 0 项\n还没有作业任务\n\n新增作业后，逐生记录提交、订正和复查状态。\n\n新增第一项作业\n上一页\n1 / 1\n下一页\n首页\n学生\n作业\n成绩\n更多"
+            },
+            {
+              "label": "值日安排",
+              "expected": "duty",
+              "actual": "duty",
+              "clicked": true,
+              "url": "http://localhost:4180/w/qa-visual?page=duty",
+              "visibleHeadings": [
+                "值日岗位",
+                "本周值日安排",
+                "暂无启用岗位"
+              ],
+              "loading": false,
+              "visibleContent": "值日岗位\n\n五年级 · 2人\n\n已保存\n合成甲班\n本周值日安排\n\n周二 · 2026-01-06\n\n教学日\n1\n跟随课程日程\n周二完成\n0/0\n逐项检查确认\n本周完成\n0%\n0/0 项\n轮换小组\n2\n仅使用非空小组\n岗位检查\n本周安排\n岗位设置\n检查台账\n周二\n01-06\n岗位检查\n暂无启用岗位\n新增岗位\n没有启用的值日岗位\n\n在“岗位设置”中启用现有岗位，或新增适合本班的责任区。\n\n前往岗位设置\n首页\n学生\n作业\n成绩\n更多"
+            }
+          ]
+        },
+        "dashboardInteraction": {
+          "clicked": true,
+          "url": "http://localhost:4180/w/qa-visual?page=schedule",
+          "scheduleVisible": true,
+          "titleVisible": true
+        }
+      },
+      "failures": []
+    }
+  ],
+  "failures": []
+}

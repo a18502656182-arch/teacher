@@ -2,6 +2,8 @@
 
 ## 最新进度：V1按13:30更正返工R6–R8（2026-09-14）
 
+最终返工候选产品351880e（主体d3a4401，标签文字对比度修正351880e）已重新完成类型、lint、生产构建、270项测试、认证集成、19页六档严格QA和三场景采集。44张持久图、原始日志及失败重试记录见docs/visual-baseline/logs/V1-351880e/evidence-index.json；逐区色彩角色见docs/visual-baseline/V1-351880e-review.md。dashboard现为ready-for-review，仅表示提交候选，监工pending；旧CHANGES_REQUESTED及撤回记录保留。先监工、后用户确认，V2 blocked，未部署。
+
 监工撤回692665d的PASS，同名报告顶部更正为CHANGES_REQUESTED，不是产品变化引起的STALE。V1/dashboard已退回needs-fix，V2 blocked、用户未批准。保留R1–R5修复事实及证据。
 
 本轮只改首页视图/局部CSS：任务和模块分类色、课程暖白工作面与真实学科标签、听写白色内容面及下方文具情境、“今天的班务”主标题和辅助日期。首页局部复用classroom-morning资产，手机仍用原mobile源；不改共享主题映射、壳层、业务保存、数据和家庭模块。新产品及三场景证据完成后先交监工，再请用户确认；未部署。

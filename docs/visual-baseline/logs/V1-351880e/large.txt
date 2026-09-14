@@ -1,0 +1,7 @@
+productCommit: 351880ee957aca334324f681be64348ce5dfc0ba
+command: node scripts/layout-audit.mjs --serve
+startedAt: 2026-09-14T05:53:06.122Z
+Layout audit passed: E:\文档\Codex\小红书\班主任工作台网站\.qa-shots\v1-r678-contrast-final\large\layout-audit.json
+
+
+exitCode: 0
