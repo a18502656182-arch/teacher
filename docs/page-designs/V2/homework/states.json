@@ -1,0 +1,159 @@
+{
+  "stage": "inventory",
+  "basis": "source and old preservation inventory; not new design acceptance",
+  "states": [
+    {
+      "stateId": "normal",
+      "applicable": true,
+      "fixturePlanned": "synthetic local fixture",
+      "designStatus": "not-started",
+      "integrationStatus": "not-tested-this-round"
+    },
+    {
+      "stateId": "empty-tasks",
+      "applicable": true,
+      "fixturePlanned": "synthetic local fixture",
+      "designStatus": "not-started",
+      "integrationStatus": "not-tested-this-round"
+    },
+    {
+      "stateId": "tasks-30",
+      "applicable": true,
+      "fixturePlanned": "synthetic local fixture",
+      "designStatus": "not-started",
+      "integrationStatus": "not-tested-this-round"
+    },
+    {
+      "stateId": "students-105",
+      "applicable": true,
+      "fixturePlanned": "synthetic local fixture",
+      "designStatus": "not-started",
+      "integrationStatus": "not-tested-this-round"
+    },
+    {
+      "stateId": "long-title-note",
+      "applicable": true,
+      "fixturePlanned": "synthetic local fixture",
+      "designStatus": "not-started",
+      "integrationStatus": "not-tested-this-round"
+    },
+    {
+      "stateId": "search-empty",
+      "applicable": true,
+      "fixturePlanned": "synthetic local fixture",
+      "designStatus": "not-started",
+      "integrationStatus": "not-tested-this-round"
+    },
+    {
+      "stateId": "task-editor",
+      "applicable": true,
+      "fixturePlanned": "synthetic local fixture",
+      "designStatus": "not-started",
+      "integrationStatus": "not-tested-this-round"
+    },
+    {
+      "stateId": "validation",
+      "applicable": true,
+      "fixturePlanned": "synthetic local fixture",
+      "designStatus": "not-started",
+      "integrationStatus": "not-tested-this-round"
+    },
+    {
+      "stateId": "filters",
+      "applicable": true,
+      "fixturePlanned": "synthetic local fixture",
+      "designStatus": "not-started",
+      "integrationStatus": "not-tested-this-round"
+    },
+    {
+      "stateId": "mobile-detail",
+      "applicable": true,
+      "fixturePlanned": "synthetic local fixture",
+      "designStatus": "not-started",
+      "integrationStatus": "not-tested-this-round"
+    },
+    {
+      "stateId": "selected",
+      "applicable": true,
+      "fixturePlanned": "synthetic local fixture",
+      "designStatus": "not-started",
+      "integrationStatus": "not-tested-this-round"
+    },
+    {
+      "stateId": "follow-empty",
+      "applicable": true,
+      "fixturePlanned": "synthetic local fixture",
+      "designStatus": "not-started",
+      "integrationStatus": "not-tested-this-round"
+    },
+    {
+      "stateId": "follow-full",
+      "applicable": true,
+      "fixturePlanned": "synthetic local fixture",
+      "designStatus": "not-started",
+      "integrationStatus": "not-tested-this-round"
+    },
+    {
+      "stateId": "loading",
+      "applicable": true,
+      "fixturePlanned": "synthetic local fixture",
+      "designStatus": "not-started",
+      "integrationStatus": "not-tested-this-round"
+    },
+    {
+      "stateId": "readonly",
+      "applicable": true,
+      "fixturePlanned": "synthetic local fixture",
+      "designStatus": "not-started",
+      "integrationStatus": "not-tested-this-round"
+    },
+    {
+      "stateId": "saving",
+      "applicable": true,
+      "fixturePlanned": "explicit simulated action adapter; later isolated integration",
+      "designStatus": "not-started",
+      "integrationStatus": "not-tested-this-round"
+    },
+    {
+      "stateId": "save-failure",
+      "applicable": true,
+      "fixturePlanned": "explicit simulated action adapter; later isolated integration",
+      "designStatus": "not-started",
+      "integrationStatus": "not-tested-this-round"
+    },
+    {
+      "stateId": "conflict-409",
+      "applicable": true,
+      "fixturePlanned": "explicit simulated action adapter; later isolated integration",
+      "designStatus": "not-started",
+      "integrationStatus": "not-tested-this-round"
+    },
+    {
+      "stateId": "dirty-close",
+      "applicable": true,
+      "fixturePlanned": "synthetic local fixture",
+      "designStatus": "not-started",
+      "integrationStatus": "not-tested-this-round"
+    },
+    {
+      "stateId": "delete-confirm",
+      "applicable": true,
+      "fixturePlanned": "synthetic local fixture",
+      "designStatus": "not-started",
+      "integrationStatus": "not-tested-this-round"
+    }
+  ],
+  "currentObservations": [
+    {
+      "path": "docs/page-designs/V2/recovery/referenceDesktop-homework.png",
+      "sha256": "7563C0E985D31397A6B731E09009669DFEB7006301C9C173FF3B036388E049DB"
+    },
+    {
+      "path": "docs/page-designs/V2/recovery/referenceMobile-homework.png",
+      "sha256": "7ECE8A628C25B2ECB3F46C895EB32F6FD7C1234D24654F73894A4F578145399B"
+    }
+  ],
+  "notes": [
+    "mobile is follow-empty Drawer, not default"
+  ]
+}

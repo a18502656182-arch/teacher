@@ -1,0 +1,156 @@
+{
+  "stage": "inventory",
+  "basis": "source and old preservation inventory; not new design acceptance",
+  "states": [
+    {
+      "stateId": "normal",
+      "applicable": true,
+      "fixturePlanned": "synthetic local fixture",
+      "designStatus": "not-started",
+      "integrationStatus": "not-tested-this-round"
+    },
+    {
+      "stateId": "empty",
+      "applicable": true,
+      "fixturePlanned": "synthetic local fixture",
+      "designStatus": "not-started",
+      "integrationStatus": "not-tested-this-round"
+    },
+    {
+      "stateId": "large-105",
+      "applicable": true,
+      "fixturePlanned": "synthetic local fixture",
+      "designStatus": "not-started",
+      "integrationStatus": "not-tested-this-round"
+    },
+    {
+      "stateId": "long-name",
+      "applicable": true,
+      "fixturePlanned": "synthetic local fixture",
+      "designStatus": "not-started",
+      "integrationStatus": "not-tested-this-round"
+    },
+    {
+      "stateId": "search-empty",
+      "applicable": true,
+      "fixturePlanned": "synthetic local fixture",
+      "designStatus": "not-started",
+      "integrationStatus": "not-tested-this-round"
+    },
+    {
+      "stateId": "loading",
+      "applicable": true,
+      "fixturePlanned": "synthetic local fixture",
+      "designStatus": "not-started",
+      "integrationStatus": "not-tested-this-round"
+    },
+    {
+      "stateId": "readonly",
+      "applicable": true,
+      "fixturePlanned": "synthetic local fixture",
+      "designStatus": "not-started",
+      "integrationStatus": "not-tested-this-round"
+    },
+    {
+      "stateId": "saving",
+      "applicable": true,
+      "fixturePlanned": "explicit simulated action adapter; later isolated integration",
+      "designStatus": "not-started",
+      "integrationStatus": "not-tested-this-round"
+    },
+    {
+      "stateId": "save-failure",
+      "applicable": true,
+      "fixturePlanned": "explicit simulated action adapter; later isolated integration",
+      "designStatus": "not-started",
+      "integrationStatus": "not-tested-this-round"
+    },
+    {
+      "stateId": "conflict-409",
+      "applicable": true,
+      "fixturePlanned": "explicit simulated action adapter; later isolated integration",
+      "designStatus": "not-started",
+      "integrationStatus": "not-tested-this-round"
+    },
+    {
+      "stateId": "detail-drawer",
+      "applicable": true,
+      "fixturePlanned": "synthetic local fixture",
+      "designStatus": "not-started",
+      "integrationStatus": "not-tested-this-round"
+    },
+    {
+      "stateId": "profile",
+      "applicable": true,
+      "fixturePlanned": "synthetic local fixture",
+      "designStatus": "not-started",
+      "integrationStatus": "not-tested-this-round"
+    },
+    {
+      "stateId": "editor",
+      "applicable": true,
+      "fixturePlanned": "synthetic local fixture",
+      "designStatus": "not-started",
+      "integrationStatus": "not-tested-this-round"
+    },
+    {
+      "stateId": "validation",
+      "applicable": true,
+      "fixturePlanned": "synthetic local fixture",
+      "designStatus": "not-started",
+      "integrationStatus": "not-tested-this-round"
+    },
+    {
+      "stateId": "import",
+      "applicable": true,
+      "fixturePlanned": "synthetic local fixture",
+      "designStatus": "not-started",
+      "integrationStatus": "not-tested-this-round"
+    },
+    {
+      "stateId": "import-error",
+      "applicable": true,
+      "fixturePlanned": "synthetic local fixture",
+      "designStatus": "not-started",
+      "integrationStatus": "not-tested-this-round"
+    },
+    {
+      "stateId": "batch",
+      "applicable": true,
+      "fixturePlanned": "synthetic local fixture",
+      "designStatus": "not-started",
+      "integrationStatus": "not-tested-this-round"
+    },
+    {
+      "stateId": "danger-confirm",
+      "applicable": true,
+      "fixturePlanned": "synthetic local fixture",
+      "designStatus": "not-started",
+      "integrationStatus": "not-tested-this-round"
+    },
+    {
+      "stateId": "dirty-close",
+      "applicable": true,
+      "fixturePlanned": "synthetic local fixture",
+      "designStatus": "not-started",
+      "integrationStatus": "not-tested-this-round"
+    }
+  ],
+  "currentObservations": [
+    {
+      "path": "docs/page-designs/V2/recovery/referenceDesktop-students.png",
+      "sha256": "B304F5CE4046588F927E36B49E4224F1AF31809C032A643C4C2BE0031CB098EB"
+    },
+    {
+      "path": "docs/page-designs/V2/recovery/referenceMobile-students.png",
+      "sha256": "6DE58B9C48A05766B0F9C5634262351AF36AC854F1B78D574E8A2809F0089920"
+    },
+    {
+      "path": "docs/page-designs/V2/recovery/referenceMobile-students-drawer.png",
+      "sha256": "741575414388D7083115A32EBA34C3744C9B868D9991C783365D1A9306DD2DEC"
+    }
+  ],
+  "notes": [
+    "normal roster and detail only; uncommitted styles incomplete"
+  ]
+}

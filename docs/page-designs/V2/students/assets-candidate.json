@@ -1,0 +1,56 @@
+{
+  "stage": "candidate-not-frozen",
+  "images": [
+    {
+      "version": "C01",
+      "kind": "desktop",
+      "path": "docs/page-designs/V2/students/candidates/students-desktop-c01.png",
+      "sha256": "DEBF43572AE299C123A0A4C8C8442DA48DC8E935CBBD4B277C42848D1AC62184",
+      "pixelSize": [
+        1536,
+        1024
+      ],
+      "targetViewport": "1536x1024",
+      "purpose": "ImageGen concept; not runnable design",
+      "prompt": "docs/page-designs/V2/students/candidates/prompts-c01.md",
+      "inputSource": [
+        "C3",
+        "399a5c4 actual"
+      ],
+      "approval": false
+    },
+    {
+      "version": "C01",
+      "kind": "mobile",
+      "path": "docs/page-designs/V2/students/candidates/students-mobile-c01.png",
+      "sha256": "A0BCD75AC7CE63E1C5710E95B8B3ED894F08C97475BB6B64ABFAEE62C44BB0D0",
+      "pixelSize": [
+        853,
+        1844
+      ],
+      "targetViewport": "390x844",
+      "purpose": "ImageGen concept; not runnable design",
+      "prompt": "docs/page-designs/V2/students/candidates/prompts-c01.md",
+      "inputSource": [
+        "students-desktop-c01"
+      ],
+      "approval": false
+    }
+  ],
+  "referenceChecks": [
+    {
+      "id": "C3",
+      "path": "项目实施包-UI彻底重构与双主题-20260912/references/campus/C3-桌面学生.png",
+      "sha256": "521F2BCE5F21DCAFD28CC5B327BDD066C07F041495BDCCE6481907797FC81436",
+      "matches": true
+    },
+    {
+      "id": "C3",
+      "path": "docs/visual-baseline/references/C3-students-desktop.webp",
+      "sha256": "628B1E18AF35CA9006CF556D255675DD81A3A6000D28D080EF2F9C33E3A7B988",
+      "matches": true
+    }
+  ],
+  "font": "candidate raster text; final font not frozen",
+  "distribution": "generated candidate in user-authorized project; no real class data; reference rights not independently assessed"
+}

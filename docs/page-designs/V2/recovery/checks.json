@@ -1,0 +1,56 @@
+{
+  "sourceHead": "9a0babd0286414ca6c8c72a2fd70ba248bd7295b",
+  "capturedAt": "2026-09-14T11:57:43.3058848Z",
+  "checks": [
+    {
+      "sha256": "F2C95AE50B904A7734952DD5060B59ED31BC8D219DBA76A67E8FC565C9356626",
+      "result": "19 passed",
+      "path": "docs/page-designs/V2/recovery/workflow-tests.txt",
+      "exitCode": 0,
+      "command": "node --test tests/visual-baseline-audit.test.mjs"
+    },
+    {
+      "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "result": "passed",
+      "path": "docs/page-designs/V2/recovery/workflow-eslint.txt",
+      "exitCode": 0,
+      "command": "npx eslint (four audit/test files)"
+    },
+    {
+      "sha256": "977B030C2245187A34033F4492AA8211D1DBD9BCCA743755A9B2AF2620907A2C",
+      "result": "integrity only",
+      "path": "docs/page-designs/V2/recovery/baseline.txt",
+      "exitCode": 0,
+      "command": "node scripts/visual-baseline-audit.mjs"
+    },
+    {
+      "sha256": "0B1E1BFAB84366A1A4A75209055D5D5EDA9E0C688FFE0EA7A7D9896EB4E4E2BE",
+      "result": "expected rejection; no D approval",
+      "path": "docs/page-designs/V2/recovery/integration-blocked.txt",
+      "exitCode": 1,
+      "command": "node scripts/visual-baseline-audit.mjs --gate V2 --stage integration"
+    }
+  ],
+  "fullBuildRun": false,
+  "sourceFiles": [
+    {
+      "path": "scripts/visual-baseline-audit.mjs",
+      "sha256": "D5D8AA0976D57EE0F8D41F98B3180CC73A5191EBE9D8A1D7C08F1F56FB1EF68E"
+    },
+    {
+      "path": "scripts/visual-design-workflow.mjs",
+      "sha256": "D817AEE8A037D73D2459E2DD031E08FE0B89AA07B80DD87627A67171A555DBE0"
+    },
+    {
+      "path": "tests/visual-baseline-audit.test.mjs",
+      "sha256": "A9D3DF63FC9B3AEF8C8B3B2991550E2125C804B89E60AB09993E65D0CCF9FA6A"
+    },
+    {
+      "path": "tests/visual-design-workflow.test.mjs",
+      "sha256": "E5BDBA0C88AEEDB4BF2D908947B65D2F72500C411D2BCAD2ABB15D71EC480D88"
+    }
+  ],
+  "testedWorkingTree": true,
+  "deploymentPerformed": false,
+  "preExistingFilesUnchanged": true
+}

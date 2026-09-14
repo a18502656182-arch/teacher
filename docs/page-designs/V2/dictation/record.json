@@ -1,0 +1,58 @@
+{
+  "pageId": "dictation",
+  "batch": "V2",
+  "phase": "inventory",
+  "brief": "docs/page-designs/V2/dictation/brief.md",
+  "functionMap": "docs/page-designs/V2/dictation/function-map.md",
+  "geometry": null,
+  "assets": null,
+  "states": "docs/page-designs/V2/dictation/states.json",
+  "candidates": [],
+  "prototype": {
+    "commit": null,
+    "previewUrl": null,
+    "evidence": []
+  },
+  "designApproval": {
+    "approved": false,
+    "source": null,
+    "approvedAt": null,
+    "commit": null,
+    "evidenceHashes": []
+  },
+  "integration": {
+    "productCommit": null,
+    "designCommit": null,
+    "evidence": [],
+    "tests": []
+  },
+  "resultApproval": {
+    "approved": false,
+    "source": null,
+    "approvedAt": null,
+    "productCommit": null
+  },
+  "issues": [
+    {
+      "id": "D-NOT-APPROVED",
+      "blocking": true,
+      "resolved": false,
+      "description": "No runnable design or D/R approval."
+    }
+  ],
+  "nextAction": "独立候选设计准备；本轮学生候选展示后暂停",
+  "history": [
+    {
+      "date": "2026-09-14",
+      "event": "Recovered current source and established independent page inventory; no business integration."
+    }
+  ],
+  "sourceState": "docs/page-designs/V2/recovery/source-state.json",
+  "conceptApproval": {
+    "approved": false,
+    "source": null,
+    "approvedAt": null,
+    "candidateVersion": null,
+    "evidenceHashes": []
+  }
+}

@@ -3,6 +3,7 @@ import { execFileSync } from "node:child_process";
 import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { auditDesignWorkflow } from "./visual-design-workflow.mjs";
 
 const expectedPages = ["dashboard", "students", "homework", "dictation", "attendance", "growth", "health", "records", "scores", "reflection", "schedule", "tools", "seating", "duty", "cadres", "rules", "points", "weekly", "comments"];
 const allowedGateStatuses = new Set(["blocked", "active", "in-progress", "needs-fix", "awaiting-user-review", "user-approved", "needs-regression-review"]);
@@ -56,7 +57,7 @@ function gitOutput(root, args) {
   }
 }
 
-function gitCommitExists(root, commit) {
+export function gitCommitExists(root, commit) {
   try {
     execFileSync("git", ["cat-file", "-e", `${commit}^{commit}`], { cwd: root, stdio: "ignore" });
     return true;
@@ -65,7 +66,7 @@ function gitCommitExists(root, commit) {
   }
 }
 
-function changedTrackedFiles(root, fromCommit = "HEAD") {
+export function changedTrackedFiles(root, fromCommit = "HEAD") {
   const committed = fromCommit === "HEAD" ? "" : gitOutput(root, ["diff", "--name-only", "-z", `${fromCommit}..HEAD`, "--"]);
   const working = gitOutput(root, ["diff", "--name-only", "-z", "HEAD", "--"]);
   const added = gitOutput(root, ["ls-files", "--others", "--exclude-standard", "-z"]);
@@ -83,13 +84,13 @@ export function matchesTrigger(file, trigger) {
     || ((!path.extname(normalizedTrigger) || normalizedTrigger.endsWith('.config')) && normalizedFile.startsWith(`${normalizedTrigger}.`));
 }
 
-function isSharedProductFile(file, ledger) {
+export function isSharedProductFile(file, ledger) {
   if (/^(lib|db|drizzle|worker|app\/api)\//.test(file)) return true;
   const defaults = ["app/w/[token]/ClassroomApp.tsx", "app/w/[token]/WorkbenchPageHeader.tsx"];
   return [...visualProductTriggers, ...defaults, ...(ledger.sharedRegressionTriggers ?? [])].some((trigger) => matchesTrigger(file, trigger));
 }
 
-function isPageProductFile(pageId, file) {
+export function isPageProductFile(pageId, file) {
   return (pageProductTriggers[pageId] ?? []).some((trigger) => matchesTrigger(file, trigger));
 }
 
@@ -139,7 +140,7 @@ export function auditVisualBaseline(root, argv = []) {
     return { failures: [`Invalid visual baseline JSON: ${error.message}`], warnings, summary: "invalid ledger" };
   }
 
-  if (ledger.schemaVersion !== 2) failures.push("Unsupported visual baseline schemaVersion.");
+  if (![2, 3].includes(ledger.schemaVersion)) failures.push("Unsupported visual baseline schemaVersion.");
   if (ledger.scope !== "teacher-workbench-only") failures.push("Visual baseline scope must remain teacher-workbench-only.");
   if (!ledger.excluded?.includes("family")) failures.push("Family must remain explicitly excluded from this correction program.");
   if (ledger.gates?.length !== 7) failures.push("Exactly seven user-review gates are required.");
@@ -201,7 +202,7 @@ export function auditVisualBaseline(root, argv = []) {
         if (!kinds.has(kind)) failures.push(`${pageId} is ready without distinct ${kind} current evidence.`);
         if (!comparisonKinds.has(kind)) failures.push(`${pageId} is ready without distinct ${kind} comparison evidence.`);
       }
-      if (!page.supervision || !["pending", "PASS", "CHANGES_REQUESTED", "BLOCKED", "STALE"].includes(page.supervision.status)) failures.push(`${pageId} is ready without an independent supervision state.`);
+      if (ledger.schemaVersion === 2 && (!page.supervision || !["pending", "PASS", "CHANGES_REQUESTED", "BLOCKED", "STALE"].includes(page.supervision.status))) failures.push(`${pageId} is ready without an independent supervision state.`);
       if (page.supervision?.status === "PASS" && page.supervision.reviewedProductCommit !== page.productCommit) failures.push(`${pageId} supervision PASS is not bound to its product commit.`);
     }
     if (page.status === "user-approved") {
@@ -233,7 +234,7 @@ export function auditVisualBaseline(root, argv = []) {
   }
 
   const requestedGateId = gateArgument(argv);
-  if (requestedGateId) {
+  if (requestedGateId && ledger.schemaVersion === 2) {
     const requestedIndex = (ledger.gates ?? []).findIndex((gate) => gate.id === requestedGateId);
     if (requestedIndex < 0) failures.push(`Unknown gate ${requestedGateId}.`);
     else {
@@ -248,13 +249,20 @@ export function auditVisualBaseline(root, argv = []) {
     }
   }
 
+  let workflow;
+  if (ledger.schemaVersion === 3) {
+    workflow = auditDesignWorkflow(root, ledger, argv, { gitCommitExists, changedTrackedFiles, isSharedProductFile, isPageProductFile });
+    failures.push(...workflow.failures);
+  }
+
   const approved = (ledger.gates ?? []).filter((gate) => gate.userApproval?.approved).length;
-  return { failures, warnings, summary: `${expectedPages.length} teacher pages, ${ledger.gates?.length ?? 0} gates, ${approved} user-approved gates` };
+  return { failures, warnings, workflow: workflow?.gates, summary: `${expectedPages.length} teacher pages, ${ledger.gates?.length ?? 0} gates, ${approved} historical user-approved gates${workflow ? '; staged D/R workflow (supervision optional)' : ''}` };
 }
 
 const isMain = process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.argv[1]);
 if (isMain) {
   const result = auditVisualBaseline(process.cwd(), process.argv.slice(2));
+  if (result.workflow) console.log(JSON.stringify(result.workflow, null, 2));
   for (const warning of result.warnings) console.warn(`WARN ${warning}`);
   if (result.failures.length) {
     for (const failure of result.failures) console.error(`FAIL ${failure}`);

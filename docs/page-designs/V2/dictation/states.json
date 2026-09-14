@@ -1,0 +1,215 @@
+{
+  "stage": "inventory",
+  "basis": "source and old preservation inventory; not new design acceptance",
+  "states": [
+    {
+      "stateId": "tasks-empty",
+      "applicable": true,
+      "fixturePlanned": "synthetic local fixture",
+      "designStatus": "not-started",
+      "integrationStatus": "not-tested-this-round"
+    },
+    {
+      "stateId": "tasks-normal",
+      "applicable": true,
+      "fixturePlanned": "synthetic local fixture",
+      "designStatus": "not-started",
+      "integrationStatus": "not-tested-this-round"
+    },
+    {
+      "stateId": "task-editor",
+      "applicable": true,
+      "fixturePlanned": "synthetic local fixture",
+      "designStatus": "not-started",
+      "integrationStatus": "not-tested-this-round"
+    },
+    {
+      "stateId": "validation",
+      "applicable": true,
+      "fixturePlanned": "synthetic local fixture",
+      "designStatus": "not-started",
+      "integrationStatus": "not-tested-this-round"
+    },
+    {
+      "stateId": "grading-8",
+      "applicable": true,
+      "fixturePlanned": "synthetic local fixture",
+      "designStatus": "not-started",
+      "integrationStatus": "not-tested-this-round"
+    },
+    {
+      "stateId": "grading-12",
+      "applicable": true,
+      "fixturePlanned": "synthetic local fixture",
+      "designStatus": "not-started",
+      "integrationStatus": "not-tested-this-round"
+    },
+    {
+      "stateId": "grading-60",
+      "applicable": true,
+      "fixturePlanned": "synthetic local fixture",
+      "designStatus": "not-started",
+      "integrationStatus": "not-tested-this-round"
+    },
+    {
+      "stateId": "grading-200",
+      "applicable": true,
+      "fixturePlanned": "synthetic local fixture",
+      "designStatus": "not-started",
+      "integrationStatus": "not-tested-this-round"
+    },
+    {
+      "stateId": "long-name",
+      "applicable": true,
+      "fixturePlanned": "synthetic local fixture",
+      "designStatus": "not-started",
+      "integrationStatus": "not-tested-this-round"
+    },
+    {
+      "stateId": "queue-105",
+      "applicable": true,
+      "fixturePlanned": "synthetic local fixture",
+      "designStatus": "not-started",
+      "integrationStatus": "not-tested-this-round"
+    },
+    {
+      "stateId": "leave",
+      "applicable": true,
+      "fixturePlanned": "synthetic local fixture",
+      "designStatus": "not-started",
+      "integrationStatus": "not-tested-this-round"
+    },
+    {
+      "stateId": "absent",
+      "applicable": true,
+      "fixturePlanned": "synthetic local fixture",
+      "designStatus": "not-started",
+      "integrationStatus": "not-tested-this-round"
+    },
+    {
+      "stateId": "ungraded",
+      "applicable": true,
+      "fixturePlanned": "synthetic local fixture",
+      "designStatus": "not-started",
+      "integrationStatus": "not-tested-this-round"
+    },
+    {
+      "stateId": "wrong-selected",
+      "applicable": true,
+      "fixturePlanned": "synthetic local fixture",
+      "designStatus": "not-started",
+      "integrationStatus": "not-tested-this-round"
+    },
+    {
+      "stateId": "confirmed",
+      "applicable": true,
+      "fixturePlanned": "synthetic local fixture",
+      "designStatus": "not-started",
+      "integrationStatus": "not-tested-this-round"
+    },
+    {
+      "stateId": "review-action",
+      "applicable": true,
+      "fixturePlanned": "synthetic local fixture",
+      "designStatus": "not-started",
+      "integrationStatus": "not-tested-this-round"
+    },
+    {
+      "stateId": "library-editor",
+      "applicable": true,
+      "fixturePlanned": "synthetic local fixture",
+      "designStatus": "not-started",
+      "integrationStatus": "not-tested-this-round"
+    },
+    {
+      "stateId": "wrong-empty",
+      "applicable": true,
+      "fixturePlanned": "synthetic local fixture",
+      "designStatus": "not-started",
+      "integrationStatus": "not-tested-this-round"
+    },
+    {
+      "stateId": "wrong-full",
+      "applicable": true,
+      "fixturePlanned": "synthetic local fixture",
+      "designStatus": "not-started",
+      "integrationStatus": "not-tested-this-round"
+    },
+    {
+      "stateId": "history-empty",
+      "applicable": true,
+      "fixturePlanned": "synthetic local fixture",
+      "designStatus": "not-started",
+      "integrationStatus": "not-tested-this-round"
+    },
+    {
+      "stateId": "history-full",
+      "applicable": true,
+      "fixturePlanned": "synthetic local fixture",
+      "designStatus": "not-started",
+      "integrationStatus": "not-tested-this-round"
+    },
+    {
+      "stateId": "loading",
+      "applicable": true,
+      "fixturePlanned": "synthetic local fixture",
+      "designStatus": "not-started",
+      "integrationStatus": "not-tested-this-round"
+    },
+    {
+      "stateId": "readonly",
+      "applicable": true,
+      "fixturePlanned": "synthetic local fixture",
+      "designStatus": "not-started",
+      "integrationStatus": "not-tested-this-round"
+    },
+    {
+      "stateId": "saving",
+      "applicable": true,
+      "fixturePlanned": "explicit simulated action adapter; later isolated integration",
+      "designStatus": "not-started",
+      "integrationStatus": "not-tested-this-round"
+    },
+    {
+      "stateId": "save-failure",
+      "applicable": true,
+      "fixturePlanned": "explicit simulated action adapter; later isolated integration",
+      "designStatus": "not-started",
+      "integrationStatus": "not-tested-this-round"
+    },
+    {
+      "stateId": "conflict-409",
+      "applicable": true,
+      "fixturePlanned": "explicit simulated action adapter; later isolated integration",
+      "designStatus": "not-started",
+      "integrationStatus": "not-tested-this-round"
+    },
+    {
+      "stateId": "dirty-close",
+      "applicable": true,
+      "fixturePlanned": "synthetic local fixture",
+      "designStatus": "not-started",
+      "integrationStatus": "not-tested-this-round"
+    },
+    {
+      "stateId": "delete-confirm",
+      "applicable": true,
+      "fixturePlanned": "synthetic local fixture",
+      "designStatus": "not-started",
+      "integrationStatus": "not-tested-this-round"
+    }
+  ],
+  "currentObservations": [
+    {
+      "path": "docs/page-designs/V2/recovery/referenceDesktop-dictation.png",
+      "sha256": "DD04D40CA01D634C943662A58092D494A1FF59998219FCA7EDC1422C90C2C396"
+    },
+    {
+      "path": "docs/page-designs/V2/recovery/referenceMobile-dictation.png",
+      "sha256": "E63E86168A1E63513A51389DBDB910F04009CADD49A37CEC6699B541F0AE080B"
+    }
+  ],
+  "notes": [
+    "demo has zero dictation tasks"
+  ]
+}

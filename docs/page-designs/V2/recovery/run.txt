@@ -1,0 +1,3 @@
+referenceDesktop:students: Students desktop class overview strip is missing.
+referenceMobile:students: Students mobile drawer interaction is incomplete: {"opened":true,"title":"林知夏 · 学生概览","hasFacts":false,"hasProfileAction":true,"exposesPhone":false}.
+Layout audit report: E:\文档\Codex\小红书\班主任工作台网站\.qa-shots\v2-recovery\layout-audit.json

@@ -1,0 +1,100 @@
+{
+  "pageId": "students",
+  "batch": "V2",
+  "phase": "concept-review",
+  "brief": "docs/page-designs/V2/students/brief.md",
+  "functionMap": "docs/page-designs/V2/students/function-map.md",
+  "geometry": null,
+  "assets": "docs/page-designs/V2/students/assets-candidate.json",
+  "states": "docs/page-designs/V2/students/states.json",
+  "candidates": [
+    {
+      "version": "C01",
+      "kind": "desktop",
+      "path": "docs/page-designs/V2/students/candidates/students-desktop-c01.png",
+      "sha256": "DEBF43572AE299C123A0A4C8C8442DA48DC8E935CBBD4B277C42848D1AC62184",
+      "pixelSize": [
+        1536,
+        1024
+      ],
+      "targetViewport": "1536x1024",
+      "purpose": "ImageGen concept; not runnable design",
+      "prompt": "docs/page-designs/V2/students/candidates/prompts-c01.md",
+      "inputSource": [
+        "C3",
+        "399a5c4 actual"
+      ],
+      "approval": false
+    },
+    {
+      "version": "C01",
+      "kind": "mobile",
+      "path": "docs/page-designs/V2/students/candidates/students-mobile-c01.png",
+      "sha256": "A0BCD75AC7CE63E1C5710E95B8B3ED894F08C97475BB6B64ABFAEE62C44BB0D0",
+      "pixelSize": [
+        853,
+        1844
+      ],
+      "targetViewport": "390x844",
+      "purpose": "ImageGen concept; not runnable design",
+      "prompt": "docs/page-designs/V2/students/candidates/prompts-c01.md",
+      "inputSource": [
+        "students-desktop-c01"
+      ],
+      "approval": false
+    }
+  ],
+  "prototype": {
+    "commit": null,
+    "previewUrl": null,
+    "evidence": []
+  },
+  "designApproval": {
+    "approved": false,
+    "source": null,
+    "approvedAt": null,
+    "commit": null,
+    "evidenceHashes": []
+  },
+  "integration": {
+    "productCommit": null,
+    "designCommit": null,
+    "evidence": [],
+    "tests": []
+  },
+  "resultApproval": {
+    "approved": false,
+    "source": null,
+    "approvedAt": null,
+    "productCommit": null
+  },
+  "issues": [
+    {
+      "id": "D-NOT-APPROVED",
+      "blocking": true,
+      "resolved": false,
+      "description": "No runnable design or D/R approval."
+    },
+    {
+      "id": "C01-DEVIATIONS",
+      "blocking": true,
+      "resolved": false,
+      "description": "See brief: oversize rail, omitted scene switch, invented notification and record arrows, selection/batch inconsistency, conflicting student02 status."
+    }
+  ],
+  "nextAction": "等待用户确认C01桌面与手机方向；确认后制作隔离可运行稿",
+  "history": [
+    {
+      "date": "2026-09-14",
+      "event": "Recovered current source and established independent page inventory; no business integration."
+    }
+  ],
+  "sourceState": "docs/page-designs/V2/recovery/source-state.json",
+  "conceptApproval": {
+    "approved": false,
+    "source": null,
+    "approvedAt": null,
+    "candidateVersion": null,
+    "evidenceHashes": []
+  }
+}

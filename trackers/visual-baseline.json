@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": 3,
   "updatedAt": "2026-09-14",
   "scope": "teacher-workbench-only",
   "excluded": [
@@ -554,7 +554,9 @@
       },
       "evidenceIndex": "docs/visual-baseline/logs/V2-STUDENTS-399a5c4/evidence-index.json",
       "submissionNotes": "docs/visual-baseline/V2-STUDENTS-399a5c4-review.md",
-      "directionProposal": "docs/visual-baseline/V2-STUDENTS-C3-REALIGNMENT-PROPOSAL.md"
+      "directionProposal": "docs/visual-baseline/V2-STUDENTS-C3-REALIGNMENT-PROPOSAL.md",
+      "recordPath": "docs/page-designs/V2/students/record.json",
+      "recordSha256": "560C7AB57DB74C97A7CBA10C42DD5504528D7471FCBEA190FEC8A4266222EA8D"
     },
     "homework": {
       "label": "作业追踪",
@@ -565,7 +567,9 @@
       "requiredComparisons": 2,
       "issues": [],
       "currentEvidence": [],
-      "comparisons": []
+      "comparisons": [],
+      "recordPath": "docs/page-designs/V2/homework/record.json",
+      "recordSha256": "BBA6BE2160C4F1E57580326E1A7905CFFA7E38FFE32193E98A80B0FB11E722D9"
     },
     "dictation": {
       "label": "听写与复习",
@@ -579,7 +583,9 @@
         "当前实现与参考稿的情境层次和插画参与度仍有明显差距"
       ],
       "currentEvidence": [],
-      "comparisons": []
+      "comparisons": [],
+      "recordPath": "docs/page-designs/V2/dictation/record.json",
+      "recordSha256": "F981B17AE2E40668D5B48E74F4C330D39AC1C164AF84554D2ACE70806BD5B771"
     },
     "attendance": {
       "label": "考勤与请假",
@@ -762,5 +768,14 @@
     "tailwind.config",
     "tsconfig.json",
     ".openai/hosting.json"
-  ]
+  ],
+  "workflow": {
+    "id": "per-page-design-before-integration",
+    "approvalOwner": "linked record.json only; main ledger stores hash index",
+    "supervision": "optional historical technical reports; not aesthetic authority",
+    "legacyFields": "status/productCommit/currentEvidence/comparisons/userApproval retain historical product evidence; D/R uses linked records",
+    "entry": "docs/逐页设计定稿与实施包-20260914/00-从这里开始.md",
+    "activeBatch": "V2",
+    "nextAction": "students C01 concept confirmation; no runnable design or formal integration permitted yet"
+  }
 }

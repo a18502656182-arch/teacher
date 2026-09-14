@@ -1,0 +1,26 @@
+{
+  "head": "9a0babd0286414ca6c8c72a2fd70ba248bd7295b",
+  "dirtyFiles": [
+    {
+      "path": "app/w/[token]/features/students/StudentsView.tsx",
+      "sha256": "8C211EE3FF533837273337EE8D9E20EECF70F3FB2FBA796E5C2DDF30669D2EDE",
+      "ownership": "pre-existing; author unverified; untouched this turn"
+    },
+    {
+      "path": "app/w/[token]/features/students/read-model.ts",
+      "sha256": "FFD7A2D59948943F963C816C489B6E2087012943B6EBE2D362BC32855451A48B",
+      "ownership": "pre-existing; author unverified; untouched this turn"
+    },
+    {
+      "path": "app/w/[token]/features/students/useStudentsController.ts",
+      "sha256": "793593028038B874EC3F4A6474FFE2FACC15DF20CC629B2BCAB4773035A9C4B2",
+      "ownership": "pre-existing; author unverified; untouched this turn"
+    },
+    {
+      "path": "docs/重构执行与监工资料包-20260914/supervision/reviews/V2-STUDENTS-399A5C4-20260914.md",
+      "sha256": "F4EC8B5DBD814A38942241DD8A784D65104C0BB958711A9940CD7C95CEAC59BB",
+      "ownership": "pre-existing; author unverified; untouched this turn"
+    }
+  ],
+  "sourceCommitIsClean": false
+}

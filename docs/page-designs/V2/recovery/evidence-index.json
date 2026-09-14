@@ -1,0 +1,240 @@
+{
+  "sourceState": {
+    "head": "9a0babd0286414ca6c8c72a2fd70ba248bd7295b",
+    "dirtyFiles": [
+      {
+        "path": "app/w/[token]/features/students/StudentsView.tsx",
+        "sha256": "8C211EE3FF533837273337EE8D9E20EECF70F3FB2FBA796E5C2DDF30669D2EDE",
+        "ownership": "pre-existing; author unverified; untouched this turn"
+      },
+      {
+        "path": "app/w/[token]/features/students/read-model.ts",
+        "sha256": "FFD7A2D59948943F963C816C489B6E2087012943B6EBE2D362BC32855451A48B",
+        "ownership": "pre-existing; author unverified; untouched this turn"
+      },
+      {
+        "path": "app/w/[token]/features/students/useStudentsController.ts",
+        "sha256": "793593028038B874EC3F4A6474FFE2FACC15DF20CC629B2BCAB4773035A9C4B2",
+        "ownership": "pre-existing; author unverified; untouched this turn"
+      },
+      {
+        "path": "docs/重构执行与监工资料包-20260914/supervision/reviews/V2-STUDENTS-399A5C4-20260914.md",
+        "sha256": "F4EC8B5DBD814A38942241DD8A784D65104C0BB958711A9940CD7C95CEAC59BB",
+        "ownership": "pre-existing; author unverified; untouched this turn"
+      }
+    ],
+    "sourceCommitIsClean": false
+  },
+  "capturedAt": "2026-09-14T11:45:58.134Z",
+  "viewport": [
+    "1536x1024",
+    "390x844"
+  ],
+  "dpr": 1,
+  "dprBasis": "layout-audit.mjs Emulation.setDeviceMetricsOverride",
+  "browser": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+  "browserVersion": null,
+  "font": "configured PingFang SC / Microsoft YaHei / system-ui; resolved face not measured",
+  "fixtureId": "unchanged-demo",
+  "fixtureSource": "lib/classroom.ts",
+  "fixtureSourceSha256": "D5DEE665085620C3ED90D1E956491DA51C14088BA07977A15CAC26D6A8F500B3",
+  "fixtureDataHash": null,
+  "dateFrozen": false,
+  "url": "http://127.0.0.1:4180/w/demo",
+  "notFrozenApprovalEvidence": true,
+  "limitations": [
+    "actual tree includes three pre-existing uncommitted student files",
+    "browser version and resolved font not captured by old audit",
+    "homework mobile screenshot shows follow-up Drawer, not default task list",
+    "dictation demo is empty; grading states not exercised",
+    "raw audit contains two student failures; no full QA pass claimed"
+  ],
+  "failures": [
+    "referenceDesktop:students: Students desktop class overview strip is missing.",
+    "referenceMobile:students: Students mobile drawer interaction is incomplete: {\"opened\":true,\"title\":\"林知夏 · 学生概览\",\"hasFacts\":false,\"hasProfileAction\":true,\"exposesPhone\":false}."
+  ],
+  "files": [
+    {
+      "path": "docs/page-designs/V2/recovery/layout-audit.json",
+      "sha256": "2B8A3B6E7B556B32ECEEF35F00919CF67A460D5FFE0B5A322851172BC520FC4B",
+      "purpose": "raw runtime audit"
+    },
+    {
+      "path": "docs/page-designs/V2/recovery/referenceDesktop-dictation.png",
+      "sha256": "DD04D40CA01D634C943662A58092D494A1FF59998219FCA7EDC1422C90C2C396",
+      "purpose": "unapproved actual working-tree observation"
+    },
+    {
+      "path": "docs/page-designs/V2/recovery/referenceDesktop-homework.png",
+      "sha256": "7563C0E985D31397A6B731E09009669DFEB7006301C9C173FF3B036388E049DB",
+      "purpose": "unapproved actual working-tree observation"
+    },
+    {
+      "path": "docs/page-designs/V2/recovery/referenceDesktop-students-detail.png",
+      "sha256": "C996E55570B91EB95F8C20CE4CE05B411A90127192A266CA96121B4B520D3032",
+      "purpose": "unapproved actual working-tree observation"
+    },
+    {
+      "path": "docs/page-designs/V2/recovery/referenceDesktop-students-workspace.png",
+      "sha256": "5E79D18A5DCC2BA15A2341E4B8E252F193C2DB2415B4C94251CB83821BAB0878",
+      "purpose": "unapproved actual working-tree observation"
+    },
+    {
+      "path": "docs/page-designs/V2/recovery/referenceDesktop-students.png",
+      "sha256": "B304F5CE4046588F927E36B49E4224F1AF31809C032A643C4C2BE0031CB098EB",
+      "purpose": "unapproved actual working-tree observation"
+    },
+    {
+      "path": "docs/page-designs/V2/recovery/referenceMobile-dictation.png",
+      "sha256": "E63E86168A1E63513A51389DBDB910F04009CADD49A37CEC6699B541F0AE080B",
+      "purpose": "unapproved actual working-tree observation"
+    },
+    {
+      "path": "docs/page-designs/V2/recovery/referenceMobile-homework.png",
+      "sha256": "7ECE8A628C25B2ECB3F46C895EB32F6FD7C1234D24654F73894A4F578145399B",
+      "purpose": "unapproved actual working-tree observation"
+    },
+    {
+      "path": "docs/page-designs/V2/recovery/referenceMobile-students-drawer.png",
+      "sha256": "741575414388D7083115A32EBA34C3744C9B868D9991C783365D1A9306DD2DEC",
+      "purpose": "unapproved actual working-tree observation"
+    },
+    {
+      "path": "docs/page-designs/V2/recovery/referenceMobile-students-workspace.png",
+      "sha256": "5D4E80DC9696C3F245D14451AFA30B54467DDBDCA101C0A84BDAE74C9AF9C68F",
+      "purpose": "unapproved actual working-tree observation"
+    },
+    {
+      "path": "docs/page-designs/V2/recovery/referenceMobile-students.png",
+      "sha256": "6DE58B9C48A05766B0F9C5634262351AF36AC854F1B78D574E8A2809F0089920",
+      "purpose": "unapproved actual working-tree observation"
+    },
+    {
+      "path": "docs/page-designs/V2/recovery/run.txt",
+      "sha256": "5C1982D3D3EEE199ED4C1F7A82FE4BC73A1CED188EA9369E7B645C59653519E7",
+      "purpose": "raw runtime audit"
+    }
+  ],
+  "referenceChecks": [
+    {
+      "id": "C1",
+      "path": "项目实施包-UI彻底重构与双主题-20260912/references/campus/C1-桌面首页.png",
+      "sha256": "5E201313EAF71B37E19FF3F093CA3FA4D2D7A7ADEF188A25CEB8C218B595DEBD",
+      "matches": true
+    },
+    {
+      "id": "C1",
+      "path": "docs/visual-baseline/references/C1-dashboard-desktop.webp",
+      "sha256": "C1A44533F6FD776562B6F10CFD348F6F24EE104E72441AF8ECD528E8806A571E",
+      "matches": true
+    },
+    {
+      "id": "C2",
+      "path": "项目实施包-UI彻底重构与双主题-20260912/references/campus/C2-桌面听写.png",
+      "sha256": "BE02BC701D9FFB7F03494E455C2AE5284F2CAA58AA7803C18B5E332DC2DBFABE",
+      "matches": true
+    },
+    {
+      "id": "C2",
+      "path": "docs/visual-baseline/references/C2-dictation-desktop.webp",
+      "sha256": "8A542CE301553B39BD7939D96A81D117B9016BF4ACB287C1C3CA116F9121D662",
+      "matches": true
+    },
+    {
+      "id": "C3",
+      "path": "项目实施包-UI彻底重构与双主题-20260912/references/campus/C3-桌面学生.png",
+      "sha256": "521F2BCE5F21DCAFD28CC5B327BDD066C07F041495BDCCE6481907797FC81436",
+      "matches": true
+    },
+    {
+      "id": "C3",
+      "path": "docs/visual-baseline/references/C3-students-desktop.webp",
+      "sha256": "628B1E18AF35CA9006CF556D255675DD81A3A6000D28D080EF2F9C33E3A7B988",
+      "matches": true
+    },
+    {
+      "id": "C4",
+      "path": "项目实施包-UI彻底重构与双主题-20260912/references/campus/C4-桌面作业.png",
+      "sha256": "534BA57E561C0E2F2DB90C4F0F2E8AC13CA2840D8BD62740B858D0F278B259DF",
+      "matches": true
+    },
+    {
+      "id": "C4",
+      "path": "docs/visual-baseline/references/C4-homework-desktop.webp",
+      "sha256": "CADE898E1FE77C0E88343418F74AAA4400251FC77DF63518888F76A0CA604E1F",
+      "matches": true
+    },
+    {
+      "id": "C5",
+      "path": "项目实施包-UI彻底重构与双主题-20260912/references/campus/C5-手机首页.png",
+      "sha256": "F719E7DEFBC4A2CD087F0BCF28E335954929FED4181FF8FE9E5893845D12A7D7",
+      "matches": true
+    },
+    {
+      "id": "C5",
+      "path": "docs/visual-baseline/references/C5-dashboard-mobile.webp",
+      "sha256": "B883B71E6D762C6C6C84A943763734AF41A6DB16E6215EC14DDA182EFF6CE916",
+      "matches": true
+    },
+    {
+      "id": "C6",
+      "path": "项目实施包-UI彻底重构与双主题-20260912/references/campus/C6-手机批改.png",
+      "sha256": "647082C652E5CB4E0B6924703AC434E9B269D03D2DF037B24529C8F5D92D20B9",
+      "matches": true
+    },
+    {
+      "id": "C6",
+      "path": "docs/visual-baseline/references/C6-dictation-mobile.webp",
+      "sha256": "5C8B64C1B16BEBEDB8F75F035F81C6DA994A9EC1A1887D493B49EB7B930E8759",
+      "matches": true
+    },
+    {
+      "id": "students",
+      "path": "docs/visual-baseline/current/V2-STUDENTS-399a5c4/demo/referenceDesktop-students.webp",
+      "sha256": "CA86CD9B4BF723D9B26CC85026B25D689C18D2DEE069E839752E56E45ECF70E1",
+      "matches": true
+    },
+    {
+      "id": "students",
+      "path": "docs/visual-baseline/current/V2-STUDENTS-399a5c4/demo/referenceMobile-students.webp",
+      "sha256": "C91C0D62A355D76933200F1087588B9C98399E301BD9C316CDEA5803FDE18DEB",
+      "matches": true
+    },
+    {
+      "id": "students",
+      "path": "docs/visual-baseline/comparisons/V2-STUDENTS-399a5c4-C3-desktop.webp",
+      "sha256": "69482F18BD70A7613A60E407D93CDCE971AA958B3BC485EAF1F931B5A5F63A29",
+      "matches": true
+    },
+    {
+      "id": "students",
+      "path": "docs/visual-baseline/comparisons/V2-STUDENTS-399a5c4-mobile-before-after.webp",
+      "sha256": "340914B6BBCADC9919623385FA6F5A0AD11E76CCA2364C3EB6C772ED7719EDD7",
+      "matches": true
+    },
+    {
+      "id": "dashboard",
+      "path": "docs/visual-baseline/current/V1-23fcdc5/demo/referenceDesktop-dashboard.webp",
+      "sha256": "046A37BC9FC45ADDB155E774D9675BFE2924173095B0ABB0469984E56F5F869D",
+      "matches": true
+    },
+    {
+      "id": "dashboard",
+      "path": "docs/visual-baseline/current/V1-23fcdc5/demo/referenceMobile-dashboard.webp",
+      "sha256": "3F95B0208E9AC3CED3DB3CC88A65E2DE207DA2C8D5D2C101533167F319F0B4C8",
+      "matches": true
+    },
+    {
+      "id": "dashboard",
+      "path": "docs/visual-baseline/comparisons/V1-23fcdc5-desktop.webp",
+      "sha256": "2A6950BED04B8F579623FBCAD613D06F2784A2DC1C47C6BD9B78A6ADE688D4A3",
+      "matches": true
+    },
+    {
+      "id": "dashboard",
+      "path": "docs/visual-baseline/comparisons/V1-23fcdc5-mobile.webp",
+      "sha256": "254D4EC77DA3C68D5D6BCC21E1B707DDF18609200F1EE9DC7636E7759E63B7F8",
+      "matches": true
+    }
+  ]
+}

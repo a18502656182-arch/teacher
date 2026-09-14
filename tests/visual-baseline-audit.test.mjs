@@ -5,6 +5,7 @@ import { cpSync, mkdirSync, mkdtempSync, readFileSync, writeFileSync } from "nod
 import { tmpdir } from "node:os";
 import path from "node:path";
 import test from "node:test";
+import './visual-design-workflow.test.mjs';
 import { auditVisualBaseline, matchesTrigger } from "../scripts/visual-baseline-audit.mjs";
 
 const sourceRoot = process.cwd();
@@ -25,6 +26,7 @@ function sha256(content) {
 function fixture() {
   const root = mkdtempSync(path.join(tmpdir(), "visual-baseline-audit-"));
   const ledger = JSON.parse(readFileSync(path.join(sourceRoot, "trackers", "visual-baseline.json"), "utf8"));
+  ledger.schemaVersion = 2; // Preserve the historical schema-2 contract tests.
   for (const page of Object.values(ledger.pages)) {
     page.status = "not-reviewed";
     page.currentEvidence = [];

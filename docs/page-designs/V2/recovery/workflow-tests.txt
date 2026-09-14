@@ -1,0 +1,27 @@
+✔ all three D approvals allow integration without any supervision report (132.0722ms)
+✔ homepage approval cannot unlock V2; concept confirmation cannot replace runnable D approval (68.8761ms)
+✔ two of three D approvals do not permit any page to integrate (101.7088ms)
+✔ modified screenshot bytes invalidate a previously approved design hash (121.7329ms)
+✔ design approval must bind the exact complete set of screenshot hashes (124.1927ms)
+✔ product changes invalidate R, including uncommitted changes and shared assets (215.2457ms)
+✔ page record hash drift and unsafe paths fail closed (271.8249ms)
+✔ no generic gate command or result approval for another design can pass (207.7683ms)
+✔ extensionless trigger matches actual theme and primitive files (0.1742ms)
+✔ ready evidence requires distinct desktop and mobile records bound to a product commit (723.0745ms)
+✔ path traversal is rejected even when evidence names the persistent directory (723.2815ms)
+✔ one file cannot impersonate two evidence slots (681.6507ms)
+✔ two desktop records cannot satisfy the mobile requirement (677.9218ms)
+✔ equivalent normalized paths cannot impersonate different evidence (2025.19ms)
+✔ committed assets and visual configuration invalidate evidence and prior approvals (5149.6611ms)
+✔ page approval cannot exist without approval on its gate (673.251ms)
+✔ gate command keeps supervision PASS separate from visual readiness (656.8939ms)
+✔ shared visual changes are detected after an approved commit (947.0674ms)
+✔ a page-local change invalidates its own evidence but not an approved sibling page (1308.1434ms)
+ℹ tests 19
+ℹ suites 0
+ℹ pass 19
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 14883.3367

@@ -1,0 +1,146 @@
+[
+  {
+    "gate": "V1",
+    "status": "historical-result-approved",
+    "pages": [
+      {
+        "id": "dashboard",
+        "phase": "historical-approved"
+      }
+    ]
+  },
+  {
+    "gate": "V2",
+    "status": "design-in-progress",
+    "pages": [
+      {
+        "id": "students",
+        "phase": "concept-review"
+      },
+      {
+        "id": "homework",
+        "phase": "inventory"
+      },
+      {
+        "id": "dictation",
+        "phase": "inventory"
+      }
+    ]
+  },
+  {
+    "gate": "V3",
+    "status": "blocked-by-previous-batch",
+    "pages": [
+      {
+        "id": "attendance",
+        "phase": "not-started"
+      },
+      {
+        "id": "growth",
+        "phase": "not-started"
+      },
+      {
+        "id": "health",
+        "phase": "not-started"
+      }
+    ]
+  },
+  {
+    "gate": "V4",
+    "status": "blocked-by-previous-batch",
+    "pages": [
+      {
+        "id": "records",
+        "phase": "not-started"
+      },
+      {
+        "id": "scores",
+        "phase": "not-started"
+      },
+      {
+        "id": "reflection",
+        "phase": "not-started"
+      }
+    ]
+  },
+  {
+    "gate": "V5",
+    "status": "blocked-by-previous-batch",
+    "pages": [
+      {
+        "id": "schedule",
+        "phase": "not-started"
+      },
+      {
+        "id": "tools",
+        "phase": "not-started"
+      },
+      {
+        "id": "seating",
+        "phase": "not-started"
+      }
+    ]
+  },
+  {
+    "gate": "V6",
+    "status": "blocked-by-previous-batch",
+    "pages": [
+      {
+        "id": "duty",
+        "phase": "not-started"
+      },
+      {
+        "id": "cadres",
+        "phase": "not-started"
+      },
+      {
+        "id": "rules",
+        "phase": "not-started"
+      }
+    ]
+  },
+  {
+    "gate": "V7",
+    "status": "blocked-by-previous-batch",
+    "pages": [
+      {
+        "id": "points",
+        "phase": "not-started"
+      },
+      {
+        "id": "weekly",
+        "phase": "not-started"
+      },
+      {
+        "id": "comments",
+        "phase": "not-started"
+      }
+    ]
+  }
+]
+FAIL students: candidate direction awaits user confirmation.
+FAIL students: runnable design commit missing.
+FAIL students: design evidence missing.
+FAIL students: frozen design source files missing.
+FAIL students: geometry contract missing.
+FAIL students: unresolved blocking design issues.
+FAIL students: awaiting human D design approval.
+FAIL students: D approval evidence hashes mismatch.
+FAIL homework: candidate direction awaits user confirmation.
+FAIL homework: runnable design commit missing.
+FAIL homework: design evidence missing.
+FAIL homework: frozen design source files missing.
+FAIL homework: geometry contract missing.
+FAIL homework: assets contract missing.
+FAIL homework: unresolved blocking design issues.
+FAIL homework: awaiting human D design approval.
+FAIL homework: D approval evidence hashes mismatch.
+FAIL dictation: candidate direction awaits user confirmation.
+FAIL dictation: runnable design commit missing.
+FAIL dictation: design evidence missing.
+FAIL dictation: frozen design source files missing.
+FAIL dictation: geometry contract missing.
+FAIL dictation: assets contract missing.
+FAIL dictation: unresolved blocking design issues.
+FAIL dictation: awaiting human D design approval.
+FAIL dictation: D approval evidence hashes mismatch.
