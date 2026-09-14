@@ -1,0 +1,24 @@
+productCommit: 04e5abfd0a7f0068353b6e962a17b989b3011454
+command: node "E:/文档/Codex/小红书/.agents/skills/impeccable/scripts/detect.mjs" --json --scope layout "app/w/[token]/features/dashboard"
+startedAt: 2026-09-14T06:55:36.284Z
+
+node:internal/modules/cjs/loader:1520
+  throw err;
+  ^
+
+Error: Cannot find module 'E:\文档\Codex\小红书\班主任工作台网站\"E:\文档\Codex\小红书\.agents\skills\impeccable\scripts\detect.mjs"'
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1517:15)
+    at wrapResolveFilename (node:internal/modules/cjs/loader:1071:27)
+    at defaultResolveImplForCJSLoading (node:internal/modules/cjs/loader:1095:10)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1122:12)
+    at Module._load (node:internal/modules/cjs/loader:1294:5)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
+    at node:internal/main/run_main_module:33:47 {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: []
+}
+
+Node.js v24.19.0
+
+exitCode: 1

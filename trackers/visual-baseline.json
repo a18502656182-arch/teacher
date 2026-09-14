@@ -70,7 +70,7 @@
       "pages": [
         "dashboard"
       ],
-      "status": "needs-fix",
+      "status": "awaiting-user-review",
       "pauseRequired": true,
       "userApproval": {
         "approved": false,
@@ -182,68 +182,66 @@
         "C1",
         "C5"
       ],
-      "status": "needs-fix",
+      "status": "ready-for-review",
       "requiredComparisons": 2,
       "issues": [
-        "R6 图标本体和带文字动作区视觉重量",
-        "R8 教室前景及听写文具主体裁切",
-        "追加 四区网格、标题/图标/内容起点及容器统一"
+        "R6 图标/动作、R8主体裁切及四区对齐已提交新候选，须监工独立读图；不自判关闭"
       ],
-      "productCommit": "351880ee957aca334324f681be64348ce5dfc0ba",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
       "currentEvidence": [
         {
-          "path": "docs/visual-baseline/current/V1-351880e/demo/referenceDesktop-dashboard.webp",
+          "path": "docs/visual-baseline/current/V1-04e5abf/demo/referenceDesktop-dashboard.webp",
           "kind": "desktop",
           "viewport": "1536x1024",
           "url": "http://localhost:4180/w/demo?page=dashboard",
-          "capturedAt": "2026-09-14T05:53:06.073Z",
-          "productCommit": "351880ee957aca334324f681be64348ce5dfc0ba",
-          "sha256": "7B555544512C4B2F89DA6B2227E863603E293632C61BA88BFAD8D3C3D10805E3",
+          "capturedAt": "2026-09-14T06:42:00.447Z",
+          "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+          "sha256": "C5BADC05BAFFED16DF942FC7AE40A248751C3EA9E3AE8BE3956850D359BE954F",
           "scenario": "demo",
           "role": "first-viewport"
         },
         {
-          "path": "docs/visual-baseline/current/V1-351880e/demo/referenceMobile-dashboard.webp",
+          "path": "docs/visual-baseline/current/V1-04e5abf/demo/referenceMobile-dashboard.webp",
           "kind": "mobile",
           "viewport": "390x844",
           "url": "http://localhost:4180/w/demo?page=dashboard",
-          "capturedAt": "2026-09-14T05:53:06.073Z",
-          "productCommit": "351880ee957aca334324f681be64348ce5dfc0ba",
-          "sha256": "16C1E86849C5AFDB104ACC9F42E1D33B6FFEF819DEEB37E156DF8C9A852111B2",
+          "capturedAt": "2026-09-14T06:42:00.447Z",
+          "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+          "sha256": "BD530D7F5785BC1B7CC51CFA95E8BDABA0C1BE7DCB913EB5DCB99CE2BA4C39A9",
           "scenario": "demo",
           "role": "first-viewport"
         }
       ],
       "comparisons": [
         {
-          "path": "docs/visual-baseline/comparisons/V1-351880e-desktop.webp",
+          "path": "docs/visual-baseline/comparisons/V1-04e5abf-desktop.webp",
           "kind": "desktop",
           "viewport": "1536x1024",
           "url": "http://localhost:4180/w/demo?page=dashboard",
-          "capturedAt": "2026-09-14T05:53:06.073Z",
-          "productCommit": "351880ee957aca334324f681be64348ce5dfc0ba",
-          "sha256": "ECD1B43DED7C4F582B2702FEF89732EFDD399098BDE3D5958E0AC09DC3A6A9A9",
+          "capturedAt": "2026-09-14T06:42:00.447Z",
+          "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+          "sha256": "D95F3518F04AE2E8572D3068677B2D0B59BB45490FCD620214433D1831789606",
           "scenario": "demo",
           "role": "comparison",
           "referenceId": "C1"
         },
         {
-          "path": "docs/visual-baseline/comparisons/V1-351880e-mobile.webp",
+          "path": "docs/visual-baseline/comparisons/V1-04e5abf-mobile.webp",
           "kind": "mobile",
           "viewport": "390x844",
           "url": "http://localhost:4180/w/demo?page=dashboard",
-          "capturedAt": "2026-09-14T05:53:06.073Z",
-          "productCommit": "351880ee957aca334324f681be64348ce5dfc0ba",
-          "sha256": "192A66907DD50242D4A648623237AB037C84F17C70D93C1F827BE312923EF102",
+          "capturedAt": "2026-09-14T06:42:00.447Z",
+          "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+          "sha256": "7A654FAC0A9437D53282245EC88322F6565BCAB561C8BD91381D618FDE685FFD",
           "scenario": "demo",
           "role": "comparison",
           "referenceId": "C5"
         }
       ],
       "supervision": {
-        "status": "CHANGES_REQUESTED",
-        "reviewedProductCommit": "351880ee957aca334324f681be64348ce5dfc0ba",
-        "report": "docs/重构执行与监工资料包-20260914/supervision/reviews/V1-DASHBOARD-351880E-20260914.md"
+        "status": "pending",
+        "reviewedProductCommit": null,
+        "report": null
       },
       "reviewHistory": [
         {
@@ -382,10 +380,82 @@
           },
           "evidenceIndex": "docs/visual-baseline/logs/V1-692665d/evidence-index.json",
           "submissionNotes": "docs/visual-baseline/V1-692665d-review.md"
+        },
+        {
+          "label": "今日工作台",
+          "referenceIds": [
+            "C1",
+            "C5"
+          ],
+          "status": "needs-fix",
+          "requiredComparisons": 2,
+          "issues": [
+            "R6 图标本体和带文字动作区视觉重量",
+            "R8 教室前景及听写文具主体裁切",
+            "追加 四区网格、标题/图标/内容起点及容器统一"
+          ],
+          "productCommit": "351880ee957aca334324f681be64348ce5dfc0ba",
+          "currentEvidence": [
+            {
+              "path": "docs/visual-baseline/current/V1-351880e/demo/referenceDesktop-dashboard.webp",
+              "kind": "desktop",
+              "viewport": "1536x1024",
+              "url": "http://localhost:4180/w/demo?page=dashboard",
+              "capturedAt": "2026-09-14T05:53:06.073Z",
+              "productCommit": "351880ee957aca334324f681be64348ce5dfc0ba",
+              "sha256": "7B555544512C4B2F89DA6B2227E863603E293632C61BA88BFAD8D3C3D10805E3",
+              "scenario": "demo",
+              "role": "first-viewport"
+            },
+            {
+              "path": "docs/visual-baseline/current/V1-351880e/demo/referenceMobile-dashboard.webp",
+              "kind": "mobile",
+              "viewport": "390x844",
+              "url": "http://localhost:4180/w/demo?page=dashboard",
+              "capturedAt": "2026-09-14T05:53:06.073Z",
+              "productCommit": "351880ee957aca334324f681be64348ce5dfc0ba",
+              "sha256": "16C1E86849C5AFDB104ACC9F42E1D33B6FFEF819DEEB37E156DF8C9A852111B2",
+              "scenario": "demo",
+              "role": "first-viewport"
+            }
+          ],
+          "comparisons": [
+            {
+              "path": "docs/visual-baseline/comparisons/V1-351880e-desktop.webp",
+              "kind": "desktop",
+              "viewport": "1536x1024",
+              "url": "http://localhost:4180/w/demo?page=dashboard",
+              "capturedAt": "2026-09-14T05:53:06.073Z",
+              "productCommit": "351880ee957aca334324f681be64348ce5dfc0ba",
+              "sha256": "ECD1B43DED7C4F582B2702FEF89732EFDD399098BDE3D5958E0AC09DC3A6A9A9",
+              "scenario": "demo",
+              "role": "comparison",
+              "referenceId": "C1"
+            },
+            {
+              "path": "docs/visual-baseline/comparisons/V1-351880e-mobile.webp",
+              "kind": "mobile",
+              "viewport": "390x844",
+              "url": "http://localhost:4180/w/demo?page=dashboard",
+              "capturedAt": "2026-09-14T05:53:06.073Z",
+              "productCommit": "351880ee957aca334324f681be64348ce5dfc0ba",
+              "sha256": "192A66907DD50242D4A648623237AB037C84F17C70D93C1F827BE312923EF102",
+              "scenario": "demo",
+              "role": "comparison",
+              "referenceId": "C5"
+            }
+          ],
+          "supervision": {
+            "status": "CHANGES_REQUESTED",
+            "reviewedProductCommit": "351880ee957aca334324f681be64348ce5dfc0ba",
+            "report": "docs/重构执行与监工资料包-20260914/supervision/reviews/V1-DASHBOARD-351880E-20260914.md"
+          },
+          "evidenceIndex": "docs/visual-baseline/logs/V1-351880e/evidence-index.json",
+          "submissionNotes": "docs/visual-baseline/V1-351880e-review.md"
         }
       ],
-      "evidenceIndex": "docs/visual-baseline/logs/V1-351880e/evidence-index.json",
-      "submissionNotes": "docs/visual-baseline/V1-351880e-review.md"
+      "evidenceIndex": "docs/visual-baseline/logs/V1-04e5abf/evidence-index.json",
+      "submissionNotes": "docs/visual-baseline/V1-04e5abf-review.md"
     },
     "students": {
       "label": "学生名单",

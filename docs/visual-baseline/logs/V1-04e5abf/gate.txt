@@ -1,0 +1,11 @@
+productCommit: 04e5abfd0a7f0068353b6e962a17b989b3011454
+command: npm run qa:visual-gate -- --gate V1
+startedAt: 2026-09-14T06:56:09.917Z
+
+> ban-zhuren-workbench@0.1.0 qa:visual-gate
+> node scripts/visual-baseline-audit.mjs --gate V1
+
+
+FAIL dashboard does not have an independent supervision PASS for 04e5abfd0a7f0068353b6e962a17b989b3011454.
+
+exitCode: 1

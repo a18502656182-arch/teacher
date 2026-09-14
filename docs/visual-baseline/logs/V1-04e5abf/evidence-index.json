@@ -1,0 +1,1527 @@
+{
+  "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+  "builtAt": "2026-09-14T06:46:15.019Z",
+  "tests": [
+    {
+      "id": "types",
+      "command": "npx tsc --noEmit --pretty false --incremental false",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "startedAt": "2026-09-14T06:38:14.404Z",
+      "endedAt": "2026-09-14T06:38:22.710Z",
+      "exitCode": 0,
+      "log": "docs/visual-baseline/logs/V1-04e5abf/types.txt",
+      "sha256": "6C1BD6692C90B36285B84B44606D3372C37BC1CE0045ED96CC7EC786F4C407C3"
+    },
+    {
+      "id": "lint",
+      "command": "npm run lint",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "startedAt": "2026-09-14T06:38:22.719Z",
+      "endedAt": "2026-09-14T06:38:39.576Z",
+      "exitCode": 0,
+      "log": "docs/visual-baseline/logs/V1-04e5abf/lint.txt",
+      "sha256": "8965859B87FEB0FFCB03BAE56A2929BD7C08236D8E0BF89A944C4890D34799D1"
+    },
+    {
+      "id": "tests",
+      "command": "npm test",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "startedAt": "2026-09-14T06:38:39.581Z",
+      "endedAt": "2026-09-14T06:39:22.618Z",
+      "exitCode": 0,
+      "log": "docs/visual-baseline/logs/V1-04e5abf/tests.txt",
+      "sha256": "AC51F5DC274F92760BE13B3E15C12F4BCA908571E43BC5CDC507CC6521A436B6"
+    },
+    {
+      "id": "strict",
+      "command": "npm run qa:strict",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "startedAt": "2026-09-14T06:39:22.625Z",
+      "endedAt": "2026-09-14T06:41:31.945Z",
+      "exitCode": 0,
+      "log": "docs/visual-baseline/logs/V1-04e5abf/strict.txt",
+      "sha256": "E8DCF49B498D03FEE0198382CD139C14CFEE84256DC074DF2BF55F2A252032C9"
+    },
+    {
+      "id": "demo",
+      "command": "node scripts/layout-audit.mjs --serve",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "startedAt": "2026-09-14T06:41:31.951Z",
+      "endedAt": "2026-09-14T06:42:00.500Z",
+      "exitCode": 0,
+      "log": "docs/visual-baseline/logs/V1-04e5abf/demo.txt",
+      "sha256": "C5CE552FF2A231266371BA0A0D6D3D86DF2FBD348347E3ED0B403649B99BBB04"
+    },
+    {
+      "id": "large",
+      "command": "node scripts/layout-audit.mjs --serve",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "startedAt": "2026-09-14T06:42:00.508Z",
+      "endedAt": "2026-09-14T06:42:29.398Z",
+      "exitCode": 0,
+      "log": "docs/visual-baseline/logs/V1-04e5abf/large.txt",
+      "sha256": "28720E42AF6577597062A08190EFBE2637C861DBB13186CCE420A576A43674F6"
+    },
+    {
+      "id": "empty",
+      "command": "node scripts/layout-audit.mjs --serve",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "startedAt": "2026-09-14T06:42:29.404Z",
+      "endedAt": "2026-09-14T06:42:57.569Z",
+      "exitCode": 0,
+      "log": "docs/visual-baseline/logs/V1-04e5abf/empty.txt",
+      "sha256": "E57B9C444EFF59B2441B89199461DA442EAC37F7884D8D04D189464F2C2754CC"
+    },
+    {
+      "id": "preview-frame-check-failed",
+      "productCommit": "0e137d09d1784b43eabeb5717079f03841bac9b1",
+      "workingTree": "uncommitted first-pass UI",
+      "log": "docs/visual-baseline/logs/V1-04e5abf/preview-frame-check-failed.txt",
+      "sha256": "4E53E78C4A3518BDCCD75BB892EEBAAC7DF2AE76698CF844A04442345D59D3E5",
+      "outcome": "Historical diagnostic failure. Old fill check included separate 58px summary; final check measures explicit artwork frame and separately requires frame >=80% of scene."
+    },
+    {
+      "id": "detector-command-error",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "log": "docs/visual-baseline/logs/V1-04e5abf/detector-command-error.txt",
+      "sha256": "3BA70527BDBF8BAF75DCA88D646E78A2FA8AC8C39B00B4D0C613F73CAD28ACEF",
+      "outcome": "Evidence wrapper quoting error; detector had not run. Retried with corrected argument transport."
+    },
+    {
+      "id": "detector",
+      "command": "node E:/文档/Codex/小红书/.agents/skills/impeccable/scripts/detect.mjs --json --scope layout app/w/[token]/features/dashboard",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "startedAt": "2026-09-14T06:56:09.196Z",
+      "endedAt": "2026-09-14T06:56:09.341Z",
+      "exitCode": 0,
+      "log": "docs/visual-baseline/logs/V1-04e5abf/detector.txt",
+      "sha256": "FD17A35BF5618208A21AB3391C1152514B418257D8A55CF327DD21665E2FE627"
+    },
+    {
+      "id": "baseline",
+      "command": "npm run qa:visual-baseline",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "startedAt": "2026-09-14T06:56:09.346Z",
+      "endedAt": "2026-09-14T06:56:09.912Z",
+      "exitCode": 0,
+      "log": "docs/visual-baseline/logs/V1-04e5abf/baseline.txt",
+      "sha256": "79534E69D65156C22BC9B8DD588001A5C5D26DCDCAB56B8CE9FB5D58A54D2A04"
+    },
+    {
+      "id": "gate",
+      "command": "npm run qa:visual-gate -- --gate V1",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "startedAt": "2026-09-14T06:56:09.917Z",
+      "endedAt": "2026-09-14T06:56:10.372Z",
+      "exitCode": 1,
+      "log": "docs/visual-baseline/logs/V1-04e5abf/gate.txt",
+      "sha256": "2E40912A64A5178F0B71532DF44AFF3DE812A97E45AD7DD6A28F33BE15424469",
+      "expected": true,
+      "reason": "No independent supervisor PASS or user approval; must stay blocked"
+    }
+  ],
+  "images": [
+    {
+      "path": "docs/visual-baseline/current/V1-04e5abf/demo/referenceDesktop-dashboard-scroll-00.webp",
+      "kind": "desktop",
+      "viewport": "1536x1024",
+      "url": "http://localhost:4180/w/demo?page=dashboard",
+      "capturedAt": "2026-09-14T06:42:00.447Z",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "sha256": "C5BADC05BAFFED16DF942FC7AE40A248751C3EA9E3AE8BE3956850D359BE954F",
+      "scenario": "demo",
+      "role": "continuous-scroll",
+      "scroll": {
+        "file": "referenceDesktop-dashboard-scroll-00.png",
+        "top": 0,
+        "height": 1309,
+        "clientHeight": 1024,
+        "atEnd": false
+      }
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-04e5abf/demo/referenceDesktop-dashboard-scroll-01.webp",
+      "kind": "desktop",
+      "viewport": "1536x1024",
+      "url": "http://localhost:4180/w/demo?page=dashboard",
+      "capturedAt": "2026-09-14T06:42:00.447Z",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "sha256": "245971C4058E8D633A634952E4C818227D2532D0DB68CFF8B9E11CEC5287B219",
+      "scenario": "demo",
+      "role": "continuous-scroll",
+      "scroll": {
+        "file": "referenceDesktop-dashboard-scroll-01.png",
+        "top": 285,
+        "height": 1309,
+        "clientHeight": 1024,
+        "atEnd": true
+      }
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-04e5abf/demo/referenceDesktop-dashboard.webp",
+      "kind": "desktop",
+      "viewport": "1536x1024",
+      "url": "http://localhost:4180/w/demo?page=dashboard",
+      "capturedAt": "2026-09-14T06:42:00.447Z",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "sha256": "C5BADC05BAFFED16DF942FC7AE40A248751C3EA9E3AE8BE3956850D359BE954F",
+      "scenario": "demo",
+      "role": "first-viewport"
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-04e5abf/demo/referenceDesktop-local-agenda.webp",
+      "kind": "desktop",
+      "viewport": "1536x1024",
+      "url": "http://localhost:4180/w/demo?page=dashboard",
+      "capturedAt": "2026-09-14T06:42:00.447Z",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "sha256": "0FA59A5A62A9F26122E6CEC3D216E61F2E02879E4B0F07BE505D58A1A72B2590",
+      "scenario": "demo",
+      "role": "local-detail",
+      "crop": {
+        "x": 244,
+        "y": 563.609375,
+        "width": 635,
+        "height": 324.25,
+        "scale": 1
+      },
+      "region": "agenda",
+      "nativeScale": 1
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-04e5abf/demo/referenceDesktop-local-attention.webp",
+      "kind": "desktop",
+      "viewport": "1536x1024",
+      "url": "http://localhost:4180/w/demo?page=dashboard",
+      "capturedAt": "2026-09-14T06:42:00.447Z",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "sha256": "C7B2E5F601B68EBDA140CA5792F7086D5BDA28FE99998FEDF725E3FCCEC417F5",
+      "scenario": "demo",
+      "role": "local-detail",
+      "crop": {
+        "x": 901,
+        "y": 917.609375,
+        "width": 635,
+        "height": 304,
+        "scale": 1
+      },
+      "region": "attention",
+      "nativeScale": 1
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-04e5abf/demo/referenceDesktop-local-dictation.webp",
+      "kind": "desktop",
+      "viewport": "1536x1024",
+      "url": "http://localhost:4180/w/demo?page=dashboard",
+      "capturedAt": "2026-09-14T06:42:00.447Z",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "sha256": "6C8ECD0E20996A6C902CCF96F4FB04DD93B232C364A2360554C71036D389F7A1",
+      "scenario": "demo",
+      "role": "local-detail",
+      "crop": {
+        "x": 901,
+        "y": 563.609375,
+        "width": 635,
+        "height": 336,
+        "scale": 1
+      },
+      "region": "dictation",
+      "nativeScale": 1
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-04e5abf/demo/referenceDesktop-local-duty.webp",
+      "kind": "desktop",
+      "viewport": "1536x1024",
+      "url": "http://localhost:4180/w/demo?page=dashboard",
+      "capturedAt": "2026-09-14T06:42:00.447Z",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "sha256": "805823FC22F4EEDD239730BFEFA1D2A289D919B134BFD15C3ED3C9EEC61CC92D",
+      "scenario": "demo",
+      "role": "local-detail",
+      "crop": {
+        "x": 244,
+        "y": 917.609375,
+        "width": 635,
+        "height": 190.734375,
+        "scale": 1
+      },
+      "region": "duty",
+      "nativeScale": 1
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-04e5abf/demo/referenceDesktop-local-four-regions.webp",
+      "kind": "desktop",
+      "viewport": "1536x1024",
+      "url": "http://localhost:4180/w/demo?page=dashboard",
+      "capturedAt": "2026-09-14T06:42:00.447Z",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "sha256": "F6EEC0C17C56337840315ACE4ED4047C580B62EA9F87D9D16C6C2AFD7D29A1AA",
+      "scenario": "demo",
+      "role": "local-detail",
+      "crop": {
+        "x": 244,
+        "y": 563.609375,
+        "width": 1292,
+        "height": 658,
+        "scale": 1
+      },
+      "region": "four-regions",
+      "nativeScale": 1
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-04e5abf/demo/referenceDesktop-local-tasks.webp",
+      "kind": "desktop",
+      "viewport": "1536x1024",
+      "url": "http://localhost:4180/w/demo?page=dashboard",
+      "capturedAt": "2026-09-14T06:42:00.447Z",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "sha256": "D80A67B634DE2FE9B9163C189CF683D6D029A7819C7D0DE866304CCFE091A237",
+      "scenario": "demo",
+      "role": "local-detail",
+      "crop": {
+        "x": 244,
+        "y": 200.265625,
+        "width": 664.03125,
+        "height": 345.34375,
+        "scale": 1
+      },
+      "region": "tasks",
+      "nativeScale": 1
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-04e5abf/demo/referenceMobile-action-dictation.webp",
+      "kind": "mobile",
+      "viewport": "390x844",
+      "url": "http://localhost:4180/w/demo?page=dictation",
+      "capturedAt": "2026-09-14T06:42:00.447Z",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "sha256": "C8A5DE417A62283901668FE8D5D64484D304D43030F8774FA2FC9FB96C4C649E",
+      "scenario": "demo",
+      "role": "interaction"
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-04e5abf/demo/referenceMobile-action-duty.webp",
+      "kind": "mobile",
+      "viewport": "390x844",
+      "url": "http://localhost:4180/w/demo?page=duty",
+      "capturedAt": "2026-09-14T06:42:00.447Z",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "sha256": "C45B6DF5E8CBE1DA1F1ECBACFEF98E4463BD6E337D3FB070EFE5C820273BCF86",
+      "scenario": "demo",
+      "role": "interaction"
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-04e5abf/demo/referenceMobile-action-homework.webp",
+      "kind": "mobile",
+      "viewport": "390x844",
+      "url": "http://localhost:4180/w/demo?page=homework",
+      "capturedAt": "2026-09-14T06:42:00.447Z",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "sha256": "BD46C009A6709814A19F0BC563954707489D76C4208922F4CF23DCC73A98CBF8",
+      "scenario": "demo",
+      "role": "interaction"
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-04e5abf/demo/referenceMobile-action-students.webp",
+      "kind": "mobile",
+      "viewport": "390x844",
+      "url": "http://localhost:4180/w/demo?page=students",
+      "capturedAt": "2026-09-14T06:42:00.447Z",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "sha256": "907281AAA6A5E6092BE387729087A2783BEEBAE5F9D31AC46081E79AEED04D31",
+      "scenario": "demo",
+      "role": "interaction"
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-04e5abf/demo/referenceMobile-dashboard-scroll-00.webp",
+      "kind": "mobile",
+      "viewport": "390x844",
+      "url": "http://localhost:4180/w/demo?page=dashboard",
+      "capturedAt": "2026-09-14T06:42:00.447Z",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "sha256": "785BFBF27E55C4C256A455D105F0400142C26B50E5F8E9668B9B4BF4F98C2EB5",
+      "scenario": "demo",
+      "role": "continuous-scroll",
+      "scroll": {
+        "file": "referenceMobile-dashboard-scroll-00.png",
+        "top": 0,
+        "height": 2365,
+        "clientHeight": 844,
+        "atEnd": false
+      }
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-04e5abf/demo/referenceMobile-dashboard-scroll-01.webp",
+      "kind": "mobile",
+      "viewport": "390x844",
+      "url": "http://localhost:4180/w/demo?page=dashboard",
+      "capturedAt": "2026-09-14T06:42:00.447Z",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "sha256": "432602895C09503DCD688E1A4AB8AB4CD40767E93B495E78E5A29AD051C3B6D3",
+      "scenario": "demo",
+      "role": "continuous-scroll",
+      "scroll": {
+        "file": "referenceMobile-dashboard-scroll-01.png",
+        "top": 664,
+        "height": 2365,
+        "clientHeight": 844,
+        "atEnd": false
+      }
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-04e5abf/demo/referenceMobile-dashboard-scroll-02.webp",
+      "kind": "mobile",
+      "viewport": "390x844",
+      "url": "http://localhost:4180/w/demo?page=dashboard",
+      "capturedAt": "2026-09-14T06:42:00.447Z",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "sha256": "8E479AE9D9C5EBA56791CD948CB193731A781072BAB72779B307AD5971B1F79D",
+      "scenario": "demo",
+      "role": "continuous-scroll",
+      "scroll": {
+        "file": "referenceMobile-dashboard-scroll-02.png",
+        "top": 1328,
+        "height": 2365,
+        "clientHeight": 844,
+        "atEnd": false
+      }
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-04e5abf/demo/referenceMobile-dashboard-scroll-03.webp",
+      "kind": "mobile",
+      "viewport": "390x844",
+      "url": "http://localhost:4180/w/demo?page=dashboard",
+      "capturedAt": "2026-09-14T06:42:00.447Z",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "sha256": "944B419C213DEFC3F59E39999BF0F069DA93F5DCDA71C79325C5A8C90194CA2E",
+      "scenario": "demo",
+      "role": "continuous-scroll",
+      "scroll": {
+        "file": "referenceMobile-dashboard-scroll-03.png",
+        "top": 1521,
+        "height": 2365,
+        "clientHeight": 844,
+        "atEnd": true
+      }
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-04e5abf/demo/referenceMobile-dashboard.webp",
+      "kind": "mobile",
+      "viewport": "390x844",
+      "url": "http://localhost:4180/w/demo?page=dashboard",
+      "capturedAt": "2026-09-14T06:42:00.447Z",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "sha256": "BD530D7F5785BC1B7CC51CFA95E8BDABA0C1BE7DCB913EB5DCB99CE2BA4C39A9",
+      "scenario": "demo",
+      "role": "first-viewport"
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-04e5abf/demo/referenceMobile-local-agenda.webp",
+      "kind": "mobile",
+      "viewport": "390x844",
+      "url": "http://localhost:4180/w/demo?page=dashboard",
+      "capturedAt": "2026-09-14T06:42:00.447Z",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "sha256": "3C93092ACF1F68E241235479A0908E27003CB691B77FB459BE112D15BC1686C5",
+      "scenario": "demo",
+      "role": "local-detail",
+      "crop": {
+        "x": 0,
+        "y": 673.078125,
+        "width": 390,
+        "height": 328.25,
+        "scale": 1
+      },
+      "region": "agenda",
+      "nativeScale": 1
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-04e5abf/demo/referenceMobile-local-attention.webp",
+      "kind": "mobile",
+      "viewport": "390x844",
+      "url": "http://localhost:4180/w/demo?page=dashboard",
+      "capturedAt": "2026-09-14T06:42:00.447Z",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "sha256": "30AD2E78B31C7B7D772674BC838B8651F384F85E14404E49139D8F4479570CCD",
+      "scenario": "demo",
+      "role": "local-detail",
+      "crop": {
+        "x": 0,
+        "y": 1868.796875,
+        "width": 390,
+        "height": 306,
+        "scale": 1
+      },
+      "region": "attention",
+      "nativeScale": 1
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-04e5abf/demo/referenceMobile-local-dictation.webp",
+      "kind": "mobile",
+      "viewport": "390x844",
+      "url": "http://localhost:4180/w/demo?page=dashboard",
+      "capturedAt": "2026-09-14T06:42:00.447Z",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "sha256": "B4E402D9A13E349154671E26E17A5BF3174A932F06D82CDC5515AF3B4EFC538F",
+      "scenario": "demo",
+      "role": "local-detail",
+      "crop": {
+        "x": 0,
+        "y": 1017.328125,
+        "width": 390,
+        "height": 314,
+        "scale": 1
+      },
+      "region": "dictation",
+      "nativeScale": 1
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-04e5abf/demo/referenceMobile-local-duty.webp",
+      "kind": "mobile",
+      "viewport": "390x844",
+      "url": "http://localhost:4180/w/demo?page=dashboard",
+      "capturedAt": "2026-09-14T06:42:00.447Z",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "sha256": "8FE3C7D6EBA6535BDD8F82047FF05D9F1C4B265130C53EFAA5DC4A3BC874033B",
+      "scenario": "demo",
+      "role": "local-detail",
+      "crop": {
+        "x": 0,
+        "y": 1573.328125,
+        "width": 390,
+        "height": 279.46875,
+        "scale": 1
+      },
+      "region": "duty",
+      "nativeScale": 1
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-04e5abf/demo/referenceMobile-local-tasks.webp",
+      "kind": "mobile",
+      "viewport": "390x844",
+      "url": "http://localhost:4180/w/demo?page=dashboard",
+      "capturedAt": "2026-09-14T06:42:00.447Z",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "sha256": "D94EA6673C66F171921231E0D6F104A52E7B6BAC585A0B80B347ABB42936FB4D",
+      "scenario": "demo",
+      "role": "local-detail",
+      "crop": {
+        "x": 0,
+        "y": 320.234375,
+        "width": 390,
+        "height": 338.84375,
+        "scale": 1
+      },
+      "region": "tasks",
+      "nativeScale": 1
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-04e5abf/large/referenceDesktop-dashboard-scroll-00.webp",
+      "kind": "desktop",
+      "viewport": "1536x1024",
+      "url": "http://localhost:4180/w/qa-visual?page=dashboard",
+      "capturedAt": "2026-09-14T06:42:29.353Z",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "sha256": "11B2A7E3D47ABA4B6B4FF41C284B3A7F41AFD63C17073CD106A22B1BCF69FC52",
+      "scenario": "large",
+      "role": "continuous-scroll",
+      "scroll": {
+        "file": "referenceDesktop-dashboard-scroll-00.png",
+        "top": 0,
+        "height": 1274,
+        "clientHeight": 1024,
+        "atEnd": false
+      }
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-04e5abf/large/referenceDesktop-dashboard-scroll-01.webp",
+      "kind": "desktop",
+      "viewport": "1536x1024",
+      "url": "http://localhost:4180/w/qa-visual?page=dashboard",
+      "capturedAt": "2026-09-14T06:42:29.353Z",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "sha256": "237C9F73D4B309516A48FF7DD4BE4529E4BD4D9044B1FA80F62E4DFF66F1E6D3",
+      "scenario": "large",
+      "role": "continuous-scroll",
+      "scroll": {
+        "file": "referenceDesktop-dashboard-scroll-01.png",
+        "top": 250,
+        "height": 1274,
+        "clientHeight": 1024,
+        "atEnd": true
+      }
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-04e5abf/large/referenceDesktop-dashboard.webp",
+      "kind": "desktop",
+      "viewport": "1536x1024",
+      "url": "http://localhost:4180/w/qa-visual?page=dashboard",
+      "capturedAt": "2026-09-14T06:42:29.353Z",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "sha256": "11B2A7E3D47ABA4B6B4FF41C284B3A7F41AFD63C17073CD106A22B1BCF69FC52",
+      "scenario": "large",
+      "role": "first-viewport"
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-04e5abf/large/referenceDesktop-local-agenda.webp",
+      "kind": "desktop",
+      "viewport": "1536x1024",
+      "url": "http://localhost:4180/w/qa-visual?page=dashboard",
+      "capturedAt": "2026-09-14T06:42:29.353Z",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "sha256": "638927CD6DCAEDAF5417CFE0E591DCCC2D04478DD4236D7C2F10AA8978177496",
+      "scenario": "large",
+      "role": "local-detail",
+      "crop": {
+        "x": 244,
+        "y": 520.921875,
+        "width": 635,
+        "height": 457,
+        "scale": 1
+      },
+      "region": "agenda",
+      "nativeScale": 1
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-04e5abf/large/referenceDesktop-local-attention.webp",
+      "kind": "desktop",
+      "viewport": "1536x1024",
+      "url": "http://localhost:4180/w/qa-visual?page=dashboard",
+      "capturedAt": "2026-09-14T06:42:29.353Z",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "sha256": "7B4720631E1C81D339D38D276B0D1BD5A362878EA2389DFE292467BC7A794103",
+      "scenario": "large",
+      "role": "local-detail",
+      "crop": {
+        "x": 901,
+        "y": 995.921875,
+        "width": 635,
+        "height": 153.375,
+        "scale": 1
+      },
+      "region": "attention",
+      "nativeScale": 1
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-04e5abf/large/referenceDesktop-local-dictation.webp",
+      "kind": "desktop",
+      "viewport": "1536x1024",
+      "url": "http://localhost:4180/w/qa-visual?page=dashboard",
+      "capturedAt": "2026-09-14T06:42:29.353Z",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "sha256": "77C1FF7836C5FA80FD682E13753EAF8EF64E5CC013C1D4492831033E6AF6BABA",
+      "scenario": "large",
+      "role": "local-detail",
+      "crop": {
+        "x": 901,
+        "y": 520.921875,
+        "width": 635,
+        "height": 393.90625,
+        "scale": 1
+      },
+      "region": "dictation",
+      "nativeScale": 1
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-04e5abf/large/referenceDesktop-local-duty.webp",
+      "kind": "desktop",
+      "viewport": "1536x1024",
+      "url": "http://localhost:4180/w/qa-visual?page=dashboard",
+      "capturedAt": "2026-09-14T06:42:29.353Z",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "sha256": "425C776F37555061C50C53E0D479B0853497E78AD087A98C2B6903D34EA852ED",
+      "scenario": "large",
+      "role": "local-detail",
+      "crop": {
+        "x": 244,
+        "y": 995.921875,
+        "width": 635,
+        "height": 190.734375,
+        "scale": 1
+      },
+      "region": "duty",
+      "nativeScale": 1
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-04e5abf/large/referenceDesktop-local-four-regions.webp",
+      "kind": "desktop",
+      "viewport": "1536x1024",
+      "url": "http://localhost:4180/w/qa-visual?page=dashboard",
+      "capturedAt": "2026-09-14T06:42:29.353Z",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "sha256": "FB98307272ABED878D7B106B00B7338CF3A539A833DB978F365EEFA2E78E339E",
+      "scenario": "large",
+      "role": "local-detail",
+      "crop": {
+        "x": 244,
+        "y": 520.921875,
+        "width": 1292,
+        "height": 665.734375,
+        "scale": 1
+      },
+      "region": "four-regions",
+      "nativeScale": 1
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-04e5abf/large/referenceDesktop-local-tasks.webp",
+      "kind": "desktop",
+      "viewport": "1536x1024",
+      "url": "http://localhost:4180/w/qa-visual?page=dashboard",
+      "capturedAt": "2026-09-14T06:42:29.353Z",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "sha256": "93C1463962A53AA71BEF0551C62917508E4FFCC846ED0F9F02FB75E500DBB046",
+      "scenario": "large",
+      "role": "local-detail",
+      "crop": {
+        "x": 244,
+        "y": 157.578125,
+        "width": 664.03125,
+        "height": 345.34375,
+        "scale": 1
+      },
+      "region": "tasks",
+      "nativeScale": 1
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-04e5abf/large/referenceMobile-action-dictation.webp",
+      "kind": "mobile",
+      "viewport": "390x844",
+      "url": "http://localhost:4180/w/qa-visual?page=dictation",
+      "capturedAt": "2026-09-14T06:42:29.353Z",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "sha256": "17C6EFCF172836B19B11AA397622F726BD88F32D41F87BCC23A020ACE1F4271C",
+      "scenario": "large",
+      "role": "interaction"
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-04e5abf/large/referenceMobile-action-duty.webp",
+      "kind": "mobile",
+      "viewport": "390x844",
+      "url": "http://localhost:4180/w/qa-visual?page=duty",
+      "capturedAt": "2026-09-14T06:42:29.353Z",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "sha256": "D8C44C3E296E14F33412E2693CFCA9D2277B69AAEBE31210B7F08B3E7A711CF8",
+      "scenario": "large",
+      "role": "interaction"
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-04e5abf/large/referenceMobile-action-homework.webp",
+      "kind": "mobile",
+      "viewport": "390x844",
+      "url": "http://localhost:4180/w/qa-visual?page=homework",
+      "capturedAt": "2026-09-14T06:42:29.353Z",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "sha256": "37A9017DC9BEF874E5D777C08C6C41C1631A485B663FC954270053C469A76F6F",
+      "scenario": "large",
+      "role": "interaction"
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-04e5abf/large/referenceMobile-action-students.webp",
+      "kind": "mobile",
+      "viewport": "390x844",
+      "url": "http://localhost:4180/w/qa-visual?page=students",
+      "capturedAt": "2026-09-14T06:42:29.353Z",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "sha256": "7F82D4A8A84075EEB44411036CDFCFE7B51BB032A47AEC8921C730007862D51D",
+      "scenario": "large",
+      "role": "interaction"
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-04e5abf/large/referenceMobile-dashboard-scroll-00.webp",
+      "kind": "mobile",
+      "viewport": "390x844",
+      "url": "http://localhost:4180/w/qa-visual?page=dashboard",
+      "capturedAt": "2026-09-14T06:42:29.353Z",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "sha256": "17A38899E3B12F2C6AFC56EB79FBC17ADAF77DB0702E5B16ABED39539E0FF533",
+      "scenario": "large",
+      "role": "continuous-scroll",
+      "scroll": {
+        "file": "referenceMobile-dashboard-scroll-00.png",
+        "top": 0,
+        "height": 2302,
+        "clientHeight": 844,
+        "atEnd": false
+      }
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-04e5abf/large/referenceMobile-dashboard-scroll-01.webp",
+      "kind": "mobile",
+      "viewport": "390x844",
+      "url": "http://localhost:4180/w/qa-visual?page=dashboard",
+      "capturedAt": "2026-09-14T06:42:29.353Z",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "sha256": "0E83C9E2153C6CC0A6C46E4FBB530839AF919AEE0BE607FB8A02FC9DE4C45068",
+      "scenario": "large",
+      "role": "continuous-scroll",
+      "scroll": {
+        "file": "referenceMobile-dashboard-scroll-01.png",
+        "top": 664,
+        "height": 2302,
+        "clientHeight": 844,
+        "atEnd": false
+      }
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-04e5abf/large/referenceMobile-dashboard-scroll-02.webp",
+      "kind": "mobile",
+      "viewport": "390x844",
+      "url": "http://localhost:4180/w/qa-visual?page=dashboard",
+      "capturedAt": "2026-09-14T06:42:29.353Z",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "sha256": "2FF5ADBA5B8B2E8D6D61639FBB5B199F1657F5872691406CF4E66AE79F781980",
+      "scenario": "large",
+      "role": "continuous-scroll",
+      "scroll": {
+        "file": "referenceMobile-dashboard-scroll-02.png",
+        "top": 1328,
+        "height": 2302,
+        "clientHeight": 844,
+        "atEnd": false
+      }
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-04e5abf/large/referenceMobile-dashboard-scroll-03.webp",
+      "kind": "mobile",
+      "viewport": "390x844",
+      "url": "http://localhost:4180/w/qa-visual?page=dashboard",
+      "capturedAt": "2026-09-14T06:42:29.353Z",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "sha256": "332AE0991F78B1D87A8F63F2ACB97FC1BE3BB32F7DD6B4FE5B6D9BF6D02AF2E3",
+      "scenario": "large",
+      "role": "continuous-scroll",
+      "scroll": {
+        "file": "referenceMobile-dashboard-scroll-03.png",
+        "top": 1458,
+        "height": 2302,
+        "clientHeight": 844,
+        "atEnd": true
+      }
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-04e5abf/large/referenceMobile-dashboard.webp",
+      "kind": "mobile",
+      "viewport": "390x844",
+      "url": "http://localhost:4180/w/qa-visual?page=dashboard",
+      "capturedAt": "2026-09-14T06:42:29.353Z",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "sha256": "AE1E2D255D65E9BFFAA0B6E5D9022B9072D9C2A3CB855ED2B9BBECC29B5CD20D",
+      "scenario": "large",
+      "role": "first-viewport"
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-04e5abf/large/referenceMobile-local-agenda.webp",
+      "kind": "mobile",
+      "viewport": "390x844",
+      "url": "http://localhost:4180/w/qa-visual?page=dashboard",
+      "capturedAt": "2026-09-14T06:42:29.353Z",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "sha256": "29B110BACF7CAAD1FB1130F221BDC1DB4D74EDE0EB163812A1085BC958799613",
+      "scenario": "large",
+      "role": "local-detail",
+      "crop": {
+        "x": 0,
+        "y": 631.9375,
+        "width": 390,
+        "height": 470,
+        "scale": 1
+      },
+      "region": "agenda",
+      "nativeScale": 1
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-04e5abf/large/referenceMobile-local-attention.webp",
+      "kind": "mobile",
+      "viewport": "390x844",
+      "url": "http://localhost:4180/w/qa-visual?page=dashboard",
+      "capturedAt": "2026-09-14T06:42:29.353Z",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "sha256": "75CCB35FC319D4F79A0D78D1C755DCA8D738A34FDB48D424274E61B671DF8D9B",
+      "scenario": "large",
+      "role": "local-detail",
+      "crop": {
+        "x": 0,
+        "y": 1962.015625,
+        "width": 390,
+        "height": 150,
+        "scale": 1
+      },
+      "region": "attention",
+      "nativeScale": 1
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-04e5abf/large/referenceMobile-local-dictation.webp",
+      "kind": "mobile",
+      "viewport": "390x844",
+      "url": "http://localhost:4180/w/qa-visual?page=dashboard",
+      "capturedAt": "2026-09-14T06:42:29.353Z",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "sha256": "C5B604B3CF2B09A647D20F5398381C5D902DDAB40B02A1756E519C78B9922B95",
+      "scenario": "large",
+      "role": "local-detail",
+      "crop": {
+        "x": 0,
+        "y": 1117.9375,
+        "width": 390,
+        "height": 397.34375,
+        "scale": 1
+      },
+      "region": "dictation",
+      "nativeScale": 1
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-04e5abf/large/referenceMobile-local-duty.webp",
+      "kind": "mobile",
+      "viewport": "390x844",
+      "url": "http://localhost:4180/w/qa-visual?page=dashboard",
+      "capturedAt": "2026-09-14T06:42:29.353Z",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "sha256": "997FF4FA9FA4407FC1E43393DFE7B177542923837E33B6532668B2FF1D3A7602",
+      "scenario": "large",
+      "role": "local-detail",
+      "crop": {
+        "x": 0,
+        "y": 1757.28125,
+        "width": 390,
+        "height": 188.734375,
+        "scale": 1
+      },
+      "region": "duty",
+      "nativeScale": 1
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-04e5abf/large/referenceMobile-local-tasks.webp",
+      "kind": "mobile",
+      "viewport": "390x844",
+      "url": "http://localhost:4180/w/qa-visual?page=dashboard",
+      "capturedAt": "2026-09-14T06:42:29.353Z",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "sha256": "B37E5803BBA9962A4810A969A49C36B391E180776521C91F8F4131306DFAD473",
+      "scenario": "large",
+      "role": "local-detail",
+      "crop": {
+        "x": 0,
+        "y": 279.09375,
+        "width": 390,
+        "height": 338.84375,
+        "scale": 1
+      },
+      "region": "tasks",
+      "nativeScale": 1
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-04e5abf/empty/referenceDesktop-dashboard-scroll-00.webp",
+      "kind": "desktop",
+      "viewport": "1536x1024",
+      "url": "http://localhost:4180/w/qa-visual?page=dashboard",
+      "capturedAt": "2026-09-14T06:42:57.527Z",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "sha256": "A1F7104F408FE8D063B30CA287F38B6F442B5D8FFC29CE1772863FCBE4606BD7",
+      "scenario": "empty",
+      "role": "continuous-scroll",
+      "scroll": {
+        "file": "referenceDesktop-dashboard-scroll-00.png",
+        "top": 0,
+        "height": 1170,
+        "clientHeight": 1024,
+        "atEnd": false
+      }
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-04e5abf/empty/referenceDesktop-dashboard-scroll-01.webp",
+      "kind": "desktop",
+      "viewport": "1536x1024",
+      "url": "http://localhost:4180/w/qa-visual?page=dashboard",
+      "capturedAt": "2026-09-14T06:42:57.527Z",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "sha256": "32D84937EEEE2F90BE98ED88C16FEA69F7E0131E983B285C8255CEFD5098B0B8",
+      "scenario": "empty",
+      "role": "continuous-scroll",
+      "scroll": {
+        "file": "referenceDesktop-dashboard-scroll-01.png",
+        "top": 146,
+        "height": 1170,
+        "clientHeight": 1024,
+        "atEnd": true
+      }
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-04e5abf/empty/referenceDesktop-dashboard.webp",
+      "kind": "desktop",
+      "viewport": "1536x1024",
+      "url": "http://localhost:4180/w/qa-visual?page=dashboard",
+      "capturedAt": "2026-09-14T06:42:57.527Z",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "sha256": "A1F7104F408FE8D063B30CA287F38B6F442B5D8FFC29CE1772863FCBE4606BD7",
+      "scenario": "empty",
+      "role": "first-viewport"
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-04e5abf/empty/referenceDesktop-local-agenda.webp",
+      "kind": "desktop",
+      "viewport": "1536x1024",
+      "url": "http://localhost:4180/w/qa-visual?page=dashboard",
+      "capturedAt": "2026-09-14T06:42:57.527Z",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "sha256": "76FEE03285A78A295B531D82249A5C6D21FB20B1E62F788F251A292B66A392BB",
+      "scenario": "empty",
+      "role": "local-detail",
+      "crop": {
+        "x": 244,
+        "y": 520.921875,
+        "width": 635,
+        "height": 208,
+        "scale": 1
+      },
+      "region": "agenda",
+      "nativeScale": 1
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-04e5abf/empty/referenceDesktop-local-attention.webp",
+      "kind": "desktop",
+      "viewport": "1536x1024",
+      "url": "http://localhost:4180/w/qa-visual?page=dashboard",
+      "capturedAt": "2026-09-14T06:42:57.527Z",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "sha256": "8F43D7E42CA5FB8FB83470532A2C5FB67175F0108C4ACA550B7B2D364B0E6C2E",
+      "scenario": "empty",
+      "role": "local-detail",
+      "crop": {
+        "x": 901,
+        "y": 874.921875,
+        "width": 635,
+        "height": 208,
+        "scale": 1
+      },
+      "region": "attention",
+      "nativeScale": 1
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-04e5abf/empty/referenceDesktop-local-dictation.webp",
+      "kind": "desktop",
+      "viewport": "1536x1024",
+      "url": "http://localhost:4180/w/qa-visual?page=dashboard",
+      "capturedAt": "2026-09-14T06:42:57.527Z",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "sha256": "978FEE093C5B981A069D3899546F194C52A74F3CF18D1EBA0AF98A34884AD0C8",
+      "scenario": "empty",
+      "role": "local-detail",
+      "crop": {
+        "x": 901,
+        "y": 520.921875,
+        "width": 635,
+        "height": 336,
+        "scale": 1
+      },
+      "region": "dictation",
+      "nativeScale": 1
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-04e5abf/empty/referenceDesktop-local-duty.webp",
+      "kind": "desktop",
+      "viewport": "1536x1024",
+      "url": "http://localhost:4180/w/qa-visual?page=dashboard",
+      "capturedAt": "2026-09-14T06:42:57.527Z",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "sha256": "3A70E64AF05BE0C0883EF49593813352BB9DA199E391C999041676401FFD5FDF",
+      "scenario": "empty",
+      "role": "local-detail",
+      "crop": {
+        "x": 244,
+        "y": 874.921875,
+        "width": 635,
+        "height": 208,
+        "scale": 1
+      },
+      "region": "duty",
+      "nativeScale": 1
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-04e5abf/empty/referenceDesktop-local-four-regions.webp",
+      "kind": "desktop",
+      "viewport": "1536x1024",
+      "url": "http://localhost:4180/w/qa-visual?page=dashboard",
+      "capturedAt": "2026-09-14T06:42:57.527Z",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "sha256": "7813AAB3AE0182D07DFAED9E894BA0414001D5397CC0BACA4DC8E734201D114C",
+      "scenario": "empty",
+      "role": "local-detail",
+      "crop": {
+        "x": 244,
+        "y": 520.921875,
+        "width": 1292,
+        "height": 562,
+        "scale": 1
+      },
+      "region": "four-regions",
+      "nativeScale": 1
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-04e5abf/empty/referenceDesktop-local-tasks.webp",
+      "kind": "desktop",
+      "viewport": "1536x1024",
+      "url": "http://localhost:4180/w/qa-visual?page=dashboard",
+      "capturedAt": "2026-09-14T06:42:57.527Z",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "sha256": "BE217DAAB4D062D63CDC2ED9A9BB38D46D9F456973CDA16D8362612C7333A45E",
+      "scenario": "empty",
+      "role": "local-detail",
+      "crop": {
+        "x": 244,
+        "y": 157.578125,
+        "width": 664.03125,
+        "height": 345.34375,
+        "scale": 1
+      },
+      "region": "tasks",
+      "nativeScale": 1
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-04e5abf/empty/referenceMobile-action-dictation.webp",
+      "kind": "mobile",
+      "viewport": "390x844",
+      "url": "http://localhost:4180/w/qa-visual?page=dictation",
+      "capturedAt": "2026-09-14T06:42:57.527Z",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "sha256": "F7BF8C6C4E98AD728CE7225904492DAA6DC723ECB292E33BB26CB79A233043DA",
+      "scenario": "empty",
+      "role": "interaction"
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-04e5abf/empty/referenceMobile-action-duty.webp",
+      "kind": "mobile",
+      "viewport": "390x844",
+      "url": "http://localhost:4180/w/qa-visual?page=duty",
+      "capturedAt": "2026-09-14T06:42:57.527Z",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "sha256": "42ED72F0488282404B1CEFE28492E36B083CCDE18F8804C2BDE170D9FC1DCE6D",
+      "scenario": "empty",
+      "role": "interaction"
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-04e5abf/empty/referenceMobile-action-homework.webp",
+      "kind": "mobile",
+      "viewport": "390x844",
+      "url": "http://localhost:4180/w/qa-visual?page=homework",
+      "capturedAt": "2026-09-14T06:42:57.527Z",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "sha256": "A195BC70C2CC423B1F19757C043A82E9D75B56E1AE4C9BA356062D11CEF2AE67",
+      "scenario": "empty",
+      "role": "interaction"
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-04e5abf/empty/referenceMobile-action-students.webp",
+      "kind": "mobile",
+      "viewport": "390x844",
+      "url": "http://localhost:4180/w/qa-visual?page=students",
+      "capturedAt": "2026-09-14T06:42:57.527Z",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "sha256": "29BADCA99E0E143E25108F65B092351A59CB70D5E4E3A61AC89F7CD40FF7EF69",
+      "scenario": "empty",
+      "role": "interaction"
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-04e5abf/empty/referenceMobile-dashboard-scroll-00.webp",
+      "kind": "mobile",
+      "viewport": "390x844",
+      "url": "http://localhost:4180/w/qa-visual?page=dashboard",
+      "capturedAt": "2026-09-14T06:42:57.527Z",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "sha256": "9216FEB9649464D1AD25EC185AF8247D245B89255D3695038A0F4181946D88E8",
+      "scenario": "empty",
+      "role": "continuous-scroll",
+      "scroll": {
+        "file": "referenceMobile-dashboard-scroll-00.png",
+        "top": 0,
+        "height": 2040,
+        "clientHeight": 844,
+        "atEnd": false
+      }
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-04e5abf/empty/referenceMobile-dashboard-scroll-01.webp",
+      "kind": "mobile",
+      "viewport": "390x844",
+      "url": "http://localhost:4180/w/qa-visual?page=dashboard",
+      "capturedAt": "2026-09-14T06:42:57.527Z",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "sha256": "DCE59DCCE8F5646E499B590227978BB03773BFB8490A6556B3CCFBA7E4B9F08D",
+      "scenario": "empty",
+      "role": "continuous-scroll",
+      "scroll": {
+        "file": "referenceMobile-dashboard-scroll-01.png",
+        "top": 664,
+        "height": 2040,
+        "clientHeight": 844,
+        "atEnd": false
+      }
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-04e5abf/empty/referenceMobile-dashboard-scroll-02.webp",
+      "kind": "mobile",
+      "viewport": "390x844",
+      "url": "http://localhost:4180/w/qa-visual?page=dashboard",
+      "capturedAt": "2026-09-14T06:42:57.527Z",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "sha256": "E196FA167B9C85E3B08BFE0A9CCB3DE14D4EAFBDEB75F64E296FF8846BDDD127",
+      "scenario": "empty",
+      "role": "continuous-scroll",
+      "scroll": {
+        "file": "referenceMobile-dashboard-scroll-02.png",
+        "top": 1196,
+        "height": 2040,
+        "clientHeight": 844,
+        "atEnd": true
+      }
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-04e5abf/empty/referenceMobile-dashboard.webp",
+      "kind": "mobile",
+      "viewport": "390x844",
+      "url": "http://localhost:4180/w/qa-visual?page=dashboard",
+      "capturedAt": "2026-09-14T06:42:57.527Z",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "sha256": "A9C803BE31E9C3AFADDC16048953995818A9F87EA23218A28D9CCF3FF6E71011",
+      "scenario": "empty",
+      "role": "first-viewport"
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-04e5abf/empty/referenceMobile-local-agenda.webp",
+      "kind": "mobile",
+      "viewport": "390x844",
+      "url": "http://localhost:4180/w/qa-visual?page=dashboard",
+      "capturedAt": "2026-09-14T06:42:57.527Z",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "sha256": "A18D79F5B52DF337D8A26E2FFB9C6E2184D8CE2D688D33531CFA370AEE3ED428",
+      "scenario": "empty",
+      "role": "local-detail",
+      "crop": {
+        "x": 0,
+        "y": 631.9375,
+        "width": 390,
+        "height": 210,
+        "scale": 1
+      },
+      "region": "agenda",
+      "nativeScale": 1
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-04e5abf/empty/referenceMobile-local-attention.webp",
+      "kind": "mobile",
+      "viewport": "390x844",
+      "url": "http://localhost:4180/w/qa-visual?page=dashboard",
+      "capturedAt": "2026-09-14T06:42:57.527Z",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "sha256": "2A05E77D81150E3B549E79A350F30F65FB32FB539B2B0483FB7CAE36AE348AC8",
+      "scenario": "empty",
+      "role": "local-detail",
+      "crop": {
+        "x": 0,
+        "y": 1639.9375,
+        "width": 390,
+        "height": 210,
+        "scale": 1
+      },
+      "region": "attention",
+      "nativeScale": 1
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-04e5abf/empty/referenceMobile-local-dictation.webp",
+      "kind": "mobile",
+      "viewport": "390x844",
+      "url": "http://localhost:4180/w/qa-visual?page=dashboard",
+      "capturedAt": "2026-09-14T06:42:57.527Z",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "sha256": "30E2931E030695DA7E526E129FD0FBC19CF1B345C327CCBBF190C53102B60EC5",
+      "scenario": "empty",
+      "role": "local-detail",
+      "crop": {
+        "x": 0,
+        "y": 857.9375,
+        "width": 390,
+        "height": 314,
+        "scale": 1
+      },
+      "region": "dictation",
+      "nativeScale": 1
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-04e5abf/empty/referenceMobile-local-duty.webp",
+      "kind": "mobile",
+      "viewport": "390x844",
+      "url": "http://localhost:4180/w/qa-visual?page=dashboard",
+      "capturedAt": "2026-09-14T06:42:57.527Z",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "sha256": "948D6FE7F99DBC8903E8C170B753A64C62F2DDE584EEF66C5EC7AD79EDE43FF7",
+      "scenario": "empty",
+      "role": "local-detail",
+      "crop": {
+        "x": 0,
+        "y": 1413.9375,
+        "width": 390,
+        "height": 210,
+        "scale": 1
+      },
+      "region": "duty",
+      "nativeScale": 1
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-04e5abf/empty/referenceMobile-local-tasks.webp",
+      "kind": "mobile",
+      "viewport": "390x844",
+      "url": "http://localhost:4180/w/qa-visual?page=dashboard",
+      "capturedAt": "2026-09-14T06:42:57.527Z",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "sha256": "6EF54C31FFEF9207695EA0F4326984CA27F6E2B7BFE4BFC0332912D2CE84A032",
+      "scenario": "empty",
+      "role": "local-detail",
+      "crop": {
+        "x": 0,
+        "y": 279.09375,
+        "width": 390,
+        "height": 338.84375,
+        "scale": 1
+      },
+      "region": "tasks",
+      "nativeScale": 1
+    },
+    {
+      "path": "docs/visual-baseline/comparisons/V1-04e5abf-desktop.webp",
+      "kind": "desktop",
+      "viewport": "1536x1024",
+      "url": "http://localhost:4180/w/demo?page=dashboard",
+      "capturedAt": "2026-09-14T06:42:00.447Z",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "sha256": "D95F3518F04AE2E8572D3068677B2D0B59BB45490FCD620214433D1831789606",
+      "scenario": "demo",
+      "role": "comparison",
+      "referenceId": "C1"
+    },
+    {
+      "path": "docs/visual-baseline/comparisons/V1-04e5abf-mobile.webp",
+      "kind": "mobile",
+      "viewport": "390x844",
+      "url": "http://localhost:4180/w/demo?page=dashboard",
+      "capturedAt": "2026-09-14T06:42:00.447Z",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "sha256": "7A654FAC0A9437D53282245EC88322F6565BCAB561C8BD91381D618FDE685FFD",
+      "scenario": "demo",
+      "role": "comparison",
+      "referenceId": "C5"
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-04e5abf/demo/desktop-continuous.webp",
+      "kind": "desktop",
+      "viewport": "1536x1024",
+      "url": "http://localhost:4180/w/demo?page=dashboard",
+      "capturedAt": "2026-09-14T06:42:00.447Z",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "sha256": "2328420107FACC70A59F6D7A8532EB0D50D8A7B1DC123E910E139C6C795D6067",
+      "scenario": "demo",
+      "role": "contact-sheet",
+      "scroll": {
+        "file": "referenceDesktop-dashboard-scroll-00.png",
+        "top": 0,
+        "height": 1309,
+        "clientHeight": 1024,
+        "atEnd": false
+      },
+      "frameCount": 2,
+      "columns": 1
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-04e5abf/demo/mobile-continuous.webp",
+      "kind": "mobile",
+      "viewport": "390x844",
+      "url": "http://localhost:4180/w/demo?page=dashboard",
+      "capturedAt": "2026-09-14T06:42:00.447Z",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "sha256": "5F64FDA463026B4DFE7F6EA820D3C08EFE4B695698479DD7F140A8B6A2EC4B18",
+      "scenario": "demo",
+      "role": "contact-sheet",
+      "scroll": {
+        "file": "referenceMobile-dashboard-scroll-00.png",
+        "top": 0,
+        "height": 2365,
+        "clientHeight": 844,
+        "atEnd": false
+      },
+      "frameCount": 4,
+      "columns": 3
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-04e5abf/large/desktop-continuous.webp",
+      "kind": "desktop",
+      "viewport": "1536x1024",
+      "url": "http://localhost:4180/w/qa-visual?page=dashboard",
+      "capturedAt": "2026-09-14T06:42:29.353Z",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "sha256": "B461790F21D3B317399E80C741865F2423E64E20BDA909828CEE1E5217DFAEE8",
+      "scenario": "large",
+      "role": "contact-sheet",
+      "scroll": {
+        "file": "referenceDesktop-dashboard-scroll-00.png",
+        "top": 0,
+        "height": 1274,
+        "clientHeight": 1024,
+        "atEnd": false
+      },
+      "frameCount": 2,
+      "columns": 1
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-04e5abf/large/mobile-continuous.webp",
+      "kind": "mobile",
+      "viewport": "390x844",
+      "url": "http://localhost:4180/w/qa-visual?page=dashboard",
+      "capturedAt": "2026-09-14T06:42:29.353Z",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "sha256": "0538118875F9AE834862133EA388D493A989DBBB319859218BDF364319C5EFF0",
+      "scenario": "large",
+      "role": "contact-sheet",
+      "scroll": {
+        "file": "referenceMobile-dashboard-scroll-00.png",
+        "top": 0,
+        "height": 2302,
+        "clientHeight": 844,
+        "atEnd": false
+      },
+      "frameCount": 4,
+      "columns": 3
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-04e5abf/empty/desktop-continuous.webp",
+      "kind": "desktop",
+      "viewport": "1536x1024",
+      "url": "http://localhost:4180/w/qa-visual?page=dashboard",
+      "capturedAt": "2026-09-14T06:42:57.527Z",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "sha256": "082984FB0B2753858E93FCA4769A51FC1102FF820529C7726EFEC98B0A5C11C8",
+      "scenario": "empty",
+      "role": "contact-sheet",
+      "scroll": {
+        "file": "referenceDesktop-dashboard-scroll-00.png",
+        "top": 0,
+        "height": 1170,
+        "clientHeight": 1024,
+        "atEnd": false
+      },
+      "frameCount": 2,
+      "columns": 1
+    },
+    {
+      "path": "docs/visual-baseline/current/V1-04e5abf/empty/mobile-continuous.webp",
+      "kind": "mobile",
+      "viewport": "390x844",
+      "url": "http://localhost:4180/w/qa-visual?page=dashboard",
+      "capturedAt": "2026-09-14T06:42:57.527Z",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "sha256": "10EC266F718454AB3DAAB519300FCBDBFB752BC24B8370E47F3BAD784BA5FDC2",
+      "scenario": "empty",
+      "role": "contact-sheet",
+      "scroll": {
+        "file": "referenceMobile-dashboard-scroll-00.png",
+        "top": 0,
+        "height": 2040,
+        "clientHeight": 844,
+        "atEnd": false
+      },
+      "frameCount": 3,
+      "columns": 3
+    },
+    {
+      "path": "docs/visual-baseline/comparisons/V1-04e5abf-four-regions.webp",
+      "kind": "desktop",
+      "viewport": "1536x1024",
+      "url": "http://localhost:4180/w/demo?page=dashboard",
+      "capturedAt": "2026-09-14T06:42:00.447Z",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "sha256": "35E5E9CC14C935A015A6A469B032E218A2B413BD32E22C6BC0265BB2E1B4DA25",
+      "scenario": "demo",
+      "role": "local-comparison",
+      "previousProductCommit": "351880ee957aca334324f681be64348ce5dfc0ba",
+      "referenceId": null,
+      "nativeScale": 1,
+      "cropDescription": "crop=1277:644:244:294",
+      "previousSource": "docs/visual-baseline/current/V1-351880e/demo/referenceDesktop-dashboard-scroll-01.webp",
+      "currentSource": "docs/visual-baseline/current/V1-04e5abf/demo/referenceDesktop-local-four-regions.webp"
+    },
+    {
+      "path": "docs/visual-baseline/comparisons/V1-04e5abf-tasks-desktop.webp",
+      "kind": "desktop",
+      "viewport": "1536x1024",
+      "url": "http://localhost:4180/w/demo?page=dashboard",
+      "capturedAt": "2026-09-14T06:42:00.447Z",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "sha256": "2C878ADADC2A126EB8E0E0482433D6A91DDD6821FB66D09B0173267DCF2CC0F4",
+      "scenario": "demo",
+      "role": "local-comparison",
+      "previousProductCommit": "351880ee957aca334324f681be64348ce5dfc0ba",
+      "referenceId": null,
+      "nativeScale": 1,
+      "cropDescription": "crop=664:345:244:200",
+      "previousSource": "docs/visual-baseline/current/V1-351880e/demo/referenceDesktop-dashboard.webp",
+      "currentSource": "docs/visual-baseline/current/V1-04e5abf/demo/referenceDesktop-local-tasks.webp"
+    },
+    {
+      "path": "docs/visual-baseline/comparisons/V1-04e5abf-tasks-mobile.webp",
+      "kind": "mobile",
+      "viewport": "390x844",
+      "url": "http://localhost:4180/w/demo?page=dashboard",
+      "capturedAt": "2026-09-14T06:42:00.447Z",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "sha256": "37157E675F8BF789A569248C10D89F514B8F1068A3983C6B2E77C1474203404D",
+      "scenario": "demo",
+      "role": "local-comparison",
+      "previousProductCommit": "351880ee957aca334324f681be64348ce5dfc0ba",
+      "referenceId": null,
+      "nativeScale": 1,
+      "cropDescription": "crop=390:340:0:320",
+      "previousSource": "docs/visual-baseline/current/V1-351880e/demo/referenceMobile-dashboard.webp",
+      "currentSource": "docs/visual-baseline/current/V1-04e5abf/demo/referenceMobile-local-tasks.webp"
+    },
+    {
+      "path": "docs/visual-baseline/comparisons/V1-04e5abf-tasks-C1.webp",
+      "kind": "desktop",
+      "viewport": "1536x1024",
+      "url": "http://localhost:4180/w/demo?page=dashboard",
+      "capturedAt": "2026-09-14T06:42:00.447Z",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454",
+      "sha256": "1F68EDE9432080D5FCE59C5D8DE576B22A11534819BA0CF046A31AD7C0F4A25E",
+      "scenario": "demo",
+      "role": "local-comparison",
+      "previousProductCommit": null,
+      "referenceId": "C1",
+      "nativeScale": 1,
+      "cropDescription": "crop=646:293:294:153",
+      "previousSource": "项目实施包-UI彻底重构与双主题-20260912/references/campus/C1-桌面首页.png",
+      "currentSource": "docs/visual-baseline/current/V1-04e5abf/demo/referenceDesktop-local-tasks.webp"
+    }
+  ],
+  "reports": [
+    {
+      "scenario": "strict",
+      "path": "docs/visual-baseline/logs/V1-04e5abf/strict-layout-audit.json",
+      "sha256": "A0D406934F0889AA9E29358D25817F90EF4003F40DDDB1A4AD7FC71136DB414A",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454"
+    },
+    {
+      "scenario": "demo",
+      "path": "docs/visual-baseline/logs/V1-04e5abf/demo-layout-audit.json",
+      "sha256": "26023D562B1BCD66A75F54BE871973AE40341CF304DC5A13F9815F39EFD5A705",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454"
+    },
+    {
+      "scenario": "large",
+      "path": "docs/visual-baseline/logs/V1-04e5abf/large-layout-audit.json",
+      "sha256": "415FA90A9CA61443E9D794A3EB6A2F5EF0B9F704B18BCD2174834849EBDD84F7",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454"
+    },
+    {
+      "scenario": "empty",
+      "path": "docs/visual-baseline/logs/V1-04e5abf/empty-layout-audit.json",
+      "sha256": "B6F2364743EC282BF1DB89A6527947BA3CB868B885442E22ACCB01F180A94C91",
+      "productCommit": "04e5abfd0a7f0068353b6e962a17b989b3011454"
+    }
+  ]
+}

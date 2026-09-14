@@ -1,0 +1,8 @@
+productCommit: 0e137d09d1784b43eabeb5717079f03841bac9b1
+command: node scripts/layout-audit.mjs --serve
+startedAt: 2026-09-14T06:28:13.290Z
+
+referenceDesktop:dashboard: Dashboard scene artwork does not fill its intended container: {"image":{"left":908.03125,"right":1520.984375,"top":200.265625,"bottom":503.609375,"width":612.953125,"height":303.34375},"container":{"left":908.03125,"right":1520.984375,"top":200.265625,"bottom":561.609375,"width":612.953125,"height":361.34375},"objectFit":"contain","objectPosition":"50% 100%","inlineObjectFit":"","widthRatio":1,"heightRatio":0.8394880221395832}.
+Layout audit report: E:\文档\Codex\小红书\班主任工作台网站\.qa-shots\v1-alignment-preview\demo\layout-audit.json
+
+exitCode: 1
