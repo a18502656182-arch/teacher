@@ -13,7 +13,7 @@
     "C6": {"label": "手机批改", "viewport": "390x844", "sourceOriginal": "项目实施包-UI彻底重构与双主题-20260912/references/campus/C6-手机批改.png", "sourceSha256": "647082C652E5CB4E0B6924703AC434E9B269D03D2DF037B24529C8F5D92D20B9", "committedCopy": "docs/visual-baseline/references/C6-dictation-mobile.webp", "committedSha256": "5C8B64C1B16BEBEDB8F75F035F81C6DA994A9EC1A1887D493B49EB7B930E8759"}
   },
   "gates": [
-    {"id": "V1", "label": "首页定准", "pages": ["dashboard"], "status": "active", "pauseRequired": true, "userApproval": {"approved": false, "approvedAt": null, "commit": null}},
+    {"id": "V1", "label": "首页定准", "pages": ["dashboard"], "status": "awaiting-user-review", "pauseRequired": true, "userApproval": {"approved": false, "approvedAt": null, "commit": null}},
     {"id": "V2", "label": "核心工作页", "pages": ["students", "homework", "dictation"], "status": "blocked", "pauseRequired": true, "userApproval": {"approved": false, "approvedAt": null, "commit": null}},
     {"id": "V3", "label": "学生日常支持", "pages": ["attendance", "growth", "health"], "status": "blocked", "pauseRequired": true, "userApproval": {"approved": false, "approvedAt": null, "commit": null}},
     {"id": "V4", "label": "分析与沟通", "pages": ["records", "scores", "reflection"], "status": "blocked", "pauseRequired": true, "userApproval": {"approved": false, "approvedAt": null, "commit": null}},
@@ -22,7 +22,23 @@
     {"id": "V7", "label": "评价与输出", "pages": ["points", "weekly", "comments"], "status": "blocked", "pauseRequired": true, "userApproval": {"approved": false, "approvedAt": null, "commit": null}}
   ],
   "pages": {
-    "dashboard": {"label": "今日工作台", "referenceIds": ["C1", "C5"], "status": "needs-fix", "requiredComparisons": 2, "issues": ["桌面场景图被通用campus-art固定尺寸压缩", "首屏插画视觉重量与色彩面积不足", "标题、图标与正文的尺度反差不足"], "currentEvidence": ["docs/visual-baseline/current/C1-dashboard-current-20260914.webp"], "comparisons": []},
+    "dashboard": {
+      "label": "今日工作台",
+      "referenceIds": ["C1", "C5"],
+      "status": "ready-for-review",
+      "requiredComparisons": 2,
+      "issues": [],
+      "productCommit": "25950b7d9649d0e01d64749544b8dcfaa6ce9540",
+      "currentEvidence": [
+        {"path": "docs/visual-baseline/current/V1-dashboard-desktop-25950b7.webp", "kind": "desktop", "viewport": "1536x1024", "url": "http://127.0.0.1:4180/w/demo?page=dashboard", "capturedAt": "2026-09-14T12:36:50+08:00", "productCommit": "25950b7d9649d0e01d64749544b8dcfaa6ce9540", "sha256": "CDB89F11F0080CF1AA506FB013F623FE3EA5ED105AFFC18E19CCC2A205CC4949"},
+        {"path": "docs/visual-baseline/current/V1-dashboard-mobile-25950b7.webp", "kind": "mobile", "viewport": "390x844", "url": "http://127.0.0.1:4180/w/demo?page=dashboard", "capturedAt": "2026-09-14T12:36:51+08:00", "productCommit": "25950b7d9649d0e01d64749544b8dcfaa6ce9540", "sha256": "480D405540534EA0FBE34CAC85DEF9C05BC0770A8E3AE9D0C2ACC0A4669CE3DA"}
+      ],
+      "comparisons": [
+        {"path": "docs/visual-baseline/comparisons/V1-dashboard-desktop-25950b7.webp", "kind": "desktop", "viewport": "1536x1024", "url": "http://127.0.0.1:4180/w/demo?page=dashboard", "capturedAt": "2026-09-14T12:37:42+08:00", "productCommit": "25950b7d9649d0e01d64749544b8dcfaa6ce9540", "sha256": "A51278C736B15B8EB06E3564B819EA878427D83DBE09635713C5F7BFC42C2353", "referenceId": "C1"},
+        {"path": "docs/visual-baseline/comparisons/V1-dashboard-mobile-25950b7.webp", "kind": "mobile", "viewport": "390x844", "url": "http://127.0.0.1:4180/w/demo?page=dashboard", "capturedAt": "2026-09-14T12:37:42+08:00", "productCommit": "25950b7d9649d0e01d64749544b8dcfaa6ce9540", "sha256": "A99DA3F2C91DA2F1C084D9FEFCAC8531887D3D57050BFCDE715EEDFE10DBE24F", "referenceId": "C5"}
+      ],
+      "supervision": {"status": "pending", "reviewedProductCommit": null, "report": null}
+    },
     "students": {"label": "学生名单", "referenceIds": ["C3"], "status": "needs-fix", "requiredComparisons": 2, "issues": ["右侧学生档案视觉重量不足", "整体仍接近统一后台工作区"], "currentEvidence": [], "comparisons": []},
     "homework": {"label": "作业追踪", "referenceIds": ["C4"], "status": "not-reviewed", "requiredComparisons": 2, "issues": [], "currentEvidence": [], "comparisons": []},
     "dictation": {"label": "听写与复习", "referenceIds": ["C2", "C6"], "status": "needs-fix", "requiredComparisons": 2, "issues": ["当前实现与参考稿的情境层次和插画参与度仍有明显差距"], "currentEvidence": [], "comparisons": []},

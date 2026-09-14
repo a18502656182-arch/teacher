@@ -1,18 +1,49 @@
 {
   "schemaVersion": 1,
-  "checkpointId": "INITIAL-NOT-REVIEWED",
-  "phase": "planning-package-delivered",
+  "checkpointId": "V1-DASHBOARD-25950B7-20260914",
+  "phase": "v1-dashboard-ready-for-supervision-and-user-review",
   "gate": "V1",
   "page": "dashboard",
-  "productCommit": "2537f28a531d9cadef64f1fb2c00f2627c7b183a",
-  "executorThread": null,
+  "productCommit": "25950b7d9649d0e01d64749544b8dcfaa6ce9540",
+  "executorThread": "codex://threads/01a09e19-8379-7f63-b537-7c54965c2044",
   "supervisorThread": null,
-  "supervisionMode": "not-connected",
-  "status": "not-started",
-  "changedFiles": [],
-  "evidence": [],
-  "tests": [],
-  "review": null,
+  "supervisionMode": "shared-checkpoint",
+  "status": "awaiting-supervisor-and-user-review",
+  "changedFiles": [
+    "VISUAL_BASELINE.md",
+    "app/w/[token]/ClassroomPages.module.css",
+    "app/w/[token]/features/dashboard/DashboardView.module.css",
+    "app/w/[token]/features/dashboard/DashboardView.tsx",
+    "docs/CHANGELOG.md",
+    "docs/PROJECT_STATUS.md",
+    "docs/visual-baseline/README.md",
+    "package.json",
+    "scripts/layout-audit.mjs",
+    "scripts/visual-baseline-audit.mjs",
+    "tests/rendered-html.test.mjs",
+    "tests/visual-baseline-audit.test.mjs",
+    "trackers/visual-baseline.json"
+  ],
+  "evidence": [
+    "docs/visual-baseline/current/V1-dashboard-desktop-25950b7.webp",
+    "docs/visual-baseline/current/V1-dashboard-mobile-25950b7.webp",
+    "docs/visual-baseline/comparisons/V1-dashboard-desktop-25950b7.webp",
+    "docs/visual-baseline/comparisons/V1-dashboard-mobile-25950b7.webp"
+  ],
+  "tests": [
+    {"command": "npm run qa:visual-baseline", "exitCode": 0},
+    {"command": "npx tsc --noEmit", "exitCode": 0},
+    {"command": "npm run lint", "exitCode": 0},
+    {"command": "npm run qa:strict", "exitCode": 0, "scope": "19 teacher pages x 6 viewports"},
+    {"command": "npm test", "exitCode": 0, "scope": "build + 268/268 Node tests + auth integration"},
+    {"command": "npm run qa:visual-capture -- --gate V1", "exitCode": 0, "scope": "1536x1024 + 390x844"},
+    {"command": "npm run qa:visual-gate -- --gate V1", "exitCode": 1, "expected": true, "reason": "independent supervision PASS pending"}
+  ],
+  "review": {
+    "status": "pending",
+    "report": null,
+    "staleStartupReport": "docs/重构执行与监工资料包-20260914/supervision/reviews/INITIAL-NOT-REVIEWED.md"
+  },
   "humanApproval": null,
-  "nextAction": "执行V0检查器补强和V1首页纠偏；完成后人工暂停"
+  "nextAction": "监工读取最新检查点并对产品提交25950b7给出报告；V1展示实际图和对比图，等待用户绑定该产品提交明确批准。V2保持blocked。"
 }
