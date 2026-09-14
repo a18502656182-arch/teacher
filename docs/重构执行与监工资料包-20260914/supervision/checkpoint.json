@@ -1,14 +1,14 @@
 {
   "schemaVersion": 1,
   "checkpointId": "V1-DASHBOARD-692665D-20260914",
-  "phase": "v1-dashboard-rework-ready-for-supervision",
+  "phase": "v1-dashboard-rework-R6-R8",
   "gate": "V1",
   "page": "dashboard",
   "productCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
   "executorThread": "codex://threads/01a09e19-8379-7f63-b537-7c54965c2044",
   "supervisorThread": null,
   "supervisionMode": "shared-checkpoint",
-  "status": "awaiting-supervisor-and-user-review",
+  "status": "needs-fix",
   "changedFiles": [
     "VISUAL_BASELINE.md",
     "app/w/[token]/features/dashboard/DashboardView.module.css",
@@ -290,12 +290,13 @@
     }
   ],
   "review": {
-    "status": "pending",
-    "reviewedProductCommit": null,
-    "report": null
+    "status": "CHANGES_REQUESTED",
+    "reviewedProductCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
+    "report": "docs/重构执行与监工资料包-20260914/supervision/reviews/V1-DASHBOARD-692665D-20260914.md",
+    "correction": "13:30撤回PASS，非STALE"
   },
   "humanApproval": null,
-  "nextAction": "停止实施：监工读取本检查点，复核692665d的R1–R5和完整图；用户看实际图与对比后决定是否批准V1。不得自填PASS/user-approved，V2保持blocked；无跨对话通信工具，使用共享检查点等待报告。",
+  "nextAction": "按R6–R8首页局部返工；新证据先交监工，再交用户。V2 blocked，无批准。",
   "previousReview": {
     "status": "CHANGES_REQUESTED",
     "reviewedProductCommit": "25950b7d9649d0e01d64749544b8dcfaa6ce9540",

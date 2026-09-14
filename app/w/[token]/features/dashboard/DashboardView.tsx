@@ -5,6 +5,29 @@ import { taskState } from '@/lib/dictation';
 import { Button, CampusIcon, ThemeArtwork } from '@/app/components/campus/primitives';
 import { createDashboardReadModel } from './read-model';
 import styles from './DashboardView.module.css';
+import { Artwork } from '@/app/components/workbench/theme/Artwork';
+import { useWorkbenchTheme } from '@/app/components/workbench/theme/ThemeBoundary';
+
+// This composition is local to V1; other pages keep their reviewed asset mapping.
+function DashboardScene() {
+  const theme = useWorkbenchTheme();
+  const desktop = theme.artworkByRole['entry.scene'];
+  const mobile = theme.artworkByRole['home.scene'];
+  if (!desktop) return <ThemeArtwork slot="dashboard"/>;
+  return <picture><source media="(max-width: 600px)" srcSet={mobile?.mobileSrc ?? desktop.src}/>
+    {/* eslint-disable-next-line @next/next/no-img-element */}
+    <img className="campus-art" src={desktop.src} width={desktop.width} height={desktop.height} alt="" aria-hidden="true" decoding="async" data-artwork-role="home.scene" style={{ objectFit: 'cover', objectPosition: '50% 48%' }}/>
+  </picture>;
+}
+
+function courseTone(title: string, kind: string) {
+  if (kind !== '课程') return 'neutral';
+  if (/语文/.test(title)) return 'gold';
+  if (/数学/.test(title)) return 'blue';
+  if (/英语/.test(title)) return 'coral';
+  if (/科学|体育|生物/.test(title)) return 'green';
+  return 'neutral';
+}
 
 type Destination = 'students' | 'homework' | 'dictation' | 'growth' | 'records' | 'schedule' | 'duty' | 'attendance';
 
@@ -26,7 +49,7 @@ export function DashboardView({ data, defaultDutyJobs, open, openFamily, openStu
 
   return <div className={styles.dashboard} aria-labelledby="dashboard-title">
     <header className={styles.heading}>
-      <div><h1 id="dashboard-title">{displayDate}</h1><p>{model.activeClass?.name ?? '当前班级'} · 先核对今天真正需要处理的班务</p></div>
+      <div><div className={styles.titleLine}><h1 id="dashboard-title">今天的班务</h1><time>{displayDate}</time></div><p>{model.activeClass?.name ?? '当前班级'} · 先核对今天真正需要处理的班务</p></div>
       <span>{model.students.length} 名学生</span>
     </header>
 
@@ -40,7 +63,7 @@ export function DashboardView({ data, defaultDutyJobs, open, openFamily, openStu
         <Button intent="primary" onClick={() => open(model.primary.id)}>{model.primary.label}<CampusIcon name="arrow"/></Button>
       </div>
       <div className={styles.scene}>
-        <ThemeArtwork slot="dashboard"/>
+        <DashboardScene/>
         <div className={styles.mobileDate}><strong>今天</strong><div><span>{monthDay}</span><span>{weekday}</span></div></div>
         <div className={styles.sceneSummary}><span>班级教学</span><b>{todaySummary}</b><small>{model.pendingCommunication.length ? `${model.pendingCommunication.length} 条家校约定待跟进` : '家校沟通已无待办'}</small></div>
       </div>
@@ -49,12 +72,13 @@ export function DashboardView({ data, defaultDutyJobs, open, openFamily, openStu
     <section className={styles.middle}>
       <article className={styles.agenda}>
         <header><div><span><CampusIcon name="schedule"/></span><div><h2>今日课程与班务</h2><p>课程、活动和个人事项按时间合并</p></div></div><Button intent="text" onClick={() => open('schedule')}>完整日程</Button></header>
-        {model.scheduleRows.length ? <ol>{model.scheduleRows.map(item => <li key={item.id}><time>{item.time}</time><span><b>{item.title}</b><small>{item.kind} · {item.detail}</small></span></li>)}</ol> : <div className={styles.empty}><CampusIcon name="schedule"/><div><b>{model.hasConfiguredCourses ? '今天没有排课或待办' : '还没有课程安排'}</b><p>{model.hasConfiguredCourses ? '课程表仍保留在“课程日程”，这里只显示当天内容。' : '进入课程日程设置教学日和节次。'}</p></div></div>}
+        {model.scheduleRows.length ? <ol>{model.scheduleRows.map(item => <li key={item.id}><time>{item.time}</time><span><b data-course-tone={courseTone(item.title, item.kind)}>{item.title}</b><small>{item.kind} · {item.detail}</small></span></li>)}</ol> : <div className={styles.empty}><CampusIcon name="schedule"/><div><b>{model.hasConfiguredCourses ? '今天没有排课或待办' : '还没有课程安排'}</b><p>{model.hasConfiguredCourses ? '课程表仍保留在“课程日程”，这里只显示当天内容。' : '进入课程日程设置教学日和节次。'}</p></div></div>}
       </article>
 
       <article className={styles.dictation}>
         <header><div><span><CampusIcon name="dictation"/></span><div><h2>听写与复习</h2><p>未确认的批改不会计入结果</p></div></div><Button intent="text" onClick={() => open('dictation')}>进入听写</Button></header>
-        {model.currentDictation ? <div className={styles.dictationBody}><ThemeArtwork slot="dictation"/><div><h3>{model.currentDictation.title}</h3><p>{model.currentDictation.date} · {model.currentDictation.words.length} 个词</p><dl><div><dt>已批改</dt><dd>{model.dictationStats?.graded ?? 0}</dd></div><div><dt>待批改</dt><dd>{model.dictationStats?.pending ?? 0}</dd></div><div><dt>错词次</dt><dd>{model.dictationStats?.wrong ?? 0}</dd></div></dl></div></div> : <div className={styles.empty}><ThemeArtwork slot="dictation"/><div><b>还没有班级听写任务</b><p>可从词库或自定义内容开始。</p></div></div>}
+        {model.currentDictation ? <div className={styles.dictationBody}><div><h3>{model.currentDictation.title}</h3><p>{model.currentDictation.date} · {model.currentDictation.words.length} 个词</p><dl><div><dt>已批改</dt><dd>{model.dictationStats?.graded ?? 0}</dd></div><div><dt>待批改</dt><dd>{model.dictationStats?.pending ?? 0}</dd></div><div><dt>错词次</dt><dd>{model.dictationStats?.wrong ?? 0}</dd></div></dl></div></div> : <div className={styles.empty}><CampusIcon name="dictation"/><div><b>还没有班级听写任务</b><p>可从词库或自定义内容开始。</p></div></div>}
+        <div className={styles.stationery} aria-hidden="true"><Artwork role="dictation.grading" className="campus-art"/></div>
       </article>
     </section>
 

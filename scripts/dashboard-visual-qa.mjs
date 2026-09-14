@@ -78,8 +78,8 @@ export async function inspectDashboard(page, viewport, screenshotDir, failures) 
     const root = visible('[aria-labelledby="dashboard-title"]');
     const box = el => { if (!el) return null; const r = el.getBoundingClientRect(); return { x: r.x, y: r.y, width: r.width, height: r.height, bottom: r.bottom }; };
     const article = [...root.querySelectorAll('article')].find(el => el.querySelector('h2')?.textContent === '听写与复习');
-    const art = article.querySelector('img');
     const body = article.querySelector('header + div');
+    const art = body?.querySelector('img');
     const copy = body?.querySelector(':scope > div');
     const date = root.querySelector('[class*="mobileDate"]');
     const primary = root.querySelector('[class*="tasks"] > button:last-child');
@@ -90,6 +90,15 @@ export async function inspectDashboard(page, viewport, screenshotDir, failures) 
       url: location.href, title: document.title, userAgent: navigator.userAgent, viewport: { width: innerWidth, height: innerHeight, dpr: devicePixelRatio },
       fixture: window.__dashboardFixture ?? { scenario: 'unchanged-demo' },
       headings: [...root.querySelectorAll('h2')].map(el => el.textContent),
+      visualRoles: {
+        heading: root.querySelector('h1')?.textContent,
+        headingSize: getComputedStyle(root.querySelector('h1')).fontSize,
+        dateSize: getComputedStyle(root.querySelector('header time')).fontSize,
+        scene: root.querySelector('[data-artwork-role="home.scene"]')?.currentSrc,
+        stationery: box(article.querySelector('[class*="stationery"]')),
+        sections: [...root.querySelectorAll('article')].map(el => ({title: el.querySelector('h2')?.textContent, background: getComputedStyle(el).backgroundColor, icon: getComputedStyle(el.querySelector('header .campus-icon')).color})),
+        subjects: [...root.querySelectorAll('[data-course-tone]')].map(el => ({text: el.textContent, tone: el.dataset.courseTone, background: getComputedStyle(el).backgroundColor, color: getComputedStyle(el).color})),
+      },
       dictation: { state: article.querySelector('h3') ? 'task' : 'empty', image: box(art), picture: box(art?.parentElement), text: box(copy), textContent: copy?.innerText, body: box(body) },
       date: { groups: [...date.querySelectorAll('span')].map(el => ({ text: el.textContent, box: box(el), whiteSpace: getComputedStyle(el).whiteSpace })) },
       primary: { color: style.color, background: style.backgroundColor, contrast: (Math.max(fg, bg) + .05) / (Math.min(fg, bg) + .05) },

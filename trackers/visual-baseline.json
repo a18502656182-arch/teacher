@@ -70,7 +70,7 @@
       "pages": [
         "dashboard"
       ],
-      "status": "awaiting-user-review",
+      "status": "needs-fix",
       "pauseRequired": true,
       "userApproval": {
         "approved": false,
@@ -182,10 +182,12 @@
         "C1",
         "C5"
       ],
-      "status": "ready-for-review",
+      "status": "needs-fix",
       "requiredComparisons": 2,
       "issues": [
-        "R1–R5已提交修复候选，等待独立监工逐项复核；不继承旧版结论。"
+        "R6 语义色彩角色",
+        "R7 白色工作面与彩色外层",
+        "R8 标题重心与插画分布"
       ],
       "productCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
       "currentEvidence": [
@@ -239,9 +241,10 @@
         }
       ],
       "supervision": {
-        "status": "pending",
-        "reviewedProductCommit": null,
-        "report": null
+        "status": "CHANGES_REQUESTED",
+        "reviewedProductCommit": "692665d8ad928c3ae90a52188623e2367212d0d2",
+        "report": "docs/重构执行与监工资料包-20260914/supervision/reviews/V1-DASHBOARD-692665D-20260914.md",
+        "correction": "13:30撤回PASS，非STALE"
       },
       "reviewHistory": [
         {
