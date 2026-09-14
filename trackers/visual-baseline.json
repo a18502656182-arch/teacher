@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "updatedAt": "2026-09-14",
   "scope": "teacher-workbench-only",
   "excluded": ["family"],
@@ -42,5 +42,5 @@
     "weekly": {"label": "班级周报", "referenceIds": ["C1"], "status": "not-reviewed", "requiredComparisons": 2, "issues": [], "currentEvidence": [], "comparisons": []},
     "comments": {"label": "期末评语", "referenceIds": ["C3"], "status": "not-reviewed", "requiredComparisons": 2, "issues": [], "currentEvidence": [], "comparisons": []}
   },
-  "sharedRegressionTriggers": ["app/w/[token]/ClassroomPages.module.css", "app/components/workbench", "app/components/campus/theme", "app/components/campus/primitives", "app/globals.css"]
+  "sharedRegressionTriggers": ["app/w/[token]/ClassroomPages.module.css", "app/components/workbench", "app/components/campus/theme.ts", "app/components/campus/primitives.tsx", "app/globals.css"]
 }

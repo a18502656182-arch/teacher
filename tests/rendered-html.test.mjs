@@ -287,7 +287,9 @@ test("campus rebuild owns one shared shell and four task-oriented navigation gro
 test("benchmark pages use reference-led compositions and semantic artwork slots", () => {
   assert.match(dashboard, /className=\{styles\.stage\}/);
   assert.match(dashboardCss, /\.stage\{/);
-  assert.match(dashboardCss, /min-width:1181px\)\{\.stage\{grid-template-columns:minmax\(420px,1\.04fr\) minmax\(420px,\.96fr\)/);
+  assert.match(dashboardCss, /\.stage\{display:grid;grid-template-columns:minmax\(410px,1\.04fr\) minmax\(420px,\.96fr\)/);
+  assert.match(dashboardCss, /\.scene :global\(\.campus-art\)\{width:100%;max-width:none;height:100%;object-fit:cover/);
+  assert.match(dashboard, /dashboard-quick-title/);
   assert.match(app, /<StudentsView data=/);
   assert.match(studentView, /className=\{styles\.workspace\}/);
   assert.match(studentView, /<th>近期状态<\/th>/);

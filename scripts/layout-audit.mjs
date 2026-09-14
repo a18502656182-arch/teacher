@@ -682,6 +682,23 @@ async function runRuntimeAudit(url) {
                 return { label: button.textContent?.trim(), visible: button.getClientRects().length > 0, topLabel: top?.closest('button')?.textContent?.trim() ?? top?.tagName ?? '', topClass: top?.className ?? '' };
               }),
               mobileBlockingLayer: [...document.querySelectorAll('[role="dialog"], dialog[open], .mobile-bottom-sheet, .health-care-backdrop')].some((element) => element.getClientRects().length > 0),
+              dashboardArtwork: (() => {
+                const image = [...document.querySelectorAll('[data-artwork-role="home.scene"]')].find((candidate) => candidate.getClientRects().length > 0);
+                const container = image?.parentElement?.tagName === 'PICTURE' ? image.parentElement.parentElement : image?.parentElement;
+                if (!image || !container) return null;
+                const imageStyle = getComputedStyle(image);
+                const imageRect = rect(image);
+                const containerRect = rect(container);
+                return {
+                  image: imageRect,
+                  container: containerRect,
+                  objectFit: imageStyle.objectFit,
+                  objectPosition: imageStyle.objectPosition,
+                  inlineObjectFit: image.style.objectFit,
+                  widthRatio: imageRect && containerRect ? imageRect.width / containerRect.width : 0,
+                  heightRatio: imageRect && containerRect ? imageRect.height / containerRect.height : 0,
+                };
+              })(),
               shell: rect(shell),
               main: rect(main),
               content: rect(content),
@@ -774,6 +791,7 @@ async function runRuntimeAudit(url) {
         if (data?.pointHeaderActionIssues?.length) failures.push(`Points header actions are styled or sized incorrectly: ${data.pointHeaderActionIssues.join(", ")}.`);
         if (data?.crowdedActionCells) failures.push(`Table action cells contain too many strong buttons (${data.crowdedActionCells}).`);
         if (data?.clippedSurfaces?.length) failures.push(`Visible surfaces are clipped outside the viewport: ${data.clippedSurfaces.join(", ")}.`);
+        if (pageId === "dashboard" && (!data?.dashboardArtwork || data.dashboardArtwork.widthRatio < 0.9 || data.dashboardArtwork.heightRatio < 0.9)) failures.push(`Dashboard scene artwork does not fill its intended container: ${JSON.stringify(data?.dashboardArtwork ?? null)}.`);
         if (data?.content && viewport.width >= 1000 && data.viewportWidth - data.content.right > 40) failures.push("Main content leaves an abnormal right gap.");
         if (screenshotDir) {
           const shot = await page.send("Page.captureScreenshot", {
@@ -782,6 +800,27 @@ async function runRuntimeAudit(url) {
             captureBeyondViewport: false,
           });
           writeFileSync(path.join(screenshotDir, `${viewport.name}-${pageId}.png`), Buffer.from(shot.data, "base64"));
+        }
+        if (pageId === "dashboard") {
+          const clicked = await page.send("Runtime.evaluate", {
+            returnByValue: true,
+            expression: `(() => {
+              const target = [...document.querySelectorAll('button')].find((button) => button.getClientRects().length > 0 && button.textContent?.includes('日程跟进'));
+              target?.click();
+              return Boolean(target);
+            })()`,
+          });
+          await wait(100);
+          const destination = await page.send("Runtime.evaluate", {
+            returnByValue: true,
+            expression: `(() => ({
+              url: location.href,
+              scheduleVisible: [...document.querySelectorAll('[data-module="schedule"], .schedule-hub')].some((element) => element.getClientRects().length > 0),
+              titleVisible: [...document.querySelectorAll('h1,h2')].some((element) => element.getClientRects().length > 0 && element.textContent?.includes('课程日程')),
+            }))()`,
+          });
+          data.dashboardInteraction = { clicked: clicked.result.value, ...destination.result.value };
+          if (!data.dashboardInteraction.clicked || (!data.dashboardInteraction.scheduleVisible && !data.dashboardInteraction.titleVisible)) failures.push(`Dashboard schedule action did not open its destination: ${JSON.stringify(data.dashboardInteraction)}.`);
         }
         if (viewport.width >= 1000 && pageId === "seating") {
           const stickyResult = await page.send("Runtime.evaluate", {

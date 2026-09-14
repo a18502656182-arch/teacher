@@ -38,7 +38,8 @@ export function DashboardView({ data, defaultDutyJobs, open, openFamily, openStu
       </div>
       <div className={styles.scene}>
         <ThemeArtwork slot="dashboard"/>
-        <div><span>班级教学</span><b>{todaySummary}</b><small>{model.pendingCommunication.length ? `${model.pendingCommunication.length} 条家校约定待跟进` : '家校沟通已无待办'}</small></div>
+        <div className={styles.mobileDate}><strong>今天</strong><span>{displayDate}</span></div>
+        <div className={styles.sceneSummary}><span>班级教学</span><b>{todaySummary}</b><small>{model.pendingCommunication.length ? `${model.pendingCommunication.length} 条家校约定待跟进` : '家校沟通已无待办'}</small></div>
       </div>
     </section>
 
@@ -52,6 +53,16 @@ export function DashboardView({ data, defaultDutyJobs, open, openFamily, openStu
         <header><div><span><CampusIcon name="dictation"/></span><div><h2>听写与复习</h2><p>未确认的批改不会计入结果</p></div></div><Button intent="text" onClick={() => open('dictation')}>进入听写</Button></header>
         {model.currentDictation ? <div className={styles.dictationBody}><ThemeArtwork slot="dictation"/><div><h3>{model.currentDictation.title}</h3><p>{model.currentDictation.date} · {model.currentDictation.words.length} 个词</p><dl><div><dt>已批改</dt><dd>{model.dictationStats?.graded ?? 0}</dd></div><div><dt>待批改</dt><dd>{model.dictationStats?.pending ?? 0}</dd></div><div><dt>错词次</dt><dd>{model.dictationStats?.wrong ?? 0}</dd></div></dl></div></div> : <div className={styles.empty}><ThemeArtwork slot="dictation"/><div><b>还没有班级听写任务</b><p>可从词库或自定义内容开始。</p></div></div>}
       </article>
+    </section>
+
+    <section className={styles.quick} aria-labelledby="dashboard-quick-title">
+      <header><span><CampusIcon name="tools"/></span><h2 id="dashboard-quick-title">常用操作</h2></header>
+      <div>
+        <button type="button" onClick={() => open('students')}><CampusIcon name="students"/><b>学生名单</b><CampusIcon name="arrow"/></button>
+        <button type="button" onClick={() => open('dictation')}><CampusIcon name="dictation"/><b>听写与复习</b><CampusIcon name="arrow"/></button>
+        <button type="button" onClick={() => open('homework')}><CampusIcon name="homework"/><b>作业追踪</b><CampusIcon name="arrow"/></button>
+        <button type="button" onClick={() => open('duty')}><CampusIcon name="duty"/><b>记录班务</b><CampusIcon name="arrow"/></button>
+      </div>
     </section>
 
     <section className={styles.lower}>
