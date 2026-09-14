@@ -13,7 +13,7 @@
     "C6": {"label": "手机批改", "viewport": "390x844", "sourceOriginal": "项目实施包-UI彻底重构与双主题-20260912/references/campus/C6-手机批改.png", "sourceSha256": "647082C652E5CB4E0B6924703AC434E9B269D03D2DF037B24529C8F5D92D20B9", "committedCopy": "docs/visual-baseline/references/C6-dictation-mobile.webp", "committedSha256": "5C8B64C1B16BEBEDB8F75F035F81C6DA994A9EC1A1887D493B49EB7B930E8759"}
   },
   "gates": [
-    {"id": "V1", "label": "首页定准", "pages": ["dashboard"], "status": "awaiting-user-review", "pauseRequired": true, "userApproval": {"approved": false, "approvedAt": null, "commit": null}},
+    {"id": "V1", "label": "首页定准", "pages": ["dashboard"], "status": "needs-fix", "pauseRequired": true, "userApproval": {"approved": false, "approvedAt": null, "commit": null}},
     {"id": "V2", "label": "核心工作页", "pages": ["students", "homework", "dictation"], "status": "blocked", "pauseRequired": true, "userApproval": {"approved": false, "approvedAt": null, "commit": null}},
     {"id": "V3", "label": "学生日常支持", "pages": ["attendance", "growth", "health"], "status": "blocked", "pauseRequired": true, "userApproval": {"approved": false, "approvedAt": null, "commit": null}},
     {"id": "V4", "label": "分析与沟通", "pages": ["records", "scores", "reflection"], "status": "blocked", "pauseRequired": true, "userApproval": {"approved": false, "approvedAt": null, "commit": null}},
@@ -25,9 +25,9 @@
     "dashboard": {
       "label": "今日工作台",
       "referenceIds": ["C1", "C5"],
-      "status": "ready-for-review",
+      "status": "needs-fix",
       "requiredComparisons": 2,
-      "issues": [],
+      "issues": ["R1 听写picture/img约束与两种状态", "R2 手机日期语义断行", "R3 纵向层级和完整滚动证据", "R4 产品版本绑定的原始日志、数据场景及交互", "R5 资源/视觉配置失效和规范化路径去重"],
       "productCommit": "25950b7d9649d0e01d64749544b8dcfaa6ce9540",
       "currentEvidence": [
         {"path": "docs/visual-baseline/current/V1-dashboard-desktop-25950b7.webp", "kind": "desktop", "viewport": "1536x1024", "url": "http://127.0.0.1:4180/w/demo?page=dashboard", "capturedAt": "2026-09-14T12:36:50+08:00", "productCommit": "25950b7d9649d0e01d64749544b8dcfaa6ce9540", "sha256": "CDB89F11F0080CF1AA506FB013F623FE3EA5ED105AFFC18E19CCC2A205CC4949"},
@@ -37,7 +37,7 @@
         {"path": "docs/visual-baseline/comparisons/V1-dashboard-desktop-25950b7.webp", "kind": "desktop", "viewport": "1536x1024", "url": "http://127.0.0.1:4180/w/demo?page=dashboard", "capturedAt": "2026-09-14T12:37:42+08:00", "productCommit": "25950b7d9649d0e01d64749544b8dcfaa6ce9540", "sha256": "A51278C736B15B8EB06E3564B819EA878427D83DBE09635713C5F7BFC42C2353", "referenceId": "C1"},
         {"path": "docs/visual-baseline/comparisons/V1-dashboard-mobile-25950b7.webp", "kind": "mobile", "viewport": "390x844", "url": "http://127.0.0.1:4180/w/demo?page=dashboard", "capturedAt": "2026-09-14T12:37:42+08:00", "productCommit": "25950b7d9649d0e01d64749544b8dcfaa6ce9540", "sha256": "A99DA3F2C91DA2F1C084D9FEFCAC8531887D3D57050BFCDE715EEDFE10DBE24F", "referenceId": "C5"}
       ],
-      "supervision": {"status": "pending", "reviewedProductCommit": null, "report": null}
+      "supervision": {"status": "CHANGES_REQUESTED", "reviewedProductCommit": "25950b7d9649d0e01d64749544b8dcfaa6ce9540", "report": "docs/重构执行与监工资料包-20260914/supervision/reviews/V1-DASHBOARD-25950B7-20260914.md"}
     },
     "students": {"label": "学生名单", "referenceIds": ["C3"], "status": "needs-fix", "requiredComparisons": 2, "issues": ["右侧学生档案视觉重量不足", "整体仍接近统一后台工作区"], "currentEvidence": [], "comparisons": []},
     "homework": {"label": "作业追踪", "referenceIds": ["C4"], "status": "not-reviewed", "requiredComparisons": 2, "issues": [], "currentEvidence": [], "comparisons": []},
@@ -58,5 +58,5 @@
     "weekly": {"label": "班级周报", "referenceIds": ["C1"], "status": "not-reviewed", "requiredComparisons": 2, "issues": [], "currentEvidence": [], "comparisons": []},
     "comments": {"label": "期末评语", "referenceIds": ["C3"], "status": "not-reviewed", "requiredComparisons": 2, "issues": [], "currentEvidence": [], "comparisons": []}
   },
-  "sharedRegressionTriggers": ["app/w/[token]/ClassroomPages.module.css", "app/components/workbench", "app/components/campus/theme.ts", "app/components/campus/primitives.tsx", "app/globals.css"]
+  "sharedRegressionTriggers": ["app/w/[token]/ClassroomPages.module.css", "app/components/workbench", "app/components/campus", "app/globals.css", "public", "build", "package.json", "package-lock.json", "vite.config", "next.config", "postcss.config", "tailwind.config", "tsconfig.json", ".openai/hosting.json"]
 }

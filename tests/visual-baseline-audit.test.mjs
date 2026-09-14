@@ -26,11 +26,13 @@ function fixture() {
   const root = mkdtempSync(path.join(tmpdir(), "visual-baseline-audit-"));
   const ledger = JSON.parse(readFileSync(path.join(sourceRoot, "trackers", "visual-baseline.json"), "utf8"));
   for (const page of Object.values(ledger.pages)) {
+    page.status = "not-reviewed";
     page.currentEvidence = [];
     page.comparisons = [];
     delete page.productCommit;
     delete page.supervision;
   }
+  ledger.gates[0].status = "active";
   for (const reference of Object.values(ledger.references)) {
     for (const relative of [reference.committedCopy, reference.sourceOriginal]) {
       mkdirSync(path.dirname(path.join(root, relative)), { recursive: true });
@@ -117,6 +119,34 @@ test("two desktop records cannot satisfy the mobile requirement", () => {
   page.currentEvidence[1].kind = "desktop";
   writeJson(state.root, state.ledger);
   assert.ok(auditVisualBaseline(state.root).failures.some((failure) => failure.includes("without distinct mobile current evidence")));
+});
+
+test("equivalent normalized paths cannot impersonate different evidence", () => {
+  for (const alias of ["docs/visual-baseline/current/./desktop.png", "docs//visual-baseline/current/desktop.png", "docs\\visual-baseline\\current\\desktop.png"]) {
+    const state = fixture();
+    const page = makeDashboardReady(state);
+    page.currentEvidence[1] = { ...page.currentEvidence[0], kind: "mobile", path: alias };
+    writeJson(state.root, state.ledger);
+    assert.ok(auditVisualBaseline(state.root).failures.some(failure => failure.includes("reuses evidence path")), alias);
+  }
+});
+
+test("committed assets and visual configuration invalidate evidence and prior approvals", () => {
+  for (const file of ["public/art/campus/scene.webp", "public/fonts/test.woff2", "package-lock.json", "vite.config.ts", "postcss.config.mjs", "build/style-plugin.ts"]) {
+    const state = fixture();
+    const page = makeDashboardReady(state, "PASS");
+    page.status = "user-approved";
+    state.ledger.gates[0].status = "user-approved";
+    state.ledger.gates[0].userApproval = { approved: true, approvedAt: "2026-09-14T13:00:00+08:00", commit: state.productCommit };
+    writeJson(state.root, state.ledger);
+    mkdirSync(path.dirname(path.join(state.root, file)), { recursive: true });
+    writeFileSync(path.join(state.root, file), "synthetic visual change");
+    git(state.root, ["add", "."]);
+    git(state.root, ["commit", "-m", "change asset or configuration"]);
+    const failures = auditVisualBaseline(state.root).failures;
+    assert.ok(failures.some(failure => failure.includes("product files changed")), file);
+    assert.ok(failures.some(failure => failure.includes("must move to needs-regression-review")), file);
+  }
 });
 
 test("page approval cannot exist without approval on its gate", () => {

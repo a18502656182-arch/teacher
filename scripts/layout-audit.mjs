@@ -3,6 +3,8 @@ import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node
 import { mkdtemp, readFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
+import { execFileSync } from "node:child_process";
+import { dashboardFixtureScript, inspectDashboard } from "./dashboard-visual-qa.mjs";
 
 const root = process.cwd();
 const args = new Set(process.argv.slice(2));
@@ -194,7 +196,7 @@ async function withDevServer(fn) {
       }
     }
     if (lastError) throw lastError;
-    return await fn(url);
+    return await fn(process.env.QA_DASHBOARD_SCENARIO ? url.replace('/w/demo', '/w/qa-visual') : url);
   } catch (error) {
     throw new Error(`${error.message}\nDev server output:\n${output.slice(-3000)}`);
   } finally {
@@ -245,6 +247,9 @@ async function runRuntimeAudit(url) {
     await page.opened;
     await page.send("Page.enable");
     await page.send("Runtime.enable");
+    if (process.env.QA_DASHBOARD_SCENARIO || process.env.QA_DASHBOARD_DATE) {
+      await page.send("Page.addScriptToEvaluateOnNewDocument", { source: dashboardFixtureScript(process.env.QA_DASHBOARD_SCENARIO || '', process.env.QA_DASHBOARD_DATE || '') });
+    }
     await page.send("Page.addScriptToEvaluateOnNewDocument", {
       source: "try { Object.defineProperty(Crypto.prototype, 'randomUUID', { value: undefined, configurable: true }); } catch {}",
     });
@@ -802,6 +807,7 @@ async function runRuntimeAudit(url) {
           writeFileSync(path.join(screenshotDir, `${viewport.name}-${pageId}.png`), Buffer.from(shot.data, "base64"));
         }
         if (pageId === "dashboard") {
+          data.dashboardReview = await inspectDashboard(page, viewport, screenshotDir, failures);
           const clicked = await page.send("Runtime.evaluate", {
             returnByValue: true,
             expression: `(() => {
@@ -886,7 +892,7 @@ mkdirSync(reportDir, { recursive: true });
 const allResults = [runStaticAudit()];
 if (!args.has("--static")) allResults.push(...(await withDevServer(runRuntimeAudit)));
 const failures = allResults.flatMap((result) => result.failures.map((failure) => `${result.name}: ${failure}`));
-writeFileSync(reportPath, JSON.stringify({ createdAt: new Date().toISOString(), results: allResults, failures }, null, 2));
+writeFileSync(reportPath, JSON.stringify({ createdAt: new Date().toISOString(), productCommit: execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim(), environment: { node: process.version, platform: process.platform, browser: findBrowser(), url: defaultUrl, scenario: process.env.QA_DASHBOARD_SCENARIO || 'unchanged-demo', fixedDate: process.env.QA_DASHBOARD_DATE || null }, results: allResults, failures }, null, 2));
 
 if (failures.length) {
   console.error(failures.join("\n"));

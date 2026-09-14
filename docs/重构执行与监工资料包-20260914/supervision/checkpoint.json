@@ -1,14 +1,14 @@
 {
   "schemaVersion": 1,
   "checkpointId": "V1-DASHBOARD-25950B7-20260914",
-  "phase": "v1-dashboard-ready-for-supervision-and-user-review",
+  "phase": "v1-dashboard-rework-R1-R5",
   "gate": "V1",
   "page": "dashboard",
   "productCommit": "25950b7d9649d0e01d64749544b8dcfaa6ce9540",
   "executorThread": "codex://threads/01a09e19-8379-7f63-b537-7c54965c2044",
   "supervisorThread": null,
   "supervisionMode": "shared-checkpoint",
-  "status": "awaiting-supervisor-and-user-review",
+  "status": "needs-fix",
   "changedFiles": [
     "VISUAL_BASELINE.md",
     "app/w/[token]/ClassroomPages.module.css",
@@ -40,8 +40,9 @@
     {"command": "npm run qa:visual-gate -- --gate V1", "exitCode": 1, "expected": true, "reason": "independent supervision PASS pending"}
   ],
   "review": {
-    "status": "pending",
-    "report": null,
+    "status": "CHANGES_REQUESTED",
+    "reviewedProductCommit": "25950b7d9649d0e01d64749544b8dcfaa6ce9540",
+    "report": "docs/重构执行与监工资料包-20260914/supervision/reviews/V1-DASHBOARD-25950B7-20260914.md",
     "staleStartupReport": "docs/重构执行与监工资料包-20260914/supervision/reviews/INITIAL-NOT-REVIEWED.md"
   },
   "humanApproval": null,

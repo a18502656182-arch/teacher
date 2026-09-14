@@ -18,7 +18,10 @@ type Props = {
 
 export function DashboardView({ data, defaultDutyJobs, open, openFamily, openStudentGrowth }: Props) {
   const model = createDashboardReadModel(data, defaultDutyJobs);
-  const displayDate = new Intl.DateTimeFormat('zh-CN', { month: 'long', day: 'numeric', weekday: 'long' }).format(new Date());
+  const now = new Date();
+  const monthDay = new Intl.DateTimeFormat('zh-CN', { month: 'long', day: 'numeric' }).format(now);
+  const weekday = new Intl.DateTimeFormat('zh-CN', { weekday: 'long' }).format(now);
+  const displayDate = `${monthDay} ${weekday}`;
   const todaySummary = model.scheduleRows.length ? `${model.scheduleRows.length} 项今日安排` : model.hasConfiguredCourses ? '今天无课，课程表已保留' : '尚未设置班级课程';
 
   return <div className={styles.dashboard} aria-labelledby="dashboard-title">
@@ -38,7 +41,7 @@ export function DashboardView({ data, defaultDutyJobs, open, openFamily, openStu
       </div>
       <div className={styles.scene}>
         <ThemeArtwork slot="dashboard"/>
-        <div className={styles.mobileDate}><strong>今天</strong><span>{displayDate}</span></div>
+        <div className={styles.mobileDate}><strong>今天</strong><div><span>{monthDay}</span><span>{weekday}</span></div></div>
         <div className={styles.sceneSummary}><span>班级教学</span><b>{todaySummary}</b><small>{model.pendingCommunication.length ? `${model.pendingCommunication.length} 条家校约定待跟进` : '家校沟通已无待办'}</small></div>
       </div>
     </section>
@@ -46,7 +49,7 @@ export function DashboardView({ data, defaultDutyJobs, open, openFamily, openStu
     <section className={styles.middle}>
       <article className={styles.agenda}>
         <header><div><span><CampusIcon name="schedule"/></span><div><h2>今日课程与班务</h2><p>课程、活动和个人事项按时间合并</p></div></div><Button intent="text" onClick={() => open('schedule')}>完整日程</Button></header>
-        {model.scheduleRows.length ? <ol>{model.scheduleRows.slice(0, 7).map(item => <li key={item.id}><time>{item.time}</time><span><b>{item.title}</b><small>{item.kind} · {item.detail}</small></span></li>)}</ol> : <div className={styles.empty}><CampusIcon name="schedule"/><div><b>{model.hasConfiguredCourses ? '今天没有排课或待办' : '还没有课程安排'}</b><p>{model.hasConfiguredCourses ? '课程表仍保留在“课程日程”，这里只显示当天内容。' : '进入课程日程设置教学日和节次。'}</p></div></div>}
+        {model.scheduleRows.length ? <ol>{model.scheduleRows.map(item => <li key={item.id}><time>{item.time}</time><span><b>{item.title}</b><small>{item.kind} · {item.detail}</small></span></li>)}</ol> : <div className={styles.empty}><CampusIcon name="schedule"/><div><b>{model.hasConfiguredCourses ? '今天没有排课或待办' : '还没有课程安排'}</b><p>{model.hasConfiguredCourses ? '课程表仍保留在“课程日程”，这里只显示当天内容。' : '进入课程日程设置教学日和节次。'}</p></div></div>}
       </article>
 
       <article className={styles.dictation}>
@@ -61,7 +64,7 @@ export function DashboardView({ data, defaultDutyJobs, open, openFamily, openStu
         <button type="button" onClick={() => open('students')}><CampusIcon name="students"/><b>学生名单</b><CampusIcon name="arrow"/></button>
         <button type="button" onClick={() => open('dictation')}><CampusIcon name="dictation"/><b>听写与复习</b><CampusIcon name="arrow"/></button>
         <button type="button" onClick={() => open('homework')}><CampusIcon name="homework"/><b>作业追踪</b><CampusIcon name="arrow"/></button>
-        <button type="button" onClick={() => open('duty')}><CampusIcon name="duty"/><b>记录班务</b><CampusIcon name="arrow"/></button>
+        <button type="button" onClick={() => open('duty')}><CampusIcon name="duty"/><b>值日安排</b><CampusIcon name="arrow"/></button>
       </div>
     </section>
 

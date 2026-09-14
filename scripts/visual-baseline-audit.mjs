@@ -8,6 +8,13 @@ const expectedPages = ["dashboard", "students", "homework", "dictation", "attend
 const allowedGateStatuses = new Set(["blocked", "active", "in-progress", "needs-fix", "awaiting-user-review", "user-approved", "needs-regression-review"]);
 const reviewableStatuses = new Set(["ready-for-review", "user-approved"]);
 const evidenceKinds = new Set(["desktop", "mobile"]);
+// Assets, dependencies and build/font configuration are part of visual product identity.
+export const visualProductTriggers = ["public", "build", "package.json", "package-lock.json", "pnpm-lock.yaml", "yarn.lock", "bun.lock", "vite.config", "vinext.config", "next.config", "postcss.config", "tailwind.config", "tsconfig.json", ".openai/hosting.json"];
+
+function canonicalEvidencePath(root, file) {
+  const resolved = path.resolve(root, file.replaceAll("\\", "/"));
+  return process.platform === "win32" ? resolved.toLowerCase() : resolved;
+}
 
 function sha256(filePath) {
   return createHash("sha256").update(readFileSync(filePath)).digest("hex").toUpperCase();
@@ -38,10 +45,11 @@ function gitCommitExists(root, commit) {
 }
 
 function changedTrackedFiles(root, fromCommit = "HEAD") {
-  const committed = fromCommit === "HEAD" ? "" : gitOutput(root, ["diff", "--name-only", `${fromCommit}..HEAD`, "--"]);
-  const working = gitOutput(root, ["diff", "--name-only", "HEAD", "--"]);
-  return `${committed}\n${working}`
-      .split(/\r?\n/)
+  const committed = fromCommit === "HEAD" ? "" : gitOutput(root, ["diff", "--name-only", "-z", `${fromCommit}..HEAD`, "--"]);
+  const working = gitOutput(root, ["diff", "--name-only", "-z", "HEAD", "--"]);
+  const added = gitOutput(root, ["ls-files", "--others", "--exclude-standard", "-z"]);
+  return `${committed}\0${working}\0${added}`
+      .split("\0")
       .map((value) => value.trim().replaceAll("\\", "/"))
       .filter((value, index, items) => value && items.indexOf(value) === index);
 }
@@ -51,7 +59,7 @@ export function matchesTrigger(file, trigger) {
   const normalizedTrigger = trigger.replaceAll("\\", "/").replace(/\/$/, "");
   return normalizedFile === normalizedTrigger
     || normalizedFile.startsWith(`${normalizedTrigger}/`)
-    || (!path.extname(normalizedTrigger) && normalizedFile.startsWith(`${normalizedTrigger}.`));
+    || ((!path.extname(normalizedTrigger) || normalizedTrigger.endsWith('.config')) && normalizedFile.startsWith(`${normalizedTrigger}.`));
 }
 
 function safeEvidencePath(root, relativePath, requiredDirectory) {
@@ -148,12 +156,13 @@ export function auditVisualBaseline(root, argv = []) {
     for (const item of [...(page.currentEvidence ?? []), ...(page.comparisons ?? [])]) {
       const file = evidencePath(item);
       if (!file) continue;
-      if (usedEvidencePaths.has(file)) failures.push(`${pageId} reuses evidence path already claimed by ${usedEvidencePaths.get(file)}: ${file}.`);
-      else usedEvidencePaths.set(file, pageId);
+      const canonical = canonicalEvidencePath(root, file);
+      if (usedEvidencePaths.has(canonical)) failures.push(`${pageId} reuses evidence path already claimed by ${usedEvidencePaths.get(canonical)}: ${file}.`);
+      else usedEvidencePaths.set(canonical, pageId);
     }
     if (reviewableStatuses.has(page.status)) {
       if (!/^[A-Fa-f0-9]{40}$/.test(page.productCommit ?? "") || !gitCommitExists(root, page.productCommit)) failures.push(`${pageId} is ready without a valid product commit.`);
-      const productChanges = changedTrackedFiles(root, page.productCommit).filter((file) => /^(app|lib|db|drizzle|worker)\//.test(file));
+      const productChanges = changedTrackedFiles(root, page.productCommit).filter((file) => /^(app|lib|db|drizzle|worker)\//.test(file) || visualProductTriggers.some((trigger) => matchesTrigger(file, trigger)));
       if (productChanges.length) failures.push(`${pageId} product files changed after its evidence commit: ${productChanges.join(", ")}.`);
       const kinds = new Set((page.currentEvidence ?? []).map((item) => item?.kind));
       const comparisonKinds = new Set((page.comparisons ?? []).map((item) => item?.kind));
@@ -174,7 +183,7 @@ export function auditVisualBaseline(root, argv = []) {
 
   for (const gate of ledger.gates ?? []) {
     if (!gate.userApproval?.approved) continue;
-    const changedSharedFiles = changedTrackedFiles(root, gate.userApproval.commit).filter((file) => (ledger.sharedRegressionTriggers ?? []).some((trigger) => matchesTrigger(file, trigger)));
+    const changedSharedFiles = changedTrackedFiles(root, gate.userApproval.commit).filter((file) => [...visualProductTriggers, ...(ledger.sharedRegressionTriggers ?? [])].some((trigger) => matchesTrigger(file, trigger)));
     if (changedSharedFiles.length) {
       if (gate.status !== "needs-regression-review") failures.push(`${gate.id} was user-approved before a shared visual file changed and must move to needs-regression-review.`);
       for (const pageId of gate.pages ?? []) {
