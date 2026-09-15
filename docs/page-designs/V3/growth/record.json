@@ -1,0 +1,155 @@
+{
+  "pageId": "growth",
+  "batch": "V3",
+  "phase": "concept-review",
+  "brief": "docs/page-designs/V3/growth/brief.md",
+  "functionMap": "docs/page-designs/V3/growth/function-map.md",
+  "geometry": null,
+  "assets": null,
+  "states": null,
+  "candidates": [
+    {
+      "path": "docs/page-designs/V3/growth/candidates/growth-desktop-c01.png",
+      "sha256": "AEA452C3764DA208BB91D59F8FBD8FA4ABBC4CC3AF831E1BF8512E66C6FD7ED8",
+      "kind": "desktop",
+      "stateId": "desktop",
+      "version": "C01",
+      "approval": false,
+      "pixelSize": [
+        1536,
+        1024
+      ],
+      "targetViewport": "1536x1024",
+      "prompt": "docs/page-designs/V3/growth/candidates/prompts-c01.md",
+      "purpose": "ImageGen candidate, not runnable/integrated"
+    },
+    {
+      "path": "docs/page-designs/V3/growth/candidates/growth-mobile-list-c01.png",
+      "sha256": "F11FFF3CC3DA264A0524F9665BC72B010E48A177335515DDE329B32AE9991A0B",
+      "kind": "mobile",
+      "stateId": "mobile-list",
+      "version": "C01",
+      "approval": false,
+      "pixelSize": [
+        853,
+        1844
+      ],
+      "targetViewport": "390x844",
+      "prompt": "docs/page-designs/V3/growth/candidates/prompts-c01.md",
+      "purpose": "ImageGen candidate, not runnable/integrated"
+    },
+    {
+      "path": "docs/page-designs/V3/growth/candidates/growth-mobile-detail-c01.png",
+      "sha256": "1C4A6A456BABE82432AFB78F7EE3B0B7128DDBB24ECCD495005C1071A5BA6862",
+      "kind": "mobile",
+      "stateId": "mobile-detail",
+      "version": "C01",
+      "approval": false,
+      "pixelSize": [
+        853,
+        1844
+      ],
+      "targetViewport": "390x844",
+      "prompt": "docs/page-designs/V3/growth/candidates/prompts-c01.md",
+      "purpose": "ImageGen candidate, not runnable/integrated"
+    }
+  ],
+  "prototype": {
+    "commit": null,
+    "previewUrl": null,
+    "evidence": []
+  },
+  "designApproval": {
+    "approved": false,
+    "source": null,
+    "approvedAt": null,
+    "commit": null,
+    "evidenceHashes": []
+  },
+  "integration": {
+    "productCommit": null,
+    "designCommit": null,
+    "evidence": [],
+    "tests": []
+  },
+  "resultApproval": {
+    "approved": false,
+    "source": null,
+    "approvedAt": null,
+    "productCommit": null
+  },
+  "issues": [
+    {
+      "id": "C01-DIRECTION",
+      "blocking": true,
+      "resolved": false,
+      "description": "Three candidates await user direction confirmation."
+    },
+    {
+      "id": "RASTER-DEVIATIONS",
+      "blocking": false,
+      "resolved": false,
+      "description": "See brief: roster pagination, partial timeline, differing example dates, text/spacing and shell/materials not frozen."
+    },
+    {
+      "id": "SOURCE-CONTRACT-RISKS",
+      "blocking": false,
+      "resolved": false,
+      "description": "See function-map: no edit/delete, class/ID assumptions, count/date semantics, draft binding/retry/closing risks need P01 validation."
+    }
+  ],
+  "nextAction": "等待C01桌面、手机列表、手机详情方向确认，再做隔离P01；不接业务。",
+  "history": [
+    {
+      "date": "2026-09-15",
+      "event": "Attendance single-page D accepted; current growth source audited and3 synthetic source views captured;3 C01 images produced; awaiting direction."
+    }
+  ],
+  "conceptApproval": {
+    "approved": false,
+    "source": null,
+    "approvedAt": null,
+    "evidenceHashes": []
+  },
+  "inventoryCommit": "0d6bcd6b5097fe828390ccd97b143ff95807671e",
+  "sourceState": {
+    "path": "docs/page-designs/V3/growth/screenshots/source/capture.json",
+    "sha256": "33D23E06C32F74DF836B439BDE4ADE57968B80E1E7DEF32DB7D46AA17C429E3E",
+    "fixturePath": "tools/ui-preview/growth-source.tsx",
+    "fixtureSha256": "5A468728E5F79AEAC13CDF8F76544522832D1A843C52369A629EBF9022B2B20B",
+    "sourcePath": "app/w/[token]/ClassroomApp.tsx",
+    "sourceSha256": "1A0CC5F93270FFD704520E35A530A0BA3D12614B0A3BFEDEB71D8418D9DA97EE",
+    "browser": {
+      "protocolVersion": "1.3",
+      "product": "Chrome/152.0.7977.82",
+      "revision": "@d04cdb24d67b081f6cf80200ffc5233f44b61109",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/152.0.0.0 Safari/537.36",
+      "jsVersion": "15.2.124.21"
+    },
+    "images": [
+      {
+        "path": "docs/page-designs/V3/growth/screenshots/source/1536-normal.png",
+        "sha256": "71405A7518A06D41383435FD16131BCBAE93E49836E724D0556F0778DD02843F",
+        "viewport": "1536x1024",
+        "url": "http://127.0.0.1:4211/growth-source.html"
+      },
+      {
+        "path": "docs/page-designs/V3/growth/screenshots/source/390-normal.png",
+        "sha256": "838F94144E0AB11861FD5BAED566CC7EE3ECDEF64F6C98BF382431B3DEE6E764",
+        "viewport": "390x844",
+        "url": "http://127.0.0.1:4211/growth-source.html"
+      },
+      {
+        "path": "docs/page-designs/V3/growth/screenshots/source/390-detail.png",
+        "sha256": "4B3ED50E6911578A376C120E102DACD5362B0F4DD6A87075E569ADC8A47C84D5",
+        "viewport": "390x844",
+        "url": "http://127.0.0.1:4211/growth-source.html?detail=1"
+      }
+    ],
+    "mode": "synthetic read-only current components; no shared shell capture"
+  },
+  "candidateChecks": {
+    "path": "docs/page-designs/V3/growth/checks-C01.json",
+    "sha256": "D2E5DA8C718FD876CBCC000C8712E935FA0159A3FDABE16A46970146A4428569"
+  }
+}

@@ -1,7 +1,7 @@
 {
   "pageId": "attendance",
   "batch": "V3",
-  "phase": "awaiting-design-approval",
+  "phase": "design-approved",
   "brief": "docs/page-designs/V3/attendance/brief.md",
   "functionMap": "docs/page-designs/V3/attendance/function-map.md",
   "geometry": "docs/page-designs/V3/attendance/geometry.json",
@@ -74,7 +74,8 @@
         "fixtureSha256": "87245489A67D55D07EFCA27D7E0EBDFE06E25DD1A3AB3448345E96419A1780E7",
         "font": "Microsoft YaHei (Windows actual platform font sampled in supplement); system font not redistributed",
         "purpose": "isolated runnable design; not integrated product",
-        "url": "http://127.0.0.1:4210/attendance.html?state=normal"
+        "url": "http://127.0.0.1:4210/attendance.html?state=normal",
+        "capturedAt": "2026-09-15T03:50:04.315Z"
       },
       {
         "path": "docs/page-designs/V3/attendance/screenshots/P01/1536-selected-batch.png",
@@ -90,7 +91,8 @@
         "fixtureSha256": "87245489A67D55D07EFCA27D7E0EBDFE06E25DD1A3AB3448345E96419A1780E7",
         "font": "Microsoft YaHei (Windows actual platform font sampled in supplement); system font not redistributed",
         "purpose": "isolated runnable design; not integrated product",
-        "url": "http://127.0.0.1:4210/attendance.html?state=selected-batch"
+        "url": "http://127.0.0.1:4210/attendance.html?state=selected-batch",
+        "capturedAt": "2026-09-15T03:50:04.315Z"
       },
       {
         "path": "docs/page-designs/V3/attendance/screenshots/P01/1536-day-note.png",
@@ -106,7 +108,8 @@
         "fixtureSha256": "87245489A67D55D07EFCA27D7E0EBDFE06E25DD1A3AB3448345E96419A1780E7",
         "font": "Microsoft YaHei (Windows actual platform font sampled in supplement); system font not redistributed",
         "purpose": "isolated runnable design; not integrated product",
-        "url": "http://127.0.0.1:4210/attendance.html?state=day-note"
+        "url": "http://127.0.0.1:4210/attendance.html?state=day-note",
+        "capturedAt": "2026-09-15T03:50:04.315Z"
       },
       {
         "path": "docs/page-designs/V3/attendance/screenshots/P01/1536-month-calendar.png",
@@ -122,7 +125,8 @@
         "fixtureSha256": "87245489A67D55D07EFCA27D7E0EBDFE06E25DD1A3AB3448345E96419A1780E7",
         "font": "Microsoft YaHei (Windows actual platform font sampled in supplement); system font not redistributed",
         "purpose": "isolated runnable design; not integrated product",
-        "url": "http://127.0.0.1:4210/attendance.html?state=month-calendar"
+        "url": "http://127.0.0.1:4210/attendance.html?state=month-calendar",
+        "capturedAt": "2026-09-15T03:50:04.315Z"
       },
       {
         "path": "docs/page-designs/V3/attendance/screenshots/P01/1536-history-date.png",
@@ -138,7 +142,8 @@
         "fixtureSha256": "87245489A67D55D07EFCA27D7E0EBDFE06E25DD1A3AB3448345E96419A1780E7",
         "font": "Microsoft YaHei (Windows actual platform font sampled in supplement); system font not redistributed",
         "purpose": "isolated runnable design; not integrated product",
-        "url": "http://127.0.0.1:4210/attendance.html?state=history-date"
+        "url": "http://127.0.0.1:4210/attendance.html?state=history-date",
+        "capturedAt": "2026-09-15T03:50:04.315Z"
       },
       {
         "path": "docs/page-designs/V3/attendance/screenshots/P01/1536-no-day-record.png",
@@ -154,7 +159,8 @@
         "fixtureSha256": "7811F28EC6102967AC7CD9463149A8AEF85FBFFD91F44EAE7CBD322525FE2846",
         "font": "Microsoft YaHei (Windows actual platform font sampled in supplement); system font not redistributed",
         "purpose": "isolated runnable design; not integrated product",
-        "url": "http://127.0.0.1:4210/attendance.html?state=no-day-record"
+        "url": "http://127.0.0.1:4210/attendance.html?state=no-day-record",
+        "capturedAt": "2026-09-15T03:50:04.315Z"
       },
       {
         "path": "docs/page-designs/V3/attendance/screenshots/P01/1536-empty-class.png",
@@ -170,7 +176,8 @@
         "fixtureSha256": "2C4FC915B0241166EBF515C87B9F5BD683BE3150529005D14EB95884A833490F",
         "font": "Microsoft YaHei (Windows actual platform font sampled in supplement); system font not redistributed",
         "purpose": "isolated runnable design; not integrated product",
-        "url": "http://127.0.0.1:4210/attendance.html?state=empty-class"
+        "url": "http://127.0.0.1:4210/attendance.html?state=empty-class",
+        "capturedAt": "2026-09-15T03:50:04.315Z"
       },
       {
         "path": "docs/page-designs/V3/attendance/screenshots/P01/1536-search-empty.png",
@@ -186,7 +193,8 @@
         "fixtureSha256": "87245489A67D55D07EFCA27D7E0EBDFE06E25DD1A3AB3448345E96419A1780E7",
         "font": "Microsoft YaHei (Windows actual platform font sampled in supplement); system font not redistributed",
         "purpose": "isolated runnable design; not integrated product",
-        "url": "http://127.0.0.1:4210/attendance.html?state=search-empty"
+        "url": "http://127.0.0.1:4210/attendance.html?state=search-empty",
+        "capturedAt": "2026-09-15T03:50:04.315Z"
       },
       {
         "path": "docs/page-designs/V3/attendance/screenshots/P01/1536-students-105.png",
@@ -202,7 +210,8 @@
         "fixtureSha256": "B3644CAB33FF9FAEB0CAE17EF4600726EB5C9F9ABE5670914CB1E04673D3C155",
         "font": "Microsoft YaHei (Windows actual platform font sampled in supplement); system font not redistributed",
         "purpose": "isolated runnable design; not integrated product",
-        "url": "http://127.0.0.1:4210/attendance.html?state=students-105"
+        "url": "http://127.0.0.1:4210/attendance.html?state=students-105",
+        "capturedAt": "2026-09-15T03:50:04.315Z"
       },
       {
         "path": "docs/page-designs/V3/attendance/screenshots/P01/1536-long-note.png",
@@ -218,7 +227,8 @@
         "fixtureSha256": "7A5D3C3876C86089A464BA923260D9692F6E3460D539852F7BA9A3C49A9FB45C",
         "font": "Microsoft YaHei (Windows actual platform font sampled in supplement); system font not redistributed",
         "purpose": "isolated runnable design; not integrated product",
-        "url": "http://127.0.0.1:4210/attendance.html?state=long-note"
+        "url": "http://127.0.0.1:4210/attendance.html?state=long-note",
+        "capturedAt": "2026-09-15T03:50:04.315Z"
       },
       {
         "path": "docs/page-designs/V3/attendance/screenshots/P01/1536-readonly.png",
@@ -234,7 +244,8 @@
         "fixtureSha256": "87245489A67D55D07EFCA27D7E0EBDFE06E25DD1A3AB3448345E96419A1780E7",
         "font": "Microsoft YaHei (Windows actual platform font sampled in supplement); system font not redistributed",
         "purpose": "isolated runnable design; not integrated product",
-        "url": "http://127.0.0.1:4210/attendance.html?state=readonly"
+        "url": "http://127.0.0.1:4210/attendance.html?state=readonly",
+        "capturedAt": "2026-09-15T03:50:04.315Z"
       },
       {
         "path": "docs/page-designs/V3/attendance/screenshots/P01/1536-loading.png",
@@ -250,7 +261,8 @@
         "fixtureSha256": "87245489A67D55D07EFCA27D7E0EBDFE06E25DD1A3AB3448345E96419A1780E7",
         "font": "Microsoft YaHei (Windows actual platform font sampled in supplement); system font not redistributed",
         "purpose": "isolated runnable design; not integrated product",
-        "url": "http://127.0.0.1:4210/attendance.html?state=loading"
+        "url": "http://127.0.0.1:4210/attendance.html?state=loading",
+        "capturedAt": "2026-09-15T03:50:04.315Z"
       },
       {
         "path": "docs/page-designs/V3/attendance/screenshots/P01/1536-saving.png",
@@ -266,7 +278,8 @@
         "fixtureSha256": "87245489A67D55D07EFCA27D7E0EBDFE06E25DD1A3AB3448345E96419A1780E7",
         "font": "Microsoft YaHei (Windows actual platform font sampled in supplement); system font not redistributed",
         "purpose": "isolated runnable design; not integrated product",
-        "url": "http://127.0.0.1:4210/attendance.html?state=saving"
+        "url": "http://127.0.0.1:4210/attendance.html?state=saving",
+        "capturedAt": "2026-09-15T03:50:04.315Z"
       },
       {
         "path": "docs/page-designs/V3/attendance/screenshots/P01/1536-save-failure.png",
@@ -282,7 +295,8 @@
         "fixtureSha256": "87245489A67D55D07EFCA27D7E0EBDFE06E25DD1A3AB3448345E96419A1780E7",
         "font": "Microsoft YaHei (Windows actual platform font sampled in supplement); system font not redistributed",
         "purpose": "isolated runnable design; not integrated product",
-        "url": "http://127.0.0.1:4210/attendance.html?state=save-failure"
+        "url": "http://127.0.0.1:4210/attendance.html?state=save-failure",
+        "capturedAt": "2026-09-15T03:50:04.315Z"
       },
       {
         "path": "docs/page-designs/V3/attendance/screenshots/P01/1536-conflict-409.png",
@@ -298,7 +312,8 @@
         "fixtureSha256": "87245489A67D55D07EFCA27D7E0EBDFE06E25DD1A3AB3448345E96419A1780E7",
         "font": "Microsoft YaHei (Windows actual platform font sampled in supplement); system font not redistributed",
         "purpose": "isolated runnable design; not integrated product",
-        "url": "http://127.0.0.1:4210/attendance.html?state=conflict-409"
+        "url": "http://127.0.0.1:4210/attendance.html?state=conflict-409",
+        "capturedAt": "2026-09-15T03:50:04.315Z"
       },
       {
         "path": "docs/page-designs/V3/attendance/screenshots/P01/1536-dirty-leave.png",
@@ -314,7 +329,8 @@
         "fixtureSha256": "87245489A67D55D07EFCA27D7E0EBDFE06E25DD1A3AB3448345E96419A1780E7",
         "font": "Microsoft YaHei (Windows actual platform font sampled in supplement); system font not redistributed",
         "purpose": "isolated runnable design; not integrated product",
-        "url": "http://127.0.0.1:4210/attendance.html?state=dirty-leave"
+        "url": "http://127.0.0.1:4210/attendance.html?state=dirty-leave",
+        "capturedAt": "2026-09-15T03:50:04.315Z"
       },
       {
         "path": "docs/page-designs/V3/attendance/screenshots/P01/1536-filters.png",
@@ -330,7 +346,8 @@
         "fixtureSha256": "87245489A67D55D07EFCA27D7E0EBDFE06E25DD1A3AB3448345E96419A1780E7",
         "font": "Microsoft YaHei (Windows actual platform font sampled in supplement); system font not redistributed",
         "purpose": "isolated runnable design; not integrated product",
-        "url": "http://127.0.0.1:4210/attendance.html?state=filters"
+        "url": "http://127.0.0.1:4210/attendance.html?state=filters",
+        "capturedAt": "2026-09-15T03:50:04.315Z"
       },
       {
         "path": "docs/page-designs/V3/attendance/screenshots/P01/1536-save-failure-empty.png",
@@ -346,7 +363,8 @@
         "fixtureSha256": "7811F28EC6102967AC7CD9463149A8AEF85FBFFD91F44EAE7CBD322525FE2846",
         "font": "Microsoft YaHei (Windows actual platform font sampled in supplement); system font not redistributed",
         "purpose": "isolated runnable design; not integrated product",
-        "url": "http://127.0.0.1:4210/attendance.html?state=save-failure-empty"
+        "url": "http://127.0.0.1:4210/attendance.html?state=save-failure-empty",
+        "capturedAt": "2026-09-15T03:50:04.315Z"
       },
       {
         "path": "docs/page-designs/V3/attendance/screenshots/P01/390-normal.png",
@@ -362,7 +380,8 @@
         "fixtureSha256": "87245489A67D55D07EFCA27D7E0EBDFE06E25DD1A3AB3448345E96419A1780E7",
         "font": "Microsoft YaHei (Windows actual platform font sampled in supplement); system font not redistributed",
         "purpose": "isolated runnable design; not integrated product",
-        "url": "http://127.0.0.1:4210/attendance.html?state=normal"
+        "url": "http://127.0.0.1:4210/attendance.html?state=normal",
+        "capturedAt": "2026-09-15T03:50:04.315Z"
       },
       {
         "path": "docs/page-designs/V3/attendance/screenshots/P01/390-selected-batch.png",
@@ -378,7 +397,8 @@
         "fixtureSha256": "87245489A67D55D07EFCA27D7E0EBDFE06E25DD1A3AB3448345E96419A1780E7",
         "font": "Microsoft YaHei (Windows actual platform font sampled in supplement); system font not redistributed",
         "purpose": "isolated runnable design; not integrated product",
-        "url": "http://127.0.0.1:4210/attendance.html?state=selected-batch"
+        "url": "http://127.0.0.1:4210/attendance.html?state=selected-batch",
+        "capturedAt": "2026-09-15T03:50:04.315Z"
       },
       {
         "path": "docs/page-designs/V3/attendance/screenshots/P01/390-day-note.png",
@@ -394,7 +414,8 @@
         "fixtureSha256": "87245489A67D55D07EFCA27D7E0EBDFE06E25DD1A3AB3448345E96419A1780E7",
         "font": "Microsoft YaHei (Windows actual platform font sampled in supplement); system font not redistributed",
         "purpose": "isolated runnable design; not integrated product",
-        "url": "http://127.0.0.1:4210/attendance.html?state=day-note"
+        "url": "http://127.0.0.1:4210/attendance.html?state=day-note",
+        "capturedAt": "2026-09-15T03:50:04.315Z"
       },
       {
         "path": "docs/page-designs/V3/attendance/screenshots/P01/390-month-calendar.png",
@@ -410,7 +431,8 @@
         "fixtureSha256": "87245489A67D55D07EFCA27D7E0EBDFE06E25DD1A3AB3448345E96419A1780E7",
         "font": "Microsoft YaHei (Windows actual platform font sampled in supplement); system font not redistributed",
         "purpose": "isolated runnable design; not integrated product",
-        "url": "http://127.0.0.1:4210/attendance.html?state=month-calendar"
+        "url": "http://127.0.0.1:4210/attendance.html?state=month-calendar",
+        "capturedAt": "2026-09-15T03:50:04.315Z"
       },
       {
         "path": "docs/page-designs/V3/attendance/screenshots/P01/390-history-date.png",
@@ -426,7 +448,8 @@
         "fixtureSha256": "87245489A67D55D07EFCA27D7E0EBDFE06E25DD1A3AB3448345E96419A1780E7",
         "font": "Microsoft YaHei (Windows actual platform font sampled in supplement); system font not redistributed",
         "purpose": "isolated runnable design; not integrated product",
-        "url": "http://127.0.0.1:4210/attendance.html?state=history-date"
+        "url": "http://127.0.0.1:4210/attendance.html?state=history-date",
+        "capturedAt": "2026-09-15T03:50:04.315Z"
       },
       {
         "path": "docs/page-designs/V3/attendance/screenshots/P01/390-no-day-record.png",
@@ -442,7 +465,8 @@
         "fixtureSha256": "7811F28EC6102967AC7CD9463149A8AEF85FBFFD91F44EAE7CBD322525FE2846",
         "font": "Microsoft YaHei (Windows actual platform font sampled in supplement); system font not redistributed",
         "purpose": "isolated runnable design; not integrated product",
-        "url": "http://127.0.0.1:4210/attendance.html?state=no-day-record"
+        "url": "http://127.0.0.1:4210/attendance.html?state=no-day-record",
+        "capturedAt": "2026-09-15T03:50:04.315Z"
       },
       {
         "path": "docs/page-designs/V3/attendance/screenshots/P01/390-empty-class.png",
@@ -458,7 +482,8 @@
         "fixtureSha256": "2C4FC915B0241166EBF515C87B9F5BD683BE3150529005D14EB95884A833490F",
         "font": "Microsoft YaHei (Windows actual platform font sampled in supplement); system font not redistributed",
         "purpose": "isolated runnable design; not integrated product",
-        "url": "http://127.0.0.1:4210/attendance.html?state=empty-class"
+        "url": "http://127.0.0.1:4210/attendance.html?state=empty-class",
+        "capturedAt": "2026-09-15T03:50:04.315Z"
       },
       {
         "path": "docs/page-designs/V3/attendance/screenshots/P01/390-search-empty.png",
@@ -474,7 +499,8 @@
         "fixtureSha256": "87245489A67D55D07EFCA27D7E0EBDFE06E25DD1A3AB3448345E96419A1780E7",
         "font": "Microsoft YaHei (Windows actual platform font sampled in supplement); system font not redistributed",
         "purpose": "isolated runnable design; not integrated product",
-        "url": "http://127.0.0.1:4210/attendance.html?state=search-empty"
+        "url": "http://127.0.0.1:4210/attendance.html?state=search-empty",
+        "capturedAt": "2026-09-15T03:50:04.315Z"
       },
       {
         "path": "docs/page-designs/V3/attendance/screenshots/P01/390-students-105.png",
@@ -490,7 +516,8 @@
         "fixtureSha256": "B3644CAB33FF9FAEB0CAE17EF4600726EB5C9F9ABE5670914CB1E04673D3C155",
         "font": "Microsoft YaHei (Windows actual platform font sampled in supplement); system font not redistributed",
         "purpose": "isolated runnable design; not integrated product",
-        "url": "http://127.0.0.1:4210/attendance.html?state=students-105"
+        "url": "http://127.0.0.1:4210/attendance.html?state=students-105",
+        "capturedAt": "2026-09-15T03:50:04.315Z"
       },
       {
         "path": "docs/page-designs/V3/attendance/screenshots/P01/390-long-note.png",
@@ -506,7 +533,8 @@
         "fixtureSha256": "7A5D3C3876C86089A464BA923260D9692F6E3460D539852F7BA9A3C49A9FB45C",
         "font": "Microsoft YaHei (Windows actual platform font sampled in supplement); system font not redistributed",
         "purpose": "isolated runnable design; not integrated product",
-        "url": "http://127.0.0.1:4210/attendance.html?state=long-note"
+        "url": "http://127.0.0.1:4210/attendance.html?state=long-note",
+        "capturedAt": "2026-09-15T03:50:04.315Z"
       },
       {
         "path": "docs/page-designs/V3/attendance/screenshots/P01/390-readonly.png",
@@ -522,7 +550,8 @@
         "fixtureSha256": "87245489A67D55D07EFCA27D7E0EBDFE06E25DD1A3AB3448345E96419A1780E7",
         "font": "Microsoft YaHei (Windows actual platform font sampled in supplement); system font not redistributed",
         "purpose": "isolated runnable design; not integrated product",
-        "url": "http://127.0.0.1:4210/attendance.html?state=readonly"
+        "url": "http://127.0.0.1:4210/attendance.html?state=readonly",
+        "capturedAt": "2026-09-15T03:50:04.315Z"
       },
       {
         "path": "docs/page-designs/V3/attendance/screenshots/P01/390-loading.png",
@@ -538,7 +567,8 @@
         "fixtureSha256": "87245489A67D55D07EFCA27D7E0EBDFE06E25DD1A3AB3448345E96419A1780E7",
         "font": "Microsoft YaHei (Windows actual platform font sampled in supplement); system font not redistributed",
         "purpose": "isolated runnable design; not integrated product",
-        "url": "http://127.0.0.1:4210/attendance.html?state=loading"
+        "url": "http://127.0.0.1:4210/attendance.html?state=loading",
+        "capturedAt": "2026-09-15T03:50:04.315Z"
       },
       {
         "path": "docs/page-designs/V3/attendance/screenshots/P01/390-saving.png",
@@ -554,7 +584,8 @@
         "fixtureSha256": "87245489A67D55D07EFCA27D7E0EBDFE06E25DD1A3AB3448345E96419A1780E7",
         "font": "Microsoft YaHei (Windows actual platform font sampled in supplement); system font not redistributed",
         "purpose": "isolated runnable design; not integrated product",
-        "url": "http://127.0.0.1:4210/attendance.html?state=saving"
+        "url": "http://127.0.0.1:4210/attendance.html?state=saving",
+        "capturedAt": "2026-09-15T03:50:04.315Z"
       },
       {
         "path": "docs/page-designs/V3/attendance/screenshots/P01/390-save-failure.png",
@@ -570,7 +601,8 @@
         "fixtureSha256": "87245489A67D55D07EFCA27D7E0EBDFE06E25DD1A3AB3448345E96419A1780E7",
         "font": "Microsoft YaHei (Windows actual platform font sampled in supplement); system font not redistributed",
         "purpose": "isolated runnable design; not integrated product",
-        "url": "http://127.0.0.1:4210/attendance.html?state=save-failure"
+        "url": "http://127.0.0.1:4210/attendance.html?state=save-failure",
+        "capturedAt": "2026-09-15T03:50:04.315Z"
       },
       {
         "path": "docs/page-designs/V3/attendance/screenshots/P01/390-conflict-409.png",
@@ -586,7 +618,8 @@
         "fixtureSha256": "87245489A67D55D07EFCA27D7E0EBDFE06E25DD1A3AB3448345E96419A1780E7",
         "font": "Microsoft YaHei (Windows actual platform font sampled in supplement); system font not redistributed",
         "purpose": "isolated runnable design; not integrated product",
-        "url": "http://127.0.0.1:4210/attendance.html?state=conflict-409"
+        "url": "http://127.0.0.1:4210/attendance.html?state=conflict-409",
+        "capturedAt": "2026-09-15T03:50:04.315Z"
       },
       {
         "path": "docs/page-designs/V3/attendance/screenshots/P01/390-dirty-leave.png",
@@ -602,7 +635,8 @@
         "fixtureSha256": "87245489A67D55D07EFCA27D7E0EBDFE06E25DD1A3AB3448345E96419A1780E7",
         "font": "Microsoft YaHei (Windows actual platform font sampled in supplement); system font not redistributed",
         "purpose": "isolated runnable design; not integrated product",
-        "url": "http://127.0.0.1:4210/attendance.html?state=dirty-leave"
+        "url": "http://127.0.0.1:4210/attendance.html?state=dirty-leave",
+        "capturedAt": "2026-09-15T03:50:04.315Z"
       },
       {
         "path": "docs/page-designs/V3/attendance/screenshots/P01/390-filters.png",
@@ -618,7 +652,8 @@
         "fixtureSha256": "87245489A67D55D07EFCA27D7E0EBDFE06E25DD1A3AB3448345E96419A1780E7",
         "font": "Microsoft YaHei (Windows actual platform font sampled in supplement); system font not redistributed",
         "purpose": "isolated runnable design; not integrated product",
-        "url": "http://127.0.0.1:4210/attendance.html?state=filters"
+        "url": "http://127.0.0.1:4210/attendance.html?state=filters",
+        "capturedAt": "2026-09-15T03:50:04.315Z"
       },
       {
         "path": "docs/page-designs/V3/attendance/screenshots/P01/390-save-failure-empty.png",
@@ -634,7 +669,8 @@
         "fixtureSha256": "7811F28EC6102967AC7CD9463149A8AEF85FBFFD91F44EAE7CBD322525FE2846",
         "font": "Microsoft YaHei (Windows actual platform font sampled in supplement); system font not redistributed",
         "purpose": "isolated runnable design; not integrated product",
-        "url": "http://127.0.0.1:4210/attendance.html?state=save-failure-empty"
+        "url": "http://127.0.0.1:4210/attendance.html?state=save-failure-empty",
+        "capturedAt": "2026-09-15T03:50:04.315Z"
       }
     ],
     "additionalEvidence": [
@@ -889,11 +925,64 @@
     "review": "docs/page-designs/V3/attendance/review-P01.md"
   },
   "designApproval": {
-    "approved": false,
-    "source": null,
-    "approvedAt": null,
-    "commit": null,
-    "evidenceHashes": []
+    "approved": true,
+    "source": "2026-09-15本任务用户：可以 继续下一页。对应上一轮考勤P01实际稿d7450bb的单页D接受；不代表V3整批D/R、正式接入或部署批准。",
+    "approvedAt": "2026-09-15",
+    "commit": "d7450bba192d5a0124cd2e642c49a8127d53c94d",
+    "evidenceHashes": [
+      "1C4BFFE108B498FF88DC3A36E5BBD6FCEF8C5BC03831F5BE63EA46A8643EB467",
+      "AA46C1E63B6F01FAC84E063B886A00C16323DE6E4B91C5085942D860A0A96007",
+      "681B023A1635305024C6BA29DA5168EEFDDF4C87EA0C051F9A676ADF4FC3B052",
+      "1C4BFFE108B498FF88DC3A36E5BBD6FCEF8C5BC03831F5BE63EA46A8643EB467",
+      "2B246482AFB46EFB3557D1765A9126ED6314BBE24BF595E10E7738B9C453BB0C",
+      "16A3081EF6CCE14E03BE688ED32E7AC13CF252ADE5E04D2B107BED0E41FE0F0F",
+      "032AF59B1E0F44DD16BDEB17BF492916F3C8A29AA541B043EE8C816F5BACCC41",
+      "7D9203D541FC0841E720ADF13B4148DAFE54AC5C323591C4073E43A9D6394A73",
+      "2B7426C570EC4C33CDCCA3761D71C81D70EED6ACA383E57A170F5590231A5E59",
+      "EFF7A04FACFE93DD94C121C0D52A126D5E04FA464C33B490350D9053DFD31C67",
+      "577045CCCB76F542B9A6A03E50C65D22F2556B28D15C64D939BBFA0C12C5F18B",
+      "DDEE6E44F092C61128939544EDC4A89BCA49D263D3EDAF122F0BA870B925A6F8",
+      "69D6F016AEF2E8824685C4BC902E292E11C56E5D95508A3B7CC57D8FA6E9B723",
+      "25187329935ADB5F03D56A1FA961007BA0C6B8FF1C06DABC5C4719D314757633",
+      "86B1FAA0050083F93CD1E59ECF5EC55D18AD3A12FA4098F50D31BF3773BCB04F",
+      "339219F811438F305F6912F2DE49877B3E163D1EBF6A3AE48F5DC93372DFDA45",
+      "1C4BFFE108B498FF88DC3A36E5BBD6FCEF8C5BC03831F5BE63EA46A8643EB467",
+      "CB59EBCF501BB0B01A25195E43919E9D99C2B0A03D83A4414EB49EEC0EBA798D",
+      "90A604D8CEB9860B6A7B3EC36C53F45F3EDF9D58C3C59DD61888CCE3FC43EB2D",
+      "6C5EFB4272973F7F51D8368D02B0EF54A713894F858F677AC3718F5BE985DF4B",
+      "A3EF917AC69FB9B70A6F2539126B8249D3A5D018795AE5479373CC9207E7910B",
+      "A9A5249C3C5228B822D07F2B4543A31894AFAD761E4A45A8C7E2E31059FB94FD",
+      "06E0FCFC50472BC6AC5C8154B8EF292B0B5C5878297A3309FEA5EB467828A4D8",
+      "02AF67169587552DA169F29F781F2FF0486363865E8B6CB8394C3FB5985BCB4B",
+      "B3CE25A2E0E83E7C2C6DD814C6F1A0FFB45716E49A806C440AD5DC773B50459E",
+      "137123C9AF0F21D32F9771254BE36212AF2A4EDD45B6AC81CD25365F475DB197",
+      "7E77D60FDB746510594256768709D33320A91B0C1E679660079066F6BD502BBD",
+      "A67B2C492C167C67EA84A7F65C38475FC49CA40BC1C9279A2E8564E69E68A8DC",
+      "1815666C294BCBBFB3334D8F03D8156464729D7C0A5A163D4AA399101C005DA2",
+      "540AB8EB9B9891D38E3AB9C8DB835A9A695D82EB307EAE85D36E67DAEE2CB1C1",
+      "2C92D03953456DF48E0A16ADDA49220F2B2C6BE1E3DF3908747E65FE53260466",
+      "C1DCBC580B374BAB44230BE75AF2612AA02E58793115ABEE335C08EFA0268513",
+      "DEFDF60352629DCB3E15BBFFA3CD8362276088EDAA05276E9D567C5BA11B87BE",
+      "8094786586988308CF67F73B47D9CFCC5D8FBC0CC078CB0129CA55B2A4ADDA77",
+      "2F76789A90AC1AA9780867A850B8FF35C62F606A57EB2B1B055322CA20C6BE32",
+      "3B7EA3C7E6DE4FED5996B1D009FC56009C39C2483383D0F15312BB230275B828"
+    ],
+    "additionalEvidenceHashes": [
+      "8E26304D5F78FBFDA86624D39A21F00AC798C356DAA9787FB35A65200BC61C58",
+      "F6CFB90920BB4C798DB8DCD721B96D9DF65EF7F92304871A684E9673CBC9EA2F",
+      "FE755AC56D470CD68D7891B536726BB50FADF84F78092836BCEFE3C112CD04DC",
+      "8E26304D5F78FBFDA86624D39A21F00AC798C356DAA9787FB35A65200BC61C58",
+      "7BCB9E3EA446F3F9F88C4BDB1747C47723A52BA7AAF26AFE9DA699F794664D5B",
+      "76B758F0468807C1B0EC5050BB4A45174092EFCB6A4176B2B2E3353A62BD04C6",
+      "DCADE982359C4196D3AC20DA1F5591E6DC64BF0DABBF17642054F90CDD37ED23",
+      "A5A6EE78BB973249040D3607324D2BA4C7CF3582B902E706BB0394004A5940D2",
+      "E04F10FF300F7C49E4032CC8B399FFEA522A18B298E697ACAC67364BC0EDFCAE",
+      "FA101FDCEDD4DAA3BE0C741600F95E0A1D13EACAAB5EE39752CA6F8925B54A16",
+      "41384786D2C5B2E67502BC59BE0E43A599384FA43F38B8CD6FD002DF1944478B",
+      "56FF68BE7D92494F438F8723D2287B285B086C0A0826480080801AA78FF22DCD",
+      "F095BB82D1E2FC791A37019A02BAB06BB67A457D0957C8EB6448D4E97F10EFB4",
+      "7A5D9C2CA48AD9E60126D3FB0B47B6D4E80BA155E18DAFC5269354DCE9B80E6D"
+    ]
   },
   "integration": {
     "productCommit": null,
@@ -928,9 +1017,9 @@
     },
     {
       "id": "P01-D-NOT-APPROVED",
-      "blocking": true,
-      "resolved": false,
-      "description": "Runnable P01 awaits user single-page D; no integration or R."
+      "blocking": false,
+      "resolved": true,
+      "description": "User accepted attendance P01 on2026-09-15; single-page D only."
     },
     {
       "id": "CALENDAR-SMALL-ANNOTATION",
@@ -945,7 +1034,7 @@
       "description": "qa:strict aborted on existing runtime querySelectorAll error, not full-site pass; final design scoped checks passed."
     }
   ],
-  "nextAction": "向用户交付P01可运行稿及实际图，等待单页设计审核；听写功能未验收继续暂缓，正式接入/D批次/R未开放",
+  "nextAction": "单页D已获准；继续成长独立候选；批次接入和R仍未开放。",
   "history": [
     {
       "date": "2026-09-15",
@@ -959,6 +1048,11 @@
     {
       "date": "2026-09-15",
       "event": "Full-scroll evidence exposed root overflow from absolute screen-reader labels; scoped student-row positioning fixed. New36+8+6 captures verified and reviewer closed all3 findings.",
+      "designCommit": "d7450bba192d5a0124cd2e642c49a8127d53c94d"
+    },
+    {
+      "date": "2026-09-15",
+      "event": "2026-09-15本任务用户：可以 继续下一页。对应上一轮考勤P01实际稿d7450bb的单页D接受；不代表V3整批D/R、正式接入或部署批准。",
       "designCommit": "d7450bba192d5a0124cd2e642c49a8127d53c94d"
     }
   ],

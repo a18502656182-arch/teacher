@@ -598,7 +598,7 @@
       "currentEvidence": [],
       "comparisons": [],
       "recordPath": "docs/page-designs/V3/attendance/record.json",
-      "recordSha256": "FB152D91A7276481996B7E1376DA67B0D1490CF4E8B5601FFABFA9A013F46BCD"
+      "recordSha256": "797695D65ED03D5563713D72804C7F80D8D21B2D90FBAFB999266932551C918B"
     },
     "growth": {
       "label": "成长档案",
@@ -609,7 +609,9 @@
       "requiredComparisons": 2,
       "issues": [],
       "currentEvidence": [],
-      "comparisons": []
+      "comparisons": [],
+      "recordPath": "docs/page-designs/V3/growth/record.json",
+      "recordSha256": "A6F9B58C9352E17455EECDBCC6032754CDDA8BB07931C421349A73EA85142E59"
     },
     "health": {
       "label": "健康与照护",
@@ -778,7 +780,7 @@
     "legacyFields": "status/productCommit/currentEvidence/comparisons/userApproval retain historical product evidence; D/R uses linked records",
     "entry": "docs/逐页设计定稿与实施包-20260914/00-从这里开始.md",
     "activeBatch": "V2",
-    "nextAction": "向用户交付P01可运行稿及实际图，等待单页设计审核；听写功能未验收继续暂缓，正式接入/D批次/R未开放",
+    "nextAction": "等待C01桌面、手机列表、手机详情方向确认，再做隔离P01；不接业务。",
     "designSequenceExceptions": [
       {
         "date": "2026-09-15",
@@ -786,6 +788,13 @@
         "scope": "Skip dictation and allow independent attendance/V3 candidate design before V2 R; not integration or next-batch product approval",
         "deferredPage": "dictation",
         "nextDesignPage": "attendance",
+        "integrationAllowed": false
+      },
+      {
+        "date": "2026-09-15",
+        "source": "本任务用户：可以 继续下一页（考勤P01交付后）",
+        "scope": "Attendance single-page D and continue independent growth design only; no batch R/integration",
+        "nextDesignPage": "growth",
         "integrationAllowed": false
       }
     ]

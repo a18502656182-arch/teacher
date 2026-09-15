@@ -1,0 +1,37 @@
+{
+  "date": "2026-09-15T04:11:12.149Z",
+  "sourceCommit": "0d6bcd6b5097fe828390ccd97b143ff95807671e",
+  "scope": "Candidate phase and isolated read-only source recovery, not P01 or product acceptance",
+  "checks": [
+    {
+      "command": "node scripts/growth-source-capture.mjs",
+      "exitCode": 0,
+      "result": "3 screenshots, 0 Runtime.exceptionThrown; synthetic current components without full shell"
+    },
+    {
+      "command": "npx tsc --noEmit",
+      "exitCode": 0,
+      "result": "Passed after typing recovery transform arguments"
+    },
+    {
+      "command": "npx eslint tools/ui-preview/growth-source.tsx tools/ui-preview/growth-source.vite.config.ts",
+      "exitCode": 0,
+      "result": "No findings"
+    },
+    {
+      "command": "vite build with growth-source config and growth-source.html input",
+      "exitCode": 0,
+      "result": "185 modules; growth-source.html emitted; local .qa-shots/growth-source-build only; plugin timing advisory"
+    },
+    {
+      "command": "npm run qa:visual-baseline",
+      "exitCode": 0,
+      "result": "19 pages,7 gates; attendance design-approved, growth concept-review; formal V3 still blocked by preceding batch"
+    }
+  ],
+  "limitations": [
+    "First recovery attempt failed process is not defined in Next Link; isolated config now defines process.env empty; no business source changed.",
+    "No new product build/qa:strict/functional suite run for raster-only design changes; previous qa:strict runtime failure remains unresolved.",
+    "Full dependency build reads protected student edits from working tree; did not stage or alter those files."
+  ]
+}
