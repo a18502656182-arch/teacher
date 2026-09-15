@@ -663,7 +663,7 @@
       "currentEvidence": [],
       "comparisons": [],
       "recordPath": "docs/page-designs/V4/reflection/record.json",
-      "recordSha256": "6AA1265FD20A336D28B648B9F2E68FDB001C33580572CEA33C33A911E2AFBCF7"
+      "recordSha256": "1FE0FC860C52CD172CE81B5E14CC3C50B68672E4E75E3AF1BE32B40C20439593"
     },
     "schedule": {
       "label": "课程日程",
@@ -788,7 +788,7 @@
     "legacyFields": "status/productCommit/currentEvidence/comparisons/userApproval retain historical product evidence; D/R uses linked records",
     "entry": "docs/逐页设计定稿与实施包-20260914/00-从这里开始.md",
     "activeBatch": "V2",
-    "nextAction": "等待C01桌面/手机队列/手机填写方向确认；之后制作P01，不能先接入正式业务。",
+    "nextAction": "等待用户审核反思P01实际主页面；不自动进入V5，不正式接入、不部署。",
     "designSequenceExceptions": [
       {
         "date": "2026-09-15",

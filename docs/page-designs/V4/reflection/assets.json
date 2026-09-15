@@ -1,7 +1,22 @@
 {
-  "version": "C01",
+  "version": "P01",
   "frozen": false,
-  "generatedCandidates": [],
-  "implementationAssets": [],
-  "notes": "Notebook illustration only direction, not extracted or approved production asset"
+  "assets": [
+    {
+      "path": "app/designs/reflection/notebook-p01.png",
+      "sha256": "9EEF2BEB26DC96FB31DA59868854ADDF7D5A93702258415D8F65AC2D81042243",
+      "source": "ImageGen builtin",
+      "original": "E:/CodexHome/generated_images/01a09fb4-dfcf-74e0-a5c7-ea1b5e94cf08/exec-4f937e83-bed6-4996-9af8-8305ef31753d.png",
+      "prompt": "docs/page-designs/V4/reflection/assets-p01-prompt.md",
+      "purpose": "decorative notebook, empty alt",
+      "fit": "contain",
+      "pixelSize": [
+        1536,
+        1024
+      ],
+      "bytes": 1686797,
+      "rights": "Generated for this authorized project; no third-party stock asset"
+    }
+  ],
+  "font": "Microsoft YaHei, system-ui, sans-serif from existing shell; installed font, not distributed"
 }

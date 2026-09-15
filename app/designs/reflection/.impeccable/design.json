@@ -1,0 +1,373 @@
+{
+  "narrative": {
+    "dos": [
+      "**Do** 保留白色共享壳层与手机现有底栏。",
+      "**Do** 保留全部五字段、日期、成绩入口、历史库和真实失败恢复。",
+      "**Do** 以实际渲染、源码和保存确认区分设计方向与运行事实。",
+      "**Do** 让长内容和末字段可滚动到固定动作栏上方。"
+    ],
+    "rules": [
+      {
+        "name": "The Evidence Rule",
+        "body": "源码和实际行为优先于生成图中的导航、字体、字数和分页示意；技术 PASS 只表示可交审。",
+        "section": "overview"
+      },
+      {
+        "name": "The Context Color Rule",
+        "body": "色块必须指向考试、选择、行动或状态，不用彩色容器重复包装五个字段。",
+        "section": "colors"
+      },
+      {
+        "name": "The Readable Writing Rule",
+        "body": "手机输入使用 mobile-field；长内容自然换行并滚动，不能通过删字段或缩小整页维持首屏。",
+        "section": "typography"
+      },
+      {
+        "name": "The Continuous Work Rule",
+        "body": "桌面选择与编辑并列，手机一次只处理一个学生；五字段、日期、保存和返回构成同一工作流。",
+        "section": "layout"
+      },
+      {
+        "name": "The In-place Feedback Rule",
+        "body": "正常保存通过按钮忙碌态和原位状态呈现；失败和冲突保留明确错误、重试和恢复入口。",
+        "section": "elevation & depth"
+      }
+    ],
+    "keyCharacteristics": [
+      "桌面队列与连续填写并排，手机队列进入独立编辑。",
+      "薄荷绿标记考试上下文，浅蓝强调下一步行动。",
+      "保存结果原位反馈，真正失败提供恢复动作。",
+      "历史库按反思记录保留跨考试与未关联内容。"
+    ],
+    "northStar": "把下一步写进复盘本",
+    "donts": [
+      "**Don't** 将 C01 方向确认或 finish PASS 写成 P01 用户审美批准。",
+      "**Don't** 按当前考试过滤掉全班历史库中的未关联记录。",
+      "**Don't** 用生成图的深色导航、字体、字数或分页数覆盖现有实现。",
+      "**Don't** 为每次正常保存插入恢复横条，或把归档描述成自动发送家长。"
+    ],
+    "overview": "考试与学生先提供具体上下文，老师在连续工作面中把问题、原因和行动写清楚。白色工作台、海军蓝文字、薄荷绿考试区与浅蓝行动区保持清楚的阅读顺序；笔记本插画为记录工作提供温和的主题线索。\n\n这是本页 P01 的实施记录，范围只到 `app/designs/reflection` 及隔离预览，不替代根目录 DESIGN.md，不定义全站新主题。命名与气氛描述由文档整理者据现有实现归纳，并非额外取得用户创意批准。"
+  },
+  "components": [
+    {
+      "description": "唯一强主动作；视觉样本不执行归档。",
+      "html": "<button class=\"ds-button ds-primary\">完成并归档</button>",
+      "css": ".ds-button{font-family:var(--wb-font,'PingFang SC','Microsoft YaHei',system-ui,sans-serif);font-size:15px;line-height:1.6;padding:7px 12px;min-height:36px;border:1px solid #bfced9;border-radius:5px;background:#fff;color:#087e82;cursor:pointer}.ds-button:hover:not(:disabled){background:#edf7f6}.ds-button:focus-visible{outline:2px solid #087e82;outline-offset:2px}.ds-button:disabled{opacity:.5;cursor:default}.ds-primary{background:#087e82;border-color:#087e82;color:white}.ds-primary:hover:not(:disabled){background:#066a6d}",
+      "refersTo": "button-primary",
+      "kind": "button",
+      "name": "完成并归档"
+    },
+    {
+      "description": "保留次动作层级。",
+      "html": "<button class=\"ds-button\">保存草稿</button>",
+      "css": ".ds-button{font-family:var(--wb-font,'PingFang SC','Microsoft YaHei',system-ui,sans-serif);font-size:15px;line-height:1.6;padding:7px 12px;min-height:36px;border:1px solid #bfced9;border-radius:5px;background:#fff;color:#087e82;cursor:pointer}.ds-button:hover:not(:disabled){background:#edf7f6}.ds-button:focus-visible{outline:2px solid #087e82;outline-offset:2px}.ds-button:disabled{opacity:.5;cursor:default}",
+      "refersTo": "button-secondary",
+      "kind": "button",
+      "name": "保存草稿"
+    },
+    {
+      "description": "连续表单中的一个字段，完整产品保留五字段及日期。",
+      "html": "<label class=\"ds-field\">原因分析<textarea rows=\"2\">先听学生复述思路，再核对出错环节。</textarea></label>",
+      "css": ".ds-field{font-family:var(--wb-font,'PingFang SC','Microsoft YaHei',system-ui,sans-serif);display:flex;flex-direction:column;gap:5px;color:#15334a;font-size:15px;font-weight:600}.ds-field textarea{font:400 14px/1.7 var(--wb-font,system-ui,sans-serif);color:#15334a;padding:8px 10px;min-height:76px;border:1px solid #bdcedb;border-radius:5px;background:white;resize:vertical}.ds-field textarea:focus-visible{outline:2px solid #087e82;outline-offset:2px}.ds-field textarea:disabled{background:#f6f8fa;color:#4d667d}",
+      "refersTo": "field",
+      "kind": "input",
+      "name": "反思输入"
+    },
+    {
+      "name": "学生状态与保存库",
+      "html": "<nav class=\"ds-tabs\" aria-label=\"反思视图\"><button aria-pressed=\"true\">学生状态 32</button><button aria-pressed=\"false\">已保存反思 8</button></nav>",
+      "kind": "nav",
+      "css": ".ds-tabs{display:flex;border-bottom:1px solid #d6e2ea}.ds-tabs button{font-family:var(--wb-font,'PingFang SC','Microsoft YaHei',system-ui,sans-serif);flex:1;padding:7px 2px;min-height:36px;border:0;border-bottom:3px solid transparent;border-radius:0;background:white;font-size:14px;color:#15334a;cursor:pointer}.ds-tabs button[aria-pressed=true]{border-bottom-color:#087e82;color:#087e82;font-weight:700}.ds-tabs button:hover{background:#edf7f6}.ds-tabs button:focus-visible{outline:2px solid #087e82;outline-offset:2px}",
+      "description": "下划线表示当前视图；样本保留按钮语义。"
+    },
+    {
+      "name": "文字状态",
+      "html": "<span class=\"ds-badge ds-draft\">草稿</span> <span class=\"ds-badge ds-complete\">已完成</span>",
+      "kind": "chip",
+      "css": ".ds-badge{font-family:var(--wb-font,'PingFang SC','Microsoft YaHei',system-ui,sans-serif);display:inline-block;white-space:nowrap;font-size:12px;font-weight:400;border-radius:4px;padding:2px 8px}.ds-draft{background:#fff0cf;color:#805311}.ds-complete{background:#e4f3e7;color:#27633c}",
+      "description": "状态标签非普通按钮；颜色之外保留草稿/已完成文字。"
+    },
+    {
+      "description": "独立考试上下文带，沿用侧栏的白色工作面；card 仅为面板分类。",
+      "html": "<section class=\"ds-exam\"><div><h2>当前考试 · 9月综合练习</h2><p>2026-09-15 · 语文 / 数学 / 英语</p></div><button>切换考试</button></section>",
+      "css": ".ds-exam{font-family:var(--wb-font,'PingFang SC','Microsoft YaHei',system-ui,sans-serif);display:flex;align-items:center;justify-content:space-between;gap:20px;background:#eef7f0;padding:16px 20px;border-radius:5px;color:#15334a}.ds-exam h2{margin:0;font-size:21px;overflow-wrap:anywhere}.ds-exam p{margin:3px 0 0;font-size:14px;color:#446250}.ds-exam button{font:inherit;color:#087e82;border:0;background:transparent;padding:7px 12px;white-space:nowrap;cursor:pointer}.ds-exam button:hover{background:#edf7f6}.ds-exam button:focus-visible{outline:2px solid #087e82;outline-offset:2px}",
+      "refersTo": "exam-context",
+      "kind": "card",
+      "name": "当前考试"
+    },
+    {
+      "description": "浅蓝底强调可执行行动，保持表单连续性。",
+      "html": "<label class=\"ds-action\">下一步行动<textarea rows=\"2\">每天选一道错题，先圈出条件，再写出解题步骤。</textarea></label>",
+      "css": ".ds-action{font-family:var(--wb-font,'PingFang SC','Microsoft YaHei',system-ui,sans-serif);display:flex;flex-direction:column;gap:5px;background:#edf7fd;padding:10px 12px;border-radius:4px;color:#087a86;font-size:15px;font-weight:600}.ds-action textarea{font:400 14px/1.7 var(--wb-font,system-ui,sans-serif);color:inherit;background:white;border:1px solid #bdcedb;border-radius:5px;padding:8px 10px;min-height:76px;resize:vertical}.ds-action textarea:focus-visible{outline:2px solid #087e82;outline-offset:2px}",
+      "refersTo": "action-field",
+      "kind": "custom",
+      "name": "下一步行动"
+    }
+  ],
+  "extensions": {
+    "sources": [
+      "ReflectionDesign.module.css",
+      "ReflectionDesign.tsx",
+      "useReflectionDesignController.ts",
+      "../../../tools/ui-preview/reflection.html",
+      "../../../docs/page-designs/V4/reflection/finish-review-P01.md"
+    ],
+    "sampleNote": "Visual snippets only; no React/business runtime. Synthesized ramps are panel aids, not production tokens.",
+    "colorMeta": {
+      "primary": {
+        "role": "primary",
+        "rampNote": "文档面板合成的同色相 OKLCH 浏览辅助，不是已实现状态或替代源色。",
+        "displayName": "primary",
+        "tonalRamp": [
+          "oklch(0.15 0.04 190)",
+          "oklch(0.26 0.04 190)",
+          "oklch(0.38 0.04 190)",
+          "oklch(0.49 0.04 190)",
+          "oklch(0.61 0.04 190)",
+          "oklch(0.72 0.04 190)",
+          "oklch(0.84 0.04 190)",
+          "oklch(0.95 0.04 190)"
+        ]
+      },
+      "primary-hover": {
+        "role": "primary",
+        "rampNote": "文档面板合成的同色相 OKLCH 浏览辅助，不是已实现状态或替代源色。",
+        "displayName": "primary-hover",
+        "tonalRamp": [
+          "oklch(0.15 0.04 190)",
+          "oklch(0.26 0.04 190)",
+          "oklch(0.38 0.04 190)",
+          "oklch(0.49 0.04 190)",
+          "oklch(0.61 0.04 190)",
+          "oklch(0.72 0.04 190)",
+          "oklch(0.84 0.04 190)",
+          "oklch(0.95 0.04 190)"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "rampNote": "文档面板合成的同色相 OKLCH 浏览辅助，不是已实现状态或替代源色。",
+        "displayName": "ink",
+        "tonalRamp": [
+          "oklch(0.15 0.04 240)",
+          "oklch(0.26 0.04 240)",
+          "oklch(0.38 0.04 240)",
+          "oklch(0.49 0.04 240)",
+          "oklch(0.61 0.04 240)",
+          "oklch(0.72 0.04 240)",
+          "oklch(0.84 0.04 240)",
+          "oklch(0.95 0.04 240)"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "rampNote": "文档面板合成的同色相 OKLCH 浏览辅助，不是已实现状态或替代源色。",
+        "displayName": "muted",
+        "tonalRamp": [
+          "oklch(0.15 0.04 240)",
+          "oklch(0.26 0.04 240)",
+          "oklch(0.38 0.04 240)",
+          "oklch(0.49 0.04 240)",
+          "oklch(0.61 0.04 240)",
+          "oklch(0.72 0.04 240)",
+          "oklch(0.84 0.04 240)",
+          "oklch(0.95 0.04 240)"
+        ]
+      },
+      "exam-mint": {
+        "role": "secondary",
+        "rampNote": "文档面板合成的同色相 OKLCH 浏览辅助，不是已实现状态或替代源色。",
+        "displayName": "exam-mint",
+        "tonalRamp": [
+          "oklch(0.15 0.04 150)",
+          "oklch(0.26 0.04 150)",
+          "oklch(0.38 0.04 150)",
+          "oklch(0.49 0.04 150)",
+          "oklch(0.61 0.04 150)",
+          "oklch(0.72 0.04 150)",
+          "oklch(0.84 0.04 150)",
+          "oklch(0.95 0.04 150)"
+        ]
+      },
+      "action-blue": {
+        "role": "secondary",
+        "rampNote": "文档面板合成的同色相 OKLCH 浏览辅助，不是已实现状态或替代源色。",
+        "displayName": "action-blue",
+        "tonalRamp": [
+          "oklch(0.15 0.04 240)",
+          "oklch(0.26 0.04 240)",
+          "oklch(0.38 0.04 240)",
+          "oklch(0.49 0.04 240)",
+          "oklch(0.61 0.04 240)",
+          "oklch(0.72 0.04 240)",
+          "oklch(0.84 0.04 240)",
+          "oklch(0.95 0.04 240)"
+        ]
+      },
+      "selected-blue": {
+        "role": "secondary",
+        "rampNote": "文档面板合成的同色相 OKLCH 浏览辅助，不是已实现状态或替代源色。",
+        "displayName": "selected-blue",
+        "tonalRamp": [
+          "oklch(0.15 0.04 240)",
+          "oklch(0.26 0.04 240)",
+          "oklch(0.38 0.04 240)",
+          "oklch(0.49 0.04 240)",
+          "oklch(0.61 0.04 240)",
+          "oklch(0.72 0.04 240)",
+          "oklch(0.84 0.04 240)",
+          "oklch(0.95 0.04 240)"
+        ]
+      },
+      "paper": {
+        "role": "neutral",
+        "rampNote": "文档面板合成的同色相 OKLCH 浏览辅助，不是已实现状态或替代源色。",
+        "displayName": "paper",
+        "tonalRamp": [
+          "oklch(0.15 0.01 240)",
+          "oklch(0.26 0.01 240)",
+          "oklch(0.38 0.01 240)",
+          "oklch(0.49 0.01 240)",
+          "oklch(0.61 0.01 240)",
+          "oklch(0.72 0.01 240)",
+          "oklch(0.84 0.01 240)",
+          "oklch(0.95 0.01 240)"
+        ]
+      },
+      "field-border": {
+        "role": "neutral",
+        "rampNote": "文档面板合成的同色相 OKLCH 浏览辅助，不是已实现状态或替代源色。",
+        "displayName": "field-border",
+        "tonalRamp": [
+          "oklch(0.15 0.01 240)",
+          "oklch(0.26 0.01 240)",
+          "oklch(0.38 0.01 240)",
+          "oklch(0.49 0.01 240)",
+          "oklch(0.61 0.01 240)",
+          "oklch(0.72 0.01 240)",
+          "oklch(0.84 0.01 240)",
+          "oklch(0.95 0.01 240)"
+        ]
+      },
+      "divider": {
+        "role": "neutral",
+        "rampNote": "文档面板合成的同色相 OKLCH 浏览辅助，不是已实现状态或替代源色。",
+        "displayName": "divider",
+        "tonalRamp": [
+          "oklch(0.15 0.01 240)",
+          "oklch(0.26 0.01 240)",
+          "oklch(0.38 0.01 240)",
+          "oklch(0.49 0.01 240)",
+          "oklch(0.61 0.01 240)",
+          "oklch(0.72 0.01 240)",
+          "oklch(0.84 0.01 240)",
+          "oklch(0.95 0.01 240)"
+        ]
+      },
+      "draft-bg": {
+        "role": "tertiary",
+        "rampNote": "文档面板合成的同色相 OKLCH 浏览辅助，不是已实现状态或替代源色。",
+        "displayName": "draft-bg",
+        "tonalRamp": [
+          "oklch(0.15 0.04 85)",
+          "oklch(0.26 0.04 85)",
+          "oklch(0.38 0.04 85)",
+          "oklch(0.49 0.04 85)",
+          "oklch(0.61 0.04 85)",
+          "oklch(0.72 0.04 85)",
+          "oklch(0.84 0.04 85)",
+          "oklch(0.95 0.04 85)"
+        ]
+      },
+      "draft-ink": {
+        "role": "tertiary",
+        "rampNote": "文档面板合成的同色相 OKLCH 浏览辅助，不是已实现状态或替代源色。",
+        "displayName": "draft-ink",
+        "tonalRamp": [
+          "oklch(0.15 0.04 85)",
+          "oklch(0.26 0.04 85)",
+          "oklch(0.38 0.04 85)",
+          "oklch(0.49 0.04 85)",
+          "oklch(0.61 0.04 85)",
+          "oklch(0.72 0.04 85)",
+          "oklch(0.84 0.04 85)",
+          "oklch(0.95 0.04 85)"
+        ]
+      },
+      "complete-bg": {
+        "role": "tertiary",
+        "rampNote": "文档面板合成的同色相 OKLCH 浏览辅助，不是已实现状态或替代源色。",
+        "displayName": "complete-bg",
+        "tonalRamp": [
+          "oklch(0.15 0.04 150)",
+          "oklch(0.26 0.04 150)",
+          "oklch(0.38 0.04 150)",
+          "oklch(0.49 0.04 150)",
+          "oklch(0.61 0.04 150)",
+          "oklch(0.72 0.04 150)",
+          "oklch(0.84 0.04 150)",
+          "oklch(0.95 0.04 150)"
+        ]
+      },
+      "complete-ink": {
+        "role": "tertiary",
+        "rampNote": "文档面板合成的同色相 OKLCH 浏览辅助，不是已实现状态或替代源色。",
+        "displayName": "complete-ink",
+        "tonalRamp": [
+          "oklch(0.15 0.04 150)",
+          "oklch(0.26 0.04 150)",
+          "oklch(0.38 0.04 150)",
+          "oklch(0.49 0.04 150)",
+          "oklch(0.61 0.04 150)",
+          "oklch(0.72 0.04 150)",
+          "oklch(0.84 0.04 150)",
+          "oklch(0.95 0.04 150)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "field": {
+        "purpose": "与继承中文字体共同呈现连续表单。",
+        "displayName": "桌面反思输入"
+      },
+      "display": {
+        "purpose": "仅页头；手机编辑隐藏页头。",
+        "displayName": "主标题"
+      }
+    },
+    "limits": [
+      "Compact 11–14px supporting text awaits actual user readability review.",
+      "Real keyboard, mobile software keyboard, screen reader and zoom not comprehensively verified.",
+      "No production persistence, numeric contrast or performance certification.",
+      "Generated notebook PNG is 1686797 bytes; optimization deferred."
+    ],
+    "motion": [],
+    "breakpoints": [
+      {
+        "value": "900px",
+        "name": "mobile-editor"
+      },
+      {
+        "value": "1200px",
+        "name": "narrow-desktop-max"
+      }
+    ],
+    "shadows": [
+      {
+        "name": "search-focus-inset",
+        "value": "inset 0 0 0 1px #087e82",
+        "purpose": "复合搜索单一焦点边界。"
+      }
+    ],
+    "scope": "app/designs/reflection only",
+    "approval": {
+      "p01Aesthetics": "pending user review",
+      "finish": "PASS for delivery to user review only",
+      "productionWiring": "not authorized by this document",
+      "direction": "C01 confirmed"
+    }
+  },
+  "generatedAt": "2026-09-15T09:31:46.5061241Z",
+  "schemaVersion": 2,
+  "title": "Design System: 考试反思 P01"
+}

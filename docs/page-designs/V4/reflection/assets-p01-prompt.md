@@ -1,0 +1,2 @@
+# P01 notebook asset exact prompt
+A small refined watercolor illustration for a Chinese teacher's exam reflection workbench header. Open cream notebook with faint blank writing lines, one teal pencil, a few sage green leaves. Soft detailed real watercolor on pure white background, horizontal 3:2 composition, objects centered with generous white margins. No text, no letters, no numbers, no charts, no UI. Gentle school stationery, muted mint and cream colors, delicate paper edges, natural light. This is a final decorative asset, not a page mockup.

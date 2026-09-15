@@ -1,0 +1,46 @@
+{
+  "version": "P01",
+  "commit": null,
+  "tests": [
+    {
+      "command": "npx tsc --noEmit",
+      "exitCode": 0
+    },
+    {
+      "command": "npx eslint app/designs/reflection tools/ui-preview/reflection.tsx tools/ui-preview/reflection-fixture.ts",
+      "exitCode": 0,
+      "note": "existing img optimization warning only"
+    },
+    {
+      "command": "npx vite build --config tools/ui-preview/reflection.vite.config.ts",
+      "exitCode": 0
+    },
+    {
+      "command": "node --test tests/reflection-operations.test.mjs",
+      "exitCode": 0,
+      "passed": 8
+    },
+    {
+      "command": "node scripts/reflection-design-interactions.mjs",
+      "exitCode": 0,
+      "passed": 28,
+      "path": "docs/page-designs/V4/reflection/screenshots/p01-interactions/interactions.json",
+      "sha256": "8C9E99565F6B8B1A6D73CD492D5B9679A577D5D8BB0292A5D3F6452C2C27A273"
+    },
+    {
+      "command": "node scripts/reflection-review-checks.mjs",
+      "exitCode": 0,
+      "passed": 14,
+      "path": "docs/page-designs/V4/reflection/screenshots/p01-review-fixes/review-fixes.json",
+      "sha256": "EDFF17F3AAD8746ED31EDD7648C09E150A874C94CCBE082920C67636369CD635"
+    },
+    {
+      "command": "node scripts/reflection-design-capture.mjs (16 states /1536/390)",
+      "exitCode": 0,
+      "images": 32,
+      "path": "docs/page-designs/V4/reflection/screenshots/p01-current/capture.json",
+      "sha256": "C368EE5B31B366C73577CC332C6478CA49FB5155723B8972E1F639B99415038F"
+    }
+  ],
+  "history": "First screenshots found art import .src incompatible with Vite; fixed and current32 passed. Initial ref-read lint error changed baseline to state; final lint passed. Detector exit1 has documented tab-underline falsepositive and localpalette/type/radius advisories, not aesthetic authority. Fullsite qa:strict historical timeout at4180 remains unresolved."
+}

@@ -1,29 +1,223 @@
 {
-  "version": "C01",
-  "scope": "inventory-only",
-  "required": [
-    "desktop-queue-editor",
-    "mobile-queue",
-    "mobile-editor",
-    "saved-library",
-    "saved-detail-copy",
-    "exam-picker-search-filter-pagination",
-    "no-exams",
-    "no-students",
-    "search-empty",
-    "partial-scores",
-    "zero-score",
-    "no-scores",
-    "105-students-long-text",
-    "draft-dirty-switch",
-    "read-only",
-    "saving",
-    "save-false",
-    "save-throw",
-    "conflict-409",
-    "complete-repeat-idempotent",
-    "complete-to-draft"
+  "version": "P01",
+  "fixture": "tools/ui-preview/reflection-fixture.ts",
+  "fixtureSha256": "19A86736C408D121B71C3D92AE5ED40D9909DAFA702BB48FC44B18E968AB3139",
+  "captured": [
+    {
+      "stateId": "normal",
+      "viewport": "1536x1024",
+      "path": "docs/page-designs/V4/reflection/screenshots/p01-current/1536-normal.png",
+      "sha256": "32D9306DDE3C6852DEED0B8298AFA4E63C8E3DF8FB472A0A7B5B4B2DCDAF16E4"
+    },
+    {
+      "stateId": "mobile-editor",
+      "viewport": "1536x1024",
+      "path": "docs/page-designs/V4/reflection/screenshots/p01-current/1536-mobile-editor.png",
+      "sha256": "32D9306DDE3C6852DEED0B8298AFA4E63C8E3DF8FB472A0A7B5B4B2DCDAF16E4"
+    },
+    {
+      "stateId": "saved-library",
+      "viewport": "1536x1024",
+      "path": "docs/page-designs/V4/reflection/screenshots/p01-current/1536-saved-library.png",
+      "sha256": "6CA66E65388DB36C3F054C9F3C97C789A05B9BBF4C5F834CF59C24EB14F2F96E"
+    },
+    {
+      "stateId": "legacy-library",
+      "viewport": "1536x1024",
+      "path": "docs/page-designs/V4/reflection/screenshots/p01-current/1536-legacy-library.png",
+      "sha256": "C8F383D6FADE8C741BD75E7D7B40BA789BD2D92E6ED50C640ED4682ADD861008"
+    },
+    {
+      "stateId": "empty-class",
+      "viewport": "1536x1024",
+      "path": "docs/page-designs/V4/reflection/screenshots/p01-current/1536-empty-class.png",
+      "sha256": "0023F888F0FEFBC52F25642109809B6F4EF7D84792A173466DB27031F0F0013D"
+    },
+    {
+      "stateId": "no-exams",
+      "viewport": "1536x1024",
+      "path": "docs/page-designs/V4/reflection/screenshots/p01-current/1536-no-exams.png",
+      "sha256": "B2306C8A0EF4B274345501FAD33A0F65FF5AFEABD4BAF8B348B4467B42ED5157"
+    },
+    {
+      "stateId": "search-empty",
+      "viewport": "1536x1024",
+      "path": "docs/page-designs/V4/reflection/screenshots/p01-current/1536-search-empty.png",
+      "sha256": "74B38D3264BB56C3A59CCECC25B7F8F69D172BBF1EC507B89B0886B73E930587"
+    },
+    {
+      "stateId": "students-105",
+      "viewport": "1536x1024",
+      "path": "docs/page-designs/V4/reflection/screenshots/p01-current/1536-students-105.png",
+      "sha256": "C8EAB7868CBDC0B07AFF43375B9FCCAF7B50EA5A340447432C3F81C03E5A6C38"
+    },
+    {
+      "stateId": "readonly",
+      "viewport": "1536x1024",
+      "path": "docs/page-designs/V4/reflection/screenshots/p01-current/1536-readonly.png",
+      "sha256": "04E76EDAF14AE75AED084861156EE9D0C82587F0FC4D23203BA2920BAC3C5C9F"
+    },
+    {
+      "stateId": "loading",
+      "viewport": "1536x1024",
+      "path": "docs/page-designs/V4/reflection/screenshots/p01-current/1536-loading.png",
+      "sha256": "49C5086D902A12E600F676A7902E56B3B9EEFB308060672AF04DB2982E792156"
+    },
+    {
+      "stateId": "saving",
+      "viewport": "1536x1024",
+      "path": "docs/page-designs/V4/reflection/screenshots/p01-current/1536-saving.png",
+      "sha256": "F02FEECA8908C1D47B9FE235E61DB939AD0EC1AFDE2BD89648C5D3EDFAD90642"
+    },
+    {
+      "stateId": "save-failure",
+      "viewport": "1536x1024",
+      "path": "docs/page-designs/V4/reflection/screenshots/p01-current/1536-save-failure.png",
+      "sha256": "DABCFEE9869B8B1EACCBA3A115D9981C07B937A10B8B4409767E314ADE6DC069"
+    },
+    {
+      "stateId": "save-throw",
+      "viewport": "1536x1024",
+      "path": "docs/page-designs/V4/reflection/screenshots/p01-current/1536-save-throw.png",
+      "sha256": "A44B42C127FAB74AAA99BCB4A75124E4CC93D2867847BF9C50B56B9B0150C493"
+    },
+    {
+      "stateId": "conflict-409",
+      "viewport": "1536x1024",
+      "path": "docs/page-designs/V4/reflection/screenshots/p01-current/1536-conflict-409.png",
+      "sha256": "F55C8BA308ABD670C6978970638DBE150B49102E466068D72CEDBF287FFE9DA8"
+    },
+    {
+      "stateId": "dirty-close",
+      "viewport": "1536x1024",
+      "path": "docs/page-designs/V4/reflection/screenshots/p01-current/1536-dirty-close.png",
+      "sha256": "D435FA0E4C171F7BDA7773095C9B07226BAB7EAC13E5AED185BF6C6C9E13234D"
+    },
+    {
+      "stateId": "exam-picker",
+      "viewport": "1536x1024",
+      "path": "docs/page-designs/V4/reflection/screenshots/p01-current/1536-exam-picker.png",
+      "sha256": "6937E44A73CF64AD1F980EC648380F815C294B58ADA43B2E7627EE265EEC03C1"
+    },
+    {
+      "stateId": "normal",
+      "viewport": "390x844",
+      "path": "docs/page-designs/V4/reflection/screenshots/p01-current/390-normal.png",
+      "sha256": "B05788D83002FFA581D9F9E3DAEC3BCCC92F6E137FBF185232FC3878F263BAB3"
+    },
+    {
+      "stateId": "mobile-editor",
+      "viewport": "390x844",
+      "path": "docs/page-designs/V4/reflection/screenshots/p01-current/390-mobile-editor.png",
+      "sha256": "D6DC29F2A046C278A9C1CD000CA6654E8192C365D829EDA2FEE9DA552EBD5D50"
+    },
+    {
+      "stateId": "saved-library",
+      "viewport": "390x844",
+      "path": "docs/page-designs/V4/reflection/screenshots/p01-current/390-saved-library.png",
+      "sha256": "7F22A415AF3AAA5CA0E7A5DEF7140EC6BEE2AC05D2C0A4AA7022F7A69D34867F"
+    },
+    {
+      "stateId": "legacy-library",
+      "viewport": "390x844",
+      "path": "docs/page-designs/V4/reflection/screenshots/p01-current/390-legacy-library.png",
+      "sha256": "75B3B063D2C26E9C36D12C301753FA33D0CE56B5066D59FB558179A1B22925F7"
+    },
+    {
+      "stateId": "empty-class",
+      "viewport": "390x844",
+      "path": "docs/page-designs/V4/reflection/screenshots/p01-current/390-empty-class.png",
+      "sha256": "C2D3ECD0675DC1A6F3C65C5FCEDD00830E539C660495F2F65FEEB2695A3FBCEA"
+    },
+    {
+      "stateId": "no-exams",
+      "viewport": "390x844",
+      "path": "docs/page-designs/V4/reflection/screenshots/p01-current/390-no-exams.png",
+      "sha256": "E31CE3F9D2BE7C6556DAADD7E3DD2C59885BCC1221A84F10BB23DF0686B80805"
+    },
+    {
+      "stateId": "search-empty",
+      "viewport": "390x844",
+      "path": "docs/page-designs/V4/reflection/screenshots/p01-current/390-search-empty.png",
+      "sha256": "1327181151A5E25B4A92170DEB3332EAC5FACCC12FD7F735564746A1D444F9B4"
+    },
+    {
+      "stateId": "students-105",
+      "viewport": "390x844",
+      "path": "docs/page-designs/V4/reflection/screenshots/p01-current/390-students-105.png",
+      "sha256": "42D7B837682071F485FA055E3DE6F764266C55BD3F5E29BCE67CF2E518B1D9DE"
+    },
+    {
+      "stateId": "readonly",
+      "viewport": "390x844",
+      "path": "docs/page-designs/V4/reflection/screenshots/p01-current/390-readonly.png",
+      "sha256": "5C53439BB18849AE72EDD218BB2440B14A9FD501310DFCD4F09B779046FAD3DF"
+    },
+    {
+      "stateId": "loading",
+      "viewport": "390x844",
+      "path": "docs/page-designs/V4/reflection/screenshots/p01-current/390-loading.png",
+      "sha256": "0AAD79005431EA1608CF2C336AE3E7312A0DFD0FD0EF8FE97C5ED16EE6EEC4F5"
+    },
+    {
+      "stateId": "saving",
+      "viewport": "390x844",
+      "path": "docs/page-designs/V4/reflection/screenshots/p01-current/390-saving.png",
+      "sha256": "7DD759898F5156F69BDB2DC79F03018BE0C79AA67B35DFCDD59CE7072823610B"
+    },
+    {
+      "stateId": "save-failure",
+      "viewport": "390x844",
+      "path": "docs/page-designs/V4/reflection/screenshots/p01-current/390-save-failure.png",
+      "sha256": "321ACCDCFDD29997B611A5DDB4FD0FA5CC385175511643134D8F0CFEC1D0B663"
+    },
+    {
+      "stateId": "save-throw",
+      "viewport": "390x844",
+      "path": "docs/page-designs/V4/reflection/screenshots/p01-current/390-save-throw.png",
+      "sha256": "012D1C77978998BD6A26A1A9DACD4C7B05EC75876807AED04183BF4179124C06"
+    },
+    {
+      "stateId": "conflict-409",
+      "viewport": "390x844",
+      "path": "docs/page-designs/V4/reflection/screenshots/p01-current/390-conflict-409.png",
+      "sha256": "55CB716BB7D8B6C50EB71630DC8BE7707AC9AC9AE327EB87D77593FA55A0A7C8"
+    },
+    {
+      "stateId": "dirty-close",
+      "viewport": "390x844",
+      "path": "docs/page-designs/V4/reflection/screenshots/p01-current/390-dirty-close.png",
+      "sha256": "20F558A16255A6777B33E1E9851872A750A62A3165860CFD59011DDC0828A7E1"
+    },
+    {
+      "stateId": "exam-picker",
+      "viewport": "390x844",
+      "path": "docs/page-designs/V4/reflection/screenshots/p01-current/390-exam-picker.png",
+      "sha256": "6A67F44D6E249C07670BE340D4A40353D84CCDBB1820A7FEFB2B01BB525986C4"
+    }
   ],
-  "implemented": [],
-  "next": "Direction approval before runnable states"
+  "tested": [
+    "dirty context/cancel",
+    "empty problem",
+    "draft saved",
+    "complete repeat idempotency",
+    "false/throw retry",
+    "409 recovery",
+    "readonly",
+    "search empty",
+    "normal pending no banner",
+    "legacy reason search",
+    "legacy explicit association original id",
+    "clipboard fallback control flow",
+    "last field scroll reachability"
+  ],
+  "notVerified": [
+    "real server/409",
+    "real clipboard permission",
+    "software keyboard",
+    "complete screenreader/zoom",
+    "all overlay human approval",
+    "completion back to draft archive lifecycle beyond reused operations"
+  ],
+  "notes": "Score detail reached by selecting student and clicking 查看本次成绩. exam-picker URL provides long fixture, click 切换考试. All data synthetic in memory, reload resets."
 }
