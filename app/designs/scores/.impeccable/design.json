@@ -121,6 +121,12 @@
       "disabledSurface": "#f2f5f6",
       "nativeSelectBehavior": true,
       "scope": "scores only"
+    },
+    "focusP022": {
+      "compositeSearch": "container focus-within; no inner outline",
+      "select": "border and 1px inset emphasis; no external outline",
+      "forcedColors": "system Highlight",
+      "userVisualApproval": false
     }
   },
   "components": [

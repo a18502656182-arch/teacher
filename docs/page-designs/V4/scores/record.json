@@ -148,8 +148,8 @@
     }
   ],
   "prototype": {
-    "version": "P02.1",
-    "commit": "b7ac165ab432d32c56bb037dd2f0057a0046834c",
+    "version": "P02.2",
+    "commit": null,
     "previewUrl": "http://127.0.0.1:4218/scores.html",
     "sourceFiles": [
       "app/designs/scores/ScoresDesign.tsx",
@@ -635,7 +635,7 @@
       },
       {
         "path": "app/designs/scores/ScoresDesign.module.css",
-        "sha256": "D3BCF99D3757FEEEB5127E16EF51E411C52EE30467B4A2AF82FA10895ED84812"
+        "sha256": "CE4C2C8375B76E33070936670CDD89874BBEE2FDA59E576AC6CA6427A85E4332"
       },
       {
         "path": "app/designs/scores/ScoreTrendsDesign.tsx",
@@ -675,9 +675,9 @@
       }
     ],
     "checks": {
-      "path": "docs/page-designs/V4/scores/checks-P021.json",
-      "sha256": "E63CC0CCFDD974FFD541FCF623F37F364BB47B13D099BE52171C73062074FF5B",
-      "commit": "b7ac165ab432d32c56bb037dd2f0057a0046834c"
+      "path": "docs/page-designs/V4/scores/checks-P022.json",
+      "sha256": "3B9E3BB7F58036CF92D44772A2B5E08F0EA2708416C1BBE029F47DCF77F85FBE",
+      "commit": null
     },
     "additionalEvidence": [
       {
@@ -689,6 +689,11 @@
         "path": "docs/page-designs/V4/scores/screenshots/p02-review-fixes/review-fixes.json",
         "sha256": "552C9007EE18695055DE1DA4054DE1998EBE5F801B1947D8C001F14D4E17012F",
         "commit": "a67b33e4f06473875747be4741816768571c402b"
+      },
+      {
+        "path": "docs/page-designs/V4/scores/screenshots/p02-focus/focus-checks.json",
+        "sha256": "469D730DC05738F7F68941F412DC68E893E01CE22A613511ED591C8B3EE3298D",
+        "commit": null
       }
     ]
   },
@@ -842,7 +847,7 @@
     "mode": "read-only synthetic current-source recovery without shared shell",
     "recoveryHarnessCommit": "4455d7054f5bed720193eff2eaaa2d4202d8141a"
   },
-  "nextAllowedAction": "展示P02.1下拉控件实际修正，等待观感审核；其他页面同类项按controlFollowup逐页应用与回归；不开始下一页、不接入正式业务、不部署。",
+  "nextAllowedAction": "展示P02.2聚焦修复实际图；保留控件整体观感未通过，不自动进入下一页面/正式接入或部署。",
   "candidateChecks": {
     "path": "docs/page-designs/V4/scores/checks-C01.json",
     "sha256": "F7276144B9D70F318172133050C60B63189D54357335E55F39CB9E8C2710B219"
@@ -861,8 +866,8 @@
   },
   "latestUserFeedback": {
     "date": "2026-09-15",
-    "source": "用户：好像这些下拉框有些奇怪 包括之前的也是 看上去字体和框有些像半成品的样子",
-    "scope": "当前控件细节纠正，不构成P02实际批准"
+    "source": "用户：没看出来变化啊 还有这个绿框是什么逻辑 绿框和输入框重叠了",
+    "disposition": "P02.2修复双框；整体控件视觉仍未批准"
   },
   "subviewDesigns": {
     "trends": {
@@ -2610,6 +2615,61 @@
         "path": "docs/page-designs/V4/scores/checks-P02.json",
         "sha256": "06A7E3D3A59EEDC81AB4CB0A8762150B2BB26EF3C3D8066208CDE5473BD3F1E0",
         "commit": "a67b33e4f06473875747be4741816768571c402b"
+      }
+    },
+    {
+      "version": "P02.1",
+      "commit": "b7ac165ab432d32c56bb037dd2f0057a0046834c",
+      "sourceHashes": [
+        {
+          "path": "app/designs/scores/ScoresDesign.tsx",
+          "sha256": "E22FA7C2FAC54CA9BF0F6F2811BF8B61AE932D9F416CF83DF9CFD077777A610A"
+        },
+        {
+          "path": "app/designs/scores/ScoresDesign.module.css",
+          "sha256": "D3BCF99D3757FEEEB5127E16EF51E411C52EE30467B4A2AF82FA10895ED84812"
+        },
+        {
+          "path": "app/designs/scores/ScoreTrendsDesign.tsx",
+          "sha256": "F38953F3C7F6273CB3E2373296B6E79012A7E29911F263F6A4B6D6F080A9033F"
+        },
+        {
+          "path": "app/designs/scores/ScoreAnalysisDesign.tsx",
+          "sha256": "211A4A54B2743EDE6BB931CED15D29732BC990DCC35B8124B658BD5C1B4CF431"
+        },
+        {
+          "path": "app/designs/scores/ScoreWorkspaces.module.css",
+          "sha256": "98113CC58E548EF44A0929968C6688946EFF35720844341248098065DAF0F07D"
+        },
+        {
+          "path": "app/designs/scores/useScoresDesignController.ts",
+          "sha256": "834CDE89593D4A87CEB524B9C8629B3CE3C9EA88CF622B8EF26BE40E27B1C2D6"
+        },
+        {
+          "path": "app/designs/scores/stationery-p01.png",
+          "sha256": "1ADDF8C35AD2D9DB2718E0AA8FAFEC0FE7B4CAFCFA58E0163CC6BEC89E6FB401"
+        },
+        {
+          "path": "tools/ui-preview/scores.tsx",
+          "sha256": "886753BDE96E9E4B2A0F8651835AEC62BB7061C1E2A903B4AF2A1CD563ED665A"
+        },
+        {
+          "path": "tools/ui-preview/scores-fixture.ts",
+          "sha256": "13F98E11B48A8E12D418DA1B845FE8FAE0941679947B6592C17EEF72FDBFF376"
+        },
+        {
+          "path": "tools/ui-preview/scores.html",
+          "sha256": "82E99EF4C5538EF3FA6C94D8B1A32BBAB555F28878F65B5CE9439366501D4FA5"
+        },
+        {
+          "path": "tools/ui-preview/scores.vite.config.ts",
+          "sha256": "82CC148C3FA28713582553A536202B24227226E8AEBB93059923AC7E417CF643"
+        }
+      ],
+      "checks": {
+        "path": "docs/page-designs/V4/scores/checks-P021.json",
+        "sha256": "E63CC0CCFDD974FFD541FCF623F37F364BB47B13D099BE52171C73062074FF5B",
+        "commit": "b7ac165ab432d32c56bb037dd2f0057a0046834c"
       }
     }
   ],

@@ -650,7 +650,7 @@
       "currentEvidence": [],
       "comparisons": [],
       "recordPath": "docs/page-designs/V4/scores/record.json",
-      "recordSha256": "0C62848F87713E3DB7876772122B6BEC089C9D460F57E45994265E02FD94CD5D"
+      "recordSha256": "9A9BDC5DB3A63A3FDCE6579D94BC77291913C0AD049D7D2847E4BED96F5930A0"
     },
     "reflection": {
       "label": "考试反思",
@@ -786,7 +786,7 @@
     "legacyFields": "status/productCommit/currentEvidence/comparisons/userApproval retain historical product evidence; D/R uses linked records",
     "entry": "docs/逐页设计定稿与实施包-20260914/00-从这里开始.md",
     "activeBatch": "V2",
-    "nextAction": "展示P02.1下拉控件实际修正，等待观感审核；其他页面同类项按controlFollowup逐页应用与回归；不开始下一页、不接入正式业务、不部署。",
+    "nextAction": "展示P02.2聚焦修复实际图；保留控件整体观感未通过，不自动进入下一页面/正式接入或部署。",
     "designSequenceExceptions": [
       {
         "date": "2026-09-15",

@@ -1,0 +1,62 @@
+{
+  "version": "P02.2",
+  "scope": "focus styling only",
+  "sourceHashes": [
+    {
+      "path": "app/designs/scores/ScoresDesign.tsx",
+      "sha256": "E22FA7C2FAC54CA9BF0F6F2811BF8B61AE932D9F416CF83DF9CFD077777A610A"
+    },
+    {
+      "path": "app/designs/scores/ScoresDesign.module.css",
+      "sha256": "CE4C2C8375B76E33070936670CDD89874BBEE2FDA59E576AC6CA6427A85E4332"
+    },
+    {
+      "path": "app/designs/scores/ScoreTrendsDesign.tsx",
+      "sha256": "F38953F3C7F6273CB3E2373296B6E79012A7E29911F263F6A4B6D6F080A9033F"
+    },
+    {
+      "path": "app/designs/scores/ScoreAnalysisDesign.tsx",
+      "sha256": "211A4A54B2743EDE6BB931CED15D29732BC990DCC35B8124B658BD5C1B4CF431"
+    },
+    {
+      "path": "app/designs/scores/ScoreWorkspaces.module.css",
+      "sha256": "98113CC58E548EF44A0929968C6688946EFF35720844341248098065DAF0F07D"
+    },
+    {
+      "path": "app/designs/scores/useScoresDesignController.ts",
+      "sha256": "834CDE89593D4A87CEB524B9C8629B3CE3C9EA88CF622B8EF26BE40E27B1C2D6"
+    },
+    {
+      "path": "app/designs/scores/stationery-p01.png",
+      "sha256": "1ADDF8C35AD2D9DB2718E0AA8FAFEC0FE7B4CAFCFA58E0163CC6BEC89E6FB401"
+    },
+    {
+      "path": "tools/ui-preview/scores.tsx",
+      "sha256": "886753BDE96E9E4B2A0F8651835AEC62BB7061C1E2A903B4AF2A1CD563ED665A"
+    },
+    {
+      "path": "tools/ui-preview/scores-fixture.ts",
+      "sha256": "13F98E11B48A8E12D418DA1B845FE8FAE0941679947B6592C17EEF72FDBFF376"
+    },
+    {
+      "path": "tools/ui-preview/scores.html",
+      "sha256": "82E99EF4C5538EF3FA6C94D8B1A32BBAB555F28878F65B5CE9439366501D4FA5"
+    },
+    {
+      "path": "tools/ui-preview/scores.vite.config.ts",
+      "sha256": "82CC148C3FA28713582553A536202B24227226E8AEBB93059923AC7E417CF643"
+    }
+  ],
+  "log": {
+    "path": "docs/page-designs/V4/scores/screenshots/p02-focus/focus-checks.json",
+    "sha256": "469D730DC05738F7F68941F412DC68E893E01CE22A613511ED591C8B3EE3298D"
+  },
+  "passed": 15,
+  "screenshots": 6,
+  "build": "PASS isolated Vite",
+  "limits": [
+    "overall control appearance still user-rejected/pending",
+    "native popup cross-platform styling not verified",
+    "full-site qa:strict earlier timeout remains; not rerun"
+  ]
+}

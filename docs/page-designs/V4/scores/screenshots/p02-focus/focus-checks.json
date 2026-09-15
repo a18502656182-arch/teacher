@@ -1,0 +1,100 @@
+{
+  "createdAt": "2026-09-15T08:42:06.550Z",
+  "browser": {
+    "protocolVersion": "1.3",
+    "product": "Chrome/152.0.7977.82",
+    "revision": "@d04cdb24d67b081f6cf80200ffc5233f44b61109",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/152.0.0.0 Safari/537.36",
+    "jsVersion": "15.2.124.21"
+  },
+  "evidence": [
+    {
+      "path": "1536-search-focus.png",
+      "sha256": "A88094E8D3C21C050108E85C9A344074452F4F9416E08E4054DB37C50765208E"
+    },
+    {
+      "path": "1536-select-focus.png",
+      "sha256": "CBE81C7937B625550E109458AD3A971BD4EE02AE9D270FBCC43B4D886E5AC458"
+    },
+    {
+      "path": "390-search-focus.png",
+      "sha256": "B9D725515B6BE866EC27CE8548334AA41ED6EC7019094F58398CD141227B6308"
+    },
+    {
+      "path": "390-select-focus.png",
+      "sha256": "52F1780645AECE8CA99921517162FE2167A398184F8678F887B2CD3CBD82AEA2"
+    },
+    {
+      "path": "360-search-focus.png",
+      "sha256": "79AEE6E0E66E33CCF2802D846123051E08FB1D550780A69C7360D578AC7B5F1F"
+    },
+    {
+      "path": "360-select-focus.png",
+      "sha256": "B167DC3986E14394A610E0BBF425C33DB4AD71841977559B443A8A6AC3429BC7"
+    }
+  ],
+  "failures": [],
+  "interactions": [
+    {
+      "name": "1536 single search focus",
+      "passed": true
+    },
+    {
+      "name": "1536 input filters",
+      "passed": true
+    },
+    {
+      "name": "1536 single select focus",
+      "passed": true
+    },
+    {
+      "name": "1536 select keyboard works",
+      "passed": true
+    },
+    {
+      "name": "1536 no overflow",
+      "passed": true
+    },
+    {
+      "name": "390 single search focus",
+      "passed": true
+    },
+    {
+      "name": "390 input filters",
+      "passed": true
+    },
+    {
+      "name": "390 single select focus",
+      "passed": true
+    },
+    {
+      "name": "390 select keyboard works",
+      "passed": true
+    },
+    {
+      "name": "390 no overflow",
+      "passed": true
+    },
+    {
+      "name": "360 single search focus",
+      "passed": true
+    },
+    {
+      "name": "360 input filters",
+      "passed": true
+    },
+    {
+      "name": "360 single select focus",
+      "passed": true
+    },
+    {
+      "name": "360 select keyboard works",
+      "passed": true
+    },
+    {
+      "name": "360 no overflow",
+      "passed": true
+    }
+  ],
+  "consoleErrors": []
+}
