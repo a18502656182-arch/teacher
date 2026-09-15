@@ -1144,7 +1144,8 @@
       "student": {
         "phase": "concept-review",
         "version": "C03",
-        "approved": false
+        "approved": false,
+        "candidateCommit": "33843915584ad082886dc6f71b8e339b4af610a2"
       },
       "classApproval": false
     },
@@ -1165,7 +1166,7 @@
     "path": "docs/page-designs/V4/scores/checks-C03.json",
     "sha256": "45D830AD8F6A954046F5AB3AE26AC1871B99890BA9E125FA0A64917EFADB1A90"
   },
-  "latestCandidateCommit": "a781f2679eb906854622fd83c92c5ed926a0cd36",
+  "latestCandidateCommit": "33843915584ad082886dc6f71b8e339b4af610a2",
   "feedbackHistory": [
     {
       "date": "2026-09-15",
