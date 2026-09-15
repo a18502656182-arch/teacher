@@ -5,3 +5,26 @@
 .subpage :global(.score-trends-heading-actions){display:flex;gap:14px;align-items:end;flex-wrap:wrap}.subpage :global(.score-trends-heading-actions) label{display:flex;gap:6px;align-items:center}.subpage :global(.score-trends-summary){display:flex;gap:30px;padding:12px 0;border-top:1px solid #dce6ed;border-bottom:1px solid #dce6ed}.subpage :global(.score-trends-summary) article{flex:1;display:flex;flex-direction:column;gap:3px}.subpage :global(.score-trends-summary) article>b{font-size:22px}.subpage :global(.score-trends-summary) small{font-size:12px;color:var(--muted)}.subpage svg{height:auto;aspect-ratio:1000/260}.subpage svg line{stroke-width:1}.subpage svg path{stroke-width:2.5}.subpage svg text{font-size:16px;fill:#50667b}@media(max-width:900px){.subpage :global(.score-trends-summary){gap:12px;flex-wrap:wrap}.subpage :global(.score-trends-summary) article{min-width:95px;font-size:12px}.subpage :global(.score-trends-summary) article>b{font-size:19px}.subpage :global(.score-trends-heading-actions){margin-top:10px;gap:8px}.heading p{max-width:none;font-size:12px}.heading{min-height:60px}.heading img{width:82px;height:58px}.examBand{padding:12px 14px}}
 
 .compactExam{padding:10px 16px}.compactExam h2{font-size:18px}.page :global(.score-primary){background:#087e7e;color:#fff}
+/* P02.1: compact controls keep readable type and a consistent native select affordance. */
+.page select,.form select{
+ appearance:none;
+ font:400 14px/1.4 'Microsoft YaHei',sans-serif;
+ color:#15334a;
+ height:36px;
+ min-height:36px;
+ border:1px solid #b8cbd5;
+ border-radius:6px;
+ padding:6px 34px 6px 11px;
+ background-color:#fff;
+ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath d='m4 6 4 4 4-4' fill='none' stroke='%2350667b' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+ background-repeat:no-repeat;
+ background-position:right 10px center;
+ background-size:16px;
+ cursor:pointer;
+}
+.page select:hover:not(:disabled),.form select:hover:not(:disabled){border-color:#6c929f}
+.page select:focus-visible,.form select:focus-visible{outline:2px solid #087e7e;outline-offset:2px;border-color:#087e7e}
+.page select:disabled,.form select:disabled{cursor:default;color:#50667b;background-color:#f2f5f6;opacity:1}
+.page select option,.form select option{font:400 14px 'Microsoft YaHei',sans-serif;background:#fff;color:#15334a}
+@media(max-width:900px){.page select,.form select{font-size:15px;height:40px;min-height:40px;padding-block:7px}.page select option,.form select option{font-size:15px}.toolbar>select{width:100px}}
+@media(forced-colors:active){.page select,.form select{appearance:auto;background-image:none;padding-right:8px}}

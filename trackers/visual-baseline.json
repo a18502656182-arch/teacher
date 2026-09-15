@@ -650,7 +650,7 @@
       "currentEvidence": [],
       "comparisons": [],
       "recordPath": "docs/page-designs/V4/scores/record.json",
-      "recordSha256": "FF9AEB22D02642C0D8A9C3ACCC2AC0E515B26144939900F36A41EA98692BE9B5"
+      "recordSha256": "4E6CE9DBD7E41A75CD340870C3BC33416638799F7F6D1C2A9375B3DBBA3A95DD"
     },
     "reflection": {
       "label": "考试反思",
@@ -786,7 +786,7 @@
     "legacyFields": "status/productCommit/currentEvidence/comparisons/userApproval retain historical product evidence; D/R uses linked records",
     "entry": "docs/逐页设计定稿与实施包-20260914/00-从这里开始.md",
     "activeBatch": "V2",
-    "nextAction": "展示P02班级/个人趋势及试卷分析实际网页，等待用户审核。反思不自动开始；不正式接入或部署。",
+    "nextAction": "展示P02.1下拉控件实际修正，等待观感审核；其他页面同类项按controlFollowup逐页应用与回归；不开始下一页、不接入正式业务、不部署。",
     "designSequenceExceptions": [
       {
         "date": "2026-09-15",
@@ -817,6 +817,7 @@
         "integrationAllowed": false
       }
     ],
-    "overlayFollowup": "docs/page-designs/OVERLAY-FOLLOWUP-20260915.md"
+    "overlayFollowup": "docs/page-designs/OVERLAY-FOLLOWUP-20260915.md",
+    "controlFollowup": "docs/page-designs/CONTROL-POLISH-FOLLOWUP-20260915.md"
   }
 }

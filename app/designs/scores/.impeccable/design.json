@@ -105,6 +105,22 @@
       "detector": "22原始条目：14颜色、2圆角、5字号advisory；1条3px标签下划线误报。仅登记token，未重跑检测。",
       "ramps": "未编造实现中不存在的tonal ramp；当前仅登记实际色值及角色。",
       "measurements": ".qa-shots/scores-design/supplement/supplement.json"
+    },
+    "controlsP021": {
+      "fontSize": 14,
+      "mobileFontSize": 15,
+      "height": 36,
+      "mobileHeight": 40,
+      "paddingInline": [
+        11,
+        34
+      ],
+      "radius": 6,
+      "border": "#b8cbd5",
+      "hoverBorder": "#6c929f",
+      "disabledSurface": "#f2f5f6",
+      "nativeSelectBehavior": true,
+      "scope": "scores only"
     }
   },
   "components": [
