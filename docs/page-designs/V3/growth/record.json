@@ -146,10 +146,12 @@
         "url": "http://127.0.0.1:4211/growth-source.html?detail=1"
       }
     ],
-    "mode": "synthetic read-only current components; no shared shell capture"
+    "mode": "synthetic read-only current components; no shared shell capture",
+    "recoveryHarnessCommit": "9c856795bf83828754507b9f198b336b265c6d6b"
   },
   "candidateChecks": {
     "path": "docs/page-designs/V3/growth/checks-C01.json",
     "sha256": "D2E5DA8C718FD876CBCC000C8712E935FA0159A3FDABE16A46970146A4428569"
-  }
+  },
+  "candidateCommit": "9c856795bf83828754507b9f198b336b265c6d6b"
 }
