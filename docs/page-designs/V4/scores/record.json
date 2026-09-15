@@ -149,7 +149,7 @@
   ],
   "prototype": {
     "version": "P02",
-    "commit": null,
+    "commit": "a67b33e4f06473875747be4741816768571c402b",
     "previewUrl": "http://127.0.0.1:4218/scores.html",
     "sourceFiles": [
       "app/designs/scores/ScoresDesign.tsx",
@@ -195,7 +195,7 @@
         "browser": "Chrome/152.0.7977.82",
         "font": "Microsoft YaHei",
         "dpr": 1,
-        "commit": null
+        "commit": "a67b33e4f06473875747be4741816768571c402b"
       },
       {
         "path": "docs/page-designs/V4/scores/screenshots/p02-final/1536-trends.png",
@@ -227,7 +227,7 @@
         "browser": "Chrome/152.0.7977.82",
         "font": "Microsoft YaHei",
         "dpr": 1,
-        "commit": null
+        "commit": "a67b33e4f06473875747be4741816768571c402b"
       },
       {
         "path": "docs/page-designs/V4/scores/screenshots/p02-final/1536-student-trends.png",
@@ -259,7 +259,7 @@
         "browser": "Chrome/152.0.7977.82",
         "font": "Microsoft YaHei",
         "dpr": 1,
-        "commit": null
+        "commit": "a67b33e4f06473875747be4741816768571c402b"
       },
       {
         "path": "docs/page-designs/V4/scores/screenshots/p02-final/1536-trend-single.png",
@@ -291,7 +291,7 @@
         "browser": "Chrome/152.0.7977.82",
         "font": "Microsoft YaHei",
         "dpr": 1,
-        "commit": null
+        "commit": "a67b33e4f06473875747be4741816768571c402b"
       },
       {
         "path": "docs/page-designs/V4/scores/screenshots/p02-final/1536-trend-empty.png",
@@ -323,7 +323,7 @@
         "browser": "Chrome/152.0.7977.82",
         "font": "Microsoft YaHei",
         "dpr": 1,
-        "commit": null
+        "commit": "a67b33e4f06473875747be4741816768571c402b"
       },
       {
         "path": "docs/page-designs/V4/scores/screenshots/p02-final/1536-trend-no-exams.png",
@@ -354,7 +354,7 @@
         "browser": "Chrome/152.0.7977.82",
         "font": "Microsoft YaHei",
         "dpr": 1,
-        "commit": null
+        "commit": "a67b33e4f06473875747be4741816768571c402b"
       },
       {
         "path": "docs/page-designs/V4/scores/screenshots/p02-final/1536-long-history.png",
@@ -386,7 +386,7 @@
         "browser": "Chrome/152.0.7977.82",
         "font": "Microsoft YaHei",
         "dpr": 1,
-        "commit": null
+        "commit": "a67b33e4f06473875747be4741816768571c402b"
       },
       {
         "path": "docs/page-designs/V4/scores/screenshots/p02-final/1536-analysis.png",
@@ -418,7 +418,7 @@
         "browser": "Chrome/152.0.7977.82",
         "font": "Microsoft YaHei",
         "dpr": 1,
-        "commit": null
+        "commit": "a67b33e4f06473875747be4741816768571c402b"
       },
       {
         "path": "docs/page-designs/V4/scores/screenshots/p02-final/1536-analysis-empty.png",
@@ -450,7 +450,7 @@
         "browser": "Chrome/152.0.7977.82",
         "font": "Microsoft YaHei",
         "dpr": 1,
-        "commit": null
+        "commit": "a67b33e4f06473875747be4741816768571c402b"
       },
       {
         "path": "docs/page-designs/V4/scores/screenshots/p02-final/1536-analysis-readonly.png",
@@ -482,7 +482,7 @@
         "browser": "Chrome/152.0.7977.82",
         "font": "Microsoft YaHei",
         "dpr": 1,
-        "commit": null
+        "commit": "a67b33e4f06473875747be4741816768571c402b"
       },
       {
         "path": "docs/page-designs/V4/scores/screenshots/p02-final/1536-paper-review.png",
@@ -515,7 +515,7 @@
         "browser": "Chrome/152.0.7977.82",
         "font": "Microsoft YaHei",
         "dpr": 1,
-        "commit": null
+        "commit": "a67b33e4f06473875747be4741816768571c402b"
       },
       {
         "path": "docs/page-designs/V4/scores/screenshots/p02-final/1536-ai-failure.png",
@@ -547,7 +547,7 @@
         "browser": "Chrome/152.0.7977.82",
         "font": "Microsoft YaHei",
         "dpr": 1,
-        "commit": null
+        "commit": "a67b33e4f06473875747be4741816768571c402b"
       },
       {
         "path": "docs/page-designs/V4/scores/screenshots/p02-final/390-normal.png",
@@ -579,7 +579,7 @@
         "browser": "Chrome/152.0.7977.82",
         "font": "Microsoft YaHei",
         "dpr": 1,
-        "commit": null
+        "commit": "a67b33e4f06473875747be4741816768571c402b"
       },
       {
         "path": "docs/page-designs/V4/scores/screenshots/p02-final/390-trends.png",
@@ -611,7 +611,7 @@
         "browser": "Chrome/152.0.7977.82",
         "font": "Microsoft YaHei",
         "dpr": 1,
-        "commit": null
+        "commit": "a67b33e4f06473875747be4741816768571c402b"
       },
       {
         "path": "docs/page-designs/V4/scores/screenshots/p02-final/390-student-trends.png",
@@ -643,7 +643,7 @@
         "browser": "Chrome/152.0.7977.82",
         "font": "Microsoft YaHei",
         "dpr": 1,
-        "commit": null
+        "commit": "a67b33e4f06473875747be4741816768571c402b"
       },
       {
         "path": "docs/page-designs/V4/scores/screenshots/p02-final/390-trend-single.png",
@@ -675,7 +675,7 @@
         "browser": "Chrome/152.0.7977.82",
         "font": "Microsoft YaHei",
         "dpr": 1,
-        "commit": null
+        "commit": "a67b33e4f06473875747be4741816768571c402b"
       },
       {
         "path": "docs/page-designs/V4/scores/screenshots/p02-final/390-trend-empty.png",
@@ -707,7 +707,7 @@
         "browser": "Chrome/152.0.7977.82",
         "font": "Microsoft YaHei",
         "dpr": 1,
-        "commit": null
+        "commit": "a67b33e4f06473875747be4741816768571c402b"
       },
       {
         "path": "docs/page-designs/V4/scores/screenshots/p02-final/390-trend-no-exams.png",
@@ -738,7 +738,7 @@
         "browser": "Chrome/152.0.7977.82",
         "font": "Microsoft YaHei",
         "dpr": 1,
-        "commit": null
+        "commit": "a67b33e4f06473875747be4741816768571c402b"
       },
       {
         "path": "docs/page-designs/V4/scores/screenshots/p02-final/390-long-history.png",
@@ -770,7 +770,7 @@
         "browser": "Chrome/152.0.7977.82",
         "font": "Microsoft YaHei",
         "dpr": 1,
-        "commit": null
+        "commit": "a67b33e4f06473875747be4741816768571c402b"
       },
       {
         "path": "docs/page-designs/V4/scores/screenshots/p02-final/390-analysis.png",
@@ -802,7 +802,7 @@
         "browser": "Chrome/152.0.7977.82",
         "font": "Microsoft YaHei",
         "dpr": 1,
-        "commit": null
+        "commit": "a67b33e4f06473875747be4741816768571c402b"
       },
       {
         "path": "docs/page-designs/V4/scores/screenshots/p02-final/390-analysis-empty.png",
@@ -834,7 +834,7 @@
         "browser": "Chrome/152.0.7977.82",
         "font": "Microsoft YaHei",
         "dpr": 1,
-        "commit": null
+        "commit": "a67b33e4f06473875747be4741816768571c402b"
       },
       {
         "path": "docs/page-designs/V4/scores/screenshots/p02-final/390-analysis-readonly.png",
@@ -866,7 +866,7 @@
         "browser": "Chrome/152.0.7977.82",
         "font": "Microsoft YaHei",
         "dpr": 1,
-        "commit": null
+        "commit": "a67b33e4f06473875747be4741816768571c402b"
       },
       {
         "path": "docs/page-designs/V4/scores/screenshots/p02-final/390-paper-review.png",
@@ -899,7 +899,7 @@
         "browser": "Chrome/152.0.7977.82",
         "font": "Microsoft YaHei",
         "dpr": 1,
-        "commit": null
+        "commit": "a67b33e4f06473875747be4741816768571c402b"
       },
       {
         "path": "docs/page-designs/V4/scores/screenshots/p02-final/390-ai-failure.png",
@@ -931,7 +931,7 @@
         "browser": "Chrome/152.0.7977.82",
         "font": "Microsoft YaHei",
         "dpr": 1,
-        "commit": null
+        "commit": "a67b33e4f06473875747be4741816768571c402b"
       }
     ],
     "sourceHashes": [
@@ -983,8 +983,20 @@
     "checks": {
       "path": "docs/page-designs/V4/scores/checks-P02.json",
       "sha256": "06A7E3D3A59EEDC81AB4CB0A8762150B2BB26EF3C3D8066208CDE5473BD3F1E0",
-      "commit": null
-    }
+      "commit": "a67b33e4f06473875747be4741816768571c402b"
+    },
+    "additionalEvidence": [
+      {
+        "path": "docs/page-designs/V4/scores/screenshots/p02-extra/capture.json",
+        "sha256": "F24C74E4BBDA1C9E2C978A49D06B881B01964FA8AE8A1E1509D0A12F2A66A210",
+        "commit": "a67b33e4f06473875747be4741816768571c402b"
+      },
+      {
+        "path": "docs/page-designs/V4/scores/screenshots/p02-review-fixes/review-fixes.json",
+        "sha256": "552C9007EE18695055DE1DA4054DE1998EBE5F801B1947D8C001F14D4E17012F",
+        "commit": "a67b33e4f06473875747be4741816768571c402b"
+      }
+    ]
   },
   "designApproval": {
     "approved": false,
