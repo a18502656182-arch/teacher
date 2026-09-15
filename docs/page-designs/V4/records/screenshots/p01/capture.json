@@ -1,0 +1,1027 @@
+{
+  "createdAt": "2026-09-15T06:06:25.786Z",
+  "browser": {
+    "protocolVersion": "1.3",
+    "product": "Chrome/152.0.7977.82",
+    "revision": "@d04cdb24d67b081f6cf80200ffc5233f44b61109",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/152.0.0.0 Safari/537.36",
+    "jsVersion": "15.2.124.21"
+  },
+  "evidence": [
+    {
+      "path": "1536-normal.png",
+      "sha256": "F120BBAF64F0D2A299801FFF56F801FD9D1A28ED32A0388B84CF7B6830A269F8",
+      "viewport": "1536x1024",
+      "stateId": "normal",
+      "url": "http://127.0.0.1:4216/records.html?state=normal",
+      "fixtureSha256": "6A6ABE0B88756322AD98F92591D2566CF3F051D7C41D4E5AB22311AD2FA20D13",
+      "info": {
+        "ready": true,
+        "scrollWidth": 1521,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": null,
+          "sync": "normal"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "1536-notices.png",
+      "sha256": "F120BBAF64F0D2A299801FFF56F801FD9D1A28ED32A0388B84CF7B6830A269F8",
+      "viewport": "1536x1024",
+      "stateId": "notices",
+      "url": "http://127.0.0.1:4216/records.html?state=notices",
+      "fixtureSha256": "6A6ABE0B88756322AD98F92591D2566CF3F051D7C41D4E5AB22311AD2FA20D13",
+      "info": {
+        "ready": true,
+        "scrollWidth": 1521,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": null,
+          "sync": "normal"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "1536-mobile-detail.png",
+      "sha256": "089870BF0D3C8ABD8FACA5760C2AD45F63D4E3BCFF90364B1475F5EFD5C16B22",
+      "viewport": "1536x1024",
+      "stateId": "mobile-detail",
+      "url": "http://127.0.0.1:4216/records.html?state=mobile-detail",
+      "fixtureSha256": "6A6ABE0B88756322AD98F92591D2566CF3F051D7C41D4E5AB22311AD2FA20D13",
+      "info": {
+        "ready": true,
+        "scrollWidth": 1521,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": null,
+          "sync": "normal",
+          "selected": "record-synthetic-1"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "1536-empty-class.png",
+      "sha256": "EC544CF49A4E5873093A4E03C46FE9F23A58098261C2ECF5FCC0B5CCC501CFFD",
+      "viewport": "1536x1024",
+      "stateId": "empty-class",
+      "url": "http://127.0.0.1:4216/records.html?state=empty-class",
+      "fixtureSha256": "49EBC23CDFF5134AF07C1DA1A51DD9B12CAABF8A5C79B12D3076D6C81A71D5BF",
+      "info": {
+        "ready": true,
+        "scrollWidth": 1536,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "班主任工作台\n当前班级\n三年级2班（0人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具\n",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": null,
+          "sync": "normal"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "1536-no-records.png",
+      "sha256": "C53DF34C613ECB18768B27506FA321D2BFA5F5D6E2F2580A0116A5BC70B70906",
+      "viewport": "1536x1024",
+      "stateId": "no-records",
+      "url": "http://127.0.0.1:4216/records.html?state=no-records",
+      "fixtureSha256": "30803CD1B461CE2DE05B4F236B577F9D2A1A059340FACB064CCB19A5A36B41BC",
+      "info": {
+        "ready": true,
+        "scrollWidth": 1536,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": null,
+          "sync": "normal"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "1536-search-empty.png",
+      "sha256": "5C860C67C1552E1603027193BA096AC3F89C226E55896C81CD47A9BB380AA844",
+      "viewport": "1536x1024",
+      "stateId": "search-empty",
+      "url": "http://127.0.0.1:4216/records.html?state=search-empty",
+      "fixtureSha256": "6A6ABE0B88756322AD98F92591D2566CF3F051D7C41D4E5AB22311AD2FA20D13",
+      "info": {
+        "ready": true,
+        "scrollWidth": 1536,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": null,
+          "sync": "normal"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "1536-students-105.png",
+      "sha256": "C20FCB21745646ED97BA9494493F019C9A72BDFC83A85C6E14A67E7CE947086C",
+      "viewport": "1536x1024",
+      "stateId": "students-105",
+      "url": "http://127.0.0.1:4216/records.html?state=students-105",
+      "fixtureSha256": "DC02B2872F067BBCD58B85F95069C7AE6863FC4B8CC3DD01BA14CBC0684F0CDE",
+      "info": {
+        "ready": true,
+        "scrollWidth": 1521,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "班主任工作台\n当前班级\n三年级2班（105人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": null,
+          "sync": "normal"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "1536-long-record.png",
+      "sha256": "A3447351DFC0229134247E2594CF24DCFC8926797DCA01BEE01657B69EEB172F",
+      "viewport": "1536x1024",
+      "stateId": "long-record",
+      "url": "http://127.0.0.1:4216/records.html?state=long-record",
+      "fixtureSha256": "4738DE9A97335DB91898E9FADD96A9A30B221E2D61600E493818D837E6ECAE13",
+      "info": {
+        "ready": true,
+        "scrollWidth": 1521,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": null,
+          "sync": "normal",
+          "selected": "record-synthetic-1"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "1536-composer.png",
+      "sha256": "20BCCF2E3D4CC875C43087C155B5E4DB7C8E6194E81E0DF1552BE9A407B35234",
+      "viewport": "1536x1024",
+      "stateId": "composer",
+      "url": "http://127.0.0.1:4216/records.html?state=composer",
+      "fixtureSha256": "6A6ABE0B88756322AD98F92591D2566CF3F051D7C41D4E5AB22311AD2FA20D13",
+      "info": {
+        "ready": true,
+        "scrollWidth": 1521,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": null,
+          "sync": "normal",
+          "editor": "record"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "1536-notice-editor.png",
+      "sha256": "E236C817DF4206676F6A44AB7E57CE583B2D9CBB222293B62869C4112BFF0B31",
+      "viewport": "1536x1024",
+      "stateId": "notice-editor",
+      "url": "http://127.0.0.1:4216/records.html?state=notice-editor",
+      "fixtureSha256": "6A6ABE0B88756322AD98F92591D2566CF3F051D7C41D4E5AB22311AD2FA20D13",
+      "info": {
+        "ready": true,
+        "scrollWidth": 1521,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": null,
+          "sync": "normal",
+          "editor": "notice"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "1536-receipt-editor.png",
+      "sha256": "225B1ECF9D0C9946AB27435FA9367037C116B3B7F763365C121D59DD83BB63C3",
+      "viewport": "1536x1024",
+      "stateId": "receipt-editor",
+      "url": "http://127.0.0.1:4216/records.html?state=receipt-editor",
+      "fixtureSha256": "6A6ABE0B88756322AD98F92591D2566CF3F051D7C41D4E5AB22311AD2FA20D13",
+      "info": {
+        "ready": true,
+        "scrollWidth": 1521,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": null,
+          "sync": "normal",
+          "editor": "receipt"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "1536-validation.png",
+      "sha256": "62238C2F354B9F16B72A1DBF476B037787B83CE7AE0DB24BCFCF7071EF79A4B4",
+      "viewport": "1536x1024",
+      "stateId": "validation",
+      "url": "http://127.0.0.1:4216/records.html?state=validation",
+      "fixtureSha256": "6A6ABE0B88756322AD98F92591D2566CF3F051D7C41D4E5AB22311AD2FA20D13",
+      "info": {
+        "ready": true,
+        "scrollWidth": 1521,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": null,
+          "sync": "normal",
+          "editor": "record"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "1536-readonly.png",
+      "sha256": "D89E996C3B12FF24B66EED79D3E159D57D82923266A0399CB05F5965CE8DD5B2",
+      "viewport": "1536x1024",
+      "stateId": "readonly",
+      "url": "http://127.0.0.1:4216/records.html?state=readonly",
+      "fixtureSha256": "6A6ABE0B88756322AD98F92591D2566CF3F051D7C41D4E5AB22311AD2FA20D13",
+      "info": {
+        "ready": true,
+        "scrollWidth": 1521,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n只读\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具\n",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": null,
+          "sync": "normal"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "1536-loading.png",
+      "sha256": "443F8D2EA592ACCA80AA6AA72EA2AB7BF47D4CAF4938F9904573449DA0ABA9B0",
+      "viewport": "1536x1024",
+      "stateId": "loading",
+      "url": "http://127.0.0.1:4216/records.html?state=loading",
+      "fixtureSha256": "6A6ABE0B88756322AD98F92591D2566CF3F051D7C41D4E5AB22311AD2FA20D13",
+      "info": {
+        "ready": true,
+        "scrollWidth": 1536,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": null,
+          "sync": "normal"
+        },
+        "squeezed": [],
+        "images": []
+      }
+    },
+    {
+      "path": "1536-saving.png",
+      "sha256": "3E426EB90EE24F8486C1F19E7797802C2FE0EC81F7D4D728F5476F4208EF80A3",
+      "viewport": "1536x1024",
+      "stateId": "saving",
+      "url": "http://127.0.0.1:4216/records.html?state=saving",
+      "fixtureSha256": "6A6ABE0B88756322AD98F92591D2566CF3F051D7C41D4E5AB22311AD2FA20D13",
+      "info": {
+        "ready": true,
+        "scrollWidth": 1521,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n正在保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工",
+        "state": {
+          "busy": true,
+          "dirty": true,
+          "pending": {
+            "classId": "class-1",
+            "label": "沟通记录已保存",
+            "closeEditor": true
+          },
+          "sync": "saving",
+          "editor": "record"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "1536-save-failure.png",
+      "sha256": "966E1E4797E4D5824B3F944958A741F6D7099A7AB7E1E4166DD0FC19812EAE89",
+      "viewport": "1536x1024",
+      "stateId": "save-failure",
+      "url": "http://127.0.0.1:4216/records.html?state=save-failure",
+      "fixtureSha256": "6A6ABE0B88756322AD98F92591D2566CF3F051D7C41D4E5AB22311AD2FA20D13",
+      "info": {
+        "ready": true,
+        "scrollWidth": 1521,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n保存失败\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工",
+        "state": {
+          "busy": false,
+          "dirty": true,
+          "pending": {
+            "classId": "class-1",
+            "label": "沟通记录已保存",
+            "closeEditor": true
+          },
+          "sync": "save-failure",
+          "editor": "record"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "1536-save-throw.png",
+      "sha256": "966E1E4797E4D5824B3F944958A741F6D7099A7AB7E1E4166DD0FC19812EAE89",
+      "viewport": "1536x1024",
+      "stateId": "save-throw",
+      "url": "http://127.0.0.1:4216/records.html?state=save-throw",
+      "fixtureSha256": "6A6ABE0B88756322AD98F92591D2566CF3F051D7C41D4E5AB22311AD2FA20D13",
+      "info": {
+        "ready": true,
+        "scrollWidth": 1521,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n保存失败\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工",
+        "state": {
+          "busy": false,
+          "dirty": true,
+          "pending": {
+            "classId": "class-1",
+            "label": "沟通记录已保存",
+            "closeEditor": true
+          },
+          "sync": "save-throw",
+          "editor": "record"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "1536-conflict-409.png",
+      "sha256": "93E4F5D1E6FBAE3D6192A6E25734AF2E0BE47612D26258AAE41C2F4F696B250C",
+      "viewport": "1536x1024",
+      "stateId": "conflict-409",
+      "url": "http://127.0.0.1:4216/records.html?state=conflict-409",
+      "fixtureSha256": "6A6ABE0B88756322AD98F92591D2566CF3F051D7C41D4E5AB22311AD2FA20D13",
+      "info": {
+        "ready": true,
+        "scrollWidth": 1521,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n保存失败\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工",
+        "state": {
+          "busy": false,
+          "dirty": true,
+          "pending": {
+            "classId": "class-1",
+            "label": "沟通记录已保存",
+            "closeEditor": true
+          },
+          "sync": "conflict-409",
+          "editor": "record"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "1536-dirty-close.png",
+      "sha256": "C6354D576379C811B44630EB99DB9A3E26A238ADF9A51FC271E11EA46A7FF2E2",
+      "viewport": "1536x1024",
+      "stateId": "dirty-close",
+      "url": "http://127.0.0.1:4216/records.html?state=dirty-close",
+      "fixtureSha256": "6A6ABE0B88756322AD98F92591D2566CF3F051D7C41D4E5AB22311AD2FA20D13",
+      "info": {
+        "ready": true,
+        "scrollWidth": 1521,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具",
+        "state": {
+          "busy": false,
+          "dirty": true,
+          "pending": null,
+          "sync": "normal",
+          "editor": "record"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "1536-legacy.png",
+      "sha256": "078060E08B4AC7784F9040A12D4882C23BFB34BFA190CB4B64FFF51A6F371319",
+      "viewport": "1536x1024",
+      "stateId": "legacy",
+      "url": "http://127.0.0.1:4216/records.html?state=legacy",
+      "fixtureSha256": "77FB7050463F99D5B604404BB4D59EF473D7DBD81E322F2FBEA181790209ABD1",
+      "info": {
+        "ready": true,
+        "scrollWidth": 1521,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": null,
+          "sync": "normal",
+          "selected": "record-synthetic-1"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "390-normal.png",
+      "sha256": "A0B73BD95BAD82A1CE1AC0242A1A512037F8F0A78F9BF0CA99B42117D6616EDF",
+      "viewport": "390x844",
+      "stateId": "normal",
+      "url": "http://127.0.0.1:4216/records.html?state=normal",
+      "fixtureSha256": "6A6ABE0B88756322AD98F92591D2566CF3F051D7C41D4E5AB22311AD2FA20D13",
+      "info": {
+        "ready": true,
+        "scrollWidth": 390,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "家校沟通\n\n三年级 · 32人\n\n已保存\n家校沟通\n\n三年级2班\n\n3条沟通记录 · 2条待跟进\n沟通记录 3\n通知草稿 2\n筛选\n全部 3\n待跟进 2\n已跟进 1\n已归档 0\n3条记录\n新增记录\n待跟进 本页2条\n学生01\n待跟进\n\n20",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": null,
+          "sync": "normal"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "390-notices.png",
+      "sha256": "39B9EBD76E61E6B367912F0C1C32CFE448A83EEB3EDE7061184B5AE67F4E3674",
+      "viewport": "390x844",
+      "stateId": "notices",
+      "url": "http://127.0.0.1:4216/records.html?state=notices",
+      "fixtureSha256": "6A6ABE0B88756322AD98F92591D2566CF3F051D7C41D4E5AB22311AD2FA20D13",
+      "info": {
+        "ready": true,
+        "scrollWidth": 390,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "家校沟通\n\n三年级 · 32人\n\n已保存\n家校沟通\n\n三年级2班\n\n3条沟通记录 · 2条待跟进\n沟通记录 3\n通知草稿 2\n通知草稿与回执\n新建草稿\n\n复制后由老师自行发送，系统不自动外发。\n\n草稿\n2026-09-15\n本周阅读安排\n\n",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": null,
+          "sync": "normal"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "390-mobile-detail.png",
+      "sha256": "C5FE4044B6B876A3332452D4A9C32344CD31C8D1B1C6FF63C872E8F5E5D1B552",
+      "viewport": "390x844",
+      "stateId": "mobile-detail",
+      "url": "http://127.0.0.1:4216/records.html?state=mobile-detail",
+      "fixtureSha256": "6A6ABE0B88756322AD98F92591D2566CF3F051D7C41D4E5AB22311AD2FA20D13",
+      "info": {
+        "ready": true,
+        "scrollWidth": 390,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "家校沟通\n\n三年级 · 32人\n\n已保存\n家校沟通\n\n三年级2班\n\n3条沟通记录 · 2条待跟进\n沟通记录 3\n通知草稿 2\n筛选\n全部 3\n待跟进 2\n已跟进 1\n已归档 0\n3条记录\n新增记录\n待跟进 本页2条\n学生01\n待跟进\n\n20",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": null,
+          "sync": "normal",
+          "selected": "record-synthetic-1"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "390-empty-class.png",
+      "sha256": "FC0D3DAC6C3CC26BB3B460ECA3DF7CEE4FF5792E6025AD5E42AD7D69FEE6167D",
+      "viewport": "390x844",
+      "stateId": "empty-class",
+      "url": "http://127.0.0.1:4216/records.html?state=empty-class",
+      "fixtureSha256": "49EBC23CDFF5134AF07C1DA1A51DD9B12CAABF8A5C79B12D3076D6C81A71D5BF",
+      "info": {
+        "ready": true,
+        "scrollWidth": 390,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "家校沟通\n\n三年级 · 0人\n\n已保存\n家校沟通\n\n三年级2班\n\n0条沟通记录 · 0条待跟进\n沟通记录 0\n通知草稿 0\n筛选\n全部 0\n待跟进 0\n已跟进 0\n已归档 0\n0条记录\n新增记录\n先建立学生名单\n\n记录沟通事实、家长反馈与后",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": null,
+          "sync": "normal"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "390-no-records.png",
+      "sha256": "8F2CC0FC8B3D0B3EF4E99FBB7270634CDA5FE4E6B69776AFA9395C1B3BD543B1",
+      "viewport": "390x844",
+      "stateId": "no-records",
+      "url": "http://127.0.0.1:4216/records.html?state=no-records",
+      "fixtureSha256": "30803CD1B461CE2DE05B4F236B577F9D2A1A059340FACB064CCB19A5A36B41BC",
+      "info": {
+        "ready": true,
+        "scrollWidth": 390,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "家校沟通\n\n三年级 · 32人\n\n已保存\n家校沟通\n\n三年级2班\n\n0条沟通记录 · 0条待跟进\n沟通记录 0\n通知草稿 0\n筛选\n全部 0\n待跟进 0\n已跟进 0\n已归档 0\n0条记录\n新增记录\n还没有沟通记录\n\n记录沟通事实、家长反馈与",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": null,
+          "sync": "normal"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "390-search-empty.png",
+      "sha256": "85F2D197A82D1BC664C25D3022BB22A601F8D72995A30795BADA7FFB8DFA0466",
+      "viewport": "390x844",
+      "stateId": "search-empty",
+      "url": "http://127.0.0.1:4216/records.html?state=search-empty",
+      "fixtureSha256": "6A6ABE0B88756322AD98F92591D2566CF3F051D7C41D4E5AB22311AD2FA20D13",
+      "info": {
+        "ready": true,
+        "scrollWidth": 390,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "家校沟通\n\n三年级 · 32人\n\n已保存\n家校沟通\n\n三年级2班\n\n3条沟通记录 · 2条待跟进\n沟通记录 3\n通知草稿 2\n筛选\n全部 3\n待跟进 2\n已跟进 1\n已归档 0\n0条记录\n新增记录\n没有匹配的沟通记录\n\n换一个关键词或筛选条",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": null,
+          "sync": "normal"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "390-students-105.png",
+      "sha256": "44F19CFEE08C6063D44AC7C073049980EBB2EC03C745A819F96A8192D4534A7D",
+      "viewport": "390x844",
+      "stateId": "students-105",
+      "url": "http://127.0.0.1:4216/records.html?state=students-105",
+      "fixtureSha256": "DC02B2872F067BBCD58B85F95069C7AE6863FC4B8CC3DD01BA14CBC0684F0CDE",
+      "info": {
+        "ready": true,
+        "scrollWidth": 390,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "家校沟通\n\n三年级 · 105人\n\n已保存\n家校沟通\n\n三年级2班\n\n105条沟通记录 · 70条待跟进\n沟通记录 105\n通知草稿 2\n筛选\n全部 105\n待跟进 70\n已跟进 35\n已归档 0\n105条记录\n新增记录\n待跟进 本页10条",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": null,
+          "sync": "normal"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "390-long-record.png",
+      "sha256": "847486A3CD26E6DC666CB19A173E36B3CA153329F29295D58861DF5EFEA5EA29",
+      "viewport": "390x844",
+      "stateId": "long-record",
+      "url": "http://127.0.0.1:4216/records.html?state=long-record",
+      "fixtureSha256": "4738DE9A97335DB91898E9FADD96A9A30B221E2D61600E493818D837E6ECAE13",
+      "info": {
+        "ready": true,
+        "scrollWidth": 390,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "家校沟通\n\n三年级 · 32人\n\n已保存\n家校沟通\n\n三年级2班\n\n3条沟通记录 · 2条待跟进\n沟通记录 3\n通知草稿 2\n筛选\n全部 3\n待跟进 2\n已跟进 1\n已归档 0\n3条记录\n新增记录\n待跟进 本页2条\n学生01\n待跟进\n\n20",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": null,
+          "sync": "normal",
+          "selected": "record-synthetic-1"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "390-composer.png",
+      "sha256": "1524B1DF44DF703B48C682C914DAC23C337624C03B0A2A24AC88E478730EED62",
+      "viewport": "390x844",
+      "stateId": "composer",
+      "url": "http://127.0.0.1:4216/records.html?state=composer",
+      "fixtureSha256": "6A6ABE0B88756322AD98F92591D2566CF3F051D7C41D4E5AB22311AD2FA20D13",
+      "info": {
+        "ready": true,
+        "scrollWidth": 390,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "家校沟通\n\n三年级 · 32人\n\n已保存\n家校沟通\n\n三年级2班\n\n3条沟通记录 · 2条待跟进\n沟通记录 3\n通知草稿 2\n筛选\n全部 3\n待跟进 2\n已跟进 1\n已归档 0\n3条记录\n新增记录\n待跟进 本页2条\n学生01\n待跟进\n\n20",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": null,
+          "sync": "normal",
+          "editor": "record"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "390-notice-editor.png",
+      "sha256": "D4CA85AC88D50864A8961BE834A9A59CCFECE2C972B0FD4D3B25E69A5FFD9E44",
+      "viewport": "390x844",
+      "stateId": "notice-editor",
+      "url": "http://127.0.0.1:4216/records.html?state=notice-editor",
+      "fixtureSha256": "6A6ABE0B88756322AD98F92591D2566CF3F051D7C41D4E5AB22311AD2FA20D13",
+      "info": {
+        "ready": true,
+        "scrollWidth": 390,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "家校沟通\n\n三年级 · 32人\n\n已保存\n家校沟通\n\n三年级2班\n\n3条沟通记录 · 2条待跟进\n沟通记录 3\n通知草稿 2\n筛选\n全部 3\n待跟进 2\n已跟进 1\n已归档 0\n3条记录\n新增记录\n待跟进 本页2条\n学生01\n待跟进\n\n20",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": null,
+          "sync": "normal",
+          "editor": "notice"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "390-receipt-editor.png",
+      "sha256": "623688586957D68DF0E9CE846FB0C4927CDAEBC9419733A74E14AA981810E8E3",
+      "viewport": "390x844",
+      "stateId": "receipt-editor",
+      "url": "http://127.0.0.1:4216/records.html?state=receipt-editor",
+      "fixtureSha256": "6A6ABE0B88756322AD98F92591D2566CF3F051D7C41D4E5AB22311AD2FA20D13",
+      "info": {
+        "ready": true,
+        "scrollWidth": 390,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "家校沟通\n\n三年级 · 32人\n\n已保存\n家校沟通\n\n三年级2班\n\n3条沟通记录 · 2条待跟进\n沟通记录 3\n通知草稿 2\n筛选\n全部 3\n待跟进 2\n已跟进 1\n已归档 0\n3条记录\n新增记录\n待跟进 本页2条\n学生01\n待跟进\n\n20",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": null,
+          "sync": "normal",
+          "editor": "receipt"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "390-validation.png",
+      "sha256": "E4FD25AD9FF93B2140021AE39EFF54DE3F41EB7A09013536A088B2431B343A29",
+      "viewport": "390x844",
+      "stateId": "validation",
+      "url": "http://127.0.0.1:4216/records.html?state=validation",
+      "fixtureSha256": "6A6ABE0B88756322AD98F92591D2566CF3F051D7C41D4E5AB22311AD2FA20D13",
+      "info": {
+        "ready": true,
+        "scrollWidth": 390,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "家校沟通\n\n三年级 · 32人\n\n已保存\n家校沟通\n\n三年级2班\n\n3条沟通记录 · 2条待跟进\n沟通记录 3\n通知草稿 2\n筛选\n全部 3\n待跟进 2\n已跟进 1\n已归档 0\n3条记录\n新增记录\n待跟进 本页2条\n学生01\n待跟进\n\n20",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": null,
+          "sync": "normal",
+          "editor": "record"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "390-readonly.png",
+      "sha256": "AB75A9A39735BA33F55556163D2C751B0FFF66D1F5094959BAED602235A642EB",
+      "viewport": "390x844",
+      "stateId": "readonly",
+      "url": "http://127.0.0.1:4216/records.html?state=readonly",
+      "fixtureSha256": "6A6ABE0B88756322AD98F92591D2566CF3F051D7C41D4E5AB22311AD2FA20D13",
+      "info": {
+        "ready": true,
+        "scrollWidth": 390,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "家校沟通\n\n三年级 · 32人\n\n只读\n只读宽限期\n可以查看和导出，续期后恢复编辑。\n家校沟通\n\n三年级2班\n\n3条沟通记录 · 2条待跟进\n沟通记录 3\n通知草稿 2\n筛选\n全部 3\n待跟进 2\n已跟进 1\n已归档 0\n3条记录\n新增记录",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": null,
+          "sync": "normal"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "390-loading.png",
+      "sha256": "BD2BE1A4741006C2E7BDC275398992CA486B43AFE3E5E4408BAC50AA6346198D",
+      "viewport": "390x844",
+      "stateId": "loading",
+      "url": "http://127.0.0.1:4216/records.html?state=loading",
+      "fixtureSha256": "6A6ABE0B88756322AD98F92591D2566CF3F051D7C41D4E5AB22311AD2FA20D13",
+      "info": {
+        "ready": true,
+        "scrollWidth": 390,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "家校沟通\n\n三年级 · 32人\n\n已保存\n\n正在加载健康与沟通…\n\n首页\n学生\n作业\n成绩\n更多\n设计预览 · 合成数据",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": null,
+          "sync": "normal"
+        },
+        "squeezed": [],
+        "images": []
+      }
+    },
+    {
+      "path": "390-saving.png",
+      "sha256": "E14DF087AA1AA925B8EC5EAA3C48A9DEF867FAB45FA0A15EB4DA0C907EB44877",
+      "viewport": "390x844",
+      "stateId": "saving",
+      "url": "http://127.0.0.1:4216/records.html?state=saving",
+      "fixtureSha256": "6A6ABE0B88756322AD98F92591D2566CF3F051D7C41D4E5AB22311AD2FA20D13",
+      "info": {
+        "ready": true,
+        "scrollWidth": 390,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "家校沟通\n\n三年级 · 32人\n\n正在保存\n家校沟通\n\n三年级2班\n\n4条沟通记录 · 3条待跟进\n沟通记录 4\n通知草稿 2\n筛选\n全部 4\n待跟进 3\n已跟进 1\n已归档 0\n4条记录\n新增记录\n待跟进 本页3条\n学生01\n待跟进\n\n2",
+        "state": {
+          "busy": true,
+          "dirty": true,
+          "pending": {
+            "classId": "class-1",
+            "label": "沟通记录已保存",
+            "closeEditor": true
+          },
+          "sync": "saving",
+          "editor": "record"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "390-save-failure.png",
+      "sha256": "399454EC6C68820657405BB0B56AC4BEF5A1AF83FED01D9FEFD4451E1F11F02C",
+      "viewport": "390x844",
+      "stateId": "save-failure",
+      "url": "http://127.0.0.1:4216/records.html?state=save-failure",
+      "fixtureSha256": "6A6ABE0B88756322AD98F92591D2566CF3F051D7C41D4E5AB22311AD2FA20D13",
+      "info": {
+        "ready": true,
+        "scrollWidth": 390,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "家校沟通\n\n三年级 · 32人\n\n保存失败\n保存失败，草稿已保留。\n重试\n关闭\n家校沟通\n\n三年级2班\n\n4条沟通记录 · 3条待跟进\n沟通记录 4\n通知草稿 2\n筛选\n全部 4\n待跟进 3\n已跟进 1\n已归档 0\n4条记录\n新增记录\n待跟",
+        "state": {
+          "busy": false,
+          "dirty": true,
+          "pending": {
+            "classId": "class-1",
+            "label": "沟通记录已保存",
+            "closeEditor": true
+          },
+          "sync": "save-failure",
+          "editor": "record"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "390-save-throw.png",
+      "sha256": "399454EC6C68820657405BB0B56AC4BEF5A1AF83FED01D9FEFD4451E1F11F02C",
+      "viewport": "390x844",
+      "stateId": "save-throw",
+      "url": "http://127.0.0.1:4216/records.html?state=save-throw",
+      "fixtureSha256": "6A6ABE0B88756322AD98F92591D2566CF3F051D7C41D4E5AB22311AD2FA20D13",
+      "info": {
+        "ready": true,
+        "scrollWidth": 390,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "家校沟通\n\n三年级 · 32人\n\n保存失败\n保存失败，草稿已保留。\n重试\n关闭\n家校沟通\n\n三年级2班\n\n4条沟通记录 · 3条待跟进\n沟通记录 4\n通知草稿 2\n筛选\n全部 4\n待跟进 3\n已跟进 1\n已归档 0\n4条记录\n新增记录\n待跟",
+        "state": {
+          "busy": false,
+          "dirty": true,
+          "pending": {
+            "classId": "class-1",
+            "label": "沟通记录已保存",
+            "closeEditor": true
+          },
+          "sync": "save-throw",
+          "editor": "record"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "390-conflict-409.png",
+      "sha256": "399454EC6C68820657405BB0B56AC4BEF5A1AF83FED01D9FEFD4451E1F11F02C",
+      "viewport": "390x844",
+      "stateId": "conflict-409",
+      "url": "http://127.0.0.1:4216/records.html?state=conflict-409",
+      "fixtureSha256": "6A6ABE0B88756322AD98F92591D2566CF3F051D7C41D4E5AB22311AD2FA20D13",
+      "info": {
+        "ready": true,
+        "scrollWidth": 390,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "家校沟通\n\n三年级 · 32人\n\n保存失败\n版本冲突，草稿已保留。\n导出当前草稿\n载入最新版本\n关闭\n家校沟通\n\n三年级2班\n\n4条沟通记录 · 3条待跟进\n沟通记录 4\n通知草稿 2\n筛选\n全部 4\n待跟进 3\n已跟进 1\n已归档 0\n4",
+        "state": {
+          "busy": false,
+          "dirty": true,
+          "pending": {
+            "classId": "class-1",
+            "label": "沟通记录已保存",
+            "closeEditor": true
+          },
+          "sync": "conflict-409",
+          "editor": "record"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "390-dirty-close.png",
+      "sha256": "ABE582C31A034F7719B8D512A3DF7CF8B0788FC27A25661A08E2E73FB7F6D816",
+      "viewport": "390x844",
+      "stateId": "dirty-close",
+      "url": "http://127.0.0.1:4216/records.html?state=dirty-close",
+      "fixtureSha256": "6A6ABE0B88756322AD98F92591D2566CF3F051D7C41D4E5AB22311AD2FA20D13",
+      "info": {
+        "ready": true,
+        "scrollWidth": 390,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "家校沟通\n\n三年级 · 32人\n\n已保存\n家校沟通\n\n三年级2班\n\n3条沟通记录 · 2条待跟进\n沟通记录 3\n通知草稿 2\n筛选\n全部 3\n待跟进 2\n已跟进 1\n已归档 0\n3条记录\n新增记录\n待跟进 本页2条\n学生01\n待跟进\n\n20",
+        "state": {
+          "busy": false,
+          "dirty": true,
+          "pending": null,
+          "sync": "normal",
+          "editor": "record"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "390-legacy.png",
+      "sha256": "35DABED2D374FE96686B7B60E5ABCD059AD17909BC32BE3EE76594BDF1354C5F",
+      "viewport": "390x844",
+      "stateId": "legacy",
+      "url": "http://127.0.0.1:4216/records.html?state=legacy",
+      "fixtureSha256": "77FB7050463F99D5B604404BB4D59EF473D7DBD81E322F2FBEA181790209ABD1",
+      "info": {
+        "ready": true,
+        "scrollWidth": 390,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "家校沟通\n\n三年级 · 32人\n\n已保存\n家校沟通\n\n三年级2班\n\n3条沟通记录 · 2条待跟进\n沟通记录 3\n通知草稿 2\n筛选\n全部 3\n待跟进 2\n已跟进 1\n已归档 0\n3条记录\n新增记录\n待跟进 本页2条\n学生01\n待跟进\n\n开学",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": null,
+          "sync": "normal",
+          "selected": "record-synthetic-1"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    }
+  ],
+  "failures": [],
+  "interactions": [],
+  "consoleErrors": []
+}

@@ -1,0 +1,153 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-15T06:15:06.4647033Z",
+  "title": "Design System: 家校沟通 · 隔离 P01",
+  "extensions": {
+    "colorMeta": {
+      "next-step": {
+        "displayName": "跟进暖黄",
+        "role": "secondary"
+      },
+      "notification": {
+        "displayName": "粉笔绿通知纸",
+        "role": "secondary"
+      },
+      "group": {
+        "displayName": "分组浅蓝",
+        "role": "secondary"
+      },
+      "primary": {
+        "displayName": "沟通青绿",
+        "role": "primary"
+      }
+    },
+    "typographyMeta": {
+      "body": {
+        "displayName": "沟通正文",
+        "purpose": "geometry计算样式 Microsoft YaHei, sans-serif，正文15px / 24.75px；未另做实际字形回退解析"
+      },
+      "display": {
+        "displayName": "页面标题",
+        "purpose": "宽桌面34px、窄桌面30px、手机26px"
+      }
+    },
+    "shadows": [],
+    "motion": [],
+    "breakpoints": [
+      {
+        "name": "mobile",
+        "purpose": "≤900px工作区互斥、按钮最低44px",
+        "value": "900px"
+      },
+      {
+        "name": "narrow-desktop",
+        "purpose": "901–1200px日期上移、通知列最小280px",
+        "value": "1200px"
+      }
+    ],
+    "limitations": [
+      "No incumbent tonal ramp; no synthetic colors promoted to observed implementation facts.",
+      "Snippets are static visual excerpts, not working controllers; focus states only apply inside their snippets.",
+      "C01 confirmed; P01 main page awaiting user review; overlays deferred; no business integration or deployment.",
+      "Mobile 12–13px metadata/actions, 2084642-byte PNG, and failure explanation after long fieldset require follow-up.",
+      "Actual persistence after refresh, production permissions, contrast and full keyboard operation unverified in documentation task.",
+      "Existing detector: 16 color, 2 radius, 3 font-size advisory entries recorded from confirmed direction; one mobile underline false positive. No detector rerun."
+    ],
+    "evidence": [
+      "RecordsDesign.tsx",
+      "RecordsDesign.module.css",
+      "useRecordsDesignController.ts",
+      "docs/page-designs/V4/records/brief.md",
+      "docs/page-designs/V4/records/function-map.md",
+      "docs/page-designs/V4/records/finish-review.md",
+      ".qa-shots/records-design/round1/1536-normal.png",
+      ".qa-shots/records-design/round1/390-normal.png",
+      ".qa-shots/records-design/detector.json",
+      "docs/page-designs/V4/records/geometry.json"
+    ]
+  },
+  "components": [
+    {
+      "html": "<button class=\"ds-primary\">新增沟通记录</button>",
+      "name": "主命令",
+      "description": "新增记录与复制通知的填充命令",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "css": ".ds-primary{font-family:\"Microsoft YaHei\",sans-serif;font-size:15px;line-height:1.65;background:#087e7e;color:#fff;border:0;border-radius:6px;padding:7px 15px;min-height:36px;cursor:pointer}.ds-primary:hover:not(:disabled){background:#076a6a}.ds-primary:disabled{opacity:.5;cursor:default}.ds-primary:focus-visible{outline:2px solid #087e7e;outline-offset:3px}"
+    },
+    {
+      "html": "<button class=\"ds-text\">记录回执</button>",
+      "name": "次命令",
+      "description": "详情、重置与记录回执",
+      "kind": "button",
+      "refersTo": "button-text",
+      "css": ".ds-text{font-family:\"Microsoft YaHei\",sans-serif;font-size:15px;line-height:1.65;background:transparent;color:#087e7e;border:0;padding:5px 9px;min-height:36px;cursor:pointer}.ds-text:hover:not(:disabled){background:#e9f4f2}.ds-text:disabled{opacity:.5}.ds-text:focus-visible{outline:2px solid #087e7e;outline-offset:3px}"
+    },
+    {
+      "html": "<label class=\"ds-search\"><input aria-label=\"搜索沟通记录\" placeholder=\"搜索学生或沟通内容\"></label>",
+      "name": "搜索字段",
+      "description": "查询姓名与记录内容；不是学号搜索",
+      "kind": "input",
+      "refersTo": "search",
+      "css": ".ds-search{display:flex;width:275px;max-width:100%;border:1px solid #c7d7e0;border-radius:5px;padding:0 10px}.ds-search input{font-family:\"Microsoft YaHei\",sans-serif;font-size:15px;line-height:1.65;min-width:0;width:100%;height:35px;border:0;background:transparent;color:#15334a}.ds-search input::placeholder{color:#627485}.ds-search input:focus-visible{outline:2px solid #087e7e;outline-offset:3px}"
+    },
+    {
+      "html": "<nav class=\"ds-tabs\" aria-label=\"沟通工作区\"><button aria-pressed=\"true\">沟通记录 3</button><button aria-pressed=\"false\">通知草稿 2</button></nav>",
+      "kind": "nav",
+      "name": "手机工作区标签",
+      "description": "aria-pressed工作区按钮；不是ARIA tablist",
+      "css": ".ds-tabs{display:flex;gap:22px;border-bottom:1px solid #dce6ed}.ds-tabs button{font-family:\"Microsoft YaHei\",sans-serif;font-size:15px;line-height:1.65;font-size:16px;min-height:44px;background:transparent;color:#087e7e;border:0;padding:4px 0;cursor:pointer}.ds-tabs button[aria-pressed=true]{border-bottom:3px solid #078888;font-weight:700}.ds-tabs button:hover{background:#e9f4f2}.ds-tabs button:focus-visible{outline:2px solid #087e7e;outline-offset:3px}"
+    },
+    {
+      "html": "<span class=\"ds-badge\">待跟进</span>",
+      "kind": "chip",
+      "name": "待跟进状态签",
+      "description": "只读文字状态，不作为可点击开关",
+      "css": ".ds-badge{display:inline-block;font-family:\"Microsoft YaHei\",sans-serif;font-size:12px;line-height:1.8;white-space:nowrap;padding:2px 9px;border-radius:6px;background:#fff0d5;color:#8a4e00}"
+    },
+    {
+      "html": "<article class=\"ds-row\"><time>2026-09-15</time><div><h3>学生01</h3><p>与家长核对阅读作业的完成安排。</p><p class=\"ds-next\">下一步：约定再次交流阅读情况。</p></div></article>",
+      "kind": "custom",
+      "name": "连续记录行",
+      "description": "日期列、事实与下一步；单条无圆角外框",
+      "css": ".ds-row{font-family:\"Microsoft YaHei\",sans-serif;font-size:15px;line-height:1.65;display:grid;grid-template-columns:112px minmax(0,1fr);gap:20px;padding:19px 16px;border-bottom:1px solid #dce6ed;color:#15334a}.ds-row time{font-size:14px;font-weight:600}.ds-row h3{font-size:18px;margin:0}.ds-row p{margin:3px 0}.ds-row .ds-next{padding:3px 9px;background:#fff5e5;color:#87551d;font-size:13px}"
+    },
+    {
+      "html": "<aside class=\"ds-notification\"><h2>通知草稿与回执</h2><p class=\"ds-hint\">复制后由老师自行发送，系统不自动外发。</p><article><h3>本周阅读安排</h3><p>请家长与孩子共同确认本周阅读安排。</p></article></aside>",
+      "name": "通知工作面",
+      "description": "同一浅绿工作面上的连续条目，不嵌套白卡",
+      "kind": "custom",
+      "refersTo": "notification",
+      "css": ".ds-notification{font-family:\"Microsoft YaHei\",sans-serif;font-size:15px;line-height:1.65;background:#f0f7f1;color:#15334a;border-radius:7px;padding:20px 20px 12px}.ds-notification h2{font-size:20px;margin:0}.ds-hint{font-size:13px;color:#406359;margin-top:9px}.ds-notification article{padding:20px 0;border-bottom:1px solid #d4e3da}.ds-notification h3{font-size:19px;margin:10px 0 0}"
+    }
+  ],
+  "narrative": {
+    "northStar": "白纸沟通簿与粉笔绿通知台",
+    "overview": "白纸连续行保留沟通事实、反馈和下一步的阅读顺序，浅蓝分组帮助扫描状态，粉笔绿工作区集中整理通知与手工回执。信封水彩只在标题旁提供轻量识别，文字和命令承担实际任务。此名称是对已确认 C01 方向的描述性归纳，不是用户另行批准的品牌命名。\n\n本文件仅记录 app/designs/records 的局部实现，不替换根 DESIGN.md。surface brief 将本页定义为 Operate：班主任先查跟进约定，再回看事实；桌面沟通与通知并列，手机分标签。用户已确认桌面和手机 C01；本轮 P01 主页面待审核，弹窗视觉明确后置，正式业务未接入，未部署。旧 brief/function-map 中“尚未制作/尚未修复”是制作前盘点，不能覆盖当前源码事实。独立 finish-review 的“可交用户审核”不是用户 P01 批准，也不是整批 D/R 放行。",
+    "keyCharacteristics": [
+      "白纸连续记录行与浅蓝状态分组。",
+      "单一粉笔绿通知工作面内用分隔线组织条目。",
+      "青绿命令、暖黄下一步、文字状态共同传达任务。",
+      "手机沟通/通知分标签，复用真实工作台壳层。"
+    ],
+    "rules": [
+      {
+        "section": "colors",
+        "name": "The Meaning Rule",
+        "body": "已复制只表示剪贴板成功，不表示通知已发送；颜色不得扩大业务含义。"
+      }
+    ],
+    "dos": [
+      "**Do** 保留连续记录、浅蓝组头和单一粉笔绿通知工作面。",
+      "**Do** 保留手机分标签、完整详情、分页与可见新增入口。",
+      "**Do** 明确复制不外发，回执由老师手工记录。",
+      "**Do** 将小字、素材体积和长表单失败说明位置保留为后续优化事项。"
+    ],
+    "donts": [
+      "**Don't** 把跟进文本推导成自动到期提醒或逾期统计。",
+      "**Don't** 用全班原生下拉替换共享学生搜索选择器。",
+      "**Don't** 将主页面可交审核写成 P01 用户批准、弹窗批准、整批 D/R 或正式接入。",
+      "**Don't** 将 token 登记或局部实拍解释为全站性能、无障碍、生产持久化验收。"
+    ]
+  }
+}

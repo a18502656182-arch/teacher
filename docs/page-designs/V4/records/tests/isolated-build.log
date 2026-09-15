@@ -1,0 +1,15 @@
+vite v8.0.13 building client environment for production...
+[2K
+transforming...✓ 99 modules transformed.
+
+(!) outDir E:\文档\Codex\小红书\班主任工作台网站\.qa-shots\records-p01-build is not inside project root and will not be emptied.
+Use --emptyOutDir to override.
+
+rendering chunks...
+computing gzip size...
+.qa-shots/records-p01-build/records.html                        0.83 kB │ gzip:  0.59 kB
+.qa-shots/records-p01-build/assets/letter-p01-BrgIi24v.png  2,084.64 kB
+.qa-shots/records-p01-build/assets/records-Bzwm7l6m.css        33.02 kB │ gzip:  6.68 kB
+.qa-shots/records-p01-build/assets/records-WngswMI7.js        313.86 kB │ gzip: 99.23 kB
+
+✓ built in 315ms

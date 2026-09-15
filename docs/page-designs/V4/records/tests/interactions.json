@@ -1,0 +1,215 @@
+{
+  "createdAt": "2026-09-15T06:08:33.661Z",
+  "browser": {
+    "protocolVersion": "1.3",
+    "product": "Chrome/152.0.7977.82",
+    "revision": "@d04cdb24d67b081f6cf80200ffc5233f44b61109",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/152.0.0.0 Safari/537.36",
+    "jsVersion": "15.2.124.21"
+  },
+  "evidence": [],
+  "failures": [],
+  "interactions": [
+    {
+      "name": "1536 normal list",
+      "passed": true
+    },
+    {
+      "name": "1536 search",
+      "passed": true
+    },
+    {
+      "name": "1536 status filter",
+      "passed": true
+    },
+    {
+      "name": "1536 pagination10",
+      "passed": true
+    },
+    {
+      "name": "1536 final page5",
+      "passed": true
+    },
+    {
+      "name": "1536 detail accessible",
+      "passed": true
+    },
+    {
+      "name": "1536 detail live status",
+      "passed": true
+    },
+    {
+      "name": "1536 validation no mutation",
+      "passed": true
+    },
+    {
+      "name": "1536 dirty guard",
+      "passed": true
+    },
+    {
+      "name": "1536 discard",
+      "passed": true
+    },
+    {
+      "name": "1536 legacy time",
+      "passed": true
+    },
+    {
+      "name": "1536 linked record preserved",
+      "passed": true
+    },
+    {
+      "name": "1536 save-failure pending one mutation",
+      "passed": true
+    },
+    {
+      "name": "1536 save-failure unique recovery",
+      "passed": true
+    },
+    {
+      "name": "1536 save-throw pending one mutation",
+      "passed": true
+    },
+    {
+      "name": "1536 save-throw unique recovery",
+      "passed": true
+    },
+    {
+      "name": "1536 create multiple recipients",
+      "passed": true
+    },
+    {
+      "name": "1536 empty receipt legacy rule",
+      "passed": true
+    },
+    {
+      "name": "1536 copy preserves receipt",
+      "passed": true
+    },
+    {
+      "name": "1536 failed clipboard no status mutation",
+      "passed": true
+    },
+    {
+      "name": "1536 delete cancel",
+      "passed": true
+    },
+    {
+      "name": "1536 delete confirm",
+      "passed": true
+    },
+    {
+      "name": "1536 readonly",
+      "passed": true
+    },
+    {
+      "name": "1536 409 stays recoverable",
+      "passed": true
+    },
+    {
+      "name": "1536 navigation guarded",
+      "passed": true
+    },
+    {
+      "name": "390 normal list",
+      "passed": true
+    },
+    {
+      "name": "390 search",
+      "passed": true
+    },
+    {
+      "name": "390 status filter",
+      "passed": true
+    },
+    {
+      "name": "390 pagination10",
+      "passed": true
+    },
+    {
+      "name": "390 final page5",
+      "passed": true
+    },
+    {
+      "name": "390 detail accessible",
+      "passed": true
+    },
+    {
+      "name": "390 detail live status",
+      "passed": true
+    },
+    {
+      "name": "390 validation no mutation",
+      "passed": true
+    },
+    {
+      "name": "390 dirty guard",
+      "passed": true
+    },
+    {
+      "name": "390 discard",
+      "passed": true
+    },
+    {
+      "name": "390 legacy time",
+      "passed": true
+    },
+    {
+      "name": "390 linked record preserved",
+      "passed": true
+    },
+    {
+      "name": "390 save-failure pending one mutation",
+      "passed": true
+    },
+    {
+      "name": "390 save-failure unique recovery",
+      "passed": true
+    },
+    {
+      "name": "390 save-throw pending one mutation",
+      "passed": true
+    },
+    {
+      "name": "390 save-throw unique recovery",
+      "passed": true
+    },
+    {
+      "name": "390 create multiple recipients",
+      "passed": true
+    },
+    {
+      "name": "390 empty receipt legacy rule",
+      "passed": true
+    },
+    {
+      "name": "390 copy preserves receipt",
+      "passed": true
+    },
+    {
+      "name": "390 failed clipboard no status mutation",
+      "passed": true
+    },
+    {
+      "name": "390 delete cancel",
+      "passed": true
+    },
+    {
+      "name": "390 delete confirm",
+      "passed": true
+    },
+    {
+      "name": "390 readonly",
+      "passed": true
+    },
+    {
+      "name": "390 409 stays recoverable",
+      "passed": true
+    },
+    {
+      "name": "390 navigation guarded",
+      "passed": true
+    }
+  ],
+  "consoleErrors": []
+}

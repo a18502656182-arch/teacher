@@ -1,0 +1,152 @@
+{
+  "version": "P01",
+  "fixture": "tools/ui-preview/records-fixture.ts",
+  "fixtureMode": "synthetic memory only; frozen 2026-09-15T09:00+08",
+  "states": [
+    {
+      "id": "normal",
+      "desktop": true,
+      "mobile": true,
+      "status": "isolated-rendered",
+      "userApproval": false
+    },
+    {
+      "id": "notices",
+      "desktop": true,
+      "mobile": true,
+      "status": "isolated-rendered",
+      "userApproval": false
+    },
+    {
+      "id": "mobile-detail",
+      "desktop": true,
+      "mobile": true,
+      "status": "isolated-rendered",
+      "userApproval": false
+    },
+    {
+      "id": "empty-class",
+      "desktop": true,
+      "mobile": true,
+      "status": "isolated-rendered",
+      "userApproval": false
+    },
+    {
+      "id": "no-records",
+      "desktop": true,
+      "mobile": true,
+      "status": "isolated-rendered",
+      "userApproval": false
+    },
+    {
+      "id": "search-empty",
+      "desktop": true,
+      "mobile": true,
+      "status": "isolated-rendered",
+      "userApproval": false
+    },
+    {
+      "id": "students-105",
+      "desktop": true,
+      "mobile": true,
+      "status": "isolated-rendered",
+      "userApproval": false
+    },
+    {
+      "id": "long-record",
+      "desktop": true,
+      "mobile": true,
+      "status": "isolated-rendered",
+      "userApproval": false
+    },
+    {
+      "id": "composer",
+      "desktop": true,
+      "mobile": true,
+      "status": "isolated-rendered",
+      "userApproval": false
+    },
+    {
+      "id": "notice-editor",
+      "desktop": true,
+      "mobile": true,
+      "status": "isolated-rendered",
+      "userApproval": false
+    },
+    {
+      "id": "receipt-editor",
+      "desktop": true,
+      "mobile": true,
+      "status": "isolated-rendered",
+      "userApproval": false
+    },
+    {
+      "id": "validation",
+      "desktop": true,
+      "mobile": true,
+      "status": "isolated-rendered",
+      "userApproval": false
+    },
+    {
+      "id": "readonly",
+      "desktop": true,
+      "mobile": true,
+      "status": "isolated-rendered",
+      "userApproval": false
+    },
+    {
+      "id": "loading",
+      "desktop": true,
+      "mobile": true,
+      "status": "isolated-rendered",
+      "userApproval": false
+    },
+    {
+      "id": "saving",
+      "desktop": true,
+      "mobile": true,
+      "status": "isolated-rendered",
+      "userApproval": false
+    },
+    {
+      "id": "save-failure",
+      "desktop": true,
+      "mobile": true,
+      "status": "isolated-rendered",
+      "userApproval": false
+    },
+    {
+      "id": "save-throw",
+      "desktop": true,
+      "mobile": true,
+      "status": "isolated-rendered",
+      "userApproval": false
+    },
+    {
+      "id": "conflict-409",
+      "desktop": true,
+      "mobile": true,
+      "status": "isolated-rendered",
+      "userApproval": false
+    },
+    {
+      "id": "dirty-close",
+      "desktop": true,
+      "mobile": true,
+      "status": "isolated-rendered",
+      "userApproval": false
+    },
+    {
+      "id": "legacy",
+      "desktop": true,
+      "mobile": true,
+      "status": "isolated-rendered",
+      "userApproval": false
+    }
+  ],
+  "supplement": "docs/page-designs/V4/records/screenshots/supplement/supplement.json",
+  "unapproved": [
+    "All overlays and uncovered states require supplemental human review before integration",
+    "Actual persistence, keyboard/screen reader full audit and touch devices not covered"
+  ]
+}

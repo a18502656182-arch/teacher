@@ -1,0 +1,151 @@
+
+> ban-zhuren-workbench@0.1.0 qa:strict
+> npm run qa:visual-baseline && node scripts/layout-audit.mjs --serve
+
+
+> ban-zhuren-workbench@0.1.0 qa:visual-baseline
+> node scripts/visual-baseline-audit.mjs
+
+[
+  {
+    "gate": "V1",
+    "status": "historical-result-approved",
+    "pages": [
+      {
+        "id": "dashboard",
+        "phase": "historical-approved"
+      }
+    ]
+  },
+  {
+    "gate": "V2",
+    "status": "design-in-progress",
+    "pages": [
+      {
+        "id": "students",
+        "phase": "design-approved"
+      },
+      {
+        "id": "homework",
+        "phase": "design-approved"
+      },
+      {
+        "id": "dictation",
+        "phase": "inventory"
+      }
+    ]
+  },
+  {
+    "gate": "V3",
+    "status": "blocked-by-previous-batch",
+    "pages": [
+      {
+        "id": "attendance",
+        "phase": "design-approved"
+      },
+      {
+        "id": "growth",
+        "phase": "awaiting-design-approval"
+      },
+      {
+        "id": "health",
+        "phase": "awaiting-design-approval"
+      }
+    ]
+  },
+  {
+    "gate": "V4",
+    "status": "blocked-by-previous-batch",
+    "pages": [
+      {
+        "id": "records",
+        "phase": "concept-review"
+      },
+      {
+        "id": "scores",
+        "phase": "not-started"
+      },
+      {
+        "id": "reflection",
+        "phase": "not-started"
+      }
+    ]
+  },
+  {
+    "gate": "V5",
+    "status": "blocked-by-previous-batch",
+    "pages": [
+      {
+        "id": "schedule",
+        "phase": "not-started"
+      },
+      {
+        "id": "tools",
+        "phase": "not-started"
+      },
+      {
+        "id": "seating",
+        "phase": "not-started"
+      }
+    ]
+  },
+  {
+    "gate": "V6",
+    "status": "blocked-by-previous-batch",
+    "pages": [
+      {
+        "id": "duty",
+        "phase": "not-started"
+      },
+      {
+        "id": "cadres",
+        "phase": "not-started"
+      },
+      {
+        "id": "rules",
+        "phase": "not-started"
+      }
+    ]
+  },
+  {
+    "gate": "V7",
+    "status": "blocked-by-previous-batch",
+    "pages": [
+      {
+        "id": "points",
+        "phase": "not-started"
+      },
+      {
+        "id": "weekly",
+        "phase": "not-started"
+      },
+      {
+        "id": "comments",
+        "phase": "not-started"
+      }
+    ]
+  }
+]
+Visual baseline contract OK: 19 teacher pages, 7 gates, 1 historical user-approved gates; staged D/R workflow (supervision optional).
+file:///E:/%E6%96%87%E6%A1%A3/Codex/%E5%B0%8F%E7%BA%A2%E4%B9%A6/%E7%8F%AD%E4%B8%BB%E4%BB%BB%E5%B7%A5%E4%BD%9C%E5%8F%B0%E7%BD%91%E7%AB%99/scripts/layout-audit.mjs:202
+    throw new Error(`${error.message}\nDev server output:\n${output.slice(-3000)}`);
+          ^
+
+Error: Timed out waiting for http://localhost:4180/w/demo
+Dev server output:
+
+> ban-zhuren-workbench@0.1.0 dev
+> vinext dev --host 127.0.0.1 --port 4180
+
+
+  vinext dev  (Vite 8.0.13)
+
+▲ [WARNING] Proxy environment variables detected. We'll use your proxy for fetch requests.
+
+
+Using secrets defined in .env.local
+
+    at withDevServer (file:///E:/%E6%96%87%E6%A1%A3/Codex/%E5%B0%8F%E7%BA%A2%E4%B9%A6/%E7%8F%AD%E4%B8%BB%E4%BB%BB%E5%B7%A5%E4%BD%9C%E5%8F%B0%E7%BD%91%E7%AB%99/scripts/layout-audit.mjs:202:11)
+    at async file:///E:/%E6%96%87%E6%A1%A3/Codex/%E5%B0%8F%E7%BA%A2%E4%B9%A6/%E7%8F%AD%E4%B8%BB%E4%BB%BB%E5%B7%A5%E4%BD%9C%E5%8F%B0%E7%BD%91%E7%AB%99/scripts/layout-audit.mjs:897:48
+
+Node.js v24.19.0

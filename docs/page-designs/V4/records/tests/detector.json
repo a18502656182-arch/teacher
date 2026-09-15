@@ -1,0 +1,243 @@
+[
+  {
+    "antipattern": "border-accent-on-rounded",
+    "name": "Border accent on rounded element",
+    "description": "Thick accent border on a rounded card — the border clashes with the rounded corners. Remove the border or the border-radius.",
+    "severity": "warning",
+    "category": "slop",
+    "file": "E:\\文档\\Codex\\小红书\\班主任工作台网站\\app\\designs\\records\\RecordsDesign.module.css",
+    "line": 1,
+    "snippet": "border-bottom:3px solid"
+  },
+  {
+    "antipattern": "design-system-color",
+    "name": "Color outside DESIGN.md",
+    "description": "A literal color is outside the DESIGN.md palette and sidecar tonal ramps. This may be legitimate, but it should be an intentional design-system addition rather than drift.",
+    "severity": "advisory",
+    "category": "quality",
+    "file": "E:\\文档\\Codex\\小红书\\班主任工作台网站\\app\\designs\\records\\RecordsDesign.module.css",
+    "line": 1,
+    "snippet": "Undocumented color #087e7e is outside DESIGN.md colors",
+    "ignoreValue": "#087e7e"
+  },
+  {
+    "antipattern": "design-system-color",
+    "name": "Color outside DESIGN.md",
+    "description": "A literal color is outside the DESIGN.md palette and sidecar tonal ramps. This may be legitimate, but it should be an intentional design-system addition rather than drift.",
+    "severity": "advisory",
+    "category": "quality",
+    "file": "E:\\文档\\Codex\\小红书\\班主任工作台网站\\app\\designs\\records\\RecordsDesign.module.css",
+    "line": 1,
+    "snippet": "Undocumented color #076a6a is outside DESIGN.md colors",
+    "ignoreValue": "#076a6a"
+  },
+  {
+    "antipattern": "design-system-color",
+    "name": "Color outside DESIGN.md",
+    "description": "A literal color is outside the DESIGN.md palette and sidecar tonal ramps. This may be legitimate, but it should be an intentional design-system addition rather than drift.",
+    "severity": "advisory",
+    "category": "quality",
+    "file": "E:\\文档\\Codex\\小红书\\班主任工作台网站\\app\\designs\\records\\RecordsDesign.module.css",
+    "line": 1,
+    "snippet": "Undocumented color #627485 is outside DESIGN.md colors",
+    "ignoreValue": "#627485"
+  },
+  {
+    "antipattern": "design-system-color",
+    "name": "Color outside DESIGN.md",
+    "description": "A literal color is outside the DESIGN.md palette and sidecar tonal ramps. This may be legitimate, but it should be an intentional design-system addition rather than drift.",
+    "severity": "advisory",
+    "category": "quality",
+    "file": "E:\\文档\\Codex\\小红书\\班主任工作台网站\\app\\designs\\records\\RecordsDesign.module.css",
+    "line": 1,
+    "snippet": "Undocumented color #dce6ed is outside DESIGN.md colors",
+    "ignoreValue": "#dce6ed"
+  },
+  {
+    "antipattern": "design-system-color",
+    "name": "Color outside DESIGN.md",
+    "description": "A literal color is outside the DESIGN.md palette and sidecar tonal ramps. This may be legitimate, but it should be an intentional design-system addition rather than drift.",
+    "severity": "advisory",
+    "category": "quality",
+    "file": "E:\\文档\\Codex\\小红书\\班主任工作台网站\\app\\designs\\records\\RecordsDesign.module.css",
+    "line": 1,
+    "snippet": "Undocumented color #078888 is outside DESIGN.md colors",
+    "ignoreValue": "#078888"
+  },
+  {
+    "antipattern": "design-system-color",
+    "name": "Color outside DESIGN.md",
+    "description": "A literal color is outside the DESIGN.md palette and sidecar tonal ramps. This may be legitimate, but it should be an intentional design-system addition rather than drift.",
+    "severity": "advisory",
+    "category": "quality",
+    "file": "E:\\文档\\Codex\\小红书\\班主任工作台网站\\app\\designs\\records\\RecordsDesign.module.css",
+    "line": 1,
+    "snippet": "Undocumented color #3c5870 is outside DESIGN.md colors",
+    "ignoreValue": "#3c5870"
+  },
+  {
+    "antipattern": "design-system-color",
+    "name": "Color outside DESIGN.md",
+    "description": "A literal color is outside the DESIGN.md palette and sidecar tonal ramps. This may be legitimate, but it should be an intentional design-system addition rather than drift.",
+    "severity": "advisory",
+    "category": "quality",
+    "file": "E:\\文档\\Codex\\小红书\\班主任工作台网站\\app\\designs\\records\\RecordsDesign.module.css",
+    "line": 1,
+    "snippet": "Undocumented color #8a4e00 is outside DESIGN.md colors",
+    "ignoreValue": "#8a4e00"
+  },
+  {
+    "antipattern": "design-system-color",
+    "name": "Color outside DESIGN.md",
+    "description": "A literal color is outside the DESIGN.md palette and sidecar tonal ramps. This may be legitimate, but it should be an intentional design-system addition rather than drift.",
+    "severity": "advisory",
+    "category": "quality",
+    "file": "E:\\文档\\Codex\\小红书\\班主任工作台网站\\app\\designs\\records\\RecordsDesign.module.css",
+    "line": 1,
+    "snippet": "Undocumented color #e4f2e6 is outside DESIGN.md colors",
+    "ignoreValue": "#e4f2e6"
+  },
+  {
+    "antipattern": "design-system-color",
+    "name": "Color outside DESIGN.md",
+    "description": "A literal color is outside the DESIGN.md palette and sidecar tonal ramps. This may be legitimate, but it should be an intentional design-system addition rather than drift.",
+    "severity": "advisory",
+    "category": "quality",
+    "file": "E:\\文档\\Codex\\小红书\\班主任工作台网站\\app\\designs\\records\\RecordsDesign.module.css",
+    "line": 1,
+    "snippet": "Undocumented color #e9edf1 is outside DESIGN.md colors",
+    "ignoreValue": "#e9edf1"
+  },
+  {
+    "antipattern": "design-system-color",
+    "name": "Color outside DESIGN.md",
+    "description": "A literal color is outside the DESIGN.md palette and sidecar tonal ramps. This may be legitimate, but it should be an intentional design-system addition rather than drift.",
+    "severity": "advisory",
+    "category": "quality",
+    "file": "E:\\文档\\Codex\\小红书\\班主任工作台网站\\app\\designs\\records\\RecordsDesign.module.css",
+    "line": 1,
+    "snippet": "Undocumented color #495965 is outside DESIGN.md colors",
+    "ignoreValue": "#495965"
+  },
+  {
+    "antipattern": "design-system-color",
+    "name": "Color outside DESIGN.md",
+    "description": "A literal color is outside the DESIGN.md palette and sidecar tonal ramps. This may be legitimate, but it should be an intentional design-system addition rather than drift.",
+    "severity": "advisory",
+    "category": "quality",
+    "file": "E:\\文档\\Codex\\小红书\\班主任工作台网站\\app\\designs\\records\\RecordsDesign.module.css",
+    "line": 1,
+    "snippet": "Undocumented color #fff5e5 is outside DESIGN.md colors",
+    "ignoreValue": "#fff5e5"
+  },
+  {
+    "antipattern": "design-system-color",
+    "name": "Color outside DESIGN.md",
+    "description": "A literal color is outside the DESIGN.md palette and sidecar tonal ramps. This may be legitimate, but it should be an intentional design-system addition rather than drift.",
+    "severity": "advisory",
+    "category": "quality",
+    "file": "E:\\文档\\Codex\\小红书\\班主任工作台网站\\app\\designs\\records\\RecordsDesign.module.css",
+    "line": 1,
+    "snippet": "Undocumented color #87551d is outside DESIGN.md colors",
+    "ignoreValue": "#87551d"
+  },
+  {
+    "antipattern": "design-system-color",
+    "name": "Color outside DESIGN.md",
+    "description": "A literal color is outside the DESIGN.md palette and sidecar tonal ramps. This may be legitimate, but it should be an intentional design-system addition rather than drift.",
+    "severity": "advisory",
+    "category": "quality",
+    "file": "E:\\文档\\Codex\\小红书\\班主任工作台网站\\app\\designs\\records\\RecordsDesign.module.css",
+    "line": 1,
+    "snippet": "Undocumented color #406359 is outside DESIGN.md colors",
+    "ignoreValue": "#406359"
+  },
+  {
+    "antipattern": "design-system-color",
+    "name": "Color outside DESIGN.md",
+    "description": "A literal color is outside the DESIGN.md palette and sidecar tonal ramps. This may be legitimate, but it should be an intentional design-system addition rather than drift.",
+    "severity": "advisory",
+    "category": "quality",
+    "file": "E:\\文档\\Codex\\小红书\\班主任工作台网站\\app\\designs\\records\\RecordsDesign.module.css",
+    "line": 1,
+    "snippet": "Undocumented color #d4e3da is outside DESIGN.md colors",
+    "ignoreValue": "#d4e3da"
+  },
+  {
+    "antipattern": "design-system-color",
+    "name": "Color outside DESIGN.md",
+    "description": "A literal color is outside the DESIGN.md palette and sidecar tonal ramps. This may be legitimate, but it should be an intentional design-system addition rather than drift.",
+    "severity": "advisory",
+    "category": "quality",
+    "file": "E:\\文档\\Codex\\小红书\\班主任工作台网站\\app\\designs\\records\\RecordsDesign.module.css",
+    "line": 1,
+    "snippet": "Undocumented color #466558 is outside DESIGN.md colors",
+    "ignoreValue": "#466558"
+  },
+  {
+    "antipattern": "design-system-color",
+    "name": "Color outside DESIGN.md",
+    "description": "A literal color is outside the DESIGN.md palette and sidecar tonal ramps. This may be legitimate, but it should be an intentional design-system addition rather than drift.",
+    "severity": "advisory",
+    "category": "quality",
+    "file": "E:\\文档\\Codex\\小红书\\班主任工作台网站\\app\\designs\\records\\RecordsDesign.module.css",
+    "line": 1,
+    "snippet": "Undocumented color #a33324 is outside DESIGN.md colors",
+    "ignoreValue": "#a33324"
+  },
+  {
+    "antipattern": "design-system-radius",
+    "name": "Radius outside DESIGN.md",
+    "description": "A border-radius value is outside the DESIGN.md rounded scale. Use a documented radius token or update the design system if the new shape is intentional.",
+    "severity": "advisory",
+    "category": "quality",
+    "file": "E:\\文档\\Codex\\小红书\\班主任工作台网站\\app\\designs\\records\\RecordsDesign.module.css",
+    "line": 1,
+    "snippet": "border-radius: 5px is outside the DESIGN.md rounded scale",
+    "ignoreValue": "5px"
+  },
+  {
+    "antipattern": "design-system-radius",
+    "name": "Radius outside DESIGN.md",
+    "description": "A border-radius value is outside the DESIGN.md rounded scale. Use a documented radius token or update the design system if the new shape is intentional.",
+    "severity": "advisory",
+    "category": "quality",
+    "file": "E:\\文档\\Codex\\小红书\\班主任工作台网站\\app\\designs\\records\\RecordsDesign.module.css",
+    "line": 1,
+    "snippet": "border-radius: 7px is outside the DESIGN.md rounded scale",
+    "ignoreValue": "7px"
+  },
+  {
+    "antipattern": "design-system-font-size",
+    "name": "Font size outside DESIGN.md",
+    "description": "A literal font-size is off the type ramp documented in DESIGN.md typography. Use a documented size step or update the design system if the new step is intentional.",
+    "severity": "advisory",
+    "category": "quality",
+    "file": "E:\\文档\\Codex\\小红书\\班主任工作台网站\\app\\designs\\records\\RecordsDesign.module.css",
+    "line": 1,
+    "snippet": "font-size: 34px is off the DESIGN.md type ramp",
+    "ignoreValue": "34px"
+  },
+  {
+    "antipattern": "design-system-font-size",
+    "name": "Font size outside DESIGN.md",
+    "description": "A literal font-size is off the type ramp documented in DESIGN.md typography. Use a documented size step or update the design system if the new step is intentional.",
+    "severity": "advisory",
+    "category": "quality",
+    "file": "E:\\文档\\Codex\\小红书\\班主任工作台网站\\app\\designs\\records\\RecordsDesign.module.css",
+    "line": 1,
+    "snippet": "font-size: 17px is off the DESIGN.md type ramp",
+    "ignoreValue": "17px"
+  },
+  {
+    "antipattern": "design-system-font-size",
+    "name": "Font size outside DESIGN.md",
+    "description": "A literal font-size is off the type ramp documented in DESIGN.md typography. Use a documented size step or update the design system if the new step is intentional.",
+    "severity": "advisory",
+    "category": "quality",
+    "file": "E:\\文档\\Codex\\小红书\\班主任工作台网站\\app\\designs\\records\\RecordsDesign.module.css",
+    "line": 3,
+    "snippet": "font-size: 26px is off the DESIGN.md type ramp",
+    "ignoreValue": "26px"
+  }
+]

@@ -1,0 +1,61 @@
+{
+  "version": "P01",
+  "tests": [
+    {
+      "name": "typecheck",
+      "path": "docs/page-designs/V4/records/tests/typecheck.log",
+      "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "exitCode": 0
+    },
+    {
+      "name": "lint",
+      "path": "docs/page-designs/V4/records/tests/lint.log",
+      "sha256": "1AF2F09FF8E9E18486BBA8AE777BCDE45A74A636F14B7F82E0D5CF7A6F2DD5E4",
+      "exitCode": 0
+    },
+    {
+      "name": "operations",
+      "path": "docs/page-designs/V4/records/tests/operations.log",
+      "sha256": "29F1E193FB57715552CEED86461A816599A8ADA12028AAEA4638595B1D2195CB",
+      "exitCode": 0
+    },
+    {
+      "name": "build",
+      "path": "docs/page-designs/V4/records/tests/build.log",
+      "sha256": "6A0A9895402BC10D21F008B733F30A95BE03BE8A10C13A7FB548595084990544",
+      "exitCode": 0
+    },
+    {
+      "name": "isolated-build",
+      "path": "docs/page-designs/V4/records/tests/isolated-build.log",
+      "sha256": "28CC8A0B2008735DDFB67367D11D89F81C6CE65952860E102FFDFE4E026B5676",
+      "exitCode": 0
+    },
+    {
+      "name": "qa-strict",
+      "path": "docs/page-designs/V4/records/tests/qa-strict.log",
+      "sha256": "3CE17276D72BFB1A16649B0C00D87599FE69C814D83DC2815677850BB3F16E93",
+      "exitCode": 1
+    }
+  ],
+  "interactions": {
+    "path": "docs/page-designs/V4/records/tests/interactions.json",
+    "sha256": "8E21E46F8683A128DE0AA50B3D8BCFB69DEAD305446AF551DEC4E38094B0518D",
+    "checks": 50,
+    "failures": 0,
+    "scope": "Mixed DOM actions and direct isolated-controller actions, both viewport sizes"
+  },
+  "supplement": {
+    "path": "docs/page-designs/V4/records/screenshots/supplement/supplement.json",
+    "sha256": "9653C88DFB7F936FDE058C4AB13A5A6CE434FA1E7367055A06E67DA4BA829198",
+    "checks": 8,
+    "failures": 0
+  },
+  "capture": {
+    "path": "docs/page-designs/V4/records/screenshots/p01/capture.json",
+    "sha256": "2B4E5BE4DC6ED092C36024BB1193D37AE5BE30BABE257110101BCB67E290A219",
+    "shots": 40,
+    "failures": 0
+  },
+  "caveat": "qa:strict timed out waiting for localhost:4180/w/demo this run. Production build and isolated build passed; not a full-site QA pass. img warning only. No real persistence or external sends."
+}

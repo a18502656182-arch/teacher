@@ -1,0 +1,21 @@
+{
+  "version": "P01",
+  "font": {
+    "family": "Microsoft YaHei",
+    "source": "Windows installed; not redistributed",
+    "actualEvidence": "docs/page-designs/V4/records/geometry.json"
+  },
+  "art": {
+    "path": "app/designs/records/letter-p01.png",
+    "sha256": "81BD0FBF53EB9BB06530F176B19B36293E5E00ED51B8D664511193C51C624875",
+    "pixelSize": [
+      1536,
+      1024
+    ],
+    "bytes": 2084642,
+    "tool": "built-in ImageGen",
+    "prompt": "Small refined watercolor stationery asset for a Chinese primary-school teacher communication workbench. A pale warm ivory envelope, a small blank cream note beside it, delicate translucent sage-green botanical sprig. White or transparent seamless background. No text, no letters, no logos, no UI, no border. Soft watercolor paper detail, calm pale ochre and sage, little blue-green pencil tucked alongside. Horizontal1536x1024, objects centered occupying70%, delicate mature editorial illustration, light without dark shadow. This will sit at180x110 in a white header.",
+    "limitation": "Unoptimized PNG; decorative alt empty."
+  },
+  "icons": "Existing CampusIcon, no shared source modifications"
+}
