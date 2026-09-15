@@ -22,7 +22,8 @@
       "targetViewport": "1536x1024",
       "prompt": "docs/page-designs/V5/schedule/candidates/prompts-c01.md",
       "original": "E:\\CodexHome\\generated_images\\01a09fb4-dfcf-74e0-a5c7-ea1b5e94cf08\\exec-7f84fc50-d017-43a1-b1bd-a77efd388d58.png",
-      "purpose": "Independent main-surface direction candidate; not runnable or integrated"
+      "purpose": "Independent main-surface direction candidate; not runnable or integrated",
+      "commit": "a3638167e261f302dec7747b42d07f6c277fd10b"
     },
     {
       "path": "docs/page-designs/V5/schedule/candidates/class-mobile-c01.png",
@@ -38,7 +39,8 @@
       "targetViewport": "390x844",
       "prompt": "docs/page-designs/V5/schedule/candidates/prompts-c01.md",
       "original": "E:\\CodexHome\\generated_images\\01a09fb4-dfcf-74e0-a5c7-ea1b5e94cf08\\exec-53a1e4d9-c5b9-4637-af2c-9bf51ea3e27c.png",
-      "purpose": "Independent main-surface direction candidate; not runnable or integrated"
+      "purpose": "Independent main-surface direction candidate; not runnable or integrated",
+      "commit": "a3638167e261f302dec7747b42d07f6c277fd10b"
     },
     {
       "path": "docs/page-designs/V5/schedule/candidates/agenda-desktop-c01.png",
@@ -54,7 +56,8 @@
       "targetViewport": "1536x1024",
       "prompt": "docs/page-designs/V5/schedule/candidates/prompts-c01.md",
       "original": "E:\\CodexHome\\generated_images\\01a09fb4-dfcf-74e0-a5c7-ea1b5e94cf08\\exec-0d965b02-bf3e-4405-8905-fdc300567fe9.png",
-      "purpose": "Independent main-surface direction candidate; not runnable or integrated"
+      "purpose": "Independent main-surface direction candidate; not runnable or integrated",
+      "commit": "a3638167e261f302dec7747b42d07f6c277fd10b"
     },
     {
       "path": "docs/page-designs/V5/schedule/candidates/agenda-mobile-c01.png",
@@ -70,7 +73,8 @@
       "targetViewport": "390x844",
       "prompt": "docs/page-designs/V5/schedule/candidates/prompts-c01.md",
       "original": "E:\\CodexHome\\generated_images\\01a09fb4-dfcf-74e0-a5c7-ea1b5e94cf08\\exec-234f0924-3cd5-4b76-9bef-9d3ef8442404.png",
-      "purpose": "Independent main-surface direction candidate; not runnable or integrated"
+      "purpose": "Independent main-surface direction candidate; not runnable or integrated",
+      "commit": "a3638167e261f302dec7747b42d07f6c277fd10b"
     },
     {
       "path": "docs/page-designs/V5/schedule/candidates/work-log-desktop-c01.png",
@@ -86,7 +90,8 @@
       "targetViewport": "1536x1024",
       "prompt": "docs/page-designs/V5/schedule/candidates/prompts-c01.md",
       "original": "E:\\CodexHome\\generated_images\\01a09fb4-dfcf-74e0-a5c7-ea1b5e94cf08\\exec-426d8e6c-e950-4c94-8f5d-f6c58eef5e21.png",
-      "purpose": "Independent main-surface direction candidate; not runnable or integrated"
+      "purpose": "Independent main-surface direction candidate; not runnable or integrated",
+      "commit": "a3638167e261f302dec7747b42d07f6c277fd10b"
     },
     {
       "path": "docs/page-designs/V5/schedule/candidates/work-log-mobile-c01.png",
@@ -102,7 +107,8 @@
       "targetViewport": "390x844",
       "prompt": "docs/page-designs/V5/schedule/candidates/prompts-c01.md",
       "original": "E:\\CodexHome\\generated_images\\01a09fb4-dfcf-74e0-a5c7-ea1b5e94cf08\\exec-03267535-c24e-46a5-b84e-c8c85485e3a6.png",
-      "purpose": "Independent main-surface direction candidate; not runnable or integrated"
+      "purpose": "Independent main-surface direction candidate; not runnable or integrated",
+      "commit": "a3638167e261f302dec7747b42d07f6c277fd10b"
     }
   ],
   "prototype": {
@@ -356,6 +362,8 @@
         "path": "docs/page-designs/V5/schedule/screenshots/source/390-agenda.png",
         "sha256": "7F016CC709DF222EBAFD1765502241EBA9766E33F7137455E88E3F0C178A9DD4"
       }
-    ]
-  }
+    ],
+    "commit": "a3638167e261f302dec7747b42d07f6c277fd10b"
+  },
+  "candidateCommit": "a3638167e261f302dec7747b42d07f6c277fd10b"
 }
