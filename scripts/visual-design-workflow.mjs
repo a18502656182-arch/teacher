@@ -1,6 +1,7 @@
 import { createHash } from 'node:crypto';
 import { existsSync, readFileSync, realpathSync } from 'node:fs';
 import path from 'node:path';
+import {auditSurfaceDesign} from './page-surface-design-audit.mjs';
 
 const phases = new Set(['not-started', 'inventory', 'concept-review', 'prototype', 'awaiting-design-approval', 'design-approved', 'integrating', 'awaiting-result-approval', 'result-approved', 'needs-design-changes', 'needs-integration-fix', 'needs-regression-review']);
 const hash = value => createHash('sha256').update(value).digest('hex').toUpperCase();
@@ -50,6 +51,7 @@ export function auditDesignWorkflow(root, ledger, argv, git) {
   function designReady(id, r) {
     if (!r) return [`${id}: inventory not started.`];
     const errors = [];
+    if (Object.hasOwn(r, 'surfaceCoverage')) errors.push(...auditSurfaceDesign(root, r, 'prototype').map(e => `${id}: ${e}`));
     if (!r.conceptApproval?.approved || !r.conceptApproval.source || !r.conceptApproval.approvedAt) errors.push(`${id}: candidate direction awaits user confirmation.`);
     const p = r.prototype;
     if (!p?.commit || !git.gitCommitExists(root, p.commit)) errors.push(`${id}: runnable design commit missing.`);

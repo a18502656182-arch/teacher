@@ -219,5 +219,25 @@
     "all overlay human approval",
     "completion back to draft archive lifecycle beyond reused operations"
   ],
-  "notes": "Score detail reached by selecting student and clicking 查看本次成绩. exam-picker URL provides long fixture, click 切换考试. All data synthetic in memory, reload resets."
+  "notes": "Score detail reached by selecting student and clicking 查看本次成绩. exam-picker URL provides long fixture, click 切换考试. All data synthetic in memory, reload resets.",
+  "designRework": {
+    "version": "C02",
+    "source": "已保存反思界面没有做 应该是出图时的疏漏 要重新做 而且后面要记得把类似这种卡片的不同页面都要分开作图 不要让我人工审核时再查",
+    "requiredIndependentSurfaces": [
+      "saved-library desktop",
+      "saved-library mobile",
+      "saved-detail desktop",
+      "saved-detail mobile"
+    ],
+    "prototype": "P01 historical evidence only; P02 not implemented",
+    "requiredVariants": [
+      "all-class multiple exams",
+      "search no result",
+      "empty library",
+      "draft/completed",
+      "unlinked exam",
+      "long content",
+      "return from edit preserving source"
+    ]
+  }
 }

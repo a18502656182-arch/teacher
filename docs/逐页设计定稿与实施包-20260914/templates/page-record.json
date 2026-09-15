@@ -35,5 +35,6 @@
   },
   "issues": [],
   "nextAction": "inventory",
-  "history": []
+  "history": [],
+  "surfaceCoverage": null
 }

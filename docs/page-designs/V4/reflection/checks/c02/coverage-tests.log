@@ -1,0 +1,37 @@
+✔ requires source-backed surface inventory (0.7293ms)
+✔ empty viewport requirements cannot bypass coverage (1.9922ms)
+✔ duplicate surface ids cannot bypass reuse checks (2.3602ms)
+✔ a desktop image cannot cover missing mobile surface (1.8332ms)
+✔ different workspaces cannot silently reuse one candidate (2.2766ms)
+✔ stale image or source invalidates coverage (6.2214ms)
+✔ candidate existence does not mean approved direction (2.7184ms)
+✔ runnable evidence cannot be replaced by candidate approval (1.6099ms)
+✔ explicit complete mapping passes mechanical checks only (3.7791ms)
+✔ all three D approvals allow integration without any supervision report (120.5187ms)
+✔ deferred overlays allow design review but block integration until version-bound human supplement (377.6422ms)
+✔ homepage approval cannot unlock V2; concept confirmation cannot replace runnable D approval (89.1226ms)
+✔ two of three D approvals do not permit any page to integrate (87.3035ms)
+✔ modified screenshot bytes invalidate a previously approved design hash (97.9082ms)
+✔ design approval must bind the exact complete set of screenshot hashes (99.6159ms)
+✔ product changes invalidate R, including uncommitted changes and shared assets (195.119ms)
+✔ page record hash drift and unsafe paths fail closed (257.7607ms)
+✔ no generic gate command or result approval for another design can pass (209.2958ms)
+✔ extensionless trigger matches actual theme and primitive files (0.2137ms)
+✔ ready evidence requires distinct desktop and mobile records bound to a product commit (727.4397ms)
+✔ path traversal is rejected even when evidence names the persistent directory (666.0835ms)
+✔ one file cannot impersonate two evidence slots (695.1504ms)
+✔ two desktop records cannot satisfy the mobile requirement (726.3837ms)
+✔ equivalent normalized paths cannot impersonate different evidence (2068.693ms)
+✔ committed assets and visual configuration invalidate evidence and prior approvals (5378.8162ms)
+✔ page approval cannot exist without approval on its gate (694.4053ms)
+✔ gate command keeps supervision PASS separate from visual readiness (690.9666ms)
+✔ shared visual changes are detected after an approved commit (967.3621ms)
+✔ a page-local change invalidates its own evidence but not an approved sibling page (1270.2159ms)
+ℹ tests 29
+ℹ suites 0
+ℹ pass 29
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 15506.1155

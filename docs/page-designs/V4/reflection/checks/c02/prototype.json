@@ -1,0 +1,15 @@
+{
+  "stage": "prototype",
+  "record": "docs/page-designs/V4/reflection/record.json",
+  "errors": [
+    "saved-library: candidate direction not user approved",
+    "saved-library: desktop runnable surface evidence missing",
+    "saved-library: candidate direction not user approved",
+    "saved-library: mobile runnable surface evidence missing",
+    "saved-detail: candidate direction not user approved",
+    "saved-detail: desktop runnable surface evidence missing",
+    "saved-detail: candidate direction not user approved",
+    "saved-detail: mobile runnable surface evidence missing"
+  ],
+  "note": "Inventory completeness requires source walk-through; this does not grant visual approval."
+}

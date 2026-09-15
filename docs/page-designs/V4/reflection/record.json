@@ -1,7 +1,7 @@
 {
   "pageId": "reflection",
   "batch": "V4",
-  "phase": "awaiting-design-approval",
+  "phase": "needs-design-changes",
   "brief": "docs/page-designs/V4/reflection/brief.md",
   "functionMap": "docs/page-designs/V4/reflection/function-map.md",
   "geometry": "docs/page-designs/V4/reflection/geometry.json",
@@ -61,6 +61,70 @@
       "purpose": "Independent ImageGen direction candidate only; not runnable or integrated",
       "commit": "32dda5f7fe68cfb3e407ac82f9e0db3f3a7bc0de",
       "approvalSource": "本任务用户：确认（桌面、手机队列、手机填写三张C01候选交付后）"
+    },
+    {
+      "path": "docs/page-designs/V4/reflection/candidates/saved-library-desktop-c02.png",
+      "sha256": "3CF4EEFB324FA3E145528CEC5B0D67E5C7D0D70FCB969964F11137B39559C1F0",
+      "version": "C02",
+      "kind": "desktop",
+      "stateId": "saved-library",
+      "approval": false,
+      "pixelSize": [
+        1536,
+        1024
+      ],
+      "targetViewport": "1536x1024",
+      "prompt": "docs/page-designs/V4/reflection/candidates/prompts-c02.md",
+      "original": "E:\\CodexHome\\generated_images\\01a09fb4-dfcf-74e0-a5c7-ea1b5e94cf08\\exec-59c1d274-cd40-41a2-bc03-42b27b059d88.png",
+      "purpose": "Independent ImageGen candidate, not runnable or integrated"
+    },
+    {
+      "path": "docs/page-designs/V4/reflection/candidates/saved-library-mobile-c02.png",
+      "sha256": "9314F8BD3B166C55C6990A6CED2FE9F43B45C16E755C5452998465928B2ED46D",
+      "version": "C02",
+      "kind": "mobile",
+      "stateId": "saved-library",
+      "approval": false,
+      "pixelSize": [
+        853,
+        1844
+      ],
+      "targetViewport": "390x844",
+      "prompt": "docs/page-designs/V4/reflection/candidates/prompts-c02.md",
+      "original": "E:\\CodexHome\\generated_images\\01a09fb4-dfcf-74e0-a5c7-ea1b5e94cf08\\exec-1dcd6857-aec7-4dab-8e1d-54b53661b4e0.png",
+      "purpose": "Independent ImageGen candidate, not runnable or integrated"
+    },
+    {
+      "path": "docs/page-designs/V4/reflection/candidates/saved-detail-desktop-c02.png",
+      "sha256": "256086204A089C050D2DDB519A87528C0CCA3E1796DF23D39375FB2644B0456D",
+      "version": "C02",
+      "kind": "desktop",
+      "stateId": "saved-detail",
+      "approval": false,
+      "pixelSize": [
+        1536,
+        1024
+      ],
+      "targetViewport": "1536x1024",
+      "prompt": "docs/page-designs/V4/reflection/candidates/prompts-c02.md",
+      "original": "E:\\CodexHome\\generated_images\\01a09fb4-dfcf-74e0-a5c7-ea1b5e94cf08\\exec-d73e0811-74eb-427a-9a9a-279dfc39e621.png",
+      "purpose": "Independent ImageGen candidate, not runnable or integrated"
+    },
+    {
+      "path": "docs/page-designs/V4/reflection/candidates/saved-detail-mobile-c02.png",
+      "sha256": "E4A6C8D1BBBF99D89579BB7CF2D62FEC7219BA4555F82DA2B1BABD2C4CED2DA3",
+      "version": "C02",
+      "kind": "mobile",
+      "stateId": "saved-detail",
+      "approval": false,
+      "pixelSize": [
+        853,
+        1844
+      ],
+      "targetViewport": "390x844",
+      "prompt": "docs/page-designs/V4/reflection/candidates/prompts-c02.md",
+      "original": "E:\\CodexHome\\generated_images\\01a09fb4-dfcf-74e0-a5c7-ea1b5e94cf08\\exec-cd1090fc-89f8-44f8-9ecc-b742bc4fd791.png",
+      "purpose": "Independent ImageGen candidate, not runnable or integrated"
     }
   ],
   "prototype": {
@@ -1182,7 +1246,8 @@
       "path": "docs/page-designs/V4/reflection/checks-P01.json",
       "sha256": "18535ABD6E66B5C2FCA4A3C0DB5C6A7F4BF7923B22D310ED20498A62D1EACF5A",
       "commit": "c00ed534e22ca17ae47b094ce085c53a01bc3de6"
-    }
+    },
+    "designDisposition": "已保存记录库因缺独立设计被用户要求返工；P01源码与截图保留，未获实际设计批准。"
   },
   "designApproval": {
     "approved": false,
@@ -1239,15 +1304,39 @@
       "blocking": false,
       "resolved": false,
       "description": "本机待同步时队列仍反映本机草稿/完成；编辑区和shell有待同步提示。软键盘、读屏、文字放大、真实网络/409与1.69MB装饰图优化未完成。"
+    },
+    {
+      "id": "SAVED-SURFACE-DESIGN",
+      "blocking": true,
+      "resolved": false,
+      "description": "P01已保存库沿用学生队列和编辑表单，缺独立记录浏览/阅读设计；补C02四图后待用户方向，仍需P02实际实现与审核。",
+      "source": "已保存反思界面没有做 应该是出图时的疏漏 要重新做 而且后面要记得把类似这种卡片的不同页面都要分开作图 不要让我人工审核时再查"
     }
   ],
-  "nextAction": "等待用户审核反思P01实际主页面；不自动进入V5，不正式接入、不部署。",
+  "nextAction": "等待用户确认C02已保存记录库与阅读详情的桌面/手机四张独立候选；确认后制作隔离P02，先不进入V5、不正式接入、不部署。",
   "history": [
     {
       "phase": "concept-review",
       "candidateCommit": "32dda5f7fe68cfb3e407ac82f9e0db3f3a7bc0de",
       "nextAction": "等待C01桌面/手机队列/手机填写方向确认；之后制作P01，不能先接入正式业务。",
       "note": "C01候选阶段，2026-09-15后续用户确认后制作P01"
+    },
+    {
+      "date": "2026-09-15",
+      "phase": "awaiting-design-approval",
+      "prototypeCommit": "c00ed534e22ca17ae47b094ce085c53a01bc3de6",
+      "disposition": "P01 saved-library design rejected: independent candidate omitted; technical tests remain historical only",
+      "source": "已保存反思界面没有做 应该是出图时的疏漏 要重新做 而且后面要记得把类似这种卡片的不同页面都要分开作图 不要让我人工审核时再查",
+      "evidence": [
+        {
+          "path": "docs/page-designs/V4/reflection/screenshots/p01-current/1536-saved-library.png",
+          "sha256": "6CA66E65388DB36C3F054C9F3C97C789A05B9BBF4C5F834CF59C24EB14F2F96E"
+        },
+        {
+          "path": "docs/page-designs/V4/reflection/screenshots/p01-current/390-saved-library.png",
+          "sha256": "7F22A415AF3AAA5CA0E7A5DEF7140EC6BEE2AC05D2C0A4AA7022F7A69D34867F"
+        }
+      ]
     }
   ],
   "conceptApproval": {
@@ -1259,7 +1348,8 @@
       "FBC3628073DE3AABF90126CA44119013C8F604AF34B87C3E0FB3BEFF3FB2D7A1",
       "75075EA799FEA629603B8C004B7C3E020AA228F0FBE6BDE2A5803EC77FB162B5",
       "B3B128FFBA191FAA9D97D33AD89ACAB988D916C94E1048FD6B7AE18A55133FCC"
-    ]
+    ],
+    "scope": "仅C01桌面学生队列/填写、手机队列和填写三图；不包含已保存记录库或阅读详情。"
   },
   "sourceRecovery": {
     "sourceCommit": "7f0c8cb2ec24565bc931f5bdb0836f6dd2d8243e",
@@ -1325,12 +1415,169 @@
     "path": "docs/page-designs/V4/reflection/finish-review-P01.md",
     "sha256": "1D0AA4FD88686271212486B6B452FB851529E611F9ECB17F6E88C8FFDD8836AD",
     "disposition": "PASS only for isolated user review; no aesthetic or D/R approval",
-    "commit": "c00ed534e22ca17ae47b094ce085c53a01bc3de6"
+    "commit": "c00ed534e22ca17ae47b094ce085c53a01bc3de6",
+    "currentLimitation": "旧技术PASS不能覆盖本次用户指出的设计遗漏；当前仍需返工。"
   },
   "designDocumentation": {
     "path": "app/designs/reflection/DESIGN.md",
     "sha256": "E40395B3EE321738AFF31B3EC1BC5FC820A07DA7DA7F5C982BE710E5903766DE",
     "sidecar": "app/designs/reflection/.impeccable/design.json",
     "sidecarSha256": "CB043DB22C37C08A654D6E93286874529264CD6CEFC0F57922086B51EEA840BB"
-  }
+  },
+  "subviewDesigns": {
+    "savedLibrary": {
+      "version": "C02",
+      "approved": false
+    },
+    "savedDetail": {
+      "version": "C02",
+      "approved": false
+    }
+  },
+  "surfaceCoverage": {
+    "inventoryReviewed": true,
+    "reviewedAt": "2026-09-15",
+    "reviewMethod": "逐读ReflectionDesign及controller的tab/chooseReflection/手机编辑/历史关联分支，并打开P01桌面和手机saved-library真实截图；仅本页，不声称全站已盘点。",
+    "sourceFiles": [
+      {
+        "path": "app/designs/reflection/ReflectionDesign.tsx",
+        "sha256": "68E5F69E330E02063FCA63B3932DF863AAA1B3DEFA7346600104CBBADB2F9A6F"
+      },
+      {
+        "path": "app/designs/reflection/useReflectionDesignController.ts",
+        "sha256": "FED9176F8990507225DE12F0F09D12E98E3489534F524ED4250AB5388FFA5D95"
+      }
+    ],
+    "surfaces": [
+      {
+        "id": "desktop-student-workspace",
+        "entry": "学生状态tab / 选择学生",
+        "purpose": "当前考试队列与五字段填写同屏",
+        "requiredKinds": [
+          "desktop"
+        ],
+        "candidates": [
+          {
+            "kind": "desktop",
+            "path": "docs/page-designs/V4/reflection/candidates/reflection-desktop-c01.png"
+          }
+        ],
+        "actualEvidence": [
+          {
+            "kind": "desktop",
+            "path": "docs/page-designs/V4/reflection/screenshots/p01-current/1536-normal.png",
+            "sha256": "32D9306DDE3C6852DEED0B8298AFA4E63C8E3DF8FB472A0A7B5B4B2DCDAF16E4"
+          }
+        ]
+      },
+      {
+        "id": "mobile-student-queue",
+        "entry": "手机学生状态tab",
+        "purpose": "选择复盘学生",
+        "requiredKinds": [
+          "mobile"
+        ],
+        "candidates": [
+          {
+            "kind": "mobile",
+            "path": "docs/page-designs/V4/reflection/candidates/reflection-mobile-queue-c01.png"
+          }
+        ],
+        "actualEvidence": [
+          {
+            "kind": "mobile",
+            "path": "docs/page-designs/V4/reflection/screenshots/p01-current/390-normal.png",
+            "sha256": "B05788D83002FFA581D9F9E3DAEC3BCCC92F6E137FBF185232FC3878F263BAB3"
+          }
+        ]
+      },
+      {
+        "id": "mobile-student-editor",
+        "entry": "手机点击学生填写 / 从保存详情选择编辑",
+        "purpose": "连续编辑五字段；历史编辑复用字段实现但需保持记录id/考试关联和返回来源",
+        "requiredKinds": [
+          "mobile"
+        ],
+        "candidates": [
+          {
+            "kind": "mobile",
+            "path": "docs/page-designs/V4/reflection/candidates/reflection-mobile-editor-c01.png"
+          }
+        ],
+        "variants": [
+          "new",
+          "draft",
+          "completed-edit",
+          "saved-record-edit"
+        ],
+        "actualEvidence": [
+          {
+            "kind": "mobile",
+            "path": "docs/page-designs/V4/reflection/screenshots/p01-current/390-mobile-editor.png",
+            "sha256": "D6DC29F2A046C278A9C1CD000CA6654E8192C365D829EDA2FEE9DA552EBD5D50"
+          }
+        ]
+      },
+      {
+        "id": "saved-library",
+        "entry": "已保存反思tab",
+        "purpose": "跨考试记录检索、摘要与状态浏览，不沿用学生队列",
+        "requiredKinds": [
+          "desktop",
+          "mobile"
+        ],
+        "candidates": [
+          {
+            "kind": "desktop",
+            "path": "docs/page-designs/V4/reflection/candidates/saved-library-desktop-c02.png"
+          },
+          {
+            "kind": "mobile",
+            "path": "docs/page-designs/V4/reflection/candidates/saved-library-mobile-c02.png"
+          }
+        ],
+        "actualEvidence": []
+      },
+      {
+        "id": "saved-detail",
+        "entry": "已保存反思→查看详情",
+        "purpose": "完整阅读已存问题/原因/行动/家长话/跟进，明确编辑操作后才进入表单",
+        "requiredKinds": [
+          "desktop",
+          "mobile"
+        ],
+        "candidates": [
+          {
+            "kind": "desktop",
+            "path": "docs/page-designs/V4/reflection/candidates/saved-detail-desktop-c02.png"
+          },
+          {
+            "kind": "mobile",
+            "path": "docs/page-designs/V4/reflection/candidates/saved-detail-mobile-c02.png"
+          }
+        ],
+        "actualEvidence": []
+      },
+      {
+        "id": "supplemental-overlays",
+        "type": "overlay",
+        "entry": "切换考试、成绩详情、旧数据关联、草稿/冲突恢复",
+        "purpose": "保持历史可达与数据恢复；完整业务接入前补充审核",
+        "deferred": true,
+        "deferralSource": "用户此前允许弹窗后续补修；本页record.overlayReview仍requiredBeforeIntegration且approved=false，不把独立保存库视为可暂缓弹窗。"
+      }
+    ],
+    "checks": {
+      "tests": {
+        "path": "docs/page-designs/V4/reflection/checks/c02/coverage-tests.log",
+        "sha256": "A3AE98DFBFFCD115127DF89048F002BD344409BDA02844099927DB0188D15B48",
+        "result": "29/29 passed; 9 surface tests and 20 existing workflow/baseline tests"
+      },
+      "report": {
+        "path": "docs/page-designs/V4/reflection/checks/c02/report.json",
+        "sha256": "DE5313BCB4FCD28019F87DB7EF9D1710F1310DAA723C7F2CD560D1BA166E4DED"
+      }
+    }
+  },
+  "candidateRevision": "C02 saved-library/detail; C01 student workspace retained"
 }

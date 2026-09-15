@@ -663,7 +663,7 @@
       "currentEvidence": [],
       "comparisons": [],
       "recordPath": "docs/page-designs/V4/reflection/record.json",
-      "recordSha256": "F95AC0919ADB9CF95458D3E41D3139CCF10341163619D2312D9F7B3113C1EAEF"
+      "recordSha256": "E4F191B6D53297E35DFFD0D5795CC5E5E25565482BCAD43CB6058515A7D1F092"
     },
     "schedule": {
       "label": "课程日程",
@@ -788,7 +788,7 @@
     "legacyFields": "status/productCommit/currentEvidence/comparisons/userApproval retain historical product evidence; D/R uses linked records",
     "entry": "docs/逐页设计定稿与实施包-20260914/00-从这里开始.md",
     "activeBatch": "V2",
-    "nextAction": "等待用户审核反思P01实际主页面；不自动进入V5，不正式接入、不部署。",
+    "nextAction": "等待用户确认C02已保存记录库与阅读详情的桌面/手机四张独立候选；确认后制作隔离P02，先不进入V5、不正式接入、不部署。",
     "designSequenceExceptions": [
       {
         "date": "2026-09-15",
@@ -828,6 +828,7 @@
     ],
     "overlayFollowup": "docs/page-designs/OVERLAY-FOLLOWUP-20260915.md",
     "controlFollowup": "docs/page-designs/CONTROL-POLISH-FOLLOWUP-20260915.md",
-    "feedbackFollowup": "docs/page-designs/FEEDBACK-FOLLOWUP-20260915.md"
+    "feedbackFollowup": "docs/page-designs/FEEDBACK-FOLLOWUP-20260915.md",
+    "surfaceCoveragePolicy": "docs/逐页设计定稿与实施包-20260914/09-独立子界面出图与覆盖检查.md"
   }
 }

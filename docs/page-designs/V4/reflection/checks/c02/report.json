@@ -1,0 +1,33 @@
+{
+  "date": "2026-09-15",
+  "scope": "C02 independent saved library/detail candidates and coverage workflow only",
+  "tests": {
+    "total": 29,
+    "passed": 29,
+    "failed": 0,
+    "log": "docs/page-designs/V4/reflection/checks/c02/coverage-tests.log"
+  },
+  "candidateCoverage": {
+    "exitCode": 0,
+    "log": "docs/page-designs/V4/reflection/checks/c02/candidates.json"
+  },
+  "prototypeCoverage": {
+    "exitCode": 1,
+    "expected": true,
+    "reason": "C02 direction unapproved and P02 runnable evidence absent",
+    "log": "docs/page-designs/V4/reflection/checks/c02/prototype.json"
+  },
+  "baseline": {
+    "exitCode": 0,
+    "log": "docs/page-designs/V4/reflection/checks/c02/baseline.log"
+  },
+  "formalSourceChanged": false,
+  "deployed": false,
+  "unrelatedFiles": "4 protected prior edits hash matched",
+  "knownLimits": [
+    "Inventory completeness depends on source walk-through, only reflection inventoried this turn",
+    "Generated shell/fonts/content are candidates, no pixel-exact promise",
+    "P01 saved-library remains visually rejected until P02 review",
+    "Existing overlays, feedback followups, dictation and qa:strict historical timeout remain unresolved"
+  ]
+}

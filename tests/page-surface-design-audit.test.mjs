@@ -1,0 +1,16 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {mkdirSync,mkdtempSync,writeFileSync} from 'node:fs';
+import path from 'node:path';
+import {createHash} from 'node:crypto';
+import {auditSurfaceDesign} from '../scripts/page-surface-design-audit.mjs';
+function fixture(){mkdirSync('.qa-shots',{recursive:true});const root=mkdtempSync(path.resolve('.qa-shots/surface-audit-'));const hash=s=>createHash('sha256').update(s).digest('hex').toUpperCase();for(const f of ['source.tsx','desktop.png','mobile.png','actual-d.png','actual-m.png'])writeFileSync(path.join(root,f),f);const candidates=['desktop','mobile'].map(kind=>({kind,path:kind+'.png',sha256:hash(kind+'.png'),approval:true}));const record={candidates,surfaceCoverage:{inventoryReviewed:true,sourceFiles:[{path:'source.tsx',sha256:hash('source.tsx')}],surfaces:[{id:'library',entry:'saved tab',purpose:'browse saved records',candidates:candidates.map(c=>({kind:c.kind,path:c.path})),actualEvidence:[{kind:'desktop',path:'actual-d.png',sha256:hash('actual-d.png')},{kind:'mobile',path:'actual-m.png',sha256:hash('actual-m.png')}]}]}};return{root,record};}
+test('requires source-backed surface inventory',()=>assert.ok(auditSurfaceDesign('.',{}).length));
+test('empty viewport requirements cannot bypass coverage',()=>{const {root,record}=fixture();record.surfaceCoverage.surfaces[0].requiredKinds=[];assert.ok(auditSurfaceDesign(root,record).some(e=>e.includes('requiredKinds')));});
+test('duplicate surface ids cannot bypass reuse checks',()=>{const {root,record}=fixture();record.surfaceCoverage.surfaces.push({...record.surfaceCoverage.surfaces[0]});assert.ok(auditSurfaceDesign(root,record).some(e=>e.includes('duplicate surface')));});
+test('a desktop image cannot cover missing mobile surface',()=>{const {root,record}=fixture();record.surfaceCoverage.surfaces[0].candidates.pop();assert.ok(auditSurfaceDesign(root,record).some(e=>e.includes('mobile independent')));});
+test('different workspaces cannot silently reuse one candidate',()=>{const {root,record}=fixture();record.surfaceCoverage.surfaces.push({...record.surfaceCoverage.surfaces[0],id:'detail'});assert.ok(auditSurfaceDesign(root,record).some(e=>e.includes('reused')));});
+test('stale image or source invalidates coverage',()=>{const {root,record}=fixture();writeFileSync(path.join(root,'desktop.png'),'changed');writeFileSync(path.join(root,'source.tsx'),'changed');const errors=auditSurfaceDesign(root,record);assert.ok(errors.some(e=>e.includes('missing/stale')));assert.ok(errors.some(e=>e.includes('source missing or changed')));});
+test('candidate existence does not mean approved direction',()=>{const {root,record}=fixture();record.candidates[0].approval=false;assert.deepEqual(auditSurfaceDesign(root,record),[]);assert.ok(auditSurfaceDesign(root,record,'prototype').some(e=>e.includes('not user approved')));});
+test('runnable evidence cannot be replaced by candidate approval',()=>{const {root,record}=fixture();record.surfaceCoverage.surfaces[0].actualEvidence=[];assert.ok(auditSurfaceDesign(root,record,'prototype').some(e=>e.includes('runnable surface evidence')));});
+test('explicit complete mapping passes mechanical checks only',()=>{const {root,record}=fixture();assert.deepEqual(auditSurfaceDesign(root,record),[]);assert.deepEqual(auditSurfaceDesign(root,record,'prototype'),[]);});
