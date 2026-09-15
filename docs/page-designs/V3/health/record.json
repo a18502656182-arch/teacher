@@ -40,7 +40,7 @@
     }
   ],
   "prototype": {
-    "commit": null,
+    "commit": "6e1918914d0c531f6238404cc7dd75c849eb6dd1",
     "previewUrl": "http://127.0.0.1:4214/health.html",
     "sourceFiles": [
       "app/designs/health/HealthDesign.tsx",
@@ -66,7 +66,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4214/health.html?state=normal",
-        "commit": null
+        "commit": "6e1918914d0c531f6238404cc7dd75c849eb6dd1"
       },
       {
         "path": "docs/page-designs/V3/health/screenshots/p01/1536-mobile-detail.png",
@@ -81,7 +81,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4214/health.html?state=mobile-detail",
-        "commit": null
+        "commit": "6e1918914d0c531f6238404cc7dd75c849eb6dd1"
       },
       {
         "path": "docs/page-designs/V3/health/screenshots/p01/1536-empty-class.png",
@@ -96,7 +96,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4214/health.html?state=empty-class",
-        "commit": null
+        "commit": "6e1918914d0c531f6238404cc7dd75c849eb6dd1"
       },
       {
         "path": "docs/page-designs/V3/health/screenshots/p01/1536-no-records.png",
@@ -111,7 +111,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4214/health.html?state=no-records",
-        "commit": null
+        "commit": "6e1918914d0c531f6238404cc7dd75c849eb6dd1"
       },
       {
         "path": "docs/page-designs/V3/health/screenshots/p01/1536-search-empty.png",
@@ -126,7 +126,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4214/health.html?state=search-empty",
-        "commit": null
+        "commit": "6e1918914d0c531f6238404cc7dd75c849eb6dd1"
       },
       {
         "path": "docs/page-designs/V3/health/screenshots/p01/1536-students-105.png",
@@ -141,7 +141,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4214/health.html?state=students-105",
-        "commit": null
+        "commit": "6e1918914d0c531f6238404cc7dd75c849eb6dd1"
       },
       {
         "path": "docs/page-designs/V3/health/screenshots/p01/1536-long-record.png",
@@ -156,7 +156,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4214/health.html?state=long-record",
-        "commit": null
+        "commit": "6e1918914d0c531f6238404cc7dd75c849eb6dd1"
       },
       {
         "path": "docs/page-designs/V3/health/screenshots/p01/1536-filters.png",
@@ -171,7 +171,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4214/health.html?state=filters",
-        "commit": null
+        "commit": "6e1918914d0c531f6238404cc7dd75c849eb6dd1"
       },
       {
         "path": "docs/page-designs/V3/health/screenshots/p01/1536-composer.png",
@@ -186,7 +186,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4214/health.html?state=composer",
-        "commit": null
+        "commit": "6e1918914d0c531f6238404cc7dd75c849eb6dd1"
       },
       {
         "path": "docs/page-designs/V3/health/screenshots/p01/1536-validation.png",
@@ -201,7 +201,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4214/health.html?state=validation",
-        "commit": null
+        "commit": "6e1918914d0c531f6238404cc7dd75c849eb6dd1"
       },
       {
         "path": "docs/page-designs/V3/health/screenshots/p01/1536-readonly.png",
@@ -216,7 +216,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4214/health.html?state=readonly",
-        "commit": null
+        "commit": "6e1918914d0c531f6238404cc7dd75c849eb6dd1"
       },
       {
         "path": "docs/page-designs/V3/health/screenshots/p01/1536-loading.png",
@@ -231,7 +231,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4214/health.html?state=loading",
-        "commit": null
+        "commit": "6e1918914d0c531f6238404cc7dd75c849eb6dd1"
       },
       {
         "path": "docs/page-designs/V3/health/screenshots/p01/1536-saving.png",
@@ -246,7 +246,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4214/health.html?state=saving",
-        "commit": null
+        "commit": "6e1918914d0c531f6238404cc7dd75c849eb6dd1"
       },
       {
         "path": "docs/page-designs/V3/health/screenshots/p01/1536-save-failure.png",
@@ -261,7 +261,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4214/health.html?state=save-failure",
-        "commit": null
+        "commit": "6e1918914d0c531f6238404cc7dd75c849eb6dd1"
       },
       {
         "path": "docs/page-designs/V3/health/screenshots/p01/1536-save-throw.png",
@@ -276,7 +276,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4214/health.html?state=save-throw",
-        "commit": null
+        "commit": "6e1918914d0c531f6238404cc7dd75c849eb6dd1"
       },
       {
         "path": "docs/page-designs/V3/health/screenshots/p01/1536-conflict-409.png",
@@ -291,7 +291,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4214/health.html?state=conflict-409",
-        "commit": null
+        "commit": "6e1918914d0c531f6238404cc7dd75c849eb6dd1"
       },
       {
         "path": "docs/page-designs/V3/health/screenshots/p01/1536-dirty-close.png",
@@ -306,7 +306,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4214/health.html?state=dirty-close",
-        "commit": null
+        "commit": "6e1918914d0c531f6238404cc7dd75c849eb6dd1"
       },
       {
         "path": "docs/page-designs/V3/health/screenshots/p01/1536-delete-confirm.png",
@@ -321,7 +321,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4214/health.html?state=delete-confirm",
-        "commit": null
+        "commit": "6e1918914d0c531f6238404cc7dd75c849eb6dd1"
       },
       {
         "path": "docs/page-designs/V3/health/screenshots/p01/1536-summary-only.png",
@@ -336,7 +336,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4214/health.html?state=summary-only",
-        "commit": null
+        "commit": "6e1918914d0c531f6238404cc7dd75c849eb6dd1"
       },
       {
         "path": "docs/page-designs/V3/health/screenshots/p01/1536-contact.png",
@@ -351,7 +351,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4214/health.html?state=contact",
-        "commit": null
+        "commit": "6e1918914d0c531f6238404cc7dd75c849eb6dd1"
       },
       {
         "path": "docs/page-designs/V3/health/screenshots/p01/390-normal.png",
@@ -366,7 +366,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4214/health.html?state=normal",
-        "commit": null
+        "commit": "6e1918914d0c531f6238404cc7dd75c849eb6dd1"
       },
       {
         "path": "docs/page-designs/V3/health/screenshots/p01/390-mobile-detail.png",
@@ -381,7 +381,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4214/health.html?state=mobile-detail",
-        "commit": null
+        "commit": "6e1918914d0c531f6238404cc7dd75c849eb6dd1"
       },
       {
         "path": "docs/page-designs/V3/health/screenshots/p01/390-empty-class.png",
@@ -396,7 +396,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4214/health.html?state=empty-class",
-        "commit": null
+        "commit": "6e1918914d0c531f6238404cc7dd75c849eb6dd1"
       },
       {
         "path": "docs/page-designs/V3/health/screenshots/p01/390-no-records.png",
@@ -411,7 +411,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4214/health.html?state=no-records",
-        "commit": null
+        "commit": "6e1918914d0c531f6238404cc7dd75c849eb6dd1"
       },
       {
         "path": "docs/page-designs/V3/health/screenshots/p01/390-search-empty.png",
@@ -426,7 +426,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4214/health.html?state=search-empty",
-        "commit": null
+        "commit": "6e1918914d0c531f6238404cc7dd75c849eb6dd1"
       },
       {
         "path": "docs/page-designs/V3/health/screenshots/p01/390-students-105.png",
@@ -441,7 +441,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4214/health.html?state=students-105",
-        "commit": null
+        "commit": "6e1918914d0c531f6238404cc7dd75c849eb6dd1"
       },
       {
         "path": "docs/page-designs/V3/health/screenshots/p01/390-long-record.png",
@@ -456,7 +456,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4214/health.html?state=long-record",
-        "commit": null
+        "commit": "6e1918914d0c531f6238404cc7dd75c849eb6dd1"
       },
       {
         "path": "docs/page-designs/V3/health/screenshots/p01/390-filters.png",
@@ -471,7 +471,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4214/health.html?state=filters",
-        "commit": null
+        "commit": "6e1918914d0c531f6238404cc7dd75c849eb6dd1"
       },
       {
         "path": "docs/page-designs/V3/health/screenshots/p01/390-composer.png",
@@ -486,7 +486,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4214/health.html?state=composer",
-        "commit": null
+        "commit": "6e1918914d0c531f6238404cc7dd75c849eb6dd1"
       },
       {
         "path": "docs/page-designs/V3/health/screenshots/p01/390-validation.png",
@@ -501,7 +501,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4214/health.html?state=validation",
-        "commit": null
+        "commit": "6e1918914d0c531f6238404cc7dd75c849eb6dd1"
       },
       {
         "path": "docs/page-designs/V3/health/screenshots/p01/390-readonly.png",
@@ -516,7 +516,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4214/health.html?state=readonly",
-        "commit": null
+        "commit": "6e1918914d0c531f6238404cc7dd75c849eb6dd1"
       },
       {
         "path": "docs/page-designs/V3/health/screenshots/p01/390-loading.png",
@@ -531,7 +531,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4214/health.html?state=loading",
-        "commit": null
+        "commit": "6e1918914d0c531f6238404cc7dd75c849eb6dd1"
       },
       {
         "path": "docs/page-designs/V3/health/screenshots/p01/390-saving.png",
@@ -546,7 +546,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4214/health.html?state=saving",
-        "commit": null
+        "commit": "6e1918914d0c531f6238404cc7dd75c849eb6dd1"
       },
       {
         "path": "docs/page-designs/V3/health/screenshots/p01/390-save-failure.png",
@@ -561,7 +561,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4214/health.html?state=save-failure",
-        "commit": null
+        "commit": "6e1918914d0c531f6238404cc7dd75c849eb6dd1"
       },
       {
         "path": "docs/page-designs/V3/health/screenshots/p01/390-save-throw.png",
@@ -576,7 +576,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4214/health.html?state=save-throw",
-        "commit": null
+        "commit": "6e1918914d0c531f6238404cc7dd75c849eb6dd1"
       },
       {
         "path": "docs/page-designs/V3/health/screenshots/p01/390-conflict-409.png",
@@ -591,7 +591,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4214/health.html?state=conflict-409",
-        "commit": null
+        "commit": "6e1918914d0c531f6238404cc7dd75c849eb6dd1"
       },
       {
         "path": "docs/page-designs/V3/health/screenshots/p01/390-dirty-close.png",
@@ -606,7 +606,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4214/health.html?state=dirty-close",
-        "commit": null
+        "commit": "6e1918914d0c531f6238404cc7dd75c849eb6dd1"
       },
       {
         "path": "docs/page-designs/V3/health/screenshots/p01/390-delete-confirm.png",
@@ -621,7 +621,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4214/health.html?state=delete-confirm",
-        "commit": null
+        "commit": "6e1918914d0c531f6238404cc7dd75c849eb6dd1"
       },
       {
         "path": "docs/page-designs/V3/health/screenshots/p01/390-summary-only.png",
@@ -636,7 +636,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4214/health.html?state=summary-only",
-        "commit": null
+        "commit": "6e1918914d0c531f6238404cc7dd75c849eb6dd1"
       },
       {
         "path": "docs/page-designs/V3/health/screenshots/p01/390-contact.png",
@@ -651,7 +651,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4214/health.html?state=contact",
-        "commit": null
+        "commit": "6e1918914d0c531f6238404cc7dd75c849eb6dd1"
       }
     ],
     "supplementaryEvidence": [
@@ -662,7 +662,7 @@
         "stateId": "normal",
         "kind": "desktop",
         "fixtureSha256": "D98C38BF02F9E42126C2504C4DFFF5C7A41EE31934E3EB33A48844B2239EF67E",
-        "commit": null,
+        "commit": "6e1918914d0c531f6238404cc7dd75c849eb6dd1",
         "captureKind": "full",
         "dpr": 1,
         "browser": "Chrome/152.0.7977.82",
@@ -678,7 +678,7 @@
         "stateId": "normal",
         "kind": "mobile",
         "fixtureSha256": "D98C38BF02F9E42126C2504C4DFFF5C7A41EE31934E3EB33A48844B2239EF67E",
-        "commit": null,
+        "commit": "6e1918914d0c531f6238404cc7dd75c849eb6dd1",
         "captureKind": "full",
         "dpr": 1,
         "browser": "Chrome/152.0.7977.82",
@@ -694,7 +694,7 @@
         "stateId": "long-record",
         "kind": "mobile",
         "fixtureSha256": "79565A4FF78368AC3A6BBA40642973706AA4A4F46E2FC0A4F30B3BCBEBD482FC",
-        "commit": null,
+        "commit": "6e1918914d0c531f6238404cc7dd75c849eb6dd1",
         "captureKind": "full",
         "dpr": 1,
         "browser": "Chrome/152.0.7977.82",
@@ -710,7 +710,7 @@
         "stateId": "conflict-409",
         "kind": "mobile",
         "fixtureSha256": "D98C38BF02F9E42126C2504C4DFFF5C7A41EE31934E3EB33A48844B2239EF67E",
-        "commit": null,
+        "commit": "6e1918914d0c531f6238404cc7dd75c849eb6dd1",
         "captureKind": "recovery",
         "dpr": 1,
         "browser": "Chrome/152.0.7977.82",
@@ -726,7 +726,7 @@
         "stateId": "students-105",
         "kind": "mobile",
         "fixtureSha256": "D872899F933C11EF9E89A3BF6F2B1E8267B1F34ED3C6C15D028D8B453189C674",
-        "commit": null,
+        "commit": "6e1918914d0c531f6238404cc7dd75c849eb6dd1",
         "captureKind": "last-page",
         "dpr": 1,
         "browser": "Chrome/152.0.7977.82",
@@ -742,7 +742,7 @@
         "stateId": "composer",
         "kind": "mobile",
         "fixtureSha256": "D98C38BF02F9E42126C2504C4DFFF5C7A41EE31934E3EB33A48844B2239EF67E",
-        "commit": null,
+        "commit": "6e1918914d0c531f6238404cc7dd75c849eb6dd1",
         "captureKind": "picker",
         "dpr": 1,
         "browser": "Chrome/152.0.7977.82",
@@ -758,7 +758,7 @@
         "stateId": "contact",
         "kind": "mobile",
         "fixtureSha256": "91A8BBCBC08B05CD1AFDE999F7FE71701E749475D8ED29DC2DBEB78597543651",
-        "commit": null,
+        "commit": "6e1918914d0c531f6238404cc7dd75c849eb6dd1",
         "captureKind": "expanded",
         "dpr": 1,
         "browser": "Chrome/152.0.7977.82",
@@ -774,7 +774,7 @@
         "stateId": "normal",
         "kind": "desktop",
         "fixtureSha256": "D98C38BF02F9E42126C2504C4DFFF5C7A41EE31934E3EB33A48844B2239EF67E",
-        "commit": null,
+        "commit": "6e1918914d0c531f6238404cc7dd75c849eb6dd1",
         "captureKind": "narrow",
         "dpr": 1,
         "browser": "Chrome/152.0.7977.82",
@@ -790,7 +790,7 @@
         "stateId": "normal",
         "kind": "mobile",
         "fixtureSha256": "D98C38BF02F9E42126C2504C4DFFF5C7A41EE31934E3EB33A48844B2239EF67E",
-        "commit": null,
+        "commit": "6e1918914d0c531f6238404cc7dd75c849eb6dd1",
         "captureKind": "narrow",
         "dpr": 1,
         "browser": "Chrome/152.0.7977.82",
@@ -806,7 +806,7 @@
         "stateId": "mobile-detail",
         "kind": "mobile",
         "fixtureSha256": "D98C38BF02F9E42126C2504C4DFFF5C7A41EE31934E3EB33A48844B2239EF67E",
-        "commit": null,
+        "commit": "6e1918914d0c531f6238404cc7dd75c849eb6dd1",
         "captureKind": "narrow",
         "dpr": 1,
         "browser": "Chrome/152.0.7977.82",
@@ -819,11 +819,13 @@
     "tests": [
       {
         "path": "docs/page-designs/V3/health/tests/checks-P01.json",
-        "sha256": "7E6EFC71BFDDE2EC839887896B7AB6C063E58C0BFFB85F497587DC2971E6E182"
+        "sha256": "F4FE7C99207CD4041219A7CB568A78921084A2482AB4EB7EF5550D0E34AC9D52",
+        "commit": "6e1918914d0c531f6238404cc7dd75c849eb6dd1"
       },
       {
         "path": "docs/page-designs/V3/health/tests/interactions.json",
-        "sha256": "45C3FD77C5CC5355206421BD86DBEAF3D455AE2D92A4BD432669345DD520132E"
+        "sha256": "45C3FD77C5CC5355206421BD86DBEAF3D455AE2D92A4BD432669345DD520132E",
+        "commit": "6e1918914d0c531f6238404cc7dd75c849eb6dd1"
       }
     ],
     "fixtureMode": "synthetic isolated memory; not workspace integration",
@@ -837,6 +839,16 @@
       "sha256": "18699CE414C2141F78526F54B3D5BEDDAFE9CE5C926DAE90B421C64733C9A5C1",
       "sidecar": "app/designs/health/.impeccable/design.json",
       "sidecarSha256": "CF0C62ADA4E526B800CFB908D0645669EFC02F3DADABF5A8EEC565C3DF2CBE80"
+    },
+    "sourceHashes": {
+      "app/designs/health/HealthDesign.tsx": "0650462185033496AC2EB02F1E1991F01B4DF647B2E182FC491B8E4D6167364D",
+      "app/designs/health/HealthDesign.module.css": "6F9A8ABA607C1CFC920939FB9A78021878B60C48EEB13170ADF4941158423153",
+      "app/designs/health/useHealthDesignController.ts": "8F774A9A94938D196AD7E24600A738C33F32E90EC309108D877E1C04498F3FD3",
+      "app/designs/health/care-p01.png": "CC7AEA8E7B6A4A0F54A027FE73DE0755B048C95F646359F4BA7085A4D09DC43F",
+      "tools/ui-preview/health.tsx": "F09809B36DD956565901302373A3530F3A759DFF22961E60B8EC44CECAC3392B",
+      "tools/ui-preview/health-fixture.ts": "23B793A876CF17C12812231DF43C8CE6980F758895332C5E5C5842F376A2FA55",
+      "tools/ui-preview/health.html": "489B2080B054B19CF9DD2A16DA91771D1679648DF7D152D9B8F6FA038A055782",
+      "tools/ui-preview/health.vite.config.ts": "D32792CC0AEAA6A4696B22D6F7AF326ABBE9483D96694FC254C94D4B4A319256"
     }
   },
   "designApproval": {

@@ -1,6 +1,6 @@
 {
   "date": "2026-09-15",
-  "sourceCommit": null,
+  "sourceCommit": "6e1918914d0c531f6238404cc7dd75c849eb6dd1",
   "checks": [
     {
       "name": "TypeScript noEmit",
@@ -57,6 +57,20 @@
       "path": "docs/page-designs/V3/health/tests/detector.json",
       "note": "local design palette/type advisories to be documented; no second scan",
       "sha256": "59B674237217B1CD927F3B4E145F386CB05EB738E9445012D3B0C8A74FAF4F37"
+    },
+    {
+      "name": "final-ledger",
+      "exitCode": 0,
+      "note": "Global ledger contract valid; no new approval",
+      "path": "docs/page-designs/V3/health/tests/final-ledger.log",
+      "sha256": "EC6757D66EC864F0E85BEDE630A54BD3A21E4486294B585869521DD68030406D"
+    },
+    {
+      "name": "v3-design-review",
+      "exitCode": 1,
+      "note": "Expected batch stop: previous batch R required, growth unresolved design issues; health P01 not user-approved",
+      "path": "docs/page-designs/V3/health/tests/v3-design-review.log",
+      "sha256": "389838810BDC5E70C32827893EFA9C6C8162E7E531F22772F47F4F948B6D51A9"
     }
   ],
   "limitations": [
