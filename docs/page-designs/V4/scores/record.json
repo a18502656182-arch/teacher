@@ -149,7 +149,7 @@
   ],
   "prototype": {
     "version": "P02.2",
-    "commit": null,
+    "commit": "e79a1c4373c136d0856799e8dca6b04cad850761",
     "previewUrl": "http://127.0.0.1:4218/scores.html",
     "sourceFiles": [
       "app/designs/scores/ScoresDesign.tsx",
@@ -677,7 +677,7 @@
     "checks": {
       "path": "docs/page-designs/V4/scores/checks-P022.json",
       "sha256": "3B9E3BB7F58036CF92D44772A2B5E08F0EA2708416C1BBE029F47DCF77F85FBE",
-      "commit": null
+      "commit": "e79a1c4373c136d0856799e8dca6b04cad850761"
     },
     "additionalEvidence": [
       {
@@ -693,7 +693,7 @@
       {
         "path": "docs/page-designs/V4/scores/screenshots/p02-focus/focus-checks.json",
         "sha256": "469D730DC05738F7F68941F412DC68E893E01CE22A613511ED591C8B3EE3298D",
-        "commit": null
+        "commit": "e79a1c4373c136d0856799e8dca6b04cad850761"
       }
     ]
   },
