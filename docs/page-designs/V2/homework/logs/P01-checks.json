@@ -33,70 +33,82 @@
     {
       "name": "typecheck",
       "exitCode": 0,
-      "path": "docs/page-designs/V2/homework/logs/P01-typecheck-final.txt"
+      "path": "docs/page-designs/V2/homework/logs/P01-typecheck-final.txt",
+      "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
     },
     {
       "name": "production-build",
       "exitCode": 0,
-      "path": "docs/page-designs/V2/homework/logs/P01-build-final.txt"
+      "path": "docs/page-designs/V2/homework/logs/P01-build-final.txt",
+      "sha256": "E77E614E3500FB5D836593EAF675BB2A5FB51BB9281291F1754C4D9720B097E5"
     },
     {
       "name": "isolated-build",
       "exitCode": 0,
-      "path": "docs/page-designs/V2/homework/logs/P01-preview-build-final.txt"
+      "path": "docs/page-designs/V2/homework/logs/P01-preview-build-final.txt",
+      "sha256": "9028D8FD120893A8C1F4FC1D4AC7DE45529A446F6F5C051FEDE1604BC175AE6C"
     },
     {
       "name": "scoped-eslint",
       "exitCode": 0,
-      "path": "docs/page-designs/V2/homework/logs/P01-scoped-lint-final.txt"
+      "path": "docs/page-designs/V2/homework/logs/P01-scoped-lint-final.txt",
+      "sha256": "6E948C2C6981E77E21A629DF5EC482EC607779ADAF960F7AE20886ECA58BF188"
     },
     {
       "name": "related-node-tests",
       "exitCode": 0,
       "count": 34,
-      "path": "docs/page-designs/V2/homework/logs/P01-tests.txt"
+      "path": "docs/page-designs/V2/homework/logs/P01-tests.txt",
+      "sha256": "DC5CD60060664A248A37566E98778001E218F7C2E80B0C4FE7BB85B28353E0F8"
     },
     {
       "name": "main-render",
       "exitCode": 0,
       "count": 40,
-      "path": "docs/page-designs/V2/homework/logs/P01-capture.json"
+      "path": "docs/page-designs/V2/homework/logs/P01-capture.json",
+      "sha256": "F13BB210C00010092B854EF3F5B3C3730C59260F867FAE2A578464EE4330D92E"
     },
     {
       "name": "narrow-render",
       "exitCode": 0,
       "count": 8,
-      "path": "docs/page-designs/V2/homework/logs/P01-narrow.json"
+      "path": "docs/page-designs/V2/homework/logs/P01-narrow.json",
+      "sha256": "B5DD53E4EB41714147A9D57831A058086707958617B69194088E0A9452E8FFCE"
     },
     {
       "name": "interactions",
       "exitCode": 0,
       "count": 30,
-      "path": "docs/page-designs/V2/homework/logs/P01-interactions.json"
+      "path": "docs/page-designs/V2/homework/logs/P01-interactions.json",
+      "sha256": "CFC3F389D855748BC480FF1EFFE92479E3D4D69743A2E141A62C1B721ECBFA12"
     },
     {
       "name": "supplement",
       "exitCode": 0,
       "count": 5,
-      "path": "docs/page-designs/V2/homework/logs/P01-supplement.json"
+      "path": "docs/page-designs/V2/homework/logs/P01-supplement.json",
+      "sha256": "02535BA4E0B9196015627911F04ED485306F629F7C5C436AC41269F4C5802694"
     },
     {
       "name": "npm-lint",
       "exitCode": 1,
       "reason": "10errors in .qa-shots browser extension cache; excluding .qa-shots has0errors",
-      "path": "docs/page-designs/V2/homework/logs/P01-lint.txt"
+      "path": "docs/page-designs/V2/homework/logs/P01-lint.txt",
+      "sha256": "C267F2F2BE6CE139949D62D6277A7907B842FFA2C6DCF2B250F5A5DB19722833"
     },
     {
       "name": "qa-strict",
       "exitCode": 1,
       "reason": "runtime TypeError querySelectorAll on undefined, fullsite did not complete",
-      "path": "docs/page-designs/V2/homework/logs/P01-strict.txt"
+      "path": "docs/page-designs/V2/homework/logs/P01-strict.txt",
+      "sha256": "DA274674D2681BDB236A733C8173D6604B25A4FECA692E1E05C96074F2003045"
     },
     {
       "name": "design-detector",
       "exitCode": 2,
       "reason": "28 palette/font/radius advisories, intentional local world documented, no non-advisory findings",
-      "path": "docs/page-designs/V2/homework/logs/P01-detector.json"
+      "path": "docs/page-designs/V2/homework/logs/P01-detector.json",
+      "sha256": "CA6D7A407ED26417BB61EB6CA880D8CD48D88F417672268B542A597C862A6F80"
     }
   ],
   "limitations": [
@@ -104,5 +116,7 @@
     "P01 differs from candidate in art/type/mobile firstscreen; user D pending",
     "First fixture typecheck errors fixed; first supplement Chromeprofile busy and bad length threshold fixed to exact fixture equality"
   ],
-  "deployed": false
+  "deployed": false,
+  "designCommit": "c77ab0911d715e44832cf39e79a4fb96806b87ac",
+  "sourceBinding": "All design source files match c77ab09. Production build used workspace containing four preserved pre-existing diffs; isolated homework imports no student business source. Not a clean formal product acceptance."
 }

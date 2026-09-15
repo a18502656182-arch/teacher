@@ -291,5 +291,6 @@
       "platformFonts": []
     }
   ],
-  "controls": "Measured four-state options44px high; P01-supplement.json contains computed fonts/colors/widths. Narrow1057/360 captured separately."
+  "controls": "Measured four-state options44px high; P01-supplement.json contains computed fonts/colors/widths. Narrow1057/360 captured separately.",
+  "designCommit": "c77ab0911d715e44832cf39e79a4fb96806b87ac"
 }

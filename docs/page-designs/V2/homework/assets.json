@@ -1,6 +1,6 @@
 {
   "stage": "P01 runnable design, awaiting D",
-  "designCommit": null,
+  "designCommit": "c77ab0911d715e44832cf39e79a4fb96806b87ac",
   "font": {
     "family": "Microsoft YaHei",
     "source": "Windows installed font, desktop CDP actual platform sample; mobile uses same system stack",

@@ -64,7 +64,7 @@
     }
   ],
   "prototype": {
-    "commit": null,
+    "commit": "c77ab0911d715e44832cf39e79a4fb96806b87ac",
     "previewUrl": "http://127.0.0.1:4208/homework.html",
     "sourceFiles": [
       "app/designs/homework/HomeworkDesign.tsx",
@@ -83,7 +83,7 @@
       {
         "path": "docs/page-designs/V2/homework/screenshots/P01/1536-normal.png",
         "purpose": "isolated runnable design; not integrated product",
-        "commit": null,
+        "commit": "c77ab0911d715e44832cf39e79a4fb96806b87ac",
         "fixtureId": "homework-P01-normal",
         "fixtureSha256": "30803CD1B461CE2DE05B4F236B577F9D2A1A059340FACB064CCB19A5A36B41BC",
         "sha256": "3AD8E4D7AF39D5790D64D29A6F0052D79B5850AA18EEFC6A039B034ED1CC23A2",
@@ -99,7 +99,7 @@
       {
         "path": "docs/page-designs/V2/homework/screenshots/P01/1536-empty-tasks.png",
         "purpose": "isolated runnable design; not integrated product",
-        "commit": null,
+        "commit": "c77ab0911d715e44832cf39e79a4fb96806b87ac",
         "fixtureId": "homework-P01-empty-tasks",
         "fixtureSha256": "26BBB5F366FC4FF9B877A3F5CD0DD69577C7914AC20AED182144C7284F004364",
         "sha256": "7DA1EFBD7E25F19FBB1A4C8008BA2C6921441EB46BAE434E1BA2B66479D87522",
@@ -115,7 +115,7 @@
       {
         "path": "docs/page-designs/V2/homework/screenshots/P01/1536-tasks-30.png",
         "purpose": "isolated runnable design; not integrated product",
-        "commit": null,
+        "commit": "c77ab0911d715e44832cf39e79a4fb96806b87ac",
         "fixtureId": "homework-P01-tasks-30",
         "fixtureSha256": "B5070599F9043C4E90A5FF8E3DB9FF8842736656143ECB5E63A96C8FD1E81B1E",
         "sha256": "51926839D963CA4D521BEDC193E0CC39844D47D56225D17D5138683B3301BC5A",
@@ -131,7 +131,7 @@
       {
         "path": "docs/page-designs/V2/homework/screenshots/P01/1536-students-105.png",
         "purpose": "isolated runnable design; not integrated product",
-        "commit": null,
+        "commit": "c77ab0911d715e44832cf39e79a4fb96806b87ac",
         "fixtureId": "homework-P01-students-105",
         "fixtureSha256": "20C0ACC0C24A8057C2E32B504282826659B5A1CBD6C2BE6226F8B7727A2EFF18",
         "sha256": "F152A9D18A24D9386F6D38D2D5D99285C57FAAA44559C201A0488B8E7FC55BC2",
@@ -147,7 +147,7 @@
       {
         "path": "docs/page-designs/V2/homework/screenshots/P01/1536-long-title-note.png",
         "purpose": "isolated runnable design; not integrated product",
-        "commit": null,
+        "commit": "c77ab0911d715e44832cf39e79a4fb96806b87ac",
         "fixtureId": "homework-P01-long-title-note",
         "fixtureSha256": "1B2D19452ECD1B17C14DC90AD2BF9BE7916BDDC1205EB55233AF0684A8B6BC59",
         "sha256": "7C385C14909380233E70619120A274C475895BD043E2614282233CCA9F446729",
@@ -163,7 +163,7 @@
       {
         "path": "docs/page-designs/V2/homework/screenshots/P01/1536-search-empty.png",
         "purpose": "isolated runnable design; not integrated product",
-        "commit": null,
+        "commit": "c77ab0911d715e44832cf39e79a4fb96806b87ac",
         "fixtureId": "homework-P01-search-empty",
         "fixtureSha256": "30803CD1B461CE2DE05B4F236B577F9D2A1A059340FACB064CCB19A5A36B41BC",
         "sha256": "DFF52B16C89F0DE05AE884743C8CF5B9AB627B17A965350B1CA1B3FCE2AAD927",
@@ -179,7 +179,7 @@
       {
         "path": "docs/page-designs/V2/homework/screenshots/P01/1536-task-editor.png",
         "purpose": "isolated runnable design; not integrated product",
-        "commit": null,
+        "commit": "c77ab0911d715e44832cf39e79a4fb96806b87ac",
         "fixtureId": "homework-P01-task-editor",
         "fixtureSha256": "30803CD1B461CE2DE05B4F236B577F9D2A1A059340FACB064CCB19A5A36B41BC",
         "sha256": "7D13B5A591CE52338014A707D33D868ED11DCF0944E540C4B77546863B4A30E0",
@@ -195,7 +195,7 @@
       {
         "path": "docs/page-designs/V2/homework/screenshots/P01/1536-validation.png",
         "purpose": "isolated runnable design; not integrated product",
-        "commit": null,
+        "commit": "c77ab0911d715e44832cf39e79a4fb96806b87ac",
         "fixtureId": "homework-P01-validation",
         "fixtureSha256": "30803CD1B461CE2DE05B4F236B577F9D2A1A059340FACB064CCB19A5A36B41BC",
         "sha256": "B751CE74873B9CE34391349B09E5C674F594B283ACBF1B5CF00C8F1B864D3B5F",
@@ -211,7 +211,7 @@
       {
         "path": "docs/page-designs/V2/homework/screenshots/P01/1536-filters.png",
         "purpose": "isolated runnable design; not integrated product",
-        "commit": null,
+        "commit": "c77ab0911d715e44832cf39e79a4fb96806b87ac",
         "fixtureId": "homework-P01-filters",
         "fixtureSha256": "30803CD1B461CE2DE05B4F236B577F9D2A1A059340FACB064CCB19A5A36B41BC",
         "sha256": "ACC191551FAC0408796D662AD6DA3D8BCF9C13381A9DA3B7C4F4C0D138D8628B",
@@ -227,7 +227,7 @@
       {
         "path": "docs/page-designs/V2/homework/screenshots/P01/1536-mobile-detail.png",
         "purpose": "isolated runnable design; not integrated product",
-        "commit": null,
+        "commit": "c77ab0911d715e44832cf39e79a4fb96806b87ac",
         "fixtureId": "homework-P01-mobile-detail",
         "fixtureSha256": "30803CD1B461CE2DE05B4F236B577F9D2A1A059340FACB064CCB19A5A36B41BC",
         "sha256": "3AD8E4D7AF39D5790D64D29A6F0052D79B5850AA18EEFC6A039B034ED1CC23A2",
@@ -243,7 +243,7 @@
       {
         "path": "docs/page-designs/V2/homework/screenshots/P01/1536-selected.png",
         "purpose": "isolated runnable design; not integrated product",
-        "commit": null,
+        "commit": "c77ab0911d715e44832cf39e79a4fb96806b87ac",
         "fixtureId": "homework-P01-selected",
         "fixtureSha256": "30803CD1B461CE2DE05B4F236B577F9D2A1A059340FACB064CCB19A5A36B41BC",
         "sha256": "82D0F0BE833F1FE7BB896B56078A21698F2D691AAC8072E9A5EEE557E39FF8E9",
@@ -259,7 +259,7 @@
       {
         "path": "docs/page-designs/V2/homework/screenshots/P01/1536-follow-empty.png",
         "purpose": "isolated runnable design; not integrated product",
-        "commit": null,
+        "commit": "c77ab0911d715e44832cf39e79a4fb96806b87ac",
         "fixtureId": "homework-P01-follow-empty",
         "fixtureSha256": "30803CD1B461CE2DE05B4F236B577F9D2A1A059340FACB064CCB19A5A36B41BC",
         "sha256": "A4F6EF9F2C4D315E420793009BFC0EF1532C2F7B037831DF0E092627C51C59F9",
@@ -275,7 +275,7 @@
       {
         "path": "docs/page-designs/V2/homework/screenshots/P01/1536-follow-full.png",
         "purpose": "isolated runnable design; not integrated product",
-        "commit": null,
+        "commit": "c77ab0911d715e44832cf39e79a4fb96806b87ac",
         "fixtureId": "homework-P01-follow-full",
         "fixtureSha256": "D3C44B6A93E92725E2570BF2011F0D6340006FB4ED567E8877A353CEF73EEDA6",
         "sha256": "9628DD077708669CF904B6D2989BCC4781DD10832ECEEA173AB5DC9D4C76B3D5",
@@ -291,7 +291,7 @@
       {
         "path": "docs/page-designs/V2/homework/screenshots/P01/1536-loading.png",
         "purpose": "isolated runnable design; not integrated product",
-        "commit": null,
+        "commit": "c77ab0911d715e44832cf39e79a4fb96806b87ac",
         "fixtureId": "homework-P01-loading",
         "fixtureSha256": "30803CD1B461CE2DE05B4F236B577F9D2A1A059340FACB064CCB19A5A36B41BC",
         "sha256": "02B4BDBA92CE46256F773401148E75B4B0A43764AA1E55609EA41759676A4E2A",
@@ -307,7 +307,7 @@
       {
         "path": "docs/page-designs/V2/homework/screenshots/P01/1536-readonly.png",
         "purpose": "isolated runnable design; not integrated product",
-        "commit": null,
+        "commit": "c77ab0911d715e44832cf39e79a4fb96806b87ac",
         "fixtureId": "homework-P01-readonly",
         "fixtureSha256": "30803CD1B461CE2DE05B4F236B577F9D2A1A059340FACB064CCB19A5A36B41BC",
         "sha256": "6C79C42E9088643A362F758DA91E1A35B08F92862C22B148F6414D794D4DC378",
@@ -323,7 +323,7 @@
       {
         "path": "docs/page-designs/V2/homework/screenshots/P01/1536-saving.png",
         "purpose": "isolated runnable design; not integrated product",
-        "commit": null,
+        "commit": "c77ab0911d715e44832cf39e79a4fb96806b87ac",
         "fixtureId": "homework-P01-saving",
         "fixtureSha256": "30803CD1B461CE2DE05B4F236B577F9D2A1A059340FACB064CCB19A5A36B41BC",
         "sha256": "DC4B8BB6A5F2AB9D7B9BFF060C13F64D058899259E0D585186990B8CB123FFF7",
@@ -339,7 +339,7 @@
       {
         "path": "docs/page-designs/V2/homework/screenshots/P01/1536-save-failure.png",
         "purpose": "isolated runnable design; not integrated product",
-        "commit": null,
+        "commit": "c77ab0911d715e44832cf39e79a4fb96806b87ac",
         "fixtureId": "homework-P01-save-failure",
         "fixtureSha256": "30803CD1B461CE2DE05B4F236B577F9D2A1A059340FACB064CCB19A5A36B41BC",
         "sha256": "C7D58D61B995AB1827779FF2E86668D3CB698532C36A629D2C4FA75617BFD4EA",
@@ -355,7 +355,7 @@
       {
         "path": "docs/page-designs/V2/homework/screenshots/P01/1536-conflict-409.png",
         "purpose": "isolated runnable design; not integrated product",
-        "commit": null,
+        "commit": "c77ab0911d715e44832cf39e79a4fb96806b87ac",
         "fixtureId": "homework-P01-conflict-409",
         "fixtureSha256": "30803CD1B461CE2DE05B4F236B577F9D2A1A059340FACB064CCB19A5A36B41BC",
         "sha256": "F962AA4F2429F8B666E36D87576AFFE06AE6E073CF8F10995332DDF6DD5495E9",
@@ -371,7 +371,7 @@
       {
         "path": "docs/page-designs/V2/homework/screenshots/P01/1536-dirty-close.png",
         "purpose": "isolated runnable design; not integrated product",
-        "commit": null,
+        "commit": "c77ab0911d715e44832cf39e79a4fb96806b87ac",
         "fixtureId": "homework-P01-dirty-close",
         "fixtureSha256": "30803CD1B461CE2DE05B4F236B577F9D2A1A059340FACB064CCB19A5A36B41BC",
         "sha256": "C34A4175A04FBAB6DF0A091C14780D95198008A32E56A30094C50A0AE6F28B8A",
@@ -387,7 +387,7 @@
       {
         "path": "docs/page-designs/V2/homework/screenshots/P01/1536-delete-confirm.png",
         "purpose": "isolated runnable design; not integrated product",
-        "commit": null,
+        "commit": "c77ab0911d715e44832cf39e79a4fb96806b87ac",
         "fixtureId": "homework-P01-delete-confirm",
         "fixtureSha256": "30803CD1B461CE2DE05B4F236B577F9D2A1A059340FACB064CCB19A5A36B41BC",
         "sha256": "CF1DD0F0AF3B0A25368A0B39CF13D957D5F6FFC367844D9C0778E777819A033E",
@@ -403,7 +403,7 @@
       {
         "path": "docs/page-designs/V2/homework/screenshots/P01/390-normal.png",
         "purpose": "isolated runnable design; not integrated product",
-        "commit": null,
+        "commit": "c77ab0911d715e44832cf39e79a4fb96806b87ac",
         "fixtureId": "homework-P01-normal",
         "fixtureSha256": "30803CD1B461CE2DE05B4F236B577F9D2A1A059340FACB064CCB19A5A36B41BC",
         "sha256": "BD6EE17CED8817656BE402BA6A66FCF3522496EE52ADA977960D1B18514AEF1C",
@@ -419,7 +419,7 @@
       {
         "path": "docs/page-designs/V2/homework/screenshots/P01/390-empty-tasks.png",
         "purpose": "isolated runnable design; not integrated product",
-        "commit": null,
+        "commit": "c77ab0911d715e44832cf39e79a4fb96806b87ac",
         "fixtureId": "homework-P01-empty-tasks",
         "fixtureSha256": "26BBB5F366FC4FF9B877A3F5CD0DD69577C7914AC20AED182144C7284F004364",
         "sha256": "1584F9F0E6483168F90C044975F89EC679539502D054818CE367E61053CB8C53",
@@ -435,7 +435,7 @@
       {
         "path": "docs/page-designs/V2/homework/screenshots/P01/390-tasks-30.png",
         "purpose": "isolated runnable design; not integrated product",
-        "commit": null,
+        "commit": "c77ab0911d715e44832cf39e79a4fb96806b87ac",
         "fixtureId": "homework-P01-tasks-30",
         "fixtureSha256": "B5070599F9043C4E90A5FF8E3DB9FF8842736656143ECB5E63A96C8FD1E81B1E",
         "sha256": "EB63B7F165A3BB5C019A40DCF8702FDF4185EFD43988454029F6559587EF1FA9",
@@ -451,7 +451,7 @@
       {
         "path": "docs/page-designs/V2/homework/screenshots/P01/390-students-105.png",
         "purpose": "isolated runnable design; not integrated product",
-        "commit": null,
+        "commit": "c77ab0911d715e44832cf39e79a4fb96806b87ac",
         "fixtureId": "homework-P01-students-105",
         "fixtureSha256": "20C0ACC0C24A8057C2E32B504282826659B5A1CBD6C2BE6226F8B7727A2EFF18",
         "sha256": "F08E520BCF583F2554723282154627A74CB7E1E51692F87005248A4F21F5206F",
@@ -467,7 +467,7 @@
       {
         "path": "docs/page-designs/V2/homework/screenshots/P01/390-long-title-note.png",
         "purpose": "isolated runnable design; not integrated product",
-        "commit": null,
+        "commit": "c77ab0911d715e44832cf39e79a4fb96806b87ac",
         "fixtureId": "homework-P01-long-title-note",
         "fixtureSha256": "1B2D19452ECD1B17C14DC90AD2BF9BE7916BDDC1205EB55233AF0684A8B6BC59",
         "sha256": "C42218FDD7A365A1BF83DC0B646AAE13BB87BD0C67231BDFCA3B95D1B09C90B4",
@@ -483,7 +483,7 @@
       {
         "path": "docs/page-designs/V2/homework/screenshots/P01/390-search-empty.png",
         "purpose": "isolated runnable design; not integrated product",
-        "commit": null,
+        "commit": "c77ab0911d715e44832cf39e79a4fb96806b87ac",
         "fixtureId": "homework-P01-search-empty",
         "fixtureSha256": "30803CD1B461CE2DE05B4F236B577F9D2A1A059340FACB064CCB19A5A36B41BC",
         "sha256": "E6FFAD56390DB961F58860A10CB9249CF0F233D55E668879FD22F0FF95F85A72",
@@ -499,7 +499,7 @@
       {
         "path": "docs/page-designs/V2/homework/screenshots/P01/390-task-editor.png",
         "purpose": "isolated runnable design; not integrated product",
-        "commit": null,
+        "commit": "c77ab0911d715e44832cf39e79a4fb96806b87ac",
         "fixtureId": "homework-P01-task-editor",
         "fixtureSha256": "30803CD1B461CE2DE05B4F236B577F9D2A1A059340FACB064CCB19A5A36B41BC",
         "sha256": "448523255A882C1FE9C20DBCDE3317710858B14E6E595FCE39E54EB0985D1D45",
@@ -515,7 +515,7 @@
       {
         "path": "docs/page-designs/V2/homework/screenshots/P01/390-validation.png",
         "purpose": "isolated runnable design; not integrated product",
-        "commit": null,
+        "commit": "c77ab0911d715e44832cf39e79a4fb96806b87ac",
         "fixtureId": "homework-P01-validation",
         "fixtureSha256": "30803CD1B461CE2DE05B4F236B577F9D2A1A059340FACB064CCB19A5A36B41BC",
         "sha256": "5CBF10629911F8EACF1939A47A6387F66B225290895A5BBB393C8C79563A6EE6",
@@ -531,7 +531,7 @@
       {
         "path": "docs/page-designs/V2/homework/screenshots/P01/390-filters.png",
         "purpose": "isolated runnable design; not integrated product",
-        "commit": null,
+        "commit": "c77ab0911d715e44832cf39e79a4fb96806b87ac",
         "fixtureId": "homework-P01-filters",
         "fixtureSha256": "30803CD1B461CE2DE05B4F236B577F9D2A1A059340FACB064CCB19A5A36B41BC",
         "sha256": "5A724EA7FBD2ABC97392024F25B8928E01D85AC34121EF161F9632792B873BD4",
@@ -547,7 +547,7 @@
       {
         "path": "docs/page-designs/V2/homework/screenshots/P01/390-mobile-detail.png",
         "purpose": "isolated runnable design; not integrated product",
-        "commit": null,
+        "commit": "c77ab0911d715e44832cf39e79a4fb96806b87ac",
         "fixtureId": "homework-P01-mobile-detail",
         "fixtureSha256": "30803CD1B461CE2DE05B4F236B577F9D2A1A059340FACB064CCB19A5A36B41BC",
         "sha256": "E7A0E14D0234E528BE0FADA21FEC4C6DD21AD64B4BA9B08F03C5478D7742A22D",
@@ -563,7 +563,7 @@
       {
         "path": "docs/page-designs/V2/homework/screenshots/P01/390-selected.png",
         "purpose": "isolated runnable design; not integrated product",
-        "commit": null,
+        "commit": "c77ab0911d715e44832cf39e79a4fb96806b87ac",
         "fixtureId": "homework-P01-selected",
         "fixtureSha256": "30803CD1B461CE2DE05B4F236B577F9D2A1A059340FACB064CCB19A5A36B41BC",
         "sha256": "67A84A195E67B3C418DE7B83F2CAAA29307BBB1B21C17FD0015D7CF5C3D8EF69",
@@ -579,7 +579,7 @@
       {
         "path": "docs/page-designs/V2/homework/screenshots/P01/390-follow-empty.png",
         "purpose": "isolated runnable design; not integrated product",
-        "commit": null,
+        "commit": "c77ab0911d715e44832cf39e79a4fb96806b87ac",
         "fixtureId": "homework-P01-follow-empty",
         "fixtureSha256": "30803CD1B461CE2DE05B4F236B577F9D2A1A059340FACB064CCB19A5A36B41BC",
         "sha256": "D962FEED0A8171B22039C459B4804D8BF5CC554801CC4483CAD1FAA8C5D44106",
@@ -595,7 +595,7 @@
       {
         "path": "docs/page-designs/V2/homework/screenshots/P01/390-follow-full.png",
         "purpose": "isolated runnable design; not integrated product",
-        "commit": null,
+        "commit": "c77ab0911d715e44832cf39e79a4fb96806b87ac",
         "fixtureId": "homework-P01-follow-full",
         "fixtureSha256": "D3C44B6A93E92725E2570BF2011F0D6340006FB4ED567E8877A353CEF73EEDA6",
         "sha256": "0801B9CE36E42F912B291C4E97E95CB2A318D52B241865B4028DA2AC72E5A44D",
@@ -611,7 +611,7 @@
       {
         "path": "docs/page-designs/V2/homework/screenshots/P01/390-loading.png",
         "purpose": "isolated runnable design; not integrated product",
-        "commit": null,
+        "commit": "c77ab0911d715e44832cf39e79a4fb96806b87ac",
         "fixtureId": "homework-P01-loading",
         "fixtureSha256": "30803CD1B461CE2DE05B4F236B577F9D2A1A059340FACB064CCB19A5A36B41BC",
         "sha256": "AB16B0C0C78DF97498AA48B61C8E83EF065F63BD622F98A95336E90F7EE07981",
@@ -627,7 +627,7 @@
       {
         "path": "docs/page-designs/V2/homework/screenshots/P01/390-readonly.png",
         "purpose": "isolated runnable design; not integrated product",
-        "commit": null,
+        "commit": "c77ab0911d715e44832cf39e79a4fb96806b87ac",
         "fixtureId": "homework-P01-readonly",
         "fixtureSha256": "30803CD1B461CE2DE05B4F236B577F9D2A1A059340FACB064CCB19A5A36B41BC",
         "sha256": "B609740EA13B6B2EB4991530958A835DD4ED13430F5E5A07483A263F2C8BA4D9",
@@ -643,7 +643,7 @@
       {
         "path": "docs/page-designs/V2/homework/screenshots/P01/390-saving.png",
         "purpose": "isolated runnable design; not integrated product",
-        "commit": null,
+        "commit": "c77ab0911d715e44832cf39e79a4fb96806b87ac",
         "fixtureId": "homework-P01-saving",
         "fixtureSha256": "30803CD1B461CE2DE05B4F236B577F9D2A1A059340FACB064CCB19A5A36B41BC",
         "sha256": "62877B10DFC0D00E5A5ADB9CC91B7D8D97BF9894AF4489CC611095AC52CE3EA6",
@@ -659,7 +659,7 @@
       {
         "path": "docs/page-designs/V2/homework/screenshots/P01/390-save-failure.png",
         "purpose": "isolated runnable design; not integrated product",
-        "commit": null,
+        "commit": "c77ab0911d715e44832cf39e79a4fb96806b87ac",
         "fixtureId": "homework-P01-save-failure",
         "fixtureSha256": "30803CD1B461CE2DE05B4F236B577F9D2A1A059340FACB064CCB19A5A36B41BC",
         "sha256": "A43F1EDA43D8D26CCCEA064724B8198618875B082FEAA010BC291898098232AE",
@@ -675,7 +675,7 @@
       {
         "path": "docs/page-designs/V2/homework/screenshots/P01/390-conflict-409.png",
         "purpose": "isolated runnable design; not integrated product",
-        "commit": null,
+        "commit": "c77ab0911d715e44832cf39e79a4fb96806b87ac",
         "fixtureId": "homework-P01-conflict-409",
         "fixtureSha256": "30803CD1B461CE2DE05B4F236B577F9D2A1A059340FACB064CCB19A5A36B41BC",
         "sha256": "3F5043191AF154528623346F0313BA7520C8F3CABF419389533AE66F0EF41B41",
@@ -691,7 +691,7 @@
       {
         "path": "docs/page-designs/V2/homework/screenshots/P01/390-dirty-close.png",
         "purpose": "isolated runnable design; not integrated product",
-        "commit": null,
+        "commit": "c77ab0911d715e44832cf39e79a4fb96806b87ac",
         "fixtureId": "homework-P01-dirty-close",
         "fixtureSha256": "30803CD1B461CE2DE05B4F236B577F9D2A1A059340FACB064CCB19A5A36B41BC",
         "sha256": "FB47FD79BBB44EF9B03BE3FB5353A2209D6426DC8788E5DB6CAE74931B2836D6",
@@ -707,7 +707,7 @@
       {
         "path": "docs/page-designs/V2/homework/screenshots/P01/390-delete-confirm.png",
         "purpose": "isolated runnable design; not integrated product",
-        "commit": null,
+        "commit": "c77ab0911d715e44832cf39e79a4fb96806b87ac",
         "fixtureId": "homework-P01-delete-confirm",
         "fixtureSha256": "30803CD1B461CE2DE05B4F236B577F9D2A1A059340FACB064CCB19A5A36B41BC",
         "sha256": "AA317CE363D41DAB2ED8725904130EC38C9BCE22DBAA98144D2A11453461812E",
@@ -726,85 +726,99 @@
         "path": "docs/page-designs/V2/homework/screenshots/P01/narrow/1057-long-title-note.png",
         "sha256": "DDB9C284CB1B56D1107DF9234C973D72D1CD79E6DF15E5B0196EE3A0197C9C17",
         "purpose": "narrow viewport rendered check",
-        "sourceLog": "docs/page-designs/V2/homework/logs/P01-narrow.json"
+        "sourceLog": "docs/page-designs/V2/homework/logs/P01-narrow.json",
+        "commit": "c77ab0911d715e44832cf39e79a4fb96806b87ac"
       },
       {
         "path": "docs/page-designs/V2/homework/screenshots/P01/narrow/1057-mobile-detail.png",
         "sha256": "312D8AF5D5A84736B8344307FB2D60F40DD900437AEE35C723F82B0E246965BF",
         "purpose": "narrow viewport rendered check",
-        "sourceLog": "docs/page-designs/V2/homework/logs/P01-narrow.json"
+        "sourceLog": "docs/page-designs/V2/homework/logs/P01-narrow.json",
+        "commit": "c77ab0911d715e44832cf39e79a4fb96806b87ac"
       },
       {
         "path": "docs/page-designs/V2/homework/screenshots/P01/narrow/1057-normal.png",
         "sha256": "312D8AF5D5A84736B8344307FB2D60F40DD900437AEE35C723F82B0E246965BF",
         "purpose": "narrow viewport rendered check",
-        "sourceLog": "docs/page-designs/V2/homework/logs/P01-narrow.json"
+        "sourceLog": "docs/page-designs/V2/homework/logs/P01-narrow.json",
+        "commit": "c77ab0911d715e44832cf39e79a4fb96806b87ac"
       },
       {
         "path": "docs/page-designs/V2/homework/screenshots/P01/narrow/1057-selected.png",
         "sha256": "47681FC0A4F28B261EAFC57B357F2F4AEF9B8DE3726BF61E4D77AD1475A6E9B8",
         "purpose": "narrow viewport rendered check",
-        "sourceLog": "docs/page-designs/V2/homework/logs/P01-narrow.json"
+        "sourceLog": "docs/page-designs/V2/homework/logs/P01-narrow.json",
+        "commit": "c77ab0911d715e44832cf39e79a4fb96806b87ac"
       },
       {
         "path": "docs/page-designs/V2/homework/screenshots/P01/narrow/360-long-title-note.png",
         "sha256": "6CD2D71DDDA3F22E2B540C4108A1A82E9ABBB5AECA947D4EC09299C76FE7DA61",
         "purpose": "narrow viewport rendered check",
-        "sourceLog": "docs/page-designs/V2/homework/logs/P01-narrow.json"
+        "sourceLog": "docs/page-designs/V2/homework/logs/P01-narrow.json",
+        "commit": "c77ab0911d715e44832cf39e79a4fb96806b87ac"
       },
       {
         "path": "docs/page-designs/V2/homework/screenshots/P01/narrow/360-mobile-detail.png",
         "sha256": "9BCE040CF597F0DA91041CCC9743064096F1222923911D16A3A4DD4D749D16E5",
         "purpose": "narrow viewport rendered check",
-        "sourceLog": "docs/page-designs/V2/homework/logs/P01-narrow.json"
+        "sourceLog": "docs/page-designs/V2/homework/logs/P01-narrow.json",
+        "commit": "c77ab0911d715e44832cf39e79a4fb96806b87ac"
       },
       {
         "path": "docs/page-designs/V2/homework/screenshots/P01/narrow/360-normal.png",
         "sha256": "E6EF23BB8CB116D40149B49BC99D4055C9DF451B29A92A14076EAE88C7DC7049",
         "purpose": "narrow viewport rendered check",
-        "sourceLog": "docs/page-designs/V2/homework/logs/P01-narrow.json"
+        "sourceLog": "docs/page-designs/V2/homework/logs/P01-narrow.json",
+        "commit": "c77ab0911d715e44832cf39e79a4fb96806b87ac"
       },
       {
         "path": "docs/page-designs/V2/homework/screenshots/P01/narrow/360-selected.png",
         "sha256": "156CDE450D20FE0B0077E9A3B40AC9709779FB7E0A175B8C4D1515C28C757309",
         "purpose": "narrow viewport rendered check",
-        "sourceLog": "docs/page-designs/V2/homework/logs/P01-narrow.json"
+        "sourceLog": "docs/page-designs/V2/homework/logs/P01-narrow.json",
+        "commit": "c77ab0911d715e44832cf39e79a4fb96806b87ac"
       },
       {
         "path": "docs/page-designs/V2/homework/screenshots/P01/supplement/1536-full.png",
         "sha256": "F75FB01D82D7917828D61FA099D3B3B140341BB36C1904A26DEAADAC15371445",
         "purpose": "scroll, full-page or expanded text proof",
-        "sourceLog": "docs/page-designs/V2/homework/logs/P01-supplement.json"
+        "sourceLog": "docs/page-designs/V2/homework/logs/P01-supplement.json",
+        "commit": "c77ab0911d715e44832cf39e79a4fb96806b87ac"
       },
       {
         "path": "docs/page-designs/V2/homework/screenshots/P01/supplement/1536-normal-scrolled.png",
         "sha256": "3AD8E4D7AF39D5790D64D29A6F0052D79B5850AA18EEFC6A039B034ED1CC23A2",
         "purpose": "scroll, full-page or expanded text proof",
-        "sourceLog": "docs/page-designs/V2/homework/logs/P01-supplement.json"
+        "sourceLog": "docs/page-designs/V2/homework/logs/P01-supplement.json",
+        "commit": "c77ab0911d715e44832cf39e79a4fb96806b87ac"
       },
       {
         "path": "docs/page-designs/V2/homework/screenshots/P01/supplement/390-long-expanded.png",
         "sha256": "8CADAC7BDF94EF138EB5B2CC3EB97FD2266F0858E13454C4A6D71E24FBA3050E",
         "purpose": "scroll, full-page or expanded text proof",
-        "sourceLog": "docs/page-designs/V2/homework/logs/P01-supplement.json"
+        "sourceLog": "docs/page-designs/V2/homework/logs/P01-supplement.json",
+        "commit": "c77ab0911d715e44832cf39e79a4fb96806b87ac"
       },
       {
         "path": "docs/page-designs/V2/homework/screenshots/P01/supplement/390-long-title-note-scrolled.png",
         "sha256": "544DCCC464EB5E8484CF7180BFFAB73690E5572773A6977C830B7E1FD5641BB4",
         "purpose": "scroll, full-page or expanded text proof",
-        "sourceLog": "docs/page-designs/V2/homework/logs/P01-supplement.json"
+        "sourceLog": "docs/page-designs/V2/homework/logs/P01-supplement.json",
+        "commit": "c77ab0911d715e44832cf39e79a4fb96806b87ac"
       },
       {
         "path": "docs/page-designs/V2/homework/screenshots/P01/supplement/390-mobile-detail-scrolled.png",
         "sha256": "6265CC6EB7DA994C4B5855E59F0A5263D2419EE2E591C2191DB6ED12DF3F6FA5",
         "purpose": "scroll, full-page or expanded text proof",
-        "sourceLog": "docs/page-designs/V2/homework/logs/P01-supplement.json"
+        "sourceLog": "docs/page-designs/V2/homework/logs/P01-supplement.json",
+        "commit": "c77ab0911d715e44832cf39e79a4fb96806b87ac"
       },
       {
         "path": "docs/page-designs/V2/homework/screenshots/P01/supplement/390-students-105-scrolled.png",
         "sha256": "39A422BF2A392219A3193EFBBC273760B1F68DA85C772C21FE873F4A63F7F663",
         "purpose": "scroll, full-page or expanded text proof",
-        "sourceLog": "docs/page-designs/V2/homework/logs/P01-supplement.json"
+        "sourceLog": "docs/page-designs/V2/homework/logs/P01-supplement.json",
+        "commit": "c77ab0911d715e44832cf39e79a4fb96806b87ac"
       }
     ]
   },
@@ -869,7 +883,8 @@
     },
     {
       "date": "2026-09-15",
-      "event": "P01 isolated implementation,40main/8narrow screenshots,30interaction/5supplement checks; D pending"
+      "event": "P01 isolated implementation,40main/8narrow screenshots,30interaction/5supplement checks; D pending",
+      "designCommit": "c77ab0911d715e44832cf39e79a4fb96806b87ac"
     }
   ],
   "sourceState": "docs/page-designs/V2/recovery/source-state.json",
