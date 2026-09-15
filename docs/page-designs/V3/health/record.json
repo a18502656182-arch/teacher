@@ -1,0 +1,143 @@
+{
+  "pageId": "health",
+  "batch": "V3",
+  "phase": "concept-review",
+  "brief": "docs/page-designs/V3/health/brief.md",
+  "functionMap": "docs/page-designs/V3/health/function-map.md",
+  "geometry": null,
+  "assets": null,
+  "states": null,
+  "candidates": [
+    {
+      "path": "docs/page-designs/V3/health/candidates/health-desktop-c01.png",
+      "sha256": "984C41244B2295F00B3C1719D0E340D393C4E569EA3C2CDCFAAB1F6AF9940127",
+      "kind": "desktop",
+      "stateId": "normal",
+      "version": "C01",
+      "approval": false,
+      "pixelSize": [
+        1536,
+        1024
+      ],
+      "targetViewport": "1536x1024",
+      "prompt": "docs/page-designs/V3/health/candidates/prompts-c01.md",
+      "purpose": "ImageGen candidate; no runnable design approval"
+    },
+    {
+      "path": "docs/page-designs/V3/health/candidates/health-mobile-c01.png",
+      "sha256": "CE580C1A84BCA489E0EE6B7CE52FD1CD71B7A2D8E527A756068CAD5CB5D58B78",
+      "kind": "mobile",
+      "stateId": "normal",
+      "version": "C01",
+      "approval": false,
+      "pixelSize": [
+        853,
+        1844
+      ],
+      "targetViewport": "390x844",
+      "prompt": "docs/page-designs/V3/health/candidates/prompts-c01.md",
+      "purpose": "ImageGen candidate; no runnable design approval"
+    }
+  ],
+  "prototype": {
+    "commit": null,
+    "previewUrl": null,
+    "evidence": []
+  },
+  "designApproval": {
+    "approved": false,
+    "source": null,
+    "approvedAt": null,
+    "commit": null,
+    "evidenceHashes": []
+  },
+  "integration": {
+    "productCommit": null,
+    "designCommit": null,
+    "evidence": [],
+    "tests": []
+  },
+  "resultApproval": {
+    "approved": false,
+    "source": null,
+    "approvedAt": null,
+    "productCommit": null
+  },
+  "issues": [
+    {
+      "id": "C01-DIRECTION",
+      "blocking": true,
+      "resolved": false,
+      "description": "Desktop/mobile candidates await direction confirmation."
+    },
+    {
+      "id": "CANDIDATE-DEVIATIONS",
+      "blocking": false,
+      "resolved": false,
+      "description": "Extra shell slogans/teacher name not implementation contract; contact disclosure needs concrete expansion action; mobile detail/editor not shown."
+    },
+    {
+      "id": "SOURCE-RECOVERY-RISKS",
+      "blocking": false,
+      "resolved": false,
+      "description": "See function-map: list scaling, repeated new save, thrown save, dirty cancel and persistent409 need P01 validation."
+    }
+  ],
+  "nextAction": "等待健康与照护C01桌面/手机方向确认，再做隔离主页面；弹窗专项另补，不接业务。",
+  "history": [
+    {
+      "date": "2026-09-15",
+      "event": "Growth main-page acceptance with deferred overlays; health current source audited and2synthetic views captured,2independent candidates await direction."
+    }
+  ],
+  "inventoryCommit": "4313282ffc7258a859b2c36eabed6f99213b6ba6",
+  "conceptApproval": {
+    "approved": false,
+    "source": null,
+    "approvedAt": null,
+    "evidenceHashes": []
+  },
+  "overlayReview": {
+    "requiredBeforeIntegration": true,
+    "approved": false,
+    "plan": "docs/page-designs/OVERLAY-FOLLOWUP-20260915.md"
+  },
+  "sourceState": {
+    "path": "docs/page-designs/V3/health/screenshots/source/capture.json",
+    "sha256": "B2D74C1E0C962A0457559041D0B443367B9E3E42F585C03B941A3522FF4B9456",
+    "fixture": {
+      "path": "tools/ui-preview/health-source.tsx",
+      "sha256": "51C1C6DF93E5EEE98754B08CB626800C3C67CA4A7DA3FDA6318C433214D8106B"
+    },
+    "source": {
+      "path": "app/w/[token]/HealthCare.tsx",
+      "sha256": "14AC78B38B7CDCBD548C873B4ACA919328003524FDD42C733365D3976CB542B5"
+    },
+    "evidence": [
+      {
+        "path": "docs/page-designs/V3/health/screenshots/source/1536-normal.png",
+        "sha256": "16D799AD1129FF40EA6AD2870A1E28B87CCD8EE5DA0C5B51BF67754517564CBD",
+        "viewport": "1536x1024",
+        "url": "http://127.0.0.1:4213/health-source.html"
+      },
+      {
+        "path": "docs/page-designs/V3/health/screenshots/source/390-normal.png",
+        "sha256": "6A6B49EB058EA086639AC78CC270DAF5349260CF801A96BAA5AF7168EF20CCB7",
+        "viewport": "390x844",
+        "url": "http://127.0.0.1:4213/health-source.html"
+      }
+    ],
+    "browser": {
+      "protocolVersion": "1.3",
+      "product": "Chrome/152.0.7977.82",
+      "revision": "@d04cdb24d67b081f6cf80200ffc5233f44b61109",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/152.0.0.0 Safari/537.36",
+      "jsVersion": "15.2.124.21"
+    },
+    "mode": "current source read-only synthetic; without shared shell"
+  },
+  "candidateChecks": {
+    "path": "docs/page-designs/V3/health/checks-C01.json",
+    "sha256": "B0750F66B097619232689AA2EC033CA97530B90D558E0DB90C38911A26B43732"
+  }
+}

@@ -1,5 +1,11 @@
 # 变更日志
 
+## 2026-09-15：成长主页面范围认可，照护C01待方向确认
+
+用户同意弹窗与未覆盖内容后置补审并继续下一页。成长P01/4f7637c仅新增mainPageApproval，整页designApproval仍false；学生/作业/考勤原批准历史保留，四页均新增overlayReview待补审条件，不扩大为弹窗/完整内容批准。专项清单docs/page-designs/OVERLAY-FOLLOWUP-20260915.md，正式接入前补齐；指标语义延期仍开放。
+
+健康与照护已核对真实HealthCare与operations，完成2张只读合成现状截图和2张ImageGen独立C01候选；入口docs/page-designs/V3/health/record.json。候选尚未确认，未制作P01，未改正式组件/共享shell。列表规模与保存/脏关闭风险记录在function-map，不能算解决。听写仍暂缓，原四项修改保留；不部署。下一步等照护两图方向确认。兼容审核脚本已增加弹窗补审的接入门槛，不阻止设计审核；9项工作流测试、类型/lint和账本检查通过。
+
 成长P01源码绑定：4f7637c240f500ce73a9eb1840cd42705bbd594b；46张实际图、素材/字体/状态合同见growth/record.json。只供用户单页设计审核，尚未D/R或业务接入。
 
 ## 2026-09-15：成长C01风格获准，P01准备设计审核

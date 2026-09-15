@@ -1067,5 +1067,11 @@
     ]
   },
   "sourceState": "docs/page-designs/V3/attendance/recovery/capture.json",
-  "inventoryCommit": "ed373ed0529edb24f4453b6a92a03aebe990a54e"
+  "inventoryCommit": "ed373ed0529edb24f4453b6a92a03aebe990a54e",
+  "overlayReview": {
+    "requiredBeforeIntegration": true,
+    "approved": false,
+    "source": "2026-09-15用户同意弹窗/未覆盖内容后置专项补审并继续下一页；不扩大历史批准。",
+    "plan": "docs/page-designs/OVERLAY-FOLLOWUP-20260915.md"
+  }
 }

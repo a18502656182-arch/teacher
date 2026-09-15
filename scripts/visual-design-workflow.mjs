@@ -68,8 +68,14 @@ export function auditDesignWorkflow(root, ledger, argv, git) {
     if (!expected.length || JSON.stringify(expected) !== JSON.stringify(approved)) errors.push(`${id}: D approval evidence hashes mismatch.`);
     return errors;
   }
+  function overlayApproved(id, r) {
+    const a = r?.overlayReview;
+    if (!a?.requiredBeforeIntegration) return [];
+    if (!a.approved || !a.source || !a.approvedAt || a.commit !== r?.prototype?.commit) return [`${id}: deferred overlays and uncovered states await supplemental human approval before integration.`];
+    return [];
+  }
   function resultReady(id, r) {
-    const errors = designApproved(id, r), i = r?.integration;
+    const errors = [...designApproved(id, r), ...overlayApproved(id, r)], i = r?.integration;
     if (!i?.productCommit || !git.gitCommitExists(root, i.productCommit) || i.designCommit !== r?.prototype?.commit) errors.push(`${id}: integration version binding missing.`);
     errors.push(...artifacts(id, i?.evidence, 'result', i?.productCommit));
     if (!i?.tests?.length || i.tests.some(t => t.exitCode !== 0 || t.commit !== i.productCommit || !fileWithin(root, t.path) || !same(hash(readFileSync(fileWithin(root, t.path))), t.sha256))) errors.push(`${id}: current product test logs missing/stale/failed.`);
@@ -89,7 +95,7 @@ export function auditDesignWorkflow(root, ledger, argv, git) {
   for (const gate of ledger.gates) {
     const legacy = gate.id === 'V1' && gate.userApproval?.approved && gate.status === 'user-approved';
     const designErrors = legacy ? [] : gate.pages.flatMap(id => designReady(id, records.get(id)));
-    const integrationErrors = legacy ? [] : gate.pages.flatMap(id => designApproved(id, records.get(id)));
+    const integrationErrors = legacy ? [] : gate.pages.flatMap(id => [...designApproved(id, records.get(id)), ...overlayApproved(id, records.get(id))]);
     const resultErrors = legacy ? [] : gate.pages.flatMap(id => resultReady(id, records.get(id)));
     const nextErrors = legacy ? [] : gate.pages.flatMap(id => resultApproved(id, records.get(id)));
     const blocked = priorApproved ? [] : [`${gate.id}: previous batch R approval required.`];

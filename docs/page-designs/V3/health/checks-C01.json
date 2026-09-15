@@ -1,0 +1,33 @@
+{
+  "date": "2026-09-15T05:06:48.724Z",
+  "phase": "candidate",
+  "checks": [
+    {
+      "command": "node scripts/health-source-capture.mjs",
+      "exitCode": 0,
+      "result": "2 synthetic source captures;0 runtime exceptions"
+    },
+    {
+      "command": "npx tsc --noEmit",
+      "exitCode": 0
+    },
+    {
+      "command": "npx eslint tools/ui-preview/health-source.tsx tools/ui-preview/health-source.vite.config.ts",
+      "exitCode": 0
+    },
+    {
+      "command": "node --test tests/visual-design-workflow.test.mjs",
+      "exitCode": 0,
+      "result": "9/9passed, including deferred overlay gate and version-bound supplement"
+    },
+    {
+      "command": "npm run qa:visual-baseline",
+      "exitCode": 0,
+      "result": "19pages; growth full D remains pending,health concept review"
+    }
+  ],
+  "limitations": [
+    "Raster candidates are not interactive implementations.",
+    "No formal business/source change; full-site qa:strict old runtime blocker not rerun or resolved this candidate turn."
+  ]
+}

@@ -556,7 +556,7 @@
       "submissionNotes": "docs/visual-baseline/V2-STUDENTS-399a5c4-review.md",
       "directionProposal": "docs/visual-baseline/V2-STUDENTS-C3-REALIGNMENT-PROPOSAL.md",
       "recordPath": "docs/page-designs/V2/students/record.json",
-      "recordSha256": "8C97DD46E179AC21CFB8A2D9B692C44156F08477288D7CA8C5F7AB52E96F4D37"
+      "recordSha256": "9E3F439F23C03977770C5BB029CBBA59208937FEDDCB9F698DB93FC4514F4ED0"
     },
     "homework": {
       "label": "作业追踪",
@@ -569,7 +569,7 @@
       "currentEvidence": [],
       "comparisons": [],
       "recordPath": "docs/page-designs/V2/homework/record.json",
-      "recordSha256": "6C3B8799E2F4D5D4F0ABCEADA4D07736E09E09FBAF81F4A6663CCAEAE616BBF2"
+      "recordSha256": "0F3C0FC0925E8E81BC325573EE2E6625BD71CEF35321F8C3081A003883482315"
     },
     "dictation": {
       "label": "听写与复习",
@@ -598,7 +598,7 @@
       "currentEvidence": [],
       "comparisons": [],
       "recordPath": "docs/page-designs/V3/attendance/record.json",
-      "recordSha256": "797695D65ED03D5563713D72804C7F80D8D21B2D90FBAFB999266932551C918B"
+      "recordSha256": "F1CA049A57161D8A8E29D34B760FF6B86B4165E1284945598E614CE0ED4978F4"
     },
     "growth": {
       "label": "成长档案",
@@ -611,7 +611,7 @@
       "currentEvidence": [],
       "comparisons": [],
       "recordPath": "docs/page-designs/V3/growth/record.json",
-      "recordSha256": "ADED31A783542E81509CAC8B17F453A09C4E2B3405B3387B2B4901E044CDE2C8"
+      "recordSha256": "79CFA564C76713C3438EEFD919A0E14F99F0188A1A02991C0CBE1B3D419CE112"
     },
     "health": {
       "label": "健康与照护",
@@ -622,7 +622,9 @@
       "requiredComparisons": 2,
       "issues": [],
       "currentEvidence": [],
-      "comparisons": []
+      "comparisons": [],
+      "recordPath": "docs/page-designs/V3/health/record.json",
+      "recordSha256": "F001616B91D4EBABC5B8AFA416445665257AE40E340957424BA87F2C480659BA"
     },
     "records": {
       "label": "家校沟通",
@@ -780,7 +782,7 @@
     "legacyFields": "status/productCommit/currentEvidence/comparisons/userApproval retain historical product evidence; D/R uses linked records",
     "entry": "docs/逐页设计定稿与实施包-20260914/00-从这里开始.md",
     "activeBatch": "V2",
-    "nextAction": "交付成长P01实际图与关键状态，等待用户单页设计审核；不接正式业务。",
+    "nextAction": "等待健康与照护C01桌面/手机方向确认，再做隔离主页面；弹窗专项另补，不接业务。",
     "designSequenceExceptions": [
       {
         "date": "2026-09-15",
@@ -797,6 +799,7 @@
         "nextDesignPage": "growth",
         "integrationAllowed": false
       }
-    ]
+    ],
+    "overlayFollowup": "docs/page-designs/OVERLAY-FOLLOWUP-20260915.md"
   }
 }

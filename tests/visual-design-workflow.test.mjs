@@ -31,6 +31,19 @@ function fixture() {
   return { root, records, changed, ledger, run };
 }
 test('all three D approvals allow integration without any supervision report', () => { assert.deepEqual(fixture().run().failures, []); });
+
+test('deferred overlays allow design review but block integration until version-bound human supplement', () => {
+  const f = fixture();
+  for (const r of Object.values(f.records)) r.resultApproval.approved = false;
+  f.records.students.overlayReview = { requiredBeforeIntegration: true, approved: false };
+  assert.deepEqual(f.run('design-review').failures, []);
+  assert.ok(f.run('integration').failures.some(e => e.includes('deferred overlays')));
+  assert.ok(f.run('result-review').failures.some(e => e.includes('deferred overlays')));
+  f.records.students.overlayReview = { requiredBeforeIntegration: true, approved: true, source: 'synthetic user supplement', approvedAt: '2026-09-15', commit: 'b'.repeat(40) };
+  assert.ok(f.run('integration').failures.some(e => e.includes('deferred overlays')));
+  f.records.students.overlayReview.commit = commit;
+  assert.deepEqual(f.run('integration').failures, []);
+});
 test('homepage approval cannot unlock V2; concept confirmation cannot replace runnable D approval', () => {
   const f = fixture();
   for (const r of Object.values(f.records)) { r.phase = 'concept-review'; r.prototype = { commit: null, evidence: [] }; r.designApproval.approved = false; r.resultApproval.approved = false; }

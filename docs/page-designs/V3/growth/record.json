@@ -899,7 +899,7 @@
       "description": "1971KB PNG remains unoptimized."
     }
   ],
-  "nextAction": "交付成长P01实际图与关键状态，等待用户单页设计审核；不接正式业务。",
+  "nextAction": "主页面可继续；弹窗/指标语义和未覆盖内容待补审，整页D未批准；下一页照护独立候选。",
   "history": [
     {
       "date": "2026-09-15",
@@ -912,6 +912,11 @@
     {
       "date": "2026-09-15",
       "event": "P01 isolated implementation complete;46captures and34DOM checks;reviewM1/M2resolved;metrics redesign remains deferred;await user single-page D.",
+      "designCommit": "4f7637c240f500ce73a9eb1840cd42705bbd594b"
+    },
+    {
+      "date": "2026-09-15",
+      "event": "本任务用户：可以 继续下一个页面。承接弹窗后置解释，接受成长P01主页面范围；整页D仍待弹窗/未覆盖补审。",
       "designCommit": "4f7637c240f500ce73a9eb1840cd42705bbd594b"
     }
   ],
@@ -972,5 +977,23 @@
     "path": "docs/page-designs/V3/growth/checks-C01.json",
     "sha256": "D2E5DA8C718FD876CBCC000C8712E935FA0159A3FDABE16A46970146A4428569"
   },
-  "candidateCommit": "9c856795bf83828754507b9f198b336b265c6d6b"
+  "candidateCommit": "9c856795bf83828754507b9f198b336b265c6d6b",
+  "overlayReview": {
+    "requiredBeforeIntegration": true,
+    "approved": false,
+    "source": "2026-09-15用户同意弹窗/未覆盖内容后置专项补审并继续下一页；不扩大历史批准。",
+    "plan": "docs/page-designs/OVERLAY-FOLLOWUP-20260915.md"
+  },
+  "mainPageApproval": {
+    "approved": true,
+    "approvedAt": "2026-09-15",
+    "commit": "4f7637c240f500ce73a9eb1840cd42705bbd594b",
+    "source": "本任务用户：可以 继续下一个页面。承接弹窗后置解释，接受成长P01主页面范围；整页D仍待弹窗/未覆盖补审。",
+    "evidenceHashes": [
+      "9DFBAD4A8B2699A7C01037BCA375B68FA250ED0B2F0A98A57EE5909CFEA40EAE",
+      "9DFBAD4A8B2699A7C01037BCA375B68FA250ED0B2F0A98A57EE5909CFEA40EAE",
+      "256B3A47099841566D395C04EDB06985F9CEC1C03FD20B7F442FFFC22D0B54B8",
+      "FCE8D3B1D44794835B51D8A5D355C4AA4131E6EC02BFE62CF771CB690739D209"
+    ]
+  }
 }

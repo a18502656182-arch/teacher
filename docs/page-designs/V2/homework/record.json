@@ -952,5 +952,11 @@
     ]
   },
   "inventoryCommit": "8a810a3dc56660cb54cfce71b70bc495dfdb4ff0",
-  "candidateCommit": "e6aad27f0a5ae3d7eecffff193d27d90f6541ad8"
+  "candidateCommit": "e6aad27f0a5ae3d7eecffff193d27d90f6541ad8",
+  "overlayReview": {
+    "requiredBeforeIntegration": true,
+    "approved": false,
+    "source": "2026-09-15用户同意弹窗/未覆盖内容后置专项补审并继续下一页；不扩大历史批准。",
+    "plan": "docs/page-designs/OVERLAY-FOLLOWUP-20260915.md"
+  }
 }
