@@ -1110,16 +1110,19 @@
     "trends": {
       "phase": "concept-review",
       "version": "C02",
-      "approved": false
+      "approved": false,
+      "candidateCommit": "a781f2679eb906854622fd83c92c5ed926a0cd36"
     },
     "analysis": {
       "phase": "concept-review",
       "version": "C02",
-      "approved": false
+      "approved": false,
+      "candidateCommit": "a781f2679eb906854622fd83c92c5ed926a0cd36"
     }
   },
   "latestCandidateChecks": {
     "path": "docs/page-designs/V4/scores/checks-C02.json",
     "sha256": "0E2BFD0B9AA33EEB00C15D7BAE7C85820C7538FE379A9332744621B558837947"
-  }
+  },
+  "latestCandidateCommit": "a781f2679eb906854622fd83c92c5ed926a0cd36"
 }
