@@ -690,7 +690,7 @@
     ],
     "checks": {
       "path": "docs/page-designs/V4/records/checks-P01.json",
-      "sha256": "AE5B9DB8B70C9263253B6A449FE35F36D1C24BF9467902B1CFAE9454EEA0ECD8",
+      "sha256": "0C5884EC985A522B88B305DED7AF517BFF6890625606A0F281D5EE2BE7D61598",
       "commit": "2460927bca985d00b9b33d2240682e110c92bd5f"
     }
   },

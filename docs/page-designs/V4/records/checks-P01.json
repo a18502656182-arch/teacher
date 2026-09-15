@@ -47,7 +47,7 @@
     {
       "name": "v4-gate",
       "path": "docs/page-designs/V4/records/tests/v4-gate.log",
-      "sha256": "FEFEFB58A1A19725585C2FC071E3A5806C8561FA1F54FE86B3AB496B053862EC",
+      "sha256": "73696AB8F82BFAD0D2D27AF47B187FB3C4B22AAAB4B95FF2ECDB1BD62232AB9B",
       "exitCode": 1,
       "expected": "Previous batch R and other V4 pages still block batch D; records itself has no missing design-ready artifact."
     }
