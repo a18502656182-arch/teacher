@@ -1,0 +1,32 @@
+{
+  "date": "2026-09-15",
+  "mode": "C01 candidates and read-only current-source harness, not P01 business testing",
+  "checks": [
+    {
+      "name": "TypeScript noEmit",
+      "exitCode": 0
+    },
+    {
+      "name": "scoped ESLint source harness/config",
+      "exitCode": 0
+    },
+    {
+      "name": "read-only source build",
+      "exitCode": 0,
+      "path": "docs/page-designs/V4/records/tests/source-build.log",
+      "sha256": "233C7DF6C3224996E397161BD8E6000317102CBC7E598E1292512CADAB5FFB8A"
+    },
+    {
+      "name": "2 actual source screenshots",
+      "exitCode": 0,
+      "runtimeErrors": 0,
+      "path": "docs/page-designs/V4/records/screenshots/source/capture.json",
+      "sha256": "364D5D576D216345C22B39AE2D3113C43A5097C69760B86A8C1913E7643BD5CB"
+    }
+  ],
+  "notes": [
+    "Initial cold start capture read blank before render; readiness wait added, final capture two images no runtime errors",
+    "No formal component changes; four existing dirty files preserved",
+    "Existing qa:strict runtime issue not rerun or claimed fixed for this candidate-only stage"
+  ]
+}

@@ -911,7 +911,7 @@
       "description": "Decorative PNG1.93MB, image optimization remains future work."
     }
   ],
-  "nextAction": "等待用户审核健康与照护P01主页面；浮层专项仍待补审，未经D条件齐备不接入正式业务、不部署。",
+  "nextAction": "主页面已认可；浮层专项仍待补审。继续家校沟通独立候选，不接正式业务。",
   "history": [
     {
       "date": "2026-09-15",
@@ -920,6 +920,10 @@
     {
       "date": "2026-09-15",
       "event": "用户确认C01；制作隔离P01，40主状态+10补充图，64DOM与16operation/workflow通过；保存/删除重试、原始自定义场景、摘要only和分页联动验证。待用户审核。"
+    },
+    {
+      "date": "2026-09-15",
+      "event": "用户认可P01主页面并指出弹窗问题，授权继续下一页家校沟通独立设计；非整页D/整批R。"
     }
   ],
   "inventoryCommit": "4313282ffc7258a859b2c36eabed6f99213b6ba6",
@@ -935,7 +939,9 @@
   "overlayReview": {
     "requiredBeforeIntegration": true,
     "approved": false,
-    "plan": "docs/page-designs/OVERLAY-FOLLOWUP-20260915.md"
+    "plan": "docs/page-designs/OVERLAY-FOLLOWUP-20260915.md",
+    "source": "本任务用户：页面可以 同样也是弹窗有问题 可以继续下一个页面",
+    "feedback": "用户再次指出弹窗有问题，继续后置专项；不推断每个弹窗均同样问题，逐项补审。"
   },
   "sourceState": {
     "path": "docs/page-designs/V3/health/screenshots/source/capture.json",
@@ -978,9 +984,14 @@
   },
   "candidateCommit": "cf1cd417d79e9e3da756df18f3805c06d792d90d",
   "mainPageApproval": {
-    "approved": false,
-    "source": null,
-    "approvedAt": null,
-    "commit": null
+    "approved": true,
+    "approvedAt": "2026-09-15",
+    "commit": "6e1918914d0c531f6238404cc7dd75c849eb6dd1",
+    "source": "本任务用户：页面可以 同样也是弹窗有问题 可以继续下一个页面",
+    "scope": "健康与照护P01主页面风格与布局；弹窗及未展示状态不在批准范围",
+    "evidenceHashes": [
+      "FAF5C485BFCB66605E0FC7A543FA8E8E0C51A870C3C87BA3BBC43C3D1D59BEDE",
+      "9F99A5D7E93023ADE8224989106B4732A47DCE24DE1E7B2F6486431993558E08"
+    ]
   }
 }

@@ -1,5 +1,14 @@
 # 班主任工作台视觉基线
 
+## 2026-09-15：照护主页面认可，家校沟通C01待方向确认
+
+用户“页面可以 同样也是弹窗有问题 可以继续下一个页面”仅认可照护P01/6e19189主页面；mainPageApproval已绑定双端主图，整页designApproval及overlayReview仍false，弹窗问题继续后置专项。未扩大成V3整批D/R。按用户顺序例外继续V4家校沟通独立设计，听写仍暂缓，正式接入前所有补审门槛保留。
+
+真实ClassroomApp:Records/MobileSecondaryPage、NotificationDrafts及operations已盘点，4215只读合成恢复桌面/手机两图；独立ImageGen生成家校沟通C01两图。桌面待跟进/历史为主、通知在右；手机沟通/通知分标签。复制不是外发，followUp没有结构化到期日期，不造逾期提醒。新发现的保存重试/脏关闭/关联字段等风险列入function-map，未修改正式源。
+
+入口docs/page-designs/V4/records/record.json。类型、scoped lint、只读恢复器构建和两图加载通过；不是P01验收，全站qa:strict旧问题未修。候选控件/边框与额外装饰需P01校准，通知手机页和浮层关键状态尚未制作。下一步等用户确认C01方向。原4项未提交文件保留；无部署，线上版本未核验。
+
+
 ## 2026-09-15：成长主页面范围认可，照护C01待方向确认
 
 用户同意弹窗与未覆盖内容后置补审并继续下一页。成长P01/4f7637c仅新增mainPageApproval，整页designApproval仍false；学生/作业/考勤原批准历史保留，四页均新增overlayReview待补审条件，不扩大为弹窗/完整内容批准。专项清单docs/page-designs/OVERLAY-FOLLOWUP-20260915.md，正式接入前补齐；指标语义延期仍开放。

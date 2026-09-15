@@ -624,7 +624,7 @@
       "currentEvidence": [],
       "comparisons": [],
       "recordPath": "docs/page-designs/V3/health/record.json",
-      "recordSha256": "2F109494E49C3F59EB4A6D707C3868D86522C577C9F55DCFA8EC495C4D5EF980"
+      "recordSha256": "480E577F496DF402DEC8E010A81FBF830F4CF52B0712D5E1FB0EC9F2935E46EE"
     },
     "records": {
       "label": "家校沟通",
@@ -635,7 +635,9 @@
       "requiredComparisons": 2,
       "issues": [],
       "currentEvidence": [],
-      "comparisons": []
+      "comparisons": [],
+      "recordPath": "docs/page-designs/V4/records/record.json",
+      "recordSha256": "F0116655950752677314AD4211C1E7DB510FB9DE726793FFB2393DA8F0A7A482"
     },
     "scores": {
       "label": "成绩分析",
@@ -782,7 +784,7 @@
     "legacyFields": "status/productCommit/currentEvidence/comparisons/userApproval retain historical product evidence; D/R uses linked records",
     "entry": "docs/逐页设计定稿与实施包-20260914/00-从这里开始.md",
     "activeBatch": "V2",
-    "nextAction": "等待用户审核健康与照护P01主页面；浮层专项仍待补审，未经D条件齐备不接入正式业务、不部署。",
+    "nextAction": "等待家校沟通C01桌面和手机方向确认，然后制作隔离P01；未授权正式接入或部署。",
     "designSequenceExceptions": [
       {
         "date": "2026-09-15",
@@ -797,6 +799,13 @@
         "source": "本任务用户：可以 继续下一页（考勤P01交付后）",
         "scope": "Attendance single-page D and continue independent growth design only; no batch R/integration",
         "nextDesignPage": "growth",
+        "integrationAllowed": false
+      },
+      {
+        "date": "2026-09-15",
+        "source": "本任务用户：页面可以 同样也是弹窗有问题 可以继续下一个页面",
+        "scope": "Health main-page approval only; independent records/V4 candidate design before prior batch R, not formal next-batch integration",
+        "nextDesignPage": "records",
         "integrationAllowed": false
       }
     ],

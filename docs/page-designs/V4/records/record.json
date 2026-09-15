@@ -1,0 +1,157 @@
+{
+  "pageId": "records",
+  "batch": "V4",
+  "phase": "concept-review",
+  "brief": "docs/page-designs/V4/records/brief.md",
+  "functionMap": "docs/page-designs/V4/records/function-map.md",
+  "geometry": null,
+  "assets": null,
+  "states": null,
+  "candidates": [
+    {
+      "path": "docs/page-designs/V4/records/candidates/records-desktop-c01.png",
+      "sha256": "682D6E36C7E132A74543A88A96C6286DEB4A58411300B4EA3D7BFBDEF80411C4",
+      "kind": "desktop",
+      "stateId": "normal",
+      "version": "C01",
+      "approval": false,
+      "pixelSize": [
+        1536,
+        1024
+      ],
+      "targetViewport": "1536x1024",
+      "prompt": "docs/page-designs/V4/records/candidates/prompts-c01.md",
+      "purpose": "ImageGen candidate, not runnable or integrated"
+    },
+    {
+      "path": "docs/page-designs/V4/records/candidates/records-mobile-c01.png",
+      "sha256": "16FAD3F5E8059A921A13B05DE3880E33C14B96E569D748FD3F918D888C59584B",
+      "kind": "mobile",
+      "stateId": "normal",
+      "version": "C01",
+      "approval": false,
+      "pixelSize": [
+        853,
+        1844
+      ],
+      "targetViewport": "390x844",
+      "prompt": "docs/page-designs/V4/records/candidates/prompts-c01.md",
+      "purpose": "ImageGen candidate, not runnable or integrated"
+    }
+  ],
+  "prototype": {
+    "commit": null,
+    "previewUrl": null,
+    "evidence": []
+  },
+  "designApproval": {
+    "approved": false,
+    "source": null,
+    "approvedAt": null,
+    "commit": null,
+    "evidenceHashes": []
+  },
+  "integration": {
+    "productCommit": null,
+    "designCommit": null,
+    "evidence": [],
+    "tests": []
+  },
+  "resultApproval": {
+    "approved": false,
+    "source": null,
+    "approvedAt": null,
+    "productCommit": null
+  },
+  "conceptApproval": {
+    "approved": false,
+    "source": null,
+    "approvedAt": null,
+    "evidenceHashes": []
+  },
+  "overlayReview": {
+    "requiredBeforeIntegration": true,
+    "approved": false,
+    "plan": "docs/page-designs/OVERLAY-FOLLOWUP-20260915.md"
+  },
+  "issues": [
+    {
+      "id": "C01-DIRECTION",
+      "blocking": true,
+      "resolved": false,
+      "description": "Desktop/mobile C01 await user direction; no P01."
+    },
+    {
+      "id": "CANDIDATE-DEVIATIONS",
+      "blocking": false,
+      "resolved": false,
+      "description": "Generated border/card/controls proportions, decorative slogans and phone system chrome not frozen; mobile notification/detail/editor still need design."
+    },
+    {
+      "id": "SOURCE-RISKS",
+      "blocking": false,
+      "resolved": false,
+      "description": "See function-map: pending retry, thrown persistence, dirty-close, linked reflectionId and text date compatibility, status defaults and receipt state. Not implemented fixes."
+    }
+  ],
+  "inventoryCommit": "e21dda139ebd7957722d6e35e07e78abb837014b",
+  "sourceState": {
+    "path": "docs/page-designs/V4/records/screenshots/source/capture.json",
+    "sha256": "364D5D576D216345C22B39AE2D3113C43A5097C69760B86A8C1913E7643BD5CB",
+    "fixture": {
+      "path": "tools/ui-preview/records-source.tsx",
+      "sha256": "6BC01783A0E1A84ED550ACBC4A39BD4ED58BD0FA97E85587C614870F74AA8198"
+    },
+    "sources": [
+      {
+        "path": "app/w/[token]/ClassroomApp.tsx",
+        "sha256": "1A0CC5F93270FFD704520E35A530A0BA3D12614B0A3BFEDEB71D8418D9DA97EE"
+      },
+      {
+        "path": "app/w/[token]/NotificationDrafts.tsx",
+        "sha256": "CA254A2B230ED68FB43599A957A13E635246C2681A1D4CF96B6FA7BBBB4EA463"
+      },
+      {
+        "path": "app/w/[token]/features/records/operations.ts",
+        "sha256": "E162822D413E650FB25E71E6801106DB92D688602F2812E250657BEB39E6D0F8"
+      },
+      {
+        "path": "app/w/[token]/features/notifications/operations.ts",
+        "sha256": "7E91AE0397D4D1839831373B38A3609C23D200D2932E3DEB20517B002CAE6540"
+      }
+    ],
+    "evidence": [
+      {
+        "path": "docs/page-designs/V4/records/screenshots/source/1536-normal.png",
+        "sha256": "02C9A60D0EC6327EAB55D38922DBD90BD2CC020CE5FB7C1B535D2E66AF65FA5B",
+        "viewport": "1536x1024",
+        "url": "http://127.0.0.1:4215/records-source.html"
+      },
+      {
+        "path": "docs/page-designs/V4/records/screenshots/source/390-normal.png",
+        "sha256": "7CFE16A4892CEDD8161D5CF204924738B9323307A89A1865292EE31DB2E7AB97",
+        "viewport": "390x844",
+        "url": "http://127.0.0.1:4215/records-source.html"
+      }
+    ],
+    "browser": {
+      "protocolVersion": "1.3",
+      "product": "Chrome/152.0.7977.82",
+      "revision": "@d04cdb24d67b081f6cf80200ffc5233f44b61109",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/152.0.0.0 Safari/537.36",
+      "jsVersion": "15.2.124.21"
+    },
+    "mode": "Current local Records / MobileSecondaryPage in-memory export; read-only synthetic data, without shared shell; no source export mutation"
+  },
+  "candidateChecks": {
+    "path": "docs/page-designs/V4/records/checks-C01.json",
+    "sha256": "7CC41965F28D5E8556214A426D947C6AC46153EF163810688E2B5118DEFED334"
+  },
+  "nextAction": "等待家校沟通C01桌面和手机方向确认，然后制作隔离P01；未授权正式接入或部署。",
+  "history": [
+    {
+      "date": "2026-09-15",
+      "event": "Health main-page accepted with overlays deferred; user authorized next independent page. Records source/function audit,2 actual screenshots and2 ImageGen candidates prepared."
+    }
+  ]
+}

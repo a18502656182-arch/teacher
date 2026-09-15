@@ -1,5 +1,14 @@
 # 当前项目状态
 
+## 2026-09-15：照护主页面认可，家校沟通C01待方向确认
+
+用户“页面可以 同样也是弹窗有问题 可以继续下一个页面”仅认可照护P01/6e19189主页面；mainPageApproval已绑定双端主图，整页designApproval及overlayReview仍false，弹窗问题继续后置专项。未扩大成V3整批D/R。按用户顺序例外继续V4家校沟通独立设计，听写仍暂缓，正式接入前所有补审门槛保留。
+
+真实ClassroomApp:Records/MobileSecondaryPage、NotificationDrafts及operations已盘点，4215只读合成恢复桌面/手机两图；独立ImageGen生成家校沟通C01两图。桌面待跟进/历史为主、通知在右；手机沟通/通知分标签。复制不是外发，followUp没有结构化到期日期，不造逾期提醒。新发现的保存重试/脏关闭/关联字段等风险列入function-map，未修改正式源。
+
+入口docs/page-designs/V4/records/record.json。类型、scoped lint、只读恢复器构建和两图加载通过；不是P01验收，全站qa:strict旧问题未修。候选控件/边框与额外装饰需P01校准，通知手机页和浮层关键状态尚未制作。下一步等用户确认C01方向。原4项未提交文件保留；无部署，线上版本未核验。
+
+
 健康与照护P01源码冻结：6e1918914d0c531f6238404cc7dd75c849eb6dd1；50张实际截图与64项DOM证据绑定该设计commit，尚未用户P01/D/R批准。
 
 

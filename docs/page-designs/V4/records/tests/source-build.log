@@ -1,0 +1,46 @@
+vite v8.0.13 building client environment for production...
+[2K
+transforming...✓ 185 modules transformed.
+
+(!) outDir E:\文档\Codex\小红书\班主任工作台网站\.qa-shots\records-source-build is not inside project root and will not be emptied.
+Use --emptyOutDir to override.
+
+rendering chunks...
+computing gzip size...
+.qa-shots/records-source-build/records-source.html                      0.37 kB │ gzip:   0.31 kB
+.qa-shots/records-source-build/assets/ClassroomTools-CBpUyugr.css       0.11 kB │ gzip:   0.12 kB
+.qa-shots/records-source-build/assets/AccountCenter-D3ahR0j2.css        6.92 kB │ gzip:   1.70 kB
+.qa-shots/records-source-build/assets/Attendance-CHYxea_D.css           8.34 kB │ gzip:   1.90 kB
+.qa-shots/records-source-build/assets/StudentsView-C0iCiNb9.css        11.53 kB │ gzip:   2.62 kB
+.qa-shots/records-source-build/assets/HomeworkView-CVV5i6pL.css        11.84 kB │ gzip:   2.69 kB
+.qa-shots/records-source-build/assets/Seating-DVsr93nD.css             12.96 kB │ gzip:   3.19 kB
+.qa-shots/records-source-build/assets/Cadres-yitw8tm9.css              16.26 kB │ gzip:   3.27 kB
+.qa-shots/records-source-build/assets/Duty-BZw2_kKF.css                19.84 kB │ gzip:   3.86 kB
+.qa-shots/records-source-build/assets/Dictation-WjtFt_SL.css           31.58 kB │ gzip:   6.12 kB
+.qa-shots/records-source-build/assets/records-source-CcO_ptNt.css     314.97 kB │ gzip:  39.69 kB
+.qa-shots/records-source-build/assets/FeedbackState-CqnWMxOt.js         0.52 kB │ gzip:   0.31 kB
+.qa-shots/records-source-build/assets/operations-G-qWTBnz.js            1.49 kB │ gzip:   0.78 kB
+.qa-shots/records-source-build/assets/SelectionBar-GinETsET.js          2.19 kB │ gzip:   1.07 kB
+.qa-shots/records-source-build/assets/ScoreTrends-Bs8KZYqs.js           6.81 kB │ gzip:   2.73 kB
+.qa-shots/records-source-build/assets/AccountCenter-QjQYXAu9.js         7.76 kB │ gzip:   2.92 kB
+.qa-shots/records-source-build/assets/ClassroomTools-D1vE1OVA.js        8.66 kB │ gzip:   3.42 kB
+.qa-shots/records-source-build/assets/NotificationDrafts-cPvDDCmb.js   11.42 kB │ gzip:   3.90 kB
+.qa-shots/records-source-build/assets/ScoreItemAnalysis-Dmg-G7qV.js    11.99 kB │ gzip:   4.30 kB
+.qa-shots/records-source-build/assets/Attendance-D8QRXoOj.js           13.27 kB │ gzip:   4.66 kB
+.qa-shots/records-source-build/assets/TeacherAgenda-CZTZT9EJ.js        14.26 kB │ gzip:   4.27 kB
+.qa-shots/records-source-build/assets/HealthCare-D_K794K2.js           14.43 kB │ gzip:   4.96 kB
+.qa-shots/records-source-build/assets/Seating-CF721hsG.js              15.65 kB │ gzip:   5.60 kB
+.qa-shots/records-source-build/assets/ScheduleHub-CMz00D2T.js          18.86 kB │ gzip:   5.37 kB
+.qa-shots/records-source-build/assets/Duty-C2e0mIcT.js                 20.13 kB │ gzip:   6.39 kB
+.qa-shots/records-source-build/assets/Cadres-D1mv2gg9.js               21.18 kB │ gzip:   6.68 kB
+.qa-shots/records-source-build/assets/HomeworkView-KqzCx0VK.js         25.05 kB │ gzip:   7.83 kB
+.qa-shots/records-source-build/assets/StudentsView--caGJEHR.js         37.87 kB │ gzip:  11.17 kB
+.qa-shots/records-source-build/assets/Dictation-ttimtvCf.js            45.68 kB │ gzip:  14.05 kB
+.qa-shots/records-source-build/assets/records-source-DVCxTaXm.js      454.47 kB │ gzip: 133.49 kB
+
+[PLUGIN_TIMINGS] Your build spent significant time in plugins. Here is a breakdown:
+  - records-source-recovery (84%)
+  - vite:css (13%)
+See https://rolldown.rs/options/checks#plugintimings for more details.
+
+✓ built in 6.28s
