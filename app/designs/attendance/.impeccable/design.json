@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-15T00:00:00+08:00",
+  "title": "Design System: 考勤与请假 P01 局部设计",
+  "extensions": {
+    "shadows": [],
+    "motion": [],
+    "breakpoints": [
+      { "name": "mobile-max", "value": "900px" },
+      { "name": "intermediate-max", "value": "1279px" }
+    ],
+    "scope": "仅 app/designs/attendance；源码快照，不覆盖根 DESIGN.md。日期只标识文档日，未记录精确生成时刻。",
+    "evidence": [
+      ".qa-shots/attendance-design/review-fix/1536-normal.png",
+      ".qa-shots/attendance-design/review-fix/390-normal.png",
+      ".qa-shots/attendance-design/review-fix/390-month-calendar.png"
+    ],
+    "limitations": "以下 HTML/CSS 是从局部组件提取的独立视觉示例，不包含 React 保存逻辑，不代表 D/R 或全站通过。无新增投影或运动 token；不生成尚未用于产品的色阶。"
+  },
+  "components": [
+    {
+      "name": "批量保存",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "选择学生后出现的主命令；移动端至少 44px 高。",
+      "html": "<button class=\"ds-primary\">应用并保存</button>",
+      "css": ".ds-primary{font:14px 'Microsoft YaHei',system-ui,sans-serif;border:1px solid #14778a;background:#14778a;color:#fff;min-height:44px;border-radius:6px;padding:6px 12px;white-space:nowrap;cursor:pointer}.ds-primary:hover{background:#106575}.ds-primary:focus-visible{outline:2px solid #14778a;outline-offset:3px}.ds-primary:disabled{opacity:.55;cursor:default}"
+    },
+    {
+      "name": "文本操作",
+      "kind": "button",
+      "refersTo": "button-text",
+      "description": "保存备注及次要命令保持低强调。",
+      "html": "<button class=\"ds-text\">保存</button>",
+      "css": ".ds-text{font:14px 'Microsoft YaHei',system-ui,sans-serif;border:0;background:transparent;color:#14778a;min-height:44px;padding:6px 8px;white-space:nowrap;cursor:pointer}.ds-text:hover{background:#eff7fc;text-decoration:underline}.ds-text:focus-visible{outline:2px solid #14778a;outline-offset:3px}.ds-text:disabled{opacity:.55;cursor:default}"
+    },
+    {
+      "name": "姓名或学号搜索",
+      "kind": "input",
+      "refersTo": "field",
+      "description": "紧凑宽度，手机保留 44px 高与 16px 输入文字。",
+      "html": "<label class=\"ds-search\"><svg width=\"17\" height=\"17\" viewBox=\"0 0 24 24\" aria-hidden=\"true\" fill=\"none\" stroke=\"currentColor\"><circle cx=\"10\" cy=\"10\" r=\"6\"/><path d=\"m15 15 6 6\"/></svg><input aria-label=\"搜索学生\" placeholder=\"姓名或学号\"/></label>",
+      "css": ".ds-search{display:flex;align-items:center;gap:7px;max-width:270px;border:1px solid #cfdee7;border-radius:6px;background:#fff;padding-left:10px;color:#17354a}.ds-search svg{flex-shrink:0}.ds-search input{font:16px 'Microsoft YaHei',system-ui,sans-serif;color:#17354a;width:100%;min-width:0;min-height:44px;padding:6px 9px;border:0;border-radius:6px;background:#fff}.ds-search input::placeholder{color:#60768a}.ds-search input:focus-visible{outline:2px solid #14778a;outline-offset:3px}"
+    },
+    {
+      "name": "四态分段",
+      "kind": "custom",
+      "description": "手机每行独立四段；单一选中态，文字一直可见。",
+      "html": "<div class=\"ds-status\" role=\"group\" aria-label=\"学生考勤状态\"><button aria-pressed=\"true\" data-status=\"正常\">正常</button><button aria-pressed=\"false\" data-status=\"迟到\">迟到</button><button aria-pressed=\"false\" data-status=\"请假\">请假</button><button aria-pressed=\"false\" data-status=\"缺勤\">缺勤</button></div>",
+      "css": ".ds-status{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border:1px solid #cfdee7;border-radius:6px;overflow:hidden;max-width:360px}.ds-status button{font:15px 'Microsoft YaHei',system-ui,sans-serif;color:#17354a;border:0;border-right:1px solid #cfdee7;background:#fff;min-height:44px;padding:7px 3px;white-space:nowrap;cursor:pointer}.ds-status button:last-child{border:0}.ds-status button:hover{background:#eff7fc}.ds-status button[aria-pressed=true]{font-weight:700}.ds-status button[data-status=正常][aria-pressed=true]{background:#bfdfcc;color:#21573e}.ds-status button[data-status=迟到][aria-pressed=true]{background:#ffe1a1;color:#704a0b}.ds-status button[data-status=请假][aria-pressed=true]{background:#cee7fb;color:#245780}.ds-status button[data-status=缺勤][aria-pressed=true]{background:#ffd8d1;color:#993e33}.ds-status button:focus-visible{outline:2px solid #14778a;outline-offset:-3px}"
+    },
+    {
+      "name": "名单分页",
+      "kind": "nav",
+      "description": "与名单相连的分页，不是新的壳层导航。",
+      "html": "<nav class=\"ds-pages\" aria-label=\"考勤名单分页\"><span>共 105 人 · 第 1/6 页</span><button>下一页</button></nav>",
+      "css": ".ds-pages{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:52px;padding:8px 0;border-top:1px solid #cfdee7;font:12px 'Microsoft YaHei',system-ui,sans-serif;color:#17354a}.ds-pages button{font:inherit;color:inherit;border:1px solid #cfdee7;background:#fff;border-radius:6px;min-height:44px;padding:6px 8px;white-space:nowrap;cursor:pointer}.ds-pages button:focus-visible{outline:2px solid #14778a;outline-offset:3px}.ds-pages button:disabled{opacity:.55;cursor:default}"
+    },
+    {
+      "name": "月历日期",
+      "kind": "custom",
+      "description": "当前日期含本机改动时展示待同步。",
+      "html": "<button class=\"ds-day\" aria-pressed=\"true\" aria-label=\"2026-09-15，本机改动待同步\"><span>15</span><small>待同步</small></button>",
+      "css": ".ds-day{font:15px 'Microsoft YaHei',system-ui,sans-serif;border:0;border-radius:5px;min-height:44px;min-width:44px;display:grid;place-content:center;gap:2px;padding:2px;background:transparent;color:#17354a;cursor:pointer}.ds-day small{font-size:9px;line-height:1.1;min-height:9px;color:#526a7b}.ds-day[aria-pressed=true]{background:#d7edf8;color:#125d72;font-weight:700}.ds-day:hover{background:#edf6fc}.ds-day:focus-visible{outline:2px solid #14778a;outline-offset:3px}"
+    }
+  ],
+  "narrative": {
+    "northStar": "日名单与紧凑月历",
+    "overview": "此名称提取自预览入口的 THESIS，不是另行取得的品牌命名批准。暖白工作面承载日名单，浅蓝汇总带和月历辅助定位，四种柔和彩色选中态帮助辨识异常。水彩台历、笔筒与植物作为右侧辅图，名单保持主要视觉重量。",
+    "keyCharacteristics": [
+      "日名单为主，桌面月历为辅，手机四态独立占一行。",
+      "搜索筛选占用紧凑，手机关键操作保持 44px 触控尺寸。",
+      "状态有文字、颜色和选中语义；本机改动与确认保存分开表达。"
+    ],
+    "rules": [
+      { "name": "The Four-State Rule", "body": "四态不得仅靠颜色传达，始终保留中文状态名称与 aria-pressed 选中状态。", "section": "colors" }
+    ],
+    "dos": [
+      "Do 保留紧凑搜索筛选与手机 44px 触控要求的双重约束。",
+      "Do 所有手机学生行采用一致的身份、四态、备注顺序。",
+      "Do 区分无记录、回退状态、本机待同步和确认保存。",
+      "Do 保留分页、全选本页、全员正常、只读及失败反馈的实际语义。"
+    ],
+    "donts": [
+      "Don't 将 C01 方向批准、截图生成或本文件完成写成 P01 D/R 批准。",
+      "Don't 将本页字体、尺寸与布局自动推广到全站或改共享壳层。",
+      "Don't 将生成候选当作精确浏览器几何、保证像素级一致，或增加现有页面不存在的请假详情编辑交互。",
+      "Don't 将合成保存、失败或冲突演示描述为真实 workspace 集成已验证。"
+    ]
+  }
+}
