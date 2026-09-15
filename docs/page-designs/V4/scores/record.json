@@ -148,8 +148,8 @@
     }
   ],
   "prototype": {
-    "version": "P02.2",
-    "commit": "e79a1c4373c136d0856799e8dca6b04cad850761",
+    "version": "P02.3",
+    "commit": null,
     "previewUrl": "http://127.0.0.1:4218/scores.html",
     "sourceFiles": [
       "app/designs/scores/ScoresDesign.tsx",
@@ -631,11 +631,11 @@
     "sourceHashes": [
       {
         "path": "app/designs/scores/ScoresDesign.tsx",
-        "sha256": "E22FA7C2FAC54CA9BF0F6F2811BF8B61AE932D9F416CF83DF9CFD077777A610A"
+        "sha256": "3D4198453AC3DB5311C2C25964D75E55077F587C65892AA81339388AAD7177C3"
       },
       {
         "path": "app/designs/scores/ScoresDesign.module.css",
-        "sha256": "CE4C2C8375B76E33070936670CDD89874BBEE2FDA59E576AC6CA6427A85E4332"
+        "sha256": "D7E4608B6F6A7D9683D4B637CC291C391FCE3F59D1BD073ABA480BB960A1C74C"
       },
       {
         "path": "app/designs/scores/ScoreTrendsDesign.tsx",
@@ -675,9 +675,9 @@
       }
     ],
     "checks": {
-      "path": "docs/page-designs/V4/scores/checks-P022.json",
-      "sha256": "3B9E3BB7F58036CF92D44772A2B5E08F0EA2708416C1BBE029F47DCF77F85FBE",
-      "commit": "e79a1c4373c136d0856799e8dca6b04cad850761"
+      "path": "docs/page-designs/V4/scores/checks-P023.json",
+      "sha256": "19020690326246CC97B7B4D897AA9B999651CAC1E8045A925DB56ED04579FB1B",
+      "commit": null
     },
     "additionalEvidence": [
       {
@@ -695,7 +695,11 @@
         "sha256": "469D730DC05738F7F68941F412DC68E893E01CE22A613511ED591C8B3EE3298D",
         "commit": "e79a1c4373c136d0856799e8dca6b04cad850761"
       }
-    ]
+    ],
+    "feedbackEvidence": {
+      "path": "docs/page-designs/V4/scores/screenshots/p02-feedback/feedback-checks.json",
+      "sha256": "13A9C8DF48715F66AA363CC26F430EB5503A84A60D642694A77F2D8C6FEAC440"
+    }
   },
   "designApproval": {
     "approved": false,
@@ -789,8 +793,8 @@
     {
       "id": "P02-USER-REVIEW",
       "blocking": false,
-      "resolved": false,
-      "description": "等待P02实际页面审核；候选确认不能代替实际审美/完整D/R。"
+      "resolved": true,
+      "description": "等待P02实际页面审核；候选确认不能代替实际审美/完整D/R。 2026-09-15用户认可当前主页面；其他页面/弹窗不扩批。"
     },
     {
       "id": "TREND-DELTA-FOLLOWUP",
@@ -801,8 +805,8 @@
     {
       "id": "SELECT-CRAFT",
       "blocking": false,
-      "resolved": false,
-      "description": "成绩P02.1已修样式并测双端/键盘，待用户确认；之前页面同类问题尚未实施。"
+      "resolved": true,
+      "description": "成绩P02.1已修样式并测双端/键盘，待用户确认；之前页面同类问题尚未实施。 2026-09-15用户认可当前主页面；其他页面/弹窗不扩批。"
     }
   ],
   "sourceState": {
@@ -854,11 +858,23 @@
   },
   "candidateCommit": "4455d7054f5bed720193eff2eaaa2d4202d8141a",
   "mainPageApproval": {
-    "approved": false,
-    "source": null,
-    "approvedAt": null,
-    "commit": null,
-    "evidenceHashes": []
+    "approved": true,
+    "source": "用户：好的 可以了 可以继续下一个页面；并要求普通互动提示改为原位或角落闪现。",
+    "approvedAt": "2026-09-15",
+    "commit": "e79a1c4373c136d0856799e8dca6b04cad850761",
+    "scope": "P02.2主页面与控件；不含弹窗完整验收、后续P02.3反馈修复、批次D/R或正式接入",
+    "evidenceHashes": [
+      "CA3B80301B925939DB303690EC411896BF560ADCDB1AA5D17A67D752733BE84A",
+      "D6699DA0F49628DDFE07D5AD56C97D3EE8453574B18F34EBB822C330FFC8856A",
+      "295ED4181F030062C2B720B954BA8CCD619364B569BE0424CC765C7278A39B15",
+      "97D8A02060B393243CF9841CB56F7C30BA436982B8F44BBE06D1C491CE3BD83D",
+      "ECC49B41F6F0D9357BA09A4140FB28EBE41F0A8F63EE76526D61C63A2B210D97",
+      "BBCBD84A3A7B9A3BEE49C8D06AD73D256A34A738AF2333BEF09DF68892E70E04",
+      "6F261BE37F565F62B78FDD64E01ECE1C7753FFC23013F644DF346C187D306335",
+      "EC44C720A62371FFB45BC1670827238537FEDE1AAA7670AF036DC1C2B6E11554",
+      "BA278134228D4ABE5531CBA0EB7108AA3A1952079A5074CE5B3C781B0E9E4C5F",
+      "E0A94E374017FA6B90095B3D7FBA201289F1D3707D215C6863CCF6501565ADFA"
+    ]
   },
   "finishReview": {
     "path": "docs/page-designs/V4/scores/finish-review-P02.md",
@@ -2671,7 +2687,64 @@
         "sha256": "E63CC0CCFDD974FFD541FCF623F37F364BB47B13D099BE52171C73062074FF5B",
         "commit": "b7ac165ab432d32c56bb037dd2f0057a0046834c"
       }
+    },
+    {
+      "version": "P02.2",
+      "commit": "e79a1c4373c136d0856799e8dca6b04cad850761",
+      "sourceHashes": [
+        {
+          "path": "app/designs/scores/ScoresDesign.tsx",
+          "sha256": "E22FA7C2FAC54CA9BF0F6F2811BF8B61AE932D9F416CF83DF9CFD077777A610A"
+        },
+        {
+          "path": "app/designs/scores/ScoresDesign.module.css",
+          "sha256": "CE4C2C8375B76E33070936670CDD89874BBEE2FDA59E576AC6CA6427A85E4332"
+        },
+        {
+          "path": "app/designs/scores/ScoreTrendsDesign.tsx",
+          "sha256": "F38953F3C7F6273CB3E2373296B6E79012A7E29911F263F6A4B6D6F080A9033F"
+        },
+        {
+          "path": "app/designs/scores/ScoreAnalysisDesign.tsx",
+          "sha256": "211A4A54B2743EDE6BB931CED15D29732BC990DCC35B8124B658BD5C1B4CF431"
+        },
+        {
+          "path": "app/designs/scores/ScoreWorkspaces.module.css",
+          "sha256": "98113CC58E548EF44A0929968C6688946EFF35720844341248098065DAF0F07D"
+        },
+        {
+          "path": "app/designs/scores/useScoresDesignController.ts",
+          "sha256": "834CDE89593D4A87CEB524B9C8629B3CE3C9EA88CF622B8EF26BE40E27B1C2D6"
+        },
+        {
+          "path": "app/designs/scores/stationery-p01.png",
+          "sha256": "1ADDF8C35AD2D9DB2718E0AA8FAFEC0FE7B4CAFCFA58E0163CC6BEC89E6FB401"
+        },
+        {
+          "path": "tools/ui-preview/scores.tsx",
+          "sha256": "886753BDE96E9E4B2A0F8651835AEC62BB7061C1E2A903B4AF2A1CD563ED665A"
+        },
+        {
+          "path": "tools/ui-preview/scores-fixture.ts",
+          "sha256": "13F98E11B48A8E12D418DA1B845FE8FAE0941679947B6592C17EEF72FDBFF376"
+        },
+        {
+          "path": "tools/ui-preview/scores.html",
+          "sha256": "82E99EF4C5538EF3FA6C94D8B1A32BBAB555F28878F65B5CE9439366501D4FA5"
+        },
+        {
+          "path": "tools/ui-preview/scores.vite.config.ts",
+          "sha256": "82CC148C3FA28713582553A536202B24227226E8AEBB93059923AC7E417CF643"
+        }
+      ],
+      "checks": {
+        "path": "docs/page-designs/V4/scores/checks-P022.json",
+        "sha256": "3B9E3BB7F58036CF92D44772A2B5E08F0EA2708416C1BBE029F47DCF77F85FBE",
+        "commit": "e79a1c4373c136d0856799e8dca6b04cad850761"
+      }
     }
   ],
-  "controlFollowup": "docs/page-designs/CONTROL-POLISH-FOLLOWUP-20260915.md"
+  "controlFollowup": "docs/page-designs/CONTROL-POLISH-FOLLOWUP-20260915.md",
+  "feedbackFollowup": "docs/page-designs/FEEDBACK-FOLLOWUP-20260915.md",
+  "nextAction": "继续反思C01候选；保留弹窗/跨页反馈补修与完整D/R"
 }

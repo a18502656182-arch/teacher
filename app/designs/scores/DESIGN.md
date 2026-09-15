@@ -329,3 +329,6 @@ supplement 实测1536视口主面起点(244,72)、宽1277px，表行高约71.69p
 ## P02.2 焦点边界
 
 搜索focus-within由整体容器绘制青绿边框与1px内侧强调，内部input不再绘制outline；select同样只强调自身边缘。独立输入框及表单保留焦点强调，按钮与复选框原焦点不变；forced-colors用系统Highlight。检查15项通过，但用户对整体控件观感仍未批准。
+
+## P02.3 ordinary interaction feedback
+Normal pending is hidden while saving; successful state is visible in-place with nonvisual status announcement. Other routine messages float for 2.5 seconds without shifting content. Failure and conflict recovery remain actionable. Tested at1536/390; existing shell untouched. P02.2 main-page approval does not approve all overlays or this subsequent patch.

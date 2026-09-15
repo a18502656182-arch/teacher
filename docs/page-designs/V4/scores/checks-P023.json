@@ -1,0 +1,27 @@
+{
+  "version": "P02.3",
+  "commit": null,
+  "checks": [
+    {
+      "command": "node scripts/scores-feedback-checks.mjs",
+      "exitCode": 0,
+      "passed": 12,
+      "path": "docs/page-designs/V4/scores/screenshots/p02-feedback/feedback-checks.json",
+      "sha256": "13A9C8DF48715F66AA363CC26F430EB5503A84A60D642694A77F2D8C6FEAC440"
+    },
+    {
+      "command": "npx tsc --noEmit",
+      "exitCode": 0
+    },
+    {
+      "command": "npx eslint app/designs/scores/ScoresDesign.tsx tools/ui-preview/reflection-source.tsx tools/ui-preview/reflection-source.vite.config.ts",
+      "exitCode": 0,
+      "note": "Only existing img optimization warning remains"
+    },
+    {
+      "command": "npx vite build --config tools/ui-preview/scores.vite.config.ts",
+      "exitCode": 0
+    }
+  ],
+  "scope": "isolated synthetic preview only; fullsite qa:strict historical timeout remains"
+}

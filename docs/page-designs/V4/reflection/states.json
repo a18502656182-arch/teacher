@@ -1,0 +1,29 @@
+{
+  "version": "C01",
+  "scope": "inventory-only",
+  "required": [
+    "desktop-queue-editor",
+    "mobile-queue",
+    "mobile-editor",
+    "saved-library",
+    "saved-detail-copy",
+    "exam-picker-search-filter-pagination",
+    "no-exams",
+    "no-students",
+    "search-empty",
+    "partial-scores",
+    "zero-score",
+    "no-scores",
+    "105-students-long-text",
+    "draft-dirty-switch",
+    "read-only",
+    "saving",
+    "save-false",
+    "save-throw",
+    "conflict-409",
+    "complete-repeat-idempotent",
+    "complete-to-draft"
+  ],
+  "implemented": [],
+  "next": "Direction approval before runnable states"
+}

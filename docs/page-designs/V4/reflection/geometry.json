@@ -1,0 +1,11 @@
+{
+  "version": "C01",
+  "frozen": false,
+  "desktop": "1536x1024: existing shell + exam context + queue / continuous writing",
+  "mobile": "390x844: queue and separate editing surface; footer never covers inputs",
+  "exceptions": [
+    "Generated sidebar is not approved shared-shell change",
+    "Candidate pagination/character counters illustrative; implementation computed from fixture",
+    "Actual fonts/assets/scroll states not frozen"
+  ]
+}

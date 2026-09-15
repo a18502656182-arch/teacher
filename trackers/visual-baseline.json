@@ -650,7 +650,7 @@
       "currentEvidence": [],
       "comparisons": [],
       "recordPath": "docs/page-designs/V4/scores/record.json",
-      "recordSha256": "E88B2D063E47AA0BB35AC06045CFC662D120ADCC31C9E0D625334655141A222F"
+      "recordSha256": "F66501EB40022798BC309FB9D39234CC0AAA21102E33C780B12B5E7D41E676B5"
     },
     "reflection": {
       "label": "考试反思",
@@ -661,7 +661,9 @@
       "requiredComparisons": 2,
       "issues": [],
       "currentEvidence": [],
-      "comparisons": []
+      "comparisons": [],
+      "recordPath": "docs/page-designs/V4/reflection/record.json",
+      "recordSha256": "F67890ABA9EFEA87A36D456DCBDE1E57FB30867D19AA72E15C7A60D9A8984E6F"
     },
     "schedule": {
       "label": "课程日程",
@@ -786,7 +788,7 @@
     "legacyFields": "status/productCommit/currentEvidence/comparisons/userApproval retain historical product evidence; D/R uses linked records",
     "entry": "docs/逐页设计定稿与实施包-20260914/00-从这里开始.md",
     "activeBatch": "V2",
-    "nextAction": "展示P02.2聚焦修复实际图；保留控件整体观感未通过，不自动进入下一页面/正式接入或部署。",
+    "nextAction": "等待C01桌面/手机队列/手机填写方向确认；之后制作P01，不能先接入正式业务。",
     "designSequenceExceptions": [
       {
         "date": "2026-09-15",
@@ -815,9 +817,17 @@
         "source": "用户：大体可以 继续下一个页面",
         "scope": "认可家校沟通主页面并允许继续成绩独立设计；不放开业务接入",
         "integrationAllowed": false
+      },
+      {
+        "date": "2026-09-15",
+        "source": "用户：好的 可以了 可以继续下一个页面",
+        "scope": "认可成绩P02.2主页面并允许反思独立候选；反馈补修不扩大为D/R或正式业务",
+        "nextDesignPage": "reflection",
+        "integrationAllowed": false
       }
     ],
     "overlayFollowup": "docs/page-designs/OVERLAY-FOLLOWUP-20260915.md",
-    "controlFollowup": "docs/page-designs/CONTROL-POLISH-FOLLOWUP-20260915.md"
+    "controlFollowup": "docs/page-designs/CONTROL-POLISH-FOLLOWUP-20260915.md",
+    "feedbackFollowup": "docs/page-designs/FEEDBACK-FOLLOWUP-20260915.md"
   }
 }

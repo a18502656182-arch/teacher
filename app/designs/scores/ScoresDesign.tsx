@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useEffect,useState} from 'react';
 import {ThemeBoundary} from '@/app/components/workbench/theme/ThemeBoundary';
 import {Dialog} from '@/app/components/workbench/ui/Dialog';
 import {CampusIcon} from '@/app/components/campus/primitives';
@@ -12,19 +12,21 @@ import s from './ScoresDesign.module.css';
 type C=ReturnType<typeof useScoresDesignController>;
 export function ScoresDesign({controller:c,initialTrendStudentId=""}:{controller:C;initialTrendStudentId?:string}){
  const [filters,setFilters]=useState(false),[library,setLibrary]=useState(false),[examQuery,setExamQuery]=useState(''),[examYear,setExamYear]=useState('全部'),[examSubject,setExamSubject]=useState('全部'),[examSort,setExamSort]=useState('新到旧'),[examPage,setExamPage]=useState(1),[replace,setReplace]=useState(false),[reflections,setReflections]=useState('');
+ const {message,setMessage}=c;
+ useEffect(()=>{if(!message)return;const timer=setTimeout(()=>setMessage(''),2500);return()=>clearTimeout(timer);},[message,setMessage]);
  const e=c.editor,exam=c.exam,fields=e?.fields??{},totalMax=exam?c.subjects.reduce((n,sub)=>n+maxFor(exam,sub),0):0;
  const entryCount=exam?op.scoreEntryCount(exam,c.students):0,complete=c.students.filter(st=>c.summary(st).complete).length;
  const exams=c.exams.filter(ex=>(`${ex.title} ${ex.date} ${ex.subjects.join(' ')}`.includes(examQuery.trim()))&&(examYear==='全部'||ex.date.startsWith(examYear))&&(examSubject==='全部'||ex.subjects.includes(examSubject))).sort((a,b)=>examSort==='新到旧'?b.date.localeCompare(a.date):a.date.localeCompare(b.date)),examPages=Math.max(1,Math.ceil(exams.length/10));
  const input=(label:string,key:string,type='text')=><label>{label}<input aria-label={label} type={type} value={fields[key]??''} onChange={ev=>c.setField(key,ev.target.value)}/></label>;
  const select=(label:string,key:string,options:string[])=><label>{label}<select aria-label={label} value={fields[key]??''} onChange={ev=>c.setField(key,ev.target.value)}>{options.map(v=><option key={v} value={v}>{v||'未设置'}</option>)}</select></label>;
- const recovery=<>{c.error&&<p role="alert" className={s.error}>{c.error}</p>}{c.pending&&<div className={s.recovery}><span>本机改动待同步，重试不会重复新增。</span><button disabled={c.busy} onClick={()=>void c.sync()}>重试同步</button>{c.conflict&&<><button onClick={c.exportDraft}>导出草稿</button><button onClick={()=>setReplace(true)}>载入最新数据</button></>}</div>}</>;
+ const recovery=<>{c.error&&<p role="alert" className={s.error}>{c.error}</p>}{c.pending&&!c.busy&&<div className={s.recovery}><span>本机改动待同步，重试不会重复新增。</span><button disabled={c.busy} onClick={()=>void c.sync()}>重试同步</button>{c.conflict&&<><button onClick={c.exportDraft}>导出草稿</button><button onClick={()=>setReplace(true)}>载入最新数据</button></>}</div>}</>;
  const openRanges=()=>{if(!exam)return;const sub=c.subjects.includes(c.subject)?c.subject:'__total',max=sub==='__total'?totalMax:maxFor(exam,sub);c.begin('ranges',{subject:sub,max:String(max),ranges:JSON.stringify(exam.scoreRanges?.[sub]??[{id:'pass',label:'60%以上',min:Math.ceil(max*.6),max}])});};
  const toggled=(id:string)=>c.setSelected(ids=>ids.includes(id)?ids.filter(v=>v!==id):[...ids,id]);
  const editorTitle=e?.kind==='exam'?(fields.id?'编辑考试':'新增考试'):e?.kind==='student'?'学生本次成绩':e?.kind==='batch'?'批量录分':e?.kind==='ranges'?'满分与分数区间':e?.kind==='item'?'新增分析项':e?.kind==='paper'?'核对试卷候选':'分析项录分';
  return <main className={s.page} data-scores-design="page"><header className={s.heading}><div><h1>成绩分析</h1><p>按考试记录分数，结合录入情况分析。</p></div><img src={typeof art==='string'?art:art.src} width="1536" height="1024" alt=""/></header>
  {c.tab!=='trends'&&<section className={`${s.examBand} ${c.tab==='analysis'?s.compactExam:''}`}><div><h2>{exam?`${c.mobile?'':'当前考试 · '}${exam.title}`:'尚未建立考试'}</h2><p>{exam?`${exam.date} · ${c.subjects.map(sub=>`${sub} ${maxFor(exam,sub)}分`).join(' / ')}`:'从一次具体考试开始记录。'}</p></div><nav><button disabled={!exam||c.busy} onClick={()=>{if(c.guard())setLibrary(true);}}>切换考试</button><button disabled={c.locked||!exam} onClick={()=>c.openExam(true)}>编辑</button><button className={s.primary} disabled={c.locked||!c.students.length} onClick={()=>c.openExam()}>新增考试</button></nav></section>}
  {<nav className={s.tabs} aria-label="成绩工作区">{[['records',c.mobile?'录分':'成绩录入'],['trends',c.mobile?'趋势':'历次趋势'],['analysis',c.mobile?'试卷分析':'试卷与知识点']].map(([id,label])=><button key={id} aria-pressed={c.tab===id} onClick={()=>c.switchTab(id)}>{label}</button>)}</nav>}
- {c.message&&<p className={s.message} role="status">{c.message}<button onClick={()=>c.setMessage('')}>关闭提示</button></p>}{(!e||e.kind==='paper')&&recovery}
+ {c.message&&<p className={c.message==='改动已保存'?s.silentStatus:s.toast} role="status">{c.message}</p>}{(!e||e.kind==='paper')&&recovery}
  {Object.keys(c.draftScores).length>0&&<div className={s.saveBar}><span>{Object.keys(c.draftScores).length}项分数尚未保存</span><button className={s.primary} disabled={c.busy} onClick={()=>void c.saveScores()}>{c.pending?'重试同步':'保存录分'}</button><button disabled={c.pending||c.busy} onClick={()=>c.setConfirmClose(true)}>放弃录分</button></div>}
  {!exam&&c.tab!=='trends'&&<div className={s.empty}><h2>{c.students.length?'还没有考试记录':'先建立学生名单'}</h2><p>新考试的成绩保持空白，录入0分后才按0分统计。</p></div>}
  {exam&&c.tab==='records'&&<><div className={s.toolbar}><p>已录<strong>{entryCount}/{c.students.length*c.subjects.length}</strong>项 · {complete}人已录全 · {c.students.length-complete}人待补全</p><label className={s.search}><CampusIcon name="search"/><input aria-label="搜索成绩学生" placeholder="搜索姓名或学号" value={c.query} onChange={ev=>{c.setQuery(ev.target.value);c.setPage(1);}}/></label><select aria-label="显示科目" value={c.subject} onChange={ev=>{c.setSubject(ev.target.value);c.setRange('全部');c.setPage(1);}}>{['全部',...c.subjects].map(sub=><option key={sub}>{sub}</option>)}</select><button aria-expanded={filters} onClick={()=>setFilters(!filters)}>{c.mobile?'筛选':'更多筛选'}</button></div>
