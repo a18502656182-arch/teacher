@@ -76,7 +76,8 @@
       "targetViewport": "1536x1024",
       "prompt": "docs/page-designs/V4/reflection/candidates/prompts-c02.md",
       "original": "E:\\CodexHome\\generated_images\\01a09fb4-dfcf-74e0-a5c7-ea1b5e94cf08\\exec-59c1d274-cd40-41a2-bc03-42b27b059d88.png",
-      "purpose": "Independent ImageGen candidate, not runnable or integrated"
+      "purpose": "Independent ImageGen candidate, not runnable or integrated",
+      "commit": "13b1eb66cdde0c1858df6c600a8808349d925d84"
     },
     {
       "path": "docs/page-designs/V4/reflection/candidates/saved-library-mobile-c02.png",
@@ -92,7 +93,8 @@
       "targetViewport": "390x844",
       "prompt": "docs/page-designs/V4/reflection/candidates/prompts-c02.md",
       "original": "E:\\CodexHome\\generated_images\\01a09fb4-dfcf-74e0-a5c7-ea1b5e94cf08\\exec-1dcd6857-aec7-4dab-8e1d-54b53661b4e0.png",
-      "purpose": "Independent ImageGen candidate, not runnable or integrated"
+      "purpose": "Independent ImageGen candidate, not runnable or integrated",
+      "commit": "13b1eb66cdde0c1858df6c600a8808349d925d84"
     },
     {
       "path": "docs/page-designs/V4/reflection/candidates/saved-detail-desktop-c02.png",
@@ -108,7 +110,8 @@
       "targetViewport": "1536x1024",
       "prompt": "docs/page-designs/V4/reflection/candidates/prompts-c02.md",
       "original": "E:\\CodexHome\\generated_images\\01a09fb4-dfcf-74e0-a5c7-ea1b5e94cf08\\exec-d73e0811-74eb-427a-9a9a-279dfc39e621.png",
-      "purpose": "Independent ImageGen candidate, not runnable or integrated"
+      "purpose": "Independent ImageGen candidate, not runnable or integrated",
+      "commit": "13b1eb66cdde0c1858df6c600a8808349d925d84"
     },
     {
       "path": "docs/page-designs/V4/reflection/candidates/saved-detail-mobile-c02.png",
@@ -124,7 +127,8 @@
       "targetViewport": "390x844",
       "prompt": "docs/page-designs/V4/reflection/candidates/prompts-c02.md",
       "original": "E:\\CodexHome\\generated_images\\01a09fb4-dfcf-74e0-a5c7-ea1b5e94cf08\\exec-cd1090fc-89f8-44f8-9ecc-b742bc4fd791.png",
-      "purpose": "Independent ImageGen candidate, not runnable or integrated"
+      "purpose": "Independent ImageGen candidate, not runnable or integrated",
+      "commit": "13b1eb66cdde0c1858df6c600a8808349d925d84"
     }
   ],
   "prototype": {
@@ -1427,11 +1431,13 @@
   "subviewDesigns": {
     "savedLibrary": {
       "version": "C02",
-      "approved": false
+      "approved": false,
+      "commit": "13b1eb66cdde0c1858df6c600a8808349d925d84"
     },
     "savedDetail": {
       "version": "C02",
-      "approved": false
+      "approved": false,
+      "commit": "13b1eb66cdde0c1858df6c600a8808349d925d84"
     }
   },
   "surfaceCoverage": {
@@ -1579,5 +1585,6 @@
       }
     }
   },
-  "candidateRevision": "C02 saved-library/detail; C01 student workspace retained"
+  "candidateRevision": "C02 saved-library/detail; C01 student workspace retained",
+  "c02CandidateCommit": "13b1eb66cdde0c1858df6c600a8808349d925d84"
 }
