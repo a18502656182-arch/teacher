@@ -55,7 +55,7 @@
     }
   ],
   "prototype": {
-    "commit": null,
+    "commit": "4f7637c240f500ce73a9eb1840cd42705bbd594b",
     "previewUrl": "http://127.0.0.1:4212/growth.html",
     "sourceFiles": [
       "app/designs/growth/GrowthDesign.tsx",
@@ -72,7 +72,7 @@
     ],
     "evidence": [
       {
-        "commit": null,
+        "commit": "4f7637c240f500ce73a9eb1840cd42705bbd594b",
         "dpr": 1,
         "browser": "Chrome/152.0.7977.82",
         "font": "Microsoft YaHei, actual platform font sampled in geometry.json",
@@ -88,7 +88,7 @@
         "url": "http://127.0.0.1:4212/growth.html?state=normal"
       },
       {
-        "commit": null,
+        "commit": "4f7637c240f500ce73a9eb1840cd42705bbd594b",
         "dpr": 1,
         "browser": "Chrome/152.0.7977.82",
         "font": "Microsoft YaHei, actual platform font sampled in geometry.json",
@@ -104,7 +104,7 @@
         "url": "http://127.0.0.1:4212/growth.html?state=mobile-detail"
       },
       {
-        "commit": null,
+        "commit": "4f7637c240f500ce73a9eb1840cd42705bbd594b",
         "dpr": 1,
         "browser": "Chrome/152.0.7977.82",
         "font": "Microsoft YaHei, actual platform font sampled in geometry.json",
@@ -120,7 +120,7 @@
         "url": "http://127.0.0.1:4212/growth.html?state=empty-class"
       },
       {
-        "commit": null,
+        "commit": "4f7637c240f500ce73a9eb1840cd42705bbd594b",
         "dpr": 1,
         "browser": "Chrome/152.0.7977.82",
         "font": "Microsoft YaHei, actual platform font sampled in geometry.json",
@@ -136,7 +136,7 @@
         "url": "http://127.0.0.1:4212/growth.html?state=no-facts"
       },
       {
-        "commit": null,
+        "commit": "4f7637c240f500ce73a9eb1840cd42705bbd594b",
         "dpr": 1,
         "browser": "Chrome/152.0.7977.82",
         "font": "Microsoft YaHei, actual platform font sampled in geometry.json",
@@ -152,7 +152,7 @@
         "url": "http://127.0.0.1:4212/growth.html?state=search-empty"
       },
       {
-        "commit": null,
+        "commit": "4f7637c240f500ce73a9eb1840cd42705bbd594b",
         "dpr": 1,
         "browser": "Chrome/152.0.7977.82",
         "font": "Microsoft YaHei, actual platform font sampled in geometry.json",
@@ -168,7 +168,7 @@
         "url": "http://127.0.0.1:4212/growth.html?state=students-105"
       },
       {
-        "commit": null,
+        "commit": "4f7637c240f500ce73a9eb1840cd42705bbd594b",
         "dpr": 1,
         "browser": "Chrome/152.0.7977.82",
         "font": "Microsoft YaHei, actual platform font sampled in geometry.json",
@@ -184,7 +184,7 @@
         "url": "http://127.0.0.1:4212/growth.html?state=long-record"
       },
       {
-        "commit": null,
+        "commit": "4f7637c240f500ce73a9eb1840cd42705bbd594b",
         "dpr": 1,
         "browser": "Chrome/152.0.7977.82",
         "font": "Microsoft YaHei, actual platform font sampled in geometry.json",
@@ -200,7 +200,7 @@
         "url": "http://127.0.0.1:4212/growth.html?state=filters"
       },
       {
-        "commit": null,
+        "commit": "4f7637c240f500ce73a9eb1840cd42705bbd594b",
         "dpr": 1,
         "browser": "Chrome/152.0.7977.82",
         "font": "Microsoft YaHei, actual platform font sampled in geometry.json",
@@ -216,7 +216,7 @@
         "url": "http://127.0.0.1:4212/growth.html?state=timeline-pages"
       },
       {
-        "commit": null,
+        "commit": "4f7637c240f500ce73a9eb1840cd42705bbd594b",
         "dpr": 1,
         "browser": "Chrome/152.0.7977.82",
         "font": "Microsoft YaHei, actual platform font sampled in geometry.json",
@@ -232,7 +232,7 @@
         "url": "http://127.0.0.1:4212/growth.html?state=composer"
       },
       {
-        "commit": null,
+        "commit": "4f7637c240f500ce73a9eb1840cd42705bbd594b",
         "dpr": 1,
         "browser": "Chrome/152.0.7977.82",
         "font": "Microsoft YaHei, actual platform font sampled in geometry.json",
@@ -248,7 +248,7 @@
         "url": "http://127.0.0.1:4212/growth.html?state=validation"
       },
       {
-        "commit": null,
+        "commit": "4f7637c240f500ce73a9eb1840cd42705bbd594b",
         "dpr": 1,
         "browser": "Chrome/152.0.7977.82",
         "font": "Microsoft YaHei, actual platform font sampled in geometry.json",
@@ -264,7 +264,7 @@
         "url": "http://127.0.0.1:4212/growth.html?state=summary"
       },
       {
-        "commit": null,
+        "commit": "4f7637c240f500ce73a9eb1840cd42705bbd594b",
         "dpr": 1,
         "browser": "Chrome/152.0.7977.82",
         "font": "Microsoft YaHei, actual platform font sampled in geometry.json",
@@ -280,7 +280,7 @@
         "url": "http://127.0.0.1:4212/growth.html?state=readonly"
       },
       {
-        "commit": null,
+        "commit": "4f7637c240f500ce73a9eb1840cd42705bbd594b",
         "dpr": 1,
         "browser": "Chrome/152.0.7977.82",
         "font": "Microsoft YaHei, actual platform font sampled in geometry.json",
@@ -296,7 +296,7 @@
         "url": "http://127.0.0.1:4212/growth.html?state=loading"
       },
       {
-        "commit": null,
+        "commit": "4f7637c240f500ce73a9eb1840cd42705bbd594b",
         "dpr": 1,
         "browser": "Chrome/152.0.7977.82",
         "font": "Microsoft YaHei, actual platform font sampled in geometry.json",
@@ -312,7 +312,7 @@
         "url": "http://127.0.0.1:4212/growth.html?state=saving"
       },
       {
-        "commit": null,
+        "commit": "4f7637c240f500ce73a9eb1840cd42705bbd594b",
         "dpr": 1,
         "browser": "Chrome/152.0.7977.82",
         "font": "Microsoft YaHei, actual platform font sampled in geometry.json",
@@ -328,7 +328,7 @@
         "url": "http://127.0.0.1:4212/growth.html?state=save-failure"
       },
       {
-        "commit": null,
+        "commit": "4f7637c240f500ce73a9eb1840cd42705bbd594b",
         "dpr": 1,
         "browser": "Chrome/152.0.7977.82",
         "font": "Microsoft YaHei, actual platform font sampled in geometry.json",
@@ -344,7 +344,7 @@
         "url": "http://127.0.0.1:4212/growth.html?state=save-throw"
       },
       {
-        "commit": null,
+        "commit": "4f7637c240f500ce73a9eb1840cd42705bbd594b",
         "dpr": 1,
         "browser": "Chrome/152.0.7977.82",
         "font": "Microsoft YaHei, actual platform font sampled in geometry.json",
@@ -360,7 +360,7 @@
         "url": "http://127.0.0.1:4212/growth.html?state=conflict-409"
       },
       {
-        "commit": null,
+        "commit": "4f7637c240f500ce73a9eb1840cd42705bbd594b",
         "dpr": 1,
         "browser": "Chrome/152.0.7977.82",
         "font": "Microsoft YaHei, actual platform font sampled in geometry.json",
@@ -376,7 +376,7 @@
         "url": "http://127.0.0.1:4212/growth.html?state=dirty-close"
       },
       {
-        "commit": null,
+        "commit": "4f7637c240f500ce73a9eb1840cd42705bbd594b",
         "dpr": 1,
         "browser": "Chrome/152.0.7977.82",
         "font": "Microsoft YaHei, actual platform font sampled in geometry.json",
@@ -392,7 +392,7 @@
         "url": "http://127.0.0.1:4212/growth.html?state=normal"
       },
       {
-        "commit": null,
+        "commit": "4f7637c240f500ce73a9eb1840cd42705bbd594b",
         "dpr": 1,
         "browser": "Chrome/152.0.7977.82",
         "font": "Microsoft YaHei, actual platform font sampled in geometry.json",
@@ -408,7 +408,7 @@
         "url": "http://127.0.0.1:4212/growth.html?state=mobile-detail"
       },
       {
-        "commit": null,
+        "commit": "4f7637c240f500ce73a9eb1840cd42705bbd594b",
         "dpr": 1,
         "browser": "Chrome/152.0.7977.82",
         "font": "Microsoft YaHei, actual platform font sampled in geometry.json",
@@ -424,7 +424,7 @@
         "url": "http://127.0.0.1:4212/growth.html?state=empty-class"
       },
       {
-        "commit": null,
+        "commit": "4f7637c240f500ce73a9eb1840cd42705bbd594b",
         "dpr": 1,
         "browser": "Chrome/152.0.7977.82",
         "font": "Microsoft YaHei, actual platform font sampled in geometry.json",
@@ -440,7 +440,7 @@
         "url": "http://127.0.0.1:4212/growth.html?state=no-facts"
       },
       {
-        "commit": null,
+        "commit": "4f7637c240f500ce73a9eb1840cd42705bbd594b",
         "dpr": 1,
         "browser": "Chrome/152.0.7977.82",
         "font": "Microsoft YaHei, actual platform font sampled in geometry.json",
@@ -456,7 +456,7 @@
         "url": "http://127.0.0.1:4212/growth.html?state=search-empty"
       },
       {
-        "commit": null,
+        "commit": "4f7637c240f500ce73a9eb1840cd42705bbd594b",
         "dpr": 1,
         "browser": "Chrome/152.0.7977.82",
         "font": "Microsoft YaHei, actual platform font sampled in geometry.json",
@@ -472,7 +472,7 @@
         "url": "http://127.0.0.1:4212/growth.html?state=students-105"
       },
       {
-        "commit": null,
+        "commit": "4f7637c240f500ce73a9eb1840cd42705bbd594b",
         "dpr": 1,
         "browser": "Chrome/152.0.7977.82",
         "font": "Microsoft YaHei, actual platform font sampled in geometry.json",
@@ -488,7 +488,7 @@
         "url": "http://127.0.0.1:4212/growth.html?state=long-record"
       },
       {
-        "commit": null,
+        "commit": "4f7637c240f500ce73a9eb1840cd42705bbd594b",
         "dpr": 1,
         "browser": "Chrome/152.0.7977.82",
         "font": "Microsoft YaHei, actual platform font sampled in geometry.json",
@@ -504,7 +504,7 @@
         "url": "http://127.0.0.1:4212/growth.html?state=filters"
       },
       {
-        "commit": null,
+        "commit": "4f7637c240f500ce73a9eb1840cd42705bbd594b",
         "dpr": 1,
         "browser": "Chrome/152.0.7977.82",
         "font": "Microsoft YaHei, actual platform font sampled in geometry.json",
@@ -520,7 +520,7 @@
         "url": "http://127.0.0.1:4212/growth.html?state=timeline-pages"
       },
       {
-        "commit": null,
+        "commit": "4f7637c240f500ce73a9eb1840cd42705bbd594b",
         "dpr": 1,
         "browser": "Chrome/152.0.7977.82",
         "font": "Microsoft YaHei, actual platform font sampled in geometry.json",
@@ -536,7 +536,7 @@
         "url": "http://127.0.0.1:4212/growth.html?state=composer"
       },
       {
-        "commit": null,
+        "commit": "4f7637c240f500ce73a9eb1840cd42705bbd594b",
         "dpr": 1,
         "browser": "Chrome/152.0.7977.82",
         "font": "Microsoft YaHei, actual platform font sampled in geometry.json",
@@ -552,7 +552,7 @@
         "url": "http://127.0.0.1:4212/growth.html?state=validation"
       },
       {
-        "commit": null,
+        "commit": "4f7637c240f500ce73a9eb1840cd42705bbd594b",
         "dpr": 1,
         "browser": "Chrome/152.0.7977.82",
         "font": "Microsoft YaHei, actual platform font sampled in geometry.json",
@@ -568,7 +568,7 @@
         "url": "http://127.0.0.1:4212/growth.html?state=summary"
       },
       {
-        "commit": null,
+        "commit": "4f7637c240f500ce73a9eb1840cd42705bbd594b",
         "dpr": 1,
         "browser": "Chrome/152.0.7977.82",
         "font": "Microsoft YaHei, actual platform font sampled in geometry.json",
@@ -584,7 +584,7 @@
         "url": "http://127.0.0.1:4212/growth.html?state=readonly"
       },
       {
-        "commit": null,
+        "commit": "4f7637c240f500ce73a9eb1840cd42705bbd594b",
         "dpr": 1,
         "browser": "Chrome/152.0.7977.82",
         "font": "Microsoft YaHei, actual platform font sampled in geometry.json",
@@ -600,7 +600,7 @@
         "url": "http://127.0.0.1:4212/growth.html?state=loading"
       },
       {
-        "commit": null,
+        "commit": "4f7637c240f500ce73a9eb1840cd42705bbd594b",
         "dpr": 1,
         "browser": "Chrome/152.0.7977.82",
         "font": "Microsoft YaHei, actual platform font sampled in geometry.json",
@@ -616,7 +616,7 @@
         "url": "http://127.0.0.1:4212/growth.html?state=saving"
       },
       {
-        "commit": null,
+        "commit": "4f7637c240f500ce73a9eb1840cd42705bbd594b",
         "dpr": 1,
         "browser": "Chrome/152.0.7977.82",
         "font": "Microsoft YaHei, actual platform font sampled in geometry.json",
@@ -632,7 +632,7 @@
         "url": "http://127.0.0.1:4212/growth.html?state=save-failure"
       },
       {
-        "commit": null,
+        "commit": "4f7637c240f500ce73a9eb1840cd42705bbd594b",
         "dpr": 1,
         "browser": "Chrome/152.0.7977.82",
         "font": "Microsoft YaHei, actual platform font sampled in geometry.json",
@@ -648,7 +648,7 @@
         "url": "http://127.0.0.1:4212/growth.html?state=save-throw"
       },
       {
-        "commit": null,
+        "commit": "4f7637c240f500ce73a9eb1840cd42705bbd594b",
         "dpr": 1,
         "browser": "Chrome/152.0.7977.82",
         "font": "Microsoft YaHei, actual platform font sampled in geometry.json",
@@ -664,7 +664,7 @@
         "url": "http://127.0.0.1:4212/growth.html?state=conflict-409"
       },
       {
-        "commit": null,
+        "commit": "4f7637c240f500ce73a9eb1840cd42705bbd594b",
         "dpr": 1,
         "browser": "Chrome/152.0.7977.82",
         "font": "Microsoft YaHei, actual platform font sampled in geometry.json",
@@ -682,7 +682,7 @@
     ],
     "additionalEvidence": [
       {
-        "commit": null,
+        "commit": "4f7637c240f500ce73a9eb1840cd42705bbd594b",
         "dpr": 1,
         "browser": "Chrome/152.0.7977.82",
         "font": "Microsoft YaHei, actual platform font sampled in geometry.json",
@@ -699,7 +699,7 @@
         "fullPage": false
       },
       {
-        "commit": null,
+        "commit": "4f7637c240f500ce73a9eb1840cd42705bbd594b",
         "dpr": 1,
         "browser": "Chrome/152.0.7977.82",
         "font": "Microsoft YaHei, actual platform font sampled in geometry.json",
@@ -716,7 +716,7 @@
         "fullPage": false
       },
       {
-        "commit": null,
+        "commit": "4f7637c240f500ce73a9eb1840cd42705bbd594b",
         "dpr": 1,
         "browser": "Chrome/152.0.7977.82",
         "font": "Microsoft YaHei, actual platform font sampled in geometry.json",
@@ -733,7 +733,7 @@
         "fullPage": false
       },
       {
-        "commit": null,
+        "commit": "4f7637c240f500ce73a9eb1840cd42705bbd594b",
         "dpr": 1,
         "browser": "Chrome/152.0.7977.82",
         "font": "Microsoft YaHei, actual platform font sampled in geometry.json",
@@ -750,7 +750,7 @@
         "fullPage": false
       },
       {
-        "commit": null,
+        "commit": "4f7637c240f500ce73a9eb1840cd42705bbd594b",
         "dpr": 1,
         "browser": "Chrome/152.0.7977.82",
         "font": "Microsoft YaHei, actual platform font sampled in geometry.json",
@@ -767,7 +767,7 @@
         "fullPage": true
       },
       {
-        "commit": null,
+        "commit": "4f7637c240f500ce73a9eb1840cd42705bbd594b",
         "dpr": 1,
         "browser": "Chrome/152.0.7977.82",
         "font": "Microsoft YaHei, actual platform font sampled in geometry.json",
@@ -784,7 +784,7 @@
         "fullPage": true
       },
       {
-        "commit": null,
+        "commit": "4f7637c240f500ce73a9eb1840cd42705bbd594b",
         "dpr": 1,
         "browser": "Chrome/152.0.7977.82",
         "font": "Microsoft YaHei, actual platform font sampled in geometry.json",
@@ -801,7 +801,7 @@
         "fullPage": true
       },
       {
-        "commit": null,
+        "commit": "4f7637c240f500ce73a9eb1840cd42705bbd594b",
         "dpr": 1,
         "browser": "Chrome/152.0.7977.82",
         "font": "Microsoft YaHei, actual platform font sampled in geometry.json",
@@ -826,11 +826,13 @@
     "tests": [
       {
         "path": "docs/page-designs/V3/growth/tests/checks-P01.json",
-        "sha256": "3E4EB04A5722BB9262703BA5E5680D13857CCD5EA130D0AB994487EDDB27DA11"
+        "sha256": "3E4EB04A5722BB9262703BA5E5680D13857CCD5EA130D0AB994487EDDB27DA11",
+        "commit": "4f7637c240f500ce73a9eb1840cd42705bbd594b"
       },
       {
         "path": "docs/page-designs/V3/growth/tests/interactions-P01.json",
-        "sha256": "54D632FE43B33D518E0148ACFDCFFFB851F2EBDC10FF96883DD7424E8301E574"
+        "sha256": "54D632FE43B33D518E0148ACFDCFFFB851F2EBDC10FF96883DD7424E8301E574",
+        "commit": "4f7637c240f500ce73a9eb1840cd42705bbd594b"
       }
     ]
   },
@@ -906,6 +908,11 @@
     {
       "date": "2026-09-15",
       "event": "2026-09-15本任务用户：后续红框中的内容后期要重新设计，因为比如成绩和作业完成都不是一个常态指标，是某一次的，所以不应该出现在这种档案页面内；页面风格设计没问题，可以实现页面。仅确认C01风格并授权隔离P01，不构成P01/D/R或业务接入批准。"
+    },
+    {
+      "date": "2026-09-15",
+      "event": "P01 isolated implementation complete;46captures and34DOM checks;reviewM1/M2resolved;metrics redesign remains deferred;await user single-page D.",
+      "designCommit": "4f7637c240f500ce73a9eb1840cd42705bbd594b"
     }
   ],
   "conceptApproval": {
