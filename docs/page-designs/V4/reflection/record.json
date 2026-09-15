@@ -141,7 +141,7 @@
   ],
   "prototype": {
     "version": "P02",
-    "commit": null,
+    "commit": "f88fb17e5e9c75d1dc24ccf4ea114cc37453b78b",
     "previewUrl": "http://127.0.0.1:4220/reflection.html?state=saved-library",
     "sourceFiles": [
       "app/designs/reflection/ReflectionDesign.tsx",
@@ -224,7 +224,7 @@
         "browser": "Chrome/152.0.7977.82",
         "font": "\"Microsoft YaHei\", system-ui, sans-serif",
         "dpr": 1,
-        "commit": null
+        "commit": "f88fb17e5e9c75d1dc24ccf4ea114cc37453b78b"
       },
       {
         "path": "docs/page-designs/V4/reflection/screenshots/p02-final/1536-saved-detail.png",
@@ -255,7 +255,7 @@
         "browser": "Chrome/152.0.7977.82",
         "font": "\"Microsoft YaHei\", system-ui, sans-serif",
         "dpr": 1,
-        "commit": null
+        "commit": "f88fb17e5e9c75d1dc24ccf4ea114cc37453b78b"
       },
       {
         "path": "docs/page-designs/V4/reflection/screenshots/p02-final/1536-saved-empty.png",
@@ -288,7 +288,7 @@
         "browser": "Chrome/152.0.7977.82",
         "font": "\"Microsoft YaHei\", system-ui, sans-serif",
         "dpr": 1,
-        "commit": null
+        "commit": "f88fb17e5e9c75d1dc24ccf4ea114cc37453b78b"
       },
       {
         "path": "docs/page-designs/V4/reflection/screenshots/p02-final/1536-saved-search-empty.png",
@@ -321,7 +321,7 @@
         "browser": "Chrome/152.0.7977.82",
         "font": "\"Microsoft YaHei\", system-ui, sans-serif",
         "dpr": 1,
-        "commit": null
+        "commit": "f88fb17e5e9c75d1dc24ccf4ea114cc37453b78b"
       },
       {
         "path": "docs/page-designs/V4/reflection/screenshots/p02-final/1536-saved-long-detail.png",
@@ -352,7 +352,7 @@
         "browser": "Chrome/152.0.7977.82",
         "font": "\"Microsoft YaHei\", system-ui, sans-serif",
         "dpr": 1,
-        "commit": null
+        "commit": "f88fb17e5e9c75d1dc24ccf4ea114cc37453b78b"
       },
       {
         "path": "docs/page-designs/V4/reflection/screenshots/p02-final/1536-saved-readonly.png",
@@ -383,7 +383,7 @@
         "browser": "Chrome/152.0.7977.82",
         "font": "\"Microsoft YaHei\", system-ui, sans-serif",
         "dpr": 1,
-        "commit": null
+        "commit": "f88fb17e5e9c75d1dc24ccf4ea114cc37453b78b"
       },
       {
         "path": "docs/page-designs/V4/reflection/screenshots/p02-final/1536-normal.png",
@@ -416,7 +416,7 @@
         "browser": "Chrome/152.0.7977.82",
         "font": "\"Microsoft YaHei\", system-ui, sans-serif",
         "dpr": 1,
-        "commit": null
+        "commit": "f88fb17e5e9c75d1dc24ccf4ea114cc37453b78b"
       },
       {
         "path": "docs/page-designs/V4/reflection/screenshots/p02-final/1536-mobile-editor.png",
@@ -449,7 +449,7 @@
         "browser": "Chrome/152.0.7977.82",
         "font": "\"Microsoft YaHei\", system-ui, sans-serif",
         "dpr": 1,
-        "commit": null
+        "commit": "f88fb17e5e9c75d1dc24ccf4ea114cc37453b78b"
       },
       {
         "path": "docs/page-designs/V4/reflection/screenshots/p02-final/390-saved-library.png",
@@ -482,7 +482,7 @@
         "browser": "Chrome/152.0.7977.82",
         "font": "\"Microsoft YaHei\", system-ui, sans-serif",
         "dpr": 1,
-        "commit": null
+        "commit": "f88fb17e5e9c75d1dc24ccf4ea114cc37453b78b"
       },
       {
         "path": "docs/page-designs/V4/reflection/screenshots/p02-final/390-saved-detail.png",
@@ -513,7 +513,7 @@
         "browser": "Chrome/152.0.7977.82",
         "font": "\"Microsoft YaHei\", system-ui, sans-serif",
         "dpr": 1,
-        "commit": null
+        "commit": "f88fb17e5e9c75d1dc24ccf4ea114cc37453b78b"
       },
       {
         "path": "docs/page-designs/V4/reflection/screenshots/p02-final/390-saved-empty.png",
@@ -546,7 +546,7 @@
         "browser": "Chrome/152.0.7977.82",
         "font": "\"Microsoft YaHei\", system-ui, sans-serif",
         "dpr": 1,
-        "commit": null
+        "commit": "f88fb17e5e9c75d1dc24ccf4ea114cc37453b78b"
       },
       {
         "path": "docs/page-designs/V4/reflection/screenshots/p02-final/390-saved-search-empty.png",
@@ -579,7 +579,7 @@
         "browser": "Chrome/152.0.7977.82",
         "font": "\"Microsoft YaHei\", system-ui, sans-serif",
         "dpr": 1,
-        "commit": null
+        "commit": "f88fb17e5e9c75d1dc24ccf4ea114cc37453b78b"
       },
       {
         "path": "docs/page-designs/V4/reflection/screenshots/p02-final/390-saved-long-detail.png",
@@ -610,7 +610,7 @@
         "browser": "Chrome/152.0.7977.82",
         "font": "\"Microsoft YaHei\", system-ui, sans-serif",
         "dpr": 1,
-        "commit": null
+        "commit": "f88fb17e5e9c75d1dc24ccf4ea114cc37453b78b"
       },
       {
         "path": "docs/page-designs/V4/reflection/screenshots/p02-final/390-saved-readonly.png",
@@ -641,7 +641,7 @@
         "browser": "Chrome/152.0.7977.82",
         "font": "\"Microsoft YaHei\", system-ui, sans-serif",
         "dpr": 1,
-        "commit": null
+        "commit": "f88fb17e5e9c75d1dc24ccf4ea114cc37453b78b"
       },
       {
         "path": "docs/page-designs/V4/reflection/screenshots/p02-final/390-normal.png",
@@ -674,7 +674,7 @@
         "browser": "Chrome/152.0.7977.82",
         "font": "\"Microsoft YaHei\", system-ui, sans-serif",
         "dpr": 1,
-        "commit": null
+        "commit": "f88fb17e5e9c75d1dc24ccf4ea114cc37453b78b"
       },
       {
         "path": "docs/page-designs/V4/reflection/screenshots/p02-final/390-mobile-editor.png",
@@ -705,7 +705,7 @@
         "browser": "Chrome/152.0.7977.82",
         "font": "\"Microsoft YaHei\", system-ui, sans-serif",
         "dpr": 1,
-        "commit": null
+        "commit": "f88fb17e5e9c75d1dc24ccf4ea114cc37453b78b"
       }
     ],
     "additionalEvidence": [
@@ -722,7 +722,7 @@
         "browser": "Chrome/152.0.7977.82",
         "font": "\"Microsoft YaHei\", system-ui, sans-serif",
         "dpr": 1,
-        "commit": null
+        "commit": "f88fb17e5e9c75d1dc24ccf4ea114cc37453b78b"
       },
       {
         "path": "docs/page-designs/V4/reflection/screenshots/p02-proof-audit/1536-detail-bottom.png",
@@ -737,7 +737,7 @@
         "browser": "Chrome/152.0.7977.82",
         "font": "\"Microsoft YaHei\", system-ui, sans-serif",
         "dpr": 1,
-        "commit": null
+        "commit": "f88fb17e5e9c75d1dc24ccf4ea114cc37453b78b"
       },
       {
         "path": "docs/page-designs/V4/reflection/screenshots/p02-proof-audit/1536-saved-editor.png",
@@ -752,7 +752,7 @@
         "browser": "Chrome/152.0.7977.82",
         "font": "\"Microsoft YaHei\", system-ui, sans-serif",
         "dpr": 1,
-        "commit": null
+        "commit": "f88fb17e5e9c75d1dc24ccf4ea114cc37453b78b"
       },
       {
         "path": "docs/page-designs/V4/reflection/screenshots/p02-proof-audit/1536-editor-bottom.png",
@@ -767,7 +767,7 @@
         "browser": "Chrome/152.0.7977.82",
         "font": "\"Microsoft YaHei\", system-ui, sans-serif",
         "dpr": 1,
-        "commit": null
+        "commit": "f88fb17e5e9c75d1dc24ccf4ea114cc37453b78b"
       },
       {
         "path": "docs/page-designs/V4/reflection/screenshots/p02-proof-audit/390-library-bottom.png",
@@ -782,7 +782,7 @@
         "browser": "Chrome/152.0.7977.82",
         "font": "\"Microsoft YaHei\", system-ui, sans-serif",
         "dpr": 1,
-        "commit": null
+        "commit": "f88fb17e5e9c75d1dc24ccf4ea114cc37453b78b"
       },
       {
         "path": "docs/page-designs/V4/reflection/screenshots/p02-proof-audit/390-detail-bottom.png",
@@ -797,7 +797,7 @@
         "browser": "Chrome/152.0.7977.82",
         "font": "\"Microsoft YaHei\", system-ui, sans-serif",
         "dpr": 1,
-        "commit": null
+        "commit": "f88fb17e5e9c75d1dc24ccf4ea114cc37453b78b"
       },
       {
         "path": "docs/page-designs/V4/reflection/screenshots/p02-proof-audit/390-saved-editor.png",
@@ -812,7 +812,7 @@
         "browser": "Chrome/152.0.7977.82",
         "font": "\"Microsoft YaHei\", system-ui, sans-serif",
         "dpr": 1,
-        "commit": null
+        "commit": "f88fb17e5e9c75d1dc24ccf4ea114cc37453b78b"
       },
       {
         "path": "docs/page-designs/V4/reflection/screenshots/p02-proof-audit/390-editor-bottom.png",
@@ -827,7 +827,7 @@
         "browser": "Chrome/152.0.7977.82",
         "font": "\"Microsoft YaHei\", system-ui, sans-serif",
         "dpr": 1,
-        "commit": null
+        "commit": "f88fb17e5e9c75d1dc24ccf4ea114cc37453b78b"
       },
       {
         "path": "docs/page-designs/V4/reflection/screenshots/p02-proof-audit/360-library-bottom.png",
@@ -842,7 +842,7 @@
         "browser": "Chrome/152.0.7977.82",
         "font": "\"Microsoft YaHei\", system-ui, sans-serif",
         "dpr": 1,
-        "commit": null
+        "commit": "f88fb17e5e9c75d1dc24ccf4ea114cc37453b78b"
       },
       {
         "path": "docs/page-designs/V4/reflection/screenshots/p02-proof-audit/360-detail-bottom.png",
@@ -857,7 +857,7 @@
         "browser": "Chrome/152.0.7977.82",
         "font": "\"Microsoft YaHei\", system-ui, sans-serif",
         "dpr": 1,
-        "commit": null
+        "commit": "f88fb17e5e9c75d1dc24ccf4ea114cc37453b78b"
       },
       {
         "path": "docs/page-designs/V4/reflection/screenshots/p02-proof-audit/360-saved-editor.png",
@@ -872,7 +872,7 @@
         "browser": "Chrome/152.0.7977.82",
         "font": "\"Microsoft YaHei\", system-ui, sans-serif",
         "dpr": 1,
-        "commit": null
+        "commit": "f88fb17e5e9c75d1dc24ccf4ea114cc37453b78b"
       },
       {
         "path": "docs/page-designs/V4/reflection/screenshots/p02-proof-audit/360-editor-bottom.png",
@@ -887,7 +887,7 @@
         "browser": "Chrome/152.0.7977.82",
         "font": "\"Microsoft YaHei\", system-ui, sans-serif",
         "dpr": 1,
-        "commit": null
+        "commit": "f88fb17e5e9c75d1dc24ccf4ea114cc37453b78b"
       },
       {
         "path": "docs/page-designs/V4/reflection/screenshots/p02-proof-audit/920-library-bottom.png",
@@ -902,7 +902,7 @@
         "browser": "Chrome/152.0.7977.82",
         "font": "\"Microsoft YaHei\", system-ui, sans-serif",
         "dpr": 1,
-        "commit": null
+        "commit": "f88fb17e5e9c75d1dc24ccf4ea114cc37453b78b"
       },
       {
         "path": "docs/page-designs/V4/reflection/screenshots/p02-proof-audit/920-detail-bottom.png",
@@ -917,7 +917,7 @@
         "browser": "Chrome/152.0.7977.82",
         "font": "\"Microsoft YaHei\", system-ui, sans-serif",
         "dpr": 1,
-        "commit": null
+        "commit": "f88fb17e5e9c75d1dc24ccf4ea114cc37453b78b"
       },
       {
         "path": "docs/page-designs/V4/reflection/screenshots/p02-proof-audit/920-saved-editor.png",
@@ -932,7 +932,7 @@
         "browser": "Chrome/152.0.7977.82",
         "font": "\"Microsoft YaHei\", system-ui, sans-serif",
         "dpr": 1,
-        "commit": null
+        "commit": "f88fb17e5e9c75d1dc24ccf4ea114cc37453b78b"
       },
       {
         "path": "docs/page-designs/V4/reflection/screenshots/p02-proof-audit/920-editor-bottom.png",
@@ -947,7 +947,7 @@
         "browser": "Chrome/152.0.7977.82",
         "font": "\"Microsoft YaHei\", system-ui, sans-serif",
         "dpr": 1,
-        "commit": null
+        "commit": "f88fb17e5e9c75d1dc24ccf4ea114cc37453b78b"
       },
       {
         "path": "docs/page-designs/V4/reflection/screenshots/p02-proof-audit/1057-library-bottom.png",
@@ -962,7 +962,7 @@
         "browser": "Chrome/152.0.7977.82",
         "font": "\"Microsoft YaHei\", system-ui, sans-serif",
         "dpr": 1,
-        "commit": null
+        "commit": "f88fb17e5e9c75d1dc24ccf4ea114cc37453b78b"
       },
       {
         "path": "docs/page-designs/V4/reflection/screenshots/p02-proof-audit/1057-detail-bottom.png",
@@ -977,7 +977,7 @@
         "browser": "Chrome/152.0.7977.82",
         "font": "\"Microsoft YaHei\", system-ui, sans-serif",
         "dpr": 1,
-        "commit": null
+        "commit": "f88fb17e5e9c75d1dc24ccf4ea114cc37453b78b"
       },
       {
         "path": "docs/page-designs/V4/reflection/screenshots/p02-proof-audit/1057-saved-editor.png",
@@ -992,7 +992,7 @@
         "browser": "Chrome/152.0.7977.82",
         "font": "\"Microsoft YaHei\", system-ui, sans-serif",
         "dpr": 1,
-        "commit": null
+        "commit": "f88fb17e5e9c75d1dc24ccf4ea114cc37453b78b"
       },
       {
         "path": "docs/page-designs/V4/reflection/screenshots/p02-proof-audit/1057-editor-bottom.png",
@@ -1007,7 +1007,7 @@
         "browser": "Chrome/152.0.7977.82",
         "font": "\"Microsoft YaHei\", system-ui, sans-serif",
         "dpr": 1,
-        "commit": null
+        "commit": "f88fb17e5e9c75d1dc24ccf4ea114cc37453b78b"
       },
       {
         "path": "docs/page-designs/V4/reflection/screenshots/p02-long-labels-final/1536-saved-long-labels.png",
@@ -1040,7 +1040,7 @@
         "browser": "Chrome/152.0.7977.82",
         "font": "\"Microsoft YaHei\", system-ui, sans-serif",
         "dpr": 1,
-        "commit": null
+        "commit": "f88fb17e5e9c75d1dc24ccf4ea114cc37453b78b"
       },
       {
         "path": "docs/page-designs/V4/reflection/screenshots/p02-long-labels-final/390-saved-long-labels.png",
@@ -1073,7 +1073,7 @@
         "browser": "Chrome/152.0.7977.82",
         "font": "\"Microsoft YaHei\", system-ui, sans-serif",
         "dpr": 1,
-        "commit": null
+        "commit": "f88fb17e5e9c75d1dc24ccf4ea114cc37453b78b"
       }
     ],
     "checks": [
@@ -1081,19 +1081,22 @@
         "path": "docs/page-designs/V4/reflection/checks/p02/saved-interactions.log",
         "sha256": "549A568E6AF8FC07A9D7E485131AF7017D58F2A97F05F3A34401141E0628EFF2",
         "exitCode": 0,
-        "description": "26 mixed DOM/controller synthetic checks"
+        "description": "26 mixed DOM/controller synthetic checks",
+        "commit": "f88fb17e5e9c75d1dc24ccf4ea114cc37453b78b"
       },
       {
         "path": "docs/page-designs/V4/reflection/checks/p02/regression.log",
         "sha256": "C5B9D415ABDFB1FA29136BB5E10EBD916255AEE19F2D35F514E9D2EBC9A24013",
         "exitCode": 0,
-        "description": "28 existing synthetic save/draft/conflict checks"
+        "description": "28 existing synthetic save/draft/conflict checks",
+        "commit": "f88fb17e5e9c75d1dc24ccf4ea114cc37453b78b"
       },
       {
         "path": "docs/page-designs/V4/reflection/checks/p02/unit.log",
         "sha256": "0017B73706E0AB5CD51F7F7B0E182D73F2556C404AA723B239E6274457B26B6D",
         "exitCode": 0,
-        "description": "37 tests: 8 reflection operations, 9 surface coverage, 20 baseline/workflow"
+        "description": "37 tests: 8 reflection operations, 9 surface coverage, 20 baseline/workflow",
+        "commit": "f88fb17e5e9c75d1dc24ccf4ea114cc37453b78b"
       }
     ],
     "designDisposition": "C02已按独立记录库/连续阅读实现，待用户实际审核，不是视觉批准"
@@ -2399,7 +2402,7 @@
     "path": "docs/page-designs/V4/reflection/finish-review-P02.md",
     "sha256": "DEE38AD01E61CE6B44D76BE1DE1CE92050B2DC26B67BDC82F1644311F3110DBC",
     "disposition": "PASS technical only; F1-F4 resolved, no user aesthetic or D/R approval",
-    "commit": null
+    "commit": "f88fb17e5e9c75d1dc24ccf4ea114cc37453b78b"
   },
   "designDocumentation": {
     "path": "app/designs/reflection/DESIGN.md",
@@ -2491,7 +2494,7 @@
             "browser": "Chrome/152.0.7977.82",
             "font": "\"Microsoft YaHei\", system-ui, sans-serif",
             "dpr": 1,
-            "commit": null
+            "commit": "f88fb17e5e9c75d1dc24ccf4ea114cc37453b78b"
           }
         ]
       },
@@ -2540,7 +2543,7 @@
             "browser": "Chrome/152.0.7977.82",
             "font": "\"Microsoft YaHei\", system-ui, sans-serif",
             "dpr": 1,
-            "commit": null
+            "commit": "f88fb17e5e9c75d1dc24ccf4ea114cc37453b78b"
           }
         ]
       },
@@ -2593,7 +2596,7 @@
             "browser": "Chrome/152.0.7977.82",
             "font": "\"Microsoft YaHei\", system-ui, sans-serif",
             "dpr": 1,
-            "commit": null
+            "commit": "f88fb17e5e9c75d1dc24ccf4ea114cc37453b78b"
           }
         ]
       },
@@ -2647,7 +2650,7 @@
             "browser": "Chrome/152.0.7977.82",
             "font": "\"Microsoft YaHei\", system-ui, sans-serif",
             "dpr": 1,
-            "commit": null
+            "commit": "f88fb17e5e9c75d1dc24ccf4ea114cc37453b78b"
           },
           {
             "path": "docs/page-designs/V4/reflection/screenshots/p02-final/390-saved-library.png",
@@ -2680,7 +2683,7 @@
             "browser": "Chrome/152.0.7977.82",
             "font": "\"Microsoft YaHei\", system-ui, sans-serif",
             "dpr": 1,
-            "commit": null
+            "commit": "f88fb17e5e9c75d1dc24ccf4ea114cc37453b78b"
           }
         ]
       },
@@ -2732,7 +2735,7 @@
             "browser": "Chrome/152.0.7977.82",
             "font": "\"Microsoft YaHei\", system-ui, sans-serif",
             "dpr": 1,
-            "commit": null
+            "commit": "f88fb17e5e9c75d1dc24ccf4ea114cc37453b78b"
           },
           {
             "path": "docs/page-designs/V4/reflection/screenshots/p02-final/390-saved-detail.png",
@@ -2763,7 +2766,7 @@
             "browser": "Chrome/152.0.7977.82",
             "font": "\"Microsoft YaHei\", system-ui, sans-serif",
             "dpr": 1,
-            "commit": null
+            "commit": "f88fb17e5e9c75d1dc24ccf4ea114cc37453b78b"
           }
         ]
       },
