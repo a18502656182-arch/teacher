@@ -1,0 +1,151 @@
+{
+  "createdAt": "2026-09-15T04:49:42.542Z",
+  "browser": {
+    "protocolVersion": "1.3",
+    "product": "Chrome/152.0.7977.82",
+    "revision": "@d04cdb24d67b081f6cf80200ffc5233f44b61109",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/152.0.0.0 Safari/537.36",
+    "jsVersion": "15.2.124.21"
+  },
+  "evidence": [],
+  "failures": [],
+  "interactions": [
+    {
+      "name": "1536 roster starts10",
+      "passed": true
+    },
+    {
+      "name": "1536 search105",
+      "passed": true
+    },
+    {
+      "name": "1536 roster page2",
+      "passed": true
+    },
+    {
+      "name": "1536 no identity metric",
+      "passed": true
+    },
+    {
+      "name": "1536 validation retains",
+      "passed": true
+    },
+    {
+      "name": "1536 dirty guard",
+      "passed": true
+    },
+    {
+      "name": "1536 saved once",
+      "passed": true
+    },
+    {
+      "name": "1536 failure retains",
+      "passed": true
+    },
+    {
+      "name": "1536 retry no duplicate",
+      "passed": true
+    },
+    {
+      "name": "1536 throw recovers busy",
+      "passed": true
+    },
+    {
+      "name": "1536 conflict draft preserved",
+      "passed": true
+    },
+    {
+      "name": "1536 readonly action disabled",
+      "passed": true
+    },
+    {
+      "name": "1536 full record dialog",
+      "passed": true
+    },
+    {
+      "name": "1536 timeline paging",
+      "passed": true
+    },
+    {
+      "name": "390 roster starts10",
+      "passed": true
+    },
+    {
+      "name": "390 search105",
+      "passed": true
+    },
+    {
+      "name": "390 roster page2",
+      "passed": true
+    },
+    {
+      "name": "390 no identity metric",
+      "passed": true
+    },
+    {
+      "name": "390 validation retains",
+      "passed": true
+    },
+    {
+      "name": "390 dirty guard",
+      "passed": true
+    },
+    {
+      "name": "390 saved once",
+      "passed": true
+    },
+    {
+      "name": "390 failure retains",
+      "passed": true
+    },
+    {
+      "name": "390 retry no duplicate",
+      "passed": true
+    },
+    {
+      "name": "390 throw recovers busy",
+      "passed": true
+    },
+    {
+      "name": "390 conflict draft preserved",
+      "passed": true
+    },
+    {
+      "name": "390 readonly action disabled",
+      "passed": true
+    },
+    {
+      "name": "390 full record dialog",
+      "passed": true
+    },
+    {
+      "name": "390 timeline paging",
+      "passed": true
+    },
+    {
+      "name": "persistent conflict remains",
+      "passed": true
+    },
+    {
+      "name": "conflict explicit confirm",
+      "passed": true
+    },
+    {
+      "name": "cancel preserves pending",
+      "passed": true
+    },
+    {
+      "name": "export reachable in composer",
+      "passed": true
+    },
+    {
+      "name": "load latest explicit discards local",
+      "passed": true
+    },
+    {
+      "name": "copied summary carries limitation",
+      "passed": true
+    }
+  ],
+  "consoleErrors": []
+}

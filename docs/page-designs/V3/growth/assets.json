@@ -1,0 +1,20 @@
+{
+  "version": "P01",
+  "font": {
+    "family": "Microsoft YaHei",
+    "source": "Windows installed, not redistributed",
+    "actualEvidence": "docs/page-designs/V3/growth/geometry.json"
+  },
+  "art": {
+    "path": "app/designs/growth/archive-p01.png",
+    "sha256": "E199650A6E14C05BE76DFFB4BE478FDF77CB779203686CD8EB6C1C1AA84BE8F4",
+    "pixelSize": [
+      1536,
+      1024
+    ],
+    "tool": "built-in ImageGen",
+    "prompt": "Small watercolor stationery illustration asset for approved Chinese teacher growth archive UI. Three slender sage green cloth student archive notebooks stacked slightly diagonal, one pale wooden pencil, delicate botanical sprig. Light natural watercolor on PURE WHITE background, generous white margin, no text, no letters, no UI or frame. Flat gentle detail, refined real paper texture, soft desaturated jade, forest green bindings and pale ochre pencil. Landscape1536x1024. Used at250x150 in web app header.",
+    "limitation": "1971KB png, not optimized yet"
+  },
+  "icons": "existing CampusIcon/Workbench Icon; chevron corrected from unsupported name"
+}

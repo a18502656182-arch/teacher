@@ -1,0 +1,56 @@
+{
+  "date": "2026-09-15T04:53:36.773Z",
+  "scope": "Isolated growth P01 verification; not full-site or server acceptance",
+  "checks": [
+    {
+      "command": "npx tsc --noEmit",
+      "exitCode": 0
+    },
+    {
+      "command": "npx eslint app/designs/growth tools/ui-preview/growth.tsx tools/ui-preview/growth-fixture.ts tools/ui-preview/growth.vite.config.ts",
+      "exitCode": 0,
+      "warning": "1 no-img-element;1971KB PNG not optimized"
+    },
+    {
+      "command": "npx vite build --config tools/ui-preview/growth.vite.config.ts",
+      "exitCode": 0,
+      "output": "98 modules; growth.html0.80KB;303.14KB JS;28.69KB CSS;1971.12KB artwork;FINISH HTML comment verified in emitted body"
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "output": "vinext5-stage production build complete; no deployment"
+    },
+    {
+      "command": "node --test tests/growth-health-operations.test.mjs",
+      "exitCode": 0,
+      "output": "7 passed,0 failed;2 growth and5 health"
+    },
+    {
+      "command": "node scripts/growth-design-capture.mjs",
+      "exitCode": 0,
+      "output": "38 final captures;0 failures;0 runtime exceptions"
+    },
+    {
+      "command": "node scripts/growth-design-supplement.mjs",
+      "exitCode": 0,
+      "output": "8 narrow/full captures;0 overflow;initial hidden h1 font sample empty, followed by scoped font probe in geometry.json"
+    },
+    {
+      "command": "node scripts/growth-design-interactions.mjs",
+      "exitCode": 0,
+      "output": "34passed;0failed;0runtimeexceptions;extra409/copy checks on390 only;clipboard/download interception verifies payload/path"
+    },
+    {
+      "command": "npm run qa:strict",
+      "exitCode": 1,
+      "output": "runtime: Runtime audit failed: TypeError: Cannot read properties of undefined (reading 'querySelectorAll')\n    at <anonymous>:5:30\n    at <anonymous>:46:5",
+      "classification": "Existing global QA runtime blocker repeated; no full-site pass claimed"
+    },
+    {
+      "command": "impeccable detect app/designs/growth",
+      "findings": 22,
+      "output": "22 local palette/type/radius documentation advisories; documented from actual CSS by documenter; not a second detector pass"
+    }
+  ]
+}

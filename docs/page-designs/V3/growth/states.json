@@ -1,0 +1,144 @@
+{
+  "version": "P01",
+  "fixture": "tools/ui-preview/growth-fixture.ts",
+  "date": "2026-09-15",
+  "states": [
+    {
+      "id": "normal",
+      "desktop": true,
+      "mobile": true,
+      "status": "isolated-rendered",
+      "interactionApproval": false
+    },
+    {
+      "id": "mobile-detail",
+      "desktop": true,
+      "mobile": true,
+      "status": "isolated-rendered",
+      "interactionApproval": false
+    },
+    {
+      "id": "empty-class",
+      "desktop": true,
+      "mobile": true,
+      "status": "isolated-rendered",
+      "interactionApproval": false
+    },
+    {
+      "id": "no-facts",
+      "desktop": true,
+      "mobile": true,
+      "status": "isolated-rendered",
+      "interactionApproval": false
+    },
+    {
+      "id": "search-empty",
+      "desktop": true,
+      "mobile": true,
+      "status": "isolated-rendered",
+      "interactionApproval": false
+    },
+    {
+      "id": "students-105",
+      "desktop": true,
+      "mobile": true,
+      "status": "isolated-rendered",
+      "interactionApproval": false
+    },
+    {
+      "id": "long-record",
+      "desktop": true,
+      "mobile": true,
+      "status": "isolated-rendered",
+      "interactionApproval": false
+    },
+    {
+      "id": "filters",
+      "desktop": true,
+      "mobile": true,
+      "status": "isolated-rendered",
+      "interactionApproval": false
+    },
+    {
+      "id": "timeline-pages",
+      "desktop": true,
+      "mobile": true,
+      "status": "isolated-rendered",
+      "interactionApproval": false
+    },
+    {
+      "id": "composer",
+      "desktop": true,
+      "mobile": true,
+      "status": "isolated-rendered",
+      "interactionApproval": false
+    },
+    {
+      "id": "validation",
+      "desktop": true,
+      "mobile": true,
+      "status": "isolated-rendered",
+      "interactionApproval": false
+    },
+    {
+      "id": "summary",
+      "desktop": true,
+      "mobile": true,
+      "status": "isolated-rendered",
+      "interactionApproval": false
+    },
+    {
+      "id": "readonly",
+      "desktop": true,
+      "mobile": true,
+      "status": "isolated-rendered",
+      "interactionApproval": false
+    },
+    {
+      "id": "loading",
+      "desktop": true,
+      "mobile": true,
+      "status": "isolated-rendered",
+      "interactionApproval": false
+    },
+    {
+      "id": "saving",
+      "desktop": true,
+      "mobile": true,
+      "status": "isolated-rendered",
+      "interactionApproval": false
+    },
+    {
+      "id": "save-failure",
+      "desktop": true,
+      "mobile": true,
+      "status": "isolated-rendered",
+      "interactionApproval": false
+    },
+    {
+      "id": "save-throw",
+      "desktop": true,
+      "mobile": true,
+      "status": "isolated-rendered",
+      "interactionApproval": false
+    },
+    {
+      "id": "conflict-409",
+      "desktop": true,
+      "mobile": true,
+      "status": "isolated-rendered",
+      "interactionApproval": false
+    },
+    {
+      "id": "dirty-close",
+      "desktop": true,
+      "mobile": true,
+      "status": "isolated-rendered",
+      "interactionApproval": false
+    }
+  ],
+  "notes": [
+    "No user P01/D yet. 409 persists until explicit load latest. Clipboard/download interaction checks intercept browser APIs to verify payload and reachability, not external delivery.",
+    "105 students paged10; timeline desktop8/mobile6; long record clamps preview but opens full content."
+  ]
+}

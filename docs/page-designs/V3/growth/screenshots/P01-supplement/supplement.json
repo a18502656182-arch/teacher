@@ -1,0 +1,126 @@
+{
+  "createdAt": "2026-09-15T04:50:00.659Z",
+  "browser": {
+    "protocolVersion": "1.3",
+    "product": "Chrome/152.0.7977.82",
+    "revision": "@d04cdb24d67b081f6cf80200ffc5233f44b61109",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/152.0.0.0 Safari/537.36",
+    "jsVersion": "15.2.124.21"
+  },
+  "evidence": [
+    {
+      "path": "1057-normal-narrow.png",
+      "sha256": "6719D77F8AC97DEAAE9A629C307C82FC24DBB9D1F5D8020E72493A67037E67BD",
+      "viewport": "1057x900",
+      "stateId": "normal",
+      "url": "http://127.0.0.1:4212/growth.html?state=normal",
+      "full": false,
+      "info": {
+        "scrollWidth": 1042,
+        "height": 1263,
+        "dialogText": []
+      }
+    },
+    {
+      "path": "360-normal-narrow.png",
+      "sha256": "45897B97C5CDDBE8B919A224B94EA6A3CD105DEC2D7BC6D9C671DFCCF117E6FA",
+      "viewport": "360x780",
+      "stateId": "normal",
+      "url": "http://127.0.0.1:4212/growth.html?state=normal",
+      "full": false,
+      "info": {
+        "scrollWidth": 360,
+        "height": 1167,
+        "dialogText": []
+      }
+    },
+    {
+      "path": "360-mobile-detail-narrow.png",
+      "sha256": "AAD19DB6FB2A43E37E7B1B142D0117B0D4347BB3FDCC60846B7FDC3526737B4D",
+      "viewport": "360x780",
+      "stateId": "mobile-detail",
+      "url": "http://127.0.0.1:4212/growth.html?state=mobile-detail",
+      "full": false,
+      "info": {
+        "scrollWidth": 360,
+        "height": 1421,
+        "dialogText": []
+      }
+    },
+    {
+      "path": "360-composer-narrow.png",
+      "sha256": "D1491C83E6F2322190A8B12CC042DE6F9713E83C24DF0CD04A533C069ED91166",
+      "viewport": "360x780",
+      "stateId": "composer",
+      "url": "http://127.0.0.1:4212/growth.html?state=composer",
+      "full": false,
+      "info": {
+        "scrollWidth": 360,
+        "height": 1167,
+        "dialogText": [
+          "添加成长记录 · 学生01\n关闭\n\n记录具体事实，不写空泛评价。\n\n日期\n类型\n学习\n活动\n荣誉\n日常\n进步\n表扬记录\n标题\n0/40\n具体事实\n0/500\n后续观察点\n0/300\n取消\n保存成长记录"
+        ]
+      }
+    },
+    {
+      "path": "1536-long-record-full.png",
+      "sha256": "948A83FB6E9A41726BEA661E7A6CDF7F1E7F611F9A6D101EEA2AAF3BDC401A8C",
+      "viewport": "1536x1024",
+      "stateId": "long-record",
+      "url": "http://127.0.0.1:4212/growth.html?state=long-record",
+      "full": true,
+      "info": {
+        "scrollWidth": 1521,
+        "height": 1312,
+        "dialogText": []
+      }
+    },
+    {
+      "path": "390-long-record-full.png",
+      "sha256": "961E2A020FC54A51921BA3004887B0970E301891C3252EE5F04750A09C788FD9",
+      "viewport": "390x844",
+      "stateId": "long-record",
+      "url": "http://127.0.0.1:4212/growth.html?state=long-record",
+      "full": true,
+      "info": {
+        "scrollWidth": 390,
+        "height": 1524,
+        "dialogText": []
+      }
+    },
+    {
+      "path": "390-conflict-409-full.png",
+      "sha256": "F2B3B58A0B575C038341A1BB2B543EF9E1F9F2A2A86F06E1B0DAB1DD07E65BEA",
+      "viewport": "390x844",
+      "stateId": "conflict-409",
+      "url": "http://127.0.0.1:4212/growth.html?state=conflict-409",
+      "full": true,
+      "info": {
+        "scrollWidth": 390,
+        "height": 1253,
+        "dialogText": [
+          "添加成长记录 · 学生01\n关闭\n\n记录具体事实，不写空泛评价。\n\n日期\n类型\n学习\n活动\n荣誉\n日常\n进步\n表扬记录\n标题\n6/40\n具体事实\n14/500\n后续观察点\n7/300\n\n同步失败，草稿已保留。请重试；不会重复新增记录。\n\n工作区版本已变化。先导出本机草稿，再选择是否载入最新版本。\n\n导出当前草稿载入最新版本\n取消\n重试同步"
+        ]
+      }
+    },
+    {
+      "path": "1536-students-105-full.png",
+      "sha256": "03F0A3283A56ADE75EC8141D217EDB85196F1B27543E77CB50EE86559328B363",
+      "viewport": "1536x1024",
+      "stateId": "students-105",
+      "url": "http://127.0.0.1:4212/growth.html?state=students-105",
+      "full": true,
+      "info": {
+        "scrollWidth": 1521,
+        "height": 1208,
+        "dialogText": []
+      }
+    }
+  ],
+  "failures": [],
+  "interactions": [],
+  "consoleErrors": [],
+  "platformFonts": {
+    "fonts": []
+  }
+}

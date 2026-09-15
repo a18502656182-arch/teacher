@@ -1,0 +1,135 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-15T04:53:12.4396430Z",
+  "title": "Design System: 成长档案 · 隔离 Operative",
+  "extensions": {
+    "shadows": [],
+    "motion": [],
+    "limitations": [
+      "No local shadow or motion tokens; shared Dialog not extracted.",
+      "No incumbent tonal ramp; no synthetic ramp promoted to implementation tokens.",
+      "Existing Microsoft YaHei system font stack.",
+      "archive-p01.png is 1971129 bytes and not optimized.",
+      "Identity metric group removed; old summary and legacy status/sort semantics remain with limitations. Statistical redesign incomplete.",
+      "Isolated P01 documentation is not D/R approval.",
+      "No live interaction or contrast verification rerun in documentation subtask."
+    ],
+    "typographyMeta": {
+      "body": {
+        "purpose": "Three-line excerpt with full text action.",
+        "displayName": "成长事实正文"
+      },
+      "display": {
+        "purpose": "Desktop page heading; existing system font.",
+        "displayName": "页面标题"
+      }
+    },
+    "evidence": [
+      "GrowthDesign.tsx",
+      "GrowthDesign.module.css",
+      "tools/ui-preview/growth.html",
+      ".qa-shots/growth-design/final/1536-normal.png",
+      ".qa-shots/growth-design/final/390-normal.png",
+      ".qa-shots/growth-design/final/390-mobile-detail.png"
+    ],
+    "focus": {
+      "offset": "2px",
+      "value": "3px solid #277caa",
+      "scope": "Local page buttons/inputs/selects and editor focusable controls"
+    },
+    "breakpoints": [
+      {
+        "name": "mobile-max",
+        "value": "900px"
+      },
+      {
+        "name": "compact-desktop-min",
+        "value": "901px"
+      },
+      {
+        "name": "compact-desktop-max",
+        "value": "1150px"
+      }
+    ],
+    "scope": "app/designs/growth only"
+  },
+  "components": [
+    {
+      "refersTo": "button-primary",
+      "kind": "button",
+      "description": "身份带的明确主操作；维持真实按钮状态。",
+      "css": ".ds-primary{font:13px Microsoft YaHei,sans-serif;border:1px solid #267869;border-radius:5px;background:#267869;color:white;min-height:34px;padding:6px 11px;cursor:pointer}.ds-primary:hover:not(:disabled){background:#267869}.ds-primary:focus-visible{outline:3px solid #277caa;outline-offset:2px}.ds-primary:disabled{opacity:.5;cursor:default}@media(max-width:900px){.ds-primary{min-height:44px}}",
+      "html": "<button class=\"ds-primary\">添加记录</button>",
+      "name": "添加记录"
+    },
+    {
+      "refersTo": "button-secondary",
+      "kind": "button",
+      "description": "白底描边次操作，旧规则摘要仍需警示。",
+      "css": ".ds-secondary{font:13px Microsoft YaHei,sans-serif;border:1px solid #cbdadd;border-radius:5px;background:white;color:#17394a;min-height:34px;padding:6px 11px;cursor:pointer}.ds-secondary:hover:not(:disabled){background:#edf5f4}.ds-secondary:focus-visible{outline:3px solid #277caa;outline-offset:2px}.ds-secondary:disabled{opacity:.5;cursor:default}@media(max-width:900px){.ds-secondary{min-height:44px}}",
+      "html": "<button class=\"ds-secondary\">查看摘要</button>",
+      "name": "查看摘要"
+    },
+    {
+      "css": ".ds-search{display:flex;align-items:center;border:1px solid #cbdadd;border-radius:5px;padding:0 8px;color:#17394a}.ds-search svg{width:18px;flex-shrink:0}.ds-search input{width:100%;min-width:0;border:0;height:34px;padding:0 6px;background:transparent;font:13px Microsoft YaHei,sans-serif;color:#17394a}.ds-search input:focus-visible{outline:3px solid #277caa;outline-offset:2px}@media(max-width:900px){.ds-search{height:44px}.ds-search input{height:36px}}",
+      "description": "无内层边框的姓名或学号输入。",
+      "html": "<label class=\"ds-search\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" aria-hidden=\"true\"><circle cx=\"10.5\" cy=\"10.5\" r=\"6.5\"/><path d=\"m16 16 5 5\"/></svg><input aria-label=\"搜索学生\" placeholder=\"姓名或学号\"></label>",
+      "name": "搜索学生",
+      "kind": "input"
+    },
+    {
+      "refersTo": "student-selected",
+      "kind": "nav",
+      "description": "浅蓝表示当前选择，与学生评价无关。",
+      "css": ".ds-student{font:12px Microsoft YaHei,sans-serif;color:#17394a;background:#e8f4fb;display:flex;align-items:center;justify-content:space-between;text-align:left;width:100%;border:0;border-bottom:1px solid #dbe5e8;border-radius:0;min-height:68px;padding:12px 10px;gap:10px;cursor:pointer}.ds-student b{font-size:15px;display:block}.ds-student small{font-size:12px;display:block;line-height:1.8;color:#526d7b}.ds-student:hover{background:#edf5f4}.ds-student:focus-visible{outline:3px solid #277caa;outline-offset:2px}",
+      "html": "<button class=\"ds-student\" aria-pressed=\"true\"><span><b>学生01</b><small>学号01 · 第1组</small></span><span>4条记录 ›</span></button>",
+      "name": "学生目录行"
+    },
+    {
+      "refersTo": "source-label",
+      "kind": "chip",
+      "description": "静态来源标签，颜色以文字补足语义。",
+      "css": ".ds-source{font:12px Microsoft YaHei,sans-serif;color:#3d7466;background:#edf5f0;padding:3px 6px}@media(max-width:900px){.ds-source{font-size:11px}}",
+      "html": "<span class=\"ds-source\">老师补充 · 进步</span>",
+      "name": "来源标签"
+    },
+    {
+      "refersTo": "identity-band",
+      "kind": "custom",
+      "description": "身份区域示意，已移除常态指标组；操作见按钮组件。",
+      "css": ".ds-identity{font-family:Microsoft YaHei,sans-serif;color:#17394a;background:#e9f3ec;display:flex;align-items:center;gap:18px;min-height:125px;padding:20px 24px}.ds-identity h2{font-size:25px;margin:0 0 9px}.ds-identity p{font-size:13px;color:#496858;margin:0}.ds-portrait{display:flex;width:62px;height:62px;font-size:25px;border-radius:50%;background:#87b29d;color:white;align-items:center;justify-content:center;flex-shrink:0}@media(max-width:900px){.ds-identity{gap:12px;padding:18px 15px;min-height:0}.ds-identity h2{font-size:23px}.ds-portrait{width:48px;height:48px;font-size:22px}}",
+      "html": "<header class=\"ds-identity\"><span class=\"ds-portrait\" aria-hidden=\"true\">学</span><div><h2>学生01</h2><p>学号01 · 第1组</p></div></header>",
+      "name": "学生身份带"
+    },
+    {
+      "css": ".ds-warning{font:14px/1.8 Microsoft YaHei,sans-serif;color:#805515;background:#fff6df;padding:12px}",
+      "description": "保留旧摘要时必须伴随的警示；不表示统计口径已经重设计。",
+      "html": "<p class=\"ds-warning\">以下沿用旧规则生成，成绩与作业值没有明确长期统计范围，不能作为学生的常态评价。摘要口径待重新设计。</p>",
+      "name": "摘要局限提示",
+      "kind": "custom"
+    }
+  ],
+  "narrative": {
+    "dos": [
+      "Do 保留白纸、粉笔绿身份与 teal 操作的局部角色关系。",
+      "Do 让日期、来源文字与具体事实一起出现，并保留全文入口。",
+      "Do 让手机先选择学生，再阅读详情，保持底部导航可达。",
+      "Do 明示旧摘要和旧规则的统计局限，以及保存、冲突、只读状态。"
+    ],
+    "northStar": "白纸成长档案（已选 C01 的局部实现）",
+    "overview": "本文件只描述 `app/designs/growth` 的隔离 P01，依据已选 C01、`tools/ui-preview/growth.html` 的方向合同和现有源码提取，不替代根目录 DESIGN.md，也不代表 D/R 获批。白纸承载事实，粉笔绿标识当前学生，teal 标识操作；窄目录与宽时间线是这一页的实际表达，而非全站通用模板。\n\n保留专业、清楚、不替老师给学生下结论的产品约束。用户确认风格后指出成绩、积分、作业指标不能代表常态，因此 P01 身份带已撤下整组指标。旧摘要仍以“已有摘要”入口保留，并警示缺少明确长期统计范围；旧状态筛选、低成绩/积分排序仍有局限说明。统计语义重设计尚未完成，不能把本次文档视为该问题已解决。",
+    "keyCharacteristics": [
+      "白色平面与细分隔线，不以卡片阴影分区。",
+      "粉笔绿身份带、克制的 teal 操作与浅蓝选中行。",
+      "日期、来源、正文和后续观察共同形成成长事实。",
+      "手机先目录后详情，保留工作台手机底部导航。"
+    ],
+    "rules": [],
+    "donts": [
+      "Don't 把已撤下的成绩、积分、作业指标重新放回身份带充当常态评价。",
+      "Don't 将本页的窄目录和事实时间线升级为全站通用页面模板。",
+      "Don't 把 C01 候选图中的数字、状态、人物插画或简化导航写成当前产品事实。",
+      "Don't 将此文档或素材存在等同于统计语义重设计、性能优化或 D/R 验收完成。\r"
+    ]
+  }
+}
