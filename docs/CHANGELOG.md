@@ -1,5 +1,7 @@
 # 变更日志
 
+照护C01候选/恢复器/弹窗审核兼容提交：cf1cd417d79e9e3da756df18f3805c06d792d90d。候选等待方向确认，不是产品完成提交。
+
 ## 2026-09-15：成长主页面范围认可，照护C01待方向确认
 
 用户同意弹窗与未覆盖内容后置补审并继续下一页。成长P01/4f7637c仅新增mainPageApproval，整页designApproval仍false；学生/作业/考勤原批准历史保留，四页均新增overlayReview待补审条件，不扩大为弹窗/完整内容批准。专项清单docs/page-designs/OVERLAY-FOLLOWUP-20260915.md，正式接入前补齐；指标语义延期仍开放。

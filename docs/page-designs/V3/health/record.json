@@ -134,10 +134,12 @@
       "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/152.0.0.0 Safari/537.36",
       "jsVersion": "15.2.124.21"
     },
-    "mode": "current source read-only synthetic; without shared shell"
+    "mode": "current source read-only synthetic; without shared shell",
+    "recoveryHarnessCommit": "cf1cd417d79e9e3da756df18f3805c06d792d90d"
   },
   "candidateChecks": {
     "path": "docs/page-designs/V3/health/checks-C01.json",
     "sha256": "B0750F66B097619232689AA2EC033CA97530B90D558E0DB90C38911A26B43732"
-  }
+  },
+  "candidateCommit": "cf1cd417d79e9e3da756df18f3805c06d792d90d"
 }
