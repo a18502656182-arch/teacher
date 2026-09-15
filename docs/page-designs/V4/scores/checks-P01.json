@@ -37,6 +37,20 @@
       "sha256": "D93B53582DF01120A961822BC0125E79BEF244788E6AAD2222480904B5AB900D",
       "exitCode": 0,
       "scope": "11 original operation tests; terminal result transcription, not a full rerun log"
+    },
+    {
+      "name": "ledger-bound",
+      "path": "docs/page-designs/V4/scores/tests/ledger-bound.log",
+      "sha256": "3E87581196E12150525C2CE97A6628CC74EFAB562B1D26B75639D0CB569EC762",
+      "exitCode": 0,
+      "scope": "Baseline contract audit"
+    },
+    {
+      "name": "v4-gate",
+      "path": "docs/page-designs/V4/scores/tests/v4-gate.log",
+      "sha256": "9D259A4C9F1A22AC6D95C0EAF5F97FCA99408BDDE5E4ED2397CD0CFB6C7135BB",
+      "exitCode": 1,
+      "scope": "Expected previous batch R and reflection not started; no approval bypass"
     }
   ],
   "interactions": {

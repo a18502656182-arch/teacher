@@ -40,7 +40,7 @@
     }
   ],
   "prototype": {
-    "commit": null,
+    "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3",
     "previewUrl": "http://127.0.0.1:4218/scores.html",
     "sourceFiles": [
       "app/designs/scores/ScoresDesign.tsx",
@@ -67,7 +67,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4218/scores.html?state=normal",
-        "commit": null
+        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
       },
       {
         "path": "docs/page-designs/V4/scores/screenshots/p01/1536-mobile-detail.png",
@@ -82,7 +82,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4218/scores.html?state=mobile-detail",
-        "commit": null
+        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
       },
       {
         "path": "docs/page-designs/V4/scores/screenshots/p01/1536-empty-class.png",
@@ -97,7 +97,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4218/scores.html?state=empty-class",
-        "commit": null
+        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
       },
       {
         "path": "docs/page-designs/V4/scores/screenshots/p01/1536-no-exams.png",
@@ -112,7 +112,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4218/scores.html?state=no-exams",
-        "commit": null
+        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
       },
       {
         "path": "docs/page-designs/V4/scores/screenshots/p01/1536-search-empty.png",
@@ -127,7 +127,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4218/scores.html?state=search-empty",
-        "commit": null
+        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
       },
       {
         "path": "docs/page-designs/V4/scores/screenshots/p01/1536-students-105.png",
@@ -142,7 +142,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4218/scores.html?state=students-105",
-        "commit": null
+        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
       },
       {
         "path": "docs/page-designs/V4/scores/screenshots/p01/1536-long-subjects.png",
@@ -157,7 +157,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4218/scores.html?state=long-subjects",
-        "commit": null
+        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
       },
       {
         "path": "docs/page-designs/V4/scores/screenshots/p01/1536-mixed-max.png",
@@ -172,7 +172,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4218/scores.html?state=mixed-max",
-        "commit": null
+        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
       },
       {
         "path": "docs/page-designs/V4/scores/screenshots/p01/1536-composer.png",
@@ -187,7 +187,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4218/scores.html?state=composer",
-        "commit": null
+        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
       },
       {
         "path": "docs/page-designs/V4/scores/screenshots/p01/1536-student-editor.png",
@@ -202,7 +202,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4218/scores.html?state=student-editor",
-        "commit": null
+        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
       },
       {
         "path": "docs/page-designs/V4/scores/screenshots/p01/1536-batch.png",
@@ -217,7 +217,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4218/scores.html?state=batch",
-        "commit": null
+        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
       },
       {
         "path": "docs/page-designs/V4/scores/screenshots/p01/1536-ranges.png",
@@ -232,7 +232,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4218/scores.html?state=ranges",
-        "commit": null
+        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
       },
       {
         "path": "docs/page-designs/V4/scores/screenshots/p01/1536-readonly.png",
@@ -247,7 +247,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4218/scores.html?state=readonly",
-        "commit": null
+        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
       },
       {
         "path": "docs/page-designs/V4/scores/screenshots/p01/1536-loading.png",
@@ -262,7 +262,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4218/scores.html?state=loading",
-        "commit": null
+        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
       },
       {
         "path": "docs/page-designs/V4/scores/screenshots/p01/1536-saving.png",
@@ -277,7 +277,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4218/scores.html?state=saving",
-        "commit": null
+        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
       },
       {
         "path": "docs/page-designs/V4/scores/screenshots/p01/1536-save-failure.png",
@@ -292,7 +292,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4218/scores.html?state=save-failure",
-        "commit": null
+        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
       },
       {
         "path": "docs/page-designs/V4/scores/screenshots/p01/1536-save-throw.png",
@@ -307,7 +307,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4218/scores.html?state=save-throw",
-        "commit": null
+        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
       },
       {
         "path": "docs/page-designs/V4/scores/screenshots/p01/1536-conflict-409.png",
@@ -322,7 +322,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4218/scores.html?state=conflict-409",
-        "commit": null
+        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
       },
       {
         "path": "docs/page-designs/V4/scores/screenshots/p01/1536-dirty-close.png",
@@ -337,7 +337,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4218/scores.html?state=dirty-close",
-        "commit": null
+        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
       },
       {
         "path": "docs/page-designs/V4/scores/screenshots/reviewer-fix/1536-trends.png",
@@ -352,7 +352,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4218/scores.html?state=trends",
-        "commit": null
+        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
       },
       {
         "path": "docs/page-designs/V4/scores/screenshots/reviewer-fix/1536-long-history.png",
@@ -367,7 +367,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4218/scores.html?state=long-history",
-        "commit": null
+        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
       },
       {
         "path": "docs/page-designs/V4/scores/screenshots/p01/1536-analysis.png",
@@ -382,7 +382,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4218/scores.html?state=analysis",
-        "commit": null
+        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
       },
       {
         "path": "docs/page-designs/V4/scores/screenshots/p01/1536-paper-review.png",
@@ -397,7 +397,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4218/scores.html?state=paper-review",
-        "commit": null
+        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
       },
       {
         "path": "docs/page-designs/V4/scores/screenshots/p01/1536-ai-failure.png",
@@ -412,7 +412,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4218/scores.html?state=ai-failure",
-        "commit": null
+        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
       },
       {
         "path": "docs/page-designs/V4/scores/screenshots/p01/1536-item-editor.png",
@@ -427,7 +427,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4218/scores.html?state=item-editor",
-        "commit": null
+        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
       },
       {
         "path": "docs/page-designs/V4/scores/screenshots/p01/1536-item-scores.png",
@@ -442,7 +442,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4218/scores.html?state=item-scores",
-        "commit": null
+        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
       },
       {
         "path": "docs/page-designs/V4/scores/screenshots/p01/390-normal.png",
@@ -457,7 +457,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4218/scores.html?state=normal",
-        "commit": null
+        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
       },
       {
         "path": "docs/page-designs/V4/scores/screenshots/p01/390-mobile-detail.png",
@@ -472,7 +472,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4218/scores.html?state=mobile-detail",
-        "commit": null
+        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
       },
       {
         "path": "docs/page-designs/V4/scores/screenshots/p01/390-empty-class.png",
@@ -487,7 +487,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4218/scores.html?state=empty-class",
-        "commit": null
+        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
       },
       {
         "path": "docs/page-designs/V4/scores/screenshots/p01/390-no-exams.png",
@@ -502,7 +502,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4218/scores.html?state=no-exams",
-        "commit": null
+        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
       },
       {
         "path": "docs/page-designs/V4/scores/screenshots/p01/390-search-empty.png",
@@ -517,7 +517,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4218/scores.html?state=search-empty",
-        "commit": null
+        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
       },
       {
         "path": "docs/page-designs/V4/scores/screenshots/p01/390-students-105.png",
@@ -532,7 +532,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4218/scores.html?state=students-105",
-        "commit": null
+        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
       },
       {
         "path": "docs/page-designs/V4/scores/screenshots/p01/390-long-subjects.png",
@@ -547,7 +547,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4218/scores.html?state=long-subjects",
-        "commit": null
+        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
       },
       {
         "path": "docs/page-designs/V4/scores/screenshots/p01/390-mixed-max.png",
@@ -562,7 +562,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4218/scores.html?state=mixed-max",
-        "commit": null
+        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
       },
       {
         "path": "docs/page-designs/V4/scores/screenshots/p01/390-composer.png",
@@ -577,7 +577,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4218/scores.html?state=composer",
-        "commit": null
+        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
       },
       {
         "path": "docs/page-designs/V4/scores/screenshots/p01/390-student-editor.png",
@@ -592,7 +592,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4218/scores.html?state=student-editor",
-        "commit": null
+        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
       },
       {
         "path": "docs/page-designs/V4/scores/screenshots/p01/390-batch.png",
@@ -607,7 +607,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4218/scores.html?state=batch",
-        "commit": null
+        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
       },
       {
         "path": "docs/page-designs/V4/scores/screenshots/p01/390-ranges.png",
@@ -622,7 +622,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4218/scores.html?state=ranges",
-        "commit": null
+        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
       },
       {
         "path": "docs/page-designs/V4/scores/screenshots/p01/390-readonly.png",
@@ -637,7 +637,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4218/scores.html?state=readonly",
-        "commit": null
+        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
       },
       {
         "path": "docs/page-designs/V4/scores/screenshots/p01/390-loading.png",
@@ -652,7 +652,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4218/scores.html?state=loading",
-        "commit": null
+        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
       },
       {
         "path": "docs/page-designs/V4/scores/screenshots/p01/390-saving.png",
@@ -667,7 +667,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4218/scores.html?state=saving",
-        "commit": null
+        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
       },
       {
         "path": "docs/page-designs/V4/scores/screenshots/p01/390-save-failure.png",
@@ -682,7 +682,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4218/scores.html?state=save-failure",
-        "commit": null
+        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
       },
       {
         "path": "docs/page-designs/V4/scores/screenshots/p01/390-save-throw.png",
@@ -697,7 +697,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4218/scores.html?state=save-throw",
-        "commit": null
+        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
       },
       {
         "path": "docs/page-designs/V4/scores/screenshots/p01/390-conflict-409.png",
@@ -712,7 +712,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4218/scores.html?state=conflict-409",
-        "commit": null
+        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
       },
       {
         "path": "docs/page-designs/V4/scores/screenshots/p01/390-dirty-close.png",
@@ -727,7 +727,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4218/scores.html?state=dirty-close",
-        "commit": null
+        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
       },
       {
         "path": "docs/page-designs/V4/scores/screenshots/reviewer-fix/390-trends.png",
@@ -742,7 +742,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4218/scores.html?state=trends",
-        "commit": null
+        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
       },
       {
         "path": "docs/page-designs/V4/scores/screenshots/reviewer-fix/390-long-history.png",
@@ -757,7 +757,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4218/scores.html?state=long-history",
-        "commit": null
+        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
       },
       {
         "path": "docs/page-designs/V4/scores/screenshots/p01/390-analysis.png",
@@ -772,7 +772,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4218/scores.html?state=analysis",
-        "commit": null
+        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
       },
       {
         "path": "docs/page-designs/V4/scores/screenshots/p01/390-paper-review.png",
@@ -787,7 +787,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4218/scores.html?state=paper-review",
-        "commit": null
+        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
       },
       {
         "path": "docs/page-designs/V4/scores/screenshots/p01/390-ai-failure.png",
@@ -802,7 +802,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4218/scores.html?state=ai-failure",
-        "commit": null
+        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
       },
       {
         "path": "docs/page-designs/V4/scores/screenshots/p01/390-item-editor.png",
@@ -817,7 +817,7 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4218/scores.html?state=item-editor",
-        "commit": null
+        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
       },
       {
         "path": "docs/page-designs/V4/scores/screenshots/p01/390-item-scores.png",
@@ -832,13 +832,52 @@
         "font": "Microsoft YaHei",
         "dpr": 1,
         "url": "http://127.0.0.1:4218/scores.html?state=item-scores",
-        "commit": null
+        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
       }
     ],
     "checks": {
       "path": "docs/page-designs/V4/scores/checks-P01.json",
-      "sha256": "7A47B25B6F25DCE492C6C4168D80F2D49EEEF21FA4F3DBF94ABE20A09306E4B9"
-    }
+      "sha256": "D71C9BB69FCF5A9D794A13AF1FCBEDF57B966DF9D0EBC5C444C10983999B672F",
+      "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
+    },
+    "sourceHashes": [
+      {
+        "path": "app/designs/scores/ScoresDesign.tsx",
+        "sha256": "A7A190702E187E036FB9C776267332171119792284A805C8A0CBEAFB3496B770"
+      },
+      {
+        "path": "app/designs/scores/ScoresDesign.module.css",
+        "sha256": "5AD0D334121F3B20551DB4A22D6A54F6DB8A02E1EB3C594BF012F554A85ECE90"
+      },
+      {
+        "path": "app/designs/scores/useScoresDesignController.ts",
+        "sha256": "834CDE89593D4A87CEB524B9C8629B3CE3C9EA88CF622B8EF26BE40E27B1C2D6"
+      },
+      {
+        "path": "app/designs/scores/ScoreTrendsDesign.tsx",
+        "sha256": "D3283C7968E9FB45516BE3E0AC48795B81C4B07C478BD78CB3F72F87876F01E0"
+      },
+      {
+        "path": "app/designs/scores/stationery-p01.png",
+        "sha256": "1ADDF8C35AD2D9DB2718E0AA8FAFEC0FE7B4CAFCFA58E0163CC6BEC89E6FB401"
+      },
+      {
+        "path": "tools/ui-preview/scores.tsx",
+        "sha256": "0680FA182D0E16C4038F3C6DECA832C45B40DAB8A395A09581098A1A11866EE1"
+      },
+      {
+        "path": "tools/ui-preview/scores-fixture.ts",
+        "sha256": "F0DE1BF2248406D8FE09E6218C27354A0AB18FFFA22B6D457273A06B47256B70"
+      },
+      {
+        "path": "tools/ui-preview/scores.html",
+        "sha256": "82E99EF4C5538EF3FA6C94D8B1A32BBAB555F28878F65B5CE9439366501D4FA5"
+      },
+      {
+        "path": "tools/ui-preview/scores.vite.config.ts",
+        "sha256": "82CC148C3FA28713582553A536202B24227226E8AEBB93059923AC7E417CF643"
+      }
+    ]
   },
   "designApproval": {
     "approved": false,
