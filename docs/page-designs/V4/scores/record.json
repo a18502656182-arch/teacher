@@ -149,7 +149,7 @@
   ],
   "prototype": {
     "version": "P02.3",
-    "commit": null,
+    "commit": "32dda5f7fe68cfb3e407ac82f9e0db3f3a7bc0de",
     "previewUrl": "http://127.0.0.1:4218/scores.html",
     "sourceFiles": [
       "app/designs/scores/ScoresDesign.tsx",
@@ -676,8 +676,8 @@
     ],
     "checks": {
       "path": "docs/page-designs/V4/scores/checks-P023.json",
-      "sha256": "19020690326246CC97B7B4D897AA9B999651CAC1E8045A925DB56ED04579FB1B",
-      "commit": null
+      "sha256": "BF943620554FA7D5B353E983EA79566791B10732A371C6E8CB03BB9FDF8ADCDB",
+      "commit": "32dda5f7fe68cfb3e407ac82f9e0db3f3a7bc0de"
     },
     "additionalEvidence": [
       {
@@ -698,8 +698,10 @@
     ],
     "feedbackEvidence": {
       "path": "docs/page-designs/V4/scores/screenshots/p02-feedback/feedback-checks.json",
-      "sha256": "13A9C8DF48715F66AA363CC26F430EB5503A84A60D642694A77F2D8C6FEAC440"
-    }
+      "sha256": "13A9C8DF48715F66AA363CC26F430EB5503A84A60D642694A77F2D8C6FEAC440",
+      "commit": "32dda5f7fe68cfb3e407ac82f9e0db3f3a7bc0de"
+    },
+    "evidenceNote": "Main-state screenshots retain their original P02/P02.1 source commits; feedback-specific evidence is bound to P02.3. No full D/R approval."
   },
   "designApproval": {
     "approved": false,

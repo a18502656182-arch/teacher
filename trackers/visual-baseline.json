@@ -650,7 +650,7 @@
       "currentEvidence": [],
       "comparisons": [],
       "recordPath": "docs/page-designs/V4/scores/record.json",
-      "recordSha256": "F66501EB40022798BC309FB9D39234CC0AAA21102E33C780B12B5E7D41E676B5"
+      "recordSha256": "A6751210F9D666D281F6D7A472C4EAB832A60FB40651939711F9B4F2200FC78F"
     },
     "reflection": {
       "label": "考试反思",
@@ -663,7 +663,7 @@
       "currentEvidence": [],
       "comparisons": [],
       "recordPath": "docs/page-designs/V4/reflection/record.json",
-      "recordSha256": "F67890ABA9EFEA87A36D456DCBDE1E57FB30867D19AA72E15C7A60D9A8984E6F"
+      "recordSha256": "6AA1265FD20A336D28B648B9F2E68FDB001C33580572CEA33C33A911E2AFBCF7"
     },
     "schedule": {
       "label": "课程日程",
