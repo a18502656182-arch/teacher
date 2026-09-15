@@ -141,7 +141,8 @@
       "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/152.0.0.0 Safari/537.36",
       "jsVersion": "15.2.124.21"
     },
-    "mode": "Current local Records / MobileSecondaryPage in-memory export; read-only synthetic data, without shared shell; no source export mutation"
+    "mode": "Current local Records / MobileSecondaryPage in-memory export; read-only synthetic data, without shared shell; no source export mutation",
+    "recoveryHarnessCommit": "0b5483e1c3bff88ecd1810e09d6cb6cc7b429779"
   },
   "candidateChecks": {
     "path": "docs/page-designs/V4/records/checks-C01.json",
@@ -153,5 +154,6 @@
       "date": "2026-09-15",
       "event": "Health main-page accepted with overlays deferred; user authorized next independent page. Records source/function audit,2 actual screenshots and2 ImageGen candidates prepared."
     }
-  ]
+  ],
+  "candidateCommit": "0b5483e1c3bff88ecd1810e09d6cb6cc7b429779"
 }
