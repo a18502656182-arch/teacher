@@ -1,0 +1,45 @@
+✔ requires source-backed surface inventory (0.8293ms)
+✔ empty viewport requirements cannot bypass coverage (7.5551ms)
+✔ duplicate surface ids cannot bypass reuse checks (5.5541ms)
+✔ a desktop image cannot cover missing mobile surface (1.8938ms)
+✔ different workspaces cannot silently reuse one candidate (2.3547ms)
+✔ stale image or source invalidates coverage (3.0609ms)
+✔ candidate existence does not mean approved direction (2.8181ms)
+✔ runnable evidence cannot be replaced by candidate approval (1.4886ms)
+✔ explicit complete mapping passes mechanical checks only (10.472ms)
+✔ 反思列表按班级、学生和考试共同隔离，并兼容可唯一归属的旧记录 (1.1979ms)
+✔ 保存草稿会清理文本并补齐班级，但不生成沟通记录或移除跟进 (0.6881ms)
+✔ 完成反思生成可追溯的内部记录，并只移除当前学生的当前考试跟进 (0.2981ms)
+✔ 重复完成同一反思会更新一条留痕而不重复追加 (0.2123ms)
+✔ 反思保存拒绝空问题、他班学生、他班考试和跨班编辑目标 (0.1671ms)
+✔ 已保存反思不能改绑其他学生或考试 (0.1601ms)
+✔ 旧无考试反思首次编辑可补当前考试，之后保持关联稳定 (0.1825ms)
+✔ 反思日期使用本机年月日 (0.9975ms)
+✔ all three D approvals allow integration without any supervision report (109.7906ms)
+✔ deferred overlays allow design review but block integration until version-bound human supplement (394.8756ms)
+✔ homepage approval cannot unlock V2; concept confirmation cannot replace runnable D approval (65.9673ms)
+✔ two of three D approvals do not permit any page to integrate (102.5996ms)
+✔ modified screenshot bytes invalidate a previously approved design hash (211.1041ms)
+✔ design approval must bind the exact complete set of screenshot hashes (108.0469ms)
+✔ product changes invalidate R, including uncommitted changes and shared assets (223.0977ms)
+✔ page record hash drift and unsafe paths fail closed (245.0423ms)
+✔ no generic gate command or result approval for another design can pass (193.2258ms)
+✔ extensionless trigger matches actual theme and primitive files (0.2043ms)
+✔ ready evidence requires distinct desktop and mobile records bound to a product commit (754.4606ms)
+✔ path traversal is rejected even when evidence names the persistent directory (728.1553ms)
+✔ one file cannot impersonate two evidence slots (678.4616ms)
+✔ two desktop records cannot satisfy the mobile requirement (678.6406ms)
+✔ equivalent normalized paths cannot impersonate different evidence (2087.2457ms)
+✔ committed assets and visual configuration invalidate evidence and prior approvals (5449.268ms)
+✔ page approval cannot exist without approval on its gate (723.7196ms)
+✔ gate command keeps supervision PASS separate from visual readiness (683.3268ms)
+✔ shared visual changes are detected after an approved commit (981.2337ms)
+✔ a page-local change invalidates its own evidence but not an approved sibling page (1298.6785ms)
+ℹ tests 37
+ℹ suites 0
+ℹ pass 37
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 15817.032

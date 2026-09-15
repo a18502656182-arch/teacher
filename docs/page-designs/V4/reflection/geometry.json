@@ -414,5 +414,18 @@
     "mobile": 900,
     "compactDesktop": 1200
   },
-  "pending": "User approval; values measured current local preview, no pixel-perfect equivalence claim"
+  "pending": "User approval; values measured current local preview, no pixel-perfect equivalence claim",
+  "p02": {
+    "library": "full width record grid; desktop 6 rows / mobile 3 records per page, counts actual",
+    "detail": "continuous read sections; mobile actions fixed above existing shell nav",
+    "evidence": "docs/page-designs/V4/reflection/screenshots/p02-proof-audit/interactions.json",
+    "viewportChecks": [
+      "1536x1024",
+      "390x844",
+      "360x844",
+      "920x1024",
+      "1057x1024"
+    ],
+    "limits": "synthetic Chrome viewport; real keyboard and text zoom not fully checked"
+  }
 }

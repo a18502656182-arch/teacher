@@ -1,7 +1,7 @@
 {
   "pageId": "reflection",
   "batch": "V4",
-  "phase": "needs-design-changes",
+  "phase": "awaiting-design-approval",
   "brief": "docs/page-designs/V4/reflection/brief.md",
   "functionMap": "docs/page-designs/V4/reflection/function-map.md",
   "geometry": "docs/page-designs/V4/reflection/geometry.json",
@@ -68,7 +68,7 @@
       "version": "C02",
       "kind": "desktop",
       "stateId": "saved-library",
-      "approval": false,
+      "approval": true,
       "pixelSize": [
         1536,
         1024
@@ -77,7 +77,9 @@
       "prompt": "docs/page-designs/V4/reflection/candidates/prompts-c02.md",
       "original": "E:\\CodexHome\\generated_images\\01a09fb4-dfcf-74e0-a5c7-ea1b5e94cf08\\exec-59c1d274-cd40-41a2-bc03-42b27b059d88.png",
       "purpose": "Independent ImageGen candidate, not runnable or integrated",
-      "commit": "13b1eb66cdde0c1858df6c600a8808349d925d84"
+      "commit": "13b1eb66cdde0c1858df6c600a8808349d925d84",
+      "approvalSource": "本任务用户：可以 开始做网页（四张C02记录库/阅读详情桌面及手机候选展示后）",
+      "approvedAt": "2026-09-15"
     },
     {
       "path": "docs/page-designs/V4/reflection/candidates/saved-library-mobile-c02.png",
@@ -85,7 +87,7 @@
       "version": "C02",
       "kind": "mobile",
       "stateId": "saved-library",
-      "approval": false,
+      "approval": true,
       "pixelSize": [
         853,
         1844
@@ -94,7 +96,9 @@
       "prompt": "docs/page-designs/V4/reflection/candidates/prompts-c02.md",
       "original": "E:\\CodexHome\\generated_images\\01a09fb4-dfcf-74e0-a5c7-ea1b5e94cf08\\exec-1dcd6857-aec7-4dab-8e1d-54b53661b4e0.png",
       "purpose": "Independent ImageGen candidate, not runnable or integrated",
-      "commit": "13b1eb66cdde0c1858df6c600a8808349d925d84"
+      "commit": "13b1eb66cdde0c1858df6c600a8808349d925d84",
+      "approvalSource": "本任务用户：可以 开始做网页（四张C02记录库/阅读详情桌面及手机候选展示后）",
+      "approvedAt": "2026-09-15"
     },
     {
       "path": "docs/page-designs/V4/reflection/candidates/saved-detail-desktop-c02.png",
@@ -102,7 +106,7 @@
       "version": "C02",
       "kind": "desktop",
       "stateId": "saved-detail",
-      "approval": false,
+      "approval": true,
       "pixelSize": [
         1536,
         1024
@@ -111,7 +115,9 @@
       "prompt": "docs/page-designs/V4/reflection/candidates/prompts-c02.md",
       "original": "E:\\CodexHome\\generated_images\\01a09fb4-dfcf-74e0-a5c7-ea1b5e94cf08\\exec-d73e0811-74eb-427a-9a9a-279dfc39e621.png",
       "purpose": "Independent ImageGen candidate, not runnable or integrated",
-      "commit": "13b1eb66cdde0c1858df6c600a8808349d925d84"
+      "commit": "13b1eb66cdde0c1858df6c600a8808349d925d84",
+      "approvalSource": "本任务用户：可以 开始做网页（四张C02记录库/阅读详情桌面及手机候选展示后）",
+      "approvedAt": "2026-09-15"
     },
     {
       "path": "docs/page-designs/V4/reflection/candidates/saved-detail-mobile-c02.png",
@@ -119,7 +125,7 @@
       "version": "C02",
       "kind": "mobile",
       "stateId": "saved-detail",
-      "approval": false,
+      "approval": true,
       "pixelSize": [
         853,
         1844
@@ -128,13 +134,15 @@
       "prompt": "docs/page-designs/V4/reflection/candidates/prompts-c02.md",
       "original": "E:\\CodexHome\\generated_images\\01a09fb4-dfcf-74e0-a5c7-ea1b5e94cf08\\exec-cd1090fc-89f8-44f8-9ecc-b742bc4fd791.png",
       "purpose": "Independent ImageGen candidate, not runnable or integrated",
-      "commit": "13b1eb66cdde0c1858df6c600a8808349d925d84"
+      "commit": "13b1eb66cdde0c1858df6c600a8808349d925d84",
+      "approvalSource": "本任务用户：可以 开始做网页（四张C02记录库/阅读详情桌面及手机候选展示后）",
+      "approvedAt": "2026-09-15"
     }
   ],
   "prototype": {
-    "version": "P01",
-    "commit": "c00ed534e22ca17ae47b094ce085c53a01bc3de6",
-    "previewUrl": "http://127.0.0.1:4220/reflection.html",
+    "version": "P02",
+    "commit": null,
+    "previewUrl": "http://127.0.0.1:4220/reflection.html?state=saved-library",
     "sourceFiles": [
       "app/designs/reflection/ReflectionDesign.tsx",
       "app/designs/reflection/ReflectionDesign.module.css",
@@ -143,20 +151,21 @@
       "tools/ui-preview/reflection.tsx",
       "tools/ui-preview/reflection-fixture.ts",
       "tools/ui-preview/reflection.html",
-      "tools/ui-preview/reflection.vite.config.ts"
+      "tools/ui-preview/reflection.vite.config.ts",
+      "app/designs/reflection/SavedReflectionViews.tsx"
     ],
     "sourceHashes": [
       {
         "path": "app/designs/reflection/ReflectionDesign.tsx",
-        "sha256": "68E5F69E330E02063FCA63B3932DF863AAA1B3DEFA7346600104CBBADB2F9A6F"
+        "sha256": "975A560C4FBB2212D3F91907BDBA07631DF24306BE11225FFA36B237C490BF11"
       },
       {
         "path": "app/designs/reflection/ReflectionDesign.module.css",
-        "sha256": "B592138A82AE8CF6F2CC18D87D65D4A038CE209D578E3355941D4639B1A3AD73"
+        "sha256": "9254D90840CE1DB59B46624495956C0AAC23785D96116EE59CC432BA8EEE8A58"
       },
       {
         "path": "app/designs/reflection/useReflectionDesignController.ts",
-        "sha256": "FED9176F8990507225DE12F0F09D12E98E3489534F524ED4250AB5388FFA5D95"
+        "sha256": "0C029CE8481583D13DBFD7E6E727A1D5FBD964EB10C174AFC50677B7E3276A8A"
       },
       {
         "path": "app/designs/reflection/notebook-p01.png",
@@ -164,95 +173,33 @@
       },
       {
         "path": "tools/ui-preview/reflection.tsx",
-        "sha256": "AD891AC2DBDAA4019B06613769B1E8DC40E65088DF52C7C5D9466AF96FC2B97A"
+        "sha256": "7839A74B2C4247F61463646833FD54502A37C842164DDFDDBB995D8557D637D5"
       },
       {
         "path": "tools/ui-preview/reflection-fixture.ts",
-        "sha256": "19A86736C408D121B71C3D92AE5ED40D9909DAFA702BB48FC44B18E968AB3139"
+        "sha256": "5CEC773B3D07B9A40AEDD675953843AD332DB5A3D58D733EA2A27644BAA9F6E1"
       },
       {
         "path": "tools/ui-preview/reflection.html",
-        "sha256": "157A9F0261304BA294983C7A38881D3671B9BDE8ECE8598946BF8E6BC8AEAA72"
+        "sha256": "2642E862302688B3D5D38B80AD120411FF2315F4D8345002616BF2C54372F14B"
       },
       {
         "path": "tools/ui-preview/reflection.vite.config.ts",
         "sha256": "3F93157981372AA479678442AB4F970AE5CA966A47CDE4C742A72CF90320D439"
+      },
+      {
+        "path": "app/designs/reflection/SavedReflectionViews.tsx",
+        "sha256": "69EA020204C9CE6B4D51845FF7E045D386D23517E8D36EC372546B3DC2158672"
       }
     ],
     "evidence": [
       {
-        "path": "docs/page-designs/V4/reflection/screenshots/p01-current/1536-normal.png",
-        "sha256": "32D9306DDE3C6852DEED0B8298AFA4E63C8E3DF8FB472A0A7B5B4B2DCDAF16E4",
-        "viewport": "1536x1024",
-        "stateId": "normal",
-        "url": "http://127.0.0.1:4220/reflection.html?state=normal",
-        "fixtureSha256": "9608650C766AB8F76CABC7F85D204072507C4F4073D533D9151DADC1FEE9F29E",
-        "info": {
-          "ready": true,
-          "scrollWidth": 1521,
-          "font": "\"Microsoft YaHei\", system-ui, sans-serif",
-          "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具",
-          "state": {
-            "busy": false,
-            "dirty": false,
-            "pending": false,
-            "sync": "normal",
-            "editor": false,
-            "selected": "hw-student-1"
-          },
-          "squeezed": [],
-          "images": [
-            1536
-          ]
-        },
-        "kind": "desktop",
-        "fixtureId": "reflection-normal",
-        "capturedAt": "2026-09-15T09:26:29.010Z",
-        "browser": "Chrome/152.0.7977.82",
-        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
-        "dpr": 1,
-        "commit": "c00ed534e22ca17ae47b094ce085c53a01bc3de6"
-      },
-      {
-        "path": "docs/page-designs/V4/reflection/screenshots/p01-current/1536-mobile-editor.png",
-        "sha256": "32D9306DDE3C6852DEED0B8298AFA4E63C8E3DF8FB472A0A7B5B4B2DCDAF16E4",
-        "viewport": "1536x1024",
-        "stateId": "mobile-editor",
-        "url": "http://127.0.0.1:4220/reflection.html?state=mobile-editor",
-        "fixtureSha256": "9608650C766AB8F76CABC7F85D204072507C4F4073D533D9151DADC1FEE9F29E",
-        "info": {
-          "ready": true,
-          "scrollWidth": 1521,
-          "font": "\"Microsoft YaHei\", system-ui, sans-serif",
-          "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具",
-          "state": {
-            "busy": false,
-            "dirty": false,
-            "pending": false,
-            "sync": "normal",
-            "editor": true,
-            "selected": "hw-student-1"
-          },
-          "squeezed": [],
-          "images": [
-            1536
-          ]
-        },
-        "kind": "desktop",
-        "fixtureId": "reflection-mobile-editor",
-        "capturedAt": "2026-09-15T09:26:29.010Z",
-        "browser": "Chrome/152.0.7977.82",
-        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
-        "dpr": 1,
-        "commit": "c00ed534e22ca17ae47b094ce085c53a01bc3de6"
-      },
-      {
-        "path": "docs/page-designs/V4/reflection/screenshots/p01-current/1536-saved-library.png",
-        "sha256": "6CA66E65388DB36C3F054C9F3C97C789A05B9BBF4C5F834CF59C24EB14F2F96E",
+        "path": "docs/page-designs/V4/reflection/screenshots/p02-final/1536-saved-library.png",
+        "sha256": "CBC19C94F1C3E7F2C5F67344D5053B4E605CB7FA77125765A7BE721EF643602D",
         "viewport": "1536x1024",
         "stateId": "saved-library",
         "url": "http://127.0.0.1:4220/reflection.html?state=saved-library",
-        "fixtureSha256": "9608650C766AB8F76CABC7F85D204072507C4F4073D533D9151DADC1FEE9F29E",
+        "fixtureSha256": "88BDAC6595CB7701D144E28BCB5F7AB2877F11FADD673A83505F0B955C19182C",
         "info": {
           "ready": true,
           "scrollWidth": 1521,
@@ -273,217 +220,19 @@
         },
         "kind": "desktop",
         "fixtureId": "reflection-saved-library",
-        "capturedAt": "2026-09-15T09:26:29.010Z",
+        "capturedAt": "2026-09-15T11:10:42.999Z",
         "browser": "Chrome/152.0.7977.82",
         "font": "\"Microsoft YaHei\", system-ui, sans-serif",
         "dpr": 1,
-        "commit": "c00ed534e22ca17ae47b094ce085c53a01bc3de6"
+        "commit": null
       },
       {
-        "path": "docs/page-designs/V4/reflection/screenshots/p01-current/1536-legacy-library.png",
-        "sha256": "C8F383D6FADE8C741BD75E7D7B40BA789BD2D92E6ED50C640ED4682ADD861008",
+        "path": "docs/page-designs/V4/reflection/screenshots/p02-final/1536-saved-detail.png",
+        "sha256": "862C76FEE81A72E9495B84204F61AB02EBC1B5111A65A6CFC775B0D456F4D317",
         "viewport": "1536x1024",
-        "stateId": "legacy-library",
-        "url": "http://127.0.0.1:4220/reflection.html?state=legacy-library",
-        "fixtureSha256": "FED317CABEBD49B2E642B7C232D2464389EEC418F9648C9A1D39891C283D771C",
-        "info": {
-          "ready": true,
-          "scrollWidth": 1521,
-          "font": "\"Microsoft YaHei\", system-ui, sans-serif",
-          "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具",
-          "state": {
-            "busy": false,
-            "dirty": false,
-            "pending": false,
-            "sync": "normal",
-            "editor": false,
-            "selected": "hw-student-1"
-          },
-          "squeezed": [],
-          "images": [
-            1536
-          ]
-        },
-        "kind": "desktop",
-        "fixtureId": "reflection-legacy-library",
-        "capturedAt": "2026-09-15T09:26:29.010Z",
-        "browser": "Chrome/152.0.7977.82",
-        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
-        "dpr": 1,
-        "commit": "c00ed534e22ca17ae47b094ce085c53a01bc3de6"
-      },
-      {
-        "path": "docs/page-designs/V4/reflection/screenshots/p01-current/1536-empty-class.png",
-        "sha256": "0023F888F0FEFBC52F25642109809B6F4EF7D84792A173466DB27031F0F0013D",
-        "viewport": "1536x1024",
-        "stateId": "empty-class",
-        "url": "http://127.0.0.1:4220/reflection.html?state=empty-class",
-        "fixtureSha256": "E32E13EA42355A4DD451A1EFBF4830AB623FB5DFBB69E5A26E39CB6FCE89A2AB",
-        "info": {
-          "ready": true,
-          "scrollWidth": 1536,
-          "font": "\"Microsoft YaHei\", system-ui, sans-serif",
-          "body": "班主任工作台\n当前班级\n三年级2班（0人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具\n",
-          "state": {
-            "busy": false,
-            "dirty": false,
-            "pending": false,
-            "sync": "normal",
-            "editor": false,
-            "selected": ""
-          },
-          "squeezed": [],
-          "images": [
-            1536
-          ]
-        },
-        "kind": "desktop",
-        "fixtureId": "reflection-empty-class",
-        "capturedAt": "2026-09-15T09:26:29.010Z",
-        "browser": "Chrome/152.0.7977.82",
-        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
-        "dpr": 1,
-        "commit": "c00ed534e22ca17ae47b094ce085c53a01bc3de6"
-      },
-      {
-        "path": "docs/page-designs/V4/reflection/screenshots/p01-current/1536-no-exams.png",
-        "sha256": "B2306C8A0EF4B274345501FAD33A0F65FF5AFEABD4BAF8B348B4467B42ED5157",
-        "viewport": "1536x1024",
-        "stateId": "no-exams",
-        "url": "http://127.0.0.1:4220/reflection.html?state=no-exams",
-        "fixtureSha256": "956C74075F057ADAA781902940FF762A348DB983F232B8D79B8A648BB173A39A",
-        "info": {
-          "ready": true,
-          "scrollWidth": 1536,
-          "font": "\"Microsoft YaHei\", system-ui, sans-serif",
-          "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具",
-          "state": {
-            "busy": false,
-            "dirty": false,
-            "pending": false,
-            "sync": "normal",
-            "editor": false,
-            "selected": "hw-student-1"
-          },
-          "squeezed": [],
-          "images": [
-            1536
-          ]
-        },
-        "kind": "desktop",
-        "fixtureId": "reflection-no-exams",
-        "capturedAt": "2026-09-15T09:26:29.010Z",
-        "browser": "Chrome/152.0.7977.82",
-        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
-        "dpr": 1,
-        "commit": "c00ed534e22ca17ae47b094ce085c53a01bc3de6"
-      },
-      {
-        "path": "docs/page-designs/V4/reflection/screenshots/p01-current/1536-search-empty.png",
-        "sha256": "74B38D3264BB56C3A59CCECC25B7F8F69D172BBF1EC507B89B0886B73E930587",
-        "viewport": "1536x1024",
-        "stateId": "search-empty",
-        "url": "http://127.0.0.1:4220/reflection.html?state=search-empty",
-        "fixtureSha256": "9608650C766AB8F76CABC7F85D204072507C4F4073D533D9151DADC1FEE9F29E",
-        "info": {
-          "ready": true,
-          "scrollWidth": 1536,
-          "font": "\"Microsoft YaHei\", system-ui, sans-serif",
-          "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具",
-          "state": {
-            "busy": false,
-            "dirty": false,
-            "pending": false,
-            "sync": "normal",
-            "editor": false,
-            "selected": "hw-student-1"
-          },
-          "squeezed": [],
-          "images": [
-            1536
-          ]
-        },
-        "kind": "desktop",
-        "fixtureId": "reflection-search-empty",
-        "capturedAt": "2026-09-15T09:26:29.010Z",
-        "browser": "Chrome/152.0.7977.82",
-        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
-        "dpr": 1,
-        "commit": "c00ed534e22ca17ae47b094ce085c53a01bc3de6"
-      },
-      {
-        "path": "docs/page-designs/V4/reflection/screenshots/p01-current/1536-students-105.png",
-        "sha256": "C8EAB7868CBDC0B07AFF43375B9FCCAF7B50EA5A340447432C3F81C03E5A6C38",
-        "viewport": "1536x1024",
-        "stateId": "students-105",
-        "url": "http://127.0.0.1:4220/reflection.html?state=students-105",
-        "fixtureSha256": "FCE691113DFFA45AF71C5B6241B0544AD360407075E796930077D018804A52FA",
-        "info": {
-          "ready": true,
-          "scrollWidth": 1521,
-          "font": "\"Microsoft YaHei\", system-ui, sans-serif",
-          "body": "班主任工作台\n当前班级\n三年级2班（105人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工",
-          "state": {
-            "busy": false,
-            "dirty": false,
-            "pending": false,
-            "sync": "normal",
-            "editor": false,
-            "selected": "hw-student-1"
-          },
-          "squeezed": [],
-          "images": [
-            1536
-          ]
-        },
-        "kind": "desktop",
-        "fixtureId": "reflection-students-105",
-        "capturedAt": "2026-09-15T09:26:29.010Z",
-        "browser": "Chrome/152.0.7977.82",
-        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
-        "dpr": 1,
-        "commit": "c00ed534e22ca17ae47b094ce085c53a01bc3de6"
-      },
-      {
-        "path": "docs/page-designs/V4/reflection/screenshots/p01-current/1536-readonly.png",
-        "sha256": "04E76EDAF14AE75AED084861156EE9D0C82587F0FC4D23203BA2920BAC3C5C9F",
-        "viewport": "1536x1024",
-        "stateId": "readonly",
-        "url": "http://127.0.0.1:4220/reflection.html?state=readonly",
-        "fixtureSha256": "9608650C766AB8F76CABC7F85D204072507C4F4073D533D9151DADC1FEE9F29E",
-        "info": {
-          "ready": true,
-          "scrollWidth": 1521,
-          "font": "\"Microsoft YaHei\", system-ui, sans-serif",
-          "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n只读\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具\n",
-          "state": {
-            "busy": false,
-            "dirty": false,
-            "pending": false,
-            "sync": "normal",
-            "editor": true,
-            "selected": "hw-student-1"
-          },
-          "squeezed": [],
-          "images": [
-            1536
-          ]
-        },
-        "kind": "desktop",
-        "fixtureId": "reflection-readonly",
-        "capturedAt": "2026-09-15T09:26:29.010Z",
-        "browser": "Chrome/152.0.7977.82",
-        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
-        "dpr": 1,
-        "commit": "c00ed534e22ca17ae47b094ce085c53a01bc3de6"
-      },
-      {
-        "path": "docs/page-designs/V4/reflection/screenshots/p01-current/1536-loading.png",
-        "sha256": "49C5086D902A12E600F676A7902E56B3B9EEFB308060672AF04DB2982E792156",
-        "viewport": "1536x1024",
-        "stateId": "loading",
-        "url": "http://127.0.0.1:4220/reflection.html?state=loading",
-        "fixtureSha256": "9608650C766AB8F76CABC7F85D204072507C4F4073D533D9151DADC1FEE9F29E",
+        "stateId": "saved-detail",
+        "url": "http://127.0.0.1:4220/reflection.html?state=saved-detail",
+        "fixtureSha256": "88BDAC6595CB7701D144E28BCB5F7AB2877F11FADD673A83505F0B955C19182C",
         "info": {
           "ready": true,
           "scrollWidth": 1536,
@@ -501,163 +250,31 @@
           "images": []
         },
         "kind": "desktop",
-        "fixtureId": "reflection-loading",
-        "capturedAt": "2026-09-15T09:26:29.010Z",
+        "fixtureId": "reflection-saved-detail",
+        "capturedAt": "2026-09-15T11:10:42.999Z",
         "browser": "Chrome/152.0.7977.82",
         "font": "\"Microsoft YaHei\", system-ui, sans-serif",
         "dpr": 1,
-        "commit": "c00ed534e22ca17ae47b094ce085c53a01bc3de6"
+        "commit": null
       },
       {
-        "path": "docs/page-designs/V4/reflection/screenshots/p01-current/1536-saving.png",
-        "sha256": "F02FEECA8908C1D47B9FE235E61DB939AD0EC1AFDE2BD89648C5D3EDFAD90642",
+        "path": "docs/page-designs/V4/reflection/screenshots/p02-final/1536-saved-empty.png",
+        "sha256": "3FFE012CEB34498E0A25F87907B08C0573F6A3978FA62A961FEDF9BDD5B937C6",
         "viewport": "1536x1024",
-        "stateId": "saving",
-        "url": "http://127.0.0.1:4220/reflection.html?state=saving",
-        "fixtureSha256": "9608650C766AB8F76CABC7F85D204072507C4F4073D533D9151DADC1FEE9F29E",
+        "stateId": "saved-empty",
+        "url": "http://127.0.0.1:4220/reflection.html?state=saved-empty",
+        "fixtureSha256": "8307929C9CA1626E22E58AE1C683187EC666D6B15BA14142268271590F138C48",
         "info": {
           "ready": true,
-          "scrollWidth": 1521,
+          "scrollWidth": 1536,
           "font": "\"Microsoft YaHei\", system-ui, sans-serif",
-          "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n正在保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工",
-          "state": {
-            "busy": true,
-            "dirty": true,
-            "pending": true,
-            "sync": "saving",
-            "editor": true,
-            "selected": "hw-student-1"
-          },
-          "squeezed": [],
-          "images": [
-            1536
-          ]
-        },
-        "kind": "desktop",
-        "fixtureId": "reflection-saving",
-        "capturedAt": "2026-09-15T09:26:29.010Z",
-        "browser": "Chrome/152.0.7977.82",
-        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
-        "dpr": 1,
-        "commit": "c00ed534e22ca17ae47b094ce085c53a01bc3de6"
-      },
-      {
-        "path": "docs/page-designs/V4/reflection/screenshots/p01-current/1536-save-failure.png",
-        "sha256": "DABCFEE9869B8B1EACCBA3A115D9981C07B937A10B8B4409767E314ADE6DC069",
-        "viewport": "1536x1024",
-        "stateId": "save-failure",
-        "url": "http://127.0.0.1:4220/reflection.html?state=save-failure",
-        "fixtureSha256": "9608650C766AB8F76CABC7F85D204072507C4F4073D533D9151DADC1FEE9F29E",
-        "info": {
-          "ready": true,
-          "scrollWidth": 1521,
-          "font": "\"Microsoft YaHei\", system-ui, sans-serif",
-          "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n保存失败\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工",
+          "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具",
           "state": {
             "busy": false,
-            "dirty": true,
-            "pending": true,
-            "sync": "save-failure",
-            "editor": true,
-            "selected": "hw-student-1"
-          },
-          "squeezed": [],
-          "images": [
-            1536
-          ]
-        },
-        "kind": "desktop",
-        "fixtureId": "reflection-save-failure",
-        "capturedAt": "2026-09-15T09:26:29.010Z",
-        "browser": "Chrome/152.0.7977.82",
-        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
-        "dpr": 1,
-        "commit": "c00ed534e22ca17ae47b094ce085c53a01bc3de6"
-      },
-      {
-        "path": "docs/page-designs/V4/reflection/screenshots/p01-current/1536-save-throw.png",
-        "sha256": "A44B42C127FAB74AAA99BCB4A75124E4CC93D2867847BF9C50B56B9B0150C493",
-        "viewport": "1536x1024",
-        "stateId": "save-throw",
-        "url": "http://127.0.0.1:4220/reflection.html?state=save-throw",
-        "fixtureSha256": "9608650C766AB8F76CABC7F85D204072507C4F4073D533D9151DADC1FEE9F29E",
-        "info": {
-          "ready": true,
-          "scrollWidth": 1521,
-          "font": "\"Microsoft YaHei\", system-ui, sans-serif",
-          "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n保存失败\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工",
-          "state": {
-            "busy": false,
-            "dirty": true,
-            "pending": true,
-            "sync": "save-throw",
-            "editor": true,
-            "selected": "hw-student-1"
-          },
-          "squeezed": [],
-          "images": [
-            1536
-          ]
-        },
-        "kind": "desktop",
-        "fixtureId": "reflection-save-throw",
-        "capturedAt": "2026-09-15T09:26:29.010Z",
-        "browser": "Chrome/152.0.7977.82",
-        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
-        "dpr": 1,
-        "commit": "c00ed534e22ca17ae47b094ce085c53a01bc3de6"
-      },
-      {
-        "path": "docs/page-designs/V4/reflection/screenshots/p01-current/1536-conflict-409.png",
-        "sha256": "F55C8BA308ABD670C6978970638DBE150B49102E466068D72CEDBF287FFE9DA8",
-        "viewport": "1536x1024",
-        "stateId": "conflict-409",
-        "url": "http://127.0.0.1:4220/reflection.html?state=conflict-409",
-        "fixtureSha256": "9608650C766AB8F76CABC7F85D204072507C4F4073D533D9151DADC1FEE9F29E",
-        "info": {
-          "ready": true,
-          "scrollWidth": 1521,
-          "font": "\"Microsoft YaHei\", system-ui, sans-serif",
-          "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n保存失败\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工",
-          "state": {
-            "busy": false,
-            "dirty": true,
-            "pending": true,
-            "sync": "conflict-409",
-            "editor": true,
-            "selected": "hw-student-1"
-          },
-          "squeezed": [],
-          "images": [
-            1536
-          ]
-        },
-        "kind": "desktop",
-        "fixtureId": "reflection-conflict-409",
-        "capturedAt": "2026-09-15T09:26:29.010Z",
-        "browser": "Chrome/152.0.7977.82",
-        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
-        "dpr": 1,
-        "commit": "c00ed534e22ca17ae47b094ce085c53a01bc3de6"
-      },
-      {
-        "path": "docs/page-designs/V4/reflection/screenshots/p01-current/1536-dirty-close.png",
-        "sha256": "D435FA0E4C171F7BDA7773095C9B07226BAB7EAC13E5AED185BF6C6C9E13234D",
-        "viewport": "1536x1024",
-        "stateId": "dirty-close",
-        "url": "http://127.0.0.1:4220/reflection.html?state=dirty-close",
-        "fixtureSha256": "9608650C766AB8F76CABC7F85D204072507C4F4073D533D9151DADC1FEE9F29E",
-        "info": {
-          "ready": true,
-          "scrollWidth": 1521,
-          "font": "\"Microsoft YaHei\", system-ui, sans-serif",
-          "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n待同步\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具",
-          "state": {
-            "busy": false,
-            "dirty": true,
+            "dirty": false,
             "pending": false,
             "sync": "normal",
-            "editor": true,
+            "editor": false,
             "selected": "hw-student-1"
           },
           "squeezed": [],
@@ -666,20 +283,115 @@
           ]
         },
         "kind": "desktop",
-        "fixtureId": "reflection-dirty-close",
-        "capturedAt": "2026-09-15T09:26:29.010Z",
+        "fixtureId": "reflection-saved-empty",
+        "capturedAt": "2026-09-15T11:10:42.999Z",
         "browser": "Chrome/152.0.7977.82",
         "font": "\"Microsoft YaHei\", system-ui, sans-serif",
         "dpr": 1,
-        "commit": "c00ed534e22ca17ae47b094ce085c53a01bc3de6"
+        "commit": null
       },
       {
-        "path": "docs/page-designs/V4/reflection/screenshots/p01-current/1536-exam-picker.png",
-        "sha256": "6937E44A73CF64AD1F980EC648380F815C294B58ADA43B2E7627EE265EEC03C1",
+        "path": "docs/page-designs/V4/reflection/screenshots/p02-final/1536-saved-search-empty.png",
+        "sha256": "CD96F20E1DEE8F5B3EE66C038BDFBA5422242D75A91618488438D56A1D04CCF8",
         "viewport": "1536x1024",
-        "stateId": "exam-picker",
-        "url": "http://127.0.0.1:4220/reflection.html?state=exam-picker",
-        "fixtureSha256": "453BF01695F0AC36625FEB8C5C297F75BE38D98CFC612911E231132F33780508",
+        "stateId": "saved-search-empty",
+        "url": "http://127.0.0.1:4220/reflection.html?state=saved-search-empty",
+        "fixtureSha256": "88BDAC6595CB7701D144E28BCB5F7AB2877F11FADD673A83505F0B955C19182C",
+        "info": {
+          "ready": true,
+          "scrollWidth": 1536,
+          "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+          "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具",
+          "state": {
+            "busy": false,
+            "dirty": false,
+            "pending": false,
+            "sync": "normal",
+            "editor": false,
+            "selected": "hw-student-1"
+          },
+          "squeezed": [],
+          "images": [
+            1536
+          ]
+        },
+        "kind": "desktop",
+        "fixtureId": "reflection-saved-search-empty",
+        "capturedAt": "2026-09-15T11:10:42.999Z",
+        "browser": "Chrome/152.0.7977.82",
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "dpr": 1,
+        "commit": null
+      },
+      {
+        "path": "docs/page-designs/V4/reflection/screenshots/p02-final/1536-saved-long-detail.png",
+        "sha256": "32A3A8E35DEC915D3FA3BC93C62373071B47BDD274F99145CF0D15E585878B3A",
+        "viewport": "1536x1024",
+        "stateId": "saved-long-detail",
+        "url": "http://127.0.0.1:4220/reflection.html?state=saved-long-detail",
+        "fixtureSha256": "1E373A7325E9567304AEF19F3B04277F182A932F969E03A1C0DE7D44C1F49AA4",
+        "info": {
+          "ready": true,
+          "scrollWidth": 1521,
+          "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+          "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具",
+          "state": {
+            "busy": false,
+            "dirty": false,
+            "pending": false,
+            "sync": "normal",
+            "editor": false,
+            "selected": "hw-student-1"
+          },
+          "squeezed": [],
+          "images": []
+        },
+        "kind": "desktop",
+        "fixtureId": "reflection-saved-long-detail",
+        "capturedAt": "2026-09-15T11:10:42.999Z",
+        "browser": "Chrome/152.0.7977.82",
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "dpr": 1,
+        "commit": null
+      },
+      {
+        "path": "docs/page-designs/V4/reflection/screenshots/p02-final/1536-saved-readonly.png",
+        "sha256": "A0588059E6A1319BC50DE18F2F13316E782D17524445401C7DA2FD5D63F9FDC6",
+        "viewport": "1536x1024",
+        "stateId": "saved-readonly",
+        "url": "http://127.0.0.1:4220/reflection.html?state=saved-readonly",
+        "fixtureSha256": "88BDAC6595CB7701D144E28BCB5F7AB2877F11FADD673A83505F0B955C19182C",
+        "info": {
+          "ready": true,
+          "scrollWidth": 1536,
+          "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+          "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n只读\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具\n",
+          "state": {
+            "busy": false,
+            "dirty": false,
+            "pending": false,
+            "sync": "normal",
+            "editor": false,
+            "selected": "hw-student-1"
+          },
+          "squeezed": [],
+          "images": []
+        },
+        "kind": "desktop",
+        "fixtureId": "reflection-saved-readonly",
+        "capturedAt": "2026-09-15T11:10:42.999Z",
+        "browser": "Chrome/152.0.7977.82",
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "dpr": 1,
+        "commit": null
+      },
+      {
+        "path": "docs/page-designs/V4/reflection/screenshots/p02-final/1536-normal.png",
+        "sha256": "258A40461A84A562CEBE0A4658AA98838D09E9FF004136C39CE0A2C2232671B6",
+        "viewport": "1536x1024",
+        "stateId": "normal",
+        "url": "http://127.0.0.1:4220/reflection.html?state=normal",
+        "fixtureSha256": "92E10601147BD7E5BFA393CB7B4469C0508A7D4CDF9714F62E6424A8159DA35C",
         "info": {
           "ready": true,
           "scrollWidth": 1521,
@@ -699,20 +411,245 @@
           ]
         },
         "kind": "desktop",
-        "fixtureId": "reflection-exam-picker",
-        "capturedAt": "2026-09-15T09:26:29.010Z",
+        "fixtureId": "reflection-normal",
+        "capturedAt": "2026-09-15T11:10:42.999Z",
         "browser": "Chrome/152.0.7977.82",
         "font": "\"Microsoft YaHei\", system-ui, sans-serif",
         "dpr": 1,
-        "commit": "c00ed534e22ca17ae47b094ce085c53a01bc3de6"
+        "commit": null
       },
       {
-        "path": "docs/page-designs/V4/reflection/screenshots/p01-current/390-normal.png",
+        "path": "docs/page-designs/V4/reflection/screenshots/p02-final/1536-mobile-editor.png",
+        "sha256": "258A40461A84A562CEBE0A4658AA98838D09E9FF004136C39CE0A2C2232671B6",
+        "viewport": "1536x1024",
+        "stateId": "mobile-editor",
+        "url": "http://127.0.0.1:4220/reflection.html?state=mobile-editor",
+        "fixtureSha256": "92E10601147BD7E5BFA393CB7B4469C0508A7D4CDF9714F62E6424A8159DA35C",
+        "info": {
+          "ready": true,
+          "scrollWidth": 1521,
+          "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+          "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具",
+          "state": {
+            "busy": false,
+            "dirty": false,
+            "pending": false,
+            "sync": "normal",
+            "editor": true,
+            "selected": "hw-student-1"
+          },
+          "squeezed": [],
+          "images": [
+            1536
+          ]
+        },
+        "kind": "desktop",
+        "fixtureId": "reflection-mobile-editor",
+        "capturedAt": "2026-09-15T11:10:42.999Z",
+        "browser": "Chrome/152.0.7977.82",
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "dpr": 1,
+        "commit": null
+      },
+      {
+        "path": "docs/page-designs/V4/reflection/screenshots/p02-final/390-saved-library.png",
+        "sha256": "093D5BDDEAB7564FBCE801D813AD37AAF46F691D9FE2B0796E111346EB4723DC",
+        "viewport": "390x844",
+        "stateId": "saved-library",
+        "url": "http://127.0.0.1:4220/reflection.html?state=saved-library",
+        "fixtureSha256": "88BDAC6595CB7701D144E28BCB5F7AB2877F11FADD673A83505F0B955C19182C",
+        "info": {
+          "ready": true,
+          "scrollWidth": 390,
+          "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+          "body": "考试反思\n\n三年级 · 32人\n\n已保存\n已保存反思\n\n回看每一次复盘，找到后续行动。\n\n学生状态\n已保存反思\n\n本班全部考试 · 8条记录\n\n筛选已保存考试\n全部考试\n未关联考试\n9月综合练习 · 2026-09-15\n单元练习 · 20",
+          "state": {
+            "busy": false,
+            "dirty": false,
+            "pending": false,
+            "sync": "normal",
+            "editor": false,
+            "selected": "hw-student-1"
+          },
+          "squeezed": [],
+          "images": [
+            1536
+          ]
+        },
+        "kind": "mobile",
+        "fixtureId": "reflection-saved-library",
+        "capturedAt": "2026-09-15T11:10:42.999Z",
+        "browser": "Chrome/152.0.7977.82",
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "dpr": 1,
+        "commit": null
+      },
+      {
+        "path": "docs/page-designs/V4/reflection/screenshots/p02-final/390-saved-detail.png",
+        "sha256": "7C7B3B5A236C84CBE385B922F14DD21463CD8AB496C12E272CBFB54CB94E5F94",
+        "viewport": "390x844",
+        "stateId": "saved-detail",
+        "url": "http://127.0.0.1:4220/reflection.html?state=saved-detail",
+        "fixtureSha256": "88BDAC6595CB7701D144E28BCB5F7AB2877F11FADD673A83505F0B955C19182C",
+        "info": {
+          "ready": true,
+          "scrollWidth": 390,
+          "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+          "body": "考试反思\n\n三年级 · 32人\n\n已保存\n返回已保存反思\n学生04 · 考试反思\n已完成\n\n学号04 · 记录日期 2026-09-15\n\n复制反思\n编辑反思\n关联考试：9月综合练习\n2026-09-15 · 语文 / 数学 / 英语\n主要",
+          "state": {
+            "busy": false,
+            "dirty": false,
+            "pending": false,
+            "sync": "normal",
+            "editor": false,
+            "selected": "hw-student-1"
+          },
+          "squeezed": [],
+          "images": []
+        },
+        "kind": "mobile",
+        "fixtureId": "reflection-saved-detail",
+        "capturedAt": "2026-09-15T11:10:42.999Z",
+        "browser": "Chrome/152.0.7977.82",
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "dpr": 1,
+        "commit": null
+      },
+      {
+        "path": "docs/page-designs/V4/reflection/screenshots/p02-final/390-saved-empty.png",
+        "sha256": "E8F5FB0F0CCD2FF1CEFFABA9E978F80A867EC3E470776211E143ECC5F24B7B20",
+        "viewport": "390x844",
+        "stateId": "saved-empty",
+        "url": "http://127.0.0.1:4220/reflection.html?state=saved-empty",
+        "fixtureSha256": "8307929C9CA1626E22E58AE1C683187EC666D6B15BA14142268271590F138C48",
+        "info": {
+          "ready": true,
+          "scrollWidth": 390,
+          "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+          "body": "考试反思\n\n三年级 · 32人\n\n已保存\n已保存反思\n\n回看每一次复盘，找到后续行动。\n\n学生状态\n已保存反思\n\n本班全部考试 · 0条记录\n\n筛选已保存考试\n全部考试\n未关联考试\n9月综合练习 · 2026-09-15\n反思状态\n全部状态",
+          "state": {
+            "busy": false,
+            "dirty": false,
+            "pending": false,
+            "sync": "normal",
+            "editor": false,
+            "selected": "hw-student-1"
+          },
+          "squeezed": [],
+          "images": [
+            1536
+          ]
+        },
+        "kind": "mobile",
+        "fixtureId": "reflection-saved-empty",
+        "capturedAt": "2026-09-15T11:10:42.999Z",
+        "browser": "Chrome/152.0.7977.82",
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "dpr": 1,
+        "commit": null
+      },
+      {
+        "path": "docs/page-designs/V4/reflection/screenshots/p02-final/390-saved-search-empty.png",
+        "sha256": "A0B8B10B3A78009075D744B61B146B251FC8D794705F46C37AAAE1CE9511A279",
+        "viewport": "390x844",
+        "stateId": "saved-search-empty",
+        "url": "http://127.0.0.1:4220/reflection.html?state=saved-search-empty",
+        "fixtureSha256": "88BDAC6595CB7701D144E28BCB5F7AB2877F11FADD673A83505F0B955C19182C",
+        "info": {
+          "ready": true,
+          "scrollWidth": 390,
+          "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+          "body": "考试反思\n\n三年级 · 32人\n\n已保存\n已保存反思\n\n回看每一次复盘，找到后续行动。\n\n学生状态\n已保存反思\n\n本班全部考试 · 8条记录\n\n筛选已保存考试\n全部考试\n未关联考试\n9月综合练习 · 2026-09-15\n单元练习 · 20",
+          "state": {
+            "busy": false,
+            "dirty": false,
+            "pending": false,
+            "sync": "normal",
+            "editor": false,
+            "selected": "hw-student-1"
+          },
+          "squeezed": [],
+          "images": [
+            1536
+          ]
+        },
+        "kind": "mobile",
+        "fixtureId": "reflection-saved-search-empty",
+        "capturedAt": "2026-09-15T11:10:42.999Z",
+        "browser": "Chrome/152.0.7977.82",
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "dpr": 1,
+        "commit": null
+      },
+      {
+        "path": "docs/page-designs/V4/reflection/screenshots/p02-final/390-saved-long-detail.png",
+        "sha256": "7C7B3B5A236C84CBE385B922F14DD21463CD8AB496C12E272CBFB54CB94E5F94",
+        "viewport": "390x844",
+        "stateId": "saved-long-detail",
+        "url": "http://127.0.0.1:4220/reflection.html?state=saved-long-detail",
+        "fixtureSha256": "1E373A7325E9567304AEF19F3B04277F182A932F969E03A1C0DE7D44C1F49AA4",
+        "info": {
+          "ready": true,
+          "scrollWidth": 390,
+          "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+          "body": "考试反思\n\n三年级 · 32人\n\n已保存\n返回已保存反思\n学生04 · 考试反思\n已完成\n\n学号04 · 记录日期 2026-09-15\n\n复制反思\n编辑反思\n关联考试：9月综合练习\n2026-09-15 · 语文 / 数学 / 英语\n主要",
+          "state": {
+            "busy": false,
+            "dirty": false,
+            "pending": false,
+            "sync": "normal",
+            "editor": false,
+            "selected": "hw-student-1"
+          },
+          "squeezed": [],
+          "images": []
+        },
+        "kind": "mobile",
+        "fixtureId": "reflection-saved-long-detail",
+        "capturedAt": "2026-09-15T11:10:42.999Z",
+        "browser": "Chrome/152.0.7977.82",
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "dpr": 1,
+        "commit": null
+      },
+      {
+        "path": "docs/page-designs/V4/reflection/screenshots/p02-final/390-saved-readonly.png",
+        "sha256": "A736FD3B61A88387355B9E3626694B08E84C7D8DC535466F5C27BF99DEB53DC0",
+        "viewport": "390x844",
+        "stateId": "saved-readonly",
+        "url": "http://127.0.0.1:4220/reflection.html?state=saved-readonly",
+        "fixtureSha256": "88BDAC6595CB7701D144E28BCB5F7AB2877F11FADD673A83505F0B955C19182C",
+        "info": {
+          "ready": true,
+          "scrollWidth": 390,
+          "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+          "body": "考试反思\n\n三年级 · 32人\n\n只读\n只读宽限期\n可以查看和导出，续期后恢复编辑。\n返回已保存反思\n学生04 · 考试反思\n已完成\n\n学号04 · 记录日期 2026-09-15\n\n复制反思\n编辑反思\n关联考试：9月综合练习\n2026-0",
+          "state": {
+            "busy": false,
+            "dirty": false,
+            "pending": false,
+            "sync": "normal",
+            "editor": false,
+            "selected": "hw-student-1"
+          },
+          "squeezed": [],
+          "images": []
+        },
+        "kind": "mobile",
+        "fixtureId": "reflection-saved-readonly",
+        "capturedAt": "2026-09-15T11:10:42.999Z",
+        "browser": "Chrome/152.0.7977.82",
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "dpr": 1,
+        "commit": null
+      },
+      {
+        "path": "docs/page-designs/V4/reflection/screenshots/p02-final/390-normal.png",
         "sha256": "B05788D83002FFA581D9F9E3DAEC3BCCC92F6E137FBF185232FC3878F263BAB3",
         "viewport": "390x844",
         "stateId": "normal",
         "url": "http://127.0.0.1:4220/reflection.html?state=normal",
-        "fixtureSha256": "9608650C766AB8F76CABC7F85D204072507C4F4073D533D9151DADC1FEE9F29E",
+        "fixtureSha256": "92E10601147BD7E5BFA393CB7B4469C0508A7D4CDF9714F62E6424A8159DA35C",
         "info": {
           "ready": true,
           "scrollWidth": 390,
@@ -733,19 +670,19 @@
         },
         "kind": "mobile",
         "fixtureId": "reflection-normal",
-        "capturedAt": "2026-09-15T09:26:29.010Z",
+        "capturedAt": "2026-09-15T11:10:42.999Z",
         "browser": "Chrome/152.0.7977.82",
         "font": "\"Microsoft YaHei\", system-ui, sans-serif",
         "dpr": 1,
-        "commit": "c00ed534e22ca17ae47b094ce085c53a01bc3de6"
+        "commit": null
       },
       {
-        "path": "docs/page-designs/V4/reflection/screenshots/p01-current/390-mobile-editor.png",
-        "sha256": "D6DC29F2A046C278A9C1CD000CA6654E8192C365D829EDA2FEE9DA552EBD5D50",
+        "path": "docs/page-designs/V4/reflection/screenshots/p02-final/390-mobile-editor.png",
+        "sha256": "69ABC4939E60C20806CB19298443C13B88AEA38FAA7C2E6D6378067810E43C64",
         "viewport": "390x844",
         "stateId": "mobile-editor",
         "url": "http://127.0.0.1:4220/reflection.html?state=mobile-editor",
-        "fixtureSha256": "9608650C766AB8F76CABC7F85D204072507C4F4073D533D9151DADC1FEE9F29E",
+        "fixtureSha256": "92E10601147BD7E5BFA393CB7B4469C0508A7D4CDF9714F62E6424A8159DA35C",
         "info": {
           "ready": true,
           "scrollWidth": 390,
@@ -764,494 +701,402 @@
         },
         "kind": "mobile",
         "fixtureId": "reflection-mobile-editor",
-        "capturedAt": "2026-09-15T09:26:29.010Z",
+        "capturedAt": "2026-09-15T11:10:42.999Z",
         "browser": "Chrome/152.0.7977.82",
         "font": "\"Microsoft YaHei\", system-ui, sans-serif",
         "dpr": 1,
-        "commit": "c00ed534e22ca17ae47b094ce085c53a01bc3de6"
-      },
-      {
-        "path": "docs/page-designs/V4/reflection/screenshots/p01-current/390-saved-library.png",
-        "sha256": "7F22A415AF3AAA5CA0E7A5DEF7140EC6BEE2AC05D2C0A4AA7022F7A69D34867F",
-        "viewport": "390x844",
-        "stateId": "saved-library",
-        "url": "http://127.0.0.1:4220/reflection.html?state=saved-library",
-        "fixtureSha256": "9608650C766AB8F76CABC7F85D204072507C4F4073D533D9151DADC1FEE9F29E",
-        "info": {
-          "ready": true,
-          "scrollWidth": 390,
-          "font": "\"Microsoft YaHei\", system-ui, sans-serif",
-          "body": "考试反思\n\n三年级 · 32人\n\n已保存\n考试反思\n\n把问题写清，把下一步约定下来。\n\n当前考试 · 9月综合练习\n\n2026-09-15 · 语文 / 数学 / 英语\n\n切换考试\n\n本班全部考试记录\n\n学生状态 32\n已保存反思 8\n全部",
-          "state": {
-            "busy": false,
-            "dirty": false,
-            "pending": false,
-            "sync": "normal",
-            "editor": false,
-            "selected": "hw-student-1"
-          },
-          "squeezed": [],
-          "images": [
-            1536
-          ]
-        },
-        "kind": "mobile",
-        "fixtureId": "reflection-saved-library",
-        "capturedAt": "2026-09-15T09:26:29.010Z",
-        "browser": "Chrome/152.0.7977.82",
-        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
-        "dpr": 1,
-        "commit": "c00ed534e22ca17ae47b094ce085c53a01bc3de6"
-      },
-      {
-        "path": "docs/page-designs/V4/reflection/screenshots/p01-current/390-legacy-library.png",
-        "sha256": "75B3B063D2C26E9C36D12C301753FA33D0CE56B5066D59FB558179A1B22925F7",
-        "viewport": "390x844",
-        "stateId": "legacy-library",
-        "url": "http://127.0.0.1:4220/reflection.html?state=legacy-library",
-        "fixtureSha256": "FED317CABEBD49B2E642B7C232D2464389EEC418F9648C9A1D39891C283D771C",
-        "info": {
-          "ready": true,
-          "scrollWidth": 390,
-          "font": "\"Microsoft YaHei\", system-ui, sans-serif",
-          "body": "考试反思\n\n三年级 · 32人\n\n已保存\n考试反思\n\n把问题写清，把下一步约定下来。\n\n当前考试 · 9月综合练习\n\n2026-09-15 · 语文 / 数学 / 英语\n\n切换考试\n\n本班全部考试记录\n\n学生状态 32\n已保存反思 10\n全",
-          "state": {
-            "busy": false,
-            "dirty": false,
-            "pending": false,
-            "sync": "normal",
-            "editor": false,
-            "selected": "hw-student-1"
-          },
-          "squeezed": [],
-          "images": [
-            1536
-          ]
-        },
-        "kind": "mobile",
-        "fixtureId": "reflection-legacy-library",
-        "capturedAt": "2026-09-15T09:26:29.010Z",
-        "browser": "Chrome/152.0.7977.82",
-        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
-        "dpr": 1,
-        "commit": "c00ed534e22ca17ae47b094ce085c53a01bc3de6"
-      },
-      {
-        "path": "docs/page-designs/V4/reflection/screenshots/p01-current/390-empty-class.png",
-        "sha256": "C2D3ECD0675DC1A6F3C65C5FCEDD00830E539C660495F2F65FEEB2695A3FBCEA",
-        "viewport": "390x844",
-        "stateId": "empty-class",
-        "url": "http://127.0.0.1:4220/reflection.html?state=empty-class",
-        "fixtureSha256": "E32E13EA42355A4DD451A1EFBF4830AB623FB5DFBB69E5A26E39CB6FCE89A2AB",
-        "info": {
-          "ready": true,
-          "scrollWidth": 390,
-          "font": "\"Microsoft YaHei\", system-ui, sans-serif",
-          "body": "考试反思\n\n三年级 · 0人\n\n已保存\n考试反思\n\n把问题写清，把下一步约定下来。\n\n当前考试 · 9月综合练习\n\n2026-09-15 · 语文 / 数学 / 英语\n\n切换考试\n当前班级暂无学生\n\n添加学生后，可逐人填写本次考试反思。\n\n",
-          "state": {
-            "busy": false,
-            "dirty": false,
-            "pending": false,
-            "sync": "normal",
-            "editor": false,
-            "selected": ""
-          },
-          "squeezed": [],
-          "images": [
-            1536
-          ]
-        },
-        "kind": "mobile",
-        "fixtureId": "reflection-empty-class",
-        "capturedAt": "2026-09-15T09:26:29.010Z",
-        "browser": "Chrome/152.0.7977.82",
-        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
-        "dpr": 1,
-        "commit": "c00ed534e22ca17ae47b094ce085c53a01bc3de6"
-      },
-      {
-        "path": "docs/page-designs/V4/reflection/screenshots/p01-current/390-no-exams.png",
-        "sha256": "E31CE3F9D2BE7C6556DAADD7E3DD2C59885BCC1221A84F10BB23DF0686B80805",
-        "viewport": "390x844",
-        "stateId": "no-exams",
-        "url": "http://127.0.0.1:4220/reflection.html?state=no-exams",
-        "fixtureSha256": "956C74075F057ADAA781902940FF762A348DB983F232B8D79B8A648BB173A39A",
-        "info": {
-          "ready": true,
-          "scrollWidth": 390,
-          "font": "\"Microsoft YaHei\", system-ui, sans-serif",
-          "body": "考试反思\n\n三年级 · 32人\n\n已保存\n考试反思\n\n把问题写清，把下一步约定下来。\n\n还没有考试记录\n\n先在成绩分析中建立一次考试，再填写对应反思。\n\n此独立预览仅使用合成数据，可在左下角切换“normal”查看完整设计。\n\n首页\n学生\n",
-          "state": {
-            "busy": false,
-            "dirty": false,
-            "pending": false,
-            "sync": "normal",
-            "editor": false,
-            "selected": "hw-student-1"
-          },
-          "squeezed": [],
-          "images": [
-            1536
-          ]
-        },
-        "kind": "mobile",
-        "fixtureId": "reflection-no-exams",
-        "capturedAt": "2026-09-15T09:26:29.010Z",
-        "browser": "Chrome/152.0.7977.82",
-        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
-        "dpr": 1,
-        "commit": "c00ed534e22ca17ae47b094ce085c53a01bc3de6"
-      },
-      {
-        "path": "docs/page-designs/V4/reflection/screenshots/p01-current/390-search-empty.png",
-        "sha256": "1327181151A5E25B4A92170DEB3332EAC5FACCC12FD7F735564746A1D444F9B4",
-        "viewport": "390x844",
-        "stateId": "search-empty",
-        "url": "http://127.0.0.1:4220/reflection.html?state=search-empty",
-        "fixtureSha256": "9608650C766AB8F76CABC7F85D204072507C4F4073D533D9151DADC1FEE9F29E",
-        "info": {
-          "ready": true,
-          "scrollWidth": 390,
-          "font": "\"Microsoft YaHei\", system-ui, sans-serif",
-          "body": "考试反思\n\n三年级 · 32人\n\n已保存\n考试反思\n\n把问题写清，把下一步约定下来。\n\n当前考试 · 9月综合练习\n\n2026-09-15 · 语文 / 数学 / 英语\n\n切换考试\n学生状态 32\n已保存反思 8\n全部状态\n未填写\n草稿\n已",
-          "state": {
-            "busy": false,
-            "dirty": false,
-            "pending": false,
-            "sync": "normal",
-            "editor": false,
-            "selected": "hw-student-1"
-          },
-          "squeezed": [],
-          "images": [
-            1536
-          ]
-        },
-        "kind": "mobile",
-        "fixtureId": "reflection-search-empty",
-        "capturedAt": "2026-09-15T09:26:29.010Z",
-        "browser": "Chrome/152.0.7977.82",
-        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
-        "dpr": 1,
-        "commit": "c00ed534e22ca17ae47b094ce085c53a01bc3de6"
-      },
-      {
-        "path": "docs/page-designs/V4/reflection/screenshots/p01-current/390-students-105.png",
-        "sha256": "42D7B837682071F485FA055E3DE6F764266C55BD3F5E29BCE67CF2E518B1D9DE",
-        "viewport": "390x844",
-        "stateId": "students-105",
-        "url": "http://127.0.0.1:4220/reflection.html?state=students-105",
-        "fixtureSha256": "FCE691113DFFA45AF71C5B6241B0544AD360407075E796930077D018804A52FA",
-        "info": {
-          "ready": true,
-          "scrollWidth": 390,
-          "font": "\"Microsoft YaHei\", system-ui, sans-serif",
-          "body": "考试反思\n\n三年级 · 105人\n\n已保存\n考试反思\n\n把问题写清，把下一步约定下来。\n\n当前考试 · 9月综合练习\n\n2026-09-15 · 语文 / 数学 / 英语\n\n切换考试\n学生状态 105\n已保存反思 8\n全部状态\n未填写\n草稿",
-          "state": {
-            "busy": false,
-            "dirty": false,
-            "pending": false,
-            "sync": "normal",
-            "editor": false,
-            "selected": "hw-student-1"
-          },
-          "squeezed": [],
-          "images": [
-            1536
-          ]
-        },
-        "kind": "mobile",
-        "fixtureId": "reflection-students-105",
-        "capturedAt": "2026-09-15T09:26:29.010Z",
-        "browser": "Chrome/152.0.7977.82",
-        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
-        "dpr": 1,
-        "commit": "c00ed534e22ca17ae47b094ce085c53a01bc3de6"
-      },
-      {
-        "path": "docs/page-designs/V4/reflection/screenshots/p01-current/390-readonly.png",
-        "sha256": "5C53439BB18849AE72EDD218BB2440B14A9FD501310DFCD4F09B779046FAD3DF",
-        "viewport": "390x844",
-        "stateId": "readonly",
-        "url": "http://127.0.0.1:4220/reflection.html?state=readonly",
-        "fixtureSha256": "9608650C766AB8F76CABC7F85D204072507C4F4073D533D9151DADC1FEE9F29E",
-        "info": {
-          "ready": true,
-          "scrollWidth": 390,
-          "font": "\"Microsoft YaHei\", system-ui, sans-serif",
-          "body": "考试反思\n\n三年级 · 32人\n\n只读\n只读宽限期\n可以查看和导出，续期后恢复编辑。\n返回学生列表\n草稿\n学生01\n学号01\n日期\n\n9月综合练习 · 2026-09-15\n\n本次考试\n查看本次成绩\n\n当前为只读模式，可查看和复制反思。\n\n",
-          "state": {
-            "busy": false,
-            "dirty": false,
-            "pending": false,
-            "sync": "normal",
-            "editor": true,
-            "selected": "hw-student-1"
-          },
-          "squeezed": [],
-          "images": []
-        },
-        "kind": "mobile",
-        "fixtureId": "reflection-readonly",
-        "capturedAt": "2026-09-15T09:26:29.010Z",
-        "browser": "Chrome/152.0.7977.82",
-        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
-        "dpr": 1,
-        "commit": "c00ed534e22ca17ae47b094ce085c53a01bc3de6"
-      },
-      {
-        "path": "docs/page-designs/V4/reflection/screenshots/p01-current/390-loading.png",
-        "sha256": "0AAD79005431EA1608CF2C336AE3E7312A0DFD0FD0EF8FE97C5ED16EE6EEC4F5",
-        "viewport": "390x844",
-        "stateId": "loading",
-        "url": "http://127.0.0.1:4220/reflection.html?state=loading",
-        "fixtureSha256": "9608650C766AB8F76CABC7F85D204072507C4F4073D533D9151DADC1FEE9F29E",
-        "info": {
-          "ready": true,
-          "scrollWidth": 390,
-          "font": "\"Microsoft YaHei\", system-ui, sans-serif",
-          "body": "考试反思\n\n三年级 · 32人\n\n已保存\n\n正在加载考试反思…\n\n首页\n学生\n作业\n成绩\n更多\n设计预览 · 合成数据",
-          "state": {
-            "busy": false,
-            "dirty": false,
-            "pending": false,
-            "sync": "normal",
-            "editor": false,
-            "selected": "hw-student-1"
-          },
-          "squeezed": [],
-          "images": []
-        },
-        "kind": "mobile",
-        "fixtureId": "reflection-loading",
-        "capturedAt": "2026-09-15T09:26:29.010Z",
-        "browser": "Chrome/152.0.7977.82",
-        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
-        "dpr": 1,
-        "commit": "c00ed534e22ca17ae47b094ce085c53a01bc3de6"
-      },
-      {
-        "path": "docs/page-designs/V4/reflection/screenshots/p01-current/390-saving.png",
-        "sha256": "7DD759898F5156F69BDB2DC79F03018BE0C79AA67B35DFCDD59CE7072823610B",
-        "viewport": "390x844",
-        "stateId": "saving",
-        "url": "http://127.0.0.1:4220/reflection.html?state=saving",
-        "fixtureSha256": "9608650C766AB8F76CABC7F85D204072507C4F4073D533D9151DADC1FEE9F29E",
-        "info": {
-          "ready": true,
-          "scrollWidth": 390,
-          "font": "\"Microsoft YaHei\", system-ui, sans-serif",
-          "body": "考试反思\n\n三年级 · 32人\n\n正在保存\n返回学生列表\n待同步\n学生01\n学号01\n日期\n\n9月综合练习 · 2026-09-15\n\n本次考试\n查看本次成绩\n主要问题 *\n原因分析\n下一步行动\n写给家长的话（选填）\n班主任跟进（选填）\n保",
-          "state": {
-            "busy": true,
-            "dirty": true,
-            "pending": true,
-            "sync": "saving",
-            "editor": true,
-            "selected": "hw-student-1"
-          },
-          "squeezed": [],
-          "images": []
-        },
-        "kind": "mobile",
-        "fixtureId": "reflection-saving",
-        "capturedAt": "2026-09-15T09:26:29.010Z",
-        "browser": "Chrome/152.0.7977.82",
-        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
-        "dpr": 1,
-        "commit": "c00ed534e22ca17ae47b094ce085c53a01bc3de6"
-      },
-      {
-        "path": "docs/page-designs/V4/reflection/screenshots/p01-current/390-save-failure.png",
-        "sha256": "321ACCDCFDD29997B611A5DDB4FD0FA5CC385175511643134D8F0CFEC1D0B663",
-        "viewport": "390x844",
-        "stateId": "save-failure",
-        "url": "http://127.0.0.1:4220/reflection.html?state=save-failure",
-        "fixtureSha256": "9608650C766AB8F76CABC7F85D204072507C4F4073D533D9151DADC1FEE9F29E",
-        "info": {
-          "ready": true,
-          "scrollWidth": 390,
-          "font": "\"Microsoft YaHei\", system-ui, sans-serif",
-          "body": "考试反思\n\n三年级 · 32人\n\n保存失败\n保存失败，草稿已保留。\n重试\n关闭\n返回学生列表\n待同步\n学生01\n学号01\n日期\n\n9月综合练习 · 2026-09-15\n\n本次考试\n查看本次成绩\n\n同步失败，反思仍在本机。请重试，不会重复归",
-          "state": {
-            "busy": false,
-            "dirty": true,
-            "pending": true,
-            "sync": "save-failure",
-            "editor": true,
-            "selected": "hw-student-1"
-          },
-          "squeezed": [],
-          "images": []
-        },
-        "kind": "mobile",
-        "fixtureId": "reflection-save-failure",
-        "capturedAt": "2026-09-15T09:26:29.010Z",
-        "browser": "Chrome/152.0.7977.82",
-        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
-        "dpr": 1,
-        "commit": "c00ed534e22ca17ae47b094ce085c53a01bc3de6"
-      },
-      {
-        "path": "docs/page-designs/V4/reflection/screenshots/p01-current/390-save-throw.png",
-        "sha256": "012D1C77978998BD6A26A1A9DACD4C7B05EC75876807AED04183BF4179124C06",
-        "viewport": "390x844",
-        "stateId": "save-throw",
-        "url": "http://127.0.0.1:4220/reflection.html?state=save-throw",
-        "fixtureSha256": "9608650C766AB8F76CABC7F85D204072507C4F4073D533D9151DADC1FEE9F29E",
-        "info": {
-          "ready": true,
-          "scrollWidth": 390,
-          "font": "\"Microsoft YaHei\", system-ui, sans-serif",
-          "body": "考试反思\n\n三年级 · 32人\n\n保存失败\n保存失败，草稿已保留。\n重试\n关闭\n返回学生列表\n待同步\n学生01\n学号01\n日期\n\n9月综合练习 · 2026-09-15\n\n本次考试\n查看本次成绩\n\n连接中断，反思仍在本机，请重试同步。\n\n本",
-          "state": {
-            "busy": false,
-            "dirty": true,
-            "pending": true,
-            "sync": "save-throw",
-            "editor": true,
-            "selected": "hw-student-1"
-          },
-          "squeezed": [],
-          "images": []
-        },
-        "kind": "mobile",
-        "fixtureId": "reflection-save-throw",
-        "capturedAt": "2026-09-15T09:26:29.010Z",
-        "browser": "Chrome/152.0.7977.82",
-        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
-        "dpr": 1,
-        "commit": "c00ed534e22ca17ae47b094ce085c53a01bc3de6"
-      },
-      {
-        "path": "docs/page-designs/V4/reflection/screenshots/p01-current/390-conflict-409.png",
-        "sha256": "55CB716BB7D8B6C50EB71630DC8BE7707AC9AC9AE327EB87D77593FA55A0A7C8",
-        "viewport": "390x844",
-        "stateId": "conflict-409",
-        "url": "http://127.0.0.1:4220/reflection.html?state=conflict-409",
-        "fixtureSha256": "9608650C766AB8F76CABC7F85D204072507C4F4073D533D9151DADC1FEE9F29E",
-        "info": {
-          "ready": true,
-          "scrollWidth": 390,
-          "font": "\"Microsoft YaHei\", system-ui, sans-serif",
-          "body": "考试反思\n\n三年级 · 32人\n\n保存失败\n版本冲突，草稿已保留。\n导出当前草稿\n载入最新版本\n关闭\n返回学生列表\n待同步\n学生01\n学号01\n日期\n\n9月综合练习 · 2026-09-15\n\n本次考试\n查看本次成绩\n\n同步失败，反思仍在本",
-          "state": {
-            "busy": false,
-            "dirty": true,
-            "pending": true,
-            "sync": "conflict-409",
-            "editor": true,
-            "selected": "hw-student-1"
-          },
-          "squeezed": [],
-          "images": []
-        },
-        "kind": "mobile",
-        "fixtureId": "reflection-conflict-409",
-        "capturedAt": "2026-09-15T09:26:29.010Z",
-        "browser": "Chrome/152.0.7977.82",
-        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
-        "dpr": 1,
-        "commit": "c00ed534e22ca17ae47b094ce085c53a01bc3de6"
-      },
-      {
-        "path": "docs/page-designs/V4/reflection/screenshots/p01-current/390-dirty-close.png",
-        "sha256": "20F558A16255A6777B33E1E9851872A750A62A3165860CFD59011DDC0828A7E1",
-        "viewport": "390x844",
-        "stateId": "dirty-close",
-        "url": "http://127.0.0.1:4220/reflection.html?state=dirty-close",
-        "fixtureSha256": "9608650C766AB8F76CABC7F85D204072507C4F4073D533D9151DADC1FEE9F29E",
-        "info": {
-          "ready": true,
-          "scrollWidth": 390,
-          "font": "\"Microsoft YaHei\", system-ui, sans-serif",
-          "body": "考试反思\n\n三年级 · 32人\n\n待同步\n返回学生列表\n未保存\n学生01\n学号01\n日期\n\n9月综合练习 · 2026-09-15\n\n本次考试\n查看本次成绩\n主要问题 *\n原因分析\n下一步行动\n写给家长的话（选填）\n班主任跟进（选填）\n保存",
-          "state": {
-            "busy": false,
-            "dirty": true,
-            "pending": false,
-            "sync": "normal",
-            "editor": true,
-            "selected": "hw-student-1"
-          },
-          "squeezed": [],
-          "images": []
-        },
-        "kind": "mobile",
-        "fixtureId": "reflection-dirty-close",
-        "capturedAt": "2026-09-15T09:26:29.010Z",
-        "browser": "Chrome/152.0.7977.82",
-        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
-        "dpr": 1,
-        "commit": "c00ed534e22ca17ae47b094ce085c53a01bc3de6"
-      },
-      {
-        "path": "docs/page-designs/V4/reflection/screenshots/p01-current/390-exam-picker.png",
-        "sha256": "6A67F44D6E249C07670BE340D4A40353D84CCDBB1820A7FEFB2B01BB525986C4",
-        "viewport": "390x844",
-        "stateId": "exam-picker",
-        "url": "http://127.0.0.1:4220/reflection.html?state=exam-picker",
-        "fixtureSha256": "453BF01695F0AC36625FEB8C5C297F75BE38D98CFC612911E231132F33780508",
-        "info": {
-          "ready": true,
-          "scrollWidth": 390,
-          "font": "\"Microsoft YaHei\", system-ui, sans-serif",
-          "body": "考试反思\n\n三年级 · 32人\n\n已保存\n考试反思\n\n把问题写清，把下一步约定下来。\n\n当前考试 · 第1次综合练习与跨学科项目阶段回顾\n\n2026-01-15 · 语文 / 数学 / 英语\n\n切换考试\n学生状态 32\n已保存反思 8\n全部",
-          "state": {
-            "busy": false,
-            "dirty": false,
-            "pending": false,
-            "sync": "normal",
-            "editor": false,
-            "selected": "hw-student-1"
-          },
-          "squeezed": [],
-          "images": [
-            1536
-          ]
-        },
-        "kind": "mobile",
-        "fixtureId": "reflection-exam-picker",
-        "capturedAt": "2026-09-15T09:26:29.010Z",
-        "browser": "Chrome/152.0.7977.82",
-        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
-        "dpr": 1,
-        "commit": "c00ed534e22ca17ae47b094ce085c53a01bc3de6"
+        "commit": null
       }
     ],
     "additionalEvidence": [
       {
-        "path": "docs/page-designs/V4/reflection/screenshots/p01-review-fixes/review-fixes.json",
-        "sha256": "EDFF17F3AAD8746ED31EDD7648C09E150A874C94CCBE082920C67636369CD635",
-        "note": "current targeted review fix evidence"
+        "path": "docs/page-designs/V4/reflection/screenshots/p02-proof-audit/1536-library-bottom.png",
+        "sha256": "1ACCE2491C91DE565076ADBB4991F3DF22D71868595C941E49EF800F58986B85",
+        "viewport": "1536x1024",
+        "url": "http://127.0.0.1:4220/reflection.html?state=saved-library",
+        "fixtureSha256": "88BDAC6595CB7701D144E28BCB5F7AB2877F11FADD673A83505F0B955C19182C",
+        "kind": "desktop",
+        "stateId": "1536-library-bottom",
+        "fixtureId": "p02-proof-audit-1536-library-bottom.png",
+        "capturedAt": "2026-09-15T11:13:54.001Z",
+        "browser": "Chrome/152.0.7977.82",
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "dpr": 1,
+        "commit": null
       },
       {
-        "path": "docs/page-designs/V4/reflection/screenshots/p01-reviewed/capture.json",
-        "sha256": "553B8E1AC57D6C14853837F1FCDC2B56A908D861619766FEA59BB100C184B3E6",
-        "note": "supplemental capture; see recorded phase/source limits, not substitute current32"
+        "path": "docs/page-designs/V4/reflection/screenshots/p02-proof-audit/1536-detail-bottom.png",
+        "sha256": "A74CA1FDF156D15C37DC1BCA3E6C94438B124AF7FEDF98E3E2142AD5CCA96B97",
+        "viewport": "1536x1024",
+        "url": "http://127.0.0.1:4220/reflection.html?state=saved-long-detail",
+        "fixtureSha256": "1E373A7325E9567304AEF19F3B04277F182A932F969E03A1C0DE7D44C1F49AA4",
+        "kind": "desktop",
+        "stateId": "1536-detail-bottom",
+        "fixtureId": "p02-proof-audit-1536-detail-bottom.png",
+        "capturedAt": "2026-09-15T11:13:54.001Z",
+        "browser": "Chrome/152.0.7977.82",
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "dpr": 1,
+        "commit": null
       },
       {
-        "path": "docs/page-designs/V4/reflection/screenshots/p01-narrow/capture.json",
-        "sha256": "BDA997D1E1937A1FA7FE453354F493613D24B5C242BA71801A1394617A2E10DF",
-        "note": "supplemental capture; see recorded phase/source limits, not substitute current32"
+        "path": "docs/page-designs/V4/reflection/screenshots/p02-proof-audit/1536-saved-editor.png",
+        "sha256": "330E2A8E07FBB5E023E93EE937C66150B0DE9B6BD0664CB1D689511F3AABD130",
+        "viewport": "1536x1024",
+        "url": "http://127.0.0.1:4220/reflection.html?state=saved-detail",
+        "fixtureSha256": "88BDAC6595CB7701D144E28BCB5F7AB2877F11FADD673A83505F0B955C19182C",
+        "kind": "desktop",
+        "stateId": "1536-saved-editor",
+        "fixtureId": "p02-proof-audit-1536-saved-editor.png",
+        "capturedAt": "2026-09-15T11:13:54.001Z",
+        "browser": "Chrome/152.0.7977.82",
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "dpr": 1,
+        "commit": null
       },
       {
-        "path": "docs/page-designs/V4/reflection/screenshots/p01-full/capture.json",
-        "sha256": "4E3EBCCED66C63EB522678597AC8D7E9609B33C9145872B655A5E9B5F2229960",
-        "note": "supplemental capture; see recorded phase/source limits, not substitute current32"
+        "path": "docs/page-designs/V4/reflection/screenshots/p02-proof-audit/1536-editor-bottom.png",
+        "sha256": "330E2A8E07FBB5E023E93EE937C66150B0DE9B6BD0664CB1D689511F3AABD130",
+        "viewport": "1536x1024",
+        "url": "http://127.0.0.1:4220/reflection.html?state=saved-detail",
+        "fixtureSha256": "88BDAC6595CB7701D144E28BCB5F7AB2877F11FADD673A83505F0B955C19182C",
+        "kind": "desktop",
+        "stateId": "1536-editor-bottom",
+        "fixtureId": "p02-proof-audit-1536-editor-bottom.png",
+        "capturedAt": "2026-09-15T11:13:54.001Z",
+        "browser": "Chrome/152.0.7977.82",
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "dpr": 1,
+        "commit": null
       },
       {
-        "path": "docs/page-designs/V4/reflection/screenshots/p01-geometry/geometry.json",
-        "sha256": "DE9F059C524A45FC02F5C46D1E3A51DFCA9E5C0EEB77CF774DA0EB1097508FD3",
-        "note": "supplemental capture; see recorded phase/source limits, not substitute current32"
+        "path": "docs/page-designs/V4/reflection/screenshots/p02-proof-audit/390-library-bottom.png",
+        "sha256": "353D32590241F5FDBFD8D667357D661968C1005808F570AD8EFD0778DD0BE012",
+        "viewport": "390x844",
+        "url": "http://127.0.0.1:4220/reflection.html?state=saved-library",
+        "fixtureSha256": "88BDAC6595CB7701D144E28BCB5F7AB2877F11FADD673A83505F0B955C19182C",
+        "kind": "mobile",
+        "stateId": "390-library-bottom",
+        "fixtureId": "p02-proof-audit-390-library-bottom.png",
+        "capturedAt": "2026-09-15T11:13:54.001Z",
+        "browser": "Chrome/152.0.7977.82",
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "dpr": 1,
+        "commit": null
+      },
+      {
+        "path": "docs/page-designs/V4/reflection/screenshots/p02-proof-audit/390-detail-bottom.png",
+        "sha256": "23A2606105177B31BFBD56DDEAB267A07548283B480F74799E054A90FA0CC49A",
+        "viewport": "390x844",
+        "url": "http://127.0.0.1:4220/reflection.html?state=saved-long-detail",
+        "fixtureSha256": "1E373A7325E9567304AEF19F3B04277F182A932F969E03A1C0DE7D44C1F49AA4",
+        "kind": "mobile",
+        "stateId": "390-detail-bottom",
+        "fixtureId": "p02-proof-audit-390-detail-bottom.png",
+        "capturedAt": "2026-09-15T11:13:54.001Z",
+        "browser": "Chrome/152.0.7977.82",
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "dpr": 1,
+        "commit": null
+      },
+      {
+        "path": "docs/page-designs/V4/reflection/screenshots/p02-proof-audit/390-saved-editor.png",
+        "sha256": "C7C4F32628904F0F3E9BD78CAF042664357D420B7A745C6AC4E768C44D3EF90C",
+        "viewport": "390x844",
+        "url": "http://127.0.0.1:4220/reflection.html?state=saved-detail",
+        "fixtureSha256": "88BDAC6595CB7701D144E28BCB5F7AB2877F11FADD673A83505F0B955C19182C",
+        "kind": "mobile",
+        "stateId": "390-saved-editor",
+        "fixtureId": "p02-proof-audit-390-saved-editor.png",
+        "capturedAt": "2026-09-15T11:13:54.001Z",
+        "browser": "Chrome/152.0.7977.82",
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "dpr": 1,
+        "commit": null
+      },
+      {
+        "path": "docs/page-designs/V4/reflection/screenshots/p02-proof-audit/390-editor-bottom.png",
+        "sha256": "D4AEB8EAAFA65F7A541B339C415741D384DDDDDB9825CD3C1FD37E79BB49F082",
+        "viewport": "390x844",
+        "url": "http://127.0.0.1:4220/reflection.html?state=saved-detail",
+        "fixtureSha256": "88BDAC6595CB7701D144E28BCB5F7AB2877F11FADD673A83505F0B955C19182C",
+        "kind": "mobile",
+        "stateId": "390-editor-bottom",
+        "fixtureId": "p02-proof-audit-390-editor-bottom.png",
+        "capturedAt": "2026-09-15T11:13:54.001Z",
+        "browser": "Chrome/152.0.7977.82",
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "dpr": 1,
+        "commit": null
+      },
+      {
+        "path": "docs/page-designs/V4/reflection/screenshots/p02-proof-audit/360-library-bottom.png",
+        "sha256": "5B7B5B103889FE81B665A8571F970B2EF381A38D9955A57323DB8DCB1FE0E35D",
+        "viewport": "360x844",
+        "url": "http://127.0.0.1:4220/reflection.html?state=saved-library",
+        "fixtureSha256": "88BDAC6595CB7701D144E28BCB5F7AB2877F11FADD673A83505F0B955C19182C",
+        "kind": "mobile",
+        "stateId": "360-library-bottom",
+        "fixtureId": "p02-proof-audit-360-library-bottom.png",
+        "capturedAt": "2026-09-15T11:13:54.001Z",
+        "browser": "Chrome/152.0.7977.82",
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "dpr": 1,
+        "commit": null
+      },
+      {
+        "path": "docs/page-designs/V4/reflection/screenshots/p02-proof-audit/360-detail-bottom.png",
+        "sha256": "F5F569BCDC7105D0A11D1E32ADF2D2136639C25412DD730F7862AEDE945F7B69",
+        "viewport": "360x844",
+        "url": "http://127.0.0.1:4220/reflection.html?state=saved-long-detail",
+        "fixtureSha256": "1E373A7325E9567304AEF19F3B04277F182A932F969E03A1C0DE7D44C1F49AA4",
+        "kind": "mobile",
+        "stateId": "360-detail-bottom",
+        "fixtureId": "p02-proof-audit-360-detail-bottom.png",
+        "capturedAt": "2026-09-15T11:13:54.001Z",
+        "browser": "Chrome/152.0.7977.82",
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "dpr": 1,
+        "commit": null
+      },
+      {
+        "path": "docs/page-designs/V4/reflection/screenshots/p02-proof-audit/360-saved-editor.png",
+        "sha256": "1909F98BF7B27FFEB2B13DD082722F10FE87E74A6120D9D5D5D4EAD619A55150",
+        "viewport": "360x844",
+        "url": "http://127.0.0.1:4220/reflection.html?state=saved-detail",
+        "fixtureSha256": "88BDAC6595CB7701D144E28BCB5F7AB2877F11FADD673A83505F0B955C19182C",
+        "kind": "mobile",
+        "stateId": "360-saved-editor",
+        "fixtureId": "p02-proof-audit-360-saved-editor.png",
+        "capturedAt": "2026-09-15T11:13:54.001Z",
+        "browser": "Chrome/152.0.7977.82",
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "dpr": 1,
+        "commit": null
+      },
+      {
+        "path": "docs/page-designs/V4/reflection/screenshots/p02-proof-audit/360-editor-bottom.png",
+        "sha256": "46040BFA6626D33A5BB3FE1E5D2E5F6D463747CAB817651F7CF612A4B9A3B5C7",
+        "viewport": "360x844",
+        "url": "http://127.0.0.1:4220/reflection.html?state=saved-detail",
+        "fixtureSha256": "88BDAC6595CB7701D144E28BCB5F7AB2877F11FADD673A83505F0B955C19182C",
+        "kind": "mobile",
+        "stateId": "360-editor-bottom",
+        "fixtureId": "p02-proof-audit-360-editor-bottom.png",
+        "capturedAt": "2026-09-15T11:13:54.001Z",
+        "browser": "Chrome/152.0.7977.82",
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "dpr": 1,
+        "commit": null
+      },
+      {
+        "path": "docs/page-designs/V4/reflection/screenshots/p02-proof-audit/920-library-bottom.png",
+        "sha256": "BA7345D2457237F6B10EFA6C8B965CCEEB397FF6160D8CC5DA676C5DFD0806D3",
+        "viewport": "920x1024",
+        "url": "http://127.0.0.1:4220/reflection.html?state=saved-library",
+        "fixtureSha256": "88BDAC6595CB7701D144E28BCB5F7AB2877F11FADD673A83505F0B955C19182C",
+        "kind": "desktop",
+        "stateId": "920-library-bottom",
+        "fixtureId": "p02-proof-audit-920-library-bottom.png",
+        "capturedAt": "2026-09-15T11:13:54.001Z",
+        "browser": "Chrome/152.0.7977.82",
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "dpr": 1,
+        "commit": null
+      },
+      {
+        "path": "docs/page-designs/V4/reflection/screenshots/p02-proof-audit/920-detail-bottom.png",
+        "sha256": "9805ED6213BC257F6A43486EFACCDA50975DEA8FE099B9A95220965450A96DF8",
+        "viewport": "920x1024",
+        "url": "http://127.0.0.1:4220/reflection.html?state=saved-long-detail",
+        "fixtureSha256": "1E373A7325E9567304AEF19F3B04277F182A932F969E03A1C0DE7D44C1F49AA4",
+        "kind": "desktop",
+        "stateId": "920-detail-bottom",
+        "fixtureId": "p02-proof-audit-920-detail-bottom.png",
+        "capturedAt": "2026-09-15T11:13:54.001Z",
+        "browser": "Chrome/152.0.7977.82",
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "dpr": 1,
+        "commit": null
+      },
+      {
+        "path": "docs/page-designs/V4/reflection/screenshots/p02-proof-audit/920-saved-editor.png",
+        "sha256": "98C45E9238545D7920FC5BDC64F5EB30E5BD3D385DCA9F75216A743FA24FF22A",
+        "viewport": "920x1024",
+        "url": "http://127.0.0.1:4220/reflection.html?state=saved-detail",
+        "fixtureSha256": "88BDAC6595CB7701D144E28BCB5F7AB2877F11FADD673A83505F0B955C19182C",
+        "kind": "desktop",
+        "stateId": "920-saved-editor",
+        "fixtureId": "p02-proof-audit-920-saved-editor.png",
+        "capturedAt": "2026-09-15T11:13:54.001Z",
+        "browser": "Chrome/152.0.7977.82",
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "dpr": 1,
+        "commit": null
+      },
+      {
+        "path": "docs/page-designs/V4/reflection/screenshots/p02-proof-audit/920-editor-bottom.png",
+        "sha256": "98C45E9238545D7920FC5BDC64F5EB30E5BD3D385DCA9F75216A743FA24FF22A",
+        "viewport": "920x1024",
+        "url": "http://127.0.0.1:4220/reflection.html?state=saved-detail",
+        "fixtureSha256": "88BDAC6595CB7701D144E28BCB5F7AB2877F11FADD673A83505F0B955C19182C",
+        "kind": "desktop",
+        "stateId": "920-editor-bottom",
+        "fixtureId": "p02-proof-audit-920-editor-bottom.png",
+        "capturedAt": "2026-09-15T11:13:54.001Z",
+        "browser": "Chrome/152.0.7977.82",
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "dpr": 1,
+        "commit": null
+      },
+      {
+        "path": "docs/page-designs/V4/reflection/screenshots/p02-proof-audit/1057-library-bottom.png",
+        "sha256": "D04BB843B809766D7293CDD3F85C74C714AC69E98B03F5C004F93A0CFB1A65E0",
+        "viewport": "1057x1024",
+        "url": "http://127.0.0.1:4220/reflection.html?state=saved-library",
+        "fixtureSha256": "88BDAC6595CB7701D144E28BCB5F7AB2877F11FADD673A83505F0B955C19182C",
+        "kind": "desktop",
+        "stateId": "1057-library-bottom",
+        "fixtureId": "p02-proof-audit-1057-library-bottom.png",
+        "capturedAt": "2026-09-15T11:13:54.001Z",
+        "browser": "Chrome/152.0.7977.82",
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "dpr": 1,
+        "commit": null
+      },
+      {
+        "path": "docs/page-designs/V4/reflection/screenshots/p02-proof-audit/1057-detail-bottom.png",
+        "sha256": "F23E84883FD58DBFC0D096E9642CA5D35A48397E311C6A939886AF8CB2DED64C",
+        "viewport": "1057x1024",
+        "url": "http://127.0.0.1:4220/reflection.html?state=saved-long-detail",
+        "fixtureSha256": "1E373A7325E9567304AEF19F3B04277F182A932F969E03A1C0DE7D44C1F49AA4",
+        "kind": "desktop",
+        "stateId": "1057-detail-bottom",
+        "fixtureId": "p02-proof-audit-1057-detail-bottom.png",
+        "capturedAt": "2026-09-15T11:13:54.001Z",
+        "browser": "Chrome/152.0.7977.82",
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "dpr": 1,
+        "commit": null
+      },
+      {
+        "path": "docs/page-designs/V4/reflection/screenshots/p02-proof-audit/1057-saved-editor.png",
+        "sha256": "DDF57AC4F1684850D0E69B196190C11DFD7893F1C73BEA64DE9909CA99F74B35",
+        "viewport": "1057x1024",
+        "url": "http://127.0.0.1:4220/reflection.html?state=saved-detail",
+        "fixtureSha256": "88BDAC6595CB7701D144E28BCB5F7AB2877F11FADD673A83505F0B955C19182C",
+        "kind": "desktop",
+        "stateId": "1057-saved-editor",
+        "fixtureId": "p02-proof-audit-1057-saved-editor.png",
+        "capturedAt": "2026-09-15T11:13:54.001Z",
+        "browser": "Chrome/152.0.7977.82",
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "dpr": 1,
+        "commit": null
+      },
+      {
+        "path": "docs/page-designs/V4/reflection/screenshots/p02-proof-audit/1057-editor-bottom.png",
+        "sha256": "DDF57AC4F1684850D0E69B196190C11DFD7893F1C73BEA64DE9909CA99F74B35",
+        "viewport": "1057x1024",
+        "url": "http://127.0.0.1:4220/reflection.html?state=saved-detail",
+        "fixtureSha256": "88BDAC6595CB7701D144E28BCB5F7AB2877F11FADD673A83505F0B955C19182C",
+        "kind": "desktop",
+        "stateId": "1057-editor-bottom",
+        "fixtureId": "p02-proof-audit-1057-editor-bottom.png",
+        "capturedAt": "2026-09-15T11:13:54.001Z",
+        "browser": "Chrome/152.0.7977.82",
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "dpr": 1,
+        "commit": null
+      },
+      {
+        "path": "docs/page-designs/V4/reflection/screenshots/p02-long-labels-final/1536-saved-long-labels.png",
+        "sha256": "89DECDBF7E7DF1E9A171DB890BDC577FA340AC94539801534DC8AF23A2AD27FA",
+        "viewport": "1536x1024",
+        "stateId": "saved-long-labels",
+        "url": "http://127.0.0.1:4220/reflection.html?state=saved-long-labels",
+        "fixtureSha256": "1F5CD75FF345BF9263C1A59D4D141223FE5B5691291071BC291DF7986B906AF0",
+        "info": {
+          "ready": true,
+          "scrollWidth": 1521,
+          "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+          "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具",
+          "state": {
+            "busy": false,
+            "dirty": false,
+            "pending": false,
+            "sync": "normal",
+            "editor": false,
+            "selected": "hw-student-1"
+          },
+          "squeezed": [],
+          "images": [
+            1536
+          ]
+        },
+        "kind": "desktop",
+        "fixtureId": "reflection-saved-long-labels",
+        "capturedAt": "2026-09-15T11:17:34.780Z",
+        "browser": "Chrome/152.0.7977.82",
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "dpr": 1,
+        "commit": null
+      },
+      {
+        "path": "docs/page-designs/V4/reflection/screenshots/p02-long-labels-final/390-saved-long-labels.png",
+        "sha256": "39FA6D6CDE32080174F2F2E4A6CF1AE56754E726FA83315484E429261101479E",
+        "viewport": "390x844",
+        "stateId": "saved-long-labels",
+        "url": "http://127.0.0.1:4220/reflection.html?state=saved-long-labels",
+        "fixtureSha256": "1F5CD75FF345BF9263C1A59D4D141223FE5B5691291071BC291DF7986B906AF0",
+        "info": {
+          "ready": true,
+          "scrollWidth": 390,
+          "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+          "body": "考试反思\n\n三年级 · 32人\n\n已保存\n已保存反思\n\n回看每一次复盘，找到后续行动。\n\n学生状态\n已保存反思\n\n本班全部考试 · 8条记录\n\n筛选已保存考试\n全部考试\n未关联考试\n本学期跨学科项目阶段综合练习与学习方法回顾合成考试名称 ·",
+          "state": {
+            "busy": false,
+            "dirty": false,
+            "pending": false,
+            "sync": "normal",
+            "editor": false,
+            "selected": "hw-student-1"
+          },
+          "squeezed": [],
+          "images": [
+            1536
+          ]
+        },
+        "kind": "mobile",
+        "fixtureId": "reflection-saved-long-labels",
+        "capturedAt": "2026-09-15T11:17:34.780Z",
+        "browser": "Chrome/152.0.7977.82",
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "dpr": 1,
+        "commit": null
       }
     ],
-    "checks": {
-      "path": "docs/page-designs/V4/reflection/checks-P01.json",
-      "sha256": "18535ABD6E66B5C2FCA4A3C0DB5C6A7F4BF7923B22D310ED20498A62D1EACF5A",
-      "commit": "c00ed534e22ca17ae47b094ce085c53a01bc3de6"
-    },
-    "designDisposition": "已保存记录库因缺独立设计被用户要求返工；P01源码与截图保留，未获实际设计批准。"
+    "checks": [
+      {
+        "path": "docs/page-designs/V4/reflection/checks/p02/saved-interactions.log",
+        "sha256": "549A568E6AF8FC07A9D7E485131AF7017D58F2A97F05F3A34401141E0628EFF2",
+        "exitCode": 0,
+        "description": "26 mixed DOM/controller synthetic checks"
+      },
+      {
+        "path": "docs/page-designs/V4/reflection/checks/p02/regression.log",
+        "sha256": "C5B9D415ABDFB1FA29136BB5E10EBD916255AEE19F2D35F514E9D2EBC9A24013",
+        "exitCode": 0,
+        "description": "28 existing synthetic save/draft/conflict checks"
+      },
+      {
+        "path": "docs/page-designs/V4/reflection/checks/p02/unit.log",
+        "sha256": "0017B73706E0AB5CD51F7F7B0E182D73F2556C404AA723B239E6274457B26B6D",
+        "exitCode": 0,
+        "description": "37 tests: 8 reflection operations, 9 surface coverage, 20 baseline/workflow"
+      }
+    ],
+    "designDisposition": "C02已按独立记录库/连续阅读实现，待用户实际审核，不是视觉批准"
   },
   "designApproval": {
     "approved": false,
@@ -1312,12 +1157,13 @@
     {
       "id": "SAVED-SURFACE-DESIGN",
       "blocking": true,
-      "resolved": false,
+      "resolved": true,
       "description": "P01已保存库沿用学生队列和编辑表单，缺独立记录浏览/阅读设计；补C02四图后待用户方向，仍需P02实际实现与审核。",
-      "source": "已保存反思界面没有做 应该是出图时的疏漏 要重新做 而且后面要记得把类似这种卡片的不同页面都要分开作图 不要让我人工审核时再查"
+      "source": "已保存反思界面没有做 应该是出图时的疏漏 要重新做 而且后面要记得把类似这种卡片的不同页面都要分开作图 不要让我人工审核时再查",
+      "resolution": "已实现独立记录库和阅读详情并有双端证据；是否符合审美仍待用户实际审核。"
     }
   ],
-  "nextAction": "等待用户确认C02已保存记录库与阅读详情的桌面/手机四张独立候选；确认后制作隔离P02，先不进入V5、不正式接入、不部署。",
+  "nextAction": "等待用户实际审核P02已保存记录库、阅读详情与编辑返回流程；不自动进入V5，不正式接入、不部署。",
   "history": [
     {
       "phase": "concept-review",
@@ -1341,6 +1187,1140 @@
           "sha256": "7F22A415AF3AAA5CA0E7A5DEF7140EC6BEE2AC05D2C0A4AA7022F7A69D34867F"
         }
       ]
+    },
+    {
+      "date": "2026-09-15",
+      "phase": "needs-design-changes",
+      "prototype": {
+        "version": "P01",
+        "commit": "c00ed534e22ca17ae47b094ce085c53a01bc3de6",
+        "previewUrl": "http://127.0.0.1:4220/reflection.html",
+        "sourceFiles": [
+          "app/designs/reflection/ReflectionDesign.tsx",
+          "app/designs/reflection/ReflectionDesign.module.css",
+          "app/designs/reflection/useReflectionDesignController.ts",
+          "app/designs/reflection/notebook-p01.png",
+          "tools/ui-preview/reflection.tsx",
+          "tools/ui-preview/reflection-fixture.ts",
+          "tools/ui-preview/reflection.html",
+          "tools/ui-preview/reflection.vite.config.ts"
+        ],
+        "sourceHashes": [
+          {
+            "path": "app/designs/reflection/ReflectionDesign.tsx",
+            "sha256": "68E5F69E330E02063FCA63B3932DF863AAA1B3DEFA7346600104CBBADB2F9A6F"
+          },
+          {
+            "path": "app/designs/reflection/ReflectionDesign.module.css",
+            "sha256": "B592138A82AE8CF6F2CC18D87D65D4A038CE209D578E3355941D4639B1A3AD73"
+          },
+          {
+            "path": "app/designs/reflection/useReflectionDesignController.ts",
+            "sha256": "FED9176F8990507225DE12F0F09D12E98E3489534F524ED4250AB5388FFA5D95"
+          },
+          {
+            "path": "app/designs/reflection/notebook-p01.png",
+            "sha256": "9EEF2BEB26DC96FB31DA59868854ADDF7D5A93702258415D8F65AC2D81042243"
+          },
+          {
+            "path": "tools/ui-preview/reflection.tsx",
+            "sha256": "AD891AC2DBDAA4019B06613769B1E8DC40E65088DF52C7C5D9466AF96FC2B97A"
+          },
+          {
+            "path": "tools/ui-preview/reflection-fixture.ts",
+            "sha256": "19A86736C408D121B71C3D92AE5ED40D9909DAFA702BB48FC44B18E968AB3139"
+          },
+          {
+            "path": "tools/ui-preview/reflection.html",
+            "sha256": "157A9F0261304BA294983C7A38881D3671B9BDE8ECE8598946BF8E6BC8AEAA72"
+          },
+          {
+            "path": "tools/ui-preview/reflection.vite.config.ts",
+            "sha256": "3F93157981372AA479678442AB4F970AE5CA966A47CDE4C742A72CF90320D439"
+          }
+        ],
+        "evidence": [
+          {
+            "path": "docs/page-designs/V4/reflection/screenshots/p01-current/1536-normal.png",
+            "sha256": "32D9306DDE3C6852DEED0B8298AFA4E63C8E3DF8FB472A0A7B5B4B2DCDAF16E4",
+            "viewport": "1536x1024",
+            "stateId": "normal",
+            "url": "http://127.0.0.1:4220/reflection.html?state=normal",
+            "fixtureSha256": "9608650C766AB8F76CABC7F85D204072507C4F4073D533D9151DADC1FEE9F29E",
+            "info": {
+              "ready": true,
+              "scrollWidth": 1521,
+              "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+              "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具",
+              "state": {
+                "busy": false,
+                "dirty": false,
+                "pending": false,
+                "sync": "normal",
+                "editor": false,
+                "selected": "hw-student-1"
+              },
+              "squeezed": [],
+              "images": [
+                1536
+              ]
+            },
+            "kind": "desktop",
+            "fixtureId": "reflection-normal",
+            "capturedAt": "2026-09-15T09:26:29.010Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+            "dpr": 1,
+            "commit": "c00ed534e22ca17ae47b094ce085c53a01bc3de6"
+          },
+          {
+            "path": "docs/page-designs/V4/reflection/screenshots/p01-current/1536-mobile-editor.png",
+            "sha256": "32D9306DDE3C6852DEED0B8298AFA4E63C8E3DF8FB472A0A7B5B4B2DCDAF16E4",
+            "viewport": "1536x1024",
+            "stateId": "mobile-editor",
+            "url": "http://127.0.0.1:4220/reflection.html?state=mobile-editor",
+            "fixtureSha256": "9608650C766AB8F76CABC7F85D204072507C4F4073D533D9151DADC1FEE9F29E",
+            "info": {
+              "ready": true,
+              "scrollWidth": 1521,
+              "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+              "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具",
+              "state": {
+                "busy": false,
+                "dirty": false,
+                "pending": false,
+                "sync": "normal",
+                "editor": true,
+                "selected": "hw-student-1"
+              },
+              "squeezed": [],
+              "images": [
+                1536
+              ]
+            },
+            "kind": "desktop",
+            "fixtureId": "reflection-mobile-editor",
+            "capturedAt": "2026-09-15T09:26:29.010Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+            "dpr": 1,
+            "commit": "c00ed534e22ca17ae47b094ce085c53a01bc3de6"
+          },
+          {
+            "path": "docs/page-designs/V4/reflection/screenshots/p01-current/1536-saved-library.png",
+            "sha256": "6CA66E65388DB36C3F054C9F3C97C789A05B9BBF4C5F834CF59C24EB14F2F96E",
+            "viewport": "1536x1024",
+            "stateId": "saved-library",
+            "url": "http://127.0.0.1:4220/reflection.html?state=saved-library",
+            "fixtureSha256": "9608650C766AB8F76CABC7F85D204072507C4F4073D533D9151DADC1FEE9F29E",
+            "info": {
+              "ready": true,
+              "scrollWidth": 1521,
+              "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+              "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具",
+              "state": {
+                "busy": false,
+                "dirty": false,
+                "pending": false,
+                "sync": "normal",
+                "editor": false,
+                "selected": "hw-student-1"
+              },
+              "squeezed": [],
+              "images": [
+                1536
+              ]
+            },
+            "kind": "desktop",
+            "fixtureId": "reflection-saved-library",
+            "capturedAt": "2026-09-15T09:26:29.010Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+            "dpr": 1,
+            "commit": "c00ed534e22ca17ae47b094ce085c53a01bc3de6"
+          },
+          {
+            "path": "docs/page-designs/V4/reflection/screenshots/p01-current/1536-legacy-library.png",
+            "sha256": "C8F383D6FADE8C741BD75E7D7B40BA789BD2D92E6ED50C640ED4682ADD861008",
+            "viewport": "1536x1024",
+            "stateId": "legacy-library",
+            "url": "http://127.0.0.1:4220/reflection.html?state=legacy-library",
+            "fixtureSha256": "FED317CABEBD49B2E642B7C232D2464389EEC418F9648C9A1D39891C283D771C",
+            "info": {
+              "ready": true,
+              "scrollWidth": 1521,
+              "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+              "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具",
+              "state": {
+                "busy": false,
+                "dirty": false,
+                "pending": false,
+                "sync": "normal",
+                "editor": false,
+                "selected": "hw-student-1"
+              },
+              "squeezed": [],
+              "images": [
+                1536
+              ]
+            },
+            "kind": "desktop",
+            "fixtureId": "reflection-legacy-library",
+            "capturedAt": "2026-09-15T09:26:29.010Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+            "dpr": 1,
+            "commit": "c00ed534e22ca17ae47b094ce085c53a01bc3de6"
+          },
+          {
+            "path": "docs/page-designs/V4/reflection/screenshots/p01-current/1536-empty-class.png",
+            "sha256": "0023F888F0FEFBC52F25642109809B6F4EF7D84792A173466DB27031F0F0013D",
+            "viewport": "1536x1024",
+            "stateId": "empty-class",
+            "url": "http://127.0.0.1:4220/reflection.html?state=empty-class",
+            "fixtureSha256": "E32E13EA42355A4DD451A1EFBF4830AB623FB5DFBB69E5A26E39CB6FCE89A2AB",
+            "info": {
+              "ready": true,
+              "scrollWidth": 1536,
+              "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+              "body": "班主任工作台\n当前班级\n三年级2班（0人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具\n",
+              "state": {
+                "busy": false,
+                "dirty": false,
+                "pending": false,
+                "sync": "normal",
+                "editor": false,
+                "selected": ""
+              },
+              "squeezed": [],
+              "images": [
+                1536
+              ]
+            },
+            "kind": "desktop",
+            "fixtureId": "reflection-empty-class",
+            "capturedAt": "2026-09-15T09:26:29.010Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+            "dpr": 1,
+            "commit": "c00ed534e22ca17ae47b094ce085c53a01bc3de6"
+          },
+          {
+            "path": "docs/page-designs/V4/reflection/screenshots/p01-current/1536-no-exams.png",
+            "sha256": "B2306C8A0EF4B274345501FAD33A0F65FF5AFEABD4BAF8B348B4467B42ED5157",
+            "viewport": "1536x1024",
+            "stateId": "no-exams",
+            "url": "http://127.0.0.1:4220/reflection.html?state=no-exams",
+            "fixtureSha256": "956C74075F057ADAA781902940FF762A348DB983F232B8D79B8A648BB173A39A",
+            "info": {
+              "ready": true,
+              "scrollWidth": 1536,
+              "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+              "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具",
+              "state": {
+                "busy": false,
+                "dirty": false,
+                "pending": false,
+                "sync": "normal",
+                "editor": false,
+                "selected": "hw-student-1"
+              },
+              "squeezed": [],
+              "images": [
+                1536
+              ]
+            },
+            "kind": "desktop",
+            "fixtureId": "reflection-no-exams",
+            "capturedAt": "2026-09-15T09:26:29.010Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+            "dpr": 1,
+            "commit": "c00ed534e22ca17ae47b094ce085c53a01bc3de6"
+          },
+          {
+            "path": "docs/page-designs/V4/reflection/screenshots/p01-current/1536-search-empty.png",
+            "sha256": "74B38D3264BB56C3A59CCECC25B7F8F69D172BBF1EC507B89B0886B73E930587",
+            "viewport": "1536x1024",
+            "stateId": "search-empty",
+            "url": "http://127.0.0.1:4220/reflection.html?state=search-empty",
+            "fixtureSha256": "9608650C766AB8F76CABC7F85D204072507C4F4073D533D9151DADC1FEE9F29E",
+            "info": {
+              "ready": true,
+              "scrollWidth": 1536,
+              "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+              "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具",
+              "state": {
+                "busy": false,
+                "dirty": false,
+                "pending": false,
+                "sync": "normal",
+                "editor": false,
+                "selected": "hw-student-1"
+              },
+              "squeezed": [],
+              "images": [
+                1536
+              ]
+            },
+            "kind": "desktop",
+            "fixtureId": "reflection-search-empty",
+            "capturedAt": "2026-09-15T09:26:29.010Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+            "dpr": 1,
+            "commit": "c00ed534e22ca17ae47b094ce085c53a01bc3de6"
+          },
+          {
+            "path": "docs/page-designs/V4/reflection/screenshots/p01-current/1536-students-105.png",
+            "sha256": "C8EAB7868CBDC0B07AFF43375B9FCCAF7B50EA5A340447432C3F81C03E5A6C38",
+            "viewport": "1536x1024",
+            "stateId": "students-105",
+            "url": "http://127.0.0.1:4220/reflection.html?state=students-105",
+            "fixtureSha256": "FCE691113DFFA45AF71C5B6241B0544AD360407075E796930077D018804A52FA",
+            "info": {
+              "ready": true,
+              "scrollWidth": 1521,
+              "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+              "body": "班主任工作台\n当前班级\n三年级2班（105人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工",
+              "state": {
+                "busy": false,
+                "dirty": false,
+                "pending": false,
+                "sync": "normal",
+                "editor": false,
+                "selected": "hw-student-1"
+              },
+              "squeezed": [],
+              "images": [
+                1536
+              ]
+            },
+            "kind": "desktop",
+            "fixtureId": "reflection-students-105",
+            "capturedAt": "2026-09-15T09:26:29.010Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+            "dpr": 1,
+            "commit": "c00ed534e22ca17ae47b094ce085c53a01bc3de6"
+          },
+          {
+            "path": "docs/page-designs/V4/reflection/screenshots/p01-current/1536-readonly.png",
+            "sha256": "04E76EDAF14AE75AED084861156EE9D0C82587F0FC4D23203BA2920BAC3C5C9F",
+            "viewport": "1536x1024",
+            "stateId": "readonly",
+            "url": "http://127.0.0.1:4220/reflection.html?state=readonly",
+            "fixtureSha256": "9608650C766AB8F76CABC7F85D204072507C4F4073D533D9151DADC1FEE9F29E",
+            "info": {
+              "ready": true,
+              "scrollWidth": 1521,
+              "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+              "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n只读\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具\n",
+              "state": {
+                "busy": false,
+                "dirty": false,
+                "pending": false,
+                "sync": "normal",
+                "editor": true,
+                "selected": "hw-student-1"
+              },
+              "squeezed": [],
+              "images": [
+                1536
+              ]
+            },
+            "kind": "desktop",
+            "fixtureId": "reflection-readonly",
+            "capturedAt": "2026-09-15T09:26:29.010Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+            "dpr": 1,
+            "commit": "c00ed534e22ca17ae47b094ce085c53a01bc3de6"
+          },
+          {
+            "path": "docs/page-designs/V4/reflection/screenshots/p01-current/1536-loading.png",
+            "sha256": "49C5086D902A12E600F676A7902E56B3B9EEFB308060672AF04DB2982E792156",
+            "viewport": "1536x1024",
+            "stateId": "loading",
+            "url": "http://127.0.0.1:4220/reflection.html?state=loading",
+            "fixtureSha256": "9608650C766AB8F76CABC7F85D204072507C4F4073D533D9151DADC1FEE9F29E",
+            "info": {
+              "ready": true,
+              "scrollWidth": 1536,
+              "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+              "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具",
+              "state": {
+                "busy": false,
+                "dirty": false,
+                "pending": false,
+                "sync": "normal",
+                "editor": false,
+                "selected": "hw-student-1"
+              },
+              "squeezed": [],
+              "images": []
+            },
+            "kind": "desktop",
+            "fixtureId": "reflection-loading",
+            "capturedAt": "2026-09-15T09:26:29.010Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+            "dpr": 1,
+            "commit": "c00ed534e22ca17ae47b094ce085c53a01bc3de6"
+          },
+          {
+            "path": "docs/page-designs/V4/reflection/screenshots/p01-current/1536-saving.png",
+            "sha256": "F02FEECA8908C1D47B9FE235E61DB939AD0EC1AFDE2BD89648C5D3EDFAD90642",
+            "viewport": "1536x1024",
+            "stateId": "saving",
+            "url": "http://127.0.0.1:4220/reflection.html?state=saving",
+            "fixtureSha256": "9608650C766AB8F76CABC7F85D204072507C4F4073D533D9151DADC1FEE9F29E",
+            "info": {
+              "ready": true,
+              "scrollWidth": 1521,
+              "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+              "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n正在保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工",
+              "state": {
+                "busy": true,
+                "dirty": true,
+                "pending": true,
+                "sync": "saving",
+                "editor": true,
+                "selected": "hw-student-1"
+              },
+              "squeezed": [],
+              "images": [
+                1536
+              ]
+            },
+            "kind": "desktop",
+            "fixtureId": "reflection-saving",
+            "capturedAt": "2026-09-15T09:26:29.010Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+            "dpr": 1,
+            "commit": "c00ed534e22ca17ae47b094ce085c53a01bc3de6"
+          },
+          {
+            "path": "docs/page-designs/V4/reflection/screenshots/p01-current/1536-save-failure.png",
+            "sha256": "DABCFEE9869B8B1EACCBA3A115D9981C07B937A10B8B4409767E314ADE6DC069",
+            "viewport": "1536x1024",
+            "stateId": "save-failure",
+            "url": "http://127.0.0.1:4220/reflection.html?state=save-failure",
+            "fixtureSha256": "9608650C766AB8F76CABC7F85D204072507C4F4073D533D9151DADC1FEE9F29E",
+            "info": {
+              "ready": true,
+              "scrollWidth": 1521,
+              "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+              "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n保存失败\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工",
+              "state": {
+                "busy": false,
+                "dirty": true,
+                "pending": true,
+                "sync": "save-failure",
+                "editor": true,
+                "selected": "hw-student-1"
+              },
+              "squeezed": [],
+              "images": [
+                1536
+              ]
+            },
+            "kind": "desktop",
+            "fixtureId": "reflection-save-failure",
+            "capturedAt": "2026-09-15T09:26:29.010Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+            "dpr": 1,
+            "commit": "c00ed534e22ca17ae47b094ce085c53a01bc3de6"
+          },
+          {
+            "path": "docs/page-designs/V4/reflection/screenshots/p01-current/1536-save-throw.png",
+            "sha256": "A44B42C127FAB74AAA99BCB4A75124E4CC93D2867847BF9C50B56B9B0150C493",
+            "viewport": "1536x1024",
+            "stateId": "save-throw",
+            "url": "http://127.0.0.1:4220/reflection.html?state=save-throw",
+            "fixtureSha256": "9608650C766AB8F76CABC7F85D204072507C4F4073D533D9151DADC1FEE9F29E",
+            "info": {
+              "ready": true,
+              "scrollWidth": 1521,
+              "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+              "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n保存失败\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工",
+              "state": {
+                "busy": false,
+                "dirty": true,
+                "pending": true,
+                "sync": "save-throw",
+                "editor": true,
+                "selected": "hw-student-1"
+              },
+              "squeezed": [],
+              "images": [
+                1536
+              ]
+            },
+            "kind": "desktop",
+            "fixtureId": "reflection-save-throw",
+            "capturedAt": "2026-09-15T09:26:29.010Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+            "dpr": 1,
+            "commit": "c00ed534e22ca17ae47b094ce085c53a01bc3de6"
+          },
+          {
+            "path": "docs/page-designs/V4/reflection/screenshots/p01-current/1536-conflict-409.png",
+            "sha256": "F55C8BA308ABD670C6978970638DBE150B49102E466068D72CEDBF287FFE9DA8",
+            "viewport": "1536x1024",
+            "stateId": "conflict-409",
+            "url": "http://127.0.0.1:4220/reflection.html?state=conflict-409",
+            "fixtureSha256": "9608650C766AB8F76CABC7F85D204072507C4F4073D533D9151DADC1FEE9F29E",
+            "info": {
+              "ready": true,
+              "scrollWidth": 1521,
+              "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+              "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n保存失败\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工",
+              "state": {
+                "busy": false,
+                "dirty": true,
+                "pending": true,
+                "sync": "conflict-409",
+                "editor": true,
+                "selected": "hw-student-1"
+              },
+              "squeezed": [],
+              "images": [
+                1536
+              ]
+            },
+            "kind": "desktop",
+            "fixtureId": "reflection-conflict-409",
+            "capturedAt": "2026-09-15T09:26:29.010Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+            "dpr": 1,
+            "commit": "c00ed534e22ca17ae47b094ce085c53a01bc3de6"
+          },
+          {
+            "path": "docs/page-designs/V4/reflection/screenshots/p01-current/1536-dirty-close.png",
+            "sha256": "D435FA0E4C171F7BDA7773095C9B07226BAB7EAC13E5AED185BF6C6C9E13234D",
+            "viewport": "1536x1024",
+            "stateId": "dirty-close",
+            "url": "http://127.0.0.1:4220/reflection.html?state=dirty-close",
+            "fixtureSha256": "9608650C766AB8F76CABC7F85D204072507C4F4073D533D9151DADC1FEE9F29E",
+            "info": {
+              "ready": true,
+              "scrollWidth": 1521,
+              "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+              "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n待同步\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具",
+              "state": {
+                "busy": false,
+                "dirty": true,
+                "pending": false,
+                "sync": "normal",
+                "editor": true,
+                "selected": "hw-student-1"
+              },
+              "squeezed": [],
+              "images": [
+                1536
+              ]
+            },
+            "kind": "desktop",
+            "fixtureId": "reflection-dirty-close",
+            "capturedAt": "2026-09-15T09:26:29.010Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+            "dpr": 1,
+            "commit": "c00ed534e22ca17ae47b094ce085c53a01bc3de6"
+          },
+          {
+            "path": "docs/page-designs/V4/reflection/screenshots/p01-current/1536-exam-picker.png",
+            "sha256": "6937E44A73CF64AD1F980EC648380F815C294B58ADA43B2E7627EE265EEC03C1",
+            "viewport": "1536x1024",
+            "stateId": "exam-picker",
+            "url": "http://127.0.0.1:4220/reflection.html?state=exam-picker",
+            "fixtureSha256": "453BF01695F0AC36625FEB8C5C297F75BE38D98CFC612911E231132F33780508",
+            "info": {
+              "ready": true,
+              "scrollWidth": 1521,
+              "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+              "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具",
+              "state": {
+                "busy": false,
+                "dirty": false,
+                "pending": false,
+                "sync": "normal",
+                "editor": false,
+                "selected": "hw-student-1"
+              },
+              "squeezed": [],
+              "images": [
+                1536
+              ]
+            },
+            "kind": "desktop",
+            "fixtureId": "reflection-exam-picker",
+            "capturedAt": "2026-09-15T09:26:29.010Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+            "dpr": 1,
+            "commit": "c00ed534e22ca17ae47b094ce085c53a01bc3de6"
+          },
+          {
+            "path": "docs/page-designs/V4/reflection/screenshots/p01-current/390-normal.png",
+            "sha256": "B05788D83002FFA581D9F9E3DAEC3BCCC92F6E137FBF185232FC3878F263BAB3",
+            "viewport": "390x844",
+            "stateId": "normal",
+            "url": "http://127.0.0.1:4220/reflection.html?state=normal",
+            "fixtureSha256": "9608650C766AB8F76CABC7F85D204072507C4F4073D533D9151DADC1FEE9F29E",
+            "info": {
+              "ready": true,
+              "scrollWidth": 390,
+              "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+              "body": "考试反思\n\n三年级 · 32人\n\n已保存\n考试反思\n\n把问题写清，把下一步约定下来。\n\n当前考试 · 9月综合练习\n\n2026-09-15 · 语文 / 数学 / 英语\n\n切换考试\n学生状态 32\n已保存反思 8\n全部状态\n未填写\n草稿\n已",
+              "state": {
+                "busy": false,
+                "dirty": false,
+                "pending": false,
+                "sync": "normal",
+                "editor": false,
+                "selected": "hw-student-1"
+              },
+              "squeezed": [],
+              "images": [
+                1536
+              ]
+            },
+            "kind": "mobile",
+            "fixtureId": "reflection-normal",
+            "capturedAt": "2026-09-15T09:26:29.010Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+            "dpr": 1,
+            "commit": "c00ed534e22ca17ae47b094ce085c53a01bc3de6"
+          },
+          {
+            "path": "docs/page-designs/V4/reflection/screenshots/p01-current/390-mobile-editor.png",
+            "sha256": "D6DC29F2A046C278A9C1CD000CA6654E8192C365D829EDA2FEE9DA552EBD5D50",
+            "viewport": "390x844",
+            "stateId": "mobile-editor",
+            "url": "http://127.0.0.1:4220/reflection.html?state=mobile-editor",
+            "fixtureSha256": "9608650C766AB8F76CABC7F85D204072507C4F4073D533D9151DADC1FEE9F29E",
+            "info": {
+              "ready": true,
+              "scrollWidth": 390,
+              "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+              "body": "考试反思\n\n三年级 · 32人\n\n已保存\n返回学生列表\n草稿\n学生01\n学号01\n日期\n\n9月综合练习 · 2026-09-15\n\n本次考试\n查看本次成绩\n主要问题 *\n原因分析\n下一步行动\n写给家长的话（选填）\n班主任跟进（选填）\n保存草",
+              "state": {
+                "busy": false,
+                "dirty": false,
+                "pending": false,
+                "sync": "normal",
+                "editor": true,
+                "selected": "hw-student-1"
+              },
+              "squeezed": [],
+              "images": []
+            },
+            "kind": "mobile",
+            "fixtureId": "reflection-mobile-editor",
+            "capturedAt": "2026-09-15T09:26:29.010Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+            "dpr": 1,
+            "commit": "c00ed534e22ca17ae47b094ce085c53a01bc3de6"
+          },
+          {
+            "path": "docs/page-designs/V4/reflection/screenshots/p01-current/390-saved-library.png",
+            "sha256": "7F22A415AF3AAA5CA0E7A5DEF7140EC6BEE2AC05D2C0A4AA7022F7A69D34867F",
+            "viewport": "390x844",
+            "stateId": "saved-library",
+            "url": "http://127.0.0.1:4220/reflection.html?state=saved-library",
+            "fixtureSha256": "9608650C766AB8F76CABC7F85D204072507C4F4073D533D9151DADC1FEE9F29E",
+            "info": {
+              "ready": true,
+              "scrollWidth": 390,
+              "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+              "body": "考试反思\n\n三年级 · 32人\n\n已保存\n考试反思\n\n把问题写清，把下一步约定下来。\n\n当前考试 · 9月综合练习\n\n2026-09-15 · 语文 / 数学 / 英语\n\n切换考试\n\n本班全部考试记录\n\n学生状态 32\n已保存反思 8\n全部",
+              "state": {
+                "busy": false,
+                "dirty": false,
+                "pending": false,
+                "sync": "normal",
+                "editor": false,
+                "selected": "hw-student-1"
+              },
+              "squeezed": [],
+              "images": [
+                1536
+              ]
+            },
+            "kind": "mobile",
+            "fixtureId": "reflection-saved-library",
+            "capturedAt": "2026-09-15T09:26:29.010Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+            "dpr": 1,
+            "commit": "c00ed534e22ca17ae47b094ce085c53a01bc3de6"
+          },
+          {
+            "path": "docs/page-designs/V4/reflection/screenshots/p01-current/390-legacy-library.png",
+            "sha256": "75B3B063D2C26E9C36D12C301753FA33D0CE56B5066D59FB558179A1B22925F7",
+            "viewport": "390x844",
+            "stateId": "legacy-library",
+            "url": "http://127.0.0.1:4220/reflection.html?state=legacy-library",
+            "fixtureSha256": "FED317CABEBD49B2E642B7C232D2464389EEC418F9648C9A1D39891C283D771C",
+            "info": {
+              "ready": true,
+              "scrollWidth": 390,
+              "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+              "body": "考试反思\n\n三年级 · 32人\n\n已保存\n考试反思\n\n把问题写清，把下一步约定下来。\n\n当前考试 · 9月综合练习\n\n2026-09-15 · 语文 / 数学 / 英语\n\n切换考试\n\n本班全部考试记录\n\n学生状态 32\n已保存反思 10\n全",
+              "state": {
+                "busy": false,
+                "dirty": false,
+                "pending": false,
+                "sync": "normal",
+                "editor": false,
+                "selected": "hw-student-1"
+              },
+              "squeezed": [],
+              "images": [
+                1536
+              ]
+            },
+            "kind": "mobile",
+            "fixtureId": "reflection-legacy-library",
+            "capturedAt": "2026-09-15T09:26:29.010Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+            "dpr": 1,
+            "commit": "c00ed534e22ca17ae47b094ce085c53a01bc3de6"
+          },
+          {
+            "path": "docs/page-designs/V4/reflection/screenshots/p01-current/390-empty-class.png",
+            "sha256": "C2D3ECD0675DC1A6F3C65C5FCEDD00830E539C660495F2F65FEEB2695A3FBCEA",
+            "viewport": "390x844",
+            "stateId": "empty-class",
+            "url": "http://127.0.0.1:4220/reflection.html?state=empty-class",
+            "fixtureSha256": "E32E13EA42355A4DD451A1EFBF4830AB623FB5DFBB69E5A26E39CB6FCE89A2AB",
+            "info": {
+              "ready": true,
+              "scrollWidth": 390,
+              "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+              "body": "考试反思\n\n三年级 · 0人\n\n已保存\n考试反思\n\n把问题写清，把下一步约定下来。\n\n当前考试 · 9月综合练习\n\n2026-09-15 · 语文 / 数学 / 英语\n\n切换考试\n当前班级暂无学生\n\n添加学生后，可逐人填写本次考试反思。\n\n",
+              "state": {
+                "busy": false,
+                "dirty": false,
+                "pending": false,
+                "sync": "normal",
+                "editor": false,
+                "selected": ""
+              },
+              "squeezed": [],
+              "images": [
+                1536
+              ]
+            },
+            "kind": "mobile",
+            "fixtureId": "reflection-empty-class",
+            "capturedAt": "2026-09-15T09:26:29.010Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+            "dpr": 1,
+            "commit": "c00ed534e22ca17ae47b094ce085c53a01bc3de6"
+          },
+          {
+            "path": "docs/page-designs/V4/reflection/screenshots/p01-current/390-no-exams.png",
+            "sha256": "E31CE3F9D2BE7C6556DAADD7E3DD2C59885BCC1221A84F10BB23DF0686B80805",
+            "viewport": "390x844",
+            "stateId": "no-exams",
+            "url": "http://127.0.0.1:4220/reflection.html?state=no-exams",
+            "fixtureSha256": "956C74075F057ADAA781902940FF762A348DB983F232B8D79B8A648BB173A39A",
+            "info": {
+              "ready": true,
+              "scrollWidth": 390,
+              "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+              "body": "考试反思\n\n三年级 · 32人\n\n已保存\n考试反思\n\n把问题写清，把下一步约定下来。\n\n还没有考试记录\n\n先在成绩分析中建立一次考试，再填写对应反思。\n\n此独立预览仅使用合成数据，可在左下角切换“normal”查看完整设计。\n\n首页\n学生\n",
+              "state": {
+                "busy": false,
+                "dirty": false,
+                "pending": false,
+                "sync": "normal",
+                "editor": false,
+                "selected": "hw-student-1"
+              },
+              "squeezed": [],
+              "images": [
+                1536
+              ]
+            },
+            "kind": "mobile",
+            "fixtureId": "reflection-no-exams",
+            "capturedAt": "2026-09-15T09:26:29.010Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+            "dpr": 1,
+            "commit": "c00ed534e22ca17ae47b094ce085c53a01bc3de6"
+          },
+          {
+            "path": "docs/page-designs/V4/reflection/screenshots/p01-current/390-search-empty.png",
+            "sha256": "1327181151A5E25B4A92170DEB3332EAC5FACCC12FD7F735564746A1D444F9B4",
+            "viewport": "390x844",
+            "stateId": "search-empty",
+            "url": "http://127.0.0.1:4220/reflection.html?state=search-empty",
+            "fixtureSha256": "9608650C766AB8F76CABC7F85D204072507C4F4073D533D9151DADC1FEE9F29E",
+            "info": {
+              "ready": true,
+              "scrollWidth": 390,
+              "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+              "body": "考试反思\n\n三年级 · 32人\n\n已保存\n考试反思\n\n把问题写清，把下一步约定下来。\n\n当前考试 · 9月综合练习\n\n2026-09-15 · 语文 / 数学 / 英语\n\n切换考试\n学生状态 32\n已保存反思 8\n全部状态\n未填写\n草稿\n已",
+              "state": {
+                "busy": false,
+                "dirty": false,
+                "pending": false,
+                "sync": "normal",
+                "editor": false,
+                "selected": "hw-student-1"
+              },
+              "squeezed": [],
+              "images": [
+                1536
+              ]
+            },
+            "kind": "mobile",
+            "fixtureId": "reflection-search-empty",
+            "capturedAt": "2026-09-15T09:26:29.010Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+            "dpr": 1,
+            "commit": "c00ed534e22ca17ae47b094ce085c53a01bc3de6"
+          },
+          {
+            "path": "docs/page-designs/V4/reflection/screenshots/p01-current/390-students-105.png",
+            "sha256": "42D7B837682071F485FA055E3DE6F764266C55BD3F5E29BCE67CF2E518B1D9DE",
+            "viewport": "390x844",
+            "stateId": "students-105",
+            "url": "http://127.0.0.1:4220/reflection.html?state=students-105",
+            "fixtureSha256": "FCE691113DFFA45AF71C5B6241B0544AD360407075E796930077D018804A52FA",
+            "info": {
+              "ready": true,
+              "scrollWidth": 390,
+              "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+              "body": "考试反思\n\n三年级 · 105人\n\n已保存\n考试反思\n\n把问题写清，把下一步约定下来。\n\n当前考试 · 9月综合练习\n\n2026-09-15 · 语文 / 数学 / 英语\n\n切换考试\n学生状态 105\n已保存反思 8\n全部状态\n未填写\n草稿",
+              "state": {
+                "busy": false,
+                "dirty": false,
+                "pending": false,
+                "sync": "normal",
+                "editor": false,
+                "selected": "hw-student-1"
+              },
+              "squeezed": [],
+              "images": [
+                1536
+              ]
+            },
+            "kind": "mobile",
+            "fixtureId": "reflection-students-105",
+            "capturedAt": "2026-09-15T09:26:29.010Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+            "dpr": 1,
+            "commit": "c00ed534e22ca17ae47b094ce085c53a01bc3de6"
+          },
+          {
+            "path": "docs/page-designs/V4/reflection/screenshots/p01-current/390-readonly.png",
+            "sha256": "5C53439BB18849AE72EDD218BB2440B14A9FD501310DFCD4F09B779046FAD3DF",
+            "viewport": "390x844",
+            "stateId": "readonly",
+            "url": "http://127.0.0.1:4220/reflection.html?state=readonly",
+            "fixtureSha256": "9608650C766AB8F76CABC7F85D204072507C4F4073D533D9151DADC1FEE9F29E",
+            "info": {
+              "ready": true,
+              "scrollWidth": 390,
+              "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+              "body": "考试反思\n\n三年级 · 32人\n\n只读\n只读宽限期\n可以查看和导出，续期后恢复编辑。\n返回学生列表\n草稿\n学生01\n学号01\n日期\n\n9月综合练习 · 2026-09-15\n\n本次考试\n查看本次成绩\n\n当前为只读模式，可查看和复制反思。\n\n",
+              "state": {
+                "busy": false,
+                "dirty": false,
+                "pending": false,
+                "sync": "normal",
+                "editor": true,
+                "selected": "hw-student-1"
+              },
+              "squeezed": [],
+              "images": []
+            },
+            "kind": "mobile",
+            "fixtureId": "reflection-readonly",
+            "capturedAt": "2026-09-15T09:26:29.010Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+            "dpr": 1,
+            "commit": "c00ed534e22ca17ae47b094ce085c53a01bc3de6"
+          },
+          {
+            "path": "docs/page-designs/V4/reflection/screenshots/p01-current/390-loading.png",
+            "sha256": "0AAD79005431EA1608CF2C336AE3E7312A0DFD0FD0EF8FE97C5ED16EE6EEC4F5",
+            "viewport": "390x844",
+            "stateId": "loading",
+            "url": "http://127.0.0.1:4220/reflection.html?state=loading",
+            "fixtureSha256": "9608650C766AB8F76CABC7F85D204072507C4F4073D533D9151DADC1FEE9F29E",
+            "info": {
+              "ready": true,
+              "scrollWidth": 390,
+              "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+              "body": "考试反思\n\n三年级 · 32人\n\n已保存\n\n正在加载考试反思…\n\n首页\n学生\n作业\n成绩\n更多\n设计预览 · 合成数据",
+              "state": {
+                "busy": false,
+                "dirty": false,
+                "pending": false,
+                "sync": "normal",
+                "editor": false,
+                "selected": "hw-student-1"
+              },
+              "squeezed": [],
+              "images": []
+            },
+            "kind": "mobile",
+            "fixtureId": "reflection-loading",
+            "capturedAt": "2026-09-15T09:26:29.010Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+            "dpr": 1,
+            "commit": "c00ed534e22ca17ae47b094ce085c53a01bc3de6"
+          },
+          {
+            "path": "docs/page-designs/V4/reflection/screenshots/p01-current/390-saving.png",
+            "sha256": "7DD759898F5156F69BDB2DC79F03018BE0C79AA67B35DFCDD59CE7072823610B",
+            "viewport": "390x844",
+            "stateId": "saving",
+            "url": "http://127.0.0.1:4220/reflection.html?state=saving",
+            "fixtureSha256": "9608650C766AB8F76CABC7F85D204072507C4F4073D533D9151DADC1FEE9F29E",
+            "info": {
+              "ready": true,
+              "scrollWidth": 390,
+              "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+              "body": "考试反思\n\n三年级 · 32人\n\n正在保存\n返回学生列表\n待同步\n学生01\n学号01\n日期\n\n9月综合练习 · 2026-09-15\n\n本次考试\n查看本次成绩\n主要问题 *\n原因分析\n下一步行动\n写给家长的话（选填）\n班主任跟进（选填）\n保",
+              "state": {
+                "busy": true,
+                "dirty": true,
+                "pending": true,
+                "sync": "saving",
+                "editor": true,
+                "selected": "hw-student-1"
+              },
+              "squeezed": [],
+              "images": []
+            },
+            "kind": "mobile",
+            "fixtureId": "reflection-saving",
+            "capturedAt": "2026-09-15T09:26:29.010Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+            "dpr": 1,
+            "commit": "c00ed534e22ca17ae47b094ce085c53a01bc3de6"
+          },
+          {
+            "path": "docs/page-designs/V4/reflection/screenshots/p01-current/390-save-failure.png",
+            "sha256": "321ACCDCFDD29997B611A5DDB4FD0FA5CC385175511643134D8F0CFEC1D0B663",
+            "viewport": "390x844",
+            "stateId": "save-failure",
+            "url": "http://127.0.0.1:4220/reflection.html?state=save-failure",
+            "fixtureSha256": "9608650C766AB8F76CABC7F85D204072507C4F4073D533D9151DADC1FEE9F29E",
+            "info": {
+              "ready": true,
+              "scrollWidth": 390,
+              "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+              "body": "考试反思\n\n三年级 · 32人\n\n保存失败\n保存失败，草稿已保留。\n重试\n关闭\n返回学生列表\n待同步\n学生01\n学号01\n日期\n\n9月综合练习 · 2026-09-15\n\n本次考试\n查看本次成绩\n\n同步失败，反思仍在本机。请重试，不会重复归",
+              "state": {
+                "busy": false,
+                "dirty": true,
+                "pending": true,
+                "sync": "save-failure",
+                "editor": true,
+                "selected": "hw-student-1"
+              },
+              "squeezed": [],
+              "images": []
+            },
+            "kind": "mobile",
+            "fixtureId": "reflection-save-failure",
+            "capturedAt": "2026-09-15T09:26:29.010Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+            "dpr": 1,
+            "commit": "c00ed534e22ca17ae47b094ce085c53a01bc3de6"
+          },
+          {
+            "path": "docs/page-designs/V4/reflection/screenshots/p01-current/390-save-throw.png",
+            "sha256": "012D1C77978998BD6A26A1A9DACD4C7B05EC75876807AED04183BF4179124C06",
+            "viewport": "390x844",
+            "stateId": "save-throw",
+            "url": "http://127.0.0.1:4220/reflection.html?state=save-throw",
+            "fixtureSha256": "9608650C766AB8F76CABC7F85D204072507C4F4073D533D9151DADC1FEE9F29E",
+            "info": {
+              "ready": true,
+              "scrollWidth": 390,
+              "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+              "body": "考试反思\n\n三年级 · 32人\n\n保存失败\n保存失败，草稿已保留。\n重试\n关闭\n返回学生列表\n待同步\n学生01\n学号01\n日期\n\n9月综合练习 · 2026-09-15\n\n本次考试\n查看本次成绩\n\n连接中断，反思仍在本机，请重试同步。\n\n本",
+              "state": {
+                "busy": false,
+                "dirty": true,
+                "pending": true,
+                "sync": "save-throw",
+                "editor": true,
+                "selected": "hw-student-1"
+              },
+              "squeezed": [],
+              "images": []
+            },
+            "kind": "mobile",
+            "fixtureId": "reflection-save-throw",
+            "capturedAt": "2026-09-15T09:26:29.010Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+            "dpr": 1,
+            "commit": "c00ed534e22ca17ae47b094ce085c53a01bc3de6"
+          },
+          {
+            "path": "docs/page-designs/V4/reflection/screenshots/p01-current/390-conflict-409.png",
+            "sha256": "55CB716BB7D8B6C50EB71630DC8BE7707AC9AC9AE327EB87D77593FA55A0A7C8",
+            "viewport": "390x844",
+            "stateId": "conflict-409",
+            "url": "http://127.0.0.1:4220/reflection.html?state=conflict-409",
+            "fixtureSha256": "9608650C766AB8F76CABC7F85D204072507C4F4073D533D9151DADC1FEE9F29E",
+            "info": {
+              "ready": true,
+              "scrollWidth": 390,
+              "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+              "body": "考试反思\n\n三年级 · 32人\n\n保存失败\n版本冲突，草稿已保留。\n导出当前草稿\n载入最新版本\n关闭\n返回学生列表\n待同步\n学生01\n学号01\n日期\n\n9月综合练习 · 2026-09-15\n\n本次考试\n查看本次成绩\n\n同步失败，反思仍在本",
+              "state": {
+                "busy": false,
+                "dirty": true,
+                "pending": true,
+                "sync": "conflict-409",
+                "editor": true,
+                "selected": "hw-student-1"
+              },
+              "squeezed": [],
+              "images": []
+            },
+            "kind": "mobile",
+            "fixtureId": "reflection-conflict-409",
+            "capturedAt": "2026-09-15T09:26:29.010Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+            "dpr": 1,
+            "commit": "c00ed534e22ca17ae47b094ce085c53a01bc3de6"
+          },
+          {
+            "path": "docs/page-designs/V4/reflection/screenshots/p01-current/390-dirty-close.png",
+            "sha256": "20F558A16255A6777B33E1E9851872A750A62A3165860CFD59011DDC0828A7E1",
+            "viewport": "390x844",
+            "stateId": "dirty-close",
+            "url": "http://127.0.0.1:4220/reflection.html?state=dirty-close",
+            "fixtureSha256": "9608650C766AB8F76CABC7F85D204072507C4F4073D533D9151DADC1FEE9F29E",
+            "info": {
+              "ready": true,
+              "scrollWidth": 390,
+              "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+              "body": "考试反思\n\n三年级 · 32人\n\n待同步\n返回学生列表\n未保存\n学生01\n学号01\n日期\n\n9月综合练习 · 2026-09-15\n\n本次考试\n查看本次成绩\n主要问题 *\n原因分析\n下一步行动\n写给家长的话（选填）\n班主任跟进（选填）\n保存",
+              "state": {
+                "busy": false,
+                "dirty": true,
+                "pending": false,
+                "sync": "normal",
+                "editor": true,
+                "selected": "hw-student-1"
+              },
+              "squeezed": [],
+              "images": []
+            },
+            "kind": "mobile",
+            "fixtureId": "reflection-dirty-close",
+            "capturedAt": "2026-09-15T09:26:29.010Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+            "dpr": 1,
+            "commit": "c00ed534e22ca17ae47b094ce085c53a01bc3de6"
+          },
+          {
+            "path": "docs/page-designs/V4/reflection/screenshots/p01-current/390-exam-picker.png",
+            "sha256": "6A67F44D6E249C07670BE340D4A40353D84CCDBB1820A7FEFB2B01BB525986C4",
+            "viewport": "390x844",
+            "stateId": "exam-picker",
+            "url": "http://127.0.0.1:4220/reflection.html?state=exam-picker",
+            "fixtureSha256": "453BF01695F0AC36625FEB8C5C297F75BE38D98CFC612911E231132F33780508",
+            "info": {
+              "ready": true,
+              "scrollWidth": 390,
+              "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+              "body": "考试反思\n\n三年级 · 32人\n\n已保存\n考试反思\n\n把问题写清，把下一步约定下来。\n\n当前考试 · 第1次综合练习与跨学科项目阶段回顾\n\n2026-01-15 · 语文 / 数学 / 英语\n\n切换考试\n学生状态 32\n已保存反思 8\n全部",
+              "state": {
+                "busy": false,
+                "dirty": false,
+                "pending": false,
+                "sync": "normal",
+                "editor": false,
+                "selected": "hw-student-1"
+              },
+              "squeezed": [],
+              "images": [
+                1536
+              ]
+            },
+            "kind": "mobile",
+            "fixtureId": "reflection-exam-picker",
+            "capturedAt": "2026-09-15T09:26:29.010Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+            "dpr": 1,
+            "commit": "c00ed534e22ca17ae47b094ce085c53a01bc3de6"
+          }
+        ],
+        "additionalEvidence": [
+          {
+            "path": "docs/page-designs/V4/reflection/screenshots/p01-review-fixes/review-fixes.json",
+            "sha256": "EDFF17F3AAD8746ED31EDD7648C09E150A874C94CCBE082920C67636369CD635",
+            "note": "current targeted review fix evidence"
+          },
+          {
+            "path": "docs/page-designs/V4/reflection/screenshots/p01-reviewed/capture.json",
+            "sha256": "553B8E1AC57D6C14853837F1FCDC2B56A908D861619766FEA59BB100C184B3E6",
+            "note": "supplemental capture; see recorded phase/source limits, not substitute current32"
+          },
+          {
+            "path": "docs/page-designs/V4/reflection/screenshots/p01-narrow/capture.json",
+            "sha256": "BDA997D1E1937A1FA7FE453354F493613D24B5C242BA71801A1394617A2E10DF",
+            "note": "supplemental capture; see recorded phase/source limits, not substitute current32"
+          },
+          {
+            "path": "docs/page-designs/V4/reflection/screenshots/p01-full/capture.json",
+            "sha256": "4E3EBCCED66C63EB522678597AC8D7E9609B33C9145872B655A5E9B5F2229960",
+            "note": "supplemental capture; see recorded phase/source limits, not substitute current32"
+          },
+          {
+            "path": "docs/page-designs/V4/reflection/screenshots/p01-geometry/geometry.json",
+            "sha256": "DE9F059C524A45FC02F5C46D1E3A51DFCA9E5C0EEB77CF774DA0EB1097508FD3",
+            "note": "supplemental capture; see recorded phase/source limits, not substitute current32"
+          }
+        ],
+        "checks": {
+          "path": "docs/page-designs/V4/reflection/checks-P01.json",
+          "sha256": "18535ABD6E66B5C2FCA4A3C0DB5C6A7F4BF7923B22D310ED20498A62D1EACF5A",
+          "commit": "c00ed534e22ca17ae47b094ce085c53a01bc3de6"
+        },
+        "designDisposition": "已保存记录库因缺独立设计被用户要求返工；P01源码与截图保留，未获实际设计批准。"
+      },
+      "finishReview": {
+        "path": "docs/page-designs/V4/reflection/finish-review-P01.md",
+        "sha256": "1D0AA4FD88686271212486B6B452FB851529E611F9ECB17F6E88C8FFDD8836AD",
+        "disposition": "PASS only for isolated user review; no aesthetic or D/R approval",
+        "commit": "c00ed534e22ca17ae47b094ce085c53a01bc3de6",
+        "currentLimitation": "旧技术PASS不能覆盖本次用户指出的设计遗漏；当前仍需返工。"
+      },
+      "note": "P01保存库被否决；C02四图随后获用户“可以 开始做网页”确认。旧实际/技术证据保留，不延伸批准。"
     }
   ],
   "conceptApproval": {
@@ -1353,7 +2333,7 @@
       "75075EA799FEA629603B8C004B7C3E020AA228F0FBE6BDE2A5803EC77FB162B5",
       "B3B128FFBA191FAA9D97D33AD89ACAB988D916C94E1048FD6B7AE18A55133FCC"
     ],
-    "scope": "仅C01桌面学生队列/填写、手机队列和填写三图；不包含已保存记录库或阅读详情。"
+    "scope": "C01学生工作区及C02四张保存库/阅读详情候选方向已分别获批；不等于P02实际或批次D/R批准。"
   },
   "sourceRecovery": {
     "sourceCommit": "7f0c8cb2ec24565bc931f5bdb0836f6dd2d8243e",
@@ -1416,42 +2396,53 @@
     "scope": "本页考试选择、历史详情与关联、成绩详情、草稿/冲突恢复需用户补充审核"
   },
   "finishReview": {
-    "path": "docs/page-designs/V4/reflection/finish-review-P01.md",
-    "sha256": "1D0AA4FD88686271212486B6B452FB851529E611F9ECB17F6E88C8FFDD8836AD",
-    "disposition": "PASS only for isolated user review; no aesthetic or D/R approval",
-    "commit": "c00ed534e22ca17ae47b094ce085c53a01bc3de6",
-    "currentLimitation": "旧技术PASS不能覆盖本次用户指出的设计遗漏；当前仍需返工。"
+    "path": "docs/page-designs/V4/reflection/finish-review-P02.md",
+    "sha256": "DEE38AD01E61CE6B44D76BE1DE1CE92050B2DC26B67BDC82F1644311F3110DBC",
+    "disposition": "PASS technical only; F1-F4 resolved, no user aesthetic or D/R approval",
+    "commit": null
   },
   "designDocumentation": {
     "path": "app/designs/reflection/DESIGN.md",
-    "sha256": "E40395B3EE321738AFF31B3EC1BC5FC820A07DA7DA7F5C982BE710E5903766DE",
+    "sha256": "E91B677063E42DC071EE3DEB091C34F8C52C01948C2FA08A89A478EC380602BA",
     "sidecar": "app/designs/reflection/.impeccable/design.json",
-    "sidecarSha256": "CB043DB22C37C08A654D6E93286874529264CD6CEFC0F57922086B51EEA840BB"
+    "sidecarSha256": "D8557812AC0E160BBB9252F03611B3C0C0F2042F5B75F18B7F254730D29A55BE"
   },
   "subviewDesigns": {
     "savedLibrary": {
       "version": "C02",
-      "approved": false,
-      "commit": "13b1eb66cdde0c1858df6c600a8808349d925d84"
+      "approved": true,
+      "commit": "13b1eb66cdde0c1858df6c600a8808349d925d84",
+      "approvalSource": "本任务用户：可以 开始做网页（四张C02记录库/阅读详情桌面及手机候选展示后）",
+      "approvedAt": "2026-09-15"
     },
     "savedDetail": {
       "version": "C02",
-      "approved": false,
-      "commit": "13b1eb66cdde0c1858df6c600a8808349d925d84"
+      "approved": true,
+      "commit": "13b1eb66cdde0c1858df6c600a8808349d925d84",
+      "approvalSource": "本任务用户：可以 开始做网页（四张C02记录库/阅读详情桌面及手机候选展示后）",
+      "approvedAt": "2026-09-15"
     }
   },
   "surfaceCoverage": {
     "inventoryReviewed": true,
     "reviewedAt": "2026-09-15",
-    "reviewMethod": "逐读ReflectionDesign及controller的tab/chooseReflection/手机编辑/历史关联分支，并打开P01桌面和手机saved-library真实截图；仅本页，不声称全站已盘点。",
+    "reviewMethod": "P02源码重新走查：学生状态→填写；已保存记录库→详情→编辑→保存/返回；未关联→明确关联→原id保存；结合双端主状态及五宽度底部可达性证据。",
     "sourceFiles": [
       {
         "path": "app/designs/reflection/ReflectionDesign.tsx",
-        "sha256": "68E5F69E330E02063FCA63B3932DF863AAA1B3DEFA7346600104CBBADB2F9A6F"
+        "sha256": "975A560C4FBB2212D3F91907BDBA07631DF24306BE11225FFA36B237C490BF11"
       },
       {
         "path": "app/designs/reflection/useReflectionDesignController.ts",
-        "sha256": "FED9176F8990507225DE12F0F09D12E98E3489534F524ED4250AB5388FFA5D95"
+        "sha256": "0C029CE8481583D13DBFD7E6E727A1D5FBD964EB10C174AFC50677B7E3276A8A"
+      },
+      {
+        "path": "tools/ui-preview/reflection.tsx",
+        "sha256": "7839A74B2C4247F61463646833FD54502A37C842164DDFDDBB995D8557D637D5"
+      },
+      {
+        "path": "app/designs/reflection/SavedReflectionViews.tsx",
+        "sha256": "69EA020204C9CE6B4D51845FF7E045D386D23517E8D36EC372546B3DC2158672"
       }
     ],
     "surfaces": [
@@ -1470,9 +2461,37 @@
         ],
         "actualEvidence": [
           {
+            "path": "docs/page-designs/V4/reflection/screenshots/p02-final/1536-normal.png",
+            "sha256": "258A40461A84A562CEBE0A4658AA98838D09E9FF004136C39CE0A2C2232671B6",
+            "viewport": "1536x1024",
+            "stateId": "normal",
+            "url": "http://127.0.0.1:4220/reflection.html?state=normal",
+            "fixtureSha256": "92E10601147BD7E5BFA393CB7B4469C0508A7D4CDF9714F62E6424A8159DA35C",
+            "info": {
+              "ready": true,
+              "scrollWidth": 1521,
+              "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+              "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具",
+              "state": {
+                "busy": false,
+                "dirty": false,
+                "pending": false,
+                "sync": "normal",
+                "editor": false,
+                "selected": "hw-student-1"
+              },
+              "squeezed": [],
+              "images": [
+                1536
+              ]
+            },
             "kind": "desktop",
-            "path": "docs/page-designs/V4/reflection/screenshots/p01-current/1536-normal.png",
-            "sha256": "32D9306DDE3C6852DEED0B8298AFA4E63C8E3DF8FB472A0A7B5B4B2DCDAF16E4"
+            "fixtureId": "reflection-normal",
+            "capturedAt": "2026-09-15T11:10:42.999Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+            "dpr": 1,
+            "commit": null
           }
         ]
       },
@@ -1491,9 +2510,37 @@
         ],
         "actualEvidence": [
           {
+            "path": "docs/page-designs/V4/reflection/screenshots/p02-final/390-normal.png",
+            "sha256": "B05788D83002FFA581D9F9E3DAEC3BCCC92F6E137FBF185232FC3878F263BAB3",
+            "viewport": "390x844",
+            "stateId": "normal",
+            "url": "http://127.0.0.1:4220/reflection.html?state=normal",
+            "fixtureSha256": "92E10601147BD7E5BFA393CB7B4469C0508A7D4CDF9714F62E6424A8159DA35C",
+            "info": {
+              "ready": true,
+              "scrollWidth": 390,
+              "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+              "body": "考试反思\n\n三年级 · 32人\n\n已保存\n考试反思\n\n把问题写清，把下一步约定下来。\n\n当前考试 · 9月综合练习\n\n2026-09-15 · 语文 / 数学 / 英语\n\n切换考试\n学生状态 32\n已保存反思 8\n全部状态\n未填写\n草稿\n已",
+              "state": {
+                "busy": false,
+                "dirty": false,
+                "pending": false,
+                "sync": "normal",
+                "editor": false,
+                "selected": "hw-student-1"
+              },
+              "squeezed": [],
+              "images": [
+                1536
+              ]
+            },
             "kind": "mobile",
-            "path": "docs/page-designs/V4/reflection/screenshots/p01-current/390-normal.png",
-            "sha256": "B05788D83002FFA581D9F9E3DAEC3BCCC92F6E137FBF185232FC3878F263BAB3"
+            "fixtureId": "reflection-normal",
+            "capturedAt": "2026-09-15T11:10:42.999Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+            "dpr": 1,
+            "commit": null
           }
         ]
       },
@@ -1518,9 +2565,35 @@
         ],
         "actualEvidence": [
           {
+            "path": "docs/page-designs/V4/reflection/screenshots/p02-final/390-mobile-editor.png",
+            "sha256": "69ABC4939E60C20806CB19298443C13B88AEA38FAA7C2E6D6378067810E43C64",
+            "viewport": "390x844",
+            "stateId": "mobile-editor",
+            "url": "http://127.0.0.1:4220/reflection.html?state=mobile-editor",
+            "fixtureSha256": "92E10601147BD7E5BFA393CB7B4469C0508A7D4CDF9714F62E6424A8159DA35C",
+            "info": {
+              "ready": true,
+              "scrollWidth": 390,
+              "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+              "body": "考试反思\n\n三年级 · 32人\n\n已保存\n返回学生列表\n草稿\n学生01\n学号01\n日期\n\n9月综合练习 · 2026-09-15\n\n本次考试\n查看本次成绩\n主要问题 *\n原因分析\n下一步行动\n写给家长的话（选填）\n班主任跟进（选填）\n保存草",
+              "state": {
+                "busy": false,
+                "dirty": false,
+                "pending": false,
+                "sync": "normal",
+                "editor": true,
+                "selected": "hw-student-1"
+              },
+              "squeezed": [],
+              "images": []
+            },
             "kind": "mobile",
-            "path": "docs/page-designs/V4/reflection/screenshots/p01-current/390-mobile-editor.png",
-            "sha256": "D6DC29F2A046C278A9C1CD000CA6654E8192C365D829EDA2FEE9DA552EBD5D50"
+            "fixtureId": "reflection-mobile-editor",
+            "capturedAt": "2026-09-15T11:10:42.999Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+            "dpr": 1,
+            "commit": null
           }
         ]
       },
@@ -1542,7 +2615,74 @@
             "path": "docs/page-designs/V4/reflection/candidates/saved-library-mobile-c02.png"
           }
         ],
-        "actualEvidence": []
+        "actualEvidence": [
+          {
+            "path": "docs/page-designs/V4/reflection/screenshots/p02-final/1536-saved-library.png",
+            "sha256": "CBC19C94F1C3E7F2C5F67344D5053B4E605CB7FA77125765A7BE721EF643602D",
+            "viewport": "1536x1024",
+            "stateId": "saved-library",
+            "url": "http://127.0.0.1:4220/reflection.html?state=saved-library",
+            "fixtureSha256": "88BDAC6595CB7701D144E28BCB5F7AB2877F11FADD673A83505F0B955C19182C",
+            "info": {
+              "ready": true,
+              "scrollWidth": 1521,
+              "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+              "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具",
+              "state": {
+                "busy": false,
+                "dirty": false,
+                "pending": false,
+                "sync": "normal",
+                "editor": false,
+                "selected": "hw-student-1"
+              },
+              "squeezed": [],
+              "images": [
+                1536
+              ]
+            },
+            "kind": "desktop",
+            "fixtureId": "reflection-saved-library",
+            "capturedAt": "2026-09-15T11:10:42.999Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+            "dpr": 1,
+            "commit": null
+          },
+          {
+            "path": "docs/page-designs/V4/reflection/screenshots/p02-final/390-saved-library.png",
+            "sha256": "093D5BDDEAB7564FBCE801D813AD37AAF46F691D9FE2B0796E111346EB4723DC",
+            "viewport": "390x844",
+            "stateId": "saved-library",
+            "url": "http://127.0.0.1:4220/reflection.html?state=saved-library",
+            "fixtureSha256": "88BDAC6595CB7701D144E28BCB5F7AB2877F11FADD673A83505F0B955C19182C",
+            "info": {
+              "ready": true,
+              "scrollWidth": 390,
+              "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+              "body": "考试反思\n\n三年级 · 32人\n\n已保存\n已保存反思\n\n回看每一次复盘，找到后续行动。\n\n学生状态\n已保存反思\n\n本班全部考试 · 8条记录\n\n筛选已保存考试\n全部考试\n未关联考试\n9月综合练习 · 2026-09-15\n单元练习 · 20",
+              "state": {
+                "busy": false,
+                "dirty": false,
+                "pending": false,
+                "sync": "normal",
+                "editor": false,
+                "selected": "hw-student-1"
+              },
+              "squeezed": [],
+              "images": [
+                1536
+              ]
+            },
+            "kind": "mobile",
+            "fixtureId": "reflection-saved-library",
+            "capturedAt": "2026-09-15T11:10:42.999Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+            "dpr": 1,
+            "commit": null
+          }
+        ]
       },
       {
         "id": "saved-detail",
@@ -1562,7 +2702,70 @@
             "path": "docs/page-designs/V4/reflection/candidates/saved-detail-mobile-c02.png"
           }
         ],
-        "actualEvidence": []
+        "actualEvidence": [
+          {
+            "path": "docs/page-designs/V4/reflection/screenshots/p02-final/1536-saved-detail.png",
+            "sha256": "862C76FEE81A72E9495B84204F61AB02EBC1B5111A65A6CFC775B0D456F4D317",
+            "viewport": "1536x1024",
+            "stateId": "saved-detail",
+            "url": "http://127.0.0.1:4220/reflection.html?state=saved-detail",
+            "fixtureSha256": "88BDAC6595CB7701D144E28BCB5F7AB2877F11FADD673A83505F0B955C19182C",
+            "info": {
+              "ready": true,
+              "scrollWidth": 1536,
+              "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+              "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具",
+              "state": {
+                "busy": false,
+                "dirty": false,
+                "pending": false,
+                "sync": "normal",
+                "editor": false,
+                "selected": "hw-student-1"
+              },
+              "squeezed": [],
+              "images": []
+            },
+            "kind": "desktop",
+            "fixtureId": "reflection-saved-detail",
+            "capturedAt": "2026-09-15T11:10:42.999Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+            "dpr": 1,
+            "commit": null
+          },
+          {
+            "path": "docs/page-designs/V4/reflection/screenshots/p02-final/390-saved-detail.png",
+            "sha256": "7C7B3B5A236C84CBE385B922F14DD21463CD8AB496C12E272CBFB54CB94E5F94",
+            "viewport": "390x844",
+            "stateId": "saved-detail",
+            "url": "http://127.0.0.1:4220/reflection.html?state=saved-detail",
+            "fixtureSha256": "88BDAC6595CB7701D144E28BCB5F7AB2877F11FADD673A83505F0B955C19182C",
+            "info": {
+              "ready": true,
+              "scrollWidth": 390,
+              "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+              "body": "考试反思\n\n三年级 · 32人\n\n已保存\n返回已保存反思\n学生04 · 考试反思\n已完成\n\n学号04 · 记录日期 2026-09-15\n\n复制反思\n编辑反思\n关联考试：9月综合练习\n2026-09-15 · 语文 / 数学 / 英语\n主要",
+              "state": {
+                "busy": false,
+                "dirty": false,
+                "pending": false,
+                "sync": "normal",
+                "editor": false,
+                "selected": "hw-student-1"
+              },
+              "squeezed": [],
+              "images": []
+            },
+            "kind": "mobile",
+            "fixtureId": "reflection-saved-detail",
+            "capturedAt": "2026-09-15T11:10:42.999Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+            "dpr": 1,
+            "commit": null
+          }
+        ]
       },
       {
         "id": "supplemental-overlays",
@@ -1574,17 +2777,17 @@
       }
     ],
     "checks": {
-      "tests": {
-        "path": "docs/page-designs/V4/reflection/checks/c02/coverage-tests.log",
-        "sha256": "A3AE98DFBFFCD115127DF89048F002BD344409BDA02844099927DB0188D15B48",
-        "result": "29/29 passed; 9 surface tests and 20 existing workflow/baseline tests"
-      },
+      "stage": "prototype",
       "report": {
-        "path": "docs/page-designs/V4/reflection/checks/c02/report.json",
-        "sha256": "DE5313BCB4FCD28019F87DB7EF9D1710F1310DAA723C7F2CD560D1BA166E4DED"
+        "path": "docs/page-designs/V4/reflection/checks/p02/report.json",
+        "sha256": "BF0544C6C77415EF0D436FC5393C30C4076D734802E80100621392ED4020E59E"
+      },
+      "coverage": {
+        "path": "docs/page-designs/V4/reflection/checks/p02/surface-coverage.json",
+        "sha256": "C58BEAA875CE6FBE0D234039C5EA70FEDE1D7F11F4834C41C484AA8E96AFA477"
       }
     }
   },
-  "candidateRevision": "C02 saved-library/detail; C01 student workspace retained",
+  "candidateRevision": "C02 confirmed; isolated P02 awaits actual review",
   "c02CandidateCommit": "13b1eb66cdde0c1858df6c600a8808349d925d84"
 }

@@ -1,199 +1,521 @@
 {
-  "version": "P01",
+  "version": "P02",
   "fixture": "tools/ui-preview/reflection-fixture.ts",
-  "fixtureSha256": "19A86736C408D121B71C3D92AE5ED40D9909DAFA702BB48FC44B18E968AB3139",
+  "fixtureSha256": "5CEC773B3D07B9A40AEDD675953843AD332DB5A3D58D733EA2A27644BAA9F6E1",
   "captured": [
     {
-      "stateId": "normal",
+      "path": "docs/page-designs/V4/reflection/screenshots/p02-final/1536-saved-library.png",
+      "sha256": "CBC19C94F1C3E7F2C5F67344D5053B4E605CB7FA77125765A7BE721EF643602D",
       "viewport": "1536x1024",
-      "path": "docs/page-designs/V4/reflection/screenshots/p01-current/1536-normal.png",
-      "sha256": "32D9306DDE3C6852DEED0B8298AFA4E63C8E3DF8FB472A0A7B5B4B2DCDAF16E4"
-    },
-    {
-      "stateId": "mobile-editor",
-      "viewport": "1536x1024",
-      "path": "docs/page-designs/V4/reflection/screenshots/p01-current/1536-mobile-editor.png",
-      "sha256": "32D9306DDE3C6852DEED0B8298AFA4E63C8E3DF8FB472A0A7B5B4B2DCDAF16E4"
-    },
-    {
       "stateId": "saved-library",
-      "viewport": "1536x1024",
-      "path": "docs/page-designs/V4/reflection/screenshots/p01-current/1536-saved-library.png",
-      "sha256": "6CA66E65388DB36C3F054C9F3C97C789A05B9BBF4C5F834CF59C24EB14F2F96E"
+      "url": "http://127.0.0.1:4220/reflection.html?state=saved-library",
+      "fixtureSha256": "88BDAC6595CB7701D144E28BCB5F7AB2877F11FADD673A83505F0B955C19182C",
+      "info": {
+        "ready": true,
+        "scrollWidth": 1521,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": false,
+          "sync": "normal",
+          "editor": false,
+          "selected": "hw-student-1"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      },
+      "kind": "desktop",
+      "fixtureId": "reflection-saved-library",
+      "capturedAt": "2026-09-15T11:10:42.999Z",
+      "browser": "Chrome/152.0.7977.82",
+      "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+      "dpr": 1,
+      "commit": null
     },
     {
-      "stateId": "legacy-library",
+      "path": "docs/page-designs/V4/reflection/screenshots/p02-final/1536-saved-detail.png",
+      "sha256": "862C76FEE81A72E9495B84204F61AB02EBC1B5111A65A6CFC775B0D456F4D317",
       "viewport": "1536x1024",
-      "path": "docs/page-designs/V4/reflection/screenshots/p01-current/1536-legacy-library.png",
-      "sha256": "C8F383D6FADE8C741BD75E7D7B40BA789BD2D92E6ED50C640ED4682ADD861008"
+      "stateId": "saved-detail",
+      "url": "http://127.0.0.1:4220/reflection.html?state=saved-detail",
+      "fixtureSha256": "88BDAC6595CB7701D144E28BCB5F7AB2877F11FADD673A83505F0B955C19182C",
+      "info": {
+        "ready": true,
+        "scrollWidth": 1536,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": false,
+          "sync": "normal",
+          "editor": false,
+          "selected": "hw-student-1"
+        },
+        "squeezed": [],
+        "images": []
+      },
+      "kind": "desktop",
+      "fixtureId": "reflection-saved-detail",
+      "capturedAt": "2026-09-15T11:10:42.999Z",
+      "browser": "Chrome/152.0.7977.82",
+      "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+      "dpr": 1,
+      "commit": null
     },
     {
-      "stateId": "empty-class",
+      "path": "docs/page-designs/V4/reflection/screenshots/p02-final/1536-saved-empty.png",
+      "sha256": "3FFE012CEB34498E0A25F87907B08C0573F6A3978FA62A961FEDF9BDD5B937C6",
       "viewport": "1536x1024",
-      "path": "docs/page-designs/V4/reflection/screenshots/p01-current/1536-empty-class.png",
-      "sha256": "0023F888F0FEFBC52F25642109809B6F4EF7D84792A173466DB27031F0F0013D"
+      "stateId": "saved-empty",
+      "url": "http://127.0.0.1:4220/reflection.html?state=saved-empty",
+      "fixtureSha256": "8307929C9CA1626E22E58AE1C683187EC666D6B15BA14142268271590F138C48",
+      "info": {
+        "ready": true,
+        "scrollWidth": 1536,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": false,
+          "sync": "normal",
+          "editor": false,
+          "selected": "hw-student-1"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      },
+      "kind": "desktop",
+      "fixtureId": "reflection-saved-empty",
+      "capturedAt": "2026-09-15T11:10:42.999Z",
+      "browser": "Chrome/152.0.7977.82",
+      "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+      "dpr": 1,
+      "commit": null
     },
     {
-      "stateId": "no-exams",
+      "path": "docs/page-designs/V4/reflection/screenshots/p02-final/1536-saved-search-empty.png",
+      "sha256": "CD96F20E1DEE8F5B3EE66C038BDFBA5422242D75A91618488438D56A1D04CCF8",
       "viewport": "1536x1024",
-      "path": "docs/page-designs/V4/reflection/screenshots/p01-current/1536-no-exams.png",
-      "sha256": "B2306C8A0EF4B274345501FAD33A0F65FF5AFEABD4BAF8B348B4467B42ED5157"
+      "stateId": "saved-search-empty",
+      "url": "http://127.0.0.1:4220/reflection.html?state=saved-search-empty",
+      "fixtureSha256": "88BDAC6595CB7701D144E28BCB5F7AB2877F11FADD673A83505F0B955C19182C",
+      "info": {
+        "ready": true,
+        "scrollWidth": 1536,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": false,
+          "sync": "normal",
+          "editor": false,
+          "selected": "hw-student-1"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      },
+      "kind": "desktop",
+      "fixtureId": "reflection-saved-search-empty",
+      "capturedAt": "2026-09-15T11:10:42.999Z",
+      "browser": "Chrome/152.0.7977.82",
+      "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+      "dpr": 1,
+      "commit": null
     },
     {
-      "stateId": "search-empty",
+      "path": "docs/page-designs/V4/reflection/screenshots/p02-final/1536-saved-long-detail.png",
+      "sha256": "32A3A8E35DEC915D3FA3BC93C62373071B47BDD274F99145CF0D15E585878B3A",
       "viewport": "1536x1024",
-      "path": "docs/page-designs/V4/reflection/screenshots/p01-current/1536-search-empty.png",
-      "sha256": "74B38D3264BB56C3A59CCECC25B7F8F69D172BBF1EC507B89B0886B73E930587"
+      "stateId": "saved-long-detail",
+      "url": "http://127.0.0.1:4220/reflection.html?state=saved-long-detail",
+      "fixtureSha256": "1E373A7325E9567304AEF19F3B04277F182A932F969E03A1C0DE7D44C1F49AA4",
+      "info": {
+        "ready": true,
+        "scrollWidth": 1521,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": false,
+          "sync": "normal",
+          "editor": false,
+          "selected": "hw-student-1"
+        },
+        "squeezed": [],
+        "images": []
+      },
+      "kind": "desktop",
+      "fixtureId": "reflection-saved-long-detail",
+      "capturedAt": "2026-09-15T11:10:42.999Z",
+      "browser": "Chrome/152.0.7977.82",
+      "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+      "dpr": 1,
+      "commit": null
     },
     {
-      "stateId": "students-105",
+      "path": "docs/page-designs/V4/reflection/screenshots/p02-final/1536-saved-readonly.png",
+      "sha256": "A0588059E6A1319BC50DE18F2F13316E782D17524445401C7DA2FD5D63F9FDC6",
       "viewport": "1536x1024",
-      "path": "docs/page-designs/V4/reflection/screenshots/p01-current/1536-students-105.png",
-      "sha256": "C8EAB7868CBDC0B07AFF43375B9FCCAF7B50EA5A340447432C3F81C03E5A6C38"
+      "stateId": "saved-readonly",
+      "url": "http://127.0.0.1:4220/reflection.html?state=saved-readonly",
+      "fixtureSha256": "88BDAC6595CB7701D144E28BCB5F7AB2877F11FADD673A83505F0B955C19182C",
+      "info": {
+        "ready": true,
+        "scrollWidth": 1536,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n只读\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具\n",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": false,
+          "sync": "normal",
+          "editor": false,
+          "selected": "hw-student-1"
+        },
+        "squeezed": [],
+        "images": []
+      },
+      "kind": "desktop",
+      "fixtureId": "reflection-saved-readonly",
+      "capturedAt": "2026-09-15T11:10:42.999Z",
+      "browser": "Chrome/152.0.7977.82",
+      "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+      "dpr": 1,
+      "commit": null
     },
     {
-      "stateId": "readonly",
+      "path": "docs/page-designs/V4/reflection/screenshots/p02-final/1536-normal.png",
+      "sha256": "258A40461A84A562CEBE0A4658AA98838D09E9FF004136C39CE0A2C2232671B6",
       "viewport": "1536x1024",
-      "path": "docs/page-designs/V4/reflection/screenshots/p01-current/1536-readonly.png",
-      "sha256": "04E76EDAF14AE75AED084861156EE9D0C82587F0FC4D23203BA2920BAC3C5C9F"
-    },
-    {
-      "stateId": "loading",
-      "viewport": "1536x1024",
-      "path": "docs/page-designs/V4/reflection/screenshots/p01-current/1536-loading.png",
-      "sha256": "49C5086D902A12E600F676A7902E56B3B9EEFB308060672AF04DB2982E792156"
-    },
-    {
-      "stateId": "saving",
-      "viewport": "1536x1024",
-      "path": "docs/page-designs/V4/reflection/screenshots/p01-current/1536-saving.png",
-      "sha256": "F02FEECA8908C1D47B9FE235E61DB939AD0EC1AFDE2BD89648C5D3EDFAD90642"
-    },
-    {
-      "stateId": "save-failure",
-      "viewport": "1536x1024",
-      "path": "docs/page-designs/V4/reflection/screenshots/p01-current/1536-save-failure.png",
-      "sha256": "DABCFEE9869B8B1EACCBA3A115D9981C07B937A10B8B4409767E314ADE6DC069"
-    },
-    {
-      "stateId": "save-throw",
-      "viewport": "1536x1024",
-      "path": "docs/page-designs/V4/reflection/screenshots/p01-current/1536-save-throw.png",
-      "sha256": "A44B42C127FAB74AAA99BCB4A75124E4CC93D2867847BF9C50B56B9B0150C493"
-    },
-    {
-      "stateId": "conflict-409",
-      "viewport": "1536x1024",
-      "path": "docs/page-designs/V4/reflection/screenshots/p01-current/1536-conflict-409.png",
-      "sha256": "F55C8BA308ABD670C6978970638DBE150B49102E466068D72CEDBF287FFE9DA8"
-    },
-    {
-      "stateId": "dirty-close",
-      "viewport": "1536x1024",
-      "path": "docs/page-designs/V4/reflection/screenshots/p01-current/1536-dirty-close.png",
-      "sha256": "D435FA0E4C171F7BDA7773095C9B07226BAB7EAC13E5AED185BF6C6C9E13234D"
-    },
-    {
-      "stateId": "exam-picker",
-      "viewport": "1536x1024",
-      "path": "docs/page-designs/V4/reflection/screenshots/p01-current/1536-exam-picker.png",
-      "sha256": "6937E44A73CF64AD1F980EC648380F815C294B58ADA43B2E7627EE265EEC03C1"
-    },
-    {
       "stateId": "normal",
-      "viewport": "390x844",
-      "path": "docs/page-designs/V4/reflection/screenshots/p01-current/390-normal.png",
-      "sha256": "B05788D83002FFA581D9F9E3DAEC3BCCC92F6E137FBF185232FC3878F263BAB3"
+      "url": "http://127.0.0.1:4220/reflection.html?state=normal",
+      "fixtureSha256": "92E10601147BD7E5BFA393CB7B4469C0508A7D4CDF9714F62E6424A8159DA35C",
+      "info": {
+        "ready": true,
+        "scrollWidth": 1521,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": false,
+          "sync": "normal",
+          "editor": false,
+          "selected": "hw-student-1"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      },
+      "kind": "desktop",
+      "fixtureId": "reflection-normal",
+      "capturedAt": "2026-09-15T11:10:42.999Z",
+      "browser": "Chrome/152.0.7977.82",
+      "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+      "dpr": 1,
+      "commit": null
     },
     {
+      "path": "docs/page-designs/V4/reflection/screenshots/p02-final/1536-mobile-editor.png",
+      "sha256": "258A40461A84A562CEBE0A4658AA98838D09E9FF004136C39CE0A2C2232671B6",
+      "viewport": "1536x1024",
       "stateId": "mobile-editor",
-      "viewport": "390x844",
-      "path": "docs/page-designs/V4/reflection/screenshots/p01-current/390-mobile-editor.png",
-      "sha256": "D6DC29F2A046C278A9C1CD000CA6654E8192C365D829EDA2FEE9DA552EBD5D50"
+      "url": "http://127.0.0.1:4220/reflection.html?state=mobile-editor",
+      "fixtureSha256": "92E10601147BD7E5BFA393CB7B4469C0508A7D4CDF9714F62E6424A8159DA35C",
+      "info": {
+        "ready": true,
+        "scrollWidth": 1521,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": false,
+          "sync": "normal",
+          "editor": true,
+          "selected": "hw-student-1"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      },
+      "kind": "desktop",
+      "fixtureId": "reflection-mobile-editor",
+      "capturedAt": "2026-09-15T11:10:42.999Z",
+      "browser": "Chrome/152.0.7977.82",
+      "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+      "dpr": 1,
+      "commit": null
     },
     {
+      "path": "docs/page-designs/V4/reflection/screenshots/p02-final/390-saved-library.png",
+      "sha256": "093D5BDDEAB7564FBCE801D813AD37AAF46F691D9FE2B0796E111346EB4723DC",
+      "viewport": "390x844",
       "stateId": "saved-library",
-      "viewport": "390x844",
-      "path": "docs/page-designs/V4/reflection/screenshots/p01-current/390-saved-library.png",
-      "sha256": "7F22A415AF3AAA5CA0E7A5DEF7140EC6BEE2AC05D2C0A4AA7022F7A69D34867F"
+      "url": "http://127.0.0.1:4220/reflection.html?state=saved-library",
+      "fixtureSha256": "88BDAC6595CB7701D144E28BCB5F7AB2877F11FADD673A83505F0B955C19182C",
+      "info": {
+        "ready": true,
+        "scrollWidth": 390,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "考试反思\n\n三年级 · 32人\n\n已保存\n已保存反思\n\n回看每一次复盘，找到后续行动。\n\n学生状态\n已保存反思\n\n本班全部考试 · 8条记录\n\n筛选已保存考试\n全部考试\n未关联考试\n9月综合练习 · 2026-09-15\n单元练习 · 20",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": false,
+          "sync": "normal",
+          "editor": false,
+          "selected": "hw-student-1"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      },
+      "kind": "mobile",
+      "fixtureId": "reflection-saved-library",
+      "capturedAt": "2026-09-15T11:10:42.999Z",
+      "browser": "Chrome/152.0.7977.82",
+      "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+      "dpr": 1,
+      "commit": null
     },
     {
-      "stateId": "legacy-library",
+      "path": "docs/page-designs/V4/reflection/screenshots/p02-final/390-saved-detail.png",
+      "sha256": "7C7B3B5A236C84CBE385B922F14DD21463CD8AB496C12E272CBFB54CB94E5F94",
       "viewport": "390x844",
-      "path": "docs/page-designs/V4/reflection/screenshots/p01-current/390-legacy-library.png",
-      "sha256": "75B3B063D2C26E9C36D12C301753FA33D0CE56B5066D59FB558179A1B22925F7"
+      "stateId": "saved-detail",
+      "url": "http://127.0.0.1:4220/reflection.html?state=saved-detail",
+      "fixtureSha256": "88BDAC6595CB7701D144E28BCB5F7AB2877F11FADD673A83505F0B955C19182C",
+      "info": {
+        "ready": true,
+        "scrollWidth": 390,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "考试反思\n\n三年级 · 32人\n\n已保存\n返回已保存反思\n学生04 · 考试反思\n已完成\n\n学号04 · 记录日期 2026-09-15\n\n复制反思\n编辑反思\n关联考试：9月综合练习\n2026-09-15 · 语文 / 数学 / 英语\n主要",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": false,
+          "sync": "normal",
+          "editor": false,
+          "selected": "hw-student-1"
+        },
+        "squeezed": [],
+        "images": []
+      },
+      "kind": "mobile",
+      "fixtureId": "reflection-saved-detail",
+      "capturedAt": "2026-09-15T11:10:42.999Z",
+      "browser": "Chrome/152.0.7977.82",
+      "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+      "dpr": 1,
+      "commit": null
     },
     {
-      "stateId": "empty-class",
+      "path": "docs/page-designs/V4/reflection/screenshots/p02-final/390-saved-empty.png",
+      "sha256": "E8F5FB0F0CCD2FF1CEFFABA9E978F80A867EC3E470776211E143ECC5F24B7B20",
       "viewport": "390x844",
-      "path": "docs/page-designs/V4/reflection/screenshots/p01-current/390-empty-class.png",
-      "sha256": "C2D3ECD0675DC1A6F3C65C5FCEDD00830E539C660495F2F65FEEB2695A3FBCEA"
+      "stateId": "saved-empty",
+      "url": "http://127.0.0.1:4220/reflection.html?state=saved-empty",
+      "fixtureSha256": "8307929C9CA1626E22E58AE1C683187EC666D6B15BA14142268271590F138C48",
+      "info": {
+        "ready": true,
+        "scrollWidth": 390,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "考试反思\n\n三年级 · 32人\n\n已保存\n已保存反思\n\n回看每一次复盘，找到后续行动。\n\n学生状态\n已保存反思\n\n本班全部考试 · 0条记录\n\n筛选已保存考试\n全部考试\n未关联考试\n9月综合练习 · 2026-09-15\n反思状态\n全部状态",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": false,
+          "sync": "normal",
+          "editor": false,
+          "selected": "hw-student-1"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      },
+      "kind": "mobile",
+      "fixtureId": "reflection-saved-empty",
+      "capturedAt": "2026-09-15T11:10:42.999Z",
+      "browser": "Chrome/152.0.7977.82",
+      "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+      "dpr": 1,
+      "commit": null
     },
     {
-      "stateId": "no-exams",
+      "path": "docs/page-designs/V4/reflection/screenshots/p02-final/390-saved-search-empty.png",
+      "sha256": "A0B8B10B3A78009075D744B61B146B251FC8D794705F46C37AAAE1CE9511A279",
       "viewport": "390x844",
-      "path": "docs/page-designs/V4/reflection/screenshots/p01-current/390-no-exams.png",
-      "sha256": "E31CE3F9D2BE7C6556DAADD7E3DD2C59885BCC1221A84F10BB23DF0686B80805"
+      "stateId": "saved-search-empty",
+      "url": "http://127.0.0.1:4220/reflection.html?state=saved-search-empty",
+      "fixtureSha256": "88BDAC6595CB7701D144E28BCB5F7AB2877F11FADD673A83505F0B955C19182C",
+      "info": {
+        "ready": true,
+        "scrollWidth": 390,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "考试反思\n\n三年级 · 32人\n\n已保存\n已保存反思\n\n回看每一次复盘，找到后续行动。\n\n学生状态\n已保存反思\n\n本班全部考试 · 8条记录\n\n筛选已保存考试\n全部考试\n未关联考试\n9月综合练习 · 2026-09-15\n单元练习 · 20",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": false,
+          "sync": "normal",
+          "editor": false,
+          "selected": "hw-student-1"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      },
+      "kind": "mobile",
+      "fixtureId": "reflection-saved-search-empty",
+      "capturedAt": "2026-09-15T11:10:42.999Z",
+      "browser": "Chrome/152.0.7977.82",
+      "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+      "dpr": 1,
+      "commit": null
     },
     {
-      "stateId": "search-empty",
+      "path": "docs/page-designs/V4/reflection/screenshots/p02-final/390-saved-long-detail.png",
+      "sha256": "7C7B3B5A236C84CBE385B922F14DD21463CD8AB496C12E272CBFB54CB94E5F94",
       "viewport": "390x844",
-      "path": "docs/page-designs/V4/reflection/screenshots/p01-current/390-search-empty.png",
-      "sha256": "1327181151A5E25B4A92170DEB3332EAC5FACCC12FD7F735564746A1D444F9B4"
+      "stateId": "saved-long-detail",
+      "url": "http://127.0.0.1:4220/reflection.html?state=saved-long-detail",
+      "fixtureSha256": "1E373A7325E9567304AEF19F3B04277F182A932F969E03A1C0DE7D44C1F49AA4",
+      "info": {
+        "ready": true,
+        "scrollWidth": 390,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "考试反思\n\n三年级 · 32人\n\n已保存\n返回已保存反思\n学生04 · 考试反思\n已完成\n\n学号04 · 记录日期 2026-09-15\n\n复制反思\n编辑反思\n关联考试：9月综合练习\n2026-09-15 · 语文 / 数学 / 英语\n主要",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": false,
+          "sync": "normal",
+          "editor": false,
+          "selected": "hw-student-1"
+        },
+        "squeezed": [],
+        "images": []
+      },
+      "kind": "mobile",
+      "fixtureId": "reflection-saved-long-detail",
+      "capturedAt": "2026-09-15T11:10:42.999Z",
+      "browser": "Chrome/152.0.7977.82",
+      "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+      "dpr": 1,
+      "commit": null
     },
     {
-      "stateId": "students-105",
+      "path": "docs/page-designs/V4/reflection/screenshots/p02-final/390-saved-readonly.png",
+      "sha256": "A736FD3B61A88387355B9E3626694B08E84C7D8DC535466F5C27BF99DEB53DC0",
       "viewport": "390x844",
-      "path": "docs/page-designs/V4/reflection/screenshots/p01-current/390-students-105.png",
-      "sha256": "42D7B837682071F485FA055E3DE6F764266C55BD3F5E29BCE67CF2E518B1D9DE"
+      "stateId": "saved-readonly",
+      "url": "http://127.0.0.1:4220/reflection.html?state=saved-readonly",
+      "fixtureSha256": "88BDAC6595CB7701D144E28BCB5F7AB2877F11FADD673A83505F0B955C19182C",
+      "info": {
+        "ready": true,
+        "scrollWidth": 390,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "考试反思\n\n三年级 · 32人\n\n只读\n只读宽限期\n可以查看和导出，续期后恢复编辑。\n返回已保存反思\n学生04 · 考试反思\n已完成\n\n学号04 · 记录日期 2026-09-15\n\n复制反思\n编辑反思\n关联考试：9月综合练习\n2026-0",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": false,
+          "sync": "normal",
+          "editor": false,
+          "selected": "hw-student-1"
+        },
+        "squeezed": [],
+        "images": []
+      },
+      "kind": "mobile",
+      "fixtureId": "reflection-saved-readonly",
+      "capturedAt": "2026-09-15T11:10:42.999Z",
+      "browser": "Chrome/152.0.7977.82",
+      "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+      "dpr": 1,
+      "commit": null
     },
     {
-      "stateId": "readonly",
+      "path": "docs/page-designs/V4/reflection/screenshots/p02-final/390-normal.png",
+      "sha256": "B05788D83002FFA581D9F9E3DAEC3BCCC92F6E137FBF185232FC3878F263BAB3",
       "viewport": "390x844",
-      "path": "docs/page-designs/V4/reflection/screenshots/p01-current/390-readonly.png",
-      "sha256": "5C53439BB18849AE72EDD218BB2440B14A9FD501310DFCD4F09B779046FAD3DF"
+      "stateId": "normal",
+      "url": "http://127.0.0.1:4220/reflection.html?state=normal",
+      "fixtureSha256": "92E10601147BD7E5BFA393CB7B4469C0508A7D4CDF9714F62E6424A8159DA35C",
+      "info": {
+        "ready": true,
+        "scrollWidth": 390,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "考试反思\n\n三年级 · 32人\n\n已保存\n考试反思\n\n把问题写清，把下一步约定下来。\n\n当前考试 · 9月综合练习\n\n2026-09-15 · 语文 / 数学 / 英语\n\n切换考试\n学生状态 32\n已保存反思 8\n全部状态\n未填写\n草稿\n已",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": false,
+          "sync": "normal",
+          "editor": false,
+          "selected": "hw-student-1"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      },
+      "kind": "mobile",
+      "fixtureId": "reflection-normal",
+      "capturedAt": "2026-09-15T11:10:42.999Z",
+      "browser": "Chrome/152.0.7977.82",
+      "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+      "dpr": 1,
+      "commit": null
     },
     {
-      "stateId": "loading",
+      "path": "docs/page-designs/V4/reflection/screenshots/p02-final/390-mobile-editor.png",
+      "sha256": "69ABC4939E60C20806CB19298443C13B88AEA38FAA7C2E6D6378067810E43C64",
       "viewport": "390x844",
-      "path": "docs/page-designs/V4/reflection/screenshots/p01-current/390-loading.png",
-      "sha256": "0AAD79005431EA1608CF2C336AE3E7312A0DFD0FD0EF8FE97C5ED16EE6EEC4F5"
-    },
-    {
-      "stateId": "saving",
-      "viewport": "390x844",
-      "path": "docs/page-designs/V4/reflection/screenshots/p01-current/390-saving.png",
-      "sha256": "7DD759898F5156F69BDB2DC79F03018BE0C79AA67B35DFCDD59CE7072823610B"
-    },
-    {
-      "stateId": "save-failure",
-      "viewport": "390x844",
-      "path": "docs/page-designs/V4/reflection/screenshots/p01-current/390-save-failure.png",
-      "sha256": "321ACCDCFDD29997B611A5DDB4FD0FA5CC385175511643134D8F0CFEC1D0B663"
-    },
-    {
-      "stateId": "save-throw",
-      "viewport": "390x844",
-      "path": "docs/page-designs/V4/reflection/screenshots/p01-current/390-save-throw.png",
-      "sha256": "012D1C77978998BD6A26A1A9DACD4C7B05EC75876807AED04183BF4179124C06"
-    },
-    {
-      "stateId": "conflict-409",
-      "viewport": "390x844",
-      "path": "docs/page-designs/V4/reflection/screenshots/p01-current/390-conflict-409.png",
-      "sha256": "55CB716BB7D8B6C50EB71630DC8BE7707AC9AC9AE327EB87D77593FA55A0A7C8"
-    },
-    {
-      "stateId": "dirty-close",
-      "viewport": "390x844",
-      "path": "docs/page-designs/V4/reflection/screenshots/p01-current/390-dirty-close.png",
-      "sha256": "20F558A16255A6777B33E1E9851872A750A62A3165860CFD59011DDC0828A7E1"
-    },
-    {
-      "stateId": "exam-picker",
-      "viewport": "390x844",
-      "path": "docs/page-designs/V4/reflection/screenshots/p01-current/390-exam-picker.png",
-      "sha256": "6A67F44D6E249C07670BE340D4A40353D84CCDBB1820A7FEFB2B01BB525986C4"
+      "stateId": "mobile-editor",
+      "url": "http://127.0.0.1:4220/reflection.html?state=mobile-editor",
+      "fixtureSha256": "92E10601147BD7E5BFA393CB7B4469C0508A7D4CDF9714F62E6424A8159DA35C",
+      "info": {
+        "ready": true,
+        "scrollWidth": 390,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "考试反思\n\n三年级 · 32人\n\n已保存\n返回学生列表\n草稿\n学生01\n学号01\n日期\n\n9月综合练习 · 2026-09-15\n\n本次考试\n查看本次成绩\n主要问题 *\n原因分析\n下一步行动\n写给家长的话（选填）\n班主任跟进（选填）\n保存草",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": false,
+          "sync": "normal",
+          "editor": true,
+          "selected": "hw-student-1"
+        },
+        "squeezed": [],
+        "images": []
+      },
+      "kind": "mobile",
+      "fixtureId": "reflection-mobile-editor",
+      "capturedAt": "2026-09-15T11:10:42.999Z",
+      "browser": "Chrome/152.0.7977.82",
+      "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+      "dpr": 1,
+      "commit": null
     }
   ],
   "tested": [
@@ -221,23 +543,604 @@
   ],
   "notes": "Score detail reached by selecting student and clicking 查看本次成绩. exam-picker URL provides long fixture, click 切换考试. All data synthetic in memory, reload resets.",
   "designRework": {
-    "version": "C02",
-    "source": "已保存反思界面没有做 应该是出图时的疏漏 要重新做 而且后面要记得把类似这种卡片的不同页面都要分开作图 不要让我人工审核时再查",
-    "requiredIndependentSurfaces": [
-      "saved-library desktop",
-      "saved-library mobile",
-      "saved-detail desktop",
-      "saved-detail mobile"
-    ],
-    "prototype": "P01 historical evidence only; P02 not implemented",
-    "requiredVariants": [
-      "all-class multiple exams",
-      "search no result",
-      "empty library",
-      "draft/completed",
-      "unlinked exam",
-      "long content",
-      "return from edit preserving source"
+    "version": "C02/P02",
+    "source": "本任务用户：可以 开始做网页（四张C02记录库/阅读详情桌面及手机候选展示后）",
+    "status": "implemented-awaiting-user-review",
+    "variants": [
+      "saved empty",
+      "saved search empty",
+      "cross exam/unlinked",
+      "long detail",
+      "read only",
+      "explicit edit/dirty back/save/return",
+      "long labels"
     ]
-  }
+  },
+  "history": [
+    {
+      "version": "P01",
+      "captured": [
+        {
+          "stateId": "normal",
+          "viewport": "1536x1024",
+          "path": "docs/page-designs/V4/reflection/screenshots/p01-current/1536-normal.png",
+          "sha256": "32D9306DDE3C6852DEED0B8298AFA4E63C8E3DF8FB472A0A7B5B4B2DCDAF16E4"
+        },
+        {
+          "stateId": "mobile-editor",
+          "viewport": "1536x1024",
+          "path": "docs/page-designs/V4/reflection/screenshots/p01-current/1536-mobile-editor.png",
+          "sha256": "32D9306DDE3C6852DEED0B8298AFA4E63C8E3DF8FB472A0A7B5B4B2DCDAF16E4"
+        },
+        {
+          "stateId": "saved-library",
+          "viewport": "1536x1024",
+          "path": "docs/page-designs/V4/reflection/screenshots/p01-current/1536-saved-library.png",
+          "sha256": "6CA66E65388DB36C3F054C9F3C97C789A05B9BBF4C5F834CF59C24EB14F2F96E"
+        },
+        {
+          "stateId": "legacy-library",
+          "viewport": "1536x1024",
+          "path": "docs/page-designs/V4/reflection/screenshots/p01-current/1536-legacy-library.png",
+          "sha256": "C8F383D6FADE8C741BD75E7D7B40BA789BD2D92E6ED50C640ED4682ADD861008"
+        },
+        {
+          "stateId": "empty-class",
+          "viewport": "1536x1024",
+          "path": "docs/page-designs/V4/reflection/screenshots/p01-current/1536-empty-class.png",
+          "sha256": "0023F888F0FEFBC52F25642109809B6F4EF7D84792A173466DB27031F0F0013D"
+        },
+        {
+          "stateId": "no-exams",
+          "viewport": "1536x1024",
+          "path": "docs/page-designs/V4/reflection/screenshots/p01-current/1536-no-exams.png",
+          "sha256": "B2306C8A0EF4B274345501FAD33A0F65FF5AFEABD4BAF8B348B4467B42ED5157"
+        },
+        {
+          "stateId": "search-empty",
+          "viewport": "1536x1024",
+          "path": "docs/page-designs/V4/reflection/screenshots/p01-current/1536-search-empty.png",
+          "sha256": "74B38D3264BB56C3A59CCECC25B7F8F69D172BBF1EC507B89B0886B73E930587"
+        },
+        {
+          "stateId": "students-105",
+          "viewport": "1536x1024",
+          "path": "docs/page-designs/V4/reflection/screenshots/p01-current/1536-students-105.png",
+          "sha256": "C8EAB7868CBDC0B07AFF43375B9FCCAF7B50EA5A340447432C3F81C03E5A6C38"
+        },
+        {
+          "stateId": "readonly",
+          "viewport": "1536x1024",
+          "path": "docs/page-designs/V4/reflection/screenshots/p01-current/1536-readonly.png",
+          "sha256": "04E76EDAF14AE75AED084861156EE9D0C82587F0FC4D23203BA2920BAC3C5C9F"
+        },
+        {
+          "stateId": "loading",
+          "viewport": "1536x1024",
+          "path": "docs/page-designs/V4/reflection/screenshots/p01-current/1536-loading.png",
+          "sha256": "49C5086D902A12E600F676A7902E56B3B9EEFB308060672AF04DB2982E792156"
+        },
+        {
+          "stateId": "saving",
+          "viewport": "1536x1024",
+          "path": "docs/page-designs/V4/reflection/screenshots/p01-current/1536-saving.png",
+          "sha256": "F02FEECA8908C1D47B9FE235E61DB939AD0EC1AFDE2BD89648C5D3EDFAD90642"
+        },
+        {
+          "stateId": "save-failure",
+          "viewport": "1536x1024",
+          "path": "docs/page-designs/V4/reflection/screenshots/p01-current/1536-save-failure.png",
+          "sha256": "DABCFEE9869B8B1EACCBA3A115D9981C07B937A10B8B4409767E314ADE6DC069"
+        },
+        {
+          "stateId": "save-throw",
+          "viewport": "1536x1024",
+          "path": "docs/page-designs/V4/reflection/screenshots/p01-current/1536-save-throw.png",
+          "sha256": "A44B42C127FAB74AAA99BCB4A75124E4CC93D2867847BF9C50B56B9B0150C493"
+        },
+        {
+          "stateId": "conflict-409",
+          "viewport": "1536x1024",
+          "path": "docs/page-designs/V4/reflection/screenshots/p01-current/1536-conflict-409.png",
+          "sha256": "F55C8BA308ABD670C6978970638DBE150B49102E466068D72CEDBF287FFE9DA8"
+        },
+        {
+          "stateId": "dirty-close",
+          "viewport": "1536x1024",
+          "path": "docs/page-designs/V4/reflection/screenshots/p01-current/1536-dirty-close.png",
+          "sha256": "D435FA0E4C171F7BDA7773095C9B07226BAB7EAC13E5AED185BF6C6C9E13234D"
+        },
+        {
+          "stateId": "exam-picker",
+          "viewport": "1536x1024",
+          "path": "docs/page-designs/V4/reflection/screenshots/p01-current/1536-exam-picker.png",
+          "sha256": "6937E44A73CF64AD1F980EC648380F815C294B58ADA43B2E7627EE265EEC03C1"
+        },
+        {
+          "stateId": "normal",
+          "viewport": "390x844",
+          "path": "docs/page-designs/V4/reflection/screenshots/p01-current/390-normal.png",
+          "sha256": "B05788D83002FFA581D9F9E3DAEC3BCCC92F6E137FBF185232FC3878F263BAB3"
+        },
+        {
+          "stateId": "mobile-editor",
+          "viewport": "390x844",
+          "path": "docs/page-designs/V4/reflection/screenshots/p01-current/390-mobile-editor.png",
+          "sha256": "D6DC29F2A046C278A9C1CD000CA6654E8192C365D829EDA2FEE9DA552EBD5D50"
+        },
+        {
+          "stateId": "saved-library",
+          "viewport": "390x844",
+          "path": "docs/page-designs/V4/reflection/screenshots/p01-current/390-saved-library.png",
+          "sha256": "7F22A415AF3AAA5CA0E7A5DEF7140EC6BEE2AC05D2C0A4AA7022F7A69D34867F"
+        },
+        {
+          "stateId": "legacy-library",
+          "viewport": "390x844",
+          "path": "docs/page-designs/V4/reflection/screenshots/p01-current/390-legacy-library.png",
+          "sha256": "75B3B063D2C26E9C36D12C301753FA33D0CE56B5066D59FB558179A1B22925F7"
+        },
+        {
+          "stateId": "empty-class",
+          "viewport": "390x844",
+          "path": "docs/page-designs/V4/reflection/screenshots/p01-current/390-empty-class.png",
+          "sha256": "C2D3ECD0675DC1A6F3C65C5FCEDD00830E539C660495F2F65FEEB2695A3FBCEA"
+        },
+        {
+          "stateId": "no-exams",
+          "viewport": "390x844",
+          "path": "docs/page-designs/V4/reflection/screenshots/p01-current/390-no-exams.png",
+          "sha256": "E31CE3F9D2BE7C6556DAADD7E3DD2C59885BCC1221A84F10BB23DF0686B80805"
+        },
+        {
+          "stateId": "search-empty",
+          "viewport": "390x844",
+          "path": "docs/page-designs/V4/reflection/screenshots/p01-current/390-search-empty.png",
+          "sha256": "1327181151A5E25B4A92170DEB3332EAC5FACCC12FD7F735564746A1D444F9B4"
+        },
+        {
+          "stateId": "students-105",
+          "viewport": "390x844",
+          "path": "docs/page-designs/V4/reflection/screenshots/p01-current/390-students-105.png",
+          "sha256": "42D7B837682071F485FA055E3DE6F764266C55BD3F5E29BCE67CF2E518B1D9DE"
+        },
+        {
+          "stateId": "readonly",
+          "viewport": "390x844",
+          "path": "docs/page-designs/V4/reflection/screenshots/p01-current/390-readonly.png",
+          "sha256": "5C53439BB18849AE72EDD218BB2440B14A9FD501310DFCD4F09B779046FAD3DF"
+        },
+        {
+          "stateId": "loading",
+          "viewport": "390x844",
+          "path": "docs/page-designs/V4/reflection/screenshots/p01-current/390-loading.png",
+          "sha256": "0AAD79005431EA1608CF2C336AE3E7312A0DFD0FD0EF8FE97C5ED16EE6EEC4F5"
+        },
+        {
+          "stateId": "saving",
+          "viewport": "390x844",
+          "path": "docs/page-designs/V4/reflection/screenshots/p01-current/390-saving.png",
+          "sha256": "7DD759898F5156F69BDB2DC79F03018BE0C79AA67B35DFCDD59CE7072823610B"
+        },
+        {
+          "stateId": "save-failure",
+          "viewport": "390x844",
+          "path": "docs/page-designs/V4/reflection/screenshots/p01-current/390-save-failure.png",
+          "sha256": "321ACCDCFDD29997B611A5DDB4FD0FA5CC385175511643134D8F0CFEC1D0B663"
+        },
+        {
+          "stateId": "save-throw",
+          "viewport": "390x844",
+          "path": "docs/page-designs/V4/reflection/screenshots/p01-current/390-save-throw.png",
+          "sha256": "012D1C77978998BD6A26A1A9DACD4C7B05EC75876807AED04183BF4179124C06"
+        },
+        {
+          "stateId": "conflict-409",
+          "viewport": "390x844",
+          "path": "docs/page-designs/V4/reflection/screenshots/p01-current/390-conflict-409.png",
+          "sha256": "55CB716BB7D8B6C50EB71630DC8BE7707AC9AC9AE327EB87D77593FA55A0A7C8"
+        },
+        {
+          "stateId": "dirty-close",
+          "viewport": "390x844",
+          "path": "docs/page-designs/V4/reflection/screenshots/p01-current/390-dirty-close.png",
+          "sha256": "20F558A16255A6777B33E1E9851872A750A62A3165860CFD59011DDC0828A7E1"
+        },
+        {
+          "stateId": "exam-picker",
+          "viewport": "390x844",
+          "path": "docs/page-designs/V4/reflection/screenshots/p01-current/390-exam-picker.png",
+          "sha256": "6A67F44D6E249C07670BE340D4A40353D84CCDBB1820A7FEFB2B01BB525986C4"
+        }
+      ],
+      "designRework": {
+        "version": "C02",
+        "source": "已保存反思界面没有做 应该是出图时的疏漏 要重新做 而且后面要记得把类似这种卡片的不同页面都要分开作图 不要让我人工审核时再查",
+        "requiredIndependentSurfaces": [
+          "saved-library desktop",
+          "saved-library mobile",
+          "saved-detail desktop",
+          "saved-detail mobile"
+        ],
+        "prototype": "P01 historical evidence only; P02 not implemented",
+        "requiredVariants": [
+          "all-class multiple exams",
+          "search no result",
+          "empty library",
+          "draft/completed",
+          "unlinked exam",
+          "long content",
+          "return from edit preserving source"
+        ]
+      }
+    }
+  ],
+  "additionalEvidence": [
+    {
+      "path": "docs/page-designs/V4/reflection/screenshots/p02-proof-audit/1536-library-bottom.png",
+      "sha256": "1ACCE2491C91DE565076ADBB4991F3DF22D71868595C941E49EF800F58986B85",
+      "viewport": "1536x1024",
+      "url": "http://127.0.0.1:4220/reflection.html?state=saved-library",
+      "fixtureSha256": "88BDAC6595CB7701D144E28BCB5F7AB2877F11FADD673A83505F0B955C19182C",
+      "kind": "desktop",
+      "stateId": "1536-library-bottom",
+      "fixtureId": "p02-proof-audit-1536-library-bottom.png",
+      "capturedAt": "2026-09-15T11:13:54.001Z",
+      "browser": "Chrome/152.0.7977.82",
+      "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+      "dpr": 1,
+      "commit": null
+    },
+    {
+      "path": "docs/page-designs/V4/reflection/screenshots/p02-proof-audit/1536-detail-bottom.png",
+      "sha256": "A74CA1FDF156D15C37DC1BCA3E6C94438B124AF7FEDF98E3E2142AD5CCA96B97",
+      "viewport": "1536x1024",
+      "url": "http://127.0.0.1:4220/reflection.html?state=saved-long-detail",
+      "fixtureSha256": "1E373A7325E9567304AEF19F3B04277F182A932F969E03A1C0DE7D44C1F49AA4",
+      "kind": "desktop",
+      "stateId": "1536-detail-bottom",
+      "fixtureId": "p02-proof-audit-1536-detail-bottom.png",
+      "capturedAt": "2026-09-15T11:13:54.001Z",
+      "browser": "Chrome/152.0.7977.82",
+      "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+      "dpr": 1,
+      "commit": null
+    },
+    {
+      "path": "docs/page-designs/V4/reflection/screenshots/p02-proof-audit/1536-saved-editor.png",
+      "sha256": "330E2A8E07FBB5E023E93EE937C66150B0DE9B6BD0664CB1D689511F3AABD130",
+      "viewport": "1536x1024",
+      "url": "http://127.0.0.1:4220/reflection.html?state=saved-detail",
+      "fixtureSha256": "88BDAC6595CB7701D144E28BCB5F7AB2877F11FADD673A83505F0B955C19182C",
+      "kind": "desktop",
+      "stateId": "1536-saved-editor",
+      "fixtureId": "p02-proof-audit-1536-saved-editor.png",
+      "capturedAt": "2026-09-15T11:13:54.001Z",
+      "browser": "Chrome/152.0.7977.82",
+      "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+      "dpr": 1,
+      "commit": null
+    },
+    {
+      "path": "docs/page-designs/V4/reflection/screenshots/p02-proof-audit/1536-editor-bottom.png",
+      "sha256": "330E2A8E07FBB5E023E93EE937C66150B0DE9B6BD0664CB1D689511F3AABD130",
+      "viewport": "1536x1024",
+      "url": "http://127.0.0.1:4220/reflection.html?state=saved-detail",
+      "fixtureSha256": "88BDAC6595CB7701D144E28BCB5F7AB2877F11FADD673A83505F0B955C19182C",
+      "kind": "desktop",
+      "stateId": "1536-editor-bottom",
+      "fixtureId": "p02-proof-audit-1536-editor-bottom.png",
+      "capturedAt": "2026-09-15T11:13:54.001Z",
+      "browser": "Chrome/152.0.7977.82",
+      "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+      "dpr": 1,
+      "commit": null
+    },
+    {
+      "path": "docs/page-designs/V4/reflection/screenshots/p02-proof-audit/390-library-bottom.png",
+      "sha256": "353D32590241F5FDBFD8D667357D661968C1005808F570AD8EFD0778DD0BE012",
+      "viewport": "390x844",
+      "url": "http://127.0.0.1:4220/reflection.html?state=saved-library",
+      "fixtureSha256": "88BDAC6595CB7701D144E28BCB5F7AB2877F11FADD673A83505F0B955C19182C",
+      "kind": "mobile",
+      "stateId": "390-library-bottom",
+      "fixtureId": "p02-proof-audit-390-library-bottom.png",
+      "capturedAt": "2026-09-15T11:13:54.001Z",
+      "browser": "Chrome/152.0.7977.82",
+      "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+      "dpr": 1,
+      "commit": null
+    },
+    {
+      "path": "docs/page-designs/V4/reflection/screenshots/p02-proof-audit/390-detail-bottom.png",
+      "sha256": "23A2606105177B31BFBD56DDEAB267A07548283B480F74799E054A90FA0CC49A",
+      "viewport": "390x844",
+      "url": "http://127.0.0.1:4220/reflection.html?state=saved-long-detail",
+      "fixtureSha256": "1E373A7325E9567304AEF19F3B04277F182A932F969E03A1C0DE7D44C1F49AA4",
+      "kind": "mobile",
+      "stateId": "390-detail-bottom",
+      "fixtureId": "p02-proof-audit-390-detail-bottom.png",
+      "capturedAt": "2026-09-15T11:13:54.001Z",
+      "browser": "Chrome/152.0.7977.82",
+      "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+      "dpr": 1,
+      "commit": null
+    },
+    {
+      "path": "docs/page-designs/V4/reflection/screenshots/p02-proof-audit/390-saved-editor.png",
+      "sha256": "C7C4F32628904F0F3E9BD78CAF042664357D420B7A745C6AC4E768C44D3EF90C",
+      "viewport": "390x844",
+      "url": "http://127.0.0.1:4220/reflection.html?state=saved-detail",
+      "fixtureSha256": "88BDAC6595CB7701D144E28BCB5F7AB2877F11FADD673A83505F0B955C19182C",
+      "kind": "mobile",
+      "stateId": "390-saved-editor",
+      "fixtureId": "p02-proof-audit-390-saved-editor.png",
+      "capturedAt": "2026-09-15T11:13:54.001Z",
+      "browser": "Chrome/152.0.7977.82",
+      "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+      "dpr": 1,
+      "commit": null
+    },
+    {
+      "path": "docs/page-designs/V4/reflection/screenshots/p02-proof-audit/390-editor-bottom.png",
+      "sha256": "D4AEB8EAAFA65F7A541B339C415741D384DDDDDB9825CD3C1FD37E79BB49F082",
+      "viewport": "390x844",
+      "url": "http://127.0.0.1:4220/reflection.html?state=saved-detail",
+      "fixtureSha256": "88BDAC6595CB7701D144E28BCB5F7AB2877F11FADD673A83505F0B955C19182C",
+      "kind": "mobile",
+      "stateId": "390-editor-bottom",
+      "fixtureId": "p02-proof-audit-390-editor-bottom.png",
+      "capturedAt": "2026-09-15T11:13:54.001Z",
+      "browser": "Chrome/152.0.7977.82",
+      "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+      "dpr": 1,
+      "commit": null
+    },
+    {
+      "path": "docs/page-designs/V4/reflection/screenshots/p02-proof-audit/360-library-bottom.png",
+      "sha256": "5B7B5B103889FE81B665A8571F970B2EF381A38D9955A57323DB8DCB1FE0E35D",
+      "viewport": "360x844",
+      "url": "http://127.0.0.1:4220/reflection.html?state=saved-library",
+      "fixtureSha256": "88BDAC6595CB7701D144E28BCB5F7AB2877F11FADD673A83505F0B955C19182C",
+      "kind": "mobile",
+      "stateId": "360-library-bottom",
+      "fixtureId": "p02-proof-audit-360-library-bottom.png",
+      "capturedAt": "2026-09-15T11:13:54.001Z",
+      "browser": "Chrome/152.0.7977.82",
+      "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+      "dpr": 1,
+      "commit": null
+    },
+    {
+      "path": "docs/page-designs/V4/reflection/screenshots/p02-proof-audit/360-detail-bottom.png",
+      "sha256": "F5F569BCDC7105D0A11D1E32ADF2D2136639C25412DD730F7862AEDE945F7B69",
+      "viewport": "360x844",
+      "url": "http://127.0.0.1:4220/reflection.html?state=saved-long-detail",
+      "fixtureSha256": "1E373A7325E9567304AEF19F3B04277F182A932F969E03A1C0DE7D44C1F49AA4",
+      "kind": "mobile",
+      "stateId": "360-detail-bottom",
+      "fixtureId": "p02-proof-audit-360-detail-bottom.png",
+      "capturedAt": "2026-09-15T11:13:54.001Z",
+      "browser": "Chrome/152.0.7977.82",
+      "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+      "dpr": 1,
+      "commit": null
+    },
+    {
+      "path": "docs/page-designs/V4/reflection/screenshots/p02-proof-audit/360-saved-editor.png",
+      "sha256": "1909F98BF7B27FFEB2B13DD082722F10FE87E74A6120D9D5D5D4EAD619A55150",
+      "viewport": "360x844",
+      "url": "http://127.0.0.1:4220/reflection.html?state=saved-detail",
+      "fixtureSha256": "88BDAC6595CB7701D144E28BCB5F7AB2877F11FADD673A83505F0B955C19182C",
+      "kind": "mobile",
+      "stateId": "360-saved-editor",
+      "fixtureId": "p02-proof-audit-360-saved-editor.png",
+      "capturedAt": "2026-09-15T11:13:54.001Z",
+      "browser": "Chrome/152.0.7977.82",
+      "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+      "dpr": 1,
+      "commit": null
+    },
+    {
+      "path": "docs/page-designs/V4/reflection/screenshots/p02-proof-audit/360-editor-bottom.png",
+      "sha256": "46040BFA6626D33A5BB3FE1E5D2E5F6D463747CAB817651F7CF612A4B9A3B5C7",
+      "viewport": "360x844",
+      "url": "http://127.0.0.1:4220/reflection.html?state=saved-detail",
+      "fixtureSha256": "88BDAC6595CB7701D144E28BCB5F7AB2877F11FADD673A83505F0B955C19182C",
+      "kind": "mobile",
+      "stateId": "360-editor-bottom",
+      "fixtureId": "p02-proof-audit-360-editor-bottom.png",
+      "capturedAt": "2026-09-15T11:13:54.001Z",
+      "browser": "Chrome/152.0.7977.82",
+      "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+      "dpr": 1,
+      "commit": null
+    },
+    {
+      "path": "docs/page-designs/V4/reflection/screenshots/p02-proof-audit/920-library-bottom.png",
+      "sha256": "BA7345D2457237F6B10EFA6C8B965CCEEB397FF6160D8CC5DA676C5DFD0806D3",
+      "viewport": "920x1024",
+      "url": "http://127.0.0.1:4220/reflection.html?state=saved-library",
+      "fixtureSha256": "88BDAC6595CB7701D144E28BCB5F7AB2877F11FADD673A83505F0B955C19182C",
+      "kind": "desktop",
+      "stateId": "920-library-bottom",
+      "fixtureId": "p02-proof-audit-920-library-bottom.png",
+      "capturedAt": "2026-09-15T11:13:54.001Z",
+      "browser": "Chrome/152.0.7977.82",
+      "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+      "dpr": 1,
+      "commit": null
+    },
+    {
+      "path": "docs/page-designs/V4/reflection/screenshots/p02-proof-audit/920-detail-bottom.png",
+      "sha256": "9805ED6213BC257F6A43486EFACCDA50975DEA8FE099B9A95220965450A96DF8",
+      "viewport": "920x1024",
+      "url": "http://127.0.0.1:4220/reflection.html?state=saved-long-detail",
+      "fixtureSha256": "1E373A7325E9567304AEF19F3B04277F182A932F969E03A1C0DE7D44C1F49AA4",
+      "kind": "desktop",
+      "stateId": "920-detail-bottom",
+      "fixtureId": "p02-proof-audit-920-detail-bottom.png",
+      "capturedAt": "2026-09-15T11:13:54.001Z",
+      "browser": "Chrome/152.0.7977.82",
+      "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+      "dpr": 1,
+      "commit": null
+    },
+    {
+      "path": "docs/page-designs/V4/reflection/screenshots/p02-proof-audit/920-saved-editor.png",
+      "sha256": "98C45E9238545D7920FC5BDC64F5EB30E5BD3D385DCA9F75216A743FA24FF22A",
+      "viewport": "920x1024",
+      "url": "http://127.0.0.1:4220/reflection.html?state=saved-detail",
+      "fixtureSha256": "88BDAC6595CB7701D144E28BCB5F7AB2877F11FADD673A83505F0B955C19182C",
+      "kind": "desktop",
+      "stateId": "920-saved-editor",
+      "fixtureId": "p02-proof-audit-920-saved-editor.png",
+      "capturedAt": "2026-09-15T11:13:54.001Z",
+      "browser": "Chrome/152.0.7977.82",
+      "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+      "dpr": 1,
+      "commit": null
+    },
+    {
+      "path": "docs/page-designs/V4/reflection/screenshots/p02-proof-audit/920-editor-bottom.png",
+      "sha256": "98C45E9238545D7920FC5BDC64F5EB30E5BD3D385DCA9F75216A743FA24FF22A",
+      "viewport": "920x1024",
+      "url": "http://127.0.0.1:4220/reflection.html?state=saved-detail",
+      "fixtureSha256": "88BDAC6595CB7701D144E28BCB5F7AB2877F11FADD673A83505F0B955C19182C",
+      "kind": "desktop",
+      "stateId": "920-editor-bottom",
+      "fixtureId": "p02-proof-audit-920-editor-bottom.png",
+      "capturedAt": "2026-09-15T11:13:54.001Z",
+      "browser": "Chrome/152.0.7977.82",
+      "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+      "dpr": 1,
+      "commit": null
+    },
+    {
+      "path": "docs/page-designs/V4/reflection/screenshots/p02-proof-audit/1057-library-bottom.png",
+      "sha256": "D04BB843B809766D7293CDD3F85C74C714AC69E98B03F5C004F93A0CFB1A65E0",
+      "viewport": "1057x1024",
+      "url": "http://127.0.0.1:4220/reflection.html?state=saved-library",
+      "fixtureSha256": "88BDAC6595CB7701D144E28BCB5F7AB2877F11FADD673A83505F0B955C19182C",
+      "kind": "desktop",
+      "stateId": "1057-library-bottom",
+      "fixtureId": "p02-proof-audit-1057-library-bottom.png",
+      "capturedAt": "2026-09-15T11:13:54.001Z",
+      "browser": "Chrome/152.0.7977.82",
+      "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+      "dpr": 1,
+      "commit": null
+    },
+    {
+      "path": "docs/page-designs/V4/reflection/screenshots/p02-proof-audit/1057-detail-bottom.png",
+      "sha256": "F23E84883FD58DBFC0D096E9642CA5D35A48397E311C6A939886AF8CB2DED64C",
+      "viewport": "1057x1024",
+      "url": "http://127.0.0.1:4220/reflection.html?state=saved-long-detail",
+      "fixtureSha256": "1E373A7325E9567304AEF19F3B04277F182A932F969E03A1C0DE7D44C1F49AA4",
+      "kind": "desktop",
+      "stateId": "1057-detail-bottom",
+      "fixtureId": "p02-proof-audit-1057-detail-bottom.png",
+      "capturedAt": "2026-09-15T11:13:54.001Z",
+      "browser": "Chrome/152.0.7977.82",
+      "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+      "dpr": 1,
+      "commit": null
+    },
+    {
+      "path": "docs/page-designs/V4/reflection/screenshots/p02-proof-audit/1057-saved-editor.png",
+      "sha256": "DDF57AC4F1684850D0E69B196190C11DFD7893F1C73BEA64DE9909CA99F74B35",
+      "viewport": "1057x1024",
+      "url": "http://127.0.0.1:4220/reflection.html?state=saved-detail",
+      "fixtureSha256": "88BDAC6595CB7701D144E28BCB5F7AB2877F11FADD673A83505F0B955C19182C",
+      "kind": "desktop",
+      "stateId": "1057-saved-editor",
+      "fixtureId": "p02-proof-audit-1057-saved-editor.png",
+      "capturedAt": "2026-09-15T11:13:54.001Z",
+      "browser": "Chrome/152.0.7977.82",
+      "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+      "dpr": 1,
+      "commit": null
+    },
+    {
+      "path": "docs/page-designs/V4/reflection/screenshots/p02-proof-audit/1057-editor-bottom.png",
+      "sha256": "DDF57AC4F1684850D0E69B196190C11DFD7893F1C73BEA64DE9909CA99F74B35",
+      "viewport": "1057x1024",
+      "url": "http://127.0.0.1:4220/reflection.html?state=saved-detail",
+      "fixtureSha256": "88BDAC6595CB7701D144E28BCB5F7AB2877F11FADD673A83505F0B955C19182C",
+      "kind": "desktop",
+      "stateId": "1057-editor-bottom",
+      "fixtureId": "p02-proof-audit-1057-editor-bottom.png",
+      "capturedAt": "2026-09-15T11:13:54.001Z",
+      "browser": "Chrome/152.0.7977.82",
+      "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+      "dpr": 1,
+      "commit": null
+    },
+    {
+      "path": "docs/page-designs/V4/reflection/screenshots/p02-long-labels-final/1536-saved-long-labels.png",
+      "sha256": "89DECDBF7E7DF1E9A171DB890BDC577FA340AC94539801534DC8AF23A2AD27FA",
+      "viewport": "1536x1024",
+      "stateId": "saved-long-labels",
+      "url": "http://127.0.0.1:4220/reflection.html?state=saved-long-labels",
+      "fixtureSha256": "1F5CD75FF345BF9263C1A59D4D141223FE5B5691291071BC291DF7986B906AF0",
+      "info": {
+        "ready": true,
+        "scrollWidth": 1521,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": false,
+          "sync": "normal",
+          "editor": false,
+          "selected": "hw-student-1"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      },
+      "kind": "desktop",
+      "fixtureId": "reflection-saved-long-labels",
+      "capturedAt": "2026-09-15T11:17:34.780Z",
+      "browser": "Chrome/152.0.7977.82",
+      "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+      "dpr": 1,
+      "commit": null
+    },
+    {
+      "path": "docs/page-designs/V4/reflection/screenshots/p02-long-labels-final/390-saved-long-labels.png",
+      "sha256": "39FA6D6CDE32080174F2F2E4A6CF1AE56754E726FA83315484E429261101479E",
+      "viewport": "390x844",
+      "stateId": "saved-long-labels",
+      "url": "http://127.0.0.1:4220/reflection.html?state=saved-long-labels",
+      "fixtureSha256": "1F5CD75FF345BF9263C1A59D4D141223FE5B5691291071BC291DF7986B906AF0",
+      "info": {
+        "ready": true,
+        "scrollWidth": 390,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "考试反思\n\n三年级 · 32人\n\n已保存\n已保存反思\n\n回看每一次复盘，找到后续行动。\n\n学生状态\n已保存反思\n\n本班全部考试 · 8条记录\n\n筛选已保存考试\n全部考试\n未关联考试\n本学期跨学科项目阶段综合练习与学习方法回顾合成考试名称 ·",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": false,
+          "sync": "normal",
+          "editor": false,
+          "selected": "hw-student-1"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      },
+      "kind": "mobile",
+      "fixtureId": "reflection-saved-long-labels",
+      "capturedAt": "2026-09-15T11:17:34.780Z",
+      "browser": "Chrome/152.0.7977.82",
+      "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+      "dpr": 1,
+      "commit": null
+    }
+  ]
 }

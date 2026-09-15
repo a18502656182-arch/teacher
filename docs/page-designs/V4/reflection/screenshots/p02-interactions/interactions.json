@@ -1,0 +1,119 @@
+{
+  "createdAt": "2026-09-15T11:10:32.868Z",
+  "browser": {
+    "protocolVersion": "1.3",
+    "product": "Chrome/152.0.7977.82",
+    "revision": "@d04cdb24d67b081f6cf80200ffc5233f44b61109",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/152.0.0.0 Safari/537.36",
+    "jsVersion": "15.2.124.21"
+  },
+  "evidence": [],
+  "failures": [],
+  "interactions": [
+    {
+      "name": "1536 library is separate from editor",
+      "passed": true
+    },
+    {
+      "name": "1536 cross exam and legacy records preserved",
+      "passed": true
+    },
+    {
+      "name": "1536 unlinked filter",
+      "passed": true
+    },
+    {
+      "name": "1536 search filters record",
+      "passed": true
+    },
+    {
+      "name": "1536 reading detail has five sections and no inputs",
+      "passed": true
+    },
+    {
+      "name": "1536 return preserves search",
+      "passed": true
+    },
+    {
+      "name": "1536 return preserves page",
+      "passed": true
+    },
+    {
+      "name": "1536 explicit edit keeps record id",
+      "passed": true
+    },
+    {
+      "name": "1536 dirty back guarded",
+      "passed": true
+    },
+    {
+      "name": "1536 save returns updated reading with original id",
+      "passed": true
+    },
+    {
+      "name": "1536 read-only allows reading but disables editing",
+      "passed": true
+    },
+    {
+      "name": "1536 unlinked has reading page",
+      "passed": true
+    },
+    {
+      "name": "1536 legacy association preserves record id and returns detail",
+      "passed": true
+    },
+    {
+      "name": "390 library is separate from editor",
+      "passed": true
+    },
+    {
+      "name": "390 cross exam and legacy records preserved",
+      "passed": true
+    },
+    {
+      "name": "390 unlinked filter",
+      "passed": true
+    },
+    {
+      "name": "390 search filters record",
+      "passed": true
+    },
+    {
+      "name": "390 reading detail has five sections and no inputs",
+      "passed": true
+    },
+    {
+      "name": "390 return preserves search",
+      "passed": true
+    },
+    {
+      "name": "390 return preserves page",
+      "passed": true
+    },
+    {
+      "name": "390 explicit edit keeps record id",
+      "passed": true
+    },
+    {
+      "name": "390 dirty back guarded",
+      "passed": true
+    },
+    {
+      "name": "390 save returns updated reading with original id",
+      "passed": true
+    },
+    {
+      "name": "390 read-only allows reading but disables editing",
+      "passed": true
+    },
+    {
+      "name": "390 unlinked has reading page",
+      "passed": true
+    },
+    {
+      "name": "390 legacy association preserves record id and returns detail",
+      "passed": true
+    }
+  ],
+  "consoleErrors": []
+}

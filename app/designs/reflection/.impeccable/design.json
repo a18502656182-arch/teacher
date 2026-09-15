@@ -2,9 +2,9 @@
   "narrative": {
     "dos": [
       "**Do** 保留白色共享壳层与手机现有底栏。",
-      "**Do** 保留全部五字段、日期、成绩入口、历史库和真实失败恢复。",
+      "**Do** 保留全部五字段、日期、成绩入口、跨考试历史库和真实失败恢复。",
       "**Do** 以实际渲染、源码和保存确认区分设计方向与运行事实。",
-      "**Do** 让长内容和末字段可滚动到固定动作栏上方。"
+      "**Do** 让长内容、分页和末字段可滚动到固定动作栏上方。"
     ],
     "rules": [
       {
@@ -24,7 +24,7 @@
       },
       {
         "name": "The Continuous Work Rule",
-        "body": "桌面选择与编辑并列，手机一次只处理一个学生；五字段、日期、保存和返回构成同一工作流。",
+        "body": "桌面学生选择与编辑并列，保存库先阅读再明确编辑；手机一次处理一个记录，返回保留库中筛选与页码。",
         "section": "layout"
       },
       {
@@ -34,19 +34,20 @@
       }
     ],
     "keyCharacteristics": [
-      "桌面队列与连续填写并排，手机队列进入独立编辑。",
+      "学生状态保留桌面队列与填写并排、手机进入独立编辑。",
+      "保存库采用桌面整幅表格、手机记录列表，阅读与编辑明确分开。",
       "薄荷绿标记考试上下文，浅蓝强调下一步行动。",
       "保存结果原位反馈，真正失败提供恢复动作。",
-      "历史库按反思记录保留跨考试与未关联内容。"
+      "按记录 id 保留跨考试与未关联历史内容，返回保留筛选与页码。"
     ],
     "northStar": "把下一步写进复盘本",
     "donts": [
-      "**Don't** 将 C01 方向确认或 finish PASS 写成 P01 用户审美批准。",
+      "**Don't** 将 C01/C02 候选方向确认或技术 PASS 写成 P02 用户审美批准。",
       "**Don't** 按当前考试过滤掉全班历史库中的未关联记录。",
-      "**Don't** 用生成图的深色导航、字体、字数或分页数覆盖现有实现。",
+      "**Don't** 用候选图的导航、字体、字数或分页数覆盖现有实现。",
       "**Don't** 为每次正常保存插入恢复横条，或把归档描述成自动发送家长。"
     ],
-    "overview": "考试与学生先提供具体上下文，老师在连续工作面中把问题、原因和行动写清楚。白色工作台、海军蓝文字、薄荷绿考试区与浅蓝行动区保持清楚的阅读顺序；笔记本插画为记录工作提供温和的主题线索。\n\n这是本页 P01 的实施记录，范围只到 `app/designs/reflection` 及隔离预览，不替代根目录 DESIGN.md，不定义全站新主题。命名与气氛描述由文档整理者据现有实现归纳，并非额外取得用户创意批准。"
+    "overview": "考试与学生先提供具体上下文，老师在连续工作面中把问题、原因和行动写清楚。白色工作台、海军蓝文字、薄荷绿考试区与浅蓝行动区保持清楚的阅读顺序；笔记本插画为记录工作提供温和的主题线索。\n\n当前 P02 保留 C01 学生工作面，已保存反思改为独立跨考试记录库和连续阅读详情。范围只到本页隔离实现与预览，不替代根目录 DESIGN.md，不定义全站新主题。命名与气氛描述据现有实现归纳，并非额外取得用户创意批准。"
   },
   "components": [
     {
@@ -102,15 +103,32 @@
       "refersTo": "action-field",
       "kind": "custom",
       "name": "下一步行动"
+    },
+    {
+      "name": "P02 保存库记录",
+      "kind": "custom",
+      "description": "桌面五列，900px 及以下重排为手机记录；示例文字为合成内容，按钮不执行业务。",
+      "html": "<section class=\"ds-record\"><div class=\"ds-date\">2026-09-15</div><div class=\"ds-identity\"><strong>学生04</strong><p>学号04 · 9月综合练习<span> · 2026-09-15</span></p></div><div class=\"ds-summary\"><p>问题：阅读题遗漏了关键条件。</p><p>行动：圈出关键词，再标出原文依据。</p></div><div class=\"ds-state\"><span>已完成</span></div><div class=\"ds-links\"><button>查看反思</button></div></section>",
+      "css": ".ds-record{font-family:var(--wb-font,'PingFang SC','Microsoft YaHei',system-ui,sans-serif);color:#15334a; display:grid;grid-template-columns:135px minmax(165px,1.1fr) minmax(240px,2.2fr) 90px 110px;gap:16px;align-items:center;padding:14px 16px;border-bottom:1px solid #d6e2ea;min-height:93px}.ds-record>div{min-width:0}.ds-record p{margin:0;overflow-wrap:anywhere}.ds-identity strong{font-size:17px}.ds-identity p{font-size:13px;color:#4d667d}.ds-identity p span{display:none}.ds-summary p{font-size:15px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.ds-summary p+p{color:#4d667d;margin-top:3px}.ds-state span{display:inline-block;font-size:13px;padding:3px 10px;border-radius:4px;background:#e4f3e7;color:#27633c}.ds-links button{font:inherit;font-size:14px;color:#087e82;padding:4px 0;min-height:32px;border:0;background:transparent;cursor:pointer}.ds-links button:hover{background:#edf7f6}.ds-links button:focus-visible{outline:2px solid #087e82;outline-offset:2px}@media(min-width:901px) and (max-width:1200px){.ds-record{grid-template-columns:100px minmax(130px,1fr) minmax(180px,1.5fr) 70px 80px;gap:10px;padding:12px 8px}}@media(max-width:900px){.ds-record{grid-template-columns:minmax(0,1fr) auto;gap:6px 12px;padding:16px 0;min-height:0}.ds-date{display:none}.ds-identity{grid-column:1;grid-row:1}.ds-identity strong{font-size:20px}.ds-identity p span{display:inline}.ds-state{grid-column:2;grid-row:1}.ds-summary{grid-column:1/-1;grid-row:2;margin-top:4px}.ds-links{grid-column:1/-1;grid-row:3;text-align:right}.ds-links button{min-height:36px}}"
+    },
+    {
+      "name": "P02 连续阅读",
+      "kind": "custom",
+      "refersTo": "reading-action",
+      "description": "薄荷绿仅标记关联考试，浅蓝突出行动；其余五字段使用连续正文，样本无业务行为。",
+      "html": "<article class=\"ds-reading\"><div class=\"ds-context\"><strong>关联考试：9月综合练习</strong><span>2026-09-15 · 语文 / 数学 / 英语</span></div><section><h2>主要问题</h2><p>阅读题中遗漏了关键条件。</p></section><section><h2>原因分析</h2><p>没有回到原文逐句核对。</p></section><section class=\"ds-action-read\"><h2>下一步行动</h2><p>先圈出问题中的关键词，再标出原文依据。</p></section><div class=\"ds-notes\"><section><h2>写给家长的话</h2><p>请让孩子讲清答案的原文依据。</p></section><section><h2>班主任跟进</h2><p>周五复查并记录学生复述情况。</p></section></div></article>",
+      "css": ".ds-reading{font-family:var(--wb-font,'PingFang SC','Microsoft YaHei',system-ui,sans-serif);color:#15334a;}.ds-context{display:flex;gap:12px 20px;align-items:baseline;flex-wrap:wrap;background:#eef7f0;border-radius:5px;padding:18px 20px;margin-bottom:28px}.ds-context strong{font-size:18px}.ds-context span{font-size:14px;color:#446250}.ds-reading section{margin:28px 0}.ds-reading h2{font-size:25px;line-height:1.4;margin:0 0 10px}.ds-reading p{font-size:17px;line-height:1.85;margin:0;max-width:78ch;white-space:pre-wrap;overflow-wrap:anywhere}.ds-reading .ds-action-read{background:#edf7fd;padding:22px 20px;border-radius:4px;margin:30px 0}.ds-notes{display:grid;grid-template-columns:1fr 1fr;gap:40px}.ds-notes section{margin:0 0 26px}@media(max-width:900px){.ds-context{display:block;padding:15px 14px;margin-bottom:25px}.ds-context strong{font-size:17px}.ds-context span{display:block;margin-top:4px;font-size:13px;overflow-wrap:anywhere}.ds-reading section{margin:26px 0}.ds-reading h2{font-size:21px;margin-bottom:8px}.ds-reading p{font-size:16px;line-height:1.8}.ds-reading .ds-action-read{padding:16px 14px;margin:26px -3px}.ds-notes{display:block}}"
     }
   ],
   "extensions": {
     "sources": [
       "ReflectionDesign.module.css",
       "ReflectionDesign.tsx",
+      "SavedReflectionViews.tsx",
       "useReflectionDesignController.ts",
       "../../../tools/ui-preview/reflection.html",
-      "../../../docs/page-designs/V4/reflection/finish-review-P01.md"
+      "../../../PRODUCT.md",
+      "../../../docs/page-designs/V4/reflection/screenshots/p02-final/"
     ],
     "sampleNote": "Visual snippets only; no React/business runtime. Synthesized ramps are panel aids, not production tokens.",
     "colorMeta": {
@@ -333,13 +351,22 @@
       "display": {
         "purpose": "仅页头；手机编辑隐藏页头。",
         "displayName": "主标题"
+      },
+      "reading-title": {
+        "displayName": "保存详情标题",
+        "purpose": "32px/1.35 desktop; 28px narrow desktop; 25px mobile"
+      },
+      "reading-body": {
+        "displayName": "连续阅读正文",
+        "purpose": "17px/1.85 desktop max 78ch; 16px/1.8 mobile"
       }
     },
     "limits": [
-      "Compact 11–14px supporting text awaits actual user readability review.",
-      "Real keyboard, mobile software keyboard, screen reader and zoom not comprehensively verified.",
-      "No production persistence, numeric contrast or performance certification.",
-      "Generated notebook PNG is 1686797 bytes; optimization deferred."
+      "P02 actual-page aesthetics pending user review; no full D/R, production integration or deployment.",
+      "Physical keyboard, mobile software keyboard, screen reader and zoom not comprehensively verified.",
+      "No real backend persistence, multi-device 409, numeric contrast or performance certification.",
+      "Generated notebook PNG is 1686797 bytes; optimization deferred.",
+      "Proof checks are synthetic browser/controller evidence, not physical-device guarantees."
     ],
     "motion": [],
     "breakpoints": [
@@ -361,13 +388,52 @@
     ],
     "scope": "app/designs/reflection only",
     "approval": {
-      "p01Aesthetics": "pending user review",
-      "finish": "PASS for delivery to user review only",
-      "productionWiring": "not authorized by this document",
-      "direction": "C01 confirmed"
+      "direction": "C01 three and C02 four candidates confirmed",
+      "p01HistoricalFinish": "PASS for user review only, historical",
+      "p02Aesthetics": "pending user review",
+      "finish": "independent P02 technical PASS, F1-F4 resolved; user aesthetic approval pending",
+      "fullDR": "not performed",
+      "productionWiring": "not integrated",
+      "deployment": "not deployed"
+    },
+    "layout": {
+      "source": "ReflectionDesign.module.css and useReflectionDesignController.ts",
+      "savedLibrary": "Full-width main area; no queue/editor split",
+      "desktopGrid": "135px minmax(165px,1.1fr) minmax(240px,2.2fr) 90px 110px; gap 16px; padding 14px 16px",
+      "narrowGrid": "100px minmax(130px,1fr) minmax(180px,1.5fr) 70px 80px; gap 10px; padding 12px 8px; minimum width 616px",
+      "mobile": "max-width 900px; two-column record identity/status, summary and actions full-width",
+      "pageSize": {
+        "savedDesktop": 6,
+        "savedMobile": 3,
+        "studentsDesktop": 10,
+        "studentsMobile": 8,
+        "examPicker": 10
+      },
+      "detail": "Five continuous fields; reading 17px/1.85 max 78ch, mobile 16px/1.8; notes desktop two columns, mobile stacked",
+      "fixedActions": "mobile bottom 62px; left/right 16px; z-index 30; detail padding-bottom 74px; editor padding-bottom 130px"
+    },
+    "evidence": {
+      "visuallyViewed": [
+        "p02-final/1536-saved-library.png",
+        "p02-final/1536-saved-detail.png",
+        "p02-final/390-saved-library.png",
+        "p02-final/390-saved-detail.png"
+      ],
+      "reportedByParent": [
+        "26 mixed DOM/controller interactions passed",
+        "28 previous regression checks passed",
+        "37 unit/workflow checks passed",
+        "15 proof checks passed",
+        "proof-audit/390-detail-bottom.png",
+        "proof-audit/390-library-bottom.png",
+        "proof-audit/390-editor-bottom.png",
+        "proof-audit/920-library-bottom.png",
+        "p02-long-labels: two images, no overflow/anomaly"
+      ],
+      "detector": "Existing .qa-shots/reflection-p02-detector.json; not rerun; known flat tab underline warning and token advisories"
     }
   },
-  "generatedAt": "2026-09-15T09:31:46.5061241Z",
+  "generatedAt": "2026-09-15T11:18:31.7444098Z",
   "schemaVersion": 2,
-  "title": "Design System: 考试反思 P01"
+  "title": "Design System: 考试反思 P02"
 }

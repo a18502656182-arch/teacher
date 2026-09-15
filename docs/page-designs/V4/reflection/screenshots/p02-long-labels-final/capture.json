@@ -1,0 +1,67 @@
+{
+  "createdAt": "2026-09-15T11:17:34.780Z",
+  "browser": {
+    "protocolVersion": "1.3",
+    "product": "Chrome/152.0.7977.82",
+    "revision": "@d04cdb24d67b081f6cf80200ffc5233f44b61109",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/152.0.0.0 Safari/537.36",
+    "jsVersion": "15.2.124.21"
+  },
+  "evidence": [
+    {
+      "path": "1536-saved-long-labels.png",
+      "sha256": "89DECDBF7E7DF1E9A171DB890BDC577FA340AC94539801534DC8AF23A2AD27FA",
+      "viewport": "1536x1024",
+      "stateId": "saved-long-labels",
+      "url": "http://127.0.0.1:4220/reflection.html?state=saved-long-labels",
+      "fixtureSha256": "1F5CD75FF345BF9263C1A59D4D141223FE5B5691291071BC291DF7986B906AF0",
+      "info": {
+        "ready": true,
+        "scrollWidth": 1521,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": false,
+          "sync": "normal",
+          "editor": false,
+          "selected": "hw-student-1"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "390-saved-long-labels.png",
+      "sha256": "39FA6D6CDE32080174F2F2E4A6CF1AE56754E726FA83315484E429261101479E",
+      "viewport": "390x844",
+      "stateId": "saved-long-labels",
+      "url": "http://127.0.0.1:4220/reflection.html?state=saved-long-labels",
+      "fixtureSha256": "1F5CD75FF345BF9263C1A59D4D141223FE5B5691291071BC291DF7986B906AF0",
+      "info": {
+        "ready": true,
+        "scrollWidth": 390,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "考试反思\n\n三年级 · 32人\n\n已保存\n已保存反思\n\n回看每一次复盘，找到后续行动。\n\n学生状态\n已保存反思\n\n本班全部考试 · 8条记录\n\n筛选已保存考试\n全部考试\n未关联考试\n本学期跨学科项目阶段综合练习与学习方法回顾合成考试名称 ·",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": false,
+          "sync": "normal",
+          "editor": false,
+          "selected": "hw-student-1"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    }
+  ],
+  "failures": [],
+  "interactions": [],
+  "consoleErrors": []
+}

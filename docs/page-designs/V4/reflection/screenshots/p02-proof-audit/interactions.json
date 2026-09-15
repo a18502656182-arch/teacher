@@ -1,0 +1,216 @@
+{
+  "createdAt": "2026-09-15T11:13:54.001Z",
+  "browser": {
+    "protocolVersion": "1.3",
+    "product": "Chrome/152.0.7977.82",
+    "revision": "@d04cdb24d67b081f6cf80200ffc5233f44b61109",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/152.0.0.0 Safari/537.36",
+    "jsVersion": "15.2.124.21"
+  },
+  "evidence": [
+    {
+      "path": "1536-library-bottom.png",
+      "sha256": "1ACCE2491C91DE565076ADBB4991F3DF22D71868595C941E49EF800F58986B85",
+      "viewport": "1536x1024",
+      "url": "http://127.0.0.1:4220/reflection.html?state=saved-library",
+      "fixtureSha256": "88BDAC6595CB7701D144E28BCB5F7AB2877F11FADD673A83505F0B955C19182C"
+    },
+    {
+      "path": "1536-detail-bottom.png",
+      "sha256": "A74CA1FDF156D15C37DC1BCA3E6C94438B124AF7FEDF98E3E2142AD5CCA96B97",
+      "viewport": "1536x1024",
+      "url": "http://127.0.0.1:4220/reflection.html?state=saved-long-detail",
+      "fixtureSha256": "1E373A7325E9567304AEF19F3B04277F182A932F969E03A1C0DE7D44C1F49AA4"
+    },
+    {
+      "path": "1536-saved-editor.png",
+      "sha256": "330E2A8E07FBB5E023E93EE937C66150B0DE9B6BD0664CB1D689511F3AABD130",
+      "viewport": "1536x1024",
+      "url": "http://127.0.0.1:4220/reflection.html?state=saved-detail",
+      "fixtureSha256": "88BDAC6595CB7701D144E28BCB5F7AB2877F11FADD673A83505F0B955C19182C"
+    },
+    {
+      "path": "1536-editor-bottom.png",
+      "sha256": "330E2A8E07FBB5E023E93EE937C66150B0DE9B6BD0664CB1D689511F3AABD130",
+      "viewport": "1536x1024",
+      "url": "http://127.0.0.1:4220/reflection.html?state=saved-detail",
+      "fixtureSha256": "88BDAC6595CB7701D144E28BCB5F7AB2877F11FADD673A83505F0B955C19182C"
+    },
+    {
+      "path": "390-library-bottom.png",
+      "sha256": "353D32590241F5FDBFD8D667357D661968C1005808F570AD8EFD0778DD0BE012",
+      "viewport": "390x844",
+      "url": "http://127.0.0.1:4220/reflection.html?state=saved-library",
+      "fixtureSha256": "88BDAC6595CB7701D144E28BCB5F7AB2877F11FADD673A83505F0B955C19182C"
+    },
+    {
+      "path": "390-detail-bottom.png",
+      "sha256": "23A2606105177B31BFBD56DDEAB267A07548283B480F74799E054A90FA0CC49A",
+      "viewport": "390x844",
+      "url": "http://127.0.0.1:4220/reflection.html?state=saved-long-detail",
+      "fixtureSha256": "1E373A7325E9567304AEF19F3B04277F182A932F969E03A1C0DE7D44C1F49AA4"
+    },
+    {
+      "path": "390-saved-editor.png",
+      "sha256": "C7C4F32628904F0F3E9BD78CAF042664357D420B7A745C6AC4E768C44D3EF90C",
+      "viewport": "390x844",
+      "url": "http://127.0.0.1:4220/reflection.html?state=saved-detail",
+      "fixtureSha256": "88BDAC6595CB7701D144E28BCB5F7AB2877F11FADD673A83505F0B955C19182C"
+    },
+    {
+      "path": "390-editor-bottom.png",
+      "sha256": "D4AEB8EAAFA65F7A541B339C415741D384DDDDDB9825CD3C1FD37E79BB49F082",
+      "viewport": "390x844",
+      "url": "http://127.0.0.1:4220/reflection.html?state=saved-detail",
+      "fixtureSha256": "88BDAC6595CB7701D144E28BCB5F7AB2877F11FADD673A83505F0B955C19182C"
+    },
+    {
+      "path": "360-library-bottom.png",
+      "sha256": "5B7B5B103889FE81B665A8571F970B2EF381A38D9955A57323DB8DCB1FE0E35D",
+      "viewport": "360x844",
+      "url": "http://127.0.0.1:4220/reflection.html?state=saved-library",
+      "fixtureSha256": "88BDAC6595CB7701D144E28BCB5F7AB2877F11FADD673A83505F0B955C19182C"
+    },
+    {
+      "path": "360-detail-bottom.png",
+      "sha256": "F5F569BCDC7105D0A11D1E32ADF2D2136639C25412DD730F7862AEDE945F7B69",
+      "viewport": "360x844",
+      "url": "http://127.0.0.1:4220/reflection.html?state=saved-long-detail",
+      "fixtureSha256": "1E373A7325E9567304AEF19F3B04277F182A932F969E03A1C0DE7D44C1F49AA4"
+    },
+    {
+      "path": "360-saved-editor.png",
+      "sha256": "1909F98BF7B27FFEB2B13DD082722F10FE87E74A6120D9D5D5D4EAD619A55150",
+      "viewport": "360x844",
+      "url": "http://127.0.0.1:4220/reflection.html?state=saved-detail",
+      "fixtureSha256": "88BDAC6595CB7701D144E28BCB5F7AB2877F11FADD673A83505F0B955C19182C"
+    },
+    {
+      "path": "360-editor-bottom.png",
+      "sha256": "46040BFA6626D33A5BB3FE1E5D2E5F6D463747CAB817651F7CF612A4B9A3B5C7",
+      "viewport": "360x844",
+      "url": "http://127.0.0.1:4220/reflection.html?state=saved-detail",
+      "fixtureSha256": "88BDAC6595CB7701D144E28BCB5F7AB2877F11FADD673A83505F0B955C19182C"
+    },
+    {
+      "path": "920-library-bottom.png",
+      "sha256": "BA7345D2457237F6B10EFA6C8B965CCEEB397FF6160D8CC5DA676C5DFD0806D3",
+      "viewport": "920x1024",
+      "url": "http://127.0.0.1:4220/reflection.html?state=saved-library",
+      "fixtureSha256": "88BDAC6595CB7701D144E28BCB5F7AB2877F11FADD673A83505F0B955C19182C"
+    },
+    {
+      "path": "920-detail-bottom.png",
+      "sha256": "9805ED6213BC257F6A43486EFACCDA50975DEA8FE099B9A95220965450A96DF8",
+      "viewport": "920x1024",
+      "url": "http://127.0.0.1:4220/reflection.html?state=saved-long-detail",
+      "fixtureSha256": "1E373A7325E9567304AEF19F3B04277F182A932F969E03A1C0DE7D44C1F49AA4"
+    },
+    {
+      "path": "920-saved-editor.png",
+      "sha256": "98C45E9238545D7920FC5BDC64F5EB30E5BD3D385DCA9F75216A743FA24FF22A",
+      "viewport": "920x1024",
+      "url": "http://127.0.0.1:4220/reflection.html?state=saved-detail",
+      "fixtureSha256": "88BDAC6595CB7701D144E28BCB5F7AB2877F11FADD673A83505F0B955C19182C"
+    },
+    {
+      "path": "920-editor-bottom.png",
+      "sha256": "98C45E9238545D7920FC5BDC64F5EB30E5BD3D385DCA9F75216A743FA24FF22A",
+      "viewport": "920x1024",
+      "url": "http://127.0.0.1:4220/reflection.html?state=saved-detail",
+      "fixtureSha256": "88BDAC6595CB7701D144E28BCB5F7AB2877F11FADD673A83505F0B955C19182C"
+    },
+    {
+      "path": "1057-library-bottom.png",
+      "sha256": "D04BB843B809766D7293CDD3F85C74C714AC69E98B03F5C004F93A0CFB1A65E0",
+      "viewport": "1057x1024",
+      "url": "http://127.0.0.1:4220/reflection.html?state=saved-library",
+      "fixtureSha256": "88BDAC6595CB7701D144E28BCB5F7AB2877F11FADD673A83505F0B955C19182C"
+    },
+    {
+      "path": "1057-detail-bottom.png",
+      "sha256": "F23E84883FD58DBFC0D096E9642CA5D35A48397E311C6A939886AF8CB2DED64C",
+      "viewport": "1057x1024",
+      "url": "http://127.0.0.1:4220/reflection.html?state=saved-long-detail",
+      "fixtureSha256": "1E373A7325E9567304AEF19F3B04277F182A932F969E03A1C0DE7D44C1F49AA4"
+    },
+    {
+      "path": "1057-saved-editor.png",
+      "sha256": "DDF57AC4F1684850D0E69B196190C11DFD7893F1C73BEA64DE9909CA99F74B35",
+      "viewport": "1057x1024",
+      "url": "http://127.0.0.1:4220/reflection.html?state=saved-detail",
+      "fixtureSha256": "88BDAC6595CB7701D144E28BCB5F7AB2877F11FADD673A83505F0B955C19182C"
+    },
+    {
+      "path": "1057-editor-bottom.png",
+      "sha256": "DDF57AC4F1684850D0E69B196190C11DFD7893F1C73BEA64DE9909CA99F74B35",
+      "viewport": "1057x1024",
+      "url": "http://127.0.0.1:4220/reflection.html?state=saved-detail",
+      "fixtureSha256": "88BDAC6595CB7701D144E28BCB5F7AB2877F11FADD673A83505F0B955C19182C"
+    }
+  ],
+  "failures": [],
+  "interactions": [
+    {
+      "name": "1536 no horizontal overflow",
+      "passed": true
+    },
+    {
+      "name": "1536 final reading text clear of fixed actions",
+      "passed": true
+    },
+    {
+      "name": "1536 saved editor keeps five inputs",
+      "passed": true
+    },
+    {
+      "name": "390 no horizontal overflow",
+      "passed": true
+    },
+    {
+      "name": "390 final reading text clear of fixed actions",
+      "passed": true
+    },
+    {
+      "name": "390 saved editor keeps five inputs",
+      "passed": true
+    },
+    {
+      "name": "360 no horizontal overflow",
+      "passed": true
+    },
+    {
+      "name": "360 final reading text clear of fixed actions",
+      "passed": true
+    },
+    {
+      "name": "360 saved editor keeps five inputs",
+      "passed": true
+    },
+    {
+      "name": "920 no horizontal overflow",
+      "passed": true
+    },
+    {
+      "name": "920 final reading text clear of fixed actions",
+      "passed": true
+    },
+    {
+      "name": "920 saved editor keeps five inputs",
+      "passed": true
+    },
+    {
+      "name": "1057 no horizontal overflow",
+      "passed": true
+    },
+    {
+      "name": "1057 final reading text clear of fixed actions",
+      "passed": true
+    },
+    {
+      "name": "1057 saved editor keeps five inputs",
+      "passed": true
+    }
+  ],
+  "consoleErrors": []
+}

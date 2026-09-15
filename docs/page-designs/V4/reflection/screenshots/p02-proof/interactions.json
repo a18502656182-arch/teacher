@@ -1,0 +1,73 @@
+{
+  "createdAt": "2026-09-15T11:13:08.113Z",
+  "browser": {
+    "protocolVersion": "1.3",
+    "product": "Chrome/152.0.7977.82",
+    "revision": "@d04cdb24d67b081f6cf80200ffc5233f44b61109",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/152.0.0.0 Safari/537.36",
+    "jsVersion": "15.2.124.21"
+  },
+  "evidence": [
+    {
+      "path": "1536-library-bottom.png",
+      "sha256": "311DFB0165B200B41F6B9A43342B495F50FA9BF306C869A28C305DD4D04B9B13",
+      "viewport": "1536x1024",
+      "url": "http://127.0.0.1:4220/reflection.html?state=saved-library",
+      "fixtureSha256": "88BDAC6595CB7701D144E28BCB5F7AB2877F11FADD673A83505F0B955C19182C"
+    },
+    {
+      "path": "1536-detail-bottom.png",
+      "sha256": "133D921CB6276D93144A29D98490A5419F9FE0209DA95DF731D6AA11C52E3EF0",
+      "viewport": "1536x1024",
+      "url": "http://127.0.0.1:4220/reflection.html?state=saved-long-detail",
+      "fixtureSha256": "1E373A7325E9567304AEF19F3B04277F182A932F969E03A1C0DE7D44C1F49AA4"
+    },
+    {
+      "path": "1536-saved-editor.png",
+      "sha256": "330E2A8E07FBB5E023E93EE937C66150B0DE9B6BD0664CB1D689511F3AABD130",
+      "viewport": "1536x1024",
+      "url": "http://127.0.0.1:4220/reflection.html?state=saved-detail",
+      "fixtureSha256": "88BDAC6595CB7701D144E28BCB5F7AB2877F11FADD673A83505F0B955C19182C"
+    },
+    {
+      "path": "1536-editor-bottom.png",
+      "sha256": "330E2A8E07FBB5E023E93EE937C66150B0DE9B6BD0664CB1D689511F3AABD130",
+      "viewport": "1536x1024",
+      "url": "http://127.0.0.1:4220/reflection.html?state=saved-detail",
+      "fixtureSha256": "88BDAC6595CB7701D144E28BCB5F7AB2877F11FADD673A83505F0B955C19182C"
+    },
+    {
+      "path": "390-library-bottom.png",
+      "sha256": "1B30F51E22A9CA2200227D798AE4932CD95271B2C01B87D565680E4C14037C7D",
+      "viewport": "390x844",
+      "url": "http://127.0.0.1:4220/reflection.html?state=saved-library",
+      "fixtureSha256": "88BDAC6595CB7701D144E28BCB5F7AB2877F11FADD673A83505F0B955C19182C"
+    }
+  ],
+  "failures": [
+    "Error: 390 final reading text clear of fixed actions"
+  ],
+  "interactions": [
+    {
+      "name": "1536 no horizontal overflow",
+      "passed": true
+    },
+    {
+      "name": "1536 final reading text clear of fixed actions",
+      "passed": true
+    },
+    {
+      "name": "1536 saved editor keeps five inputs",
+      "passed": true
+    },
+    {
+      "name": "390 no horizontal overflow",
+      "passed": true
+    },
+    {
+      "name": "390 final reading text clear of fixed actions",
+      "passed": false
+    }
+  ],
+  "consoleErrors": []
+}
