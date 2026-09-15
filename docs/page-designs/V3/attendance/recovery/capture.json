@@ -1,5 +1,5 @@
 {
-  "createdAt": "2026-09-15T03:07:19.960Z",
+  "createdAt": "2026-09-15T03:07:19.96Z",
   "browser": {
     "protocolVersion": "1.3",
     "product": "Chrome/152.0.7977.82",
@@ -28,10 +28,11 @@
   "consoleErrors": [],
   "sourceCommit": "ed373ed0529edb24f4453b6a92a03aebe990a54e",
   "harness": "tools/ui-preview/attendance-source.tsx",
-  "harnessSha256": "1CA35A8E9BFD77F3A1057315185AE34AEF6C9E1573B15EA7A3FFBE3B7E7A6D32",
+  "harnessSha256": "D5F59F4C0E3E20AC9CF1BC8D471C9D8FE801E8576803FC34DB71E9FCC07E954B",
   "limitations": [
     "No shared shell in source recovery capture.",
     "Not a product route or live version verification.",
     "dev watch EBUSY; production4180 HTTP200 remained loading; use isolated4209."
-  ]
+  ],
+  "harnessNormalization": "Trailing blank line removed after capture; runtime logic unchanged."
 }
