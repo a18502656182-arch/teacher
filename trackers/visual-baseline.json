@@ -650,7 +650,7 @@
       "currentEvidence": [],
       "comparisons": [],
       "recordPath": "docs/page-designs/V4/scores/record.json",
-      "recordSha256": "B2EF2469C4F4B9E09924DAEEEE6C04F536436DCECCE9FA101EE7015FE0EF7B99"
+      "recordSha256": "03527BBFF0BE54736A65CC155DDEC011BAC6E0CC66268C09B2246968971151ED"
     },
     "reflection": {
       "label": "考试反思",
@@ -786,7 +786,7 @@
     "legacyFields": "status/productCommit/currentEvidence/comparisons/userApproval retain historical product evidence; D/R uses linked records",
     "entry": "docs/逐页设计定稿与实施包-20260914/00-从这里开始.md",
     "activeBatch": "V2",
-    "nextAction": "等待成绩分析C01双端候选方向确认，再做隔离P01；家校沟通主页面大体认可，弹窗和完整D/R未批准。",
+    "nextAction": "展示成绩P01并等待用户主页面审核；反思未开始，弹窗/真实业务/完整D/R仍待审核。",
     "designSequenceExceptions": [
       {
         "date": "2026-09-15",

@@ -1,0 +1,464 @@
+{
+  "version": "P01",
+  "createdAt": "2026-09-15T07:09:29.793Z",
+  "browser": {
+    "protocolVersion": "1.3",
+    "product": "Chrome/152.0.7977.82",
+    "revision": "@d04cdb24d67b081f6cf80200ffc5233f44b61109",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/152.0.0.0 Safari/537.36",
+    "jsVersion": "15.2.124.21"
+  },
+  "measurements": [
+    {
+      "width": 1536,
+      "name": "1536-normal",
+      "scrollWidth": 1521,
+      "regions": {
+        "page": {
+          "x": 244,
+          "y": 72,
+          "width": 1277,
+          "height": 1286.046875,
+          "font": "15px / 24px \"Microsoft YaHei\", sans-serif",
+          "padding": "24px 28px 28px",
+          "gap": "normal",
+          "background": "rgb(255, 255, 255)"
+        },
+        "heading": {
+          "x": 272,
+          "y": 111.953125,
+          "width": 289,
+          "height": 45.890625,
+          "font": "700 34px / 45.9px \"Microsoft YaHei\", sans-serif",
+          "padding": "0px",
+          "gap": "normal",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        "search": {
+          "x": 1109,
+          "y": 405.96875,
+          "width": 202,
+          "height": 30.390625,
+          "font": "14px / 22.4px \"Microsoft YaHei\", sans-serif",
+          "padding": "4px 0px",
+          "gap": "normal",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        "row": {
+          "x": 272,
+          "y": 544.171875,
+          "width": 1221,
+          "height": 71.6875,
+          "font": "15px / 24px \"Microsoft YaHei\", sans-serif",
+          "padding": "0px",
+          "gap": "normal",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        "notice": null,
+        "dialog": null
+      },
+      "platformFonts": {
+        "fonts": [
+          {
+            "familyName": "Microsoft YaHei",
+            "postScriptName": "MicrosoftYaHei-Bold",
+            "isCustomFont": false,
+            "glyphCount": 4
+          }
+        ]
+      }
+    },
+    {
+      "width": 390,
+      "name": "390-normal",
+      "scrollWidth": 390,
+      "regions": {
+        "page": {
+          "x": 0,
+          "y": 64,
+          "width": 390,
+          "height": 2321.203125,
+          "font": "14px / 22.4px \"Microsoft YaHei\", sans-serif",
+          "padding": "16px 16px 88px",
+          "gap": "normal",
+          "background": "rgb(255, 255, 255)"
+        },
+        "heading": {
+          "x": 16,
+          "y": 80,
+          "width": 204,
+          "height": 35.09375,
+          "font": "700 26px / 35.1px \"Microsoft YaHei\", sans-serif",
+          "padding": "0px",
+          "gap": "normal",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        "search": {
+          "x": 52,
+          "y": 390.0625,
+          "width": 175,
+          "height": 30.390625,
+          "font": "14px / 22.4px \"Microsoft YaHei\", sans-serif",
+          "padding": "4px 0px",
+          "gap": "normal",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        "row": {
+          "x": 16,
+          "y": 482.265625,
+          "width": 358,
+          "height": 171.375,
+          "font": "14px / 22.4px \"Microsoft YaHei\", sans-serif",
+          "padding": "20px 0px",
+          "gap": "normal",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        "notice": null,
+        "dialog": null
+      },
+      "platformFonts": {
+        "fonts": [
+          {
+            "familyName": "Microsoft YaHei",
+            "postScriptName": "MicrosoftYaHei-Bold",
+            "isCustomFont": false,
+            "glyphCount": 4
+          }
+        ]
+      }
+    },
+    {
+      "width": 1057,
+      "name": "1057-normal",
+      "scrollWidth": 1042,
+      "regions": {
+        "page": {
+          "x": 220,
+          "y": 72,
+          "width": 822,
+          "height": 1334.453125,
+          "font": "15px / 24px \"Microsoft YaHei\", sans-serif",
+          "padding": "22px",
+          "gap": "normal",
+          "background": "rgb(255, 255, 255)"
+        },
+        "heading": {
+          "x": 242,
+          "y": 109.953125,
+          "width": 289,
+          "height": 45.890625,
+          "font": "700 34px / 45.9px \"Microsoft YaHei\", sans-serif",
+          "padding": "0px",
+          "gap": "normal",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        "search": {
+          "x": 278,
+          "y": 460.375,
+          "width": 202,
+          "height": 30.390625,
+          "font": "14px / 22.4px \"Microsoft YaHei\", sans-serif",
+          "padding": "4px 0px",
+          "gap": "normal",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        "row": {
+          "x": 242,
+          "y": 598.578125,
+          "width": 778,
+          "height": 71.6875,
+          "font": "15px / 24px \"Microsoft YaHei\", sans-serif",
+          "padding": "0px",
+          "gap": "normal",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        "notice": null,
+        "dialog": null
+      },
+      "platformFonts": {
+        "fonts": [
+          {
+            "familyName": "Microsoft YaHei",
+            "postScriptName": "MicrosoftYaHei-Bold",
+            "isCustomFont": false,
+            "glyphCount": 4
+          }
+        ]
+      }
+    },
+    {
+      "width": 360,
+      "name": "360-normal",
+      "scrollWidth": 360,
+      "regions": {
+        "page": {
+          "x": 0,
+          "y": 64,
+          "width": 360,
+          "height": 2321.203125,
+          "font": "14px / 22.4px \"Microsoft YaHei\", sans-serif",
+          "padding": "16px 16px 88px",
+          "gap": "normal",
+          "background": "rgb(255, 255, 255)"
+        },
+        "heading": {
+          "x": 16,
+          "y": 80,
+          "width": 204,
+          "height": 35.09375,
+          "font": "700 26px / 35.1px \"Microsoft YaHei\", sans-serif",
+          "padding": "0px",
+          "gap": "normal",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        "search": {
+          "x": 52,
+          "y": 390.0625,
+          "width": 145,
+          "height": 30.390625,
+          "font": "14px / 22.4px \"Microsoft YaHei\", sans-serif",
+          "padding": "4px 0px",
+          "gap": "normal",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        "row": {
+          "x": 16,
+          "y": 482.265625,
+          "width": 328,
+          "height": 171.375,
+          "font": "14px / 22.4px \"Microsoft YaHei\", sans-serif",
+          "padding": "20px 0px",
+          "gap": "normal",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        "notice": null,
+        "dialog": null
+      },
+      "platformFonts": {
+        "fonts": [
+          {
+            "familyName": "Microsoft YaHei",
+            "postScriptName": "MicrosoftYaHei-Bold",
+            "isCustomFont": false,
+            "glyphCount": 4
+          }
+        ]
+      }
+    },
+    {
+      "width": 1536,
+      "name": "1536-student-picker",
+      "scrollWidth": 1521,
+      "regions": {
+        "page": {
+          "x": 244,
+          "y": 72,
+          "width": 1277,
+          "height": 1577.375,
+          "font": "15px / 24px \"Microsoft YaHei\", sans-serif",
+          "padding": "24px 28px 28px",
+          "gap": "normal",
+          "background": "rgb(255, 255, 255)"
+        },
+        "heading": {
+          "x": 272,
+          "y": 111.953125,
+          "width": 289,
+          "height": 45.890625,
+          "font": "700 34px / 45.9px \"Microsoft YaHei\", sans-serif",
+          "padding": "0px",
+          "gap": "normal",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        "search": null,
+        "row": null,
+        "notice": {
+          "x": 272,
+          "y": 714.53125,
+          "width": 1221,
+          "height": 413.046875,
+          "font": "15px / 24px \"Microsoft YaHei\", sans-serif",
+          "padding": "20px 0px",
+          "gap": "normal",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        "dialog": {
+          "x": 961,
+          "y": 0,
+          "width": 560,
+          "height": 1024,
+          "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+          "padding": "0px",
+          "gap": "normal",
+          "background": "rgb(255, 255, 255)"
+        }
+      }
+    },
+    {
+      "width": 1536,
+      "name": "1536-recovery",
+      "scrollWidth": 1521,
+      "regions": {
+        "page": {
+          "x": 244,
+          "y": 129,
+          "width": 1277,
+          "height": 1286.046875,
+          "font": "15px / 24px \"Microsoft YaHei\", sans-serif",
+          "padding": "24px 28px 28px",
+          "gap": "normal",
+          "background": "rgb(255, 255, 255)"
+        },
+        "heading": {
+          "x": 272,
+          "y": 168.953125,
+          "width": 289,
+          "height": 45.890625,
+          "font": "700 34px / 45.9px \"Microsoft YaHei\", sans-serif",
+          "padding": "0px",
+          "gap": "normal",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        "search": {
+          "x": 1109,
+          "y": 462.96875,
+          "width": 202,
+          "height": 30.390625,
+          "font": "14px / 22.4px \"Microsoft YaHei\", sans-serif",
+          "padding": "4px 0px",
+          "gap": "normal",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        "row": {
+          "x": 272,
+          "y": 601.171875,
+          "width": 1221,
+          "height": 71.6875,
+          "font": "15px / 24px \"Microsoft YaHei\", sans-serif",
+          "padding": "0px",
+          "gap": "normal",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        "notice": null,
+        "dialog": {
+          "x": 450.5,
+          "y": 191.328125,
+          "width": 620,
+          "height": 641.34375,
+          "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+          "padding": "0px",
+          "gap": "normal",
+          "background": "rgb(255, 255, 255)"
+        }
+      }
+    },
+    {
+      "width": 390,
+      "name": "390-student-picker",
+      "scrollWidth": 390,
+      "regions": {
+        "page": {
+          "x": 0,
+          "y": 64,
+          "width": 390,
+          "height": 1658.28125,
+          "font": "14px / 22.4px \"Microsoft YaHei\", sans-serif",
+          "padding": "16px 16px 88px",
+          "gap": "normal",
+          "background": "rgb(255, 255, 255)"
+        },
+        "heading": {
+          "x": 16,
+          "y": 80,
+          "width": 204,
+          "height": 35.09375,
+          "font": "700 26px / 35.1px \"Microsoft YaHei\", sans-serif",
+          "padding": "0px",
+          "gap": "normal",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        "search": null,
+        "row": null,
+        "notice": {
+          "x": 16,
+          "y": 796.15625,
+          "width": 358,
+          "height": 211.453125,
+          "font": "14px / 22.4px \"Microsoft YaHei\", sans-serif",
+          "padding": "20px 0px",
+          "gap": "normal",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        "dialog": {
+          "x": 0,
+          "y": 12,
+          "width": 390,
+          "height": 832,
+          "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+          "padding": "0px",
+          "gap": "normal",
+          "background": "rgb(255, 255, 255)"
+        }
+      }
+    },
+    {
+      "width": 390,
+      "name": "390-recovery",
+      "scrollWidth": 390,
+      "regions": {
+        "page": {
+          "x": 0,
+          "y": 150,
+          "width": 390,
+          "height": 2321.203125,
+          "font": "14px / 22.4px \"Microsoft YaHei\", sans-serif",
+          "padding": "16px 16px 88px",
+          "gap": "normal",
+          "background": "rgb(255, 255, 255)"
+        },
+        "heading": {
+          "x": 16,
+          "y": 166,
+          "width": 204,
+          "height": 35.09375,
+          "font": "700 26px / 35.1px \"Microsoft YaHei\", sans-serif",
+          "padding": "0px",
+          "gap": "normal",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        "search": {
+          "x": 52,
+          "y": 476.0625,
+          "width": 175,
+          "height": 30.390625,
+          "font": "14px / 22.4px \"Microsoft YaHei\", sans-serif",
+          "padding": "4px 0px",
+          "gap": "normal",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        "row": {
+          "x": 16,
+          "y": 568.265625,
+          "width": 358,
+          "height": 171.375,
+          "font": "14px / 22.4px \"Microsoft YaHei\", sans-serif",
+          "padding": "20px 0px",
+          "gap": "normal",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        "notice": null,
+        "dialog": {
+          "x": 12,
+          "y": 106.328125,
+          "width": 366,
+          "height": 631.34375,
+          "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+          "padding": "0px",
+          "gap": "normal",
+          "background": "rgb(255, 255, 255)"
+        }
+      }
+    }
+  ],
+  "limitation": "Main page and recovery measured at1536/390 plus1057/360; fonts Windows installed; no cross-platform equality claim."
+}

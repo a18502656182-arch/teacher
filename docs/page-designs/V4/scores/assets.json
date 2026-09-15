@@ -1,0 +1,21 @@
+{
+  "version": "P01",
+  "font": {
+    "family": "Microsoft YaHei",
+    "source": "Windows installed, not redistributed",
+    "evidence": "docs/page-designs/V4/scores/geometry.json"
+  },
+  "art": {
+    "path": "app/designs/scores/stationery-p01.png",
+    "sha256": "1ADDF8C35AD2D9DB2718E0AA8FAFEC0FE7B4CAFCFA58E0163CC6BEC89E6FB401",
+    "bytes": 1605192,
+    "pixelSize": [
+      1536,
+      1024
+    ],
+    "tool": "built-in ImageGen",
+    "prompt": "Refined small watercolor school stationery illustration asset, blank cream spiral notebook with no writing, sage green pencil, pale wood ruler and one delicate leafy sprig. White seamless background, no text, letters, logos, UI or framing. Gentle hand-painted paper texture, restrained sage blue and ochre palette, mature editorial feeling. Horizontal1536x1024, centered objects occupy65%, intended for Chinese teacher score-entry page header at180x110. Do not draw charts, numbers or motivational words.",
+    "limitation": "1.61MB PNG not yet optimized; decorative empty alt"
+  },
+  "icons": "Shared CampusIcon and WorkbenchShell; no shared source changes"
+}

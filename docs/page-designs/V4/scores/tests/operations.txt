@@ -1,0 +1,4 @@
+Command: node --test tests/score-operations.test.mjs
+Recorded from tool output in this turn, 2026-09-15. Exit 0.
+11 tests, 11 pass, 0 fail.
+Coverage: new exams blank; zero distinct from null; new subjects blank; scoped student summary; 105-student batch and cross-class rejection; invalid score/subject; exam deletion linked reflection; local date; knowledge item zero/blank; AI pre-confirmation excluded and confirmation idempotent; candidate status/class boundary.

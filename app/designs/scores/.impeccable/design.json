@@ -1,0 +1,135 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-15T07:16:29.3020076Z",
+  "title": "Design System: 成绩分析 · 隔离 P01",
+  "extensions": {
+    "colorMeta": {
+      "table-head": {
+        "role": "secondary",
+        "displayName": "表头浅蓝"
+      },
+      "primary": {
+        "role": "primary",
+        "displayName": "命令青绿"
+      },
+      "missing": {
+        "role": "secondary",
+        "displayName": "缺录暖黄"
+      },
+      "exam": {
+        "role": "secondary",
+        "displayName": "考试浅绿"
+      }
+    },
+    "typographyMeta": {
+      "body": {
+        "purpose": "实测桌面15px/24px、手机14px/22.4px",
+        "displayName": "录分正文"
+      },
+      "display": {
+        "purpose": "supplement平台字体确认标题四字为MicrosoftYaHei-Bold；桌面34px、手机26px",
+        "displayName": "页面标题"
+      }
+    },
+    "shadows": [],
+    "motion": [],
+    "breakpoints": [
+      {
+        "name": "mobile",
+        "value": "900px"
+      },
+      {
+        "name": "narrow-desktop",
+        "value": "1200px"
+      }
+    ],
+    "evidence": {
+      "viewedImages": [
+        ".qa-shots/scores-design/round2/1536-normal.png",
+        ".qa-shots/scores-design/round2/390-normal.png",
+        ".qa-shots/scores-design/reviewer-fix/1536-trends.png"
+      ],
+      "source": "app/designs/scores/ScoresDesign.module.css",
+      "approval": "C01双端方向已确认；P01主页面待审，弹窗后置，完整D/R未批、正式业务未接入、未部署。finish F1/F2 resolved，PASS仅交用户审核。",
+      "detector": "22原始条目：14颜色、2圆角、5字号advisory；1条3px标签下划线误报。仅登记token，未重跑检测。",
+      "ramps": "未编造实现中不存在的tonal ramp；当前仅登记实际色值及角色。",
+      "measurements": ".qa-shots/scores-design/supplement/supplement.json"
+    }
+  },
+  "components": [
+    {
+      "description": "考试新增及保存等明确提交命令。",
+      "refersTo": "button-primary",
+      "css": ".ds-primary{font:15px/1.6 \"Microsoft YaHei\",sans-serif;border-radius:5px;padding:7px 12px;min-height:36px;cursor:pointer;white-space:nowrap;background:#087e7e;color:#fff;border:0}.ds-primary:hover:not(:disabled){background:#076a6a}.ds-primary:focus-visible{outline:2px solid #087e7e;outline-offset:3px}.ds-primary:disabled{opacity:.5;cursor:default}",
+      "name": "主命令",
+      "kind": "button",
+      "html": "<button class=\"ds-primary\">保存录分</button>"
+    },
+    {
+      "description": "切换考试、编辑与详情等低强调命令。",
+      "refersTo": "button-text",
+      "css": ".ds-text{font:15px/1.6 \"Microsoft YaHei\",sans-serif;border-radius:5px;padding:7px 12px;min-height:36px;cursor:pointer;white-space:nowrap;background:transparent;color:#087e7e;border:0}.ds-text:hover:not(:disabled){background:#eaf4f1}.ds-text:focus-visible{outline:2px solid #087e7e;outline-offset:3px}.ds-text:disabled{opacity:.5;cursor:default}",
+      "name": "文字命令",
+      "kind": "button",
+      "html": "<button class=\"ds-text\">切换考试</button>"
+    },
+    {
+      "description": "桌面录分先暂存，空白为未录入，0分是有效分数。",
+      "refersTo": "score-input",
+      "css": ".ds-score{font:15px/1.6 \"Microsoft YaHei\",sans-serif;color:#15334a;border:1px solid #c7d7e0;background:#fff;border-radius:5px;padding:6px 9px;width:90px;height:35px;text-align:center}.ds-score::placeholder{color:#687a89}.ds-score:focus-visible{outline:2px solid #087e7e;outline-offset:3px}",
+      "name": "分数输入",
+      "kind": "input",
+      "html": "<input class=\"ds-score\" aria-label=\"语文分数\" inputmode=\"decimal\" value=\"0\" placeholder=\"未录入\">"
+    },
+    {
+      "html": "<nav class=\"ds-tabs\" aria-label=\"成绩工作区\"><button aria-pressed=\"true\">成绩录入</button><button aria-pressed=\"false\">历次趋势</button><button aria-pressed=\"false\">试卷与知识点</button></nav>",
+      "kind": "nav",
+      "name": "工作区导航",
+      "description": "直角活动标签以底部青绿线表示当前工作区。",
+      "css": ".ds-tabs{display:flex;gap:22px;border-bottom:1px solid #dce6ed}.ds-tabs button{font:17px/1.6 \"Microsoft YaHei\",sans-serif;min-height:36px;color:#15334a;background:transparent;border:0;border-radius:0;padding:9px 12px;border-bottom:3px solid transparent;white-space:nowrap;cursor:pointer}.ds-tabs button[aria-pressed=true]{border-bottom-color:#087e7e;color:#087e7e;font-weight:700}.ds-tabs button:hover{background:#eaf4f1}.ds-tabs button:focus-visible{outline:2px solid #087e7e;outline-offset:3px}"
+    },
+    {
+      "description": "状态文字，不直接修改成绩。",
+      "refersTo": "missing-badge",
+      "css": ".ds-missing{font:13px/1.6 \"Microsoft YaHei\",sans-serif;background:#fff2dc;color:#885300;padding:2px 8px;border-radius:5px}",
+      "name": "待补全状态",
+      "kind": "chip",
+      "html": "<span class=\"ds-missing\">待补全</span>"
+    },
+    {
+      "description": "唯一浅绿工作面固定考试名称、日期和各科满分。",
+      "refersTo": "exam-context",
+      "css": ".ds-exam{font:15px/1.6 \"Microsoft YaHei\",sans-serif;background:#eef6ee;color:#15334a;padding:18px 22px;border-radius:7px}.ds-exam h2{font-size:21px;margin:0;overflow-wrap:anywhere}.ds-exam p{color:#446250;font-size:14px;margin:5px 0 0;overflow-wrap:anywhere}",
+      "name": "当前考试上下文",
+      "kind": "custom",
+      "html": "<section class=\"ds-exam\"><h2>当前考试 · 9月综合练习</h2><p>2026-09-15 · 语文 100分 / 数学 100分 / 英语 100分</p></section>"
+    }
+  ],
+  "narrative": {
+    "northStar": "浅绿考试笺与白纸录分簿",
+    "keyCharacteristics": [
+      "浅绿考试上下文、紧凑工具条与连续录分表。",
+      "手机学生行逐科显示满分、分数及缺录状态。",
+      "三个工作区共享真实壳层，趋势与分析保持独立任务。",
+      "颜色配合文字，不把空白等同零分。"
+    ],
+    "dos": [
+      "Do 保留浅绿考试上下文、连续录分台账和手机学生行。",
+      "Do 同时说明科目满分、缺录与零分以及趋势统计口径。",
+      "Do 以源码最终覆盖值及实拍记录尺寸，保留小字和滚动密度审阅项。"
+    ],
+    "rules": [
+      {
+        "name": "The Meaning Rule",
+        "section": "colors",
+        "body": "缺录、零分、本次跟进和保存状态各自保留明确文字，不通过颜色扩大统计或业务含义。"
+      }
+    ],
+    "donts": [
+      "Don't 将有录入学生占比写成成绩项完整率，或将等距场次轴写成时间比例轴。",
+      "Don't 将合成候选称为真实上传或 AI 识别完成。",
+      "Don't 将 finish PASS 写成用户 P01 批准、弹窗批准、完整 D/R 或部署许可。"
+    ],
+    "overview": "浅绿横带固定当前考试、日期与科目满分，白纸连续台账承担录分，浅蓝表头建立列关系。文具水彩只提供标题情境，青绿用于命令和选中状态。此名称是对 C01 已确认方向的描述性归纳，不是另行批准的品牌命名。\n\n本文件仅登记 app/designs/scores 的局部实现，不替换根 DESIGN.md。页面模式 Operate：先选考试，再录分、看趋势或核对试卷。用户本轮“确认”批准 C01 双端方向；P01 主页面仍待用户审核，弹窗视觉后置，完整 D/R 未批准、正式业务未接入、未部署。brief/function-map 的制作前文字不是当前实现结论；finish-review 最终 PASS 仅表示可交用户主页面审核，F1/F2 已 resolved。"
+  }
+}

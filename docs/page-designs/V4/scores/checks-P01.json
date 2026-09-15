@@ -1,0 +1,75 @@
+{
+  "version": "P01",
+  "tests": [
+    {
+      "name": "typecheck",
+      "path": "docs/page-designs/V4/scores/tests/typecheck.log",
+      "sha256": "01BA4719C80B6FE911B091A7C05124B64EEECE964E09C058EF8F9805DACA546B",
+      "exitCode": 0
+    },
+    {
+      "name": "lint",
+      "path": "docs/page-designs/V4/scores/tests/lint.log",
+      "sha256": "4EA4070F98CEA6BB6397F2C67227F664A70D9B377F20B877DD7E0D0EFF218D8F",
+      "exitCode": 0
+    },
+    {
+      "name": "build",
+      "path": "docs/page-designs/V4/scores/tests/build.log",
+      "sha256": "B69D0A757F9C00388ACE4A69D1375BDBF4A3A63380CF1458D8DA067AF8A664EE",
+      "exitCode": 0
+    },
+    {
+      "name": "isolated-build",
+      "path": "docs/page-designs/V4/scores/tests/isolated-build.log",
+      "sha256": "4985077DE35F9D6BD51CF4483979CB956B5435B35B08B7CFC8239CE8F9E5378A",
+      "exitCode": 0
+    },
+    {
+      "name": "qa-strict",
+      "path": "docs/page-designs/V4/scores/tests/qa-strict.log",
+      "sha256": "61DFC96DD78FD8EC18C8349DA139F0A1F7FC063DA2B8848F6651E1D2CE25170C",
+      "exitCode": 1
+    },
+    {
+      "name": "operations",
+      "path": "docs/page-designs/V4/scores/tests/operations.txt",
+      "sha256": "D93B53582DF01120A961822BC0125E79BEF244788E6AAD2222480904B5AB900D",
+      "exitCode": 0,
+      "scope": "11 original operation tests; terminal result transcription, not a full rerun log"
+    }
+  ],
+  "interactions": {
+    "path": "docs/page-designs/V4/scores/tests/interactions.json",
+    "sha256": "77F9907ABA051DFCCA735E01C2D93BD7947133FCC28E2026AEFB0EE272BEB593",
+    "checks": 66,
+    "failures": 0,
+    "scope": "Mixed visible DOM buttons and direct isolated-controller actions, both viewport sizes"
+  },
+  "supplement": {
+    "path": "docs/page-designs/V4/scores/screenshots/supplement/supplement.json",
+    "sha256": "7DCFA02F5A4EE623D28042CBC62298418D9ED6CCD0A435BDCB381579DA38D955",
+    "checks": 8,
+    "shots": 8,
+    "failures": 0,
+    "scope": "narrow width, trend picker present, export invocation (not OS file), explicit latest reload"
+  },
+  "capture": {
+    "path": "docs/page-designs/V4/scores/screenshots/p01/capture.json",
+    "sha256": "957C5FD5045D671859D2A0951C8B306422FBE932C2DADEF080AFDD27A6620759",
+    "shots": 52,
+    "failures": 0
+  },
+  "reviewerFix": {
+    "path": "docs/page-designs/V4/scores/screenshots/reviewer-fix/capture.json",
+    "sha256": "8AE84A7268BF008351F9B81D2FD9FDD9ACEC7482B4791B6D597F9A92E1A73E64",
+    "shots": 4,
+    "failures": 0
+  },
+  "limitations": [
+    "qa:strict timed out waiting for localhost:4180/w/demo; no fullsite PASS",
+    "img optimization warning only",
+    "No production business integration or real AI upload",
+    "Production build before final trend wording fix; final isolated build and tsc after wording fix"
+  ]
+}
