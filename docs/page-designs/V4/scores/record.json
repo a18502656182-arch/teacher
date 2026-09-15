@@ -1,0 +1,143 @@
+{
+  "pageId": "scores",
+  "batch": "V4",
+  "phase": "concept-review",
+  "brief": "docs/page-designs/V4/scores/brief.md",
+  "functionMap": "docs/page-designs/V4/scores/function-map.md",
+  "geometry": null,
+  "assets": null,
+  "states": null,
+  "candidates": [
+    {
+      "path": "docs/page-designs/V4/scores/candidates/scores-desktop-c01.png",
+      "sha256": "54F2BC2EB631A3110C62DAB31DCE4CDC31D3286E5CA20CECFC45F38B479E1366",
+      "kind": "desktop",
+      "stateId": "normal",
+      "version": "C01",
+      "approval": false,
+      "pixelSize": [
+        1536,
+        1024
+      ],
+      "targetViewport": "1536x1024",
+      "prompt": "docs/page-designs/V4/scores/candidates/prompts-c01.md",
+      "purpose": "ImageGen direction candidate; not runnable or integrated"
+    },
+    {
+      "path": "docs/page-designs/V4/scores/candidates/scores-mobile-c01.png",
+      "sha256": "8F0E13645E9C66F1DB9129049DB787F6F2D31625578F6F673028344F3BC1F428",
+      "kind": "mobile",
+      "stateId": "normal",
+      "version": "C01",
+      "approval": false,
+      "pixelSize": [
+        853,
+        1844
+      ],
+      "targetViewport": "390x844",
+      "prompt": "docs/page-designs/V4/scores/candidates/prompts-c01.md",
+      "purpose": "ImageGen direction candidate; not runnable or integrated"
+    }
+  ],
+  "prototype": {
+    "commit": null,
+    "previewUrl": null,
+    "evidence": []
+  },
+  "designApproval": {
+    "approved": false,
+    "source": null,
+    "approvedAt": null,
+    "commit": null,
+    "evidenceHashes": []
+  },
+  "integration": {
+    "productCommit": null,
+    "designCommit": null,
+    "evidence": [],
+    "tests": []
+  },
+  "resultApproval": {
+    "approved": false,
+    "source": null,
+    "approvedAt": null,
+    "productCommit": null
+  },
+  "conceptApproval": {
+    "approved": false,
+    "source": null,
+    "approvedAt": null,
+    "evidenceHashes": []
+  },
+  "overlayReview": {
+    "requiredBeforeIntegration": true,
+    "approved": false,
+    "plan": "docs/page-designs/OVERLAY-FOLLOWUP-20260915.md"
+  },
+  "issues": [
+    {
+      "id": "C01-DIRECTION",
+      "blocking": true,
+      "resolved": false,
+      "description": "Desktop/mobile candidates await user confirmation; no P01."
+    },
+    {
+      "id": "SEMANTICS",
+      "blocking": false,
+      "resolved": false,
+      "description": "Raw average/weakSubject vs normalized rates, subject trend scope, student.score writeback, missing-point lines: see function-map."
+    },
+    {
+      "id": "CANDIDATE-DEVIATIONS",
+      "blocking": false,
+      "resolved": false,
+      "description": "Fake teacher account, simplified shell, blue controls, mobile illustration slogan and exam band proportion must not be mechanically inherited."
+    }
+  ],
+  "sourceState": {
+    "path": "docs/page-designs/V4/scores/screenshots/source/capture.json",
+    "sha256": "5186B760631DAE41CD31E86BD359B1CA2576A3E0DA875841BE3DA31448C99885",
+    "evidence": [
+      {
+        "path": "docs/page-designs/V4/scores/screenshots/source/1536-normal.png",
+        "sha256": "F24F1F8783BB0F69DEC1FD10DEBA47E25F165FE7C538BCB8AA380E436CF4F34D",
+        "viewport": "1536x1024",
+        "url": "http://127.0.0.1:4217/scores-source.html"
+      },
+      {
+        "path": "docs/page-designs/V4/scores/screenshots/source/390-normal.png",
+        "sha256": "00B29D498B8BABDE517EEC055D501F103CDE3C8DB2156CF5B37154122544BBBC",
+        "viewport": "390x844",
+        "url": "http://127.0.0.1:4217/scores-source.html"
+      }
+    ],
+    "sourceFiles": [
+      {
+        "path": "app/w/[token]/ClassroomApp.tsx",
+        "sha256": "1A0CC5F93270FFD704520E35A530A0BA3D12614B0A3BFEDEB71D8418D9DA97EE"
+      },
+      {
+        "path": "app/w/[token]/ScoreTrends.tsx",
+        "sha256": "C2C53DAD6DB2674D28360C2E0127F0933E94FC9BD21851323E7983A4C5628D14"
+      },
+      {
+        "path": "app/w/[token]/ScoreItemAnalysis.tsx",
+        "sha256": "CBFE3FC85876FEEA1FF0A079A00AAA04F4A0267DA0679B38E8CDCBADD26349A7"
+      },
+      {
+        "path": "app/w/[token]/features/scores/operations.ts",
+        "sha256": "ECB2500CACCD14AFDE17D8A32C52D9C24C9B58A3DB0442C2A4AFFB9EA41E201E"
+      }
+    ],
+    "fixture": {
+      "path": "tools/ui-preview/scores-source.tsx",
+      "sha256": "1322549D1761015328E23EF3FD464E77C67352BFF2E5CC55B0AB889373BFE5DF"
+    },
+    "mode": "read-only synthetic current-source recovery without shared shell"
+  },
+  "nextAllowedAction": "Show C01 desktop/mobile and wait for user direction; only then isolated P01; no formal integration or deployment.",
+  "candidateChecks": {
+    "path": "docs/page-designs/V4/scores/checks-C01.json",
+    "sha256": "F7276144B9D70F318172133050C60B63189D54357335E55F39CB9E8C2710B219"
+  }
+}

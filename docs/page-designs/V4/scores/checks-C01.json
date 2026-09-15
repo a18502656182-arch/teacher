@@ -1,0 +1,32 @@
+{
+  "date": "2026-09-15",
+  "scope": "Read-only source recovery and candidate preparation only",
+  "typecheck": {
+    "command": "npx tsc --noEmit",
+    "exitCode": 0
+  },
+  "lint": {
+    "command": "npx eslint tools/ui-preview/scores-source.tsx tools/ui-preview/scores-source.vite.config.ts",
+    "exitCode": 0
+  },
+  "recoveryBuild": {
+    "command": "npx vite build --config tools/ui-preview/scores-source.vite.config.ts",
+    "exitCode": 0
+  },
+  "recoveryCapture": {
+    "command": "node scripts/scores-source-capture.mjs",
+    "exitCode": 0,
+    "evidence": 2,
+    "errors": [],
+    "report": "docs/page-designs/V4/scores/screenshots/source/capture.json"
+  },
+  "ledger": {
+    "command": "npm run qa:visual-baseline",
+    "exitCode": 0
+  },
+  "limitations": [
+    "No runnable design yet",
+    "No current full-site qa:strict rerun; previous timeout and older querySelectorAll issue remain",
+    "No functionality or aesthetic approval from these checks"
+  ]
+}

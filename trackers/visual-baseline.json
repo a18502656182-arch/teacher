@@ -637,7 +637,7 @@
       "currentEvidence": [],
       "comparisons": [],
       "recordPath": "docs/page-designs/V4/records/record.json",
-      "recordSha256": "7CB44A56A8B26A29C14FC9C1012B16413CA030C31786176AB60A3231D0F9978E"
+      "recordSha256": "4955F9D59470D44964B0A632E5C2FF6452AC43269143F84CF72F9050701FADB2"
     },
     "scores": {
       "label": "成绩分析",
@@ -648,7 +648,9 @@
       "requiredComparisons": 2,
       "issues": [],
       "currentEvidence": [],
-      "comparisons": []
+      "comparisons": [],
+      "recordPath": "docs/page-designs/V4/scores/record.json",
+      "recordSha256": "DC7C93488F196F235E414CA13EC65594637E10C791FCCCC9F508AE52AE16911C"
     },
     "reflection": {
       "label": "考试反思",
@@ -784,7 +786,7 @@
     "legacyFields": "status/productCommit/currentEvidence/comparisons/userApproval retain historical product evidence; D/R uses linked records",
     "entry": "docs/逐页设计定稿与实施包-20260914/00-从这里开始.md",
     "activeBatch": "V2",
-    "nextAction": "展示家校沟通P01并等待用户主页面审核；弹窗补审、听写暂缓、前批R未过均保持，禁止正式接入/部署。",
+    "nextAction": "等待成绩分析C01双端候选方向确认，再做隔离P01；家校沟通主页面大体认可，弹窗和完整D/R未批准。",
     "designSequenceExceptions": [
       {
         "date": "2026-09-15",
@@ -806,6 +808,12 @@
         "source": "本任务用户：页面可以 同样也是弹窗有问题 可以继续下一个页面",
         "scope": "Health main-page approval only; independent records/V4 candidate design before prior batch R, not formal next-batch integration",
         "nextDesignPage": "records",
+        "integrationAllowed": false
+      },
+      {
+        "date": "2026-09-15",
+        "source": "用户：大体可以 继续下一个页面",
+        "scope": "认可家校沟通主页面并允许继续成绩独立设计；不放开业务接入",
         "integrationAllowed": false
       }
     ],

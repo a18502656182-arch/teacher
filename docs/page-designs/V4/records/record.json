@@ -822,13 +822,17 @@
   ],
   "candidateCommit": "0b5483e1c3bff88ecd1810e09d6cb6cc7b429779",
   "mainPageApproval": {
-    "approved": false,
-    "source": null,
-    "approvedAt": null,
-    "commit": null,
-    "evidenceHashes": []
+    "approved": true,
+    "source": "2026-09-15 用户“大体可以 继续下一个页面”，附家校沟通桌面截图。",
+    "approvedAt": "2026-09-15",
+    "commit": "2460927bca985d00b9b33d2240682e110c92bd5f",
+    "scope": "主页面大体方向与布局认可；附件桌面为直接反馈，不扩大至弹窗、全部关键状态、完整D或R。",
+    "evidenceHashes": [
+      "F120BBAF64F0D2A299801FFF56F801FD9D1A28ED32A0388B84CF7B6830A269F8"
+    ],
+    "userAttachmentSha256": "015ACACFB57DD13CE49DB24D2EF12767845250965B683B75B26AE7B08E8A45AC"
   },
-  "nextAllowedAction": "展示家校沟通P01，等待用户主页面审核；随后才按用户指示进入成绩候选。禁止正式接入与部署。",
+  "nextAllowedAction": "按用户指示继续成绩分析独立候选；records浮层及未审状态仍需接入前补审。",
   "finishReview": {
     "path": "docs/page-designs/V4/records/finish-review.md",
     "sha256": "6097F1CB4B82CBF2E0810B9608087EEBB5ABD74351124CC975AC179EC1423783"
