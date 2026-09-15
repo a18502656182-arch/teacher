@@ -1166,7 +1166,7 @@
       "resolution": "已实现独立记录库和阅读详情并有双端证据；是否符合审美仍待用户实际审核。"
     }
   ],
-  "nextAction": "等待用户实际审核P02已保存记录库、阅读详情与编辑返回流程；不自动进入V5，不正式接入、不部署。",
+  "nextAction": "课程日程独立候选；反思延期弹窗仍待补齐审核。",
   "history": [
     {
       "phase": "concept-review",
@@ -2324,6 +2324,11 @@
         "currentLimitation": "旧技术PASS不能覆盖本次用户指出的设计遗漏；当前仍需返工。"
       },
       "note": "P01保存库被否决；C02四图随后获用户“可以 开始做网页”确认。旧实际/技术证据保留，不延伸批准。"
+    },
+    {
+      "date": "2026-09-15",
+      "event": "用户：继续下一个页面（反思P02交付后）",
+      "scope": "认可P02主页面并允许课程日程独立候选；不扩大为延期弹窗、批次D/R或正式业务批准。"
     }
   ],
   "conceptApproval": {
@@ -2385,10 +2390,11 @@
   },
   "candidateCommit": "32dda5f7fe68cfb3e407ac82f9e0db3f3a7bc0de",
   "mainPageApproval": {
-    "approved": false,
-    "source": null,
-    "approvedAt": null,
-    "commit": null
+    "approved": true,
+    "source": "用户：继续下一个页面（反思P02交付后）",
+    "approvedAt": "2026-09-15",
+    "commit": "f88fb17e5e9c75d1dc24ccf4ea114cc37453b78b",
+    "scope": "认可P02主页面并允许课程日程独立候选；不扩大为延期弹窗、批次D/R或正式业务批准。"
   },
   "overlayReview": {
     "requiredBeforeIntegration": true,

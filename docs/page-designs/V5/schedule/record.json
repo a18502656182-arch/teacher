@@ -1,0 +1,361 @@
+{
+  "pageId": "schedule",
+  "batch": "V5",
+  "phase": "concept-review",
+  "brief": "docs/page-designs/V5/schedule/brief.md",
+  "functionMap": "docs/page-designs/V5/schedule/function-map.md",
+  "geometry": null,
+  "assets": null,
+  "states": "docs/page-designs/V5/schedule/states.json",
+  "candidates": [
+    {
+      "path": "docs/page-designs/V5/schedule/candidates/class-desktop-c01.png",
+      "sha256": "B64677F9350F0FB572F512E5C72CD87DA0EDE745940E7B0E3689A02455A51EC4",
+      "version": "C01",
+      "kind": "desktop",
+      "stateId": "class-timetable",
+      "approval": false,
+      "pixelSize": [
+        1536,
+        1024
+      ],
+      "targetViewport": "1536x1024",
+      "prompt": "docs/page-designs/V5/schedule/candidates/prompts-c01.md",
+      "original": "E:\\CodexHome\\generated_images\\01a09fb4-dfcf-74e0-a5c7-ea1b5e94cf08\\exec-7f84fc50-d017-43a1-b1bd-a77efd388d58.png",
+      "purpose": "Independent main-surface direction candidate; not runnable or integrated"
+    },
+    {
+      "path": "docs/page-designs/V5/schedule/candidates/class-mobile-c01.png",
+      "sha256": "6058852DFEBBF3756C880CD59BE678F39F61B6D72E16ABC0FD135B9D56F2ED11",
+      "version": "C01",
+      "kind": "mobile",
+      "stateId": "class-timetable",
+      "approval": false,
+      "pixelSize": [
+        853,
+        1844
+      ],
+      "targetViewport": "390x844",
+      "prompt": "docs/page-designs/V5/schedule/candidates/prompts-c01.md",
+      "original": "E:\\CodexHome\\generated_images\\01a09fb4-dfcf-74e0-a5c7-ea1b5e94cf08\\exec-53a1e4d9-c5b9-4637-af2c-9bf51ea3e27c.png",
+      "purpose": "Independent main-surface direction candidate; not runnable or integrated"
+    },
+    {
+      "path": "docs/page-designs/V5/schedule/candidates/agenda-desktop-c01.png",
+      "sha256": "1019E05196ADE2FAD41AADB1059F52C8C84F408E0FAA2B1F9F4DFDB207748E17",
+      "version": "C01",
+      "kind": "desktop",
+      "stateId": "personal-agenda",
+      "approval": false,
+      "pixelSize": [
+        1536,
+        1024
+      ],
+      "targetViewport": "1536x1024",
+      "prompt": "docs/page-designs/V5/schedule/candidates/prompts-c01.md",
+      "original": "E:\\CodexHome\\generated_images\\01a09fb4-dfcf-74e0-a5c7-ea1b5e94cf08\\exec-0d965b02-bf3e-4405-8905-fdc300567fe9.png",
+      "purpose": "Independent main-surface direction candidate; not runnable or integrated"
+    },
+    {
+      "path": "docs/page-designs/V5/schedule/candidates/agenda-mobile-c01.png",
+      "sha256": "4A323C35AF7E5271C6D5EF860A2B8872A8642CD7E2BC524954C788AEE5C41860",
+      "version": "C01",
+      "kind": "mobile",
+      "stateId": "personal-agenda",
+      "approval": false,
+      "pixelSize": [
+        853,
+        1844
+      ],
+      "targetViewport": "390x844",
+      "prompt": "docs/page-designs/V5/schedule/candidates/prompts-c01.md",
+      "original": "E:\\CodexHome\\generated_images\\01a09fb4-dfcf-74e0-a5c7-ea1b5e94cf08\\exec-234f0924-3cd5-4b76-9bef-9d3ef8442404.png",
+      "purpose": "Independent main-surface direction candidate; not runnable or integrated"
+    },
+    {
+      "path": "docs/page-designs/V5/schedule/candidates/work-log-desktop-c01.png",
+      "sha256": "DB54F9B4721385864A6275EA46B877D569851A0A3D11CC780CA6FBC85CF89905",
+      "version": "C01",
+      "kind": "desktop",
+      "stateId": "work-log-library",
+      "approval": false,
+      "pixelSize": [
+        1536,
+        1024
+      ],
+      "targetViewport": "1536x1024",
+      "prompt": "docs/page-designs/V5/schedule/candidates/prompts-c01.md",
+      "original": "E:\\CodexHome\\generated_images\\01a09fb4-dfcf-74e0-a5c7-ea1b5e94cf08\\exec-426d8e6c-e950-4c94-8f5d-f6c58eef5e21.png",
+      "purpose": "Independent main-surface direction candidate; not runnable or integrated"
+    },
+    {
+      "path": "docs/page-designs/V5/schedule/candidates/work-log-mobile-c01.png",
+      "sha256": "B6515B1E6C22AF61D356C790DC69726E00D612215476A801F87B25B6CF99353A",
+      "version": "C01",
+      "kind": "mobile",
+      "stateId": "work-log-library",
+      "approval": false,
+      "pixelSize": [
+        853,
+        1844
+      ],
+      "targetViewport": "390x844",
+      "prompt": "docs/page-designs/V5/schedule/candidates/prompts-c01.md",
+      "original": "E:\\CodexHome\\generated_images\\01a09fb4-dfcf-74e0-a5c7-ea1b5e94cf08\\exec-03267535-c24e-46a5-b84e-c8c85485e3a6.png",
+      "purpose": "Independent main-surface direction candidate; not runnable or integrated"
+    }
+  ],
+  "prototype": {
+    "commit": null,
+    "previewUrl": null,
+    "evidence": []
+  },
+  "designApproval": {
+    "approved": false,
+    "source": null,
+    "approvedAt": null,
+    "commit": null,
+    "evidenceHashes": []
+  },
+  "integration": {
+    "productCommit": null,
+    "designCommit": null,
+    "evidence": [],
+    "tests": []
+  },
+  "resultApproval": {
+    "approved": false,
+    "source": null,
+    "approvedAt": null,
+    "productCommit": null
+  },
+  "issues": [
+    "六张图仅覆盖三个主工作面；八个详情/编辑工作面共16槽待补图，不得进入网页实现。",
+    "生成图品牌、导航、深色侧栏、装饰文案不作为冻结规范；保留现有白色工作台壳层。",
+    "手机课表生成图9月16日星期标注错误；实现使用真实日期计算。",
+    "当前月份周次按1–7、8–14等月内分段，不得擅改为自然周。",
+    "筛选搜索及独立详情为候选提案，未声称现有业务已实现。"
+  ],
+  "nextAction": "等待三个主工作面C01方向确认；再补齐独立详情与编辑候选并确认，之后才允许隔离网页实现。",
+  "history": [
+    {
+      "date": "2026-09-15",
+      "event": "用户继续下一页；课程日程源码盘点、只读合成恢复与六张主工作面候选完成，未获候选批准。"
+    }
+  ],
+  "surfaceCoverage": {
+    "inventoryReviewed": true,
+    "sourceFiles": [
+      {
+        "path": "app/w/[token]/ScheduleHub.tsx",
+        "sha256": "09A58AE956B47E9E9DC487B42B652C93E4EE8C0158E7E44734C2324D7EB372C2"
+      },
+      {
+        "path": "app/w/[token]/CourseSchedule.tsx",
+        "sha256": "788A9DACF85C85A62B387C4B021DE595A29EAB3B01FC938D38F2F78CB42767BE"
+      },
+      {
+        "path": "app/w/[token]/TeacherAgenda.tsx",
+        "sha256": "C1AAA89F8946698FFBD4F51E80A2CA055F92AACCF4938AEFD47B6CE20BA27489"
+      },
+      {
+        "path": "app/w/[token]/ClassroomApp.tsx",
+        "sha256": "1A0CC5F93270FFD704520E35A530A0BA3D12614B0A3BFEDEB71D8418D9DA97EE"
+      },
+      {
+        "path": "app/w/[token]/features/schedule/read-model.ts",
+        "sha256": "845134C276FA3FA9FFD4935D22B8521E6FF527191D60568D7CB9F77E9C2052FD"
+      },
+      {
+        "path": "app/w/[token]/features/schedule/operations.ts",
+        "sha256": "3ED20DF65E69337C16B2C6127C216805FDBB5ECB5AEFF72B645FD1401A2B1F93"
+      }
+    ],
+    "surfaces": [
+      {
+        "id": "class-timetable",
+        "entry": "班级课表页签",
+        "purpose": "按月份周次查看课程及班级安排",
+        "type": "workspace",
+        "requiredKinds": [
+          "desktop",
+          "mobile"
+        ],
+        "candidates": [
+          {
+            "kind": "desktop",
+            "path": "docs/page-designs/V5/schedule/candidates/class-desktop-c01.png"
+          },
+          {
+            "kind": "mobile",
+            "path": "docs/page-designs/V5/schedule/candidates/class-mobile-c01.png"
+          }
+        ],
+        "actualEvidence": []
+      },
+      {
+        "id": "personal-agenda",
+        "entry": "我的日程页签",
+        "purpose": "查看当日待办和完成并留痕",
+        "type": "workspace",
+        "requiredKinds": [
+          "desktop",
+          "mobile"
+        ],
+        "candidates": [
+          {
+            "kind": "desktop",
+            "path": "docs/page-designs/V5/schedule/candidates/agenda-desktop-c01.png"
+          },
+          {
+            "kind": "mobile",
+            "path": "docs/page-designs/V5/schedule/candidates/agenda-mobile-c01.png"
+          }
+        ],
+        "actualEvidence": []
+      },
+      {
+        "id": "work-log-library",
+        "entry": "工作留痕页签（拟从现有日程底部独立）",
+        "purpose": "查看已完成工作记录",
+        "type": "workspace",
+        "requiredKinds": [
+          "desktop",
+          "mobile"
+        ],
+        "candidates": [
+          {
+            "kind": "desktop",
+            "path": "docs/page-designs/V5/schedule/candidates/work-log-desktop-c01.png"
+          },
+          {
+            "kind": "mobile",
+            "path": "docs/page-designs/V5/schedule/candidates/work-log-mobile-c01.png"
+          }
+        ],
+        "actualEvidence": []
+      },
+      {
+        "id": "timetable-editor",
+        "entry": "编辑本周课表 / 手机编辑当天",
+        "purpose": "编辑自定义教学日、节次、时间及课程",
+        "type": "workspace",
+        "requiredKinds": [
+          "desktop",
+          "mobile"
+        ],
+        "candidates": [],
+        "actualEvidence": []
+      },
+      {
+        "id": "term-settings",
+        "entry": "学期设置",
+        "purpose": "学年学期、起止月份与备注",
+        "type": "workspace",
+        "requiredKinds": [
+          "desktop",
+          "mobile"
+        ],
+        "candidates": [],
+        "actualEvidence": []
+      },
+      {
+        "id": "event-editor",
+        "entry": "本周安排编辑",
+        "purpose": "日期、类型、标题、详情",
+        "type": "workspace",
+        "requiredKinds": [
+          "desktop",
+          "mobile"
+        ],
+        "candidates": [],
+        "actualEvidence": []
+      },
+      {
+        "id": "focus-editor",
+        "entry": "本周重点事项编辑",
+        "purpose": "日期、重点、状态、待办",
+        "type": "workspace",
+        "requiredKinds": [
+          "desktop",
+          "mobile"
+        ],
+        "candidates": [],
+        "actualEvidence": []
+      },
+      {
+        "id": "agenda-detail",
+        "entry": "日程查看详情（候选提出）",
+        "purpose": "阅读完整日程及关联信息",
+        "type": "workspace",
+        "requiredKinds": [
+          "desktop",
+          "mobile"
+        ],
+        "candidates": [],
+        "actualEvidence": []
+      },
+      {
+        "id": "agenda-editor",
+        "entry": "新增或编辑事项",
+        "purpose": "日期时间、类型、学生、地点、说明、状态",
+        "type": "workspace",
+        "requiredKinds": [
+          "desktop",
+          "mobile"
+        ],
+        "candidates": [],
+        "actualEvidence": []
+      },
+      {
+        "id": "work-log-detail",
+        "entry": "查看留痕 / 查看记录",
+        "purpose": "阅读已完成事实与来源",
+        "type": "workspace",
+        "requiredKinds": [
+          "desktop",
+          "mobile"
+        ],
+        "candidates": [],
+        "actualEvidence": []
+      },
+      {
+        "id": "work-log-editor",
+        "entry": "手动记录或编辑留痕",
+        "purpose": "日期类型标题、学生、耗时及具体事实",
+        "type": "workspace",
+        "requiredKinds": [
+          "desktop",
+          "mobile"
+        ],
+        "candidates": [],
+        "actualEvidence": []
+      }
+    ]
+  },
+  "sourceHead": "ccaffd8dea938a557b0ad5ba562c60f17177cf70",
+  "sourceRecovery": {
+    "previewUrl": "http://127.0.0.1:4221/schedule-source.html",
+    "mode": "read-only synthetic, no backend writes",
+    "capture": "docs/page-designs/V5/schedule/screenshots/source/capture.json",
+    "captureSha256": "40892EE15074CA3302B3A8C474B43518BEC0238EEE5D7F0CC666B12F180B6A8D",
+    "evidence": [
+      {
+        "path": "docs/page-designs/V5/schedule/screenshots/source/1536-class.png",
+        "sha256": "B152660C86809E77519079CE33DE91B486DB8AED1D700EBD74C7B095829D31D2"
+      },
+      {
+        "path": "docs/page-designs/V5/schedule/screenshots/source/390-class.png",
+        "sha256": "8C3CAE75DA7DF9A01B720E8CFF07CC80B194A65EFC022356CEE3CB92731F45A7"
+      },
+      {
+        "path": "docs/page-designs/V5/schedule/screenshots/source/1536-agenda.png",
+        "sha256": "09F682F3AA6ACBBFA116D3EE79669B41D910FDD0F982416BD66E2FF31CE461F4"
+      },
+      {
+        "path": "docs/page-designs/V5/schedule/screenshots/source/390-agenda.png",
+        "sha256": "7F016CC709DF222EBAFD1765502241EBA9766E33F7137455E88E3F0C178A9DD4"
+      }
+    ]
+  }
+}

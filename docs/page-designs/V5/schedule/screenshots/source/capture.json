@@ -1,0 +1,87 @@
+{
+  "createdAt": "2026-09-15T12:15:51.615Z",
+  "browser": {
+    "protocolVersion": "1.3",
+    "product": "Chrome/152.0.7977.82",
+    "revision": "@d04cdb24d67b081f6cf80200ffc5233f44b61109",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/152.0.0.0 Safari/537.36",
+    "jsVersion": "15.2.124.21"
+  },
+  "evidence": [
+    {
+      "path": "1536-class.png",
+      "sha256": "B152660C86809E77519079CE33DE91B486DB8AED1D700EBD74C7B095829D31D2",
+      "viewport": "1536x1024",
+      "stateId": "class",
+      "url": "http://127.0.0.1:4221/schedule-source.html?state=class",
+      "fixtureSha256": "F5D15C7B0BE52400448EEE5DA5CF3C61B18339C9A1F6A893C8763481ED80F294",
+      "info": {
+        "ready": true,
+        "scrollWidth": 1521,
+        "font": "\"PingFang SC\", \"Microsoft YaHei\", Arial, sans-serif",
+        "body": "班级课表\n我的日程与留痕\n课程日程\n\n2026—2027学年 · 上学期 · 2026-09-01 至 2026-09-07\n\n编辑本周课表\n学期档案\n2026—2027学年 · 上学期\n2026-09 至 2027-01 · 不同地区、不",
+        "state": "read-only synthetic",
+        "squeezed": [],
+        "images": [
+          1100
+        ]
+      }
+    },
+    {
+      "path": "1536-agenda.png",
+      "sha256": "09F682F3AA6ACBBFA116D3EE79669B41D910FDD0F982416BD66E2FF31CE461F4",
+      "viewport": "1536x1024",
+      "stateId": "agenda",
+      "url": "http://127.0.0.1:4221/schedule-source.html?state=agenda",
+      "fixtureSha256": "F5D15C7B0BE52400448EEE5DA5CF3C61B18339C9A1F6A893C8763481ED80F294",
+      "info": {
+        "ready": true,
+        "scrollWidth": 1536,
+        "font": "\"PingFang SC\", \"Microsoft YaHei\", Arial, sans-serif",
+        "body": "我的日程与工作留痕\n\n安排当天工作，完成后沉淀可追溯记录；可关联班级和学生。\n\n查看日期\n回到今天\n\n2 项日程 · 2 项待处理 · 1 条留痕\n\n待处理\n2\n优先完成有具体时间的事项\n已完成\n0\n完成后可沉淀为工作留痕\n关联学生\n2\n仅",
+        "state": "read-only synthetic",
+        "squeezed": [],
+        "images": [
+          1100
+        ]
+      }
+    },
+    {
+      "path": "390-class.png",
+      "sha256": "8C3CAE75DA7DF9A01B720E8CFF07CC80B194A65EFC022356CEE3CB92731F45A7",
+      "viewport": "390x844",
+      "stateId": "class",
+      "url": "http://127.0.0.1:4221/schedule-source.html?state=class",
+      "fixtureSha256": "F5D15C7B0BE52400448EEE5DA5CF3C61B18339C9A1F6A893C8763481ED80F294",
+      "info": {
+        "ready": true,
+        "scrollWidth": 390,
+        "font": "\"PingFang SC\", \"Microsoft YaHei\", Arial, sans-serif",
+        "body": "班级课表\n我的日程与留痕\n\n2026年9月第1周 · 2026-09-01 至 2026-09-07\n\n月份\n2026年09月\n2026年10月\n2026年11月\n2026年12月\n2027年01月\n周次\n第1周\n第2周\n第3周\n第4周\n第",
+        "state": "read-only synthetic",
+        "squeezed": [],
+        "images": []
+      }
+    },
+    {
+      "path": "390-agenda.png",
+      "sha256": "7F016CC709DF222EBAFD1765502241EBA9766E33F7137455E88E3F0C178A9DD4",
+      "viewport": "390x844",
+      "stateId": "agenda",
+      "url": "http://127.0.0.1:4221/schedule-source.html?state=agenda",
+      "fixtureSha256": "F5D15C7B0BE52400448EEE5DA5CF3C61B18339C9A1F6A893C8763481ED80F294",
+      "info": {
+        "ready": true,
+        "scrollWidth": 390,
+        "font": "\"PingFang SC\", \"Microsoft YaHei\", Arial, sans-serif",
+        "body": "查看日期\n回到今天\n\n2 项日程 · 2 项待处理 · 1 条留痕\n\n待处理\n2\n已完成\n0\n关联学生\n2\n当天安排\n今天的日程\n新增事项\n08:00–08:20\n备课\n整理阅读课材料\n准备圈画依据的示例\n待处理\n完成并留痕\n12:20–1",
+        "state": "read-only synthetic",
+        "squeezed": [],
+        "images": []
+      }
+    }
+  ],
+  "failures": [],
+  "interactions": [],
+  "consoleErrors": []
+}

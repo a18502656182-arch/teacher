@@ -1,0 +1,23 @@
+{
+  "stage": "candidates",
+  "record": "docs/page-designs/V5/schedule/record.json",
+  "errors": [
+    "timetable-editor: desktop independent candidate missing",
+    "timetable-editor: mobile independent candidate missing",
+    "term-settings: desktop independent candidate missing",
+    "term-settings: mobile independent candidate missing",
+    "event-editor: desktop independent candidate missing",
+    "event-editor: mobile independent candidate missing",
+    "focus-editor: desktop independent candidate missing",
+    "focus-editor: mobile independent candidate missing",
+    "agenda-detail: desktop independent candidate missing",
+    "agenda-detail: mobile independent candidate missing",
+    "agenda-editor: desktop independent candidate missing",
+    "agenda-editor: mobile independent candidate missing",
+    "work-log-detail: desktop independent candidate missing",
+    "work-log-detail: mobile independent candidate missing",
+    "work-log-editor: desktop independent candidate missing",
+    "work-log-editor: mobile independent candidate missing"
+  ],
+  "note": "Inventory completeness requires source walk-through; this does not grant visual approval."
+}

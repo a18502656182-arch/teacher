@@ -663,7 +663,7 @@
       "currentEvidence": [],
       "comparisons": [],
       "recordPath": "docs/page-designs/V4/reflection/record.json",
-      "recordSha256": "C6517804CE8FD2DECED8CC7E6E7368392516C0C97AA75A6D74C10355360B38B7"
+      "recordSha256": "D67FE766DC323B5F54F452F35EC57194381EDEE3E160966A386E6E3460388F25"
     },
     "schedule": {
       "label": "课程日程",
@@ -674,7 +674,9 @@
       "requiredComparisons": 2,
       "issues": [],
       "currentEvidence": [],
-      "comparisons": []
+      "comparisons": [],
+      "recordPath": "docs/page-designs/V5/schedule/record.json",
+      "recordSha256": "82B0CFC2D7E41EE2919EEF719D29C789CA1C146817A7F21E293BC3106ED40EDA"
     },
     "tools": {
       "label": "课堂工具",
@@ -788,7 +790,7 @@
     "legacyFields": "status/productCommit/currentEvidence/comparisons/userApproval retain historical product evidence; D/R uses linked records",
     "entry": "docs/逐页设计定稿与实施包-20260914/00-从这里开始.md",
     "activeBatch": "V2",
-    "nextAction": "等待用户实际审核P02已保存记录库、阅读详情与编辑返回流程；不自动进入V5，不正式接入、不部署。",
+    "nextAction": "等待三个主工作面C01方向确认；再补齐独立详情与编辑候选并确认，之后才允许隔离网页实现。",
     "designSequenceExceptions": [
       {
         "date": "2026-09-15",
@@ -823,6 +825,13 @@
         "source": "用户：好的 可以了 可以继续下一个页面",
         "scope": "认可成绩P02.2主页面并允许反思独立候选；反馈补修不扩大为D/R或正式业务",
         "nextDesignPage": "reflection",
+        "integrationAllowed": false
+      },
+      {
+        "date": "2026-09-15",
+        "source": "用户：继续下一个页面（反思P02交付后）",
+        "scope": "认可P02主页面并允许课程日程独立候选；不扩大为延期弹窗、批次D/R或正式业务批准。",
+        "nextDesignPage": "schedule",
         "integrationAllowed": false
       }
     ],
