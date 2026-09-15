@@ -1,0 +1,48 @@
+{
+  "date": "2026-09-15",
+  "scope": "C03学生个人趋势候选；无代码修改",
+  "candidates": [
+    {
+      "path": "docs/page-designs/V4/scores/candidates/student-trends-desktop-c03.png",
+      "sha256": "9577D9DE250925BC5E6E5A1394FBE55082D6DB418E93C98A4435D08472C99B6B",
+      "pixelSize": [
+        1536,
+        1024
+      ],
+      "kind": "desktop",
+      "subview": "student-trends",
+      "version": "C03",
+      "stateId": "student-populated",
+      "approval": false,
+      "targetViewport": "1536x1024",
+      "prompt": "docs/page-designs/V4/scores/candidates/prompts-c03.md",
+      "original": "E:/CodexHome/generated_images/01a09fb4-dfcf-74e0-a5c7-ea1b5e94cf08/exec-e3b41c8c-0eed-4af4-bf26-3d16f1b62274.png",
+      "purpose": "ImageGen candidate only; not runnable or integrated"
+    },
+    {
+      "path": "docs/page-designs/V4/scores/candidates/student-trends-mobile-c03.png",
+      "sha256": "B99FEE07142C528712EBED55F35DA3D84C46B5E681F18D78C198C97728E6783E",
+      "pixelSize": [
+        853,
+        1844
+      ],
+      "kind": "mobile",
+      "subview": "student-trends",
+      "version": "C03",
+      "stateId": "student-populated",
+      "approval": false,
+      "targetViewport": "390x844",
+      "prompt": "docs/page-designs/V4/scores/candidates/prompts-c03.md",
+      "original": "E:/CodexHome/generated_images/01a09fb4-dfcf-74e0-a5c7-ea1b5e94cf08/exec-2999d87a-4ac1-4503-8a33-2daa7ff7e8a8.png",
+      "purpose": "ImageGen candidate only; not runnable or integrated"
+    }
+  ],
+  "inspection": [
+    "双端五个有效点与缺失断线；无班级人数指标；本人84%=(86+82+84)/300；台账含部分录入",
+    "手机首图渲染异常弃用；最终重生成白底图",
+    "桌面我的考试记录文案不适合教师视角，P02改学生考试记录；生成导航不冻结",
+    "图坐标/字体/移动文字需P02精确实现；两张均是有数据状态，空态未设计完成"
+  ],
+  "baselineAudit": "PASS npm run qa:visual-baseline 2026-09-15; no approval implied",
+  "build": "not rerun: candidate-only change"
+}

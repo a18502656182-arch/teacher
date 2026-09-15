@@ -105,6 +105,40 @@
       "prompt": "docs/page-designs/V4/scores/candidates/prompts-c02.md",
       "original": "E:/CodexHome/generated_images/01a09fb4-dfcf-74e0-a5c7-ea1b5e94cf08/exec-8cdf0e61-798e-4ac6-a98b-a148deab5b28.png",
       "purpose": "ImageGen direction candidate only; not runnable or integrated"
+    },
+    {
+      "path": "docs/page-designs/V4/scores/candidates/student-trends-desktop-c03.png",
+      "sha256": "9577D9DE250925BC5E6E5A1394FBE55082D6DB418E93C98A4435D08472C99B6B",
+      "pixelSize": [
+        1536,
+        1024
+      ],
+      "kind": "desktop",
+      "subview": "student-trends",
+      "version": "C03",
+      "stateId": "student-populated",
+      "approval": false,
+      "targetViewport": "1536x1024",
+      "prompt": "docs/page-designs/V4/scores/candidates/prompts-c03.md",
+      "original": "E:/CodexHome/generated_images/01a09fb4-dfcf-74e0-a5c7-ea1b5e94cf08/exec-e3b41c8c-0eed-4af4-bf26-3d16f1b62274.png",
+      "purpose": "ImageGen candidate only; not runnable or integrated"
+    },
+    {
+      "path": "docs/page-designs/V4/scores/candidates/student-trends-mobile-c03.png",
+      "sha256": "B99FEE07142C528712EBED55F35DA3D84C46B5E681F18D78C198C97728E6783E",
+      "pixelSize": [
+        853,
+        1844
+      ],
+      "kind": "mobile",
+      "subview": "student-trends",
+      "version": "C03",
+      "stateId": "student-populated",
+      "approval": false,
+      "targetViewport": "390x844",
+      "prompt": "docs/page-designs/V4/scores/candidates/prompts-c03.md",
+      "original": "E:/CodexHome/generated_images/01a09fb4-dfcf-74e0-a5c7-ea1b5e94cf08/exec-2999d87a-4ac1-4503-8a33-2daa7ff7e8a8.png",
+      "purpose": "ImageGen candidate only; not runnable or integrated"
     }
   ],
   "prototype": {
@@ -1029,6 +1063,12 @@
       "blocking": true,
       "resolved": false,
       "description": "用户指出历次趋势和试卷分析缺独立设计；P01两主标签页退回设计。非可延后弹窗；C02四候选待方向确认，P02未制作。"
+    },
+    {
+      "id": "STUDENT-TRENDS-DESIGN",
+      "blocking": true,
+      "resolved": false,
+      "description": "班级/个人对象切换需要独立信息结构和指标；原个人视角沿用班级覆盖文案。C03双端待用户方向，不算修复实现。"
     }
   ],
   "sourceState": {
@@ -1073,7 +1113,7 @@
     "mode": "read-only synthetic current-source recovery without shared shell",
     "recoveryHarnessCommit": "4455d7054f5bed720193eff2eaaa2d4202d8141a"
   },
-  "nextAllowedAction": "等待趋势/试卷分析C02双端独立候选方向确认，再制作两个主标签页P02及关键状态并重新审核；不开始反思，不接入正式业务，不部署。",
+  "nextAllowedAction": "等待学生个人趋势C03双端方向确认；班级趋势C02仍未明确批准。试卷分析C02暂保留，未获可运行稿/D/R批准；方向补齐后制作P02，不开始反思、不正式接入或部署。",
   "candidateChecks": {
     "path": "docs/page-designs/V4/scores/checks-C01.json",
     "sha256": "F7276144B9D70F318172133050C60B63189D54357335E55F39CB9E8C2710B219"
@@ -1093,36 +1133,54 @@
   },
   "latestUserFeedback": {
     "date": "2026-09-15",
-    "source": "用户：这个页面的历史趋势和试卷分析的图没有做 也就导致实际页面暂时也不行 这部分应该要重做一下吧",
-    "prototypeCommit": "f28545f9dc8ccc11a3fda134fdabc429419919a3",
-    "attachments": [
-      {
-        "path": "C:/Users/hx/AppData/Local/Temp/codex-clipboard-1ed1e31c-a83e-44d1-9420-56624e9558e8.png",
-        "sha256": "149056F282A1DFF288055B40D613D0609D5FF69619B087398BFAB35178E0EBA5"
-      },
-      {
-        "path": "C:/Users/hx/AppData/Local/Temp/codex-clipboard-67eb2dfa-482c-4997-9be0-70c273083b5a.png",
-        "sha256": "5700DA4AC4F6D38CA20937210F10BFADBB9EDEEBD33564C783BFF44BDA25A0AB"
-      }
-    ]
+    "source": "用户：试卷分析先这样  历史趋势那里只有班级为对象的 如果对象换成某一个学生的话界面应该完全不一样的吧 包括指标什么的 这个也缺失"
   },
   "subviewDesigns": {
     "trends": {
       "phase": "concept-review",
       "version": "C02",
       "approved": false,
-      "candidateCommit": "a781f2679eb906854622fd83c92c5ed926a0cd36"
+      "candidateCommit": "a781f2679eb906854622fd83c92c5ed926a0cd36",
+      "student": {
+        "phase": "concept-review",
+        "version": "C03",
+        "approved": false
+      },
+      "classApproval": false
     },
     "analysis": {
       "phase": "concept-review",
       "version": "C02",
       "approved": false,
-      "candidateCommit": "a781f2679eb906854622fd83c92c5ed926a0cd36"
+      "candidateCommit": "a781f2679eb906854622fd83c92c5ed926a0cd36",
+      "disposition": {
+        "status": "retain-current-direction",
+        "source": "用户：试卷分析先这样  历史趋势那里只有班级为对象的 如果对象换成某一个学生的话界面应该完全不一样的吧 包括指标什么的 这个也缺失",
+        "date": "2026-09-15",
+        "scope": "先这样仅保留C02方向，不作为完整设计或实际结果批准"
+      }
     }
   },
   "latestCandidateChecks": {
-    "path": "docs/page-designs/V4/scores/checks-C02.json",
-    "sha256": "0E2BFD0B9AA33EEB00C15D7BAE7C85820C7538FE379A9332744621B558837947"
+    "path": "docs/page-designs/V4/scores/checks-C03.json",
+    "sha256": "45D830AD8F6A954046F5AB3AE26AC1871B99890BA9E125FA0A64917EFADB1A90"
   },
-  "latestCandidateCommit": "a781f2679eb906854622fd83c92c5ed926a0cd36"
+  "latestCandidateCommit": "a781f2679eb906854622fd83c92c5ed926a0cd36",
+  "feedbackHistory": [
+    {
+      "date": "2026-09-15",
+      "source": "用户：这个页面的历史趋势和试卷分析的图没有做 也就导致实际页面暂时也不行 这部分应该要重做一下吧",
+      "prototypeCommit": "f28545f9dc8ccc11a3fda134fdabc429419919a3",
+      "attachments": [
+        {
+          "path": "C:/Users/hx/AppData/Local/Temp/codex-clipboard-1ed1e31c-a83e-44d1-9420-56624e9558e8.png",
+          "sha256": "149056F282A1DFF288055B40D613D0609D5FF69619B087398BFAB35178E0EBA5"
+        },
+        {
+          "path": "C:/Users/hx/AppData/Local/Temp/codex-clipboard-67eb2dfa-482c-4997-9be0-70c273083b5a.png",
+          "sha256": "5700DA4AC4F6D38CA20937210F10BFADBB9EDEEBD33564C783BFF44BDA25A0AB"
+        }
+      ]
+    }
+  ]
 }
