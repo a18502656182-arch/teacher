@@ -1,0 +1,147 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-15T05:31:55.383Z",
+  "title": "Design System: 健康与照护 · 隔离 P01",
+  "extensions": {
+    "colorMeta": {
+      "primary": {
+        "role": "primary",
+        "displayName": "照护青绿"
+      },
+      "selected": {
+        "role": "secondary",
+        "displayName": "当前记录浅蓝"
+      },
+      "detail": {
+        "role": "secondary",
+        "displayName": "浅绿阅读纸"
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "页面标题",
+        "purpose": "宽桌面34px，窄桌面30px，手机26px"
+      },
+      "body": {
+        "displayName": "行动正文",
+        "purpose": "现有 Microsoft YaHei 系统字体；桌面15px、手机14px"
+      }
+    },
+    "shadows": [],
+    "motion": [],
+    "breakpoints": [
+      {
+        "name": "mobile",
+        "value": "900px",
+        "purpose": "≤900px行动清单与详情互斥；按钮最低44px"
+      },
+      {
+        "name": "narrow-desktop",
+        "value": "1150px",
+        "purpose": "901–1150px工具栏换行与列表重排"
+      }
+    ],
+    "limitations": [
+      "No incumbent tonal ramp; no synthetic ramp promoted to implementation facts.",
+      "Self-contained representative snippets are visual excerpts; not functional React controllers.",
+      "P01 awaits user approval; overlay visual review pending; no business integration or deployment.",
+      "care-p01.png: 1928583 bytes, 1536x1024, decorative empty alt; not optimized.",
+      "Four finish review issues resolved; documentation did not rerun contrast, keyboard, browser or business verification.",
+      "Existing detector.json contains 26 advisory findings; recording tokens does not claim a new detector pass."
+    ],
+    "evidence": [
+      "HealthDesign.tsx",
+      "HealthDesign.module.css",
+      "useHealthDesignController.ts",
+      "docs/page-designs/V3/health/geometry.json",
+      "docs/page-designs/V3/health/assets.json",
+      "docs/page-designs/V3/health/finish-review.md",
+      "docs/page-designs/V3/health/tests/detector.json"
+    ]
+  },
+  "components": [
+    {
+      "name": "主操作",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "新增和编辑登记",
+      "html": "<button class=\"ds-primary\">编辑登记</button>",
+      "css": ".ds-primary{font-family:\"Microsoft YaHei\",sans-serif;font-size:15px;line-height:1.65;background:#087e7e;color:#fff;border:0;border-radius:7px;padding:7px 18px;min-height:34px;cursor:pointer}.ds-primary:hover{background:#086968}.ds-primary:disabled{opacity:.5;cursor:default}.ds-primary:focus-visible,.ds-text:focus-visible,.ds-search:focus-visible,.ds-quick:focus-visible,.ds-row:focus-visible{outline:2px solid #087e7e;outline-offset:3px}"
+    },
+    {
+      "name": "文本操作",
+      "kind": "button",
+      "refersTo": "button-text",
+      "description": "重置、更多和联系人入口",
+      "html": "<button class=\"ds-text\">查看联系人信息</button>",
+      "css": ".ds-text{font-family:\"Microsoft YaHei\",sans-serif;font-size:15px;line-height:1.65;border:0;background:transparent;color:#087e7e;padding:4px 10px;min-height:34px;cursor:pointer}.ds-text:hover{background:#e9f4f2}.ds-primary:focus-visible,.ds-text:focus-visible,.ds-search:focus-visible,.ds-quick:focus-visible,.ds-row:focus-visible{outline:2px solid #087e7e;outline-offset:3px}"
+    },
+    {
+      "name": "搜索字段",
+      "kind": "input",
+      "refersTo": "search",
+      "description": "紧凑行动搜索",
+      "html": "<input class=\"ds-search\" aria-label=\"搜索学生或行动提示\" placeholder=\"学生或行动提示\">",
+      "css": ".ds-search{font-family:\"Microsoft YaHei\",sans-serif;font-size:15px;line-height:1.65;width:260px;height:36px;border:1px solid #c6d4dd;border-radius:5px;padding:0 10px;color:#15334a;background:transparent}.ds-search::placeholder{color:#5e7080}.ds-primary:focus-visible,.ds-text:focus-visible,.ds-search:focus-visible,.ds-quick:focus-visible,.ds-row:focus-visible{outline:2px solid #087e7e;outline-offset:3px}"
+    },
+    {
+      "name": "优先级",
+      "kind": "chip",
+      "description": "文字和色彩共同表示重要程度，不是任务开关",
+      "html": "<span class=\"ds-level\">重要</span>",
+      "css": ".ds-level{font-family:\"Microsoft YaHei\",sans-serif;font-size:15px;line-height:1.65;display:inline-block;font-size:13px;line-height:1.7;padding:1px 10px;border-radius:10px;white-space:nowrap;background:#fff0cf;color:#8a5100}"
+    },
+    {
+      "name": "场景导航",
+      "kind": "nav",
+      "description": "手机快捷场景的当前状态",
+      "html": "<nav class=\"ds-nav\" aria-label=\"快捷场景\"><button class=\"ds-quick\" aria-pressed=\"true\">全部场景</button><button class=\"ds-quick\">体育活动</button></nav>",
+      "css": ".ds-nav{display:flex;border-bottom:1px solid #dce5e9;gap:10px}.ds-quick{font-family:\"Microsoft YaHei\",sans-serif;font-size:15px;line-height:1.65;border:0;min-height:44px;padding:3px 5px;background:transparent;color:#087e7e;cursor:pointer}.ds-quick[aria-pressed=true]{border-bottom:2px solid #087e7e;font-weight:700}.ds-quick:hover{background:#e9f4f2}.ds-primary:focus-visible,.ds-text:focus-visible,.ds-search:focus-visible,.ds-quick:focus-visible,.ds-row:focus-visible{outline:2px solid #087e7e;outline-offset:3px}"
+    },
+    {
+      "name": "选中行动行",
+      "kind": "custom",
+      "refersTo": "selected-row",
+      "description": "当前阅读对象，背景不表达优先级",
+      "html": "<button class=\"ds-row\" aria-pressed=\"true\"><b>示例学生 · 学号01</b><strong>活动前确认安排</strong></button>",
+      "css": ".ds-row{font-family:\"Microsoft YaHei\",sans-serif;font-size:15px;line-height:1.65;width:100%;text-align:left;border:0;border-bottom:1px solid #dce5e9;padding:22px 18px;color:#15334a;background:#e9f5fe;display:flex;gap:18px;cursor:pointer}.ds-row strong{font-size:18px;line-height:1.45}.ds-row:hover{background:#e9f5fe}.ds-primary:focus-visible,.ds-text:focus-visible,.ds-search:focus-visible,.ds-quick:focus-visible,.ds-row:focus-visible{outline:2px solid #087e7e;outline-offset:3px}"
+    },
+    {
+      "name": "照护详情",
+      "kind": "card",
+      "refersTo": "detail",
+      "description": "单条登记完整阅读面",
+      "html": "<aside class=\"ds-detail\"><h2>示例学生 · 学号01</h2><h3>老师需要做什么</h3><p>活动前确认安排。</p></aside>",
+      "css": ".ds-detail{font-family:\"Microsoft YaHei\",sans-serif;font-size:15px;line-height:1.65;background:#f1f7f1;color:#15334a;padding:26px 26px 24px;border-radius:7px;overflow-wrap:anywhere}.ds-detail h2{font-size:24px;line-height:1.4;margin:0}.ds-detail h3{font-size:16px;margin:23px 0 6px}.ds-detail p{color:#405f64;margin:10px 0 0}"
+    }
+  ],
+  "narrative": {
+    "northStar": "白纸照护行动簿",
+    "overview": "白色连续清单用于扫描学生、优先级与行动，浅绿区域专门阅读当前一条登记。紧凑搜索与筛选服务安排前查阅，装饰插画退居标题旁。手机先呈现行动清单，选择后进入独立详情。\n\n本记录仅描述 app/designs/health 的已建成局部系统，不替换根 DESIGN.md。方向 C01 已确认；P01 仍待用户审核，弹窗视觉专项 pending，未接正式业务或部署。四项完成度复核 HF-01 至 HF-04 均 resolved；这不是 D/R 批准。依据三个源码、brief、record、assets、geometry、finish-review 与 tests/detector.json；旧 brief 中“未制作 P01”已不代表当前事实。未在文档任务重跑浏览器验证。",
+    "keyCharacteristics": [
+      "白纸连续行动清单，浅绿单条详情。",
+      "浅蓝表示当前选择，优先级另用文字和色签表达。",
+      "手机行动优先，详情保留完整摘要与说明。",
+      "复用真实 WorkbenchShell、原照护 operations 和共享学生搜索选择器。"
+    ],
+    "rules": [
+      {
+        "name": "The Selection Rule",
+        "body": "当前选中不代表优先级、健康评分或完成状态。",
+        "section": "colors"
+      }
+    ],
+    "dos": [
+      "**Do** 保留白纸清单、浅绿单条详情与手机独立详情。",
+      "**Do** 区分选中、优先级及真实保存状态。",
+      "**Do** 保留摘要、长文本、10条分页、失败重试与冲突恢复入口。",
+      "**Do** 将实现说明与审核状态留在工程文档，产品文案只说明老师的任务。"
+    ],
+    "donts": [
+      "**Don't** 增加健康评分或任务完成开关。",
+      "**Don't** 把共享搜索选择器换成完整学生名单下拉。",
+      "**Don't** 将四项复核 resolved 解释为 P01 用户批准、弹窗外观通过或正式接入。",
+      "**Don't** 将本记录或 detector advisory 的记录视为全站无障碍、性能或业务验收；PNG 尚未优化，全部对比度及键盘焦点巡检未在此任务测量。\r"
+    ]
+  }
+}

@@ -1,0 +1,271 @@
+{
+  "createdAt": "2026-09-15T05:24:02.165Z",
+  "browser": {
+    "protocolVersion": "1.3",
+    "product": "Chrome/152.0.7977.82",
+    "revision": "@d04cdb24d67b081f6cf80200ffc5233f44b61109",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/152.0.0.0 Safari/537.36",
+    "jsVersion": "15.2.124.21"
+  },
+  "evidence": [],
+  "failures": [],
+  "interactions": [
+    {
+      "name": "1536 roster starts10",
+      "passed": true
+    },
+    {
+      "name": "1536 search105",
+      "passed": true
+    },
+    {
+      "name": "1536 page2",
+      "passed": true
+    },
+    {
+      "name": "1536 student validation",
+      "passed": true
+    },
+    {
+      "name": "1536 bounded picker",
+      "passed": true
+    },
+    {
+      "name": "1536 picker selects105",
+      "passed": true
+    },
+    {
+      "name": "1536 dirty close guard",
+      "passed": true
+    },
+    {
+      "name": "1536 optional text save once",
+      "passed": true
+    },
+    {
+      "name": "1536 contacts initially hidden",
+      "passed": true
+    },
+    {
+      "name": "1536 contact empty explicit",
+      "passed": true
+    },
+    {
+      "name": "1536 edit same id",
+      "passed": true
+    },
+    {
+      "name": "1536 cancel delete preserves",
+      "passed": true
+    },
+    {
+      "name": "1536 confirmed delete only one",
+      "passed": true
+    },
+    {
+      "name": "1536 failure keeps draft",
+      "passed": true
+    },
+    {
+      "name": "1536 retry no duplicate",
+      "passed": true
+    },
+    {
+      "name": "1536 thrown save releases busy",
+      "passed": true
+    },
+    {
+      "name": "1536 readonly edit disabled",
+      "passed": true
+    },
+    {
+      "name": "1536 discard no mutation",
+      "passed": true
+    },
+    {
+      "name": "1536 persistent409",
+      "passed": true
+    },
+    {
+      "name": "1536 load requires explicit confirmation",
+      "passed": true
+    },
+    {
+      "name": "1536 conflict cancel preserves",
+      "passed": true
+    },
+    {
+      "name": "1536 export reachable",
+      "passed": true
+    },
+    {
+      "name": "1536 reload confirmed recovery",
+      "passed": true
+    },
+    {
+      "name": "390 roster starts10",
+      "passed": true
+    },
+    {
+      "name": "390 search105",
+      "passed": true
+    },
+    {
+      "name": "390 page2",
+      "passed": true
+    },
+    {
+      "name": "390 student validation",
+      "passed": true
+    },
+    {
+      "name": "390 bounded picker",
+      "passed": true
+    },
+    {
+      "name": "390 picker selects105",
+      "passed": true
+    },
+    {
+      "name": "390 dirty close guard",
+      "passed": true
+    },
+    {
+      "name": "390 optional text save once",
+      "passed": true
+    },
+    {
+      "name": "390 contacts initially hidden",
+      "passed": true
+    },
+    {
+      "name": "390 contact empty explicit",
+      "passed": true
+    },
+    {
+      "name": "390 edit same id",
+      "passed": true
+    },
+    {
+      "name": "390 cancel delete preserves",
+      "passed": true
+    },
+    {
+      "name": "390 confirmed delete only one",
+      "passed": true
+    },
+    {
+      "name": "390 failure keeps draft",
+      "passed": true
+    },
+    {
+      "name": "390 retry no duplicate",
+      "passed": true
+    },
+    {
+      "name": "390 thrown save releases busy",
+      "passed": true
+    },
+    {
+      "name": "390 readonly edit disabled",
+      "passed": true
+    },
+    {
+      "name": "390 discard no mutation",
+      "passed": true
+    },
+    {
+      "name": "390 persistent409",
+      "passed": true
+    },
+    {
+      "name": "390 load requires explicit confirmation",
+      "passed": true
+    },
+    {
+      "name": "390 conflict cancel preserves",
+      "passed": true
+    },
+    {
+      "name": "390 export reachable",
+      "passed": true
+    },
+    {
+      "name": "390 reload confirmed recovery",
+      "passed": true
+    },
+    {
+      "name": "1536 summary remains in detail",
+      "passed": true
+    },
+    {
+      "name": "1536 page selection matches visible first",
+      "passed": true
+    },
+    {
+      "name": "1536 last page bounded and selected",
+      "passed": true
+    },
+    {
+      "name": "1536 separator retained while typing",
+      "passed": true
+    },
+    {
+      "name": "1536 two custom contexts saved",
+      "passed": true
+    },
+    {
+      "name": "1536 private contact not shown initially",
+      "passed": true
+    },
+    {
+      "name": "1536 synthetic primary guardian revealed",
+      "passed": true
+    },
+    {
+      "name": "1536 failed delete stays recoverable",
+      "passed": true
+    },
+    {
+      "name": "1536 delete retry does not delete another",
+      "passed": true
+    },
+    {
+      "name": "390 summary remains in detail",
+      "passed": true
+    },
+    {
+      "name": "390 page selection matches visible first",
+      "passed": true
+    },
+    {
+      "name": "390 last page bounded and selected",
+      "passed": true
+    },
+    {
+      "name": "390 separator retained while typing",
+      "passed": true
+    },
+    {
+      "name": "390 two custom contexts saved",
+      "passed": true
+    },
+    {
+      "name": "390 private contact not shown initially",
+      "passed": true
+    },
+    {
+      "name": "390 synthetic primary guardian revealed",
+      "passed": true
+    },
+    {
+      "name": "390 failed delete stays recoverable",
+      "passed": true
+    },
+    {
+      "name": "390 delete retry does not delete another",
+      "passed": true
+    }
+  ],
+  "consoleErrors": []
+}

@@ -1,0 +1,1035 @@
+{
+  "createdAt": "2026-09-15T05:24:12.236Z",
+  "browser": {
+    "protocolVersion": "1.3",
+    "product": "Chrome/152.0.7977.82",
+    "revision": "@d04cdb24d67b081f6cf80200ffc5233f44b61109",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/152.0.0.0 Safari/537.36",
+    "jsVersion": "15.2.124.21"
+  },
+  "evidence": [
+    {
+      "path": "1536-normal.png",
+      "sha256": "FAF5C485BFCB66605E0FC7A543FA8E8E0C51A870C3C87BA3BBC43C3D1D59BEDE",
+      "viewport": "1536x1024",
+      "stateId": "normal",
+      "url": "http://127.0.0.1:4214/health.html?state=normal",
+      "fixtureSha256": "D98C38BF02F9E42126C2504C4DFFF5C7A41EE31934E3EB33A48844B2239EF67E",
+      "info": {
+        "ready": true,
+        "scrollWidth": 1536,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": "",
+          "sync": "normal",
+          "composer": false,
+          "selected": "care-demo-1"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "1536-mobile-detail.png",
+      "sha256": "FAF5C485BFCB66605E0FC7A543FA8E8E0C51A870C3C87BA3BBC43C3D1D59BEDE",
+      "viewport": "1536x1024",
+      "stateId": "mobile-detail",
+      "url": "http://127.0.0.1:4214/health.html?state=mobile-detail",
+      "fixtureSha256": "D98C38BF02F9E42126C2504C4DFFF5C7A41EE31934E3EB33A48844B2239EF67E",
+      "info": {
+        "ready": true,
+        "scrollWidth": 1536,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": "",
+          "sync": "normal",
+          "composer": false,
+          "selected": "care-demo-1"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "1536-empty-class.png",
+      "sha256": "F5D6DCA9CD5DC9E7ABD8749D9852354B31EF1EE25C9E5CA4E349E7EB0DCB32DE",
+      "viewport": "1536x1024",
+      "stateId": "empty-class",
+      "url": "http://127.0.0.1:4214/health.html?state=empty-class",
+      "fixtureSha256": "49EBC23CDFF5134AF07C1DA1A51DD9B12CAABF8A5C79B12D3076D6C81A71D5BF",
+      "info": {
+        "ready": true,
+        "scrollWidth": 1536,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "班主任工作台\n当前班级\n三年级2班（0人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具\n",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": "",
+          "sync": "normal",
+          "composer": false
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "1536-no-records.png",
+      "sha256": "272BE6D0F3B2931D0FDA1D44E4423F70731A522FF8AAB6AA250E3E37A38F6387",
+      "viewport": "1536x1024",
+      "stateId": "no-records",
+      "url": "http://127.0.0.1:4214/health.html?state=no-records",
+      "fixtureSha256": "30803CD1B461CE2DE05B4F236B577F9D2A1A059340FACB064CCB19A5A36B41BC",
+      "info": {
+        "ready": true,
+        "scrollWidth": 1536,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": "",
+          "sync": "normal",
+          "composer": false
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "1536-search-empty.png",
+      "sha256": "A829FC2B1BA9F599ABAE8027379FAD093B1697B70B8E22E52B58AF2BEC48A3FF",
+      "viewport": "1536x1024",
+      "stateId": "search-empty",
+      "url": "http://127.0.0.1:4214/health.html?state=search-empty",
+      "fixtureSha256": "D98C38BF02F9E42126C2504C4DFFF5C7A41EE31934E3EB33A48844B2239EF67E",
+      "info": {
+        "ready": true,
+        "scrollWidth": 1536,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": "",
+          "sync": "normal",
+          "composer": false
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "1536-students-105.png",
+      "sha256": "3BA104F1482F83E974F4709026E049BB9260998E4BC089E7F7B61118C67F7323",
+      "viewport": "1536x1024",
+      "stateId": "students-105",
+      "url": "http://127.0.0.1:4214/health.html?state=students-105",
+      "fixtureSha256": "D872899F933C11EF9E89A3BF6F2B1E8267B1F34ED3C6C15D028D8B453189C674",
+      "info": {
+        "ready": true,
+        "scrollWidth": 1521,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "班主任工作台\n当前班级\n三年级2班（105人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": "",
+          "sync": "normal",
+          "composer": false,
+          "selected": "care-0"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "1536-long-record.png",
+      "sha256": "D4627E9D9D7E3773B7E5F39714E8F33E2A7FDE009F165950434CE2F17FF1B00A",
+      "viewport": "1536x1024",
+      "stateId": "long-record",
+      "url": "http://127.0.0.1:4214/health.html?state=long-record",
+      "fixtureSha256": "79565A4FF78368AC3A6BBA40642973706AA4A4F46E2FC0A4F30B3BCBEBD482FC",
+      "info": {
+        "ready": true,
+        "scrollWidth": 1521,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": "",
+          "sync": "normal",
+          "composer": false,
+          "selected": "care-demo-1"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "1536-filters.png",
+      "sha256": "C1A4CC71AAF82FD5E31EE73FD2D7D85DC9A4F07046ECDD4405453737B09E9915",
+      "viewport": "1536x1024",
+      "stateId": "filters",
+      "url": "http://127.0.0.1:4214/health.html?state=filters",
+      "fixtureSha256": "D98C38BF02F9E42126C2504C4DFFF5C7A41EE31934E3EB33A48844B2239EF67E",
+      "info": {
+        "ready": true,
+        "scrollWidth": 1536,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": "",
+          "sync": "normal",
+          "composer": false,
+          "selected": "care-demo-1"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "1536-composer.png",
+      "sha256": "D06E8D86DDE6C3BEAE12E7EA622E38403079172D39D20F876F6FFBED236B0CF2",
+      "viewport": "1536x1024",
+      "stateId": "composer",
+      "url": "http://127.0.0.1:4214/health.html?state=composer",
+      "fixtureSha256": "D98C38BF02F9E42126C2504C4DFFF5C7A41EE31934E3EB33A48844B2239EF67E",
+      "info": {
+        "ready": true,
+        "scrollWidth": 1536,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": "",
+          "sync": "normal",
+          "composer": true,
+          "selected": "care-demo-1"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "1536-validation.png",
+      "sha256": "AA149E6592F78F3A77793D481B17E72BE179D67ACD26452734D9305051D0C24D",
+      "viewport": "1536x1024",
+      "stateId": "validation",
+      "url": "http://127.0.0.1:4214/health.html?state=validation",
+      "fixtureSha256": "D98C38BF02F9E42126C2504C4DFFF5C7A41EE31934E3EB33A48844B2239EF67E",
+      "info": {
+        "ready": true,
+        "scrollWidth": 1536,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": "",
+          "sync": "normal",
+          "composer": true,
+          "selected": "care-demo-1"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "1536-readonly.png",
+      "sha256": "FB5B2F0DC0F7683F50BDEE0E9B7E989F2E1DE2713B314C95AEC2B81A75D02795",
+      "viewport": "1536x1024",
+      "stateId": "readonly",
+      "url": "http://127.0.0.1:4214/health.html?state=readonly",
+      "fixtureSha256": "D98C38BF02F9E42126C2504C4DFFF5C7A41EE31934E3EB33A48844B2239EF67E",
+      "info": {
+        "ready": true,
+        "scrollWidth": 1536,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n只读\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具\n",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": "",
+          "sync": "normal",
+          "composer": false,
+          "selected": "care-demo-1"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "1536-loading.png",
+      "sha256": "996DAC9E8AD39134F5249457CE8AABA45084A4A110B9D7DE374ACC8F0738D200",
+      "viewport": "1536x1024",
+      "stateId": "loading",
+      "url": "http://127.0.0.1:4214/health.html?state=loading",
+      "fixtureSha256": "D98C38BF02F9E42126C2504C4DFFF5C7A41EE31934E3EB33A48844B2239EF67E",
+      "info": {
+        "ready": true,
+        "scrollWidth": 1536,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": "",
+          "sync": "normal",
+          "composer": false,
+          "selected": "care-demo-1"
+        },
+        "squeezed": [],
+        "images": []
+      }
+    },
+    {
+      "path": "1536-saving.png",
+      "sha256": "564600982477D75C4C27A79785357BF70B5598DE219710BC0A347069F115886D",
+      "viewport": "1536x1024",
+      "stateId": "saving",
+      "url": "http://127.0.0.1:4214/health.html?state=saving",
+      "fixtureSha256": "D98C38BF02F9E42126C2504C4DFFF5C7A41EE31934E3EB33A48844B2239EF67E",
+      "info": {
+        "ready": true,
+        "scrollWidth": 1536,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n正在保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工",
+        "state": {
+          "busy": true,
+          "dirty": true,
+          "pending": "save",
+          "sync": "saving",
+          "composer": true,
+          "selected": "a2f026cf-a627-4cc6-93cd-71d0691de93a"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "1536-save-failure.png",
+      "sha256": "FB2A3B103CB353DA2777F07C55729A3C46FDE57C952526BF67532DF20B9A12AD",
+      "viewport": "1536x1024",
+      "stateId": "save-failure",
+      "url": "http://127.0.0.1:4214/health.html?state=save-failure",
+      "fixtureSha256": "D98C38BF02F9E42126C2504C4DFFF5C7A41EE31934E3EB33A48844B2239EF67E",
+      "info": {
+        "ready": true,
+        "scrollWidth": 1521,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n保存失败\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工",
+        "state": {
+          "busy": false,
+          "dirty": true,
+          "pending": "save",
+          "sync": "save-failure",
+          "composer": true,
+          "selected": "eefbd1ef-269d-46e1-abe9-ae7bf7230ce2"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "1536-save-throw.png",
+      "sha256": "FB2A3B103CB353DA2777F07C55729A3C46FDE57C952526BF67532DF20B9A12AD",
+      "viewport": "1536x1024",
+      "stateId": "save-throw",
+      "url": "http://127.0.0.1:4214/health.html?state=save-throw",
+      "fixtureSha256": "D98C38BF02F9E42126C2504C4DFFF5C7A41EE31934E3EB33A48844B2239EF67E",
+      "info": {
+        "ready": true,
+        "scrollWidth": 1521,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n保存失败\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工",
+        "state": {
+          "busy": false,
+          "dirty": true,
+          "pending": "save",
+          "sync": "save-throw",
+          "composer": true,
+          "selected": "e1b69e37-2c37-468b-9637-4242461c6a66"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "1536-conflict-409.png",
+      "sha256": "B4ADA8DA2FB35C133105A32BFF4F1FBC2C2B22056F43855F107FC73E0A9FFB78",
+      "viewport": "1536x1024",
+      "stateId": "conflict-409",
+      "url": "http://127.0.0.1:4214/health.html?state=conflict-409",
+      "fixtureSha256": "D98C38BF02F9E42126C2504C4DFFF5C7A41EE31934E3EB33A48844B2239EF67E",
+      "info": {
+        "ready": true,
+        "scrollWidth": 1521,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n保存失败\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工",
+        "state": {
+          "busy": false,
+          "dirty": true,
+          "pending": "save",
+          "sync": "conflict-409",
+          "composer": true,
+          "selected": "680b0c47-1415-4cd4-a961-04c44916cd40"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "1536-dirty-close.png",
+      "sha256": "4BF04A6536A5E3F36264720069D80EC4A0E83B83EAC46AE04CA1F0A23450374F",
+      "viewport": "1536x1024",
+      "stateId": "dirty-close",
+      "url": "http://127.0.0.1:4214/health.html?state=dirty-close",
+      "fixtureSha256": "D98C38BF02F9E42126C2504C4DFFF5C7A41EE31934E3EB33A48844B2239EF67E",
+      "info": {
+        "ready": true,
+        "scrollWidth": 1536,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具",
+        "state": {
+          "busy": false,
+          "dirty": true,
+          "pending": "",
+          "sync": "normal",
+          "composer": true,
+          "selected": "care-demo-1"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "1536-delete-confirm.png",
+      "sha256": "198AC58085CC83815E608D89A8F3DAF63C17808A29E9506771B8BF6B288A0434",
+      "viewport": "1536x1024",
+      "stateId": "delete-confirm",
+      "url": "http://127.0.0.1:4214/health.html?state=delete-confirm",
+      "fixtureSha256": "D98C38BF02F9E42126C2504C4DFFF5C7A41EE31934E3EB33A48844B2239EF67E",
+      "info": {
+        "ready": true,
+        "scrollWidth": 1536,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": "",
+          "sync": "normal",
+          "composer": true,
+          "selected": "care-demo-1"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "1536-summary-only.png",
+      "sha256": "3EBD28BAC0A8282A6E28EF4A38F12DF41FC5CFEBDE1F6138A8E6C924356F6600",
+      "viewport": "1536x1024",
+      "stateId": "summary-only",
+      "url": "http://127.0.0.1:4214/health.html?state=summary-only",
+      "fixtureSha256": "F0BB0CD3BC450F26F4CF49F173309A80F49D15D0C01F281639422B3118CD2D9E",
+      "info": {
+        "ready": true,
+        "scrollWidth": 1536,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": "",
+          "sync": "normal",
+          "composer": false,
+          "selected": "care-demo-1"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "1536-contact.png",
+      "sha256": "FAF5C485BFCB66605E0FC7A543FA8E8E0C51A870C3C87BA3BBC43C3D1D59BEDE",
+      "viewport": "1536x1024",
+      "stateId": "contact",
+      "url": "http://127.0.0.1:4214/health.html?state=contact",
+      "fixtureSha256": "91A8BBCBC08B05CD1AFDE999F7FE71701E749475D8ED29DC2DBEB78597543651",
+      "info": {
+        "ready": true,
+        "scrollWidth": 1536,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": "",
+          "sync": "normal",
+          "composer": false,
+          "selected": "care-demo-1"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "390-normal.png",
+      "sha256": "9F99A5D7E93023ADE8224989106B4732A47DCE24DE1E7B2F6486431993558E08",
+      "viewport": "390x844",
+      "stateId": "normal",
+      "url": "http://127.0.0.1:4214/health.html?state=normal",
+      "fixtureSha256": "D98C38BF02F9E42126C2504C4DFFF5C7A41EE31934E3EB33A48844B2239EF67E",
+      "info": {
+        "ready": true,
+        "scrollWidth": 390,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "健康与照护\n\n三年级 · 32人\n\n已保存\n健康与照护\n\n日常安排前，查看必要行动提示。\n\n3名学生已登记 · 2条需优先留意 · 仅班主任查看\n筛选\n全部场景\n体育活动\n座位安排\n照护行动清单\n新增登记\n学生01 · 学号01\n重要\n安排",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": "",
+          "sync": "normal",
+          "composer": false,
+          "selected": "care-demo-1"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "390-mobile-detail.png",
+      "sha256": "BBFB21CB57DACF7D58ABD5307933380127B3CC3AA336F08FA41F9A57AD351F65",
+      "viewport": "390x844",
+      "stateId": "mobile-detail",
+      "url": "http://127.0.0.1:4214/health.html?state=mobile-detail",
+      "fixtureSha256": "D98C38BF02F9E42126C2504C4DFFF5C7A41EE31934E3EB33A48844B2239EF67E",
+      "info": {
+        "ready": true,
+        "scrollWidth": 390,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "健康与照护\n\n三年级 · 32人\n\n已保存\n返回行动清单\n学生01 · 学号01\n\n座位照护 重要\n\n安排靠前座位\n老师需要做什么\n\n课堂展示时，安排便于看清的位置。\n\n注意事项\n\n座位调整前先与学生确认。\n\n适用场景\n座位安排\n\n最近确认",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": "",
+          "sync": "normal",
+          "composer": false,
+          "selected": "care-demo-1"
+        },
+        "squeezed": [],
+        "images": []
+      }
+    },
+    {
+      "path": "390-empty-class.png",
+      "sha256": "EAC490B6AD2859C586D6891550E04ABC91361148BCB738F9D33295E718E8C1D7",
+      "viewport": "390x844",
+      "stateId": "empty-class",
+      "url": "http://127.0.0.1:4214/health.html?state=empty-class",
+      "fixtureSha256": "49EBC23CDFF5134AF07C1DA1A51DD9B12CAABF8A5C79B12D3076D6C81A71D5BF",
+      "info": {
+        "ready": true,
+        "scrollWidth": 390,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "健康与照护\n\n三年级 · 0人\n\n已保存\n健康与照护\n\n日常安排前，查看必要行动提示。\n\n0名学生已登记 · 0条需优先留意 · 仅班主任查看\n筛选\n全部场景\n体育活动\n座位安排\n照护行动清单\n新增登记\n先建立学生名单\n\n仅记录日常安排必需",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": "",
+          "sync": "normal",
+          "composer": false
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "390-no-records.png",
+      "sha256": "72537DB605E94161F4760DFB639B739AB66B259DF71883A6AF266FB7685CDE06",
+      "viewport": "390x844",
+      "stateId": "no-records",
+      "url": "http://127.0.0.1:4214/health.html?state=no-records",
+      "fixtureSha256": "30803CD1B461CE2DE05B4F236B577F9D2A1A059340FACB064CCB19A5A36B41BC",
+      "info": {
+        "ready": true,
+        "scrollWidth": 390,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "健康与照护\n\n三年级 · 32人\n\n已保存\n健康与照护\n\n日常安排前，查看必要行动提示。\n\n0名学生已登记 · 0条需优先留意 · 仅班主任查看\n筛选\n全部场景\n体育活动\n座位安排\n照护行动清单\n新增登记\n尚未建立照护登记\n\n仅记录日常安排",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": "",
+          "sync": "normal",
+          "composer": false
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "390-search-empty.png",
+      "sha256": "432306A654F081281EF01404146A74F825EDD64238946E84BB0F9B72FA00B4B7",
+      "viewport": "390x844",
+      "stateId": "search-empty",
+      "url": "http://127.0.0.1:4214/health.html?state=search-empty",
+      "fixtureSha256": "D98C38BF02F9E42126C2504C4DFFF5C7A41EE31934E3EB33A48844B2239EF67E",
+      "info": {
+        "ready": true,
+        "scrollWidth": 390,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "健康与照护\n\n三年级 · 32人\n\n已保存\n健康与照护\n\n日常安排前，查看必要行动提示。\n\n3名学生已登记 · 2条需优先留意 · 仅班主任查看\n筛选\n全部场景\n体育活动\n座位安排\n照护行动清单\n新增登记\n没有符合筛选条件的记录\n\n调整筛选",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": "",
+          "sync": "normal",
+          "composer": false
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "390-students-105.png",
+      "sha256": "FA8AFE07E29DF08AAF35E31D7DE1CB205B0118AA3974E2EA26E3CE785EE4B43C",
+      "viewport": "390x844",
+      "stateId": "students-105",
+      "url": "http://127.0.0.1:4214/health.html?state=students-105",
+      "fixtureSha256": "D872899F933C11EF9E89A3BF6F2B1E8267B1F34ED3C6C15D028D8B453189C674",
+      "info": {
+        "ready": true,
+        "scrollWidth": 390,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "健康与照护\n\n三年级 · 105人\n\n已保存\n健康与照护\n\n日常安排前，查看必要行动提示。\n\n105名学生已登记 · 70条需优先留意 · 仅班主任查看\n筛选\n全部场景\n体育活动\n座位安排\n照护行动清单\n新增登记\n学生01 · 学号01\n重",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": "",
+          "sync": "normal",
+          "composer": false,
+          "selected": "care-0"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "390-long-record.png",
+      "sha256": "20390572813F5329F5794C7CE63146E8931A26249EDFA78F6AD23D53025324DE",
+      "viewport": "390x844",
+      "stateId": "long-record",
+      "url": "http://127.0.0.1:4214/health.html?state=long-record",
+      "fixtureSha256": "79565A4FF78368AC3A6BBA40642973706AA4A4F46E2FC0A4F30B3BCBEBD482FC",
+      "info": {
+        "ready": true,
+        "scrollWidth": 390,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "健康与照护\n\n三年级 · 32人\n\n已保存\n返回行动清单\n学生01合成长姓名 · 学号01\n\n座位照护 重要\n\n合成长行动摘要合成长行动摘要合成长行动摘要合成长行动摘要合成长行动摘要\n老师需要做什么\n\n课堂展示时先向学生确认是否可以看清，再",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": "",
+          "sync": "normal",
+          "composer": false,
+          "selected": "care-demo-1"
+        },
+        "squeezed": [],
+        "images": []
+      }
+    },
+    {
+      "path": "390-filters.png",
+      "sha256": "69029665193070E7E1F3C55FA3A4E213589BF23AAC9CBC4C157C9B955E2EAEB2",
+      "viewport": "390x844",
+      "stateId": "filters",
+      "url": "http://127.0.0.1:4214/health.html?state=filters",
+      "fixtureSha256": "D98C38BF02F9E42126C2504C4DFFF5C7A41EE31934E3EB33A48844B2239EF67E",
+      "info": {
+        "ready": true,
+        "scrollWidth": 390,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "健康与照护\n\n三年级 · 32人\n\n已保存\n健康与照护\n\n日常安排前，查看必要行动提示。\n\n3名学生已登记 · 2条需优先留意 · 仅班主任查看\n筛选\n优先级\n全部优先级\n紧急\n重要\n一般\n关注类型\n全部类型\n过敏与饮食\n呼吸与心血管\n视觉",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": "",
+          "sync": "normal",
+          "composer": false,
+          "selected": "care-demo-1"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "390-composer.png",
+      "sha256": "4B1E2784D056E5719695310EB36D0B8B10075642BB4720918A9B3B9D2DBE3C53",
+      "viewport": "390x844",
+      "stateId": "composer",
+      "url": "http://127.0.0.1:4214/health.html?state=composer",
+      "fixtureSha256": "D98C38BF02F9E42126C2504C4DFFF5C7A41EE31934E3EB33A48844B2239EF67E",
+      "info": {
+        "ready": true,
+        "scrollWidth": 390,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "健康与照护\n\n三年级 · 32人\n\n已保存\n健康与照护\n\n日常安排前，查看必要行动提示。\n\n3名学生已登记 · 2条需优先留意 · 仅班主任查看\n筛选\n全部场景\n体育活动\n座位安排\n照护行动清单\n新增登记\n学生01 · 学号01\n重要\n安排",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": "",
+          "sync": "normal",
+          "composer": true,
+          "selected": "care-demo-1"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "390-validation.png",
+      "sha256": "46A85E617425FA2D7ECEBE4AF002F1E3A74F8AAD98AE02E9973B8EB4930EAA9D",
+      "viewport": "390x844",
+      "stateId": "validation",
+      "url": "http://127.0.0.1:4214/health.html?state=validation",
+      "fixtureSha256": "D98C38BF02F9E42126C2504C4DFFF5C7A41EE31934E3EB33A48844B2239EF67E",
+      "info": {
+        "ready": true,
+        "scrollWidth": 390,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "健康与照护\n\n三年级 · 32人\n\n已保存\n健康与照护\n\n日常安排前，查看必要行动提示。\n\n3名学生已登记 · 2条需优先留意 · 仅班主任查看\n筛选\n全部场景\n体育活动\n座位安排\n照护行动清单\n新增登记\n学生01 · 学号01\n重要\n安排",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": "",
+          "sync": "normal",
+          "composer": true,
+          "selected": "care-demo-1"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "390-readonly.png",
+      "sha256": "76034AF8B2959189B212635B61A8BF0EDE5C76777DBA6A835889C7379AFB5042",
+      "viewport": "390x844",
+      "stateId": "readonly",
+      "url": "http://127.0.0.1:4214/health.html?state=readonly",
+      "fixtureSha256": "D98C38BF02F9E42126C2504C4DFFF5C7A41EE31934E3EB33A48844B2239EF67E",
+      "info": {
+        "ready": true,
+        "scrollWidth": 390,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "健康与照护\n\n三年级 · 32人\n\n只读\n只读宽限期\n可以查看和导出，续期后恢复编辑。\n返回行动清单\n学生01 · 学号01\n\n座位照护 重要\n\n安排靠前座位\n老师需要做什么\n\n课堂展示时，安排便于看清的位置。\n\n注意事项\n\n座位调整前先与",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": "",
+          "sync": "normal",
+          "composer": false,
+          "selected": "care-demo-1"
+        },
+        "squeezed": [],
+        "images": []
+      }
+    },
+    {
+      "path": "390-loading.png",
+      "sha256": "41174E369A3E41360A5AFF3AB6D1598E9CAAAAAE3BA4D90EF759FD2957AB4888",
+      "viewport": "390x844",
+      "stateId": "loading",
+      "url": "http://127.0.0.1:4214/health.html?state=loading",
+      "fixtureSha256": "D98C38BF02F9E42126C2504C4DFFF5C7A41EE31934E3EB33A48844B2239EF67E",
+      "info": {
+        "ready": true,
+        "scrollWidth": 390,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "健康与照护\n\n三年级 · 32人\n\n已保存\n\n正在加载健康与照护…\n\n首页\n学生\n作业\n成绩\n更多\n设计预览 · 合成数据",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": "",
+          "sync": "normal",
+          "composer": false,
+          "selected": "care-demo-1"
+        },
+        "squeezed": [],
+        "images": []
+      }
+    },
+    {
+      "path": "390-saving.png",
+      "sha256": "4FE5A7B131DB8BCDE84C61DBE4492D849DAA3F31647FDC5A6D5FE303BC0C37A2",
+      "viewport": "390x844",
+      "stateId": "saving",
+      "url": "http://127.0.0.1:4214/health.html?state=saving",
+      "fixtureSha256": "D98C38BF02F9E42126C2504C4DFFF5C7A41EE31934E3EB33A48844B2239EF67E",
+      "info": {
+        "ready": true,
+        "scrollWidth": 390,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "健康与照护\n\n三年级 · 32人\n\n正在保存\n健康与照护\n\n日常安排前，查看必要行动提示。\n\n3名学生已登记 · 2条需优先留意 · 仅班主任查看\n筛选\n全部场景\n体育活动\n座位安排\n照护行动清单\n新增登记\n学生01 · 学号01\n重要\n安",
+        "state": {
+          "busy": true,
+          "dirty": true,
+          "pending": "save",
+          "sync": "saving",
+          "composer": true,
+          "selected": "185ab221-b8c8-4249-83e5-ae11c30c11ad"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "390-save-failure.png",
+      "sha256": "D0A06360CD4D6649D6F7DE7719F681577D26CD06EB76BD51E14BA53665C45DD8",
+      "viewport": "390x844",
+      "stateId": "save-failure",
+      "url": "http://127.0.0.1:4214/health.html?state=save-failure",
+      "fixtureSha256": "D98C38BF02F9E42126C2504C4DFFF5C7A41EE31934E3EB33A48844B2239EF67E",
+      "info": {
+        "ready": true,
+        "scrollWidth": 390,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "健康与照护\n\n三年级 · 32人\n\n保存失败\n保存失败，草稿已保留。\n重试\n关闭\n健康与照护\n\n日常安排前，查看必要行动提示。\n\n3名学生已登记 · 2条需优先留意 · 仅班主任查看\n筛选\n全部场景\n体育活动\n座位安排\n照护行动清单\n新增登",
+        "state": {
+          "busy": false,
+          "dirty": true,
+          "pending": "save",
+          "sync": "save-failure",
+          "composer": true,
+          "selected": "4f1792fe-29e5-4d0c-80fe-4aadcb909975"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "390-save-throw.png",
+      "sha256": "A425369BD21B515698767F7CBB5F04842BBC99E7A9146A6396003D79D9FF72ED",
+      "viewport": "390x844",
+      "stateId": "save-throw",
+      "url": "http://127.0.0.1:4214/health.html?state=save-throw",
+      "fixtureSha256": "D98C38BF02F9E42126C2504C4DFFF5C7A41EE31934E3EB33A48844B2239EF67E",
+      "info": {
+        "ready": true,
+        "scrollWidth": 390,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "健康与照护\n\n三年级 · 32人\n\n保存失败\n保存失败，草稿已保留。\n重试\n关闭\n健康与照护\n\n日常安排前，查看必要行动提示。\n\n3名学生已登记 · 2条需优先留意 · 仅班主任查看\n筛选\n全部场景\n体育活动\n座位安排\n照护行动清单\n新增登",
+        "state": {
+          "busy": false,
+          "dirty": true,
+          "pending": "save",
+          "sync": "save-throw",
+          "composer": true,
+          "selected": "db1a04f3-347b-44f2-b928-c34c83ebac97"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "390-conflict-409.png",
+      "sha256": "EE275D638DA81717B684B4FBBAF0EE592C981309BEB15A918E194A3086263E80",
+      "viewport": "390x844",
+      "stateId": "conflict-409",
+      "url": "http://127.0.0.1:4214/health.html?state=conflict-409",
+      "fixtureSha256": "D98C38BF02F9E42126C2504C4DFFF5C7A41EE31934E3EB33A48844B2239EF67E",
+      "info": {
+        "ready": true,
+        "scrollWidth": 390,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "健康与照护\n\n三年级 · 32人\n\n保存失败\n版本冲突，草稿已保留。\n导出当前草稿\n载入最新版本\n关闭\n健康与照护\n\n日常安排前，查看必要行动提示。\n\n3名学生已登记 · 2条需优先留意 · 仅班主任查看\n筛选\n全部场景\n体育活动\n座位安排",
+        "state": {
+          "busy": false,
+          "dirty": true,
+          "pending": "save",
+          "sync": "conflict-409",
+          "composer": true,
+          "selected": "082f9e35-e9fb-4c0d-a366-993697a1b4f7"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "390-dirty-close.png",
+      "sha256": "F0C66F6394006806423143A34D3BBD73D854C6883D4B1B84A4032637889E03ED",
+      "viewport": "390x844",
+      "stateId": "dirty-close",
+      "url": "http://127.0.0.1:4214/health.html?state=dirty-close",
+      "fixtureSha256": "D98C38BF02F9E42126C2504C4DFFF5C7A41EE31934E3EB33A48844B2239EF67E",
+      "info": {
+        "ready": true,
+        "scrollWidth": 390,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "健康与照护\n\n三年级 · 32人\n\n已保存\n健康与照护\n\n日常安排前，查看必要行动提示。\n\n3名学生已登记 · 2条需优先留意 · 仅班主任查看\n筛选\n全部场景\n体育活动\n座位安排\n照护行动清单\n新增登记\n学生01 · 学号01\n重要\n安排",
+        "state": {
+          "busy": false,
+          "dirty": true,
+          "pending": "",
+          "sync": "normal",
+          "composer": true,
+          "selected": "care-demo-1"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "390-delete-confirm.png",
+      "sha256": "AC0C6AF4E8835A02DBB6295D57FF16EB50D27D23CB90D6BF006136EB74EABAB0",
+      "viewport": "390x844",
+      "stateId": "delete-confirm",
+      "url": "http://127.0.0.1:4214/health.html?state=delete-confirm",
+      "fixtureSha256": "D98C38BF02F9E42126C2504C4DFFF5C7A41EE31934E3EB33A48844B2239EF67E",
+      "info": {
+        "ready": true,
+        "scrollWidth": 390,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "健康与照护\n\n三年级 · 32人\n\n已保存\n健康与照护\n\n日常安排前，查看必要行动提示。\n\n3名学生已登记 · 2条需优先留意 · 仅班主任查看\n筛选\n全部场景\n体育活动\n座位安排\n照护行动清单\n新增登记\n学生01 · 学号01\n重要\n安排",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": "",
+          "sync": "normal",
+          "composer": true,
+          "selected": "care-demo-1"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "390-summary-only.png",
+      "sha256": "390268D76C5D29B39274663855DCD75080199D7B9CB39A408FFA75177A2B39C6",
+      "viewport": "390x844",
+      "stateId": "summary-only",
+      "url": "http://127.0.0.1:4214/health.html?state=summary-only",
+      "fixtureSha256": "F0BB0CD3BC450F26F4CF49F173309A80F49D15D0C01F281639422B3118CD2D9E",
+      "info": {
+        "ready": true,
+        "scrollWidth": 390,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "健康与照护\n\n三年级 · 32人\n\n已保存\n返回行动清单\n学生01 · 学号01\n\n座位照护 重要\n\n仅摘要：外出前确认集合地点\n老师需要做什么\n\n暂未填写行动说明\n\n注意事项\n\n座位调整前先与学生确认。\n\n适用场景\n座位安排\n\n最近确认\n",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": "",
+          "sync": "normal",
+          "composer": false,
+          "selected": "care-demo-1"
+        },
+        "squeezed": [],
+        "images": []
+      }
+    },
+    {
+      "path": "390-contact.png",
+      "sha256": "BBFB21CB57DACF7D58ABD5307933380127B3CC3AA336F08FA41F9A57AD351F65",
+      "viewport": "390x844",
+      "stateId": "contact",
+      "url": "http://127.0.0.1:4214/health.html?state=contact",
+      "fixtureSha256": "91A8BBCBC08B05CD1AFDE999F7FE71701E749475D8ED29DC2DBEB78597543651",
+      "info": {
+        "ready": true,
+        "scrollWidth": 390,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "健康与照护\n\n三年级 · 32人\n\n已保存\n返回行动清单\n学生01 · 学号01\n\n座位照护 重要\n\n安排靠前座位\n老师需要做什么\n\n课堂展示时，安排便于看清的位置。\n\n注意事项\n\n座位调整前先与学生确认。\n\n适用场景\n座位安排\n\n最近确认",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": "",
+          "sync": "normal",
+          "composer": false,
+          "selected": "care-demo-1"
+        },
+        "squeezed": [],
+        "images": []
+      }
+    }
+  ],
+  "failures": [],
+  "interactions": [],
+  "consoleErrors": []
+}

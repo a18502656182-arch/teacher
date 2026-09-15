@@ -1,0 +1,738 @@
+{
+  "createdAt": "2026-09-15T05:25:52.785Z",
+  "browser": {
+    "protocolVersion": "1.3",
+    "product": "Chrome/152.0.7977.82",
+    "revision": "@d04cdb24d67b081f6cf80200ffc5233f44b61109",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/152.0.0.0 Safari/537.36",
+    "jsVersion": "15.2.124.21"
+  },
+  "evidence": [
+    {
+      "path": "1536-normal-full.png",
+      "sha256": "FAF5C485BFCB66605E0FC7A543FA8E8E0C51A870C3C87BA3BBC43C3D1D59BEDE",
+      "viewport": "1536x1024",
+      "stateId": "normal",
+      "kind": "full",
+      "fixtureSha256": "D98C38BF02F9E42126C2504C4DFFF5C7A41EE31934E3EB33A48844B2239EF67E"
+    },
+    {
+      "path": "390-normal-full.png",
+      "sha256": "41FB1361699A4B6CC5FDB22FA5549513CC733F398CAEB98C3851EBBBCCBE3B54",
+      "viewport": "390x844",
+      "stateId": "normal",
+      "kind": "full",
+      "fixtureSha256": "D98C38BF02F9E42126C2504C4DFFF5C7A41EE31934E3EB33A48844B2239EF67E"
+    },
+    {
+      "path": "390-long-record-full.png",
+      "sha256": "76878EE9AAE6ABDDD3B59DB7F1CB368907F2CE7528EF9C159B947A3408285EBB",
+      "viewport": "390x844",
+      "stateId": "long-record",
+      "kind": "full",
+      "fixtureSha256": "79565A4FF78368AC3A6BBA40642973706AA4A4F46E2FC0A4F30B3BCBEBD482FC"
+    },
+    {
+      "path": "390-conflict-409-recovery.png",
+      "sha256": "76B5C1A5CF7DEF516305AAC49EF9811F92070F24755CAE4F3235B9C9C95A9948",
+      "viewport": "390x844",
+      "stateId": "conflict-409",
+      "kind": "recovery",
+      "fixtureSha256": "D98C38BF02F9E42126C2504C4DFFF5C7A41EE31934E3EB33A48844B2239EF67E"
+    },
+    {
+      "path": "390-students-105-last-page.png",
+      "sha256": "0BE342833CE6B183B9186848282D3FC239B2C628A7AED65FE2B5C535A84B5947",
+      "viewport": "390x844",
+      "stateId": "students-105",
+      "kind": "last-page",
+      "fixtureSha256": "D872899F933C11EF9E89A3BF6F2B1E8267B1F34ED3C6C15D028D8B453189C674"
+    },
+    {
+      "path": "390-composer-picker.png",
+      "sha256": "537E4ADBC4BE74EDDF7D282692C84C0678241B8816694147B11F80D556C4F332",
+      "viewport": "390x844",
+      "stateId": "composer",
+      "kind": "picker",
+      "fixtureSha256": "D98C38BF02F9E42126C2504C4DFFF5C7A41EE31934E3EB33A48844B2239EF67E"
+    },
+    {
+      "path": "390-contact-expanded.png",
+      "sha256": "A900B9D424CDCCC3A668CEC94BF6A6A62C330BDF178E8289C8DD85CB9D3ACBBC",
+      "viewport": "390x844",
+      "stateId": "contact",
+      "kind": "expanded",
+      "fixtureSha256": "91A8BBCBC08B05CD1AFDE999F7FE71701E749475D8ED29DC2DBEB78597543651"
+    },
+    {
+      "path": "1057-normal-narrow.png",
+      "sha256": "9158162DF94F76B9CB4EC02F54FA1CD14511192C93861B4BA65DED2F0DD6BCBA",
+      "viewport": "1057x900",
+      "stateId": "normal",
+      "kind": "narrow",
+      "fixtureSha256": "D98C38BF02F9E42126C2504C4DFFF5C7A41EE31934E3EB33A48844B2239EF67E"
+    },
+    {
+      "path": "360-normal-narrow.png",
+      "sha256": "A3BA7A201F7EB2821DF7F5E94204C1B0BBAC2B14B14C470F63192C61BA945AE7",
+      "viewport": "360x780",
+      "stateId": "normal",
+      "kind": "narrow",
+      "fixtureSha256": "D98C38BF02F9E42126C2504C4DFFF5C7A41EE31934E3EB33A48844B2239EF67E"
+    },
+    {
+      "path": "360-mobile-detail-narrow.png",
+      "sha256": "8255483193C7BBFEE0FA0465366180CBD7D0E19ACF31F55887AAC4EF23475156",
+      "viewport": "360x780",
+      "stateId": "mobile-detail",
+      "kind": "narrow",
+      "fixtureSha256": "D98C38BF02F9E42126C2504C4DFFF5C7A41EE31934E3EB33A48844B2239EF67E"
+    }
+  ],
+  "failures": [],
+  "interactions": [],
+  "consoleErrors": [],
+  "measurements": [
+    {
+      "viewport": "1536x1024",
+      "state": "normal",
+      "kind": "full",
+      "regions": {
+        "page": {
+          "x": 244,
+          "y": 72,
+          "width": 1292,
+          "height": 904.25,
+          "font": "15px / 24.75px \"Microsoft YaHei\", sans-serif",
+          "gap": "normal",
+          "padding": "28px 30px 20px",
+          "background": "rgb(255, 255, 255)"
+        },
+        "heading": {
+          "x": 274,
+          "y": 106,
+          "width": 860,
+          "height": 44.1875,
+          "font": "700 34px / 44.2px \"Microsoft YaHei\", sans-serif",
+          "gap": "normal",
+          "padding": "0px",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        "search": {
+          "x": 312,
+          "y": 267,
+          "width": 211,
+          "height": 34,
+          "font": "15px / 24.75px \"Microsoft YaHei\", sans-serif",
+          "gap": "normal",
+          "padding": "1px 2px",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        "row": {
+          "x": 274,
+          "y": 378.640625,
+          "width": 739.1875,
+          "height": 127.640625,
+          "font": "15px / 24.75px \"Microsoft YaHei\", sans-serif",
+          "gap": "18px",
+          "padding": "22px 18px",
+          "background": "rgb(233, 245, 254)"
+        },
+        "detail": {
+          "x": 1013.1875,
+          "y": 318,
+          "width": 492.796875,
+          "height": 598.453125,
+          "font": "15px / 24.75px \"Microsoft YaHei\", sans-serif",
+          "gap": "normal",
+          "padding": "26px 26px 24px",
+          "background": "rgb(241, 247, 241)"
+        },
+        "toolbar": {
+          "x": 274,
+          "y": 250,
+          "width": 1232,
+          "height": 68,
+          "font": "15px / 24.75px \"Microsoft YaHei\", sans-serif",
+          "gap": "12px",
+          "padding": "16px 0px",
+          "background": "rgba(0, 0, 0, 0)"
+        }
+      },
+      "scrollWidth": 1536,
+      "buttons": [],
+      "recovery": [],
+      "fonts": {
+        "fonts": [
+          {
+            "familyName": "Microsoft YaHei",
+            "postScriptName": "MicrosoftYaHei-Bold",
+            "isCustomFont": false,
+            "glyphCount": 5
+          }
+        ]
+      }
+    },
+    {
+      "viewport": "390x844",
+      "state": "normal",
+      "kind": "full",
+      "regions": {
+        "page": {
+          "x": 0,
+          "y": 64,
+          "width": 390,
+          "height": 898.484375,
+          "font": "14px / 23.1px \"Microsoft YaHei\", sans-serif",
+          "gap": "normal",
+          "padding": "18px 16px 90px",
+          "background": "rgb(255, 255, 255)"
+        },
+        "heading": {
+          "x": 16,
+          "y": 84.65625,
+          "width": 358,
+          "height": 33.796875,
+          "font": "700 26px / 33.8px \"Microsoft YaHei\", sans-serif",
+          "gap": "normal",
+          "padding": "0px",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        "search": {
+          "x": 54,
+          "y": 202,
+          "width": 239,
+          "height": 40,
+          "font": "14px / 23.1px \"Microsoft YaHei\", sans-serif",
+          "gap": "normal",
+          "padding": "1px 2px",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        "row": {
+          "x": 16,
+          "y": 370,
+          "width": 358,
+          "height": 140.96875,
+          "font": "14px / 23.1px \"Microsoft YaHei\", sans-serif",
+          "gap": "7px",
+          "padding": "16px 10px",
+          "background": "rgb(233, 245, 254)"
+        },
+        "toolbar": {
+          "x": 16,
+          "y": 190,
+          "width": 358,
+          "height": 64,
+          "font": "14px / 23.1px \"Microsoft YaHei\", sans-serif",
+          "gap": "10px",
+          "padding": "10px 0px",
+          "background": "rgba(0, 0, 0, 0)"
+        }
+      },
+      "scrollWidth": 390,
+      "buttons": [],
+      "recovery": [],
+      "fonts": {
+        "fonts": [
+          {
+            "familyName": "Microsoft YaHei",
+            "postScriptName": "MicrosoftYaHei-Bold",
+            "isCustomFont": false,
+            "glyphCount": 5
+          }
+        ]
+      }
+    },
+    {
+      "viewport": "390x844",
+      "state": "long-record",
+      "kind": "full",
+      "regions": {
+        "page": {
+          "x": 0,
+          "y": 64,
+          "width": 390,
+          "height": 1185.796875,
+          "font": "14px / 23.1px \"Microsoft YaHei\", sans-serif",
+          "gap": "normal",
+          "padding": "18px 16px 90px",
+          "background": "rgb(255, 255, 255)"
+        },
+        "detail": {
+          "x": 16,
+          "y": 82,
+          "width": 358,
+          "height": 1039.65625,
+          "font": "14px / 23.1px \"Microsoft YaHei\", sans-serif",
+          "gap": "normal",
+          "padding": "20px 18px",
+          "background": "rgb(241, 247, 241)"
+        }
+      },
+      "scrollWidth": 390,
+      "buttons": [],
+      "recovery": [],
+      "fonts": {
+        "fonts": [
+          {
+            "familyName": "Microsoft YaHei",
+            "postScriptName": "MicrosoftYaHei-Bold",
+            "isCustomFont": false,
+            "glyphCount": 16
+          }
+        ]
+      }
+    },
+    {
+      "viewport": "390x844",
+      "state": "conflict-409",
+      "kind": "recovery",
+      "regions": {
+        "page": {
+          "x": 0,
+          "y": 150,
+          "width": 390,
+          "height": 1037.453125,
+          "font": "14px / 23.1px \"Microsoft YaHei\", sans-serif",
+          "gap": "normal",
+          "padding": "18px 16px 90px",
+          "background": "rgb(255, 255, 255)"
+        },
+        "heading": {
+          "x": 16,
+          "y": 170.65625,
+          "width": 358,
+          "height": 33.796875,
+          "font": "700 26px / 33.8px \"Microsoft YaHei\", sans-serif",
+          "gap": "normal",
+          "padding": "0px",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        "search": {
+          "x": 54,
+          "y": 288,
+          "width": 239,
+          "height": 40,
+          "font": "14px / 23.1px \"Microsoft YaHei\", sans-serif",
+          "gap": "normal",
+          "padding": "1px 2px",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        "row": {
+          "x": 16,
+          "y": 456,
+          "width": 358,
+          "height": 140.96875,
+          "font": "14px / 23.1px \"Microsoft YaHei\", sans-serif",
+          "gap": "7px",
+          "padding": "16px 10px",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        "toolbar": {
+          "x": 16,
+          "y": 276,
+          "width": 358,
+          "height": 64,
+          "font": "14px / 23.1px \"Microsoft YaHei\", sans-serif",
+          "gap": "10px",
+          "padding": "10px 0px",
+          "background": "rgba(0, 0, 0, 0)"
+        }
+      },
+      "scrollWidth": 390,
+      "buttons": [],
+      "recovery": [
+        {
+          "text": "导出草稿",
+          "top": 694.625,
+          "bottom": 738.625
+        },
+        {
+          "text": "载入最新数据",
+          "top": 694.625,
+          "bottom": 738.625
+        }
+      ],
+      "fonts": {
+        "fonts": [
+          {
+            "familyName": "Microsoft YaHei",
+            "postScriptName": "MicrosoftYaHei-Bold",
+            "isCustomFont": false,
+            "glyphCount": 5
+          }
+        ]
+      }
+    },
+    {
+      "viewport": "390x844",
+      "state": "students-105",
+      "kind": "last-page",
+      "regions": {
+        "page": {
+          "x": 0,
+          "y": -534,
+          "width": 390,
+          "height": 1202.984375,
+          "font": "14px / 23.1px \"Microsoft YaHei\", sans-serif",
+          "gap": "normal",
+          "padding": "18px 16px 90px",
+          "background": "rgb(255, 255, 255)"
+        },
+        "heading": {
+          "x": 16,
+          "y": -513.34375,
+          "width": 358,
+          "height": 33.796875,
+          "font": "700 26px / 33.8px \"Microsoft YaHei\", sans-serif",
+          "gap": "normal",
+          "padding": "0px",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        "search": {
+          "x": 54,
+          "y": -396,
+          "width": 239,
+          "height": 40,
+          "font": "14px / 23.1px \"Microsoft YaHei\", sans-serif",
+          "gap": "normal",
+          "padding": "1px 2px",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        "row": {
+          "x": 16,
+          "y": -228,
+          "width": 358,
+          "height": 140.96875,
+          "font": "14px / 23.1px \"Microsoft YaHei\", sans-serif",
+          "gap": "7px",
+          "padding": "16px 10px",
+          "background": "rgb(233, 245, 254)"
+        },
+        "toolbar": {
+          "x": 16,
+          "y": -408,
+          "width": 358,
+          "height": 64,
+          "font": "14px / 23.1px \"Microsoft YaHei\", sans-serif",
+          "gap": "10px",
+          "padding": "10px 0px",
+          "background": "rgba(0, 0, 0, 0)"
+        }
+      },
+      "scrollWidth": 390,
+      "buttons": [],
+      "recovery": [],
+      "fonts": {
+        "fonts": [
+          {
+            "familyName": "Microsoft YaHei",
+            "postScriptName": "MicrosoftYaHei-Bold",
+            "isCustomFont": false,
+            "glyphCount": 5
+          }
+        ]
+      }
+    },
+    {
+      "viewport": "390x844",
+      "state": "composer",
+      "kind": "picker",
+      "regions": {
+        "page": {
+          "x": 0,
+          "y": 64,
+          "width": 390,
+          "height": 898.484375,
+          "font": "14px / 23.1px \"Microsoft YaHei\", sans-serif",
+          "gap": "normal",
+          "padding": "18px 16px 90px",
+          "background": "rgb(255, 255, 255)"
+        },
+        "heading": {
+          "x": 16,
+          "y": 84.65625,
+          "width": 358,
+          "height": 33.796875,
+          "font": "700 26px / 33.8px \"Microsoft YaHei\", sans-serif",
+          "gap": "normal",
+          "padding": "0px",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        "search": {
+          "x": 54,
+          "y": 202,
+          "width": 239,
+          "height": 40,
+          "font": "14px / 23.1px \"Microsoft YaHei\", sans-serif",
+          "gap": "normal",
+          "padding": "1px 2px",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        "row": {
+          "x": 16,
+          "y": 370,
+          "width": 358,
+          "height": 140.96875,
+          "font": "14px / 23.1px \"Microsoft YaHei\", sans-serif",
+          "gap": "7px",
+          "padding": "16px 10px",
+          "background": "rgb(233, 245, 254)"
+        },
+        "toolbar": {
+          "x": 16,
+          "y": 190,
+          "width": 358,
+          "height": 64,
+          "font": "14px / 23.1px \"Microsoft YaHei\", sans-serif",
+          "gap": "10px",
+          "padding": "10px 0px",
+          "background": "rgba(0, 0, 0, 0)"
+        }
+      },
+      "scrollWidth": 390,
+      "buttons": [],
+      "recovery": [],
+      "fonts": {
+        "fonts": [
+          {
+            "familyName": "Microsoft YaHei",
+            "postScriptName": "MicrosoftYaHei-Bold",
+            "isCustomFont": false,
+            "glyphCount": 5
+          }
+        ]
+      }
+    },
+    {
+      "viewport": "390x844",
+      "state": "contact",
+      "kind": "expanded",
+      "regions": {
+        "page": {
+          "x": 0,
+          "y": 64,
+          "width": 390,
+          "height": 831.796875,
+          "font": "14px / 23.1px \"Microsoft YaHei\", sans-serif",
+          "gap": "normal",
+          "padding": "18px 16px 90px",
+          "background": "rgb(255, 255, 255)"
+        },
+        "detail": {
+          "x": 16,
+          "y": 82,
+          "width": 358,
+          "height": 685.65625,
+          "font": "14px / 23.1px \"Microsoft YaHei\", sans-serif",
+          "gap": "normal",
+          "padding": "20px 18px",
+          "background": "rgb(241, 247, 241)"
+        }
+      },
+      "scrollWidth": 390,
+      "buttons": [],
+      "recovery": [],
+      "fonts": {
+        "fonts": [
+          {
+            "familyName": "Microsoft YaHei",
+            "postScriptName": "MicrosoftYaHei-Bold",
+            "isCustomFont": false,
+            "glyphCount": 11
+          }
+        ]
+      }
+    },
+    {
+      "viewport": "1057x900",
+      "state": "normal",
+      "kind": "narrow",
+      "regions": {
+        "page": {
+          "x": 220,
+          "y": 72,
+          "width": 822,
+          "height": 901.96875,
+          "font": "15px / 24.75px \"Microsoft YaHei\", sans-serif",
+          "gap": "normal",
+          "padding": "22px",
+          "background": "rgb(255, 255, 255)"
+        },
+        "heading": {
+          "x": 242,
+          "y": 102.59375,
+          "width": 476,
+          "height": 39,
+          "font": "700 30px / 39px \"Microsoft YaHei\", sans-serif",
+          "gap": "normal",
+          "padding": "0px",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        "search": {
+          "x": 280,
+          "y": 261,
+          "width": 211,
+          "height": 34,
+          "font": "15px / 24.75px \"Microsoft YaHei\", sans-serif",
+          "gap": "normal",
+          "padding": "1px 2px",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        "row": {
+          "x": 242,
+          "y": 372.640625,
+          "width": 424.359375,
+          "height": 162.03125,
+          "font": "15px / 24.75px \"Microsoft YaHei\", sans-serif",
+          "gap": "8px",
+          "padding": "22px 18px",
+          "background": "rgb(233, 245, 254)"
+        },
+        "detail": {
+          "x": 666.359375,
+          "y": 312,
+          "width": 353.640625,
+          "height": 584.25,
+          "font": "15px / 24.75px \"Microsoft YaHei\", sans-serif",
+          "gap": "normal",
+          "padding": "20px",
+          "background": "rgb(241, 247, 241)"
+        },
+        "toolbar": {
+          "x": 242,
+          "y": 244,
+          "width": 778,
+          "height": 68,
+          "font": "15px / 24.75px \"Microsoft YaHei\", sans-serif",
+          "gap": "12px",
+          "padding": "16px 0px",
+          "background": "rgba(0, 0, 0, 0)"
+        }
+      },
+      "scrollWidth": 1042,
+      "buttons": [],
+      "recovery": [],
+      "fonts": {
+        "fonts": [
+          {
+            "familyName": "Microsoft YaHei",
+            "postScriptName": "MicrosoftYaHei-Bold",
+            "isCustomFont": false,
+            "glyphCount": 5
+          }
+        ]
+      }
+    },
+    {
+      "viewport": "360x780",
+      "state": "normal",
+      "kind": "narrow",
+      "regions": {
+        "page": {
+          "x": 0,
+          "y": 64,
+          "width": 360,
+          "height": 898.484375,
+          "font": "14px / 23.1px \"Microsoft YaHei\", sans-serif",
+          "gap": "normal",
+          "padding": "18px 16px 90px",
+          "background": "rgb(255, 255, 255)"
+        },
+        "heading": {
+          "x": 16,
+          "y": 84.65625,
+          "width": 328,
+          "height": 33.796875,
+          "font": "700 26px / 33.8px \"Microsoft YaHei\", sans-serif",
+          "gap": "normal",
+          "padding": "0px",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        "search": {
+          "x": 54,
+          "y": 202,
+          "width": 209,
+          "height": 40,
+          "font": "14px / 23.1px \"Microsoft YaHei\", sans-serif",
+          "gap": "normal",
+          "padding": "1px 2px",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        "row": {
+          "x": 16,
+          "y": 370,
+          "width": 328,
+          "height": 140.96875,
+          "font": "14px / 23.1px \"Microsoft YaHei\", sans-serif",
+          "gap": "7px",
+          "padding": "16px 10px",
+          "background": "rgb(233, 245, 254)"
+        },
+        "toolbar": {
+          "x": 16,
+          "y": 190,
+          "width": 328,
+          "height": 64,
+          "font": "14px / 23.1px \"Microsoft YaHei\", sans-serif",
+          "gap": "10px",
+          "padding": "10px 0px",
+          "background": "rgba(0, 0, 0, 0)"
+        }
+      },
+      "scrollWidth": 360,
+      "buttons": [],
+      "recovery": [],
+      "fonts": {
+        "fonts": [
+          {
+            "familyName": "Microsoft YaHei",
+            "postScriptName": "MicrosoftYaHei-Bold",
+            "isCustomFont": false,
+            "glyphCount": 5
+          }
+        ]
+      }
+    },
+    {
+      "viewport": "360x780",
+      "state": "mobile-detail",
+      "kind": "narrow",
+      "regions": {
+        "page": {
+          "x": 0,
+          "y": 64,
+          "width": 360,
+          "height": 807.046875,
+          "font": "14px / 23.1px \"Microsoft YaHei\", sans-serif",
+          "gap": "normal",
+          "padding": "18px 16px 90px",
+          "background": "rgb(255, 255, 255)"
+        },
+        "detail": {
+          "x": 16,
+          "y": 82,
+          "width": 328,
+          "height": 660.90625,
+          "font": "14px / 23.1px \"Microsoft YaHei\", sans-serif",
+          "gap": "normal",
+          "padding": "20px 18px",
+          "background": "rgb(241, 247, 241)"
+        }
+      },
+      "scrollWidth": 360,
+      "buttons": [],
+      "recovery": [],
+      "fonts": {
+        "fonts": [
+          {
+            "familyName": "Microsoft YaHei",
+            "postScriptName": "MicrosoftYaHei-Bold",
+            "isCustomFont": false,
+            "glyphCount": 11
+          }
+        ]
+      }
+    }
+  ]
+}

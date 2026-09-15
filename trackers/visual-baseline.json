@@ -624,7 +624,7 @@
       "currentEvidence": [],
       "comparisons": [],
       "recordPath": "docs/page-designs/V3/health/record.json",
-      "recordSha256": "6247BD476A11374216F732B7438A000D015E62D54A0ABC777DA53CAA30C6B325"
+      "recordSha256": "CA25E83C42B9F4A44DB92E51709D4649F6D86E83CD7C9AA169EF8E179523353E"
     },
     "records": {
       "label": "家校沟通",
@@ -782,7 +782,7 @@
     "legacyFields": "status/productCommit/currentEvidence/comparisons/userApproval retain historical product evidence; D/R uses linked records",
     "entry": "docs/逐页设计定稿与实施包-20260914/00-从这里开始.md",
     "activeBatch": "V2",
-    "nextAction": "等待健康与照护C01桌面/手机方向确认，再做隔离主页面；弹窗专项另补，不接业务。",
+    "nextAction": "等待用户审核健康与照护P01主页面；浮层专项仍待补审，未经D条件齐备不接入正式业务、不部署。",
     "designSequenceExceptions": [
       {
         "date": "2026-09-15",

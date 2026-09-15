@@ -1,0 +1,15 @@
+vite v8.0.13 building client environment for production...
+[2K
+transforming...✓ 98 modules transformed.
+
+(!) outDir E:\文档\Codex\小红书\班主任工作台网站\.qa-shots\health-p01-build is not inside project root and will not be emptied.
+Use --emptyOutDir to override.
+
+rendering chunks...
+computing gzip size...
+.qa-shots/health-p01-build/health.html                       0.83 kB │ gzip:  0.59 kB
+.qa-shots/health-p01-build/assets/care-p01-Cy5Mzqqr.png  1,928.58 kB
+.qa-shots/health-p01-build/assets/health-f1mrOqQ-.css       31.22 kB │ gzip:  6.40 kB
+.qa-shots/health-p01-build/assets/health-0ndN0w_7.js       305.23 kB │ gzip: 97.29 kB
+
+✓ built in 808ms

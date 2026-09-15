@@ -1,0 +1,69 @@
+{
+  "date": "2026-09-15",
+  "sourceCommit": null,
+  "checks": [
+    {
+      "name": "TypeScript noEmit",
+      "exitCode": 0,
+      "path": "docs/page-designs/V3/health/tests/typecheck.log",
+      "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "name": "scoped ESLint",
+      "exitCode": 0,
+      "path": "docs/page-designs/V3/health/tests/lint.log",
+      "note": "one img optimization advisory",
+      "sha256": "12052993F6212CCC077D4DCD215369D30CE4069F9DADEA45144837C870E343B5"
+    },
+    {
+      "name": "isolated Vite build",
+      "exitCode": 0,
+      "path": "docs/page-designs/V3/health/tests/isolated-build.log",
+      "sha256": "EA06A2E38154DBF9392D9F4E317F8E0429188C1C052EC88A943E111C90D72EC9"
+    },
+    {
+      "name": "production build",
+      "exitCode": 0,
+      "path": "docs/page-designs/V3/health/tests/build.log",
+      "sha256": "A3D8467CFFC82BA249EE31467CB6275B5E4F0FD6337A476D1A039E5A90F02288"
+    },
+    {
+      "name": "7 health/growth operations + 9 workflow tests",
+      "exitCode": 0,
+      "path": "docs/page-designs/V3/health/tests/operations.log",
+      "sha256": "7AECD5BDDC552B03CA34929EAF11666DB06E9340A5BE5285165C9ACDE7452294"
+    },
+    {
+      "name": "64 dual viewport DOM interactions",
+      "exitCode": 0,
+      "path": "docs/page-designs/V3/health/tests/interactions.json",
+      "sha256": "45C3FD77C5CC5355206421BD86DBEAF3D455AE2D92A4BD432669345DD520132E"
+    },
+    {
+      "name": "40 main + 10 supplementary screenshots",
+      "exitCode": 0,
+      "path": "docs/page-designs/V3/health/screenshots/p01/capture.json",
+      "sha256": "43FC84B36052F1115F0283DF0F9A7A81B40D8FF126365D9D03A26592992D99A6"
+    },
+    {
+      "name": "qa:strict",
+      "exitCode": 1,
+      "path": "docs/page-designs/V3/health/tests/qa-strict.log",
+      "note": "Existing full-site runtime querySelectorAll error reproduced; no full-site pass",
+      "sha256": "3C23FE9A7E6503560B655832FA11080DF81AB7C19A3CAB39F2494AF5436F4751"
+    },
+    {
+      "name": "one detector scan",
+      "path": "docs/page-designs/V3/health/tests/detector.json",
+      "note": "local design palette/type advisories to be documented; no second scan",
+      "sha256": "59B674237217B1CD927F3B4E145F386CB05EB738E9445012D3B0C8A74FAF4F37"
+    }
+  ],
+  "limitations": [
+    "Browser fixture save/failure/409 synthetic, no server validation",
+    "Export test stubs anchor activation; no claim of OS download verification",
+    "No user D/R approval",
+    "Unrelated four dirty files hashes unchanged"
+  ],
+  "logNormalization": "Archived logs remove trailing whitespace only; original raw logs remain .qa-shots/health-design."
+}

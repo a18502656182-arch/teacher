@@ -1,0 +1,24 @@
+✔ 成长事实写入当前班快照并保留另一班与家庭数据 (1.3425ms)
+✔ 成长事实拒绝另一班、空字段，并过滤沟通台账留下的重复副本 (0.1859ms)
+✔ 照护默认日期使用本机年月日，不经过UTC字符串截取 (0.7857ms)
+✔ 照护登记只写当前班学生并清洗最小行动字段 (0.3988ms)
+✔ 照护保存拒绝另一班学生和不属于当前班的编辑记录 (0.2319ms)
+✔ 照护删除只接受当前班记录 (0.14ms)
+✔ 监护人同步优先当前班主联系人，再按紧急顺序 (0.1301ms)
+✔ all three D approvals allow integration without any supervision report (118.8113ms)
+✔ deferred overlays allow design review but block integration until version-bound human supplement (535.7845ms)
+✔ homepage approval cannot unlock V2; concept confirmation cannot replace runnable D approval (62.7706ms)
+✔ two of three D approvals do not permit any page to integrate (128.6721ms)
+✔ modified screenshot bytes invalidate a previously approved design hash (102.8501ms)
+✔ design approval must bind the exact complete set of screenshot hashes (103.8553ms)
+✔ product changes invalidate R, including uncommitted changes and shared assets (207.4758ms)
+✔ page record hash drift and unsafe paths fail closed (252.5739ms)
+✔ no generic gate command or result approval for another design can pass (177.1964ms)
+ℹ tests 16
+ℹ suites 0
+ℹ pass 16
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1766.4338

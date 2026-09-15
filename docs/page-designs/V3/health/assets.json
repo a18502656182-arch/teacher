@@ -1,0 +1,21 @@
+{
+  "version": "P01",
+  "font": {
+    "family": "Microsoft YaHei",
+    "source": "Windows installed, not redistributed",
+    "actualEvidence": "docs/page-designs/V3/health/geometry.json"
+  },
+  "art": {
+    "path": "app/designs/health/care-p01.png",
+    "sha256": "CC7AEA8E7B6A4A0F54A027FE73DE0755B048C95F646359F4BA7085A4D09DC43F",
+    "pixelSize": [
+      1536,
+      1024
+    ],
+    "tool": "built-in ImageGen",
+    "prompt": "Create a small refined watercolor illustration asset for a Chinese teacher care register interface: one pale sage green clipboard with a simple off-white blank sheet, a muted teal clip and 3 very light blue short horizontal strokes on paper, delicate translucent green leaves growing beside both lower corners. White seamless background, no text, no letters, no logos, no shadows beyond subtle watercolor edges. Horizontal 3:2 composition, object centered occupying 70% canvas. Hand painted delicate editorial school stationery, calm and warm, restrained pale greens with a little soft blue. This is only a decorative header asset not a UI screenshot.",
+    "bytes": 1928583,
+    "limitation": "1.93 MB PNG, not yet optimized; decorative alt empty"
+  },
+  "icons": "Existing CampusIcon and Workbench primitives; no shared changes"
+}
