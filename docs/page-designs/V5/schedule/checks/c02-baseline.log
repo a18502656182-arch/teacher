@@ -1,0 +1,125 @@
+
+> ban-zhuren-workbench@0.1.0 qa:visual-baseline
+> node scripts/visual-baseline-audit.mjs
+
+[
+  {
+    "gate": "V1",
+    "status": "historical-result-approved",
+    "pages": [
+      {
+        "id": "dashboard",
+        "phase": "historical-approved"
+      }
+    ]
+  },
+  {
+    "gate": "V2",
+    "status": "design-in-progress",
+    "pages": [
+      {
+        "id": "students",
+        "phase": "design-approved"
+      },
+      {
+        "id": "homework",
+        "phase": "design-approved"
+      },
+      {
+        "id": "dictation",
+        "phase": "inventory"
+      }
+    ]
+  },
+  {
+    "gate": "V3",
+    "status": "blocked-by-previous-batch",
+    "pages": [
+      {
+        "id": "attendance",
+        "phase": "design-approved"
+      },
+      {
+        "id": "growth",
+        "phase": "awaiting-design-approval"
+      },
+      {
+        "id": "health",
+        "phase": "awaiting-design-approval"
+      }
+    ]
+  },
+  {
+    "gate": "V4",
+    "status": "blocked-by-previous-batch",
+    "pages": [
+      {
+        "id": "records",
+        "phase": "awaiting-design-approval"
+      },
+      {
+        "id": "scores",
+        "phase": "awaiting-design-approval"
+      },
+      {
+        "id": "reflection",
+        "phase": "awaiting-design-approval"
+      }
+    ]
+  },
+  {
+    "gate": "V5",
+    "status": "blocked-by-previous-batch",
+    "pages": [
+      {
+        "id": "schedule",
+        "phase": "concept-review"
+      },
+      {
+        "id": "tools",
+        "phase": "not-started"
+      },
+      {
+        "id": "seating",
+        "phase": "not-started"
+      }
+    ]
+  },
+  {
+    "gate": "V6",
+    "status": "blocked-by-previous-batch",
+    "pages": [
+      {
+        "id": "duty",
+        "phase": "not-started"
+      },
+      {
+        "id": "cadres",
+        "phase": "not-started"
+      },
+      {
+        "id": "rules",
+        "phase": "not-started"
+      }
+    ]
+  },
+  {
+    "gate": "V7",
+    "status": "blocked-by-previous-batch",
+    "pages": [
+      {
+        "id": "points",
+        "phase": "not-started"
+      },
+      {
+        "id": "weekly",
+        "phase": "not-started"
+      },
+      {
+        "id": "comments",
+        "phase": "not-started"
+      }
+    ]
+  }
+]
+Visual baseline contract OK: 19 teacher pages, 7 gates, 1 historical user-approved gates; staged D/R workflow (supervision optional).

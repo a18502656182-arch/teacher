@@ -14,7 +14,7 @@
       "version": "C01",
       "kind": "desktop",
       "stateId": "class-timetable",
-      "approval": false,
+      "approval": true,
       "pixelSize": [
         1536,
         1024
@@ -23,7 +23,9 @@
       "prompt": "docs/page-designs/V5/schedule/candidates/prompts-c01.md",
       "original": "E:\\CodexHome\\generated_images\\01a09fb4-dfcf-74e0-a5c7-ea1b5e94cf08\\exec-7f84fc50-d017-43a1-b1bd-a77efd388d58.png",
       "purpose": "Independent main-surface direction candidate; not runnable or integrated",
-      "commit": "a3638167e261f302dec7747b42d07f6c277fd10b"
+      "commit": "a3638167e261f302dec7747b42d07f6c277fd10b",
+      "approvalSource": "用户：确认（课程日程三个主工作面六张C01候选后）",
+      "approvedAt": "2026-09-15"
     },
     {
       "path": "docs/page-designs/V5/schedule/candidates/class-mobile-c01.png",
@@ -31,7 +33,7 @@
       "version": "C01",
       "kind": "mobile",
       "stateId": "class-timetable",
-      "approval": false,
+      "approval": true,
       "pixelSize": [
         853,
         1844
@@ -40,7 +42,9 @@
       "prompt": "docs/page-designs/V5/schedule/candidates/prompts-c01.md",
       "original": "E:\\CodexHome\\generated_images\\01a09fb4-dfcf-74e0-a5c7-ea1b5e94cf08\\exec-53a1e4d9-c5b9-4637-af2c-9bf51ea3e27c.png",
       "purpose": "Independent main-surface direction candidate; not runnable or integrated",
-      "commit": "a3638167e261f302dec7747b42d07f6c277fd10b"
+      "commit": "a3638167e261f302dec7747b42d07f6c277fd10b",
+      "approvalSource": "用户：确认（课程日程三个主工作面六张C01候选后）",
+      "approvedAt": "2026-09-15"
     },
     {
       "path": "docs/page-designs/V5/schedule/candidates/agenda-desktop-c01.png",
@@ -48,7 +52,7 @@
       "version": "C01",
       "kind": "desktop",
       "stateId": "personal-agenda",
-      "approval": false,
+      "approval": true,
       "pixelSize": [
         1536,
         1024
@@ -57,7 +61,9 @@
       "prompt": "docs/page-designs/V5/schedule/candidates/prompts-c01.md",
       "original": "E:\\CodexHome\\generated_images\\01a09fb4-dfcf-74e0-a5c7-ea1b5e94cf08\\exec-0d965b02-bf3e-4405-8905-fdc300567fe9.png",
       "purpose": "Independent main-surface direction candidate; not runnable or integrated",
-      "commit": "a3638167e261f302dec7747b42d07f6c277fd10b"
+      "commit": "a3638167e261f302dec7747b42d07f6c277fd10b",
+      "approvalSource": "用户：确认（课程日程三个主工作面六张C01候选后）",
+      "approvedAt": "2026-09-15"
     },
     {
       "path": "docs/page-designs/V5/schedule/candidates/agenda-mobile-c01.png",
@@ -65,7 +71,7 @@
       "version": "C01",
       "kind": "mobile",
       "stateId": "personal-agenda",
-      "approval": false,
+      "approval": true,
       "pixelSize": [
         853,
         1844
@@ -74,7 +80,9 @@
       "prompt": "docs/page-designs/V5/schedule/candidates/prompts-c01.md",
       "original": "E:\\CodexHome\\generated_images\\01a09fb4-dfcf-74e0-a5c7-ea1b5e94cf08\\exec-234f0924-3cd5-4b76-9bef-9d3ef8442404.png",
       "purpose": "Independent main-surface direction candidate; not runnable or integrated",
-      "commit": "a3638167e261f302dec7747b42d07f6c277fd10b"
+      "commit": "a3638167e261f302dec7747b42d07f6c277fd10b",
+      "approvalSource": "用户：确认（课程日程三个主工作面六张C01候选后）",
+      "approvedAt": "2026-09-15"
     },
     {
       "path": "docs/page-designs/V5/schedule/candidates/work-log-desktop-c01.png",
@@ -82,7 +90,7 @@
       "version": "C01",
       "kind": "desktop",
       "stateId": "work-log-library",
-      "approval": false,
+      "approval": true,
       "pixelSize": [
         1536,
         1024
@@ -91,7 +99,9 @@
       "prompt": "docs/page-designs/V5/schedule/candidates/prompts-c01.md",
       "original": "E:\\CodexHome\\generated_images\\01a09fb4-dfcf-74e0-a5c7-ea1b5e94cf08\\exec-426d8e6c-e950-4c94-8f5d-f6c58eef5e21.png",
       "purpose": "Independent main-surface direction candidate; not runnable or integrated",
-      "commit": "a3638167e261f302dec7747b42d07f6c277fd10b"
+      "commit": "a3638167e261f302dec7747b42d07f6c277fd10b",
+      "approvalSource": "用户：确认（课程日程三个主工作面六张C01候选后）",
+      "approvedAt": "2026-09-15"
     },
     {
       "path": "docs/page-designs/V5/schedule/candidates/work-log-mobile-c01.png",
@@ -99,7 +109,7 @@
       "version": "C01",
       "kind": "mobile",
       "stateId": "work-log-library",
-      "approval": false,
+      "approval": true,
       "pixelSize": [
         853,
         1844
@@ -108,7 +118,281 @@
       "prompt": "docs/page-designs/V5/schedule/candidates/prompts-c01.md",
       "original": "E:\\CodexHome\\generated_images\\01a09fb4-dfcf-74e0-a5c7-ea1b5e94cf08\\exec-03267535-c24e-46a5-b84e-c8c85485e3a6.png",
       "purpose": "Independent main-surface direction candidate; not runnable or integrated",
-      "commit": "a3638167e261f302dec7747b42d07f6c277fd10b"
+      "commit": "a3638167e261f302dec7747b42d07f6c277fd10b",
+      "approvalSource": "用户：确认（课程日程三个主工作面六张C01候选后）",
+      "approvedAt": "2026-09-15"
+    },
+    {
+      "path": "docs/page-designs/V5/schedule/candidates/timetable-editor-desktop-c02.png",
+      "sha256": "E121028EEB5EDBA85CA68359C14B45B2570CE71B0A4E2F97783792447DAD75E2",
+      "version": "C02",
+      "kind": "desktop",
+      "stateId": "timetable-editor",
+      "approval": false,
+      "pixelSize": [
+        1536,
+        1024
+      ],
+      "targetViewport": "1536x1024",
+      "prompt": "docs/page-designs/V5/schedule/candidates/prompts-c02.md",
+      "original": "E:\\CodexHome\\generated_images\\01a09fb4-dfcf-74e0-a5c7-ea1b5e94cf08\\exec-4226dacb-dc58-4bd2-9e14-7895cdf572e5.png",
+      "purpose": "Independent direction candidate only; not runnable or integrated",
+      "visuallyInspected": true
+    },
+    {
+      "path": "docs/page-designs/V5/schedule/candidates/timetable-editor-mobile-c02.png",
+      "sha256": "A7F43F8374BF3F03930403B861F983158A932167E0C790B408802C371E9129AE",
+      "version": "C02",
+      "kind": "mobile",
+      "stateId": "timetable-editor",
+      "approval": false,
+      "pixelSize": [
+        853,
+        1844
+      ],
+      "targetViewport": "390x844",
+      "prompt": "docs/page-designs/V5/schedule/candidates/prompts-c02.md",
+      "original": "E:\\CodexHome\\generated_images\\01a09fb4-dfcf-74e0-a5c7-ea1b5e94cf08\\exec-6b532362-a44a-4045-b907-811bfcfe8eb6.png",
+      "purpose": "Independent direction candidate only; not runnable or integrated",
+      "visuallyInspected": true
+    },
+    {
+      "path": "docs/page-designs/V5/schedule/candidates/term-settings-desktop-c02.png",
+      "sha256": "D21BD6171D9F0206D478DE1F2255ECDC8574C3FB0FC578FE061573E732B50BF5",
+      "version": "C02",
+      "kind": "desktop",
+      "stateId": "term-settings",
+      "approval": false,
+      "pixelSize": [
+        1536,
+        1024
+      ],
+      "targetViewport": "1536x1024",
+      "prompt": "docs/page-designs/V5/schedule/candidates/prompts-c02.md",
+      "original": "E:\\CodexHome\\generated_images\\01a09fb4-dfcf-74e0-a5c7-ea1b5e94cf08\\exec-9598138e-45a9-4eb2-81d0-187a049eddb4.png",
+      "purpose": "Independent direction candidate only; not runnable or integrated",
+      "visuallyInspected": true
+    },
+    {
+      "path": "docs/page-designs/V5/schedule/candidates/term-settings-mobile-c02.png",
+      "sha256": "4325C3CB01FD828DB3DC9186FECC176D60270309C2928A11EA72680C8F04CFD6",
+      "version": "C02",
+      "kind": "mobile",
+      "stateId": "term-settings",
+      "approval": false,
+      "pixelSize": [
+        934,
+        1683
+      ],
+      "targetViewport": "390x844",
+      "prompt": "docs/page-designs/V5/schedule/candidates/prompts-c02.md",
+      "original": "E:\\CodexHome\\generated_images\\01a09fb4-dfcf-74e0-a5c7-ea1b5e94cf08\\exec-900841de-dd06-4e35-8bf7-56ccc796e10d.png",
+      "purpose": "Independent direction candidate only; not runnable or integrated",
+      "visuallyInspected": true
+    },
+    {
+      "path": "docs/page-designs/V5/schedule/candidates/event-editor-desktop-c02.png",
+      "sha256": "60CD3E7D1B452FE4BCDECF989033080CDDC5A88A588C81E0D60F02F19CF7984D",
+      "version": "C02",
+      "kind": "desktop",
+      "stateId": "event-editor",
+      "approval": false,
+      "pixelSize": [
+        1536,
+        1024
+      ],
+      "targetViewport": "1536x1024",
+      "prompt": "docs/page-designs/V5/schedule/candidates/prompts-c02.md",
+      "original": "E:\\CodexHome\\generated_images\\01a09fb4-dfcf-74e0-a5c7-ea1b5e94cf08\\exec-64d724eb-99c4-4955-aa8f-ac9e836cbbc6.png",
+      "purpose": "Independent direction candidate only; not runnable or integrated",
+      "visuallyInspected": true
+    },
+    {
+      "path": "docs/page-designs/V5/schedule/candidates/event-editor-mobile-c02.png",
+      "sha256": "B12B58A1107D16FE4B474971F903528A9423AE09434CE6869F94FC5466F50EBB",
+      "version": "C02",
+      "kind": "mobile",
+      "stateId": "event-editor",
+      "approval": false,
+      "pixelSize": [
+        853,
+        1844
+      ],
+      "targetViewport": "390x844",
+      "prompt": "docs/page-designs/V5/schedule/candidates/prompts-c02.md",
+      "original": "E:\\CodexHome\\generated_images\\01a09fb4-dfcf-74e0-a5c7-ea1b5e94cf08\\exec-6d5e0747-4a61-45bc-b5e0-c045779cb063.png",
+      "purpose": "Independent direction candidate only; not runnable or integrated",
+      "visuallyInspected": true
+    },
+    {
+      "path": "docs/page-designs/V5/schedule/candidates/focus-editor-desktop-c02.png",
+      "sha256": "4E0305CF986FB86D01191D8184377A35E51E1EB6296DB5585DA1772485C34ABA",
+      "version": "C02",
+      "kind": "desktop",
+      "stateId": "focus-editor",
+      "approval": false,
+      "pixelSize": [
+        1536,
+        1024
+      ],
+      "targetViewport": "1536x1024",
+      "prompt": "docs/page-designs/V5/schedule/candidates/prompts-c02.md",
+      "original": "E:\\CodexHome\\generated_images\\01a09fb4-dfcf-74e0-a5c7-ea1b5e94cf08\\exec-f35cd320-adb8-4e79-86b9-8c721c12434b.png",
+      "purpose": "Independent direction candidate only; not runnable or integrated",
+      "visuallyInspected": true
+    },
+    {
+      "path": "docs/page-designs/V5/schedule/candidates/focus-editor-mobile-c02.png",
+      "sha256": "55AD14945C5880150F607873FA683F93FAC29F95B1E9770A9623DE6D7AC2EC63",
+      "version": "C02",
+      "kind": "mobile",
+      "stateId": "focus-editor",
+      "approval": false,
+      "pixelSize": [
+        853,
+        1843
+      ],
+      "targetViewport": "390x844",
+      "prompt": "docs/page-designs/V5/schedule/candidates/prompts-c02.md",
+      "original": "E:\\CodexHome\\generated_images\\01a09fb4-dfcf-74e0-a5c7-ea1b5e94cf08\\exec-3d3e8af0-6202-4f61-9918-a13599c27776.png",
+      "purpose": "Independent direction candidate only; not runnable or integrated",
+      "visuallyInspected": true
+    },
+    {
+      "path": "docs/page-designs/V5/schedule/candidates/agenda-detail-desktop-c02.png",
+      "sha256": "A16845B06224C9BE7C65009A9A5509FEDF82766B96CB2025A0E3ABBAA76CC747",
+      "version": "C02",
+      "kind": "desktop",
+      "stateId": "agenda-detail",
+      "approval": false,
+      "pixelSize": [
+        1536,
+        1024
+      ],
+      "targetViewport": "1536x1024",
+      "prompt": "docs/page-designs/V5/schedule/candidates/prompts-c02.md",
+      "original": "E:\\CodexHome\\generated_images\\01a09fb4-dfcf-74e0-a5c7-ea1b5e94cf08\\exec-92344471-19bc-44e3-955d-b723e413dc0d.png",
+      "purpose": "Independent direction candidate only; not runnable or integrated",
+      "visuallyInspected": true
+    },
+    {
+      "path": "docs/page-designs/V5/schedule/candidates/agenda-detail-mobile-c02.png",
+      "sha256": "8783BA21FE8F34030B633D2FBA1C1F27EEA9F01FFDF37187B7A5A7D0D5C2BBAD",
+      "version": "C02",
+      "kind": "mobile",
+      "stateId": "agenda-detail",
+      "approval": false,
+      "pixelSize": [
+        935,
+        1683
+      ],
+      "targetViewport": "390x844",
+      "prompt": "docs/page-designs/V5/schedule/candidates/prompts-c02.md",
+      "original": "E:\\CodexHome\\generated_images\\01a09fb4-dfcf-74e0-a5c7-ea1b5e94cf08\\exec-cb7a7dc1-638d-4439-9902-9e0ad17f1741.png",
+      "purpose": "Independent direction candidate only; not runnable or integrated",
+      "visuallyInspected": true
+    },
+    {
+      "path": "docs/page-designs/V5/schedule/candidates/agenda-editor-desktop-c02.png",
+      "sha256": "662F3439BDC11A3D62ED37972AAC1224DC2194539A04B26C72221AE1B4A0956A",
+      "version": "C02",
+      "kind": "desktop",
+      "stateId": "agenda-editor",
+      "approval": false,
+      "pixelSize": [
+        1536,
+        1024
+      ],
+      "targetViewport": "1536x1024",
+      "prompt": "docs/page-designs/V5/schedule/candidates/prompts-c02.md",
+      "original": "E:\\CodexHome\\generated_images\\01a09fb4-dfcf-74e0-a5c7-ea1b5e94cf08\\exec-8cec6e5a-7d9c-421f-af03-0f64ceb741f1.png",
+      "purpose": "Independent direction candidate only; not runnable or integrated",
+      "visuallyInspected": true
+    },
+    {
+      "path": "docs/page-designs/V5/schedule/candidates/agenda-editor-mobile-c02.png",
+      "sha256": "1B048BD1FA7B0294E3FE07F52DA19A4B176DADEBAB3449BCD3CB5490809254B0",
+      "version": "C02",
+      "kind": "mobile",
+      "stateId": "agenda-editor",
+      "approval": false,
+      "pixelSize": [
+        935,
+        1683
+      ],
+      "targetViewport": "390x844",
+      "prompt": "docs/page-designs/V5/schedule/candidates/prompts-c02.md",
+      "original": "E:\\CodexHome\\generated_images\\01a09fb4-dfcf-74e0-a5c7-ea1b5e94cf08\\exec-4603cb6e-63fb-41bb-a2ae-0666d389bb68.png",
+      "purpose": "Independent direction candidate only; not runnable or integrated",
+      "visuallyInspected": true
+    },
+    {
+      "path": "docs/page-designs/V5/schedule/candidates/work-log-detail-desktop-c02.png",
+      "sha256": "B995A8BE491986046E1D32B0FCDDC54C85A64BDF12CB095893670E98CF81A972",
+      "version": "C02",
+      "kind": "desktop",
+      "stateId": "work-log-detail",
+      "approval": false,
+      "pixelSize": [
+        1536,
+        1024
+      ],
+      "targetViewport": "1536x1024",
+      "prompt": "docs/page-designs/V5/schedule/candidates/prompts-c02.md",
+      "original": "E:\\CodexHome\\generated_images\\01a09fb4-dfcf-74e0-a5c7-ea1b5e94cf08\\exec-370e9ea1-dbf8-4441-be8d-9d1a29d4c01d.png",
+      "purpose": "Independent direction candidate only; not runnable or integrated",
+      "visuallyInspected": true
+    },
+    {
+      "path": "docs/page-designs/V5/schedule/candidates/work-log-detail-mobile-c02.png",
+      "sha256": "121D1ECC84A8F19BFE487ED074ED7183DB9B304F376702480816D2048C18C84D",
+      "version": "C02",
+      "kind": "mobile",
+      "stateId": "work-log-detail",
+      "approval": false,
+      "pixelSize": [
+        853,
+        1844
+      ],
+      "targetViewport": "390x844",
+      "prompt": "docs/page-designs/V5/schedule/candidates/prompts-c02.md",
+      "original": "E:\\CodexHome\\generated_images\\01a09fb4-dfcf-74e0-a5c7-ea1b5e94cf08\\exec-f26cd0e2-202c-4f4e-b0d5-5716705cd51e.png",
+      "purpose": "Independent direction candidate only; not runnable or integrated",
+      "visuallyInspected": true
+    },
+    {
+      "path": "docs/page-designs/V5/schedule/candidates/work-log-editor-desktop-c02.png",
+      "sha256": "1765F158770D4BA840F5536DB966633D3653CD8B8732D399BEDC5A0BD79EE483",
+      "version": "C02",
+      "kind": "desktop",
+      "stateId": "work-log-editor",
+      "approval": false,
+      "pixelSize": [
+        1536,
+        1024
+      ],
+      "targetViewport": "1536x1024",
+      "prompt": "docs/page-designs/V5/schedule/candidates/prompts-c02.md",
+      "original": "E:\\CodexHome\\generated_images\\01a09fb4-dfcf-74e0-a5c7-ea1b5e94cf08\\exec-331d18a5-9684-41ac-beea-81368b4b4606.png",
+      "purpose": "Independent direction candidate only; not runnable or integrated",
+      "visuallyInspected": true
+    },
+    {
+      "path": "docs/page-designs/V5/schedule/candidates/work-log-editor-mobile-c02.png",
+      "sha256": "767554E69D93BC43FA9443F824E72702A378AEE35CEFE29CAB8BE044E0CC372E",
+      "version": "C02",
+      "kind": "mobile",
+      "stateId": "work-log-editor",
+      "approval": false,
+      "pixelSize": [
+        853,
+        1844
+      ],
+      "targetViewport": "390x844",
+      "prompt": "docs/page-designs/V5/schedule/candidates/prompts-c02.md",
+      "original": "E:\\CodexHome\\generated_images\\01a09fb4-dfcf-74e0-a5c7-ea1b5e94cf08\\exec-82cd1443-20b3-4120-b82d-b2121ec72897.png",
+      "purpose": "Independent direction candidate only; not runnable or integrated",
+      "visuallyInspected": true
     }
   ],
   "prototype": {
@@ -136,17 +420,74 @@
     "productCommit": null
   },
   "issues": [
-    "六张图仅覆盖三个主工作面；八个详情/编辑工作面共16槽待补图，不得进入网页实现。",
     "生成图品牌、导航、深色侧栏、装饰文案不作为冻结规范；保留现有白色工作台壳层。",
     "手机课表生成图9月16日星期标注错误；实现使用真实日期计算。",
     "当前月份周次按1–7、8–14等月内分段，不得擅改为自然周。",
-    "筛选搜索及独立详情为候选提案，未声称现有业务已实现。"
+    "筛选搜索及独立详情为候选提案，未声称现有业务已实现。",
+    "C02八类16图待用户确认；全页D与R未通过。",
+    "课表编辑：手机已重画为一节一个课程；桌面已补教学日名称、节次名称及时间输入，移除错误自然周日期。实现中每个教学日/节次仅一个删除入口，去掉时间字段旁重复垃圾桶；手机同屏设置只保留一个展开触发，补回低强调清空课程入口。",
+    "学期设置：生成下拉外观不改变现有学年/学期自由文本；不采用生成的200字限制，使用实际校验。",
+    "日程详情：桌面只读行假箭头已移除，手机动作已改完整“完成并留痕”。",
+    "工作留痕详情：两端已重画为无输入框的连续阅读页；来源只有一个真实关联日程链接，保留完整事实。",
+    "编辑表单：地点/渠道保持自由文本，不采纳生成的下拉箭头；关联学生为可选，移除手机留痕中错误必填星号。字数上限按现有源码，不采用生成图凭空给出的200/500。",
+    "控件尺寸、间距与字段基线在可运行稿冻结。手机重点事项采用分隔线区分记录，去掉多余外框；删除动作低强调。",
+    "7教学日、16节次、长文本、空态、保存失败、冲突、只读等仍需按state-contract.md逐项实现和实测；图片覆盖不代表交互验收。"
   ],
-  "nextAction": "等待三个主工作面C01方向确认；再补齐独立详情与编辑候选并确认，之后才允许隔离网页实现。",
+  "nextAction": "等待用户确认C02八类详情/编辑方向；获确认后制作复用组件的完整隔离可运行稿及关键状态，未获批不接入正式业务。",
   "history": [
     {
       "date": "2026-09-15",
       "event": "用户继续下一页；课程日程源码盘点、只读合成恢复与六张主工作面候选完成，未获候选批准。"
+    },
+    {
+      "date": "2026-09-15",
+      "event": "用户确认C01三个主工作面；授权继续C02独立详情和编辑候选，不扩大为完整设计或业务接入批准。"
+    },
+    {
+      "date": "2026-09-15",
+      "event": "C02补齐八类16张独立候选，6张定向返修；逐图打开检查。完整候选覆盖待脚本核验，用户批准仍为false。",
+      "supersededCandidates": [
+        {
+          "surface": "timetable-editor",
+          "kind": "desktop",
+          "original": "E:\\CodexHome\\generated_images\\01a09fb4-dfcf-74e0-a5c7-ea1b5e94cf08\\exec-6cb34830-7e31-47ea-ab46-b4e86e11058c.png",
+          "reason": "Source/reading semantics correction; superseded by current C02"
+        },
+        {
+          "surface": "timetable-editor",
+          "kind": "mobile",
+          "original": "E:\\CodexHome\\generated_images\\01a09fb4-dfcf-74e0-a5c7-ea1b5e94cf08\\exec-6bf70e55-60e4-4c41-bea7-8c3307e64f87.png",
+          "reason": "Source/reading semantics correction; superseded by current C02"
+        },
+        {
+          "surface": "agenda-detail",
+          "kind": "desktop",
+          "original": "E:\\CodexHome\\generated_images\\01a09fb4-dfcf-74e0-a5c7-ea1b5e94cf08\\exec-c1a78d9f-92fb-4389-9320-71d21d8b96cd.png",
+          "reason": "Source/reading semantics correction; superseded by current C02"
+        },
+        {
+          "surface": "agenda-detail",
+          "kind": "mobile",
+          "original": "E:\\CodexHome\\generated_images\\01a09fb4-dfcf-74e0-a5c7-ea1b5e94cf08\\exec-1fd92f84-5d95-467d-9f47-6cb97cddb7e3.png",
+          "reason": "Source/reading semantics correction; superseded by current C02"
+        },
+        {
+          "surface": "work-log-detail",
+          "kind": "desktop",
+          "original": "E:\\CodexHome\\generated_images\\01a09fb4-dfcf-74e0-a5c7-ea1b5e94cf08\\exec-a4191dde-2676-493c-9dff-c5576e5e8152.png",
+          "reason": "Source/reading semantics correction; superseded by current C02"
+        },
+        {
+          "surface": "work-log-detail",
+          "kind": "mobile",
+          "original": "E:\\CodexHome\\generated_images\\01a09fb4-dfcf-74e0-a5c7-ea1b5e94cf08\\exec-dba1fb8f-87b9-41ae-b86c-a1cdfdcfc162.png",
+          "reason": "Source/reading semantics correction; superseded by current C02"
+        }
+      ]
+    },
+    {
+      "date": "2026-09-15",
+      "event": "候选覆盖检查22槽及主账本结构检查通过；不代表用户审美、可运行或业务批准。"
     }
   ],
   "surfaceCoverage": {
@@ -250,7 +591,16 @@
           "desktop",
           "mobile"
         ],
-        "candidates": [],
+        "candidates": [
+          {
+            "kind": "desktop",
+            "path": "docs/page-designs/V5/schedule/candidates/timetable-editor-desktop-c02.png"
+          },
+          {
+            "kind": "mobile",
+            "path": "docs/page-designs/V5/schedule/candidates/timetable-editor-mobile-c02.png"
+          }
+        ],
         "actualEvidence": []
       },
       {
@@ -262,7 +612,16 @@
           "desktop",
           "mobile"
         ],
-        "candidates": [],
+        "candidates": [
+          {
+            "kind": "desktop",
+            "path": "docs/page-designs/V5/schedule/candidates/term-settings-desktop-c02.png"
+          },
+          {
+            "kind": "mobile",
+            "path": "docs/page-designs/V5/schedule/candidates/term-settings-mobile-c02.png"
+          }
+        ],
         "actualEvidence": []
       },
       {
@@ -274,7 +633,16 @@
           "desktop",
           "mobile"
         ],
-        "candidates": [],
+        "candidates": [
+          {
+            "kind": "desktop",
+            "path": "docs/page-designs/V5/schedule/candidates/event-editor-desktop-c02.png"
+          },
+          {
+            "kind": "mobile",
+            "path": "docs/page-designs/V5/schedule/candidates/event-editor-mobile-c02.png"
+          }
+        ],
         "actualEvidence": []
       },
       {
@@ -286,7 +654,16 @@
           "desktop",
           "mobile"
         ],
-        "candidates": [],
+        "candidates": [
+          {
+            "kind": "desktop",
+            "path": "docs/page-designs/V5/schedule/candidates/focus-editor-desktop-c02.png"
+          },
+          {
+            "kind": "mobile",
+            "path": "docs/page-designs/V5/schedule/candidates/focus-editor-mobile-c02.png"
+          }
+        ],
         "actualEvidence": []
       },
       {
@@ -298,7 +675,16 @@
           "desktop",
           "mobile"
         ],
-        "candidates": [],
+        "candidates": [
+          {
+            "kind": "desktop",
+            "path": "docs/page-designs/V5/schedule/candidates/agenda-detail-desktop-c02.png"
+          },
+          {
+            "kind": "mobile",
+            "path": "docs/page-designs/V5/schedule/candidates/agenda-detail-mobile-c02.png"
+          }
+        ],
         "actualEvidence": []
       },
       {
@@ -310,7 +696,16 @@
           "desktop",
           "mobile"
         ],
-        "candidates": [],
+        "candidates": [
+          {
+            "kind": "desktop",
+            "path": "docs/page-designs/V5/schedule/candidates/agenda-editor-desktop-c02.png"
+          },
+          {
+            "kind": "mobile",
+            "path": "docs/page-designs/V5/schedule/candidates/agenda-editor-mobile-c02.png"
+          }
+        ],
         "actualEvidence": []
       },
       {
@@ -322,7 +717,16 @@
           "desktop",
           "mobile"
         ],
-        "candidates": [],
+        "candidates": [
+          {
+            "kind": "desktop",
+            "path": "docs/page-designs/V5/schedule/candidates/work-log-detail-desktop-c02.png"
+          },
+          {
+            "kind": "mobile",
+            "path": "docs/page-designs/V5/schedule/candidates/work-log-detail-mobile-c02.png"
+          }
+        ],
         "actualEvidence": []
       },
       {
@@ -334,7 +738,16 @@
           "desktop",
           "mobile"
         ],
-        "candidates": [],
+        "candidates": [
+          {
+            "kind": "desktop",
+            "path": "docs/page-designs/V5/schedule/candidates/work-log-editor-desktop-c02.png"
+          },
+          {
+            "kind": "mobile",
+            "path": "docs/page-designs/V5/schedule/candidates/work-log-editor-mobile-c02.png"
+          }
+        ],
         "actualEvidence": []
       }
     ]
@@ -365,5 +778,24 @@
     ],
     "commit": "a3638167e261f302dec7747b42d07f6c277fd10b"
   },
-  "candidateCommit": "a3638167e261f302dec7747b42d07f6c277fd10b"
+  "candidateCommit": "a3638167e261f302dec7747b42d07f6c277fd10b",
+  "stateContract": "docs/page-designs/V5/schedule/state-contract.md",
+  "candidateReview": "docs/page-designs/V5/schedule/review-C02.md",
+  "candidateChecks": {
+    "date": "2026-09-15",
+    "coverage": {
+      "result": "PASS",
+      "surfaces": 11,
+      "slots": 22,
+      "path": "docs/page-designs/V5/schedule/checks/c02-coverage.log",
+      "sha256": "BAAEBCF953E403A581A4C9D46B3EE3EDC2FE8457C5B924FC18EC100BE886F34C"
+    },
+    "baseline": {
+      "result": "PASS; prior-batch gates remain blocked",
+      "path": "docs/page-designs/V5/schedule/checks/c02-baseline.log",
+      "sha256": "5C71B5E7B1DBF34C785DFAA8864AA701D4E5127B37A24ED6C0063EC902222718"
+    },
+    "visualApproval": false,
+    "note": "Documents and raster candidates only; no new business code, build or interaction claims."
+  }
 }

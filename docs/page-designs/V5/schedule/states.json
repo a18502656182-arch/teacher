@@ -1,71 +1,71 @@
 {
-  "phase": "inventory-and-partial-candidates",
+  "phase": "complete-inventory-candidates-awaiting-confirmation",
   "surfaces": [
     {
       "id": "class-timetable",
       "entry": "班级课表页签",
       "purpose": "按月份周次查看课程及班级安排",
-      "status": "C01-awaiting-direction"
+      "status": "C01-direction-approved"
     },
     {
       "id": "personal-agenda",
       "entry": "我的日程页签",
       "purpose": "查看当日待办和完成并留痕",
-      "status": "C01-awaiting-direction"
+      "status": "C01-direction-approved"
     },
     {
       "id": "work-log-library",
       "entry": "工作留痕页签（拟从现有日程底部独立）",
       "purpose": "查看已完成工作记录",
-      "status": "C01-awaiting-direction"
+      "status": "C01-direction-approved"
     },
     {
       "id": "timetable-editor",
       "entry": "编辑本周课表 / 手机编辑当天",
       "purpose": "编辑自定义教学日、节次、时间及课程",
-      "status": "independent-candidates-pending"
+      "status": "C02-awaiting-direction"
     },
     {
       "id": "term-settings",
       "entry": "学期设置",
       "purpose": "学年学期、起止月份与备注",
-      "status": "independent-candidates-pending"
+      "status": "C02-awaiting-direction"
     },
     {
       "id": "event-editor",
       "entry": "本周安排编辑",
       "purpose": "日期、类型、标题、详情",
-      "status": "independent-candidates-pending"
+      "status": "C02-awaiting-direction"
     },
     {
       "id": "focus-editor",
       "entry": "本周重点事项编辑",
       "purpose": "日期、重点、状态、待办",
-      "status": "independent-candidates-pending"
+      "status": "C02-awaiting-direction"
     },
     {
       "id": "agenda-detail",
       "entry": "日程查看详情（候选提出）",
       "purpose": "阅读完整日程及关联信息",
-      "status": "independent-candidates-pending"
+      "status": "C02-awaiting-direction"
     },
     {
       "id": "agenda-editor",
       "entry": "新增或编辑事项",
       "purpose": "日期时间、类型、学生、地点、说明、状态",
-      "status": "independent-candidates-pending"
+      "status": "C02-awaiting-direction"
     },
     {
       "id": "work-log-detail",
       "entry": "查看留痕 / 查看记录",
       "purpose": "阅读已完成事实与来源",
-      "status": "independent-candidates-pending"
+      "status": "C02-awaiting-direction"
     },
     {
       "id": "work-log-editor",
       "entry": "手动记录或编辑留痕",
       "purpose": "日期类型标题、学生、耗时及具体事实",
-      "status": "independent-candidates-pending"
+      "status": "C02-awaiting-direction"
     }
   ],
   "supportStates": [
@@ -74,5 +74,6 @@
     "只读、长标题、多学生、无耗时、取消事项",
     "保存中、失败保留草稿、409冲突、脏关闭确认、删除确认、学生选择"
   ],
-  "supportStatePolicy": "后续隔离稿必须可触达；本轮未完成这些状态设计或测试，不继承旧技术验收为视觉批准。"
+  "supportStatePolicy": "后续隔离稿必须可触达；本轮未完成这些状态设计或测试，不继承旧技术验收为视觉批准。",
+  "contract": "docs/page-designs/V5/schedule/state-contract.md"
 }

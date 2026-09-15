@@ -676,7 +676,7 @@
       "currentEvidence": [],
       "comparisons": [],
       "recordPath": "docs/page-designs/V5/schedule/record.json",
-      "recordSha256": "2301AD65E7965DBFBE45787DC324D3E382E4342958E02C63BFB8C73F33EBFB5E"
+      "recordSha256": "03C5E8D079A414BE2721C620E3D326A9B0FA58B7B9AF71AA75F25079C39EDB6C"
     },
     "tools": {
       "label": "课堂工具",
@@ -790,7 +790,7 @@
     "legacyFields": "status/productCommit/currentEvidence/comparisons/userApproval retain historical product evidence; D/R uses linked records",
     "entry": "docs/逐页设计定稿与实施包-20260914/00-从这里开始.md",
     "activeBatch": "V2",
-    "nextAction": "等待三个主工作面C01方向确认；再补齐独立详情与编辑候选并确认，之后才允许隔离网页实现。",
+    "nextAction": "等待用户确认C02八类详情/编辑方向；获确认后制作复用组件的完整隔离可运行稿及关键状态，未获批不接入正式业务。",
     "designSequenceExceptions": [
       {
         "date": "2026-09-15",
