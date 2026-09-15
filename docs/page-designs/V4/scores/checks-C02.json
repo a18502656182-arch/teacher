@@ -1,0 +1,85 @@
+{
+  "date": "2026-09-15",
+  "scope": "C02候选图片与记录，无源码修改",
+  "candidates": [
+    {
+      "path": "docs/page-designs/V4/scores/candidates/trends-desktop-c02.png",
+      "sha256": "2548E02B78FE10AA2628AFC58194A24C9AA60D172D917256890B0D989F0BBC4E",
+      "kind": "desktop",
+      "subview": "trends",
+      "stateId": "trends-populated",
+      "version": "C02",
+      "approval": false,
+      "pixelSize": [
+        1536,
+        1024
+      ],
+      "targetViewport": "1536x1024",
+      "prompt": "docs/page-designs/V4/scores/candidates/prompts-c02.md",
+      "original": "E:/CodexHome/generated_images/01a09fb4-dfcf-74e0-a5c7-ea1b5e94cf08/exec-60fa6b12-dbbb-4ea0-a01d-7f4df9969b1c.png",
+      "purpose": "ImageGen direction candidate only; not runnable or integrated"
+    },
+    {
+      "path": "docs/page-designs/V4/scores/candidates/trends-mobile-c02.png",
+      "sha256": "F293581EA3E4C6912D23C4EB964853089D6013CF51FC33EE16CBF54DB1C1CF49",
+      "kind": "mobile",
+      "subview": "trends",
+      "stateId": "trends-populated",
+      "version": "C02",
+      "approval": false,
+      "pixelSize": [
+        853,
+        1844
+      ],
+      "targetViewport": "390x844",
+      "prompt": "docs/page-designs/V4/scores/candidates/prompts-c02.md",
+      "original": "E:/CodexHome/generated_images/01a09fb4-dfcf-74e0-a5c7-ea1b5e94cf08/exec-052b35e1-795b-4d72-b81d-68ba35d89917.png",
+      "purpose": "ImageGen direction candidate only; not runnable or integrated"
+    },
+    {
+      "path": "docs/page-designs/V4/scores/candidates/analysis-desktop-c02.png",
+      "sha256": "4D4EF399DFEF69742EF0B1E8BFD344D4F7B4C7C6BBFE7EE46806B35074C7E703",
+      "kind": "desktop",
+      "subview": "analysis",
+      "stateId": "analysis-populated",
+      "version": "C02",
+      "approval": false,
+      "pixelSize": [
+        1536,
+        1024
+      ],
+      "targetViewport": "1536x1024",
+      "prompt": "docs/page-designs/V4/scores/candidates/prompts-c02.md",
+      "original": "E:/CodexHome/generated_images/01a09fb4-dfcf-74e0-a5c7-ea1b5e94cf08/exec-5d179e8d-4925-4af1-8ed2-20972b765ba2.png",
+      "purpose": "ImageGen direction candidate only; not runnable or integrated"
+    },
+    {
+      "path": "docs/page-designs/V4/scores/candidates/analysis-mobile-c02.png",
+      "sha256": "045C2973F1A4D695F9DD11474EF51E094BCCE745220C73C282D52CB6BF4B855D",
+      "kind": "mobile",
+      "subview": "analysis",
+      "stateId": "analysis-populated",
+      "version": "C02",
+      "approval": false,
+      "pixelSize": [
+        853,
+        1844
+      ],
+      "targetViewport": "390x844",
+      "prompt": "docs/page-designs/V4/scores/candidates/prompts-c02.md",
+      "original": "E:/CodexHome/generated_images/01a09fb4-dfcf-74e0-a5c7-ea1b5e94cf08/exec-8cdf0e61-798e-4ac6-a98b-a148deab5b28.png",
+      "purpose": "ImageGen direction candidate only; not runnable or integrated"
+    }
+  ],
+  "inspected": true,
+  "remaining": [
+    "四图未获用户方向批准；P02未制作",
+    "ImageGen字体/导航/假账号/附加历史入口/渐变不冻结，共享shell保持已有实现",
+    "分析手机图科目被画为切换控件，不能擅自引入业务科目筛选；第二份试卷名称与桌面不同，P02统一合成fixture",
+    "手机趋势台账后续改可读连续行，不照搬拥挤多列表格",
+    "趋势零场/单场与分析空态、失败态等须P02独立展示；此轮四张均为有数据候选"
+  ],
+  "build": "not rerun: no code changes",
+  "baselineAudit": "PASS: npm run qa:visual-baseline 2026-09-15; scores needs-design-changes, no design approval",
+  "diffCheck": "PASS: git diff --check"
+}

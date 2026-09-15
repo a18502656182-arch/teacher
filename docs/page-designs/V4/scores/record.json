@@ -1,7 +1,7 @@
 {
   "pageId": "scores",
   "batch": "V4",
-  "phase": "awaiting-design-approval",
+  "phase": "needs-design-changes",
   "brief": "docs/page-designs/V4/scores/brief.md",
   "functionMap": "docs/page-designs/V4/scores/function-map.md",
   "geometry": "docs/page-designs/V4/scores/geometry.json",
@@ -37,6 +37,74 @@
       "targetViewport": "390x844",
       "prompt": "docs/page-designs/V4/scores/candidates/prompts-c01.md",
       "purpose": "ImageGen direction candidate; not runnable or integrated"
+    },
+    {
+      "path": "docs/page-designs/V4/scores/candidates/trends-desktop-c02.png",
+      "sha256": "2548E02B78FE10AA2628AFC58194A24C9AA60D172D917256890B0D989F0BBC4E",
+      "kind": "desktop",
+      "subview": "trends",
+      "stateId": "trends-populated",
+      "version": "C02",
+      "approval": false,
+      "pixelSize": [
+        1536,
+        1024
+      ],
+      "targetViewport": "1536x1024",
+      "prompt": "docs/page-designs/V4/scores/candidates/prompts-c02.md",
+      "original": "E:/CodexHome/generated_images/01a09fb4-dfcf-74e0-a5c7-ea1b5e94cf08/exec-60fa6b12-dbbb-4ea0-a01d-7f4df9969b1c.png",
+      "purpose": "ImageGen direction candidate only; not runnable or integrated"
+    },
+    {
+      "path": "docs/page-designs/V4/scores/candidates/trends-mobile-c02.png",
+      "sha256": "F293581EA3E4C6912D23C4EB964853089D6013CF51FC33EE16CBF54DB1C1CF49",
+      "kind": "mobile",
+      "subview": "trends",
+      "stateId": "trends-populated",
+      "version": "C02",
+      "approval": false,
+      "pixelSize": [
+        853,
+        1844
+      ],
+      "targetViewport": "390x844",
+      "prompt": "docs/page-designs/V4/scores/candidates/prompts-c02.md",
+      "original": "E:/CodexHome/generated_images/01a09fb4-dfcf-74e0-a5c7-ea1b5e94cf08/exec-052b35e1-795b-4d72-b81d-68ba35d89917.png",
+      "purpose": "ImageGen direction candidate only; not runnable or integrated"
+    },
+    {
+      "path": "docs/page-designs/V4/scores/candidates/analysis-desktop-c02.png",
+      "sha256": "4D4EF399DFEF69742EF0B1E8BFD344D4F7B4C7C6BBFE7EE46806B35074C7E703",
+      "kind": "desktop",
+      "subview": "analysis",
+      "stateId": "analysis-populated",
+      "version": "C02",
+      "approval": false,
+      "pixelSize": [
+        1536,
+        1024
+      ],
+      "targetViewport": "1536x1024",
+      "prompt": "docs/page-designs/V4/scores/candidates/prompts-c02.md",
+      "original": "E:/CodexHome/generated_images/01a09fb4-dfcf-74e0-a5c7-ea1b5e94cf08/exec-5d179e8d-4925-4af1-8ed2-20972b765ba2.png",
+      "purpose": "ImageGen direction candidate only; not runnable or integrated"
+    },
+    {
+      "path": "docs/page-designs/V4/scores/candidates/analysis-mobile-c02.png",
+      "sha256": "045C2973F1A4D695F9DD11474EF51E094BCCE745220C73C282D52CB6BF4B855D",
+      "kind": "mobile",
+      "subview": "analysis",
+      "stateId": "analysis-populated",
+      "version": "C02",
+      "approval": false,
+      "pixelSize": [
+        853,
+        1844
+      ],
+      "targetViewport": "390x844",
+      "prompt": "docs/page-designs/V4/scores/candidates/prompts-c02.md",
+      "original": "E:/CodexHome/generated_images/01a09fb4-dfcf-74e0-a5c7-ea1b5e94cf08/exec-8cdf0e61-798e-4ac6-a98b-a148deab5b28.png",
+      "purpose": "ImageGen direction candidate only; not runnable or integrated"
     }
   ],
   "prototype": {
@@ -905,7 +973,8 @@
     "evidenceHashes": [
       "54F2BC2EB631A3110C62DAB31DCE4CDC31D3286E5CA20CECFC45F38B479E1366",
       "8F0E13645E9C66F1DB9129049DB787F6F2D31625578F6F673028344F3BC1F428"
-    ]
+    ],
+    "scope": "仅成绩录入C01双端候选，不含趋势/试卷分析，也不代表P01主页面批准"
   },
   "overlayReview": {
     "requiredBeforeIntegration": true,
@@ -954,6 +1023,12 @@
       "blocking": false,
       "resolved": false,
       "description": "1.61MB装饰PNG未优化；手机小字/完整无障碍需专项验证。"
+    },
+    {
+      "id": "SUBVIEW-DESIGN-REJECTED",
+      "blocking": true,
+      "resolved": false,
+      "description": "用户指出历次趋势和试卷分析缺独立设计；P01两主标签页退回设计。非可延后弹窗；C02四候选待方向确认，P02未制作。"
     }
   ],
   "sourceState": {
@@ -998,7 +1073,7 @@
     "mode": "read-only synthetic current-source recovery without shared shell",
     "recoveryHarnessCommit": "4455d7054f5bed720193eff2eaaa2d4202d8141a"
   },
-  "nextAllowedAction": "展示成绩P01并等待用户主页面审核；下一页考试反思尚未开始，禁止正式业务接入或部署。",
+  "nextAllowedAction": "等待趋势/试卷分析C02双端独立候选方向确认，再制作两个主标签页P02及关键状态并重新审核；不开始反思，不接入正式业务，不部署。",
   "candidateChecks": {
     "path": "docs/page-designs/V4/scores/checks-C01.json",
     "sha256": "F7276144B9D70F318172133050C60B63189D54357335E55F39CB9E8C2710B219"
@@ -1013,6 +1088,38 @@
   },
   "finishReview": {
     "path": "docs/page-designs/V4/scores/finish-review.md",
-    "sha256": "A85C2CF2F0426CACE1A7E92EC267842C8791A4D9149BF3F84B8A9FC0A8534D55"
+    "sha256": "A85C2CF2F0426CACE1A7E92EC267842C8791A4D9149BF3F84B8A9FC0A8534D55",
+    "currentScope": "历史技术复核保留；用户本轮退回两主标签页，不能用该PASS作为审美批准或当前设计完成依据"
+  },
+  "latestUserFeedback": {
+    "date": "2026-09-15",
+    "source": "用户：这个页面的历史趋势和试卷分析的图没有做 也就导致实际页面暂时也不行 这部分应该要重做一下吧",
+    "prototypeCommit": "f28545f9dc8ccc11a3fda134fdabc429419919a3",
+    "attachments": [
+      {
+        "path": "C:/Users/hx/AppData/Local/Temp/codex-clipboard-1ed1e31c-a83e-44d1-9420-56624e9558e8.png",
+        "sha256": "149056F282A1DFF288055B40D613D0609D5FF69619B087398BFAB35178E0EBA5"
+      },
+      {
+        "path": "C:/Users/hx/AppData/Local/Temp/codex-clipboard-67eb2dfa-482c-4997-9be0-70c273083b5a.png",
+        "sha256": "5700DA4AC4F6D38CA20937210F10BFADBB9EDEEBD33564C783BFF44BDA25A0AB"
+      }
+    ]
+  },
+  "subviewDesigns": {
+    "trends": {
+      "phase": "concept-review",
+      "version": "C02",
+      "approved": false
+    },
+    "analysis": {
+      "phase": "concept-review",
+      "version": "C02",
+      "approved": false
+    }
+  },
+  "latestCandidateChecks": {
+    "path": "docs/page-designs/V4/scores/checks-C02.json",
+    "sha256": "0E2BFD0B9AA33EEB00C15D7BAE7C85820C7538FE379A9332744621B558837947"
   }
 }
