@@ -149,7 +149,7 @@
   ],
   "prototype": {
     "version": "P02.1",
-    "commit": null,
+    "commit": "b7ac165ab432d32c56bb037dd2f0057a0046834c",
     "previewUrl": "http://127.0.0.1:4218/scores.html",
     "sourceFiles": [
       "app/designs/scores/ScoresDesign.tsx",
@@ -204,7 +204,7 @@
         "kind": "desktop",
         "fixtureId": "scores-p02-normal",
         "capturedAt": "2026-09-15T08:36:55.192Z",
-        "commit": null
+        "commit": "b7ac165ab432d32c56bb037dd2f0057a0046834c"
       },
       {
         "path": "docs/page-designs/V4/scores/screenshots/p02-controls/1536-trends.png",
@@ -255,7 +255,7 @@
         "kind": "desktop",
         "fixtureId": "scores-p02-trends",
         "capturedAt": "2026-09-15T08:36:55.192Z",
-        "commit": null
+        "commit": "b7ac165ab432d32c56bb037dd2f0057a0046834c"
       },
       {
         "path": "docs/page-designs/V4/scores/screenshots/p02-controls/1536-long-subjects.png",
@@ -296,7 +296,7 @@
         "kind": "desktop",
         "fixtureId": "scores-p02-long-subjects",
         "capturedAt": "2026-09-15T08:36:55.192Z",
-        "commit": null
+        "commit": "b7ac165ab432d32c56bb037dd2f0057a0046834c"
       },
       {
         "path": "docs/page-designs/V4/scores/screenshots/p02-controls/1536-readonly.png",
@@ -337,7 +337,7 @@
         "kind": "desktop",
         "fixtureId": "scores-p02-readonly",
         "capturedAt": "2026-09-15T08:36:55.192Z",
-        "commit": null
+        "commit": "b7ac165ab432d32c56bb037dd2f0057a0046834c"
       },
       {
         "path": "docs/page-designs/V4/scores/screenshots/p02-controls/1536-student-editor.png",
@@ -399,7 +399,7 @@
         "kind": "desktop",
         "fixtureId": "scores-p02-student-editor",
         "capturedAt": "2026-09-15T08:36:55.192Z",
-        "commit": null
+        "commit": "b7ac165ab432d32c56bb037dd2f0057a0046834c"
       },
       {
         "path": "docs/page-designs/V4/scores/screenshots/p02-controls/390-normal.png",
@@ -440,7 +440,7 @@
         "kind": "mobile",
         "fixtureId": "scores-p02-normal",
         "capturedAt": "2026-09-15T08:36:55.192Z",
-        "commit": null
+        "commit": "b7ac165ab432d32c56bb037dd2f0057a0046834c"
       },
       {
         "path": "docs/page-designs/V4/scores/screenshots/p02-controls/390-trends.png",
@@ -481,7 +481,7 @@
         "kind": "mobile",
         "fixtureId": "scores-p02-trends",
         "capturedAt": "2026-09-15T08:36:55.192Z",
-        "commit": null
+        "commit": "b7ac165ab432d32c56bb037dd2f0057a0046834c"
       },
       {
         "path": "docs/page-designs/V4/scores/screenshots/p02-controls/390-long-subjects.png",
@@ -522,7 +522,7 @@
         "kind": "mobile",
         "fixtureId": "scores-p02-long-subjects",
         "capturedAt": "2026-09-15T08:36:55.192Z",
-        "commit": null
+        "commit": "b7ac165ab432d32c56bb037dd2f0057a0046834c"
       },
       {
         "path": "docs/page-designs/V4/scores/screenshots/p02-controls/390-readonly.png",
@@ -563,7 +563,7 @@
         "kind": "mobile",
         "fixtureId": "scores-p02-readonly",
         "capturedAt": "2026-09-15T08:36:55.192Z",
-        "commit": null
+        "commit": "b7ac165ab432d32c56bb037dd2f0057a0046834c"
       },
       {
         "path": "docs/page-designs/V4/scores/screenshots/p02-controls/390-student-editor.png",
@@ -625,7 +625,7 @@
         "kind": "mobile",
         "fixtureId": "scores-p02-student-editor",
         "capturedAt": "2026-09-15T08:36:55.192Z",
-        "commit": null
+        "commit": "b7ac165ab432d32c56bb037dd2f0057a0046834c"
       }
     ],
     "sourceHashes": [
@@ -677,7 +677,7 @@
     "checks": {
       "path": "docs/page-designs/V4/scores/checks-P021.json",
       "sha256": "E63CC0CCFDD974FFD541FCF623F37F364BB47B13D099BE52171C73062074FF5B",
-      "commit": null
+      "commit": "b7ac165ab432d32c56bb037dd2f0057a0046834c"
     },
     "additionalEvidence": [
       {
