@@ -1,0 +1,110 @@
+{
+  "stage": "inventory-and-base-concept-only",
+  "states": [
+    {
+      "stateId": "normal",
+      "applicable": true,
+      "fixturePlanned": "synthetic isolated data",
+      "designStatus": "raster-concept-only",
+      "integrationStatus": "not-tested-this-round"
+    },
+    {
+      "stateId": "selected-batch",
+      "applicable": true,
+      "fixturePlanned": "synthetic isolated data",
+      "designStatus": "not-rendered",
+      "integrationStatus": "not-tested-this-round"
+    },
+    {
+      "stateId": "day-note",
+      "applicable": true,
+      "fixturePlanned": "synthetic isolated data",
+      "designStatus": "not-rendered",
+      "integrationStatus": "not-tested-this-round"
+    },
+    {
+      "stateId": "month-calendar",
+      "applicable": true,
+      "fixturePlanned": "synthetic isolated data",
+      "designStatus": "not-rendered",
+      "integrationStatus": "not-tested-this-round"
+    },
+    {
+      "stateId": "history-date",
+      "applicable": true,
+      "fixturePlanned": "synthetic isolated data",
+      "designStatus": "not-rendered",
+      "integrationStatus": "not-tested-this-round"
+    },
+    {
+      "stateId": "no-day-record",
+      "applicable": true,
+      "fixturePlanned": "synthetic isolated data",
+      "designStatus": "not-rendered",
+      "integrationStatus": "not-tested-this-round"
+    },
+    {
+      "stateId": "empty-class",
+      "applicable": true,
+      "fixturePlanned": "synthetic isolated data",
+      "designStatus": "not-rendered",
+      "integrationStatus": "not-tested-this-round"
+    },
+    {
+      "stateId": "search-empty",
+      "applicable": true,
+      "fixturePlanned": "synthetic isolated data",
+      "designStatus": "not-rendered",
+      "integrationStatus": "not-tested-this-round"
+    },
+    {
+      "stateId": "students-105",
+      "applicable": true,
+      "fixturePlanned": "synthetic isolated data",
+      "designStatus": "not-rendered",
+      "integrationStatus": "not-tested-this-round"
+    },
+    {
+      "stateId": "long-note",
+      "applicable": true,
+      "fixturePlanned": "synthetic isolated data",
+      "designStatus": "not-rendered",
+      "integrationStatus": "not-tested-this-round"
+    },
+    {
+      "stateId": "readonly",
+      "applicable": true,
+      "fixturePlanned": "synthetic isolated data",
+      "designStatus": "not-rendered",
+      "integrationStatus": "not-tested-this-round"
+    },
+    {
+      "stateId": "saving",
+      "applicable": true,
+      "fixturePlanned": "synthetic isolated data",
+      "designStatus": "not-rendered",
+      "integrationStatus": "not-tested-this-round"
+    },
+    {
+      "stateId": "save-failure",
+      "applicable": true,
+      "fixturePlanned": "synthetic isolated data",
+      "designStatus": "not-rendered",
+      "integrationStatus": "not-tested-this-round"
+    },
+    {
+      "stateId": "conflict-409",
+      "applicable": true,
+      "fixturePlanned": "synthetic isolated data",
+      "designStatus": "not-rendered",
+      "integrationStatus": "not-tested-this-round"
+    },
+    {
+      "stateId": "dirty-leave",
+      "applicable": true,
+      "fixturePlanned": "synthetic isolated data",
+      "designStatus": "not-rendered",
+      "integrationStatus": "not-tested-this-round"
+    }
+  ]
+}

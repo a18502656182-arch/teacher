@@ -1,6 +1,6 @@
 {
   "schemaVersion": 3,
-  "updatedAt": "2026-09-14",
+  "updatedAt": "2026-09-15",
   "scope": "teacher-workbench-only",
   "excluded": [
     "family"
@@ -569,7 +569,7 @@
       "currentEvidence": [],
       "comparisons": [],
       "recordPath": "docs/page-designs/V2/homework/record.json",
-      "recordSha256": "8A005E541D476001888CF70D3FF93531EA1960E365B92B48A49EF4F3FC38414C"
+      "recordSha256": "6C3B8799E2F4D5D4F0ABCEADA4D07736E09E09FBAF81F4A6663CCAEAE616BBF2"
     },
     "dictation": {
       "label": "听写与复习",
@@ -585,7 +585,7 @@
       "currentEvidence": [],
       "comparisons": [],
       "recordPath": "docs/page-designs/V2/dictation/record.json",
-      "recordSha256": "395DFA4A3EF0FE48EC8AB6A90194D564C41D5BFD5ED6E9DF91908F94C35C1ECF"
+      "recordSha256": "C51679BB6FB9A489A61390FC6ABED838C18BDF715CBD2C80BAD0FEF3A15FF2A0"
     },
     "attendance": {
       "label": "考勤与请假",
@@ -596,7 +596,9 @@
       "requiredComparisons": 2,
       "issues": [],
       "currentEvidence": [],
-      "comparisons": []
+      "comparisons": [],
+      "recordPath": "docs/page-designs/V3/attendance/record.json",
+      "recordSha256": "676F8EFF44BA3AA3C648EF17C32F354E4925ADA297A536A0EE23756A1C432D81"
     },
     "growth": {
       "label": "成长档案",
@@ -776,6 +778,16 @@
     "legacyFields": "status/productCommit/currentEvidence/comparisons/userApproval retain historical product evidence; D/R uses linked records",
     "entry": "docs/逐页设计定稿与实施包-20260914/00-从这里开始.md",
     "activeBatch": "V2",
-    "nextAction": "homework P01 awaiting single-page D; students P01 approved; dictation inventory; V2 batch integration and V3 blocked"
+    "nextAction": "考勤C01桌面/手机候选已生成，等用户方向确认；听写功能未验收暂缓；作业控件比例待优化；正式接入未开放",
+    "designSequenceExceptions": [
+      {
+        "date": "2026-09-15",
+        "source": "本任务用户：听写页的功能还没有验收过可以先跳过 先做其他页面 记录下来",
+        "scope": "Skip dictation and allow independent attendance/V3 candidate design before V2 R; not integration or next-batch product approval",
+        "deferredPage": "dictation",
+        "nextDesignPage": "attendance",
+        "integrationAllowed": false
+      }
+    ]
   }
 }

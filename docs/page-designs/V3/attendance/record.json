@@ -1,0 +1,108 @@
+{
+  "pageId": "attendance",
+  "batch": "V3",
+  "phase": "concept-review",
+  "brief": "docs/page-designs/V3/attendance/brief.md",
+  "functionMap": "docs/page-designs/V3/attendance/function-map.md",
+  "geometry": null,
+  "assets": null,
+  "states": "docs/page-designs/V3/attendance/states.json",
+  "candidates": [
+    {
+      "path": "docs/page-designs/V3/attendance/candidates/attendance-desktop-c01.png",
+      "sha256": "7F72555E865056F2421A7008CFB26A561A3C82A3E5B5B5A920B08A33E48FFC34",
+      "kind": "desktop",
+      "stateId": "normal",
+      "targetViewport": "1536x1024",
+      "pixelSize": [
+        1536,
+        1024
+      ],
+      "version": "C01",
+      "approval": false,
+      "purpose": "ImageGen concept; not runnable or integrated",
+      "prompt": "docs/page-designs/V3/attendance/candidates/prompts-c01.md",
+      "inputSource": [
+        "C4 context only; current source read-only capture"
+      ]
+    },
+    {
+      "path": "docs/page-designs/V3/attendance/candidates/attendance-mobile-c01.png",
+      "sha256": "9010886EADA4561569564423F8F784F05DF17B59542B8AA31C94B7350166146A",
+      "kind": "mobile",
+      "stateId": "normal",
+      "targetViewport": "390x844",
+      "pixelSize": [
+        935,
+        1683
+      ],
+      "version": "C01",
+      "approval": false,
+      "purpose": "ImageGen concept; not runnable or integrated",
+      "prompt": "docs/page-designs/V3/attendance/candidates/prompts-c01.md",
+      "inputSource": [
+        "C4 context only; current source read-only capture"
+      ]
+    }
+  ],
+  "prototype": {
+    "commit": null,
+    "previewUrl": null,
+    "evidence": []
+  },
+  "designApproval": {
+    "approved": false,
+    "source": null,
+    "approvedAt": null,
+    "commit": null,
+    "evidenceHashes": []
+  },
+  "integration": {
+    "productCommit": null,
+    "designCommit": null,
+    "evidence": [],
+    "tests": []
+  },
+  "resultApproval": {
+    "approved": false,
+    "source": null,
+    "approvedAt": null,
+    "productCommit": null
+  },
+  "issues": [
+    {
+      "id": "CONCEPT-NOT-APPROVED",
+      "blocking": true,
+      "resolved": false,
+      "description": "C01 awaits explicit direction confirmation; no prototype/D/R."
+    },
+    {
+      "id": "MOBILE-RASTER-DEVIATIONS",
+      "blocking": true,
+      "resolved": false,
+      "description": "Fourth row differs; selection/all-normal tools omitted; candidate geometry not exact viewport. Restore all semantics and uniform rows in isolated P01, not accepted as final."
+    },
+    {
+      "id": "LEAVE-EDITOR-MISMATCH",
+      "blocking": false,
+      "resolved": false,
+      "description": "Old task card mentions leave editor absent in current UI; do not invent retained functionality."
+    }
+  ],
+  "nextAction": "等待考勤C01方向确认；听写功能未验收继续暂缓；禁止正式接入和部署",
+  "history": [
+    {
+      "date": "2026-09-15",
+      "event": "User deferred dictation for unaccepted functionality and authorized other page designs; attendance independent C01 produced and inspected, not approved."
+    }
+  ],
+  "conceptApproval": {
+    "approved": false,
+    "source": null,
+    "approvedAt": null,
+    "candidateVersion": null,
+    "evidenceHashes": []
+  },
+  "sourceState": "docs/page-designs/V3/attendance/recovery/capture.json",
+  "inventoryCommit": "ed373ed0529edb24f4453b6a92a03aebe990a54e"
+}
