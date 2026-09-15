@@ -133,11 +133,13 @@
       "path": "tools/ui-preview/scores-source.tsx",
       "sha256": "1322549D1761015328E23EF3FD464E77C67352BFF2E5CC55B0AB889373BFE5DF"
     },
-    "mode": "read-only synthetic current-source recovery without shared shell"
+    "mode": "read-only synthetic current-source recovery without shared shell",
+    "recoveryHarnessCommit": "4455d7054f5bed720193eff2eaaa2d4202d8141a"
   },
   "nextAllowedAction": "Show C01 desktop/mobile and wait for user direction; only then isolated P01; no formal integration or deployment.",
   "candidateChecks": {
     "path": "docs/page-designs/V4/scores/checks-C01.json",
     "sha256": "F7276144B9D70F318172133050C60B63189D54357335E55F39CB9E8C2710B219"
-  }
+  },
+  "candidateCommit": "4455d7054f5bed720193eff2eaaa2d4202d8141a"
 }
