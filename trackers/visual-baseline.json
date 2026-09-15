@@ -569,7 +569,7 @@
       "currentEvidence": [],
       "comparisons": [],
       "recordPath": "docs/page-designs/V2/homework/record.json",
-      "recordSha256": "C5C162438D2C992818A3AF5EE44D8B89036AE5D53C7C40AFB6DCE1AB1478860B"
+      "recordSha256": "033315D1E8187FF1E1DBB6F52E9FFD80E2315AD21BB8BE4B4908C12166609999"
     },
     "dictation": {
       "label": "听写与复习",
@@ -776,6 +776,6 @@
     "legacyFields": "status/productCommit/currentEvidence/comparisons/userApproval retain historical product evidence; D/R uses linked records",
     "entry": "docs/逐页设计定稿与实施包-20260914/00-从这里开始.md",
     "activeBatch": "V2",
-    "nextAction": "homework C01 three images awaiting concept confirmation; students P01 individually design-approved; V2 D/R not complete"
+    "nextAction": "homework P01 awaiting single-page D; students P01 approved; dictation inventory; V2 batch integration and V3 blocked"
   }
 }

@@ -1,0 +1,42 @@
+✔ 作业读取覆盖 0、3、30 项任务，并严格隔离当前班级 (1.4553ms)
+✔ 105 人四态汇总准确，任务状态优先于学生默认状态 (1.4972ms)
+✔ 任务筛选支持倒置日期、学科、月份、状态、小组与学生条件 (0.5377ms)
+✔ 任务的学生关键词、状态和小组必须由同一名学生命中 (0.2601ms)
+✔ 学生搜索覆盖姓名、学号和完整备注，不暴露家长电话且不修改输入 (0.3569ms)
+✔ all three D approvals allow integration without any supervision report (127.128ms)
+✔ homepage approval cannot unlock V2; concept confirmation cannot replace runnable D approval (85.7695ms)
+✔ two of three D approvals do not permit any page to integrate (119.998ms)
+✔ modified screenshot bytes invalidate a previously approved design hash (98.5069ms)
+✔ design approval must bind the exact complete set of screenshot hashes (112.2926ms)
+✔ product changes invalidate R, including uncommitted changes and shared assets (263.6818ms)
+✔ page record hash drift and unsafe paths fail closed (429.5828ms)
+✔ no generic gate command or result approval for another design can pass (205.979ms)
+✔ extensionless trigger matches actual theme and primitive files (0.1744ms)
+✔ ready evidence requires distinct desktop and mobile records bound to a product commit (740.0016ms)
+✔ path traversal is rejected even when evidence names the persistent directory (711.8636ms)
+✔ one file cannot impersonate two evidence slots (663.0819ms)
+✔ two desktop records cannot satisfy the mobile requirement (716.5906ms)
+✔ equivalent normalized paths cannot impersonate different evidence (2136.1715ms)
+✔ committed assets and visual configuration invalidate evidence and prior approvals (5326.251ms)
+✔ page approval cannot exist without approval on its gate (667.7215ms)
+✔ gate command keeps supervision PASS separate from visual readiness (677.4844ms)
+✔ shared visual changes are detected after an approved commit (990.9554ms)
+✔ a page-local change invalidates its own evidence but not an approved sibling page (1285.3135ms)
+✔ 两班各50人：批量作业只更新目标任务与班级名册，不改变家庭记录 (1.9055ms)
+✔ 已复查保留任务四态，学生汇总仍兼容为已交 (0.2903ms)
+✔ 105人全选与逐生操作获得相同业务结果 (3.1749ms)
+✔ 旧数据缺少可选班级/任务字段仍保持原兼容结构 (0.3286ms)
+✔ 学生批量空字段不清空已有资料，未选学生保持不变 (0.5538ms)
+✔ 学生批量字段沿用原校正规则，不覆盖积分等非目标字段 (0.2521ms)
+✔ 空选择与另一班学生ID不会修改当前名单 (0.2442ms)
+✔ 作业状态拒绝另一班和不存在的学生ID，也不污染任务状态键 (0.5658ms)
+✔ 同ID跨班作业的编辑删除与跟进只作用当前班唯一目标 (0.5336ms)
+✔ 当前班出现重复作业ID时拒绝歧义写入 (0.2636ms)
+ℹ tests 34
+ℹ suites 0
+ℹ pass 34
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 15444.5432

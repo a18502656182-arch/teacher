@@ -1,0 +1,108 @@
+{
+  "date": "2026-09-15",
+  "startHead": "d086900b54ee8ca891b04c0a172720bf498df8b4",
+  "fixture": "tools/ui-preview/homework-fixture.ts",
+  "fixtureFileSha256": "FD12C0C085A1FFDFBB3B43C9D813E09BED93B034AFFB437E65B72A174C22DB32",
+  "preexisting": [
+    {
+      "path": "app/w/[token]/features/students/StudentsView.tsx",
+      "sha256": "8C211EE3FF533837273337EE8D9E20EECF70F3FB2FBA796E5C2DDF30669D2EDE",
+      "unchangedFromRecovery": true,
+      "author": "unverified"
+    },
+    {
+      "path": "app/w/[token]/features/students/read-model.ts",
+      "sha256": "FFD7A2D59948943F963C816C489B6E2087012943B6EBE2D362BC32855451A48B",
+      "unchangedFromRecovery": true,
+      "author": "unverified"
+    },
+    {
+      "path": "app/w/[token]/features/students/useStudentsController.ts",
+      "sha256": "793593028038B874EC3F4A6474FFE2FACC15DF20CC629B2BCAB4773035A9C4B2",
+      "unchangedFromRecovery": true,
+      "author": "unverified"
+    },
+    {
+      "path": "docs/重构执行与监工资料包-20260914/supervision/reviews/V2-STUDENTS-399A5C4-20260914.md",
+      "sha256": "F4EC8B5DBD814A38942241DD8A784D65104C0BB958711A9940CD7C95CEAC59BB",
+      "unchangedFromRecovery": true,
+      "author": "unverified"
+    }
+  ],
+  "checks": [
+    {
+      "name": "typecheck",
+      "exitCode": 0,
+      "path": "docs/page-designs/V2/homework/logs/P01-typecheck-final.txt"
+    },
+    {
+      "name": "production-build",
+      "exitCode": 0,
+      "path": "docs/page-designs/V2/homework/logs/P01-build-final.txt"
+    },
+    {
+      "name": "isolated-build",
+      "exitCode": 0,
+      "path": "docs/page-designs/V2/homework/logs/P01-preview-build-final.txt"
+    },
+    {
+      "name": "scoped-eslint",
+      "exitCode": 0,
+      "path": "docs/page-designs/V2/homework/logs/P01-scoped-lint-final.txt"
+    },
+    {
+      "name": "related-node-tests",
+      "exitCode": 0,
+      "count": 34,
+      "path": "docs/page-designs/V2/homework/logs/P01-tests.txt"
+    },
+    {
+      "name": "main-render",
+      "exitCode": 0,
+      "count": 40,
+      "path": "docs/page-designs/V2/homework/logs/P01-capture.json"
+    },
+    {
+      "name": "narrow-render",
+      "exitCode": 0,
+      "count": 8,
+      "path": "docs/page-designs/V2/homework/logs/P01-narrow.json"
+    },
+    {
+      "name": "interactions",
+      "exitCode": 0,
+      "count": 30,
+      "path": "docs/page-designs/V2/homework/logs/P01-interactions.json"
+    },
+    {
+      "name": "supplement",
+      "exitCode": 0,
+      "count": 5,
+      "path": "docs/page-designs/V2/homework/logs/P01-supplement.json"
+    },
+    {
+      "name": "npm-lint",
+      "exitCode": 1,
+      "reason": "10errors in .qa-shots browser extension cache; excluding .qa-shots has0errors",
+      "path": "docs/page-designs/V2/homework/logs/P01-lint.txt"
+    },
+    {
+      "name": "qa-strict",
+      "exitCode": 1,
+      "reason": "runtime TypeError querySelectorAll on undefined, fullsite did not complete",
+      "path": "docs/page-designs/V2/homework/logs/P01-strict.txt"
+    },
+    {
+      "name": "design-detector",
+      "exitCode": 2,
+      "reason": "28 palette/font/radius advisories, intentional local world documented, no non-advisory findings",
+      "path": "docs/page-designs/V2/homework/logs/P01-detector.json"
+    }
+  ],
+  "limitations": [
+    "Real backend writes,save409,soft keyboard,cross-platform fonts not tested",
+    "P01 differs from candidate in art/type/mobile firstscreen; user D pending",
+    "First fixture typecheck errors fixed; first supplement Chromeprofile busy and bad length threshold fixed to exact fixture equality"
+  ],
+  "deployed": false
+}

@@ -1,0 +1,11 @@
+vite v8.0.13 building client environment for production...
+[2K
+transforming...✓ 50 modules transformed.
+rendering chunks...
+computing gzip size...
+.qa-shots/homework-design/build/homework.html                           1.01 kB │ gzip:  0.83 kB
+.qa-shots/homework-design/build/assets/stationery-p01-B1-ZPypg.png  2,054.75 kB
+.qa-shots/homework-design/build/assets/homework-CsQW-YaQ.css           31.35 kB │ gzip:  6.44 kB
+.qa-shots/homework-design/build/assets/homework-CT2eoPvn.js           251.18 kB │ gzip: 79.87 kB
+
+✓ built in 338ms

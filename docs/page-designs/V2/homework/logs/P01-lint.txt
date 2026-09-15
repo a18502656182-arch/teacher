@@ -1,0 +1,46 @@
+
+> ban-zhuren-workbench@0.1.0 lint
+> eslint . --ignore-pattern dist --ignore-pattern .next
+
+[BABEL] Note: The code generator has deoptimised the styling of E:\文档\Codex\小红书\班主任工作台网站\.qa-shots\homework-design\chrome\Default\Extensions\nmmhkkegccagdldgiimedpiccmgmieda\1.0.0.6_0\craw_background.js as it exceeds the max of 500KB.
+[BABEL] Note: The code generator has deoptimised the styling of E:\文档\Codex\小红书\班主任工作台网站\.qa-shots\students-design\chrome\Default\Extensions\nmmhkkegccagdldgiimedpiccmgmieda\1.0.0.6_0\craw_background.js as it exceeds the max of 500KB.
+
+E:\文档\Codex\小红书\班主任工作台网站\.qa-shots\homework-design\chrome\Default\Extensions\hofgfmmdolnmimplihglefekekfcfijf\3.1.0.0_0\Background.Static.js
+  13:12  error  Do not assign to the variable `module`. See: https://nextjs.org/docs/messages/no-assign-module-variable  @next/next/no-assign-module-variable
+
+E:\文档\Codex\小红书\班主任工作台网站\.qa-shots\homework-design\chrome\Default\Extensions\hofgfmmdolnmimplihglefekekfcfijf\3.1.0.0_0\BackgroundServiceWorker.js
+  13:12  error  Do not assign to the variable `module`. See: https://nextjs.org/docs/messages/no-assign-module-variable  @next/next/no-assign-module-variable
+
+E:\文档\Codex\小红书\班主任工作台网站\.qa-shots\homework-design\chrome\Default\Extensions\nmmhkkegccagdldgiimedpiccmgmieda\1.0.0.6_0\craw_background.js
+  111:346  error  Component definition is missing display name  react/display-name
+
+E:\文档\Codex\小红书\班主任工作台网站\.qa-shots\homework-design\chrome\Default\Extensions\nmmhkkegccagdldgiimedpiccmgmieda\1.0.0.6_0\craw_window.js
+  111:346  error  Component definition is missing display name  react/display-name
+
+E:\文档\Codex\小红书\班主任工作台网站\.qa-shots\students-design\chrome\Default\Extensions\hofgfmmdolnmimplihglefekekfcfijf\3.1.0.0_0\Background.Static.js
+  13:12  error  Do not assign to the variable `module`. See: https://nextjs.org/docs/messages/no-assign-module-variable  @next/next/no-assign-module-variable
+
+E:\文档\Codex\小红书\班主任工作台网站\.qa-shots\students-design\chrome\Default\Extensions\hofgfmmdolnmimplihglefekekfcfijf\3.1.0.0_0\BackgroundServiceWorker.js
+  13:12  error  Do not assign to the variable `module`. See: https://nextjs.org/docs/messages/no-assign-module-variable  @next/next/no-assign-module-variable
+
+E:\文档\Codex\小红书\班主任工作台网站\.qa-shots\students-design\chrome\Default\Extensions\nmmhkkegccagdldgiimedpiccmgmieda\1.0.0.6_0\craw_background.js
+  111:346  error  Component definition is missing display name  react/display-name
+
+E:\文档\Codex\小红书\班主任工作台网站\.qa-shots\students-design\chrome\Default\Extensions\nmmhkkegccagdldgiimedpiccmgmieda\1.0.0.6_0\craw_window.js
+  111:346  error  Component definition is missing display name  react/display-name
+
+E:\文档\Codex\小红书\班主任工作台网站\.qa-shots\students-design\measure-browser\Default\Extensions\hofgfmmdolnmimplihglefekekfcfijf\3.1.0.0_0\Background.Static.js
+  13:12  error  Do not assign to the variable `module`. See: https://nextjs.org/docs/messages/no-assign-module-variable  @next/next/no-assign-module-variable
+
+E:\文档\Codex\小红书\班主任工作台网站\.qa-shots\students-design\measure-browser\Default\Extensions\hofgfmmdolnmimplihglefekekfcfijf\3.1.0.0_0\BackgroundServiceWorker.js
+  13:12  error  Do not assign to the variable `module`. See: https://nextjs.org/docs/messages/no-assign-module-variable  @next/next/no-assign-module-variable
+
+E:\文档\Codex\小红书\班主任工作台网站\app\designs\homework\HomeworkDesign.tsx
+  237:9   warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+  649:22  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+E:\文档\Codex\小红书\班主任工作台网站\tools\ui-preview\homework.tsx
+  48:5  warning  React Hook useEffect has a missing dependency: 'mobile'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+✖ 13 problems (10 errors, 3 warnings)
+

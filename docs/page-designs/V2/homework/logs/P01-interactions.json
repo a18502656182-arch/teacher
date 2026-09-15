@@ -1,0 +1,135 @@
+{
+  "createdAt": "2026-09-15T02:39:37.030Z",
+  "browser": {
+    "protocolVersion": "1.3",
+    "product": "Chrome/152.0.7977.82",
+    "revision": "@d04cdb24d67b081f6cf80200ffc5233f44b61109",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/152.0.0.0 Safari/537.36",
+    "jsVersion": "15.2.124.21"
+  },
+  "evidence": [],
+  "failures": [],
+  "interactions": [
+    {
+      "name": "four-state 1536",
+      "pass": true
+    },
+    {
+      "name": "shared-note 1536",
+      "pass": true
+    },
+    {
+      "name": "student-pagination 1536",
+      "pass": true
+    },
+    {
+      "name": "search 1536",
+      "pass": true
+    },
+    {
+      "name": "bulk 1536",
+      "pass": true
+    },
+    {
+      "name": "follow-add 1536",
+      "pass": true
+    },
+    {
+      "name": "copy-feedback 1536",
+      "pass": true
+    },
+    {
+      "name": "follow-remove 1536",
+      "pass": true
+    },
+    {
+      "name": "validation 1536",
+      "pass": true
+    },
+    {
+      "name": "dirty-cancel 1536",
+      "pass": true
+    },
+    {
+      "name": "create-task 1536",
+      "pass": true
+    },
+    {
+      "name": "delete-cancel 1536",
+      "pass": true
+    },
+    {
+      "name": "delete-confirm 1536",
+      "pass": true
+    },
+    {
+      "name": "readonly 1536",
+      "pass": true
+    },
+    {
+      "name": "task-pagination 1536",
+      "pass": true
+    },
+    {
+      "name": "four-state 390",
+      "pass": true
+    },
+    {
+      "name": "shared-note 390",
+      "pass": true
+    },
+    {
+      "name": "student-pagination 390",
+      "pass": true
+    },
+    {
+      "name": "search 390",
+      "pass": true
+    },
+    {
+      "name": "bulk 390",
+      "pass": true
+    },
+    {
+      "name": "follow-add 390",
+      "pass": true
+    },
+    {
+      "name": "copy-feedback 390",
+      "pass": true
+    },
+    {
+      "name": "follow-remove 390",
+      "pass": true
+    },
+    {
+      "name": "validation 390",
+      "pass": true
+    },
+    {
+      "name": "dirty-cancel 390",
+      "pass": true
+    },
+    {
+      "name": "create-task 390",
+      "pass": true
+    },
+    {
+      "name": "delete-cancel 390",
+      "pass": true
+    },
+    {
+      "name": "delete-confirm 390",
+      "pass": true
+    },
+    {
+      "name": "readonly 390",
+      "pass": true
+    },
+    {
+      "name": "task-pagination 390",
+      "pass": true
+    }
+  ],
+  "consoleErrors": []
+}

@@ -1,146 +1,226 @@
 {
-  "stage": "inventory",
-  "basis": "source and old preservation inventory; not new design acceptance",
+  "stage": "P01-rendered-awaiting-user-review",
+  "basis": "Synthetic in-memory fixture; save/error/409 simulated by isolated host; not product acceptance",
   "states": [
     {
       "stateId": "normal",
       "applicable": true,
       "fixturePlanned": "synthetic local fixture",
-      "designStatus": "not-started",
-      "integrationStatus": "not-tested-this-round"
+      "designStatus": "rendered",
+      "integrationStatus": "not-tested-this-round",
+      "evidence": [
+        "docs/page-designs/V2/homework/screenshots/P01/1536-normal.png",
+        "docs/page-designs/V2/homework/screenshots/P01/390-normal.png"
+      ]
     },
     {
       "stateId": "empty-tasks",
       "applicable": true,
       "fixturePlanned": "synthetic local fixture",
-      "designStatus": "not-started",
-      "integrationStatus": "not-tested-this-round"
+      "designStatus": "rendered",
+      "integrationStatus": "not-tested-this-round",
+      "evidence": [
+        "docs/page-designs/V2/homework/screenshots/P01/1536-empty-tasks.png",
+        "docs/page-designs/V2/homework/screenshots/P01/390-empty-tasks.png"
+      ]
     },
     {
       "stateId": "tasks-30",
       "applicable": true,
       "fixturePlanned": "synthetic local fixture",
-      "designStatus": "not-started",
-      "integrationStatus": "not-tested-this-round"
+      "designStatus": "rendered",
+      "integrationStatus": "not-tested-this-round",
+      "evidence": [
+        "docs/page-designs/V2/homework/screenshots/P01/1536-tasks-30.png",
+        "docs/page-designs/V2/homework/screenshots/P01/390-tasks-30.png"
+      ]
     },
     {
       "stateId": "students-105",
       "applicable": true,
       "fixturePlanned": "synthetic local fixture",
-      "designStatus": "not-started",
-      "integrationStatus": "not-tested-this-round"
+      "designStatus": "rendered",
+      "integrationStatus": "not-tested-this-round",
+      "evidence": [
+        "docs/page-designs/V2/homework/screenshots/P01/1536-students-105.png",
+        "docs/page-designs/V2/homework/screenshots/P01/390-students-105.png"
+      ]
     },
     {
       "stateId": "long-title-note",
       "applicable": true,
       "fixturePlanned": "synthetic local fixture",
-      "designStatus": "not-started",
-      "integrationStatus": "not-tested-this-round"
+      "designStatus": "rendered",
+      "integrationStatus": "not-tested-this-round",
+      "evidence": [
+        "docs/page-designs/V2/homework/screenshots/P01/1536-long-title-note.png",
+        "docs/page-designs/V2/homework/screenshots/P01/390-long-title-note.png"
+      ]
     },
     {
       "stateId": "search-empty",
       "applicable": true,
       "fixturePlanned": "synthetic local fixture",
-      "designStatus": "not-started",
-      "integrationStatus": "not-tested-this-round"
+      "designStatus": "rendered",
+      "integrationStatus": "not-tested-this-round",
+      "evidence": [
+        "docs/page-designs/V2/homework/screenshots/P01/1536-search-empty.png",
+        "docs/page-designs/V2/homework/screenshots/P01/390-search-empty.png"
+      ]
     },
     {
       "stateId": "task-editor",
       "applicable": true,
       "fixturePlanned": "synthetic local fixture",
-      "designStatus": "not-started",
-      "integrationStatus": "not-tested-this-round"
+      "designStatus": "rendered",
+      "integrationStatus": "not-tested-this-round",
+      "evidence": [
+        "docs/page-designs/V2/homework/screenshots/P01/1536-task-editor.png",
+        "docs/page-designs/V2/homework/screenshots/P01/390-task-editor.png"
+      ]
     },
     {
       "stateId": "validation",
       "applicable": true,
       "fixturePlanned": "synthetic local fixture",
-      "designStatus": "not-started",
-      "integrationStatus": "not-tested-this-round"
+      "designStatus": "rendered",
+      "integrationStatus": "not-tested-this-round",
+      "evidence": [
+        "docs/page-designs/V2/homework/screenshots/P01/1536-validation.png",
+        "docs/page-designs/V2/homework/screenshots/P01/390-validation.png"
+      ]
     },
     {
       "stateId": "filters",
       "applicable": true,
       "fixturePlanned": "synthetic local fixture",
-      "designStatus": "not-started",
-      "integrationStatus": "not-tested-this-round"
+      "designStatus": "rendered",
+      "integrationStatus": "not-tested-this-round",
+      "evidence": [
+        "docs/page-designs/V2/homework/screenshots/P01/1536-filters.png",
+        "docs/page-designs/V2/homework/screenshots/P01/390-filters.png"
+      ]
     },
     {
       "stateId": "mobile-detail",
       "applicable": true,
       "fixturePlanned": "synthetic local fixture",
-      "designStatus": "not-started",
-      "integrationStatus": "not-tested-this-round"
+      "designStatus": "rendered",
+      "integrationStatus": "not-tested-this-round",
+      "evidence": [
+        "docs/page-designs/V2/homework/screenshots/P01/1536-mobile-detail.png",
+        "docs/page-designs/V2/homework/screenshots/P01/390-mobile-detail.png"
+      ]
     },
     {
       "stateId": "selected",
       "applicable": true,
       "fixturePlanned": "synthetic local fixture",
-      "designStatus": "not-started",
-      "integrationStatus": "not-tested-this-round"
+      "designStatus": "rendered",
+      "integrationStatus": "not-tested-this-round",
+      "evidence": [
+        "docs/page-designs/V2/homework/screenshots/P01/1536-selected.png",
+        "docs/page-designs/V2/homework/screenshots/P01/390-selected.png"
+      ]
     },
     {
       "stateId": "follow-empty",
       "applicable": true,
       "fixturePlanned": "synthetic local fixture",
-      "designStatus": "not-started",
-      "integrationStatus": "not-tested-this-round"
+      "designStatus": "rendered",
+      "integrationStatus": "not-tested-this-round",
+      "evidence": [
+        "docs/page-designs/V2/homework/screenshots/P01/1536-follow-empty.png",
+        "docs/page-designs/V2/homework/screenshots/P01/390-follow-empty.png"
+      ]
     },
     {
       "stateId": "follow-full",
       "applicable": true,
       "fixturePlanned": "synthetic local fixture",
-      "designStatus": "not-started",
-      "integrationStatus": "not-tested-this-round"
+      "designStatus": "rendered",
+      "integrationStatus": "not-tested-this-round",
+      "evidence": [
+        "docs/page-designs/V2/homework/screenshots/P01/1536-follow-full.png",
+        "docs/page-designs/V2/homework/screenshots/P01/390-follow-full.png"
+      ]
     },
     {
       "stateId": "loading",
       "applicable": true,
       "fixturePlanned": "synthetic local fixture",
-      "designStatus": "not-started",
-      "integrationStatus": "not-tested-this-round"
+      "designStatus": "rendered",
+      "integrationStatus": "not-tested-this-round",
+      "evidence": [
+        "docs/page-designs/V2/homework/screenshots/P01/1536-loading.png",
+        "docs/page-designs/V2/homework/screenshots/P01/390-loading.png"
+      ]
     },
     {
       "stateId": "readonly",
       "applicable": true,
       "fixturePlanned": "synthetic local fixture",
-      "designStatus": "not-started",
-      "integrationStatus": "not-tested-this-round"
+      "designStatus": "rendered",
+      "integrationStatus": "not-tested-this-round",
+      "evidence": [
+        "docs/page-designs/V2/homework/screenshots/P01/1536-readonly.png",
+        "docs/page-designs/V2/homework/screenshots/P01/390-readonly.png"
+      ]
     },
     {
       "stateId": "saving",
       "applicable": true,
       "fixturePlanned": "explicit simulated action adapter; later isolated integration",
-      "designStatus": "not-started",
-      "integrationStatus": "not-tested-this-round"
+      "designStatus": "rendered",
+      "integrationStatus": "not-tested-this-round",
+      "evidence": [
+        "docs/page-designs/V2/homework/screenshots/P01/1536-saving.png",
+        "docs/page-designs/V2/homework/screenshots/P01/390-saving.png"
+      ]
     },
     {
       "stateId": "save-failure",
       "applicable": true,
       "fixturePlanned": "explicit simulated action adapter; later isolated integration",
-      "designStatus": "not-started",
-      "integrationStatus": "not-tested-this-round"
+      "designStatus": "rendered",
+      "integrationStatus": "not-tested-this-round",
+      "evidence": [
+        "docs/page-designs/V2/homework/screenshots/P01/1536-save-failure.png",
+        "docs/page-designs/V2/homework/screenshots/P01/390-save-failure.png"
+      ]
     },
     {
       "stateId": "conflict-409",
       "applicable": true,
       "fixturePlanned": "explicit simulated action adapter; later isolated integration",
-      "designStatus": "not-started",
-      "integrationStatus": "not-tested-this-round"
+      "designStatus": "rendered",
+      "integrationStatus": "not-tested-this-round",
+      "evidence": [
+        "docs/page-designs/V2/homework/screenshots/P01/1536-conflict-409.png",
+        "docs/page-designs/V2/homework/screenshots/P01/390-conflict-409.png"
+      ]
     },
     {
       "stateId": "dirty-close",
       "applicable": true,
       "fixturePlanned": "synthetic local fixture",
-      "designStatus": "not-started",
-      "integrationStatus": "not-tested-this-round"
+      "designStatus": "rendered",
+      "integrationStatus": "not-tested-this-round",
+      "evidence": [
+        "docs/page-designs/V2/homework/screenshots/P01/1536-dirty-close.png",
+        "docs/page-designs/V2/homework/screenshots/P01/390-dirty-close.png"
+      ]
     },
     {
       "stateId": "delete-confirm",
       "applicable": true,
       "fixturePlanned": "synthetic local fixture",
-      "designStatus": "not-started",
-      "integrationStatus": "not-tested-this-round"
+      "designStatus": "rendered",
+      "integrationStatus": "not-tested-this-round",
+      "evidence": [
+        "docs/page-designs/V2/homework/screenshots/P01/1536-delete-confirm.png",
+        "docs/page-designs/V2/homework/screenshots/P01/390-delete-confirm.png"
+      ]
     }
   ],
   "currentObservations": [

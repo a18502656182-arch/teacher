@@ -1,0 +1,936 @@
+{
+  "createdAt": "2026-09-15T02:36:01.799Z",
+  "browser": {
+    "protocolVersion": "1.3",
+    "product": "Chrome/152.0.7977.82",
+    "revision": "@d04cdb24d67b081f6cf80200ffc5233f44b61109",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/152.0.0.0 Safari/537.36",
+    "jsVersion": "15.2.124.21"
+  },
+  "evidence": [
+    {
+      "stateId": "normal",
+      "viewport": "1536x1024",
+      "dpr": 1,
+      "url": "http://127.0.0.1:4208/homework.html?state=normal",
+      "path": "1536-normal.png",
+      "sha256": "021BFCD14C42CCDE8188613433A67FAC0EFDA1B39AD6984503A6E4B05FF27FF0",
+      "fixtureSha256": "30803CD1B461CE2DE05B4F236B577F9D2A1A059340FACB064CCB19A5A36B41BC",
+      "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+      "platformFonts": [
+        {
+          "familyName": "Microsoft YaHei",
+          "postScriptName": "MicrosoftYaHei-Bold",
+          "isCustomFont": false,
+          "glyphCount": 4
+        }
+      ],
+      "info": {
+        "ready": true,
+        "width": 1536,
+        "scrollWidth": 1521,
+        "regions": {
+          "heading": {
+            "x": 268,
+            "y": 96,
+            "width": 1229,
+            "height": 44,
+            "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(23, 53, 74)",
+            "background": "rgba(0, 0, 0, 0)",
+            "padding": "0px",
+            "gap": "20px"
+          },
+          "H1": {
+            "x": 268,
+            "y": 98.5,
+            "width": 120,
+            "height": 39,
+            "font": "700 30px / 39px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(23, 53, 74)",
+            "background": "rgba(0, 0, 0, 0)",
+            "padding": "0px",
+            "gap": "normal"
+          },
+          "tasks": {
+            "x": 268,
+            "y": 158,
+            "width": 310,
+            "height": 772.375,
+            "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(23, 53, 74)",
+            "background": "rgb(255, 254, 250)",
+            "padding": "16px 12px",
+            "gap": "normal"
+          },
+          "student-workspace": {
+            "x": 597,
+            "y": 159,
+            "width": 899,
+            "height": 883.984375,
+            "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(23, 53, 74)",
+            "background": "rgba(0, 0, 0, 0)",
+            "padding": "0px",
+            "gap": "normal"
+          },
+          "task-context": {
+            "x": 597,
+            "y": 159,
+            "width": 899,
+            "height": 146,
+            "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(23, 53, 74)",
+            "background": "rgb(234, 246, 252)",
+            "padding": "24px",
+            "gap": "16px"
+          }
+        },
+        "dialogs": [],
+        "squeezed": [],
+        "images": [
+          {
+            "src": "http://127.0.0.1:4208/@fs/E:/%E6%96%87%E6%A1%A3/Codex/%E5%B0%8F%E7%BA%A2%E4%B9%A6/%E7%8F%AD%E4%B8%BB%E4%BB%BB%E5%B7%A5%E4%BD%9C%E5%8F%B0%E7%BD%91%E7%AB%99/app/designs/homework/stationery-p01.png",
+            "complete": true,
+            "naturalWidth": 1536
+          }
+        ],
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "bodyText": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档"
+      }
+    },
+    {
+      "stateId": "mobile-detail",
+      "viewport": "1536x1024",
+      "dpr": 1,
+      "url": "http://127.0.0.1:4208/homework.html?state=mobile-detail",
+      "path": "1536-mobile-detail.png",
+      "sha256": "021BFCD14C42CCDE8188613433A67FAC0EFDA1B39AD6984503A6E4B05FF27FF0",
+      "fixtureSha256": "30803CD1B461CE2DE05B4F236B577F9D2A1A059340FACB064CCB19A5A36B41BC",
+      "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+      "platformFonts": [
+        {
+          "familyName": "Microsoft YaHei",
+          "postScriptName": "MicrosoftYaHei-Bold",
+          "isCustomFont": false,
+          "glyphCount": 4
+        }
+      ],
+      "info": {
+        "ready": true,
+        "width": 1536,
+        "scrollWidth": 1521,
+        "regions": {
+          "heading": {
+            "x": 268,
+            "y": 96,
+            "width": 1229,
+            "height": 44,
+            "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(23, 53, 74)",
+            "background": "rgba(0, 0, 0, 0)",
+            "padding": "0px",
+            "gap": "20px"
+          },
+          "H1": {
+            "x": 268,
+            "y": 98.5,
+            "width": 120,
+            "height": 39,
+            "font": "700 30px / 39px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(23, 53, 74)",
+            "background": "rgba(0, 0, 0, 0)",
+            "padding": "0px",
+            "gap": "normal"
+          },
+          "tasks": {
+            "x": 268,
+            "y": 158,
+            "width": 310,
+            "height": 772.375,
+            "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(23, 53, 74)",
+            "background": "rgb(255, 254, 250)",
+            "padding": "16px 12px",
+            "gap": "normal"
+          },
+          "student-workspace": {
+            "x": 597,
+            "y": 159,
+            "width": 899,
+            "height": 883.984375,
+            "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(23, 53, 74)",
+            "background": "rgba(0, 0, 0, 0)",
+            "padding": "0px",
+            "gap": "normal"
+          },
+          "task-context": {
+            "x": 597,
+            "y": 159,
+            "width": 899,
+            "height": 146,
+            "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(23, 53, 74)",
+            "background": "rgb(234, 246, 252)",
+            "padding": "24px",
+            "gap": "16px"
+          }
+        },
+        "dialogs": [],
+        "squeezed": [],
+        "images": [
+          {
+            "src": "http://127.0.0.1:4208/@fs/E:/%E6%96%87%E6%A1%A3/Codex/%E5%B0%8F%E7%BA%A2%E4%B9%A6/%E7%8F%AD%E4%B8%BB%E4%BB%BB%E5%B7%A5%E4%BD%9C%E5%8F%B0%E7%BD%91%E7%AB%99/app/designs/homework/stationery-p01.png",
+            "complete": true,
+            "naturalWidth": 1536
+          }
+        ],
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "bodyText": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档"
+      }
+    },
+    {
+      "stateId": "long-title-note",
+      "viewport": "1536x1024",
+      "dpr": 1,
+      "url": "http://127.0.0.1:4208/homework.html?state=long-title-note",
+      "path": "1536-long-title-note.png",
+      "sha256": "9376AA5FC1819195506238FC4200087EF9D98E874FBB72E991010EED8C18F1BC",
+      "fixtureSha256": "1B2D19452ECD1B17C14DC90AD2BF9BE7916BDDC1205EB55233AF0684A8B6BC59",
+      "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+      "platformFonts": [
+        {
+          "familyName": "Microsoft YaHei",
+          "postScriptName": "MicrosoftYaHei-Bold",
+          "isCustomFont": false,
+          "glyphCount": 4
+        }
+      ],
+      "info": {
+        "ready": true,
+        "width": 1536,
+        "scrollWidth": 1521,
+        "regions": {
+          "heading": {
+            "x": 268,
+            "y": 96,
+            "width": 1229,
+            "height": 44,
+            "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(23, 53, 74)",
+            "background": "rgba(0, 0, 0, 0)",
+            "padding": "0px",
+            "gap": "20px"
+          },
+          "H1": {
+            "x": 268,
+            "y": 98.5,
+            "width": 120,
+            "height": 39,
+            "font": "700 30px / 39px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(23, 53, 74)",
+            "background": "rgba(0, 0, 0, 0)",
+            "padding": "0px",
+            "gap": "normal"
+          },
+          "tasks": {
+            "x": 268,
+            "y": 158,
+            "width": 310,
+            "height": 907.1875,
+            "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(23, 53, 74)",
+            "background": "rgb(255, 254, 250)",
+            "padding": "16px 12px",
+            "gap": "normal"
+          },
+          "student-workspace": {
+            "x": 597,
+            "y": 159,
+            "width": 899,
+            "height": 1096.375,
+            "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(23, 53, 74)",
+            "background": "rgba(0, 0, 0, 0)",
+            "padding": "0px",
+            "gap": "normal"
+          },
+          "task-context": {
+            "x": 597,
+            "y": 159,
+            "width": 899,
+            "height": 358.390625,
+            "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(23, 53, 74)",
+            "background": "rgb(234, 246, 252)",
+            "padding": "24px",
+            "gap": "16px"
+          }
+        },
+        "dialogs": [],
+        "squeezed": [],
+        "images": [
+          {
+            "src": "http://127.0.0.1:4208/@fs/E:/%E6%96%87%E6%A1%A3/Codex/%E5%B0%8F%E7%BA%A2%E4%B9%A6/%E7%8F%AD%E4%B8%BB%E4%BB%BB%E5%B7%A5%E4%BD%9C%E5%8F%B0%E7%BD%91%E7%AB%99/app/designs/homework/stationery-p01.png",
+            "complete": true,
+            "naturalWidth": 1536
+          }
+        ],
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "bodyText": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档"
+      }
+    },
+    {
+      "stateId": "selected",
+      "viewport": "1536x1024",
+      "dpr": 1,
+      "url": "http://127.0.0.1:4208/homework.html?state=selected",
+      "path": "1536-selected.png",
+      "sha256": "F450661E8E92A3858729513266C088430C773B644C8128867F6049FCBC79697A",
+      "fixtureSha256": "30803CD1B461CE2DE05B4F236B577F9D2A1A059340FACB064CCB19A5A36B41BC",
+      "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+      "platformFonts": [
+        {
+          "familyName": "Microsoft YaHei",
+          "postScriptName": "MicrosoftYaHei-Bold",
+          "isCustomFont": false,
+          "glyphCount": 4
+        }
+      ],
+      "info": {
+        "ready": true,
+        "width": 1536,
+        "scrollWidth": 1521,
+        "regions": {
+          "heading": {
+            "x": 268,
+            "y": 96,
+            "width": 1229,
+            "height": 44,
+            "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(23, 53, 74)",
+            "background": "rgba(0, 0, 0, 0)",
+            "padding": "0px",
+            "gap": "20px"
+          },
+          "H1": {
+            "x": 268,
+            "y": 98.5,
+            "width": 120,
+            "height": 39,
+            "font": "700 30px / 39px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(23, 53, 74)",
+            "background": "rgba(0, 0, 0, 0)",
+            "padding": "0px",
+            "gap": "normal"
+          },
+          "tasks": {
+            "x": 268,
+            "y": 158,
+            "width": 310,
+            "height": 772.375,
+            "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(23, 53, 74)",
+            "background": "rgb(255, 254, 250)",
+            "padding": "16px 12px",
+            "gap": "normal"
+          },
+          "student-workspace": {
+            "x": 597,
+            "y": 159,
+            "width": 899,
+            "height": 974.375,
+            "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(23, 53, 74)",
+            "background": "rgba(0, 0, 0, 0)",
+            "padding": "0px",
+            "gap": "normal"
+          },
+          "task-context": {
+            "x": 597,
+            "y": 159,
+            "width": 899,
+            "height": 146,
+            "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(23, 53, 74)",
+            "background": "rgb(234, 246, 252)",
+            "padding": "24px",
+            "gap": "16px"
+          }
+        },
+        "dialogs": [],
+        "squeezed": [],
+        "images": [
+          {
+            "src": "http://127.0.0.1:4208/@fs/E:/%E6%96%87%E6%A1%A3/Codex/%E5%B0%8F%E7%BA%A2%E4%B9%A6/%E7%8F%AD%E4%B8%BB%E4%BB%BB%E5%B7%A5%E4%BD%9C%E5%8F%B0%E7%BD%91%E7%AB%99/app/designs/homework/stationery-p01.png",
+            "complete": true,
+            "naturalWidth": 1536
+          }
+        ],
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "bodyText": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档"
+      }
+    },
+    {
+      "stateId": "empty-tasks",
+      "viewport": "1536x1024",
+      "dpr": 1,
+      "url": "http://127.0.0.1:4208/homework.html?state=empty-tasks",
+      "path": "1536-empty-tasks.png",
+      "sha256": "2D8F9D9B266140AECB77F1E353AA1D000F6AD2BBB799064A9FF973699477FC61",
+      "fixtureSha256": "26BBB5F366FC4FF9B877A3F5CD0DD69577C7914AC20AED182144C7284F004364",
+      "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+      "platformFonts": [
+        {
+          "familyName": "Microsoft YaHei",
+          "postScriptName": "MicrosoftYaHei-Bold",
+          "isCustomFont": false,
+          "glyphCount": 4
+        }
+      ],
+      "info": {
+        "ready": true,
+        "width": 1536,
+        "scrollWidth": 1521,
+        "regions": {
+          "heading": {
+            "x": 268,
+            "y": 96,
+            "width": 1229,
+            "height": 44,
+            "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(23, 53, 74)",
+            "background": "rgba(0, 0, 0, 0)",
+            "padding": "0px",
+            "gap": "20px"
+          },
+          "H1": {
+            "x": 268,
+            "y": 98.5,
+            "width": 120,
+            "height": 39,
+            "font": "700 30px / 39px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(23, 53, 74)",
+            "background": "rgba(0, 0, 0, 0)",
+            "padding": "0px",
+            "gap": "normal"
+          },
+          "tasks": {
+            "x": 268,
+            "y": 158,
+            "width": 310,
+            "height": 907.1875,
+            "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(23, 53, 74)",
+            "background": "rgb(255, 254, 250)",
+            "padding": "16px 12px",
+            "gap": "normal"
+          }
+        },
+        "dialogs": [],
+        "squeezed": [],
+        "images": [
+          {
+            "src": "/art/campus/word-cards.webp",
+            "complete": true,
+            "naturalWidth": 600
+          },
+          {
+            "src": "/art/campus/homework-context-v2.webp",
+            "complete": true,
+            "naturalWidth": 1200
+          }
+        ],
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "bodyText": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档"
+      }
+    },
+    {
+      "stateId": "normal",
+      "viewport": "390x844",
+      "dpr": 1,
+      "url": "http://127.0.0.1:4208/homework.html?state=normal",
+      "path": "390-normal.png",
+      "sha256": "427D024CC12754BEE1D5A43D0632A120176651393F0CA607FB459EC585E3C9A5",
+      "fixtureSha256": "30803CD1B461CE2DE05B4F236B577F9D2A1A059340FACB064CCB19A5A36B41BC",
+      "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+      "platformFonts": [],
+      "info": {
+        "ready": true,
+        "width": 390,
+        "scrollWidth": 375,
+        "regions": {
+          "DIV": {
+            "x": 0,
+            "y": 0,
+            "width": 375,
+            "height": 64,
+            "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(23, 53, 74)",
+            "background": "rgb(255, 253, 248)",
+            "padding": "0px",
+            "gap": "normal"
+          },
+          "HEADER": {
+            "x": 0,
+            "y": 0,
+            "width": 375,
+            "height": 64,
+            "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(23, 53, 74)",
+            "background": "rgb(255, 255, 255)",
+            "padding": "9px 14px",
+            "gap": "8px 12px"
+          },
+          "H1": {
+            "x": 112,
+            "y": 10.453125,
+            "width": 72,
+            "height": 22.5,
+            "font": "700 18px / 22.5px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(23, 53, 74)",
+            "background": "rgba(0, 0, 0, 0)",
+            "padding": "0px",
+            "gap": "normal"
+          },
+          "heading": {
+            "x": 16,
+            "y": 64,
+            "width": 343,
+            "height": 110,
+            "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(23, 53, 74)",
+            "background": "rgba(0, 0, 0, 0)",
+            "padding": "12px 0px",
+            "gap": "20px"
+          },
+          "tasks": {
+            "x": 16,
+            "y": 188,
+            "width": 343,
+            "height": 709.375,
+            "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(23, 53, 74)",
+            "background": "rgba(0, 0, 0, 0)",
+            "padding": "0px",
+            "gap": "normal"
+          }
+        },
+        "dialogs": [],
+        "squeezed": [],
+        "images": [
+          {
+            "src": "http://127.0.0.1:4208/@fs/E:/%E6%96%87%E6%A1%A3/Codex/%E5%B0%8F%E7%BA%A2%E4%B9%A6/%E7%8F%AD%E4%B8%BB%E4%BB%BB%E5%B7%A5%E4%BD%9C%E5%8F%B0%E7%BD%91%E7%AB%99/app/designs/homework/stationery-p01.png",
+            "complete": true,
+            "naturalWidth": 1536
+          }
+        ],
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "bodyText": "作业追踪\n\n三年级 · 32人\n\n已保存\n新增作业\n搜索作业\n学科\n全部学科\n数学\n英语\n语文\n高级筛选\n找到 3 项\n数\n数学\n2026-09-14\n练习册第"
+      }
+    },
+    {
+      "stateId": "mobile-detail",
+      "viewport": "390x844",
+      "dpr": 1,
+      "url": "http://127.0.0.1:4208/homework.html?state=mobile-detail",
+      "path": "390-mobile-detail.png",
+      "sha256": "BDA571A3C355F7135BE3FE5474C8F45C877D9826C8A2BE02BE3AEAF2AFCC2915",
+      "fixtureSha256": "30803CD1B461CE2DE05B4F236B577F9D2A1A059340FACB064CCB19A5A36B41BC",
+      "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+      "platformFonts": [],
+      "info": {
+        "ready": true,
+        "width": 390,
+        "scrollWidth": 375,
+        "regions": {
+          "DIV": {
+            "x": 0,
+            "y": 0,
+            "width": 375,
+            "height": 64,
+            "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(23, 53, 74)",
+            "background": "rgb(255, 253, 248)",
+            "padding": "0px",
+            "gap": "normal"
+          },
+          "HEADER": {
+            "x": 0,
+            "y": 0,
+            "width": 375,
+            "height": 64,
+            "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(23, 53, 74)",
+            "background": "rgb(255, 255, 255)",
+            "padding": "9px 14px",
+            "gap": "8px 12px"
+          },
+          "H1": {
+            "x": 112,
+            "y": 10.453125,
+            "width": 72,
+            "height": 22.5,
+            "font": "700 18px / 22.5px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(23, 53, 74)",
+            "background": "rgba(0, 0, 0, 0)",
+            "padding": "0px",
+            "gap": "normal"
+          },
+          "heading": {
+            "x": 16,
+            "y": 64,
+            "width": 343,
+            "height": 110,
+            "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(23, 53, 74)",
+            "background": "rgba(0, 0, 0, 0)",
+            "padding": "12px 0px",
+            "gap": "20px"
+          },
+          "tasks": {
+            "x": 16,
+            "y": 188,
+            "width": 343,
+            "height": 709.375,
+            "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(23, 53, 74)",
+            "background": "rgba(0, 0, 0, 0)",
+            "padding": "0px",
+            "gap": "normal"
+          },
+          "student-workspace": {
+            "x": 16,
+            "y": 105,
+            "width": 313,
+            "height": 4832.828125,
+            "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(23, 53, 74)",
+            "background": "rgba(0, 0, 0, 0)",
+            "padding": "0px",
+            "gap": "normal"
+          },
+          "task-context": {
+            "x": 16,
+            "y": 105,
+            "width": 313,
+            "height": 142.390625,
+            "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(23, 53, 74)",
+            "background": "rgb(234, 246, 252)",
+            "padding": "16px",
+            "gap": "8px"
+          }
+        },
+        "dialogs": [
+          "语文 · 作业处理\n关闭\n语文 · 第3课生字练习\n\n2026-09-14 · 32 名学生\n\n任务操作\n已交\n20\n未交\n3\n待订正\n5\n已复查\n4\n完成率\n75%\n搜索学生\n状态\n全部\n已交\n未交\n待订正\n已复查\n小组\n全部小组\n第1组\n第2组\n第3组\n第4组\n第5组\n第6组\n第7组\n第8组\n学生\n选择学生01\n学生01\n学号 01 · 第1组\n已交\n未交\n待订正\n已复查\n学生公共备注\n选择学生02\n学生02\n学号 02 · 第1组\n已交\n未交\n待订正\n已复查\n学生公共备注\n选择学生03\n学生03\n学号 03 · 第1组\n已交\n未交\n待订正\n已复查\n学生公共备注\n选择学生04\n学生04\n学号 04 · 第1组\n已交\n未交\n待订正\n已复查\n学生公共备注\n选择学生05\n学生05\n学号 05 "
+        ],
+        "squeezed": [],
+        "images": [
+          {
+            "src": "http://127.0.0.1:4208/@fs/E:/%E6%96%87%E6%A1%A3/Codex/%E5%B0%8F%E7%BA%A2%E4%B9%A6/%E7%8F%AD%E4%B8%BB%E4%BB%BB%E5%B7%A5%E4%BD%9C%E5%8F%B0%E7%BD%91%E7%AB%99/app/designs/homework/stationery-p01.png",
+            "complete": true,
+            "naturalWidth": 1536
+          },
+          {
+            "src": "http://127.0.0.1:4208/@fs/E:/%E6%96%87%E6%A1%A3/Codex/%E5%B0%8F%E7%BA%A2%E4%B9%A6/%E7%8F%AD%E4%B8%BB%E4%BB%BB%E5%B7%A5%E4%BD%9C%E5%8F%B0%E7%BD%91%E7%AB%99/app/designs/homework/stationery-p01.png",
+            "complete": true,
+            "naturalWidth": 1536
+          }
+        ],
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "bodyText": "作业追踪\n\n三年级 · 32人\n\n已保存\n新增作业\n搜索作业\n学科\n全部学科\n数学\n英语\n语文\n高级筛选\n找到 3 项\n数\n数学\n2026-09-14\n练习册第"
+      }
+    },
+    {
+      "stateId": "long-title-note",
+      "viewport": "390x844",
+      "dpr": 1,
+      "url": "http://127.0.0.1:4208/homework.html?state=long-title-note",
+      "path": "390-long-title-note.png",
+      "sha256": "CC22077779F163388442FA9F862C4FA55FD6CFA50123D4DC4CB62906D8C7E22B",
+      "fixtureSha256": "1B2D19452ECD1B17C14DC90AD2BF9BE7916BDDC1205EB55233AF0684A8B6BC59",
+      "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+      "platformFonts": [],
+      "info": {
+        "ready": true,
+        "width": 390,
+        "scrollWidth": 375,
+        "regions": {
+          "DIV": {
+            "x": 0,
+            "y": 0,
+            "width": 375,
+            "height": 64,
+            "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(23, 53, 74)",
+            "background": "rgb(255, 253, 248)",
+            "padding": "0px",
+            "gap": "normal"
+          },
+          "HEADER": {
+            "x": 0,
+            "y": 0,
+            "width": 375,
+            "height": 64,
+            "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(23, 53, 74)",
+            "background": "rgb(255, 255, 255)",
+            "padding": "9px 14px",
+            "gap": "8px 12px"
+          },
+          "H1": {
+            "x": 112,
+            "y": 10.453125,
+            "width": 72,
+            "height": 22.5,
+            "font": "700 18px / 22.5px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(23, 53, 74)",
+            "background": "rgba(0, 0, 0, 0)",
+            "padding": "0px",
+            "gap": "normal"
+          },
+          "heading": {
+            "x": 16,
+            "y": 64,
+            "width": 343,
+            "height": 110,
+            "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(23, 53, 74)",
+            "background": "rgba(0, 0, 0, 0)",
+            "padding": "12px 0px",
+            "gap": "20px"
+          },
+          "tasks": {
+            "x": 16,
+            "y": 188,
+            "width": 343,
+            "height": 777.1875,
+            "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(23, 53, 74)",
+            "background": "rgba(0, 0, 0, 0)",
+            "padding": "0px",
+            "gap": "normal"
+          }
+        },
+        "dialogs": [],
+        "squeezed": [],
+        "images": [
+          {
+            "src": "http://127.0.0.1:4208/@fs/E:/%E6%96%87%E6%A1%A3/Codex/%E5%B0%8F%E7%BA%A2%E4%B9%A6/%E7%8F%AD%E4%B8%BB%E4%BB%BB%E5%B7%A5%E4%BD%9C%E5%8F%B0%E7%BD%91%E7%AB%99/app/designs/homework/stationery-p01.png",
+            "complete": true,
+            "naturalWidth": 1536
+          }
+        ],
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "bodyText": "作业追踪\n\n三年级 · 32人\n\n已保存\n新增作业\n搜索作业\n学科\n全部学科\n数学\n英语\n语文\n高级筛选\n找到 3 项\n数\n数学\n2026-09-14\n练习册第"
+      }
+    },
+    {
+      "stateId": "selected",
+      "viewport": "390x844",
+      "dpr": 1,
+      "url": "http://127.0.0.1:4208/homework.html?state=selected",
+      "path": "390-selected.png",
+      "sha256": "620AD8A8FC69BD22F94121426450EF3128BEAA26B0933D81120CB685CEFD413D",
+      "fixtureSha256": "30803CD1B461CE2DE05B4F236B577F9D2A1A059340FACB064CCB19A5A36B41BC",
+      "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+      "platformFonts": [],
+      "info": {
+        "ready": true,
+        "width": 390,
+        "scrollWidth": 375,
+        "regions": {
+          "DIV": {
+            "x": 0,
+            "y": 0,
+            "width": 375,
+            "height": 64,
+            "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(23, 53, 74)",
+            "background": "rgb(255, 253, 248)",
+            "padding": "0px",
+            "gap": "normal"
+          },
+          "HEADER": {
+            "x": 0,
+            "y": 0,
+            "width": 375,
+            "height": 64,
+            "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(23, 53, 74)",
+            "background": "rgb(255, 255, 255)",
+            "padding": "9px 14px",
+            "gap": "8px 12px"
+          },
+          "H1": {
+            "x": 112,
+            "y": 10.453125,
+            "width": 72,
+            "height": 22.5,
+            "font": "700 18px / 22.5px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(23, 53, 74)",
+            "background": "rgba(0, 0, 0, 0)",
+            "padding": "0px",
+            "gap": "normal"
+          },
+          "heading": {
+            "x": 16,
+            "y": 64,
+            "width": 343,
+            "height": 110,
+            "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(23, 53, 74)",
+            "background": "rgba(0, 0, 0, 0)",
+            "padding": "12px 0px",
+            "gap": "20px"
+          },
+          "tasks": {
+            "x": 16,
+            "y": 188,
+            "width": 343,
+            "height": 709.375,
+            "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(23, 53, 74)",
+            "background": "rgba(0, 0, 0, 0)",
+            "padding": "0px",
+            "gap": "normal"
+          },
+          "student-workspace": {
+            "x": 16,
+            "y": 105,
+            "width": 313,
+            "height": 5135.21875,
+            "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(23, 53, 74)",
+            "background": "rgba(0, 0, 0, 0)",
+            "padding": "0px",
+            "gap": "normal"
+          },
+          "task-context": {
+            "x": 16,
+            "y": 105,
+            "width": 313,
+            "height": 142.390625,
+            "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(23, 53, 74)",
+            "background": "rgb(234, 246, 252)",
+            "padding": "16px",
+            "gap": "8px"
+          }
+        },
+        "dialogs": [
+          "语文 · 作业处理\n关闭\n语文 · 第3课生字练习\n\n2026-09-14 · 32 名学生\n\n任务操作\n已交\n20\n未交\n3\n待订正\n5\n已复查\n4\n完成率\n75%\n搜索学生\n状态\n全部\n已交\n未交\n待订正\n已复查\n小组\n全部小组\n第1组\n第2组\n第3组\n第4组\n第5组\n第6组\n第7组\n第8组\n已选 2 人\n当前筛选 32 人\n全选本页\n批量改状态\n加入待跟进\n清空选择\n学生\n选择学生01\n学生01\n学号 01 · 第1组\n已交\n未交\n待订正\n已复查\n学生公共备注\n选择学生02\n学生02\n学号 02 · 第1组\n已交\n未交\n待订正\n已复查\n学生公共备注\n选择学生03\n学生03\n学号 03 · 第1组\n已交\n未交\n待订正\n已复查\n学生公共备注\n选择学生04\n学生04\n学号 04 · 第1组\n"
+        ],
+        "squeezed": [],
+        "images": [
+          {
+            "src": "http://127.0.0.1:4208/@fs/E:/%E6%96%87%E6%A1%A3/Codex/%E5%B0%8F%E7%BA%A2%E4%B9%A6/%E7%8F%AD%E4%B8%BB%E4%BB%BB%E5%B7%A5%E4%BD%9C%E5%8F%B0%E7%BD%91%E7%AB%99/app/designs/homework/stationery-p01.png",
+            "complete": true,
+            "naturalWidth": 1536
+          },
+          {
+            "src": "http://127.0.0.1:4208/@fs/E:/%E6%96%87%E6%A1%A3/Codex/%E5%B0%8F%E7%BA%A2%E4%B9%A6/%E7%8F%AD%E4%B8%BB%E4%BB%BB%E5%B7%A5%E4%BD%9C%E5%8F%B0%E7%BD%91%E7%AB%99/app/designs/homework/stationery-p01.png",
+            "complete": true,
+            "naturalWidth": 1536
+          }
+        ],
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "bodyText": "作业追踪\n\n三年级 · 32人\n\n已保存\n新增作业\n搜索作业\n学科\n全部学科\n数学\n英语\n语文\n高级筛选\n找到 3 项\n数\n数学\n2026-09-14\n练习册第"
+      }
+    },
+    {
+      "stateId": "empty-tasks",
+      "viewport": "390x844",
+      "dpr": 1,
+      "url": "http://127.0.0.1:4208/homework.html?state=empty-tasks",
+      "path": "390-empty-tasks.png",
+      "sha256": "A9FF9FA77D37B0BA9E741DC0247BE1E6332BE75D9962C76880908BCBC64C1F74",
+      "fixtureSha256": "26BBB5F366FC4FF9B877A3F5CD0DD69577C7914AC20AED182144C7284F004364",
+      "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+      "platformFonts": [],
+      "info": {
+        "ready": true,
+        "width": 390,
+        "scrollWidth": 375,
+        "regions": {
+          "DIV": {
+            "x": 0,
+            "y": 0,
+            "width": 375,
+            "height": 64,
+            "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(23, 53, 74)",
+            "background": "rgb(255, 253, 248)",
+            "padding": "0px",
+            "gap": "normal"
+          },
+          "HEADER": {
+            "x": 0,
+            "y": 0,
+            "width": 375,
+            "height": 64,
+            "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(23, 53, 74)",
+            "background": "rgb(255, 255, 255)",
+            "padding": "9px 14px",
+            "gap": "8px 12px"
+          },
+          "H1": {
+            "x": 112,
+            "y": 10.453125,
+            "width": 72,
+            "height": 22.5,
+            "font": "700 18px / 22.5px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(23, 53, 74)",
+            "background": "rgba(0, 0, 0, 0)",
+            "padding": "0px",
+            "gap": "normal"
+          },
+          "heading": {
+            "x": 16,
+            "y": 64,
+            "width": 343,
+            "height": 110,
+            "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(23, 53, 74)",
+            "background": "rgba(0, 0, 0, 0)",
+            "padding": "12px 0px",
+            "gap": "20px"
+          },
+          "tasks": {
+            "x": 16,
+            "y": 188,
+            "width": 343,
+            "height": 590.375,
+            "font": "16px / 25.6px \"PingFang SC\", \"Microsoft YaHei\", system-ui, sans-serif",
+            "color": "rgb(23, 53, 74)",
+            "background": "rgba(0, 0, 0, 0)",
+            "padding": "0px",
+            "gap": "normal"
+          }
+        },
+        "dialogs": [],
+        "squeezed": [],
+        "images": [
+          {
+            "src": "http://127.0.0.1:4208/@fs/E:/%E6%96%87%E6%A1%A3/Codex/%E5%B0%8F%E7%BA%A2%E4%B9%A6/%E7%8F%AD%E4%B8%BB%E4%BB%BB%E5%B7%A5%E4%BD%9C%E5%8F%B0%E7%BD%91%E7%AB%99/app/designs/homework/stationery-p01.png",
+            "complete": true,
+            "naturalWidth": 1536
+          },
+          {
+            "src": "/art/campus/word-cards.webp",
+            "complete": true,
+            "naturalWidth": 600
+          }
+        ],
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "bodyText": "作业追踪\n\n三年级 · 32人\n\n已保存\n新增作业\n搜索作业\n学科\n全部学科\n高级筛选\n找到 0 项\n还没有作业任务\n\n新增作业后，逐生记录提交、订正和复查状态"
+      }
+    }
+  ],
+  "failures": [],
+  "interactions": [],
+  "consoleErrors": []
+}

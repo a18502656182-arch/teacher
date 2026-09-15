@@ -1,0 +1,10 @@
+
+E:\文档\Codex\小红书\班主任工作台网站\app\designs\homework\HomeworkDesign.tsx
+  238:9   warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+  650:22  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+E:\文档\Codex\小红书\班主任工作台网站\tools\ui-preview\homework.tsx
+  48:5  warning  React Hook useEffect has a missing dependency: 'mobile'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+✖ 3 problems (0 errors, 3 warnings)
+

@@ -1,0 +1,28 @@
+{
+  "stage": "P01 runnable design, awaiting D",
+  "designCommit": null,
+  "font": {
+    "family": "Microsoft YaHei",
+    "source": "Windows installed font, desktop CDP actual platform sample; mobile uses same system stack",
+    "distributed": false
+  },
+  "files": [
+    {
+      "path": "app/designs/homework/stationery-p01.png",
+      "sha256": "BAAA8E05BA57379E0858E894F44F803019BC0866BC016A2EF98D113944C4A371",
+      "width": 1536,
+      "height": 1024,
+      "purpose": "Homework task context and mobile header",
+      "source": "built-in ImageGen generated2026-09-15",
+      "prompt": "docs/page-designs/V2/homework/candidates/stationery-prompt-p01.md",
+      "crop": "CSS cover at task context290x146 focal70%65%, mobile155x110 at .38 opacity; list200x110; no destructive crop",
+      "distribution": "Project-generated image; no external font or stock license claim"
+    },
+    {
+      "path": "public/art/campus/homework-context-v2.webp",
+      "sha256": "D5A3CCF995E2CAEFE364C4A7A27279347828F84E2B61E0F8A5186F0CDEB20F4D",
+      "purpose": "Unchanged empty-workspace artwork",
+      "source": "Existing committed shared ThemeArtwork"
+    }
+  ]
+}

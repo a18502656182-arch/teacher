@@ -1,0 +1,27 @@
+{
+  "createdAt": "2026-09-15T02:38:42.335Z",
+  "productCommit": "d086900b54ee8ca891b04c0a172720bf498df8b4",
+  "environment": {
+    "node": "v24.19.0",
+    "platform": "win32",
+    "browser": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+    "url": "http://127.0.0.1:4180/w/demo",
+    "scenario": "unchanged-demo",
+    "fixedDate": null
+  },
+  "results": [
+    {
+      "name": "static",
+      "failures": []
+    },
+    {
+      "name": "runtime",
+      "failures": [
+        "Runtime audit failed: TypeError: Cannot read properties of undefined (reading 'querySelectorAll')\n    at <anonymous>:5:30\n    at <anonymous>:46:5"
+      ]
+    }
+  ],
+  "failures": [
+    "runtime: Runtime audit failed: TypeError: Cannot read properties of undefined (reading 'querySelectorAll')\n    at <anonymous>:5:30\n    at <anonymous>:46:5"
+  ]
+}
