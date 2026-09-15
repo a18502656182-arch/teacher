@@ -1,0 +1,26 @@
+{
+  "sourceCommit": "d7450bba192d5a0124cd2e642c49a8127d53c94d",
+  "assets": [
+    {
+      "path": "app/designs/attendance/calendar-p01.png",
+      "sha256": "50A0ABF03FF74A03B54AC70B05E11DA58D2789F1B9D69BCC048941D3B2D5A767",
+      "pixelSize": [
+        1536,
+        1024
+      ],
+      "source": "built-in ImageGen authored 2026-09-15",
+      "purpose": "desktop calendar/pencil/plant decorative illustration",
+      "fit": "width100%, height:auto, full image, no crop",
+      "prompt": "docs/page-designs/V3/attendance/asset-prompt-p01.md"
+    }
+  ],
+  "fonts": [
+    {
+      "name": "Microsoft YaHei",
+      "source": "Windows installed platform font",
+      "redistributed": false,
+      "actualEvidence": "docs/page-designs/V3/attendance/tests/P01-full-supplement.json"
+    }
+  ],
+  "shared": "Existing WorkbenchShell/ThemeBoundary/Drawer/CampusIcon imported unchanged"
+}

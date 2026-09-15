@@ -1,5 +1,9 @@
 # 变更日志
 
+## 2026-09-15：考勤P01待设计审核
+
+用户“方向确认”已绑定考勤C01两图hash。隔离P01源码d7450bb已完成，36张主状态、8张窄屏、6张完整滚动图及44项交互通过；月份待同步与手机44px问题经独立复核关闭，结论“可交用户审核”，尚未获P01/D/R批准。核心operations和正式入口未改，原4项修改hash保持；听写继续暂缓，学生/作业单页批准保留，作业控件比例仍待优化。生产/隔离构建、类型、5项考勤operation测试、scoped lint通过（1条img提示）；qa:strict仍因旧runtime querySelectorAll错误中止，不称整站通过。不部署。交付入口docs/page-designs/V3/attendance/record.json和preview/README.md，下一步等用户审P01。
+
 ## 2026-09-15：考勤C01候选，听写继续暂缓
 
 交付提交2228e8e已推送并核验github/main；后续补记同步结果及移除两处末尾空行，不改候选或业务。

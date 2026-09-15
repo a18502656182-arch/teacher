@@ -1,0 +1,92 @@
+
+> ban-zhuren-workbench@0.1.0 build
+> vinext build
+
+
+  vinext build  (Vite 8.0.13)
+
+▲ [WARNING] Proxy environment variables detected. We'll use your proxy for fetch requests.
+
+
+[1/5] analyze client references...
+[2K
+transforming...✓ 174 modules transformed.
+rendering chunks...
+✓ built in 2.82s
+[2/5] analyze server references...
+[2K
+transforming...✓ 184 modules transformed.
+rendering chunks...
+[PLUGIN_TIMINGS] Your build spent significant time in plugins. Here is a breakdown:
+  - rsc:scan-strip (84%)
+  - vinext:mdx (4%)
+  - vinext:strip-server-exports (3%)
+  - vite:css (3%)
+See https://rolldown.rs/options/checks#plugintimings for more details.
+
+✓ built in 5.17s
+[3/5] build rsc environment...
+[2K
+transforming...✓ 180 modules transformed.
+rendering chunks...
+computing gzip size...
+[PLUGIN_TIMINGS] Your build spent significant time in plugins. Here is a breakdown:
+  - rsc:virtual-client-package (17%)
+  - vinext:jsx-in-js (11%)
+  - vinext:optimize-imports (11%)
+  - vinext:react-canary (9%)
+  - rsc:scan-strip (5%)
+See https://rolldown.rs/options/checks#plugintimings for more details.
+
+✓ built in 3.43s
+[4/5] build client environment...
+[2K
+transforming...✓ 191 modules transformed.
+rendering chunks...
+computing gzip size...
+[PLUGIN_TIMINGS] Your build spent significant time in plugins. Here is a breakdown:
+  - vinext:rsc-client-reference-loaders (84%)
+  - vinext:strip-server-exports (5%)
+  - vite:css (3%)
+See https://rolldown.rs/options/checks#plugintimings for more details.
+
+✓ built in 5.38s
+[5/5] build ssr environment...
+[2K
+transforming...✓ 190 modules transformed.
+rendering chunks...
+computing gzip size...
+✓ built in 2.21s
+[0m
+  Route (app)
+  ┌ ? /
+  ├ ? /admin
+  ├ λ /api/admin/audit-logs
+  ├ λ /api/admin/devices/:id
+  ├ λ /api/admin/redeem-codes
+  ├ λ /api/admin/redeem-codes/:id
+  ├ λ /api/admin/session
+  ├ λ /api/admin/users
+  ├ λ /api/admin/users/:id
+  ├ λ /api/admin/users/:id/data
+  ├ λ /api/admin/users/:id/devices
+  ├ λ /api/admin/users/:id/renew
+  ├ λ /api/admin/workspaces
+  ├ λ /api/ai/comment
+  ├ λ /api/ai/exam-paper
+  ├ λ /api/auth/ai-consent
+  ├ λ /api/auth/enter
+  ├ λ /api/auth/logout
+  ├ λ /api/auth/me
+  ├ λ /api/knowledge/:token
+  ├ λ /api/workspace/:token
+  ├ ? /privacy
+  └ ƒ /w/:token
+
+  λ API  ƒ Dynamic  ? Unknown
+
+  ? Some routes could not be classified. vinext currently uses static analysis
+    and cannot detect dynamic API usage (headers(), cookies(), etc.) at build time.
+    Automatic classification will be improved in a future release.
+
+  Build complete. Run `vinext start` to start the production server.

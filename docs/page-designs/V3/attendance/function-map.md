@@ -1,5 +1,7 @@
 # 考勤功能与状态映射
 
+2026-09-15更新：P01/d7450bb已按下表实现隔离界面并完成44项交互。每项桌面/手机实图在record.prototype.evidence，105人与长备注完整滚动另见additionalEvidence；实测日志tests/interactions.json。当前无正式接入，所有集成验证仍待办。手机日期、搜索、筛选、选择label、备注及月历目标的360/390实测均不小于44px（容差0.1px）。后文C01盘点保留为历史。
+
 核对源：app/w/[token]/Attendance.tsx；features/attendance/operations.ts；ClassroomApp.tsx桌面316/手机379。历史保留依据为旧实施包trackers的F04/O04/A04；旧技术通过不替代用户功能验收。
 
 | 当前行为 | 设计与后续验证合同 |

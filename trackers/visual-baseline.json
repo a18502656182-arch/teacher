@@ -598,7 +598,7 @@
       "currentEvidence": [],
       "comparisons": [],
       "recordPath": "docs/page-designs/V3/attendance/record.json",
-      "recordSha256": "676F8EFF44BA3AA3C648EF17C32F354E4925ADA297A536A0EE23756A1C432D81"
+      "recordSha256": "FB152D91A7276481996B7E1376DA67B0D1490CF4E8B5601FFABFA9A013F46BCD"
     },
     "growth": {
       "label": "成长档案",
@@ -778,7 +778,7 @@
     "legacyFields": "status/productCommit/currentEvidence/comparisons/userApproval retain historical product evidence; D/R uses linked records",
     "entry": "docs/逐页设计定稿与实施包-20260914/00-从这里开始.md",
     "activeBatch": "V2",
-    "nextAction": "考勤C01桌面/手机候选已生成，等用户方向确认；听写功能未验收暂缓；作业控件比例待优化；正式接入未开放",
+    "nextAction": "向用户交付P01可运行稿及实际图，等待单页设计审核；听写功能未验收继续暂缓，正式接入/D批次/R未开放",
     "designSequenceExceptions": [
       {
         "date": "2026-09-15",

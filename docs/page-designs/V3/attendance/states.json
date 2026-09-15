@@ -1,110 +1,205 @@
 {
-  "stage": "inventory-and-base-concept-only",
+  "stage": "P01-rendered-awaiting-user-design-review",
+  "sourceCommit": "d7450bba192d5a0124cd2e642c49a8127d53c94d",
+  "basis": "Synthetic class, fixed2026-09-15; save/error/409 simulated",
   "states": [
     {
       "stateId": "normal",
       "applicable": true,
-      "fixturePlanned": "synthetic isolated data",
-      "designStatus": "raster-concept-only",
-      "integrationStatus": "not-tested-this-round"
+      "fixtureId": "attendance-P01-normal",
+      "designStatus": "rendered",
+      "integrationStatus": "not-tested-this-round",
+      "evidence": [
+        "docs/page-designs/V3/attendance/screenshots/P01/1536-normal.png",
+        "docs/page-designs/V3/attendance/screenshots/P01/390-normal.png"
+      ]
     },
     {
       "stateId": "selected-batch",
       "applicable": true,
-      "fixturePlanned": "synthetic isolated data",
-      "designStatus": "not-rendered",
-      "integrationStatus": "not-tested-this-round"
+      "fixtureId": "attendance-P01-selected-batch",
+      "designStatus": "rendered",
+      "integrationStatus": "not-tested-this-round",
+      "evidence": [
+        "docs/page-designs/V3/attendance/screenshots/P01/1536-selected-batch.png",
+        "docs/page-designs/V3/attendance/screenshots/P01/390-selected-batch.png"
+      ]
     },
     {
       "stateId": "day-note",
       "applicable": true,
-      "fixturePlanned": "synthetic isolated data",
-      "designStatus": "not-rendered",
-      "integrationStatus": "not-tested-this-round"
+      "fixtureId": "attendance-P01-day-note",
+      "designStatus": "rendered",
+      "integrationStatus": "not-tested-this-round",
+      "evidence": [
+        "docs/page-designs/V3/attendance/screenshots/P01/1536-day-note.png",
+        "docs/page-designs/V3/attendance/screenshots/P01/390-day-note.png"
+      ]
     },
     {
       "stateId": "month-calendar",
       "applicable": true,
-      "fixturePlanned": "synthetic isolated data",
-      "designStatus": "not-rendered",
-      "integrationStatus": "not-tested-this-round"
+      "fixtureId": "attendance-P01-month-calendar",
+      "designStatus": "rendered",
+      "integrationStatus": "not-tested-this-round",
+      "evidence": [
+        "docs/page-designs/V3/attendance/screenshots/P01/1536-month-calendar.png",
+        "docs/page-designs/V3/attendance/screenshots/P01/390-month-calendar.png"
+      ]
     },
     {
       "stateId": "history-date",
       "applicable": true,
-      "fixturePlanned": "synthetic isolated data",
-      "designStatus": "not-rendered",
-      "integrationStatus": "not-tested-this-round"
+      "fixtureId": "attendance-P01-history-date",
+      "designStatus": "rendered",
+      "integrationStatus": "not-tested-this-round",
+      "evidence": [
+        "docs/page-designs/V3/attendance/screenshots/P01/1536-history-date.png",
+        "docs/page-designs/V3/attendance/screenshots/P01/390-history-date.png"
+      ]
     },
     {
       "stateId": "no-day-record",
       "applicable": true,
-      "fixturePlanned": "synthetic isolated data",
-      "designStatus": "not-rendered",
-      "integrationStatus": "not-tested-this-round"
+      "fixtureId": "attendance-P01-no-day-record",
+      "designStatus": "rendered",
+      "integrationStatus": "not-tested-this-round",
+      "evidence": [
+        "docs/page-designs/V3/attendance/screenshots/P01/1536-no-day-record.png",
+        "docs/page-designs/V3/attendance/screenshots/P01/390-no-day-record.png"
+      ]
     },
     {
       "stateId": "empty-class",
       "applicable": true,
-      "fixturePlanned": "synthetic isolated data",
-      "designStatus": "not-rendered",
-      "integrationStatus": "not-tested-this-round"
+      "fixtureId": "attendance-P01-empty-class",
+      "designStatus": "rendered",
+      "integrationStatus": "not-tested-this-round",
+      "evidence": [
+        "docs/page-designs/V3/attendance/screenshots/P01/1536-empty-class.png",
+        "docs/page-designs/V3/attendance/screenshots/P01/390-empty-class.png"
+      ]
     },
     {
       "stateId": "search-empty",
       "applicable": true,
-      "fixturePlanned": "synthetic isolated data",
-      "designStatus": "not-rendered",
-      "integrationStatus": "not-tested-this-round"
+      "fixtureId": "attendance-P01-search-empty",
+      "designStatus": "rendered",
+      "integrationStatus": "not-tested-this-round",
+      "evidence": [
+        "docs/page-designs/V3/attendance/screenshots/P01/1536-search-empty.png",
+        "docs/page-designs/V3/attendance/screenshots/P01/390-search-empty.png"
+      ]
     },
     {
       "stateId": "students-105",
       "applicable": true,
-      "fixturePlanned": "synthetic isolated data",
-      "designStatus": "not-rendered",
-      "integrationStatus": "not-tested-this-round"
+      "fixtureId": "attendance-P01-students-105",
+      "designStatus": "rendered",
+      "integrationStatus": "not-tested-this-round",
+      "evidence": [
+        "docs/page-designs/V3/attendance/screenshots/P01/1536-students-105.png",
+        "docs/page-designs/V3/attendance/screenshots/P01/390-students-105.png"
+      ]
     },
     {
       "stateId": "long-note",
       "applicable": true,
-      "fixturePlanned": "synthetic isolated data",
-      "designStatus": "not-rendered",
-      "integrationStatus": "not-tested-this-round"
+      "fixtureId": "attendance-P01-long-note",
+      "designStatus": "rendered",
+      "integrationStatus": "not-tested-this-round",
+      "evidence": [
+        "docs/page-designs/V3/attendance/screenshots/P01/1536-long-note.png",
+        "docs/page-designs/V3/attendance/screenshots/P01/390-long-note.png"
+      ]
     },
     {
       "stateId": "readonly",
       "applicable": true,
-      "fixturePlanned": "synthetic isolated data",
-      "designStatus": "not-rendered",
-      "integrationStatus": "not-tested-this-round"
+      "fixtureId": "attendance-P01-readonly",
+      "designStatus": "rendered",
+      "integrationStatus": "not-tested-this-round",
+      "evidence": [
+        "docs/page-designs/V3/attendance/screenshots/P01/1536-readonly.png",
+        "docs/page-designs/V3/attendance/screenshots/P01/390-readonly.png"
+      ]
+    },
+    {
+      "stateId": "loading",
+      "applicable": true,
+      "fixtureId": "attendance-P01-loading",
+      "designStatus": "rendered",
+      "integrationStatus": "not-tested-this-round",
+      "evidence": [
+        "docs/page-designs/V3/attendance/screenshots/P01/1536-loading.png",
+        "docs/page-designs/V3/attendance/screenshots/P01/390-loading.png"
+      ]
     },
     {
       "stateId": "saving",
       "applicable": true,
-      "fixturePlanned": "synthetic isolated data",
-      "designStatus": "not-rendered",
-      "integrationStatus": "not-tested-this-round"
+      "fixtureId": "attendance-P01-saving",
+      "designStatus": "rendered",
+      "integrationStatus": "not-tested-this-round",
+      "evidence": [
+        "docs/page-designs/V3/attendance/screenshots/P01/1536-saving.png",
+        "docs/page-designs/V3/attendance/screenshots/P01/390-saving.png"
+      ]
     },
     {
       "stateId": "save-failure",
       "applicable": true,
-      "fixturePlanned": "synthetic isolated data",
-      "designStatus": "not-rendered",
-      "integrationStatus": "not-tested-this-round"
+      "fixtureId": "attendance-P01-save-failure",
+      "designStatus": "rendered",
+      "integrationStatus": "not-tested-this-round",
+      "evidence": [
+        "docs/page-designs/V3/attendance/screenshots/P01/1536-save-failure.png",
+        "docs/page-designs/V3/attendance/screenshots/P01/390-save-failure.png"
+      ]
     },
     {
       "stateId": "conflict-409",
       "applicable": true,
-      "fixturePlanned": "synthetic isolated data",
-      "designStatus": "not-rendered",
-      "integrationStatus": "not-tested-this-round"
+      "fixtureId": "attendance-P01-conflict-409",
+      "designStatus": "rendered",
+      "integrationStatus": "not-tested-this-round",
+      "evidence": [
+        "docs/page-designs/V3/attendance/screenshots/P01/1536-conflict-409.png",
+        "docs/page-designs/V3/attendance/screenshots/P01/390-conflict-409.png"
+      ]
     },
     {
       "stateId": "dirty-leave",
       "applicable": true,
-      "fixturePlanned": "synthetic isolated data",
-      "designStatus": "not-rendered",
-      "integrationStatus": "not-tested-this-round"
+      "fixtureId": "attendance-P01-dirty-leave",
+      "designStatus": "rendered",
+      "integrationStatus": "not-tested-this-round",
+      "evidence": [
+        "docs/page-designs/V3/attendance/screenshots/P01/1536-dirty-leave.png",
+        "docs/page-designs/V3/attendance/screenshots/P01/390-dirty-leave.png"
+      ]
+    },
+    {
+      "stateId": "filters",
+      "applicable": true,
+      "fixtureId": "attendance-P01-filters",
+      "designStatus": "rendered",
+      "integrationStatus": "not-tested-this-round",
+      "evidence": [
+        "docs/page-designs/V3/attendance/screenshots/P01/1536-filters.png",
+        "docs/page-designs/V3/attendance/screenshots/P01/390-filters.png"
+      ]
+    },
+    {
+      "stateId": "save-failure-empty",
+      "applicable": true,
+      "fixtureId": "attendance-P01-save-failure-empty",
+      "designStatus": "rendered",
+      "integrationStatus": "not-tested-this-round",
+      "evidence": [
+        "docs/page-designs/V3/attendance/screenshots/P01/1536-save-failure-empty.png",
+        "docs/page-designs/V3/attendance/screenshots/P01/390-save-failure-empty.png"
+      ]
     }
   ]
 }

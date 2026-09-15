@@ -1,0 +1,166 @@
+{
+  "createdAt": "2026-09-15T03:50:16.402Z",
+  "browser": {
+    "protocolVersion": "1.3",
+    "product": "Chrome/152.0.7977.82",
+    "revision": "@d04cdb24d67b081f6cf80200ffc5233f44b61109",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/152.0.0.0 Safari/537.36",
+    "jsVersion": "15.2.124.21"
+  },
+  "evidence": [
+    {
+      "stateId": "normal-full",
+      "viewport": "1536x1024",
+      "path": "1536-normal-full.png",
+      "sha256": "E04F10FF300F7C49E4032CC8B399FFEA522A18B298E697ACAC67364BC0EDFCAE",
+      "platformFonts": [
+        {
+          "familyName": "Microsoft YaHei",
+          "postScriptName": "MicrosoftYaHei-Bold",
+          "isCustomFont": false,
+          "glyphCount": 5
+        }
+      ],
+      "bounds": {
+        "body": 1127.796875,
+        "scroll": 1128
+      },
+      "contentSize": {
+        "x": 0,
+        "y": 0,
+        "width": 1521,
+        "height": 1128
+      },
+      "fixtureSha256": "87245489A67D55D07EFCA27D7E0EBDFE06E25DD1A3AB3448345E96419A1780E7"
+    },
+    {
+      "stateId": "students-105-full",
+      "viewport": "1536x1024",
+      "path": "1536-students-105-full.png",
+      "sha256": "FA101FDCEDD4DAA3BE0C741600F95E0A1D13EACAAB5EE39752CA6F8925B54A16",
+      "platformFonts": [
+        {
+          "familyName": "Microsoft YaHei",
+          "postScriptName": "MicrosoftYaHei-Bold",
+          "isCustomFont": false,
+          "glyphCount": 5
+        }
+      ],
+      "bounds": {
+        "body": 1024,
+        "scroll": 1024
+      },
+      "contentSize": {
+        "x": 0,
+        "y": 0,
+        "width": 1536,
+        "height": 1024
+      },
+      "fixtureSha256": "B3644CAB33FF9FAEB0CAE17EF4600726EB5C9F9ABE5670914CB1E04673D3C155"
+    },
+    {
+      "stateId": "long-note-full",
+      "viewport": "1536x1024",
+      "path": "1536-long-note-full.png",
+      "sha256": "41384786D2C5B2E67502BC59BE0E43A599384FA43F38B8CD6FD002DF1944478B",
+      "platformFonts": [
+        {
+          "familyName": "Microsoft YaHei",
+          "postScriptName": "MicrosoftYaHei-Bold",
+          "isCustomFont": false,
+          "glyphCount": 5
+        }
+      ],
+      "bounds": {
+        "body": 1127.796875,
+        "scroll": 1128
+      },
+      "contentSize": {
+        "x": 0,
+        "y": 0,
+        "width": 1521,
+        "height": 1128
+      },
+      "fixtureSha256": "7A5D3C3876C86089A464BA923260D9692F6E3460D539852F7BA9A3C49A9FB45C"
+    },
+    {
+      "stateId": "normal-full",
+      "viewport": "390x844",
+      "path": "390-normal-full.png",
+      "sha256": "56FF68BE7D92494F438F8723D2287B285B086C0A0826480080801AA78FF22DCD",
+      "platformFonts": [
+        {
+          "familyName": "Microsoft YaHei",
+          "postScriptName": "MicrosoftYaHei-Bold",
+          "isCustomFont": false,
+          "glyphCount": 4
+        }
+      ],
+      "bounds": {
+        "body": 1113,
+        "scroll": 1195
+      },
+      "contentSize": {
+        "x": 0,
+        "y": 0,
+        "width": 375,
+        "height": 1195
+      },
+      "fixtureSha256": "87245489A67D55D07EFCA27D7E0EBDFE06E25DD1A3AB3448345E96419A1780E7"
+    },
+    {
+      "stateId": "students-105-full",
+      "viewport": "390x844",
+      "path": "390-students-105-full.png",
+      "sha256": "F095BB82D1E2FC791A37019A02BAB06BB67A457D0957C8EB6448D4E97F10EFB4",
+      "platformFonts": [
+        {
+          "familyName": "Microsoft YaHei",
+          "postScriptName": "MicrosoftYaHei-Bold",
+          "isCustomFont": false,
+          "glyphCount": 5
+        }
+      ],
+      "bounds": {
+        "body": 1113,
+        "scroll": 1195
+      },
+      "contentSize": {
+        "x": 0,
+        "y": 0,
+        "width": 375,
+        "height": 1195
+      },
+      "fixtureSha256": "B3644CAB33FF9FAEB0CAE17EF4600726EB5C9F9ABE5670914CB1E04673D3C155"
+    },
+    {
+      "stateId": "long-note-full",
+      "viewport": "390x844",
+      "path": "390-long-note-full.png",
+      "sha256": "7A5D9C2CA48AD9E60126D3FB0B47B6D4E80BA155E18DAFC5269354DCE9B80E6D",
+      "platformFonts": [
+        {
+          "familyName": "Microsoft YaHei",
+          "postScriptName": "MicrosoftYaHei-Bold",
+          "isCustomFont": false,
+          "glyphCount": 4
+        }
+      ],
+      "bounds": {
+        "body": 1113,
+        "scroll": 1195
+      },
+      "contentSize": {
+        "x": 0,
+        "y": 0,
+        "width": 375,
+        "height": 1195
+      },
+      "fixtureSha256": "7A5D3C3876C86089A464BA923260D9692F6E3460D539852F7BA9A3C49A9FB45C"
+    }
+  ],
+  "failures": [],
+  "interactions": [],
+  "consoleErrors": [],
+  "sourceCommit": "d7450bba192d5a0124cd2e642c49a8127d53c94d"
+}

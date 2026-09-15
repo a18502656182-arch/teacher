@@ -1,0 +1,191 @@
+{
+  "createdAt": "2026-09-15T03:40:30.545Z",
+  "browser": {
+    "protocolVersion": "1.3",
+    "product": "Chrome/152.0.7977.82",
+    "revision": "@d04cdb24d67b081f6cf80200ffc5233f44b61109",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/152.0.0.0 Safari/537.36",
+    "jsVersion": "15.2.124.21"
+  },
+  "evidence": [],
+  "failures": [],
+  "interactions": [
+    {
+      "name": "single-state-and-class-scope 1536",
+      "pass": true
+    },
+    {
+      "name": "saved-note-without-edits-retained 1536",
+      "pass": true
+    },
+    {
+      "name": "day-note-not-shared-note 1536",
+      "pass": true
+    },
+    {
+      "name": "search 1536",
+      "pass": true
+    },
+    {
+      "name": "batch-status-note-success-clears-selection 1536",
+      "pass": true
+    },
+    {
+      "name": "batch-empty-note-preserves 1536",
+      "pass": true
+    },
+    {
+      "name": "history-no-summary-overwrite-and-departed-retained 1536",
+      "pass": true
+    },
+    {
+      "name": "105-roster-page-count 1536",
+      "pass": true
+    },
+    {
+      "name": "select-current-page 1536",
+      "pass": true
+    },
+    {
+      "name": "105-pagination-last-page 1536",
+      "pass": true
+    },
+    {
+      "name": "dirty-date-guard 1536",
+      "pass": true
+    },
+    {
+      "name": "dirty-navigation-guard 1536",
+      "pass": true
+    },
+    {
+      "name": "failed-save-preserves-local-change 1536",
+      "pass": true
+    },
+    {
+      "name": "failed-save-guards-date 1536",
+      "pass": true
+    },
+    {
+      "name": "retry-save 1536",
+      "pass": true
+    },
+    {
+      "name": "conflict-keeps-local-draft 1536",
+      "pass": true
+    },
+    {
+      "name": "readonly-no-writes 1536",
+      "pass": true
+    },
+    {
+      "name": "filters 1536",
+      "pass": true
+    },
+    {
+      "name": "all-normal-affects-class-not-filter 1536",
+      "pass": true
+    },
+    {
+      "name": "single-state-and-class-scope 390",
+      "pass": true
+    },
+    {
+      "name": "saved-note-without-edits-retained 390",
+      "pass": true
+    },
+    {
+      "name": "day-note-not-shared-note 390",
+      "pass": true
+    },
+    {
+      "name": "search 390",
+      "pass": true
+    },
+    {
+      "name": "batch-status-note-success-clears-selection 390",
+      "pass": true
+    },
+    {
+      "name": "batch-empty-note-preserves 390",
+      "pass": true
+    },
+    {
+      "name": "history-no-summary-overwrite-and-departed-retained 390",
+      "pass": true
+    },
+    {
+      "name": "105-roster-page-count 390",
+      "pass": true
+    },
+    {
+      "name": "select-current-page 390",
+      "pass": true
+    },
+    {
+      "name": "105-pagination-last-page 390",
+      "pass": true
+    },
+    {
+      "name": "dirty-date-guard 390",
+      "pass": true
+    },
+    {
+      "name": "dirty-navigation-guard 390",
+      "pass": true
+    },
+    {
+      "name": "failed-save-preserves-local-change 390",
+      "pass": true
+    },
+    {
+      "name": "failed-save-guards-date 390",
+      "pass": true
+    },
+    {
+      "name": "retry-save 390",
+      "pass": true
+    },
+    {
+      "name": "conflict-keeps-local-draft 390",
+      "pass": true
+    },
+    {
+      "name": "readonly-no-writes 390",
+      "pass": true
+    },
+    {
+      "name": "filters 390",
+      "pass": true
+    },
+    {
+      "name": "all-normal-affects-class-not-filter 390",
+      "pass": true
+    },
+    {
+      "name": "new-unsaved-calendar-date-pending 1536",
+      "pass": true
+    },
+    {
+      "name": "calendar-ack-after-retry 1536",
+      "pass": true
+    },
+    {
+      "name": "new-unsaved-calendar-date-pending 390",
+      "pass": true
+    },
+    {
+      "name": "calendar-ack-after-retry 390",
+      "pass": true
+    },
+    {
+      "name": "mobile-calendar-opens-modal",
+      "pass": true
+    },
+    {
+      "name": "calendar-escape-returns-focus",
+      "pass": true
+    }
+  ],
+  "consoleErrors": []
+}
