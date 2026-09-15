@@ -36,6 +36,20 @@
       "path": "docs/page-designs/V4/records/tests/qa-strict.log",
       "sha256": "3CE17276D72BFB1A16649B0C00D87599FE69C814D83DC2815677850BB3F16E93",
       "exitCode": 1
+    },
+    {
+      "name": "ledger-final",
+      "path": "docs/page-designs/V4/records/tests/ledger-final.log",
+      "sha256": "05EAA694B7DF754C226EC0209BD44F0F9925231D8C8C8EECD9E5CA5EB3F79D0A",
+      "exitCode": 0,
+      "expected": "Contract audit passes"
+    },
+    {
+      "name": "v4-gate",
+      "path": "docs/page-designs/V4/records/tests/v4-gate.log",
+      "sha256": "FEFEFB58A1A19725585C2FC071E3A5806C8561FA1F54FE86B3AB496B053862EC",
+      "exitCode": 1,
+      "expected": "Previous batch R and other V4 pages still block batch D; records itself has no missing design-ready artifact."
     }
   ],
   "interactions": {
