@@ -17,3 +17,5 @@
 
 @media(max-width:900px){.dateRow>button{min-width:44px}.dateRow input,.search input,.note input,.batchNote input{min-height:44px}.student{grid-template-columns:44px minmax(0,1fr) 48px}.check{min-width:44px}.days{gap:0}.days button{min-width:44px}.calendar .textAction{min-height:44px;min-width:44px}}
 @media(max-width:900px){.page input:not([type=checkbox]),.page select,.page textarea{min-height:44px}}
+
+.student{position:relative}

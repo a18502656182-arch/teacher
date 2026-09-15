@@ -23,13 +23,13 @@ try {
   await send('Emulation.setDeviceMetricsOverride',{width,height,deviceScaleFactor:1,mobile:false});
   for(const state of ['normal','students-105','long-note']){
    await send('Page.navigate',{url:'http://127.0.0.1:4210/attendance.html?state='+state});await wait(1100);await evaluate('document.fonts.ready.then(()=>true)');
-   if(state==='students-105'){await evaluate(`(async()=>{for(let i=0;i<${width===390?5:2};i++){[...document.querySelectorAll('button')].find(b=>b.textContent==='下一页')?.click();await new Promise(r=>setTimeout(r,100));}document.querySelector('[data-att-design=list]').scrollTop=99999;window.scrollTo(0,document.body.scrollHeight);})()`);}
+   if(state==='students-105'){await evaluate(`(async()=>{for(let i=0;i<${width===390?5:2};i++){[...document.querySelectorAll('button')].find(b=>b.textContent==='下一页')?.click();await new Promise(r=>setTimeout(r,100));}document.querySelector('[data-att-design=list]').scrollTop=99999;window.scrollTo(0,0);})()`);}
    if(state==='long-note'){await evaluate("[...document.querySelectorAll('button')].find(b=>b.textContent==='展开全文')?.click()");await wait(100);}
    await send('DOM.enable');await send('CSS.enable');const doc=await send('DOM.getDocument');const node=await send('DOM.querySelector',{nodeId:doc.root.nodeId,selector:width>900?'[data-att-design=heading] h1':'[data-student-id] strong'});const fonts=node.nodeId?(await send('CSS.getPlatformFontsForNode',{nodeId:node.nodeId})).fonts:[];
-   const layout=await send('Page.getLayoutMetrics');const size=layout.cssContentSize||layout.contentSize;
+   const bounds=await evaluate('({body:document.body.getBoundingClientRect().height,scroll:document.documentElement.scrollHeight})'); const layout=await send('Page.getLayoutMetrics');const size=layout.cssContentSize||layout.contentSize;
    const shot=await send('Page.captureScreenshot',{format:'png',captureBeyondViewport:true,clip:{x:0,y:0,width:Math.min(width,size.width),height:Math.min(6000,size.height),scale:1}});
    const name=width+'-'+state+'-full.png';const bytes=Buffer.from(shot.data,'base64');writeFileSync(path.join(out,name),bytes);
-   report.evidence.push({stateId:state+'-full',viewport:width+'x'+height,path:name,sha256:hash(bytes),platformFonts:fonts,contentSize:size,fixtureSha256:hash(await evaluate("document.getElementById('attendance-design-fixture').textContent"))});
+   report.evidence.push({stateId:state+'-full',viewport:width+'x'+height,path:name,sha256:hash(bytes),platformFonts:fonts,bounds,contentSize:size,fixtureSha256:hash(await evaluate("document.getElementById('attendance-design-fixture').textContent"))});
   }
  }
  console.log(JSON.stringify({evidence:report.evidence.length,consoleErrors:report.consoleErrors.length}));
