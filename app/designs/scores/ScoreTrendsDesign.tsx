@@ -1,67 +1,34 @@
-"use client";
-
-import { StudentLookupDialog } from "@/app/components/campus/StudentLookupDialog";
-import { useMemo, useState } from "react";
-import type { ClassroomData, ScoreExam, Student } from "@/lib/classroom";
-import { scoreEntry, scoreExamsForClass } from "@/app/w/[token]/features/scores/operations";
-
-type TrendPoint = { exam: ScoreExam; value: number | null; entered: number; total: number };
-
-function subjects(exam: ScoreExam) { return exam.subjects?.length ? exam.subjects : Object.values(exam.scores)[0] ? Object.keys(Object.values(exam.scores)[0]) : []; }
-function rate(exam: ScoreExam, student: Student) {
-  const list = subjects(exam);
-  const entered = list.filter((subject) => scoreEntry(exam, student.id, subject) != null);
-  if (!entered.length) return null;
-  const total = entered.reduce((sum, subject) => sum + Number(scoreEntry(exam, student.id, subject) ?? 0), 0);
-  const max = entered.reduce((sum, subject) => sum + Number(exam.subjectMaxScores?.[subject] ?? 100), 0);
-  return max ? Math.round(total / max * 100) : null;
-}
-
-function linePath(points: TrendPoint[]) {let pen=false;return points.map((point,index)=>{if(point.value==null){pen=false;return '';}const command=pen?'L':'M';pen=true;return command+(points.length===1?500:80+index/(points.length-1)*840)+' '+(239.2-point.value*2.028);}).join(' ');}
-
-export function ScoreTrendsDesign({ data, classId }: { data: ClassroomData; classId: string }) {
-  const students = data.rosterClasses?.find((item) => item.id === classId)?.students ?? data.students;
-  const exams = useMemo(() => scoreExamsForClass(data, classId).toSorted((a, b) => a.date.localeCompare(b.date) || a.title.localeCompare(b.title)), [classId, data]);
-  const [pickerOpen, setPickerOpen] = useState(false);
-  const [studentId, setStudentId] = useState("");
-  const [keyword, setKeyword] = useState("");
-  const [subject, setSubject] = useState("全部");
-  const [range, setRange] = useState<"12" | "24" | "all">("12");
-  const [page, setPage] = useState(1);
-  const student = students.find((item) => item.id === studentId);
-  const allSubjects = useMemo(() => Array.from(new Set(exams.flatMap(subjects))).sort((a, b) => a.localeCompare(b)), [exams]);
-  const filtered = exams.filter((exam) => {
-    const text = `${exam.title}${exam.date}${subjects(exam).join(" ")}`;
-    return (!keyword.trim() || text.includes(keyword.trim())) && (subject === "全部" || subjects(exam).includes(subject));
-  });
-  const scoped = range === "all" ? filtered : filtered.slice(-Number(range));
-  const points: TrendPoint[] = scoped.map((exam) => {
-    const values = student ? [rate(exam, student)].filter((value): value is number => value != null) : students.map((item) => rate(exam, item)).filter((value): value is number => value != null);
-    return { exam, value: values.length ? Math.round(values.reduce((sum, value) => sum + value, 0) / values.length) : null, entered: values.length, total: student ? 1 : students.length };
-  });
-  const recorded = points.filter((point) => point.value != null);
-  const latest = recorded.at(-1)?.value ?? null;
-  const previous = recorded.at(-2)?.value ?? null;
-  const delta = latest != null && previous != null ? latest - previous : null;
-  const coverage = points.length ? Math.round(points.reduce((sum, point) => sum + point.entered / Math.max(1, point.total), 0) / points.length * 100) : 0;
-  const pageSize = 10;
-  const totalPages = Math.max(1, Math.ceil(points.length / pageSize));
-  const safePage = Math.min(page, totalPages);
-  const pagedPoints = [...points].reverse().slice((safePage - 1) * pageSize, safePage * pageSize);
-  const chartPoints = points.length > 36 ? points.slice(-36) : points;
-  const path = linePath(chartPoints);
-
-  return <section className="score-trends score-trends-workbench" aria-label="历次成绩趋势">
-    {pickerOpen && <StudentLookupDialog title="选择趋势学生" students={students} selectedId={studentId} allowClear clearLabel="查看班级整体" onClear={() => { setStudentId(""); setPage(1); }} onPick={(item) => { setStudentId(item.id); setPage(1); setPickerOpen(false); }} onClose={() => setPickerOpen(false)} />}
-    <header>
-      <div><h2>历次趋势</h2><p>按得分率比较不同满分；空白表示未录入，不等同于零分。</p></div>
-      <div className="score-trends-heading-actions"><label><span>查看学生</span><button type="button" className="campus-button" onClick={() => setPickerOpen(true)}>{student?.name ?? "班级整体"}</button></label><label><span>时间范围</span><select value={range} onChange={(event) => { setRange(event.target.value as typeof range); setPage(1); }}><option value="12">最近 12 场</option><option value="24">最近 24 场</option><option value="all">全部考试</option></select></label></div>
-    </header>
-    <div className="score-trends-filters"><label><span>搜索考试</span><input value={keyword} onChange={(event) => { setKeyword(event.target.value); setPage(1); }} placeholder="名称、日期或科目" /></label><label><span>考试包含科目</span><select value={subject} onChange={(event) => { setSubject(event.target.value); setPage(1); }}><option>全部</option>{allSubjects.map((item) => <option key={item}>{item}</option>)}</select></label><p>已纳入 <b>{points.length}</b> / {exams.length} 场考试；平均有录入学生占比 <b>{coverage}%</b>（每人至少录入一科即计入）</p></div>
-    {points.length < 2 ? <div className="score-trends-empty">至少需要两场已保存考试，才能显示纵向变化；当前仍可在本次成绩中处理学生跟进。</div> : <>
-      <section className="score-trends-summary" aria-label="趋势摘要"><article><span>最近得分率</span><b>{latest == null ? "未录入" : `${latest}%`}</b><small>{student ? student.name : "班级整体"}</small></article><article><span>相对上次</span><b className={delta == null ? "neutral" : delta > 0 ? "up" : delta < 0 ? "down" : "neutral"}>{delta == null ? "数据不足" : `${delta > 0 ? "+" : ""}${delta} 个百分点`}</b><small>比较最近两场有录入的考试</small></article><article><span>可用记录</span><b>{recorded.length}/{points.length}</b><small>未录入的场次不会连接为零分</small></article></section>
-      <section className="score-trends-chart" aria-label="得分率折线图"><div><h3>{student ? `${student.name}的得分率变化` : "班级整体得分率变化"}</h3><span>{points.length > chartPoints.length ? `图表展示最近 ${chartPoints.length} 场；完整记录见下方台账` : "按考试日期排序，场次等距；纵轴为得分率"}</span></div><svg viewBox="0 0 1000 260" role="img" aria-label="得分率随考试时间变化的折线图" preserveAspectRatio="xMidYMid meet"><line x1="80" x2="920" y1="36.4" y2="36.4" /><line x1="80" x2="920" y1="137.8" y2="137.8" /><line x1="80" x2="920" y1="239.2" y2="239.2" />{path && <path d={path} />}{chartPoints.map((point, index) => point.value == null ? null : <circle key={point.exam.id} cx={chartPoints.length === 1 ? 500 : 80 + index / (chartPoints.length - 1) * 840} cy={239.2 - point.value * 2.028} r="4"><title>{`${point.exam.title}：${point.value}%`}</title></circle>)}</svg><div className="score-trends-axis"><span>{chartPoints[0]?.exam.date || ""}</span><span>{chartPoints.at(-1)?.exam.date || ""}</span></div></section>
-      <section className="score-trends-ledger"><header><h3>趋势台账</h3><span>倒序显示，支持长期考试库</span></header><div>{pagedPoints.map((point) => { const index = points.findIndex((item) => item.exam.id === point.exam.id); const previousPoint = points.slice(0, index).toReversed().find((item) => item.value != null); const change = point.value != null && previousPoint?.value != null ? point.value - previousPoint.value : null; return <article key={point.exam.id}><time>{point.exam.date}</time><span><b>{point.exam.title}</b><small>{subjects(point.exam).join("、") || "未标注科目"}</small></span><strong>{point.value == null ? "未录入" : `${point.value}%`}</strong><em className={change == null ? "neutral" : change > 0 ? "up" : change < 0 ? "down" : "neutral"}>{change == null ? `${point.entered}/${point.total} 已录` : `${change > 0 ? "+" : ""}${change} 个百分点`}</em></article>; })}</div><footer><button type="button" disabled={safePage <= 1} onClick={() => setPage((value) => value - 1)}>上一页</button><span>{safePage} / {totalPages} · 共 {points.length} 场</span><button type="button" disabled={safePage >= totalPages} onClick={() => setPage((value) => value + 1)}>下一页</button></footer></section>
-    </>}
-  </section>;
+import {useMemo,useState} from 'react';
+import {StudentLookupDialog} from '@/app/components/campus/StudentLookupDialog';
+import type {ClassroomData,ScoreExam,Student} from '@/lib/classroom';
+import {scoreEntry,scoreExamsForClass} from '@/app/w/[token]/features/scores/operations';
+import s from './ScoreWorkspaces.module.css';
+const subjects=(exam:ScoreExam)=>exam.subjects?.length?exam.subjects:Object.keys(Object.values(exam.scores)[0]??{});
+function rate(exam:ScoreExam,student:Student){const entered=subjects(exam).filter(sub=>scoreEntry(exam,student.id,sub)!=null);if(!entered.length)return null;const max=entered.reduce((n,sub)=>n+(exam.subjectMaxScores?.[sub]??100),0);return max?Math.round(entered.reduce((n,sub)=>n+Number(scoreEntry(exam,student.id,sub)),0)/max*100):null;}
+export function ScoreTrendsDesign({data,classId,initialStudentId='',mobile=false,onOpenExam}:{data:ClassroomData;classId:string;initialStudentId?:string;mobile?:boolean;onOpenExam?:(id:string)=>void}){
+ const students=data.rosterClasses?.find(c=>c.id===classId)?.students??data.students;
+ const exams=useMemo(()=>scoreExamsForClass(data,classId).toSorted((a,b)=>a.date.localeCompare(b.date)||a.title.localeCompare(b.title)),[data,classId]);
+ const [studentId,setStudentId]=useState(initialStudentId),[picker,setPicker]=useState(false),[query,setQuery]=useState(''),[subject,setSubject]=useState('全部'),[range,setRange]=useState('12'),[page,setPage]=useState(1),[selectedId,setSelectedId]=useState(''),[filters,setFilters]=useState(false);
+ const student=students.find(st=>st.id===studentId),allSubjects=[...new Set(exams.flatMap(subjects))];
+ const filtered=exams.filter(e=>(`${e.title} ${e.date} ${subjects(e).join(' ')}`.includes(query.trim()))&&(subject==='全部'||subjects(e).includes(subject)));
+ const scoped=range==='all'?filtered:filtered.slice(-Number(range));
+ const points=scoped.map(exam=>{const values=(student?[student]:students).map(st=>rate(exam,st)).filter((v):v is number=>v!=null);return{exam,value:values.length?Math.round(values.reduce((a,b)=>a+b,0)/values.length):null,entered:values.length,subjectsEntered:student?subjects(exam).filter(sub=>scoreEntry(exam,student.id,sub)!=null).length:0};});
+ const selected=points.find(p=>p.exam.id===selectedId)??points.at(-1),recorded=points.filter(p=>p.value!=null).length;
+ const chart=points.slice(mobile?-6:-36),pages=Math.max(1,Math.ceil(points.length/10)),safePage=Math.min(page,pages),rows=[...points].reverse().slice((safePage-1)*10,safePage*10);
+ const width=mobile?340:820,height=mobile?250:280,left=42,right=width-24,top=30,bottom=height-62;
+ const x=(i:number)=>chart.length===1?(left+right)/2:left+i*(right-left)/(chart.length-1),y=(v:number)=>bottom-v*(bottom-top)/100;
+ let pen=false;const path=chart.map((p,i)=>{if(p.value==null){pen=false;return '';}const command=pen?'L':'M';pen=true;return `${command}${x(i)},${y(p.value)}`;}).join(' ');
+ const clearSelection=()=>{setPage(1);setSelectedId('');};
+ const pick=(id:string)=>{setStudentId(id);clearSelection();setPicker(false);};
+ return <section className={s.workspace} data-trends-view={student?'student':'class'}>
+ {picker&&<StudentLookupDialog title="选择趋势学生" students={students} selectedId={studentId} allowClear clearLabel="查看班级整体" onClear={()=>pick('')} onPick={st=>pick(st.id)} onClose={()=>setPicker(false)}/>}
+ <header className={s.identity}><div><h2>{student?student.name:'班级整体趋势'}</h2><span>{student?`学号${student.studentNo} · ${data.rosterClasses?.find(c=>c.id===classId)?.name??''}`:`${students.length}名学生 · ${recorded}/${points.length}场有录入`}</span></div><nav><button onClick={()=>setPicker(true)}>{student?'切换学生':'查看学生'}</button>{student&&<button onClick={()=>pick('')}>返回班级趋势</button>}</nav></header>
+ <div className={s.toolbar}><label><span className={s.sr}>考试范围</span><select aria-label="趋势考试范围" value={range} onChange={e=>{setRange(e.target.value);clearSelection();}}><option value="12">最近12场</option><option value="24">最近24场</option><option value="all">全部考试</option></select></label>{mobile&&<button aria-expanded={filters} onClick={()=>setFilters(!filters)}>更多筛选</button>}{(!mobile||filters)&&<><label>考试包含科目<select value={subject} onChange={e=>{setSubject(e.target.value);clearSelection();}}>{['全部',...allSubjects].map(sub=><option key={sub}>{sub}</option>)}</select></label><input aria-label="搜索趋势考试" placeholder="搜索考试、日期或科目" value={query} onChange={e=>{setQuery(e.target.value);clearSelection();}}/>{(query||subject!=='全部')&&<button onClick={()=>{setQuery('');setSubject('全部');clearSelection();}}>清除筛选</button>}</>}</div>
+ <div className={s.trendLayout}><section className={s.chart}><header><h2>{student?'个人得分率变化':'班级得分率变化'}</h2><p>{student?'按每场已录科目计算':'有录入学生的个人得分率平均值'}</p></header>
+ {!points.length?<div className={s.empty}><h3>{exams.length?'没有匹配的考试':'尚无考试记录'}</h3><p>{exams.length?'调整范围或清除筛选后查看。':'先在录分页建立一次考试。'}</p></div>:!recorded?<div className={s.empty}><h3>{student?'该学生尚无已录成绩':'尚无已录成绩'}</h3><p>下方保留考试记录，未录入不按零分绘制。</p></div>:<><svg viewBox={`0 0 ${width} ${height}`} role="img" aria-label={`${student?.name??'班级'}得分率图，详细数值见考试台账`}><title>按日期排序，场次等距；缺失值断线，0分保留</title>{[0,50,100].map(v=><g key={v}><line x1={left} x2={right} y1={y(v)} y2={y(v)}/><text x={left-8} y={y(v)+4} textAnchor="end">{v}%</text></g>)}<path d={path}/>{chart.map((p,i)=><g key={p.exam.id}>{p.value!=null&&<><circle cx={x(i)} cy={y(p.value)} r={selected?.exam.id===p.exam.id?6:4}/>{(chart.length<=12||selected?.exam.id===p.exam.id)&&<text x={x(i)} y={y(p.value)-13} textAnchor="middle">{p.value}%</text>}</>}{(chart.length<=12||i===0||i===chart.length-1)&&<text x={x(i)} y={bottom+25} textAnchor="middle">{p.exam.date.slice(5).replace('-','/')}</text>}{p.value==null&&chart.length<=12&&<text x={x(i)} y={bottom+43} textAnchor="middle">未录</text>}</g>)}</svg>{recorded<2&&<p>仅一场有录入记录，暂不判断变化。</p>}</>}
+ <p className={s.note}>按考试日期排序，场次等距。科目或录入范围不同，跨次变化需结合明细判断。{points.length>chart.length?`图示最近${chart.length}场，完整数据见台账。`:''}</p></section>
+ {selected&&<aside className={s.examDetail} aria-label="趋势所选考试"><h2>所选考试 · {selected.exam.title}</h2><p>{selected.exam.date}</p><div className={s.detailMetrics}><div><span>{student?'本人得分率':'班级得分率'}</span><strong>{selected.value==null?'未录入':`${selected.value}%`}</strong></div><div><span>{student?'本次已录':'有录入学生'}</span><b>{student?`${selected.subjectsEntered}/${subjects(selected.exam).length}科`:`${selected.entered}/${students.length}人`}</b></div></div>{student?<dl className={s.subjectList}>{subjects(selected.exam).map(sub=><div key={sub}><dt>{sub}</dt><dd>{scoreEntry(selected.exam,student.id,sub)??'未录入'} / {selected.exam.subjectMaxScores?.[sub]??100}</dd></div>)}</dl>:<p>科目：{subjects(selected.exam).join('、')}<br/>每人至少录入一科即计入人数，不等于全部录齐。</p>}<button onClick={()=>onOpenExam?.(selected.exam.id)}>查看本次录分</button></aside>}</div>
+ <section className={s.ledger}><header><h2>{student?'学生考试记录':'考试台账'}</h2><span>共{points.length}场 · 倒序显示</span></header><div className={s.ledgerHead}><span>日期 / 考试</span><span>得分率</span><span>{student?'已录科目':'有录入学生'}</span><span>操作</span></div>{rows.map(p=><article key={p.exam.id} data-trend-row={p.exam.id} data-selected={p.exam.id===selected?.exam.id}><div><b>{p.exam.title}</b><small>{p.exam.date} · {subjects(p.exam).join(' / ')}</small></div><strong><span className={s.sr}>得分率 </span>{p.value==null?'未录入':`${p.value}%`}</strong><div><span className={s.sr}>{student?'已录科目 ':'有录入学生 '}</span>{student?`${p.subjectsEntered}/${subjects(p.exam).length}科`:`${p.entered}/${students.length}人`}{student&&p.subjectsEntered>0&&p.subjectsEntered<subjects(p.exam).length&&<small className={s.warning}>部分录入</small>}</div><button aria-label={`查看${p.exam.title} ${p.exam.date}明细`} aria-pressed={p.exam.id===selected?.exam.id} onClick={()=>setSelectedId(p.exam.id)}>查看明细</button></article>)}<footer><button disabled={safePage===1} onClick={()=>setPage(p=>p-1)}>上一页</button><span>{safePage}/{pages}</span><button disabled={safePage===pages} onClick={()=>setPage(p=>p+1)}>下一页</button></footer></section>
+ <p className={s.note}>科目条件只筛选包含该科的考试，图表仍按每场所有已录科目计算；不是该科单独走势。空白与0分分别处理。</p>
+ </section>;
 }

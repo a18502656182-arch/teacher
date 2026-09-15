@@ -1,0 +1,121 @@
+{
+  "createdAt": "2026-09-15T08:04:59.528Z",
+  "browser": {
+    "protocolVersion": "1.3",
+    "product": "Chrome/152.0.7977.82",
+    "revision": "@d04cdb24d67b081f6cf80200ffc5233f44b61109",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/152.0.0.0 Safari/537.36",
+    "jsVersion": "15.2.124.21"
+  },
+  "evidence": [
+    {
+      "path": "1536-many.png",
+      "sha256": "CF6CE0C889AA58EA304BE0C4C34DB2E0E18802D0075DB2B5628E8AACC9FBC1F9",
+      "viewport": "1536x1024"
+    },
+    {
+      "path": "1536-review-scrolled.png",
+      "sha256": "09FBD8F3A8A7AA5D0CF204024A133C91985FAF7A76BCDA7035EE346666F5AEB3",
+      "viewport": "1536x1024"
+    },
+    {
+      "path": "1536-student.png",
+      "sha256": "BBDECDD7D9B498ED771482FAF42265B756EBBA33023A38C35CA807EF3232DD46",
+      "viewport": "1536x1024"
+    },
+    {
+      "path": "390-many.png",
+      "sha256": "78C7714EC09FE27C31D1AB6243959994F3DCF4D01366D0A76E85C678AB8B0F68",
+      "viewport": "390x844"
+    },
+    {
+      "path": "390-review-scrolled.png",
+      "sha256": "068975CBB2D4F294199C8C103150880095719F37163D23B4CCF6D91DD2A7D441",
+      "viewport": "390x844"
+    },
+    {
+      "path": "390-student.png",
+      "sha256": "F56D6BE658A91FDC82703FC4DA738CFAF1D6489ECA8F99F7DB9C619D83ABC0E7",
+      "viewport": "390x844"
+    },
+    {
+      "path": "360-many.png",
+      "sha256": "F128D80EA6E9AE38DE89FA4F0872DA41A0AC85658B0B11572AF0E2B906C1A863",
+      "viewport": "360x844"
+    },
+    {
+      "path": "360-review-scrolled.png",
+      "sha256": "4EDEB1F40001C327A1E6C15D5226195364E7FBB39FB4FE127FF4501563F576C6",
+      "viewport": "360x844"
+    },
+    {
+      "path": "360-student.png",
+      "sha256": "5453A23CEC046EC6214ECB7B54AD03B6667BB917BFF85F1E91D817D94143CF01",
+      "viewport": "360x844"
+    }
+  ],
+  "failures": [],
+  "interactions": [
+    {
+      "name": "1536 paper pages capped",
+      "passed": true
+    },
+    {
+      "name": "1536 next papers",
+      "passed": true
+    },
+    {
+      "name": "1536 confirm reachable after scroll",
+      "passed": true
+    },
+    {
+      "name": "1536 confirm via UI",
+      "passed": true
+    },
+    {
+      "name": "1536 row action names",
+      "passed": true
+    },
+    {
+      "name": "390 paper pages capped",
+      "passed": true
+    },
+    {
+      "name": "390 next papers",
+      "passed": true
+    },
+    {
+      "name": "390 confirm reachable after scroll",
+      "passed": true
+    },
+    {
+      "name": "390 confirm via UI",
+      "passed": true
+    },
+    {
+      "name": "390 row action names",
+      "passed": true
+    },
+    {
+      "name": "360 paper pages capped",
+      "passed": true
+    },
+    {
+      "name": "360 next papers",
+      "passed": true
+    },
+    {
+      "name": "360 confirm reachable after scroll",
+      "passed": true
+    },
+    {
+      "name": "360 confirm via UI",
+      "passed": true
+    },
+    {
+      "name": "360 row action names",
+      "passed": true
+    }
+  ],
+  "consoleErrors": []
+}

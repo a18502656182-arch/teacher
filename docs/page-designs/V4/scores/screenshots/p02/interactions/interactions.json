@@ -1,0 +1,351 @@
+{
+  "createdAt": "2026-09-15T07:59:19.816Z",
+  "browser": {
+    "protocolVersion": "1.3",
+    "product": "Chrome/152.0.7977.82",
+    "revision": "@d04cdb24d67b081f6cf80200ffc5233f44b61109",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/152.0.0.0 Safari/537.36",
+    "jsVersion": "15.2.124.21"
+  },
+  "evidence": [],
+  "failures": [],
+  "interactions": [
+    {
+      "name": "1536 initial progress95",
+      "passed": true
+    },
+    {
+      "name": "1536 search",
+      "passed": true
+    },
+    {
+      "name": "1536 marked filter",
+      "passed": true
+    },
+    {
+      "name": "1536 105 pagination",
+      "passed": true
+    },
+    {
+      "name": "1536 zero is recorded complete",
+      "passed": true
+    },
+    {
+      "name": "1536 blank no total",
+      "passed": true
+    },
+    {
+      "name": "1536 out of range rejected",
+      "passed": true
+    },
+    {
+      "name": "1536 dirty cancel guard",
+      "passed": true
+    },
+    {
+      "name": "1536 discard closes",
+      "passed": true
+    },
+    {
+      "name": "1536 batch zero",
+      "passed": true
+    },
+    {
+      "name": "1536 batch clear",
+      "passed": true
+    },
+    {
+      "name": "1536 new subject stays empty",
+      "passed": true
+    },
+    {
+      "name": "1536 staged not persisted",
+      "passed": true
+    },
+    {
+      "name": "1536 unsaved blocks tab",
+      "passed": true
+    },
+    {
+      "name": "1536 staged save",
+      "passed": true
+    },
+    {
+      "name": "1536 save-failure creates once",
+      "passed": true
+    },
+    {
+      "name": "1536 save-failure retry unique",
+      "passed": true
+    },
+    {
+      "name": "1536 save-throw creates once",
+      "passed": true
+    },
+    {
+      "name": "1536 save-throw retry unique",
+      "passed": true
+    },
+    {
+      "name": "1536 candidate excluded",
+      "passed": true
+    },
+    {
+      "name": "1536 confirm candidate",
+      "passed": true
+    },
+    {
+      "name": "1536 confirmation idempotent",
+      "passed": true
+    },
+    {
+      "name": "1536 item validation",
+      "passed": true
+    },
+    {
+      "name": "1536 manual item create",
+      "passed": true
+    },
+    {
+      "name": "1536 knowledge zero",
+      "passed": true
+    },
+    {
+      "name": "1536 lower max refuses existing values",
+      "passed": true
+    },
+    {
+      "name": "1536 delete cancel",
+      "passed": true
+    },
+    {
+      "name": "1536 delete exam",
+      "passed": true
+    },
+    {
+      "name": "1536 readonly write blocked",
+      "passed": true
+    },
+    {
+      "name": "1536 readonly detail accessible",
+      "passed": true
+    },
+    {
+      "name": "1536 trend normalized and gap",
+      "passed": true
+    },
+    {
+      "name": "1536 personal rate and coverage",
+      "passed": true
+    },
+    {
+      "name": "1536 selected partial exam",
+      "passed": true
+    },
+    {
+      "name": "1536 return class clears personal",
+      "passed": true
+    },
+    {
+      "name": "1536 single exam keeps actual point",
+      "passed": true
+    },
+    {
+      "name": "1536 empty no invented curve",
+      "passed": true
+    },
+    {
+      "name": "1536 real item rates",
+      "passed": true
+    },
+    {
+      "name": "1536 review inline not modal",
+      "passed": true
+    },
+    {
+      "name": "1536 paper dirty blocks tab",
+      "passed": true
+    },
+    {
+      "name": "1536 edited paper confirmed",
+      "passed": true
+    },
+    {
+      "name": "1536 persistent conflict recoverable",
+      "passed": true
+    },
+    {
+      "name": "1536 nav guarded",
+      "passed": true
+    },
+    {
+      "name": "390 initial progress95",
+      "passed": true
+    },
+    {
+      "name": "390 search",
+      "passed": true
+    },
+    {
+      "name": "390 marked filter",
+      "passed": true
+    },
+    {
+      "name": "390 105 pagination",
+      "passed": true
+    },
+    {
+      "name": "390 zero is recorded complete",
+      "passed": true
+    },
+    {
+      "name": "390 blank no total",
+      "passed": true
+    },
+    {
+      "name": "390 out of range rejected",
+      "passed": true
+    },
+    {
+      "name": "390 dirty cancel guard",
+      "passed": true
+    },
+    {
+      "name": "390 discard closes",
+      "passed": true
+    },
+    {
+      "name": "390 batch zero",
+      "passed": true
+    },
+    {
+      "name": "390 batch clear",
+      "passed": true
+    },
+    {
+      "name": "390 new subject stays empty",
+      "passed": true
+    },
+    {
+      "name": "390 staged not persisted",
+      "passed": true
+    },
+    {
+      "name": "390 unsaved blocks tab",
+      "passed": true
+    },
+    {
+      "name": "390 staged save",
+      "passed": true
+    },
+    {
+      "name": "390 save-failure creates once",
+      "passed": true
+    },
+    {
+      "name": "390 save-failure retry unique",
+      "passed": true
+    },
+    {
+      "name": "390 save-throw creates once",
+      "passed": true
+    },
+    {
+      "name": "390 save-throw retry unique",
+      "passed": true
+    },
+    {
+      "name": "390 candidate excluded",
+      "passed": true
+    },
+    {
+      "name": "390 confirm candidate",
+      "passed": true
+    },
+    {
+      "name": "390 confirmation idempotent",
+      "passed": true
+    },
+    {
+      "name": "390 item validation",
+      "passed": true
+    },
+    {
+      "name": "390 manual item create",
+      "passed": true
+    },
+    {
+      "name": "390 knowledge zero",
+      "passed": true
+    },
+    {
+      "name": "390 lower max refuses existing values",
+      "passed": true
+    },
+    {
+      "name": "390 delete cancel",
+      "passed": true
+    },
+    {
+      "name": "390 delete exam",
+      "passed": true
+    },
+    {
+      "name": "390 readonly write blocked",
+      "passed": true
+    },
+    {
+      "name": "390 readonly detail accessible",
+      "passed": true
+    },
+    {
+      "name": "390 trend normalized and gap",
+      "passed": true
+    },
+    {
+      "name": "390 personal rate and coverage",
+      "passed": true
+    },
+    {
+      "name": "390 selected partial exam",
+      "passed": true
+    },
+    {
+      "name": "390 return class clears personal",
+      "passed": true
+    },
+    {
+      "name": "390 single exam keeps actual point",
+      "passed": true
+    },
+    {
+      "name": "390 empty no invented curve",
+      "passed": true
+    },
+    {
+      "name": "390 real item rates",
+      "passed": true
+    },
+    {
+      "name": "390 review inline not modal",
+      "passed": true
+    },
+    {
+      "name": "390 paper dirty blocks tab",
+      "passed": true
+    },
+    {
+      "name": "390 edited paper confirmed",
+      "passed": true
+    },
+    {
+      "name": "390 persistent conflict recoverable",
+      "passed": true
+    },
+    {
+      "name": "390 nav guarded",
+      "passed": true
+    }
+  ],
+  "consoleErrors": []
+}

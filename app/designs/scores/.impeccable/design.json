@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-09-15T07:16:29.3020076Z",
-  "title": "Design System: 成绩分析 · 隔离 P01",
+  "generatedAt": "2026-09-15T08:07:02.8399216Z",
+  "title": "Design System: 成绩分析 · 隔离 P02",
   "extensions": {
     "colorMeta": {
       "table-head": {
@@ -19,6 +19,26 @@
       "exam": {
         "role": "secondary",
         "displayName": "考试浅绿"
+      },
+      "chart-note": {
+        "role": "neutral",
+        "displayName": "图表说明灰蓝"
+      },
+      "chart-grid": {
+        "role": "neutral",
+        "displayName": "图表参照线"
+      },
+      "subject-line": {
+        "role": "neutral",
+        "displayName": "逐科明细分隔"
+      },
+      "selected-row": {
+        "role": "secondary",
+        "displayName": "所选考试浅绿白"
+      },
+      "meter-track": {
+        "role": "neutral",
+        "displayName": "得分率轨道"
       }
     },
     "typographyMeta": {
@@ -29,6 +49,14 @@
       "display": {
         "purpose": "supplement平台字体确认标题四字为MicrosoftYaHei-Bold；桌面34px、手机26px",
         "displayName": "页面标题"
+      },
+      "selected-rate": {
+        "purpose": "桌面所选考试主值；尺寸以前置token为准",
+        "displayName": "所选考试得分率"
+      },
+      "mobile-selected-rate": {
+        "purpose": "手机所选考试主值；尺寸以前置token为准",
+        "displayName": "手机所选考试得分率"
       }
     },
     "shadows": [],
@@ -41,9 +69,32 @@
       {
         "name": "narrow-desktop",
         "value": "1200px"
+      },
+      {
+        "name": "workspace-narrow",
+        "value": "1100px"
       }
     ],
     "evidence": {
+      "viewedImages": [
+        "docs/page-designs/V4/scores/screenshots/p02-final/1536-trends.png",
+        "docs/page-designs/V4/scores/screenshots/p02-extra/390-paper-review.png"
+      ],
+      "detector": "detector-P02.json 原有7项advisory，无warning/error；本次登记对应token，不声称重跑或无障碍通过。",
+      "density": "实际首屏台账密度低于候选，手机多行与考试详情增加滚动；审美差异交用户判断。",
+      "approval": "用户“可以 先这样吧 开始做网页”批准 C02 班级/分析与 C03 个人候选的隔离实现；实际 P02 未获用户审美批准，未授权正式接入、完整 D/R 或部署。",
+      "limits": "无真实上传、AI调用或服务器保存验证；读屏、软键盘与全部触控目标未验，不把实际实现授权扩大为审美批准。",
+      "source": [
+        "app/designs/scores/ScoresDesign.tsx",
+        "app/designs/scores/ScoresDesign.module.css",
+        "app/designs/scores/ScoreTrendsDesign.tsx",
+        "app/designs/scores/ScoreAnalysisDesign.tsx",
+        "app/designs/scores/ScoreWorkspaces.module.css"
+      ],
+      "review": "docs/page-designs/V4/scores/finish-review-P02.md",
+      "followup": "已补读 p02-review-fixes/review-fixes.json：1536/390/360三视口15项通过，含每页5份试卷、翻页、滚动后确认可达、UI确认和行操作名称；failures/consoleErrors为空。作者未独立重跑。源码确认分页经guard，趋势按钮名称含考试名与日期。"
+    },
+    "historicalP01Evidence": {
       "viewedImages": [
         ".qa-shots/scores-design/round2/1536-normal.png",
         ".qa-shots/scores-design/round2/390-normal.png",
@@ -103,33 +154,47 @@
       "name": "当前考试上下文",
       "kind": "custom",
       "html": "<section class=\"ds-exam\"><h2>当前考试 · 9月综合练习</h2><p>2026-09-15 · 语文 100分 / 数学 100分 / 英语 100分</p></section>"
+    },
+    {
+      "html": "<aside class=\"ds-detail\"><h2>所选考试 · 9月练习</h2><p>2026-09-15</p><div><span>本人得分率<strong>80%</strong></span><span>本次已录<b>2/3科</b></span></div><button>查看本次录分</button></aside>",
+      "name": "所选考试详情",
+      "css": ".ds-detail{font:15px/1.6 \"Microsoft YaHei\",sans-serif;color:#15334a;background:#eef6ee;border-radius:6px;padding:20px}.ds-detail h2{font-size:21px;margin:0;overflow-wrap:anywhere}.ds-detail p{font-size:13px;color:#446250}.ds-detail>div{display:flex;justify-content:space-between;gap:20px;margin:22px 0 16px}.ds-detail span{font-size:13px}.ds-detail strong{display:block;font-size:32px;line-height:1.5}.ds-detail b{display:block;font-size:22px;line-height:2}.ds-detail button{font:inherit;color:#087e7e;background:transparent;border:0;border-radius:5px;padding:7px 12px;min-height:36px;cursor:pointer}.ds-detail button:hover{background:#eaf4f1}.ds-detail button:focus-visible{outline:2px solid #087e7e;outline-offset:3px}",
+      "kind": "custom",
+      "description": "由台账选择关联；班级显示有录入人数，个人显示已录科目，不能混用指标。"
+    },
+    {
+      "html": "<article class=\"ds-item\"><h3>阅读信息提取</h3><p>语文 · 信息归纳 · 满分10</p><span>得分率</span><strong>40%</strong><div class=\"ds-meter\" aria-hidden=\"true\"><span></span></div><p>已录入 2/32人</p></article>",
+      "name": "已确认分析项",
+      "css": ".ds-item{font:15px/1.6 \"Microsoft YaHei\",sans-serif;color:#15334a;padding:18px 0;border-bottom:1px solid #dce6ed}.ds-item h3{font-size:17px;margin:0}.ds-item p,.ds-item>span{font-size:13px;color:#50667b}.ds-item strong{font-size:22px;display:block}.ds-meter{max-width:220px;height:7px;background:#e0e8ed;margin-top:7px;border-radius:3px;overflow:hidden}.ds-meter span{display:block;height:100%;width:40%;background:#087e7e}",
+      "kind": "custom",
+      "description": "文字和轨道共同表示已录学生得分率，未录入不当零分。"
     }
   ],
   "narrative": {
     "northStar": "浅绿考试笺与白纸录分簿",
     "keyCharacteristics": [
-      "浅绿考试上下文、紧凑工具条与连续录分表。",
-      "手机学生行逐科显示满分、分数及缺录状态。",
-      "三个工作区共享真实壳层，趋势与分析保持独立任务。",
-      "颜色配合文字，不把空白等同零分。"
+      "班级与个人分别使用人数覆盖和已录科目，保持指标对象明确。",
+      "浅蓝图面、浅绿考试详情、连续考试台账由所选考试关联。",
+      "试卷任务、待核对候选、已确认分析项分开，核对在页内展开。",
+      "缺录断线、零分保留；统计解释紧邻图表和台账。"
     ],
     "dos": [
-      "Do 保留浅绿考试上下文、连续录分台账和手机学生行。",
-      "Do 同时说明科目满分、缺录与零分以及趋势统计口径。",
-      "Do 以源码最终覆盖值及实拍记录尺寸，保留小字和滚动密度审阅项。"
+      "Do 保持班级人数覆盖与个人已录科目各自明确，并关联所选考试、台账与图点。",
+      "Do 在趋势附近保留统计口径、科目筛选含义、缺录与零分说明。",
+      "Do 将实际首屏密度与候选差异交用户判断，按最终源码和验证记录区分事实与待验项。"
     ],
     "rules": [
       {
         "name": "The Meaning Rule",
-        "section": "colors",
-        "body": "缺录、零分、本次跟进和保存状态各自保留明确文字，不通过颜色扩大统计或业务含义。"
+        "body": "班级人数、个人科目、缺录、零分、待核对和已确认各自保留明确文字，不通过颜色扩大统计或业务含义。",
+        "section": "colors"
       }
     ],
     "donts": [
-      "Don't 将有录入学生占比写成成绩项完整率，或将等距场次轴写成时间比例轴。",
-      "Don't 将合成候选称为真实上传或 AI 识别完成。",
-      "Don't 将 finish PASS 写成用户 P01 批准、弹窗批准、完整 D/R 或部署许可。"
+      "Don't 将隔离实现授权或 finish 结论写成实际 P02 审美批准、正式接入或部署许可。",
+      "Don't 将合成候选写成真实上传、真实 AI 或真实保存验证。",
+      "Don't 把 P01 历史趋势尺寸与结构用于覆盖当前 P02，或将登记 token 当检测全通过。"
     ],
-    "overview": "浅绿横带固定当前考试、日期与科目满分，白纸连续台账承担录分，浅蓝表头建立列关系。文具水彩只提供标题情境，青绿用于命令和选中状态。此名称是对 C01 已确认方向的描述性归纳，不是另行批准的品牌命名。\n\n本文件仅登记 app/designs/scores 的局部实现，不替换根 DESIGN.md。页面模式 Operate：先选考试，再录分、看趋势或核对试卷。用户本轮“确认”批准 C01 双端方向；P01 主页面仍待用户审核，弹窗视觉后置，完整 D/R 未批准、正式业务未接入、未部署。brief/function-map 的制作前文字不是当前实现结论；finish-review 最终 PASS 仅表示可交用户主页面审核，F1/F2 已 resolved。"
+    "overview": "延续录分簿的白纸、青绿命令与文具情境，趋势工作区以浅蓝图面和浅绿所选考试建立证据关系，试卷工作区以任务、人工核对、已确认台账组织操作。名称延续 P01 的描述性归纳，不是新品牌批准。\n\n**当前权威：2026-09-15 P02 源码实现。** 仅覆盖 app/designs/scores，不替换根 DESIGN.md；下方 P01 章节完整保留为历史，凡趋势结构、图表尺寸、试卷编辑方式与此节冲突，均以当前源码及本节为准。用户“可以 先这样吧 开始做网页”批准将班级趋势/试卷分析 C02、个人趋势 C03 制作为隔离页面；没有批准实际 P02 审美结果、正式接入、完整 D/R 或部署。新增 token 是登记已存在的实现值，不是改造全站设计系统。\n\n源码依据：ScoreTrendsDesign.tsx、ScoreAnalysisDesign.tsx、ScoresDesign.tsx、ScoresDesign.module.css、ScoreWorkspaces.module.css。截图依据为 docs/page-designs/V4/scores/screenshots/p02-final 与 p02-extra；本文作者直接查看 1536-trends 和 extra/390-paper-review，其余视觉判断引用 finish-review-P02.md。实际首屏台账密度低于候选、手机内容更长，不能写成完全复刻或代替用户审美确认。"
   }
 }

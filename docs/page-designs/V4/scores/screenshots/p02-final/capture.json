@@ -1,0 +1,615 @@
+{
+  "createdAt": "2026-09-15T07:59:38.975Z",
+  "browser": {
+    "protocolVersion": "1.3",
+    "product": "Chrome/152.0.7977.82",
+    "revision": "@d04cdb24d67b081f6cf80200ffc5233f44b61109",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/152.0.0.0 Safari/537.36",
+    "jsVersion": "15.2.124.21"
+  },
+  "evidence": [
+    {
+      "path": "1536-normal.png",
+      "sha256": "F6850FCFDA56D9604B6D4E4E96397DCE37A85C67433CD2DA4E1C31D1133DF7F0",
+      "viewport": "1536x1024",
+      "stateId": "normal",
+      "url": "http://127.0.0.1:4218/scores.html?state=normal",
+      "fixtureSha256": "E00D01D4AD6103C08F2FC0E3ED10A60AC0D867B7D4DBD08DC6240AF07D85B5C2",
+      "info": {
+        "ready": true,
+        "scrollWidth": 1521,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": false,
+          "sync": "normal",
+          "selected": "synthetic-score-1"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "1536-trends.png",
+      "sha256": "AF8CC8BEDE6DBB22E9F4C857A74981640650932C1120058BE992553C000A14C2",
+      "viewport": "1536x1024",
+      "stateId": "trends",
+      "url": "http://127.0.0.1:4218/scores.html?state=trends",
+      "fixtureSha256": "367CADAC522477C8FB98FCBB53A0A6C0A4411DB81D522F8409BC93F131A4E8FE",
+      "info": {
+        "ready": true,
+        "scrollWidth": 1521,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": false,
+          "sync": "normal",
+          "selected": "history-0"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "1536-student-trends.png",
+      "sha256": "BBDECDD7D9B498ED771482FAF42265B756EBBA33023A38C35CA807EF3232DD46",
+      "viewport": "1536x1024",
+      "stateId": "student-trends",
+      "url": "http://127.0.0.1:4218/scores.html?state=student-trends",
+      "fixtureSha256": "367CADAC522477C8FB98FCBB53A0A6C0A4411DB81D522F8409BC93F131A4E8FE",
+      "info": {
+        "ready": true,
+        "scrollWidth": 1521,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": false,
+          "sync": "normal",
+          "selected": "history-0"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "1536-trend-single.png",
+      "sha256": "B922D4FE692128248D1E5F24F807A8D8E54EA23B92CA0E592EECA5419D6DE8FC",
+      "viewport": "1536x1024",
+      "stateId": "trend-single",
+      "url": "http://127.0.0.1:4218/scores.html?state=trend-single",
+      "fixtureSha256": "E00D01D4AD6103C08F2FC0E3ED10A60AC0D867B7D4DBD08DC6240AF07D85B5C2",
+      "info": {
+        "ready": true,
+        "scrollWidth": 1521,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": false,
+          "sync": "normal",
+          "selected": "synthetic-score-1"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "1536-trend-empty.png",
+      "sha256": "2056214DD88769DB429C383263E262ECAB9CB96D271AFEBDE5F0C5583F80B716",
+      "viewport": "1536x1024",
+      "stateId": "trend-empty",
+      "url": "http://127.0.0.1:4218/scores.html?state=trend-empty",
+      "fixtureSha256": "D7C6686396A6E77634770FC0E22FD432126FE9A7FCE81BBB1A89AC7C78F40BAD",
+      "info": {
+        "ready": true,
+        "scrollWidth": 1536,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": false,
+          "sync": "normal",
+          "selected": "synthetic-score-1"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "1536-trend-no-exams.png",
+      "sha256": "CF5A595C777E9E3FA3E5096FF10B39DEB03061E303354705F831B2133B8A8B2E",
+      "viewport": "1536x1024",
+      "stateId": "trend-no-exams",
+      "url": "http://127.0.0.1:4218/scores.html?state=trend-no-exams",
+      "fixtureSha256": "30803CD1B461CE2DE05B4F236B577F9D2A1A059340FACB064CCB19A5A36B41BC",
+      "info": {
+        "ready": true,
+        "scrollWidth": 1536,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": false,
+          "sync": "normal"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "1536-long-history.png",
+      "sha256": "4635770988817C120784D1D46D706F1478D81C749E4468B59B5429A52FB4620C",
+      "viewport": "1536x1024",
+      "stateId": "long-history",
+      "url": "http://127.0.0.1:4218/scores.html?state=long-history",
+      "fixtureSha256": "520C691B42603950AC1A7A04660038A95540D200B2521FCCBE7F326505F3FE07",
+      "info": {
+        "ready": true,
+        "scrollWidth": 1521,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": false,
+          "sync": "normal",
+          "selected": "history-0"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "1536-analysis.png",
+      "sha256": "BACC05485AEBECC3C65E975D614667693AB553338AEB95CDF1CC3FD5B952973B",
+      "viewport": "1536x1024",
+      "stateId": "analysis",
+      "url": "http://127.0.0.1:4218/scores.html?state=analysis",
+      "fixtureSha256": "546C6A901857EE8347D83BE7D19FEC74EF71B57C19006128F795EFC98C7C027A",
+      "info": {
+        "ready": true,
+        "scrollWidth": 1521,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": false,
+          "sync": "normal",
+          "selected": "synthetic-score-1"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "1536-analysis-empty.png",
+      "sha256": "9425366F807695D443F969B94DBDDE0012E5D7AC8BA8955B077954230BA5D6A1",
+      "viewport": "1536x1024",
+      "stateId": "analysis-empty",
+      "url": "http://127.0.0.1:4218/scores.html?state=analysis-empty",
+      "fixtureSha256": "E00D01D4AD6103C08F2FC0E3ED10A60AC0D867B7D4DBD08DC6240AF07D85B5C2",
+      "info": {
+        "ready": true,
+        "scrollWidth": 1536,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": false,
+          "sync": "normal",
+          "selected": "synthetic-score-1"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "1536-analysis-readonly.png",
+      "sha256": "509317ABCBFFD481ECFD9CBAA11CDB11030C1DEBEAE52309F82D81D9F9DE8CCF",
+      "viewport": "1536x1024",
+      "stateId": "analysis-readonly",
+      "url": "http://127.0.0.1:4218/scores.html?state=analysis-readonly",
+      "fixtureSha256": "546C6A901857EE8347D83BE7D19FEC74EF71B57C19006128F795EFC98C7C027A",
+      "info": {
+        "ready": true,
+        "scrollWidth": 1521,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n只读\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具\n",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": false,
+          "sync": "normal",
+          "selected": "synthetic-score-1"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "1536-paper-review.png",
+      "sha256": "09FBD8F3A8A7AA5D0CF204024A133C91985FAF7A76BCDA7035EE346666F5AEB3",
+      "viewport": "1536x1024",
+      "stateId": "paper-review",
+      "url": "http://127.0.0.1:4218/scores.html?state=paper-review",
+      "fixtureSha256": "3123D11927EAA7469AD2F996C2F7B30975573FF5582776C16BC80B880EBE85F5",
+      "info": {
+        "ready": true,
+        "scrollWidth": 1536,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": false,
+          "sync": "normal",
+          "editor": "paper",
+          "selected": "synthetic-score-1"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "1536-ai-failure.png",
+      "sha256": "9519F3FF0F927137E9303A14DA04E911F3746B31718B06DAE0FE3DFF300B3456",
+      "viewport": "1536x1024",
+      "stateId": "ai-failure",
+      "url": "http://127.0.0.1:4218/scores.html?state=ai-failure",
+      "fixtureSha256": "67AF4B82164F5FCA84C5DD9CDD8F355A6A0FAB272DA45016FFC8E3D9E5DDFF90",
+      "info": {
+        "ready": true,
+        "scrollWidth": 1536,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": false,
+          "sync": "normal",
+          "selected": "synthetic-score-1"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "390-normal.png",
+      "sha256": "9ABC77852536215A69015E8BDABBE8CC09B58DBA082DBA77D4DE1965FBB0C05F",
+      "viewport": "390x844",
+      "stateId": "normal",
+      "url": "http://127.0.0.1:4218/scores.html?state=normal",
+      "fixtureSha256": "E00D01D4AD6103C08F2FC0E3ED10A60AC0D867B7D4DBD08DC6240AF07D85B5C2",
+      "info": {
+        "ready": true,
+        "scrollWidth": 390,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "成绩分析\n\n三年级 · 32人\n\n已保存\n成绩分析\n\n按考试记录分数，结合录入情况分析。\n\n9月综合练习\n\n2026-09-15 · 语文 100分 / 数学 100分 / 英语 100分\n\n切换考试\n编辑\n新增考试\n录分\n趋势\n试卷分析\n",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": false,
+          "sync": "normal",
+          "selected": "synthetic-score-1"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "390-trends.png",
+      "sha256": "E50F4304875C21B1FABA1618D21C42EA3326B995DA5A10DCD1BE60DA0AFF2CE9",
+      "viewport": "390x844",
+      "stateId": "trends",
+      "url": "http://127.0.0.1:4218/scores.html?state=trends",
+      "fixtureSha256": "367CADAC522477C8FB98FCBB53A0A6C0A4411DB81D522F8409BC93F131A4E8FE",
+      "info": {
+        "ready": true,
+        "scrollWidth": 390,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "成绩分析\n\n三年级 · 32人\n\n已保存\n成绩分析\n\n按考试记录分数，结合录入情况分析。\n\n录分\n趋势\n试卷分析\n班级整体趋势\n32名学生 · 5/6场有录入\n查看学生\n考试范围\n最近12场\n最近24场\n全部考试\n更多筛选\n班级得分率变化\n",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": false,
+          "sync": "normal",
+          "selected": "history-0"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "390-student-trends.png",
+      "sha256": "F56D6BE658A91FDC82703FC4DA738CFAF1D6489ECA8F99F7DB9C619D83ABC0E7",
+      "viewport": "390x844",
+      "stateId": "student-trends",
+      "url": "http://127.0.0.1:4218/scores.html?state=student-trends",
+      "fixtureSha256": "367CADAC522477C8FB98FCBB53A0A6C0A4411DB81D522F8409BC93F131A4E8FE",
+      "info": {
+        "ready": true,
+        "scrollWidth": 390,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "成绩分析\n\n三年级 · 32人\n\n已保存\n成绩分析\n\n按考试记录分数，结合录入情况分析。\n\n录分\n趋势\n试卷分析\n学生01\n学号01 · 三年级2班\n切换学生\n返回班级趋势\n考试范围\n最近12场\n最近24场\n全部考试\n更多筛选\n个人得分率变",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": false,
+          "sync": "normal",
+          "selected": "history-0"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "390-trend-single.png",
+      "sha256": "A1A3BB81BA6AD009A2543C2BBECD2F6CA301337E94B01BDDF0E03E6CE24241EF",
+      "viewport": "390x844",
+      "stateId": "trend-single",
+      "url": "http://127.0.0.1:4218/scores.html?state=trend-single",
+      "fixtureSha256": "E00D01D4AD6103C08F2FC0E3ED10A60AC0D867B7D4DBD08DC6240AF07D85B5C2",
+      "info": {
+        "ready": true,
+        "scrollWidth": 390,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "成绩分析\n\n三年级 · 32人\n\n已保存\n成绩分析\n\n按考试记录分数，结合录入情况分析。\n\n录分\n趋势\n试卷分析\n班级整体趋势\n32名学生 · 1/1场有录入\n查看学生\n考试范围\n最近12场\n最近24场\n全部考试\n更多筛选\n班级得分率变化\n",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": false,
+          "sync": "normal",
+          "selected": "synthetic-score-1"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "390-trend-empty.png",
+      "sha256": "DA793C426430989E1F7B8C11B37A47EA305F09D89FF2F02F84522E14BF502800",
+      "viewport": "390x844",
+      "stateId": "trend-empty",
+      "url": "http://127.0.0.1:4218/scores.html?state=trend-empty",
+      "fixtureSha256": "D7C6686396A6E77634770FC0E22FD432126FE9A7FCE81BBB1A89AC7C78F40BAD",
+      "info": {
+        "ready": true,
+        "scrollWidth": 390,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "成绩分析\n\n三年级 · 32人\n\n已保存\n成绩分析\n\n按考试记录分数，结合录入情况分析。\n\n录分\n趋势\n试卷分析\n班级整体趋势\n32名学生 · 0/1场有录入\n查看学生\n考试范围\n最近12场\n最近24场\n全部考试\n更多筛选\n班级得分率变化\n",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": false,
+          "sync": "normal",
+          "selected": "synthetic-score-1"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "390-trend-no-exams.png",
+      "sha256": "E88E92E77237165C802791591294156420CEA1EE3DB8190DFA7E90208700B63F",
+      "viewport": "390x844",
+      "stateId": "trend-no-exams",
+      "url": "http://127.0.0.1:4218/scores.html?state=trend-no-exams",
+      "fixtureSha256": "30803CD1B461CE2DE05B4F236B577F9D2A1A059340FACB064CCB19A5A36B41BC",
+      "info": {
+        "ready": true,
+        "scrollWidth": 390,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "成绩分析\n\n三年级 · 32人\n\n已保存\n成绩分析\n\n按考试记录分数，结合录入情况分析。\n\n录分\n趋势\n试卷分析\n班级整体趋势\n32名学生 · 0/0场有录入\n查看学生\n考试范围\n最近12场\n最近24场\n全部考试\n更多筛选\n班级得分率变化\n",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": false,
+          "sync": "normal"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "390-long-history.png",
+      "sha256": "141658127E00513924C9A2EA979B8D9F1BD2EAA0491CEE26DEC77F74A301FE9F",
+      "viewport": "390x844",
+      "stateId": "long-history",
+      "url": "http://127.0.0.1:4218/scores.html?state=long-history",
+      "fixtureSha256": "520C691B42603950AC1A7A04660038A95540D200B2521FCCBE7F326505F3FE07",
+      "info": {
+        "ready": true,
+        "scrollWidth": 390,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "成绩分析\n\n三年级 · 32人\n\n已保存\n成绩分析\n\n按考试记录分数，结合录入情况分析。\n\n录分\n趋势\n试卷分析\n班级整体趋势\n32名学生 · 12/12场有录入\n查看学生\n考试范围\n最近12场\n最近24场\n全部考试\n更多筛选\n班级得分率变",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": false,
+          "sync": "normal",
+          "selected": "history-0"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "390-analysis.png",
+      "sha256": "E50576120FBE6DCCF7F4CB9D97378E850DE63BD26AD8EA4DC484CE1B296A2264",
+      "viewport": "390x844",
+      "stateId": "analysis",
+      "url": "http://127.0.0.1:4218/scores.html?state=analysis",
+      "fixtureSha256": "546C6A901857EE8347D83BE7D19FEC74EF71B57C19006128F795EFC98C7C027A",
+      "info": {
+        "ready": true,
+        "scrollWidth": 390,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "成绩分析\n\n三年级 · 32人\n\n已保存\n成绩分析\n\n按考试记录分数，结合录入情况分析。\n\n9月综合练习\n\n2026-09-15 · 语文 100分 / 数学 100分 / 英语 100分\n\n切换考试\n编辑\n新增考试\n录分\n趋势\n试卷分析\n",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": false,
+          "sync": "normal",
+          "selected": "synthetic-score-1"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "390-analysis-empty.png",
+      "sha256": "B64108912FF75C2EA354CC6CBAF084B20FF9FDEE58B5301886886FD6E7298D6F",
+      "viewport": "390x844",
+      "stateId": "analysis-empty",
+      "url": "http://127.0.0.1:4218/scores.html?state=analysis-empty",
+      "fixtureSha256": "E00D01D4AD6103C08F2FC0E3ED10A60AC0D867B7D4DBD08DC6240AF07D85B5C2",
+      "info": {
+        "ready": true,
+        "scrollWidth": 390,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "成绩分析\n\n三年级 · 32人\n\n已保存\n成绩分析\n\n按考试记录分数，结合录入情况分析。\n\n9月综合练习\n\n2026-09-15 · 语文 100分 / 数学 100分 / 英语 100分\n\n切换考试\n编辑\n新增考试\n录分\n趋势\n试卷分析\n",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": false,
+          "sync": "normal",
+          "selected": "synthetic-score-1"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "390-analysis-readonly.png",
+      "sha256": "59F668B212BCD0ABF984A47D1A95CD5104559EBD096E72A70A5CFE978855AED7",
+      "viewport": "390x844",
+      "stateId": "analysis-readonly",
+      "url": "http://127.0.0.1:4218/scores.html?state=analysis-readonly",
+      "fixtureSha256": "546C6A901857EE8347D83BE7D19FEC74EF71B57C19006128F795EFC98C7C027A",
+      "info": {
+        "ready": true,
+        "scrollWidth": 390,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "成绩分析\n\n三年级 · 32人\n\n只读\n只读宽限期\n可以查看和导出，续期后恢复编辑。\n成绩分析\n\n按考试记录分数，结合录入情况分析。\n\n9月综合练习\n\n2026-09-15 · 语文 100分 / 数学 100分 / 英语 100分\n\n切换",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": false,
+          "sync": "normal",
+          "selected": "synthetic-score-1"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "390-paper-review.png",
+      "sha256": "F024BCED8795161C4ED2979CC2250725FC49C6AD2EDABC629AF0FC4934DCA242",
+      "viewport": "390x844",
+      "stateId": "paper-review",
+      "url": "http://127.0.0.1:4218/scores.html?state=paper-review",
+      "fixtureSha256": "3123D11927EAA7469AD2F996C2F7B30975573FF5582776C16BC80B880EBE85F5",
+      "info": {
+        "ready": true,
+        "scrollWidth": 390,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "成绩分析\n\n三年级 · 32人\n\n已保存\n成绩分析\n\n按考试记录分数，结合录入情况分析。\n\n9月综合练习\n\n2026-09-15 · 语文 100分 / 数学 100分 / 英语 100分\n\n切换考试\n编辑\n新增考试\n录分\n趋势\n试卷分析\n",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": false,
+          "sync": "normal",
+          "editor": "paper",
+          "selected": "synthetic-score-1"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    },
+    {
+      "path": "390-ai-failure.png",
+      "sha256": "1E5A30A7A77FDF272A0F6434B9F4D22B4B2861E8F6A80016FADCC07FE701DCAA",
+      "viewport": "390x844",
+      "stateId": "ai-failure",
+      "url": "http://127.0.0.1:4218/scores.html?state=ai-failure",
+      "fixtureSha256": "67AF4B82164F5FCA84C5DD9CDD8F355A6A0FAB272DA45016FFC8E3D9E5DDFF90",
+      "info": {
+        "ready": true,
+        "scrollWidth": 390,
+        "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+        "body": "成绩分析\n\n三年级 · 32人\n\n已保存\n成绩分析\n\n按考试记录分数，结合录入情况分析。\n\n9月综合练习\n\n2026-09-15 · 语文 100分 / 数学 100分 / 英语 100分\n\n切换考试\n编辑\n新增考试\n录分\n趋势\n试卷分析\n",
+        "state": {
+          "busy": false,
+          "dirty": false,
+          "pending": false,
+          "sync": "normal",
+          "selected": "synthetic-score-1"
+        },
+        "squeezed": [],
+        "images": [
+          1536
+        ]
+      }
+    }
+  ],
+  "failures": [],
+  "interactions": [],
+  "consoleErrors": []
+}

@@ -1,0 +1,129 @@
+{
+  "version": "P02",
+  "date": "2026-09-15",
+  "mode": "isolated synthetic memory only",
+  "sourceFiles": [
+    {
+      "path": "app/designs/scores/ScoresDesign.tsx",
+      "sha256": "E22FA7C2FAC54CA9BF0F6F2811BF8B61AE932D9F416CF83DF9CFD077777A610A"
+    },
+    {
+      "path": "app/designs/scores/ScoresDesign.module.css",
+      "sha256": "43909189470F7780700885A033EFB20C7F2AA29663CC6F23F0A560BA8F50F045"
+    },
+    {
+      "path": "app/designs/scores/ScoreTrendsDesign.tsx",
+      "sha256": "F38953F3C7F6273CB3E2373296B6E79012A7E29911F263F6A4B6D6F080A9033F"
+    },
+    {
+      "path": "app/designs/scores/ScoreAnalysisDesign.tsx",
+      "sha256": "211A4A54B2743EDE6BB931CED15D29732BC990DCC35B8124B658BD5C1B4CF431"
+    },
+    {
+      "path": "app/designs/scores/ScoreWorkspaces.module.css",
+      "sha256": "CAD54350D9782E7C97984F8BE550CC211F61BFF8B85DD620A553DF114513F43A"
+    },
+    {
+      "path": "app/designs/scores/useScoresDesignController.ts",
+      "sha256": "834CDE89593D4A87CEB524B9C8629B3CE3C9EA88CF622B8EF26BE40E27B1C2D6"
+    },
+    {
+      "path": "app/designs/scores/stationery-p01.png",
+      "sha256": "1ADDF8C35AD2D9DB2718E0AA8FAFEC0FE7B4CAFCFA58E0163CC6BEC89E6FB401"
+    },
+    {
+      "path": "tools/ui-preview/scores.tsx",
+      "sha256": "886753BDE96E9E4B2A0F8651835AEC62BB7061C1E2A903B4AF2A1CD563ED665A"
+    },
+    {
+      "path": "tools/ui-preview/scores-fixture.ts",
+      "sha256": "13F98E11B48A8E12D418DA1B845FE8FAE0941679947B6592C17EEF72FDBFF376"
+    },
+    {
+      "path": "tools/ui-preview/scores.html",
+      "sha256": "82E99EF4C5538EF3FA6C94D8B1A32BBAB555F28878F65B5CE9439366501D4FA5"
+    },
+    {
+      "path": "tools/ui-preview/scores.vite.config.ts",
+      "sha256": "82CC148C3FA28713582553A536202B24227226E8AEBB93059923AC7E417CF643"
+    }
+  ],
+  "tests": [
+    {
+      "command": "npx tsc --noEmit",
+      "result": "PASS"
+    },
+    {
+      "command": "npx eslint changed UI files",
+      "result": "PASS with existing img warning"
+    },
+    {
+      "command": "npm run build",
+      "result": "PASS; formal app unchanged"
+    },
+    {
+      "command": "npx vite build --config tools/ui-preview/scores.vite.config.ts",
+      "result": "PASS"
+    },
+    {
+      "command": "node --test tests/score-operations.test.mjs",
+      "result": "11 PASS"
+    },
+    {
+      "command": "node scripts/scores-design-interactions.mjs",
+      "result": "84 PASS",
+      "log": "docs/page-designs/V4/scores/screenshots/p02/interactions/interactions.json"
+    },
+    {
+      "command": "node scripts/scores-p02-review-fixes.mjs",
+      "result": "15 PASS",
+      "log": "docs/page-designs/V4/scores/screenshots/p02-review-fixes/review-fixes.json"
+    },
+    {
+      "command": "combined preview smoke",
+      "result": "3 PASS",
+      "log": "docs/page-designs/V4/scores/screenshots/p02-review-fixes/preview-smoke.json"
+    },
+    {
+      "command": "npm run qa:strict",
+      "result": "FAIL: Timed out waiting for http://localhost:4180/w/demo",
+      "log": "docs/page-designs/V4/scores/qa-strict-P02.log"
+    },
+    {
+      "command": "npm run qa:visual-baseline",
+      "result": "PASS staged contract; not D/R approval"
+    }
+  ],
+  "captures": [
+    "docs/page-designs/V4/scores/screenshots/p02/capture.json",
+    "docs/page-designs/V4/scores/screenshots/p02-final/capture.json",
+    "docs/page-designs/V4/scores/screenshots/p02-extra/capture.json",
+    "docs/page-designs/V4/scores/screenshots/p02-review-fixes/review-fixes.json"
+  ],
+  "detector": {
+    "path": "docs/page-designs/V4/scores/detector-P02.json",
+    "advisories": 7,
+    "errors": 0
+  },
+  "limits": [
+    "P02用户未批准、完整D/R未批准；正式业务未接入",
+    "真实识别、服务器保存/并发、读屏、多主题和软键盘未验",
+    "实际桌面首屏台账较候选少，手机滚动更多，交用户判断",
+    "原素材1.61MB尚未优化",
+    "P01数值差未作为C03指标继承，功能保留待定；不能解释为能力进退"
+  ],
+  "finishReview": {
+    "path": "docs/page-designs/V4/scores/finish-review-P02.md",
+    "sha256": "0AE14D54BF3498C701A1E05BF55C9600AB7AA1F88C3B44D69B8040C1558E2E84",
+    "verdict": "有限范围可交用户审阅",
+    "resolved": [
+      "F1试卷分页",
+      "F2手机滚动确认可达",
+      "F3台账实际辅助文本"
+    ],
+    "open": [
+      "F4密度差异交用户判断",
+      "F6素材性能、完整无障碍未验"
+    ]
+  }
+}

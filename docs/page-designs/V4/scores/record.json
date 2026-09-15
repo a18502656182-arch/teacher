@@ -1,7 +1,7 @@
 {
   "pageId": "scores",
   "batch": "V4",
-  "phase": "needs-design-changes",
+  "phase": "awaiting-design-approval",
   "brief": "docs/page-designs/V4/scores/brief.md",
   "functionMap": "docs/page-designs/V4/scores/function-map.md",
   "geometry": "docs/page-designs/V4/scores/geometry.json",
@@ -45,7 +45,7 @@
       "subview": "trends",
       "stateId": "trends-populated",
       "version": "C02",
-      "approval": false,
+      "approval": true,
       "pixelSize": [
         1536,
         1024
@@ -53,7 +53,8 @@
       "targetViewport": "1536x1024",
       "prompt": "docs/page-designs/V4/scores/candidates/prompts-c02.md",
       "original": "E:/CodexHome/generated_images/01a09fb4-dfcf-74e0-a5c7-ea1b5e94cf08/exec-60fa6b12-dbbb-4ea0-a01d-7f4df9969b1c.png",
-      "purpose": "ImageGen direction candidate only; not runnable or integrated"
+      "purpose": "ImageGen direction candidate only; not runnable or integrated",
+      "approvalSource": "用户：可以 先这样吧 开始做网页"
     },
     {
       "path": "docs/page-designs/V4/scores/candidates/trends-mobile-c02.png",
@@ -62,7 +63,7 @@
       "subview": "trends",
       "stateId": "trends-populated",
       "version": "C02",
-      "approval": false,
+      "approval": true,
       "pixelSize": [
         853,
         1844
@@ -70,7 +71,8 @@
       "targetViewport": "390x844",
       "prompt": "docs/page-designs/V4/scores/candidates/prompts-c02.md",
       "original": "E:/CodexHome/generated_images/01a09fb4-dfcf-74e0-a5c7-ea1b5e94cf08/exec-052b35e1-795b-4d72-b81d-68ba35d89917.png",
-      "purpose": "ImageGen direction candidate only; not runnable or integrated"
+      "purpose": "ImageGen direction candidate only; not runnable or integrated",
+      "approvalSource": "用户：可以 先这样吧 开始做网页"
     },
     {
       "path": "docs/page-designs/V4/scores/candidates/analysis-desktop-c02.png",
@@ -79,7 +81,7 @@
       "subview": "analysis",
       "stateId": "analysis-populated",
       "version": "C02",
-      "approval": false,
+      "approval": true,
       "pixelSize": [
         1536,
         1024
@@ -87,7 +89,8 @@
       "targetViewport": "1536x1024",
       "prompt": "docs/page-designs/V4/scores/candidates/prompts-c02.md",
       "original": "E:/CodexHome/generated_images/01a09fb4-dfcf-74e0-a5c7-ea1b5e94cf08/exec-5d179e8d-4925-4af1-8ed2-20972b765ba2.png",
-      "purpose": "ImageGen direction candidate only; not runnable or integrated"
+      "purpose": "ImageGen direction candidate only; not runnable or integrated",
+      "approvalSource": "用户：可以 先这样吧 开始做网页"
     },
     {
       "path": "docs/page-designs/V4/scores/candidates/analysis-mobile-c02.png",
@@ -96,7 +99,7 @@
       "subview": "analysis",
       "stateId": "analysis-populated",
       "version": "C02",
-      "approval": false,
+      "approval": true,
       "pixelSize": [
         853,
         1844
@@ -104,7 +107,8 @@
       "targetViewport": "390x844",
       "prompt": "docs/page-designs/V4/scores/candidates/prompts-c02.md",
       "original": "E:/CodexHome/generated_images/01a09fb4-dfcf-74e0-a5c7-ea1b5e94cf08/exec-8cdf0e61-798e-4ac6-a98b-a148deab5b28.png",
-      "purpose": "ImageGen direction candidate only; not runnable or integrated"
+      "purpose": "ImageGen direction candidate only; not runnable or integrated",
+      "approvalSource": "用户：可以 先这样吧 开始做网页"
     },
     {
       "path": "docs/page-designs/V4/scores/candidates/student-trends-desktop-c03.png",
@@ -117,11 +121,12 @@
       "subview": "student-trends",
       "version": "C03",
       "stateId": "student-populated",
-      "approval": false,
+      "approval": true,
       "targetViewport": "1536x1024",
       "prompt": "docs/page-designs/V4/scores/candidates/prompts-c03.md",
       "original": "E:/CodexHome/generated_images/01a09fb4-dfcf-74e0-a5c7-ea1b5e94cf08/exec-e3b41c8c-0eed-4af4-bf26-3d16f1b62274.png",
-      "purpose": "ImageGen candidate only; not runnable or integrated"
+      "purpose": "ImageGen candidate only; not runnable or integrated",
+      "approvalSource": "用户：可以 先这样吧 开始做网页"
     },
     {
       "path": "docs/page-designs/V4/scores/candidates/student-trends-mobile-c03.png",
@@ -134,21 +139,25 @@
       "subview": "student-trends",
       "version": "C03",
       "stateId": "student-populated",
-      "approval": false,
+      "approval": true,
       "targetViewport": "390x844",
       "prompt": "docs/page-designs/V4/scores/candidates/prompts-c03.md",
       "original": "E:/CodexHome/generated_images/01a09fb4-dfcf-74e0-a5c7-ea1b5e94cf08/exec-2999d87a-4ac1-4503-8a33-2daa7ff7e8a8.png",
-      "purpose": "ImageGen candidate only; not runnable or integrated"
+      "purpose": "ImageGen candidate only; not runnable or integrated",
+      "approvalSource": "用户：可以 先这样吧 开始做网页"
     }
   ],
   "prototype": {
-    "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3",
+    "version": "P02",
+    "commit": null,
     "previewUrl": "http://127.0.0.1:4218/scores.html",
     "sourceFiles": [
       "app/designs/scores/ScoresDesign.tsx",
       "app/designs/scores/ScoresDesign.module.css",
-      "app/designs/scores/useScoresDesignController.ts",
       "app/designs/scores/ScoreTrendsDesign.tsx",
+      "app/designs/scores/ScoreAnalysisDesign.tsx",
+      "app/designs/scores/ScoreWorkspaces.module.css",
+      "app/designs/scores/useScoresDesignController.ts",
       "app/designs/scores/stationery-p01.png",
       "tools/ui-preview/scores.tsx",
       "tools/ui-preview/scores-fixture.ts",
@@ -157,807 +166,798 @@
     ],
     "evidence": [
       {
-        "path": "docs/page-designs/V4/scores/screenshots/p01/1536-normal.png",
+        "path": "docs/page-designs/V4/scores/screenshots/p02-final/1536-normal.png",
         "sha256": "F6850FCFDA56D9604B6D4E4E96397DCE37A85C67433CD2DA4E1C31D1133DF7F0",
         "viewport": "1536x1024",
-        "kind": "desktop",
         "stateId": "normal",
-        "fixtureId": "scores-p01-normal",
-        "fixtureSha256": "E00D01D4AD6103C08F2FC0E3ED10A60AC0D867B7D4DBD08DC6240AF07D85B5C2",
-        "capturedAt": "2026-09-15T07:06:51.075Z",
-        "browser": "Chrome/152.0.7977.82",
-        "font": "Microsoft YaHei",
-        "dpr": 1,
         "url": "http://127.0.0.1:4218/scores.html?state=normal",
-        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
-      },
-      {
-        "path": "docs/page-designs/V4/scores/screenshots/p01/1536-mobile-detail.png",
-        "sha256": "50C14EC61BF6F4BA88E3EFC1A20ABEC74D3D3E5FF60EB60FA01BA931EA92787B",
-        "viewport": "1536x1024",
-        "kind": "desktop",
-        "stateId": "mobile-detail",
-        "fixtureId": "scores-p01-mobile-detail",
         "fixtureSha256": "E00D01D4AD6103C08F2FC0E3ED10A60AC0D867B7D4DBD08DC6240AF07D85B5C2",
-        "capturedAt": "2026-09-15T07:06:51.075Z",
+        "info": {
+          "ready": true,
+          "scrollWidth": 1521,
+          "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+          "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具",
+          "state": {
+            "busy": false,
+            "dirty": false,
+            "pending": false,
+            "sync": "normal",
+            "selected": "synthetic-score-1"
+          },
+          "squeezed": [],
+          "images": [
+            1536
+          ]
+        },
+        "kind": "desktop",
+        "fixtureId": "scores-p02-normal",
+        "capturedAt": "2026-09-15T07:59:38.975Z",
         "browser": "Chrome/152.0.7977.82",
         "font": "Microsoft YaHei",
         "dpr": 1,
-        "url": "http://127.0.0.1:4218/scores.html?state=mobile-detail",
-        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
+        "commit": null
       },
       {
-        "path": "docs/page-designs/V4/scores/screenshots/p01/1536-empty-class.png",
-        "sha256": "DF1634E194821F46952ED0E4326E8C30505EC198C8033833F2F6E081107B7BDF",
+        "path": "docs/page-designs/V4/scores/screenshots/p02-final/1536-trends.png",
+        "sha256": "AF8CC8BEDE6DBB22E9F4C857A74981640650932C1120058BE992553C000A14C2",
         "viewport": "1536x1024",
-        "kind": "desktop",
-        "stateId": "empty-class",
-        "fixtureId": "scores-p01-empty-class",
-        "fixtureSha256": "49EBC23CDFF5134AF07C1DA1A51DD9B12CAABF8A5C79B12D3076D6C81A71D5BF",
-        "capturedAt": "2026-09-15T07:06:51.075Z",
-        "browser": "Chrome/152.0.7977.82",
-        "font": "Microsoft YaHei",
-        "dpr": 1,
-        "url": "http://127.0.0.1:4218/scores.html?state=empty-class",
-        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
-      },
-      {
-        "path": "docs/page-designs/V4/scores/screenshots/p01/1536-no-exams.png",
-        "sha256": "56C123D4AB1BF80615CEE7218BC45D3117CC72ACBCF7AC6293EB4E48D2CA8175",
-        "viewport": "1536x1024",
-        "kind": "desktop",
-        "stateId": "no-exams",
-        "fixtureId": "scores-p01-no-exams",
-        "fixtureSha256": "30803CD1B461CE2DE05B4F236B577F9D2A1A059340FACB064CCB19A5A36B41BC",
-        "capturedAt": "2026-09-15T07:06:51.075Z",
-        "browser": "Chrome/152.0.7977.82",
-        "font": "Microsoft YaHei",
-        "dpr": 1,
-        "url": "http://127.0.0.1:4218/scores.html?state=no-exams",
-        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
-      },
-      {
-        "path": "docs/page-designs/V4/scores/screenshots/p01/1536-search-empty.png",
-        "sha256": "E98D1486B4A8EEE86B7F6A8FE2F2BF3DD64D1EE738EE1E75C0FFF27641195AEE",
-        "viewport": "1536x1024",
-        "kind": "desktop",
-        "stateId": "search-empty",
-        "fixtureId": "scores-p01-search-empty",
-        "fixtureSha256": "E00D01D4AD6103C08F2FC0E3ED10A60AC0D867B7D4DBD08DC6240AF07D85B5C2",
-        "capturedAt": "2026-09-15T07:06:51.075Z",
-        "browser": "Chrome/152.0.7977.82",
-        "font": "Microsoft YaHei",
-        "dpr": 1,
-        "url": "http://127.0.0.1:4218/scores.html?state=search-empty",
-        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
-      },
-      {
-        "path": "docs/page-designs/V4/scores/screenshots/p01/1536-students-105.png",
-        "sha256": "ABB8350D66D5BDDE1CF96E2286B792D1D201D1B7997270F6E0AAD1B7B46DC5A8",
-        "viewport": "1536x1024",
-        "kind": "desktop",
-        "stateId": "students-105",
-        "fixtureId": "scores-p01-students-105",
-        "fixtureSha256": "A32F10EAA9F32E0DBCC91B8E67739B7B22E75E1667F946178B3C729F565C6395",
-        "capturedAt": "2026-09-15T07:06:51.075Z",
-        "browser": "Chrome/152.0.7977.82",
-        "font": "Microsoft YaHei",
-        "dpr": 1,
-        "url": "http://127.0.0.1:4218/scores.html?state=students-105",
-        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
-      },
-      {
-        "path": "docs/page-designs/V4/scores/screenshots/p01/1536-long-subjects.png",
-        "sha256": "405B82A5A3DAA50200C7FDCD76E8A0AE6EE8F29D969BD3034B0AD30A3113E842",
-        "viewport": "1536x1024",
-        "kind": "desktop",
-        "stateId": "long-subjects",
-        "fixtureId": "scores-p01-long-subjects",
-        "fixtureSha256": "1FB739B97AE0A08F4B3F909EAC2B217867680362D955CF30E44702EFBE56BF64",
-        "capturedAt": "2026-09-15T07:06:51.075Z",
-        "browser": "Chrome/152.0.7977.82",
-        "font": "Microsoft YaHei",
-        "dpr": 1,
-        "url": "http://127.0.0.1:4218/scores.html?state=long-subjects",
-        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
-      },
-      {
-        "path": "docs/page-designs/V4/scores/screenshots/p01/1536-mixed-max.png",
-        "sha256": "48B74E7615A2C888F75CFB0A9B014E7D7490128331B0FE88B224ACB314515612",
-        "viewport": "1536x1024",
-        "kind": "desktop",
-        "stateId": "mixed-max",
-        "fixtureId": "scores-p01-mixed-max",
-        "fixtureSha256": "ADC2405C46363E478BC14855A316406578C28B6F44866F97E94371260D09C145",
-        "capturedAt": "2026-09-15T07:06:51.075Z",
-        "browser": "Chrome/152.0.7977.82",
-        "font": "Microsoft YaHei",
-        "dpr": 1,
-        "url": "http://127.0.0.1:4218/scores.html?state=mixed-max",
-        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
-      },
-      {
-        "path": "docs/page-designs/V4/scores/screenshots/p01/1536-composer.png",
-        "sha256": "0C15190BA5078CEDD7A06A7DAE8636A6019EF6AAAB44F9DA61EFEC9E345F5565",
-        "viewport": "1536x1024",
-        "kind": "desktop",
-        "stateId": "composer",
-        "fixtureId": "scores-p01-composer",
-        "fixtureSha256": "E00D01D4AD6103C08F2FC0E3ED10A60AC0D867B7D4DBD08DC6240AF07D85B5C2",
-        "capturedAt": "2026-09-15T07:06:51.075Z",
-        "browser": "Chrome/152.0.7977.82",
-        "font": "Microsoft YaHei",
-        "dpr": 1,
-        "url": "http://127.0.0.1:4218/scores.html?state=composer",
-        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
-      },
-      {
-        "path": "docs/page-designs/V4/scores/screenshots/p01/1536-student-editor.png",
-        "sha256": "50C14EC61BF6F4BA88E3EFC1A20ABEC74D3D3E5FF60EB60FA01BA931EA92787B",
-        "viewport": "1536x1024",
-        "kind": "desktop",
-        "stateId": "student-editor",
-        "fixtureId": "scores-p01-student-editor",
-        "fixtureSha256": "E00D01D4AD6103C08F2FC0E3ED10A60AC0D867B7D4DBD08DC6240AF07D85B5C2",
-        "capturedAt": "2026-09-15T07:06:51.075Z",
-        "browser": "Chrome/152.0.7977.82",
-        "font": "Microsoft YaHei",
-        "dpr": 1,
-        "url": "http://127.0.0.1:4218/scores.html?state=student-editor",
-        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
-      },
-      {
-        "path": "docs/page-designs/V4/scores/screenshots/p01/1536-batch.png",
-        "sha256": "A201ED14D5F760A797EDF48F3A233A7AF04174CA4C6304674A056387B13857A8",
-        "viewport": "1536x1024",
-        "kind": "desktop",
-        "stateId": "batch",
-        "fixtureId": "scores-p01-batch",
-        "fixtureSha256": "E00D01D4AD6103C08F2FC0E3ED10A60AC0D867B7D4DBD08DC6240AF07D85B5C2",
-        "capturedAt": "2026-09-15T07:06:51.075Z",
-        "browser": "Chrome/152.0.7977.82",
-        "font": "Microsoft YaHei",
-        "dpr": 1,
-        "url": "http://127.0.0.1:4218/scores.html?state=batch",
-        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
-      },
-      {
-        "path": "docs/page-designs/V4/scores/screenshots/p01/1536-ranges.png",
-        "sha256": "13F4424CAE981EEF104CC5AE22DAEBF1F5D5B20B20E655A0C11EC89ABA54A761",
-        "viewport": "1536x1024",
-        "kind": "desktop",
-        "stateId": "ranges",
-        "fixtureId": "scores-p01-ranges",
-        "fixtureSha256": "E00D01D4AD6103C08F2FC0E3ED10A60AC0D867B7D4DBD08DC6240AF07D85B5C2",
-        "capturedAt": "2026-09-15T07:06:51.075Z",
-        "browser": "Chrome/152.0.7977.82",
-        "font": "Microsoft YaHei",
-        "dpr": 1,
-        "url": "http://127.0.0.1:4218/scores.html?state=ranges",
-        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
-      },
-      {
-        "path": "docs/page-designs/V4/scores/screenshots/p01/1536-readonly.png",
-        "sha256": "85AE229E3926FB28DD2E96D2ED96CDF20BD6EB0348B7198A888FE89DAFA8EBDB",
-        "viewport": "1536x1024",
-        "kind": "desktop",
-        "stateId": "readonly",
-        "fixtureId": "scores-p01-readonly",
-        "fixtureSha256": "E00D01D4AD6103C08F2FC0E3ED10A60AC0D867B7D4DBD08DC6240AF07D85B5C2",
-        "capturedAt": "2026-09-15T07:06:51.075Z",
-        "browser": "Chrome/152.0.7977.82",
-        "font": "Microsoft YaHei",
-        "dpr": 1,
-        "url": "http://127.0.0.1:4218/scores.html?state=readonly",
-        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
-      },
-      {
-        "path": "docs/page-designs/V4/scores/screenshots/p01/1536-loading.png",
-        "sha256": "3B2077BCC4E4AEDA8942B637ED8E0C5DF90CB677BC9DED755F27073BE7CE43C8",
-        "viewport": "1536x1024",
-        "kind": "desktop",
-        "stateId": "loading",
-        "fixtureId": "scores-p01-loading",
-        "fixtureSha256": "E00D01D4AD6103C08F2FC0E3ED10A60AC0D867B7D4DBD08DC6240AF07D85B5C2",
-        "capturedAt": "2026-09-15T07:06:51.075Z",
-        "browser": "Chrome/152.0.7977.82",
-        "font": "Microsoft YaHei",
-        "dpr": 1,
-        "url": "http://127.0.0.1:4218/scores.html?state=loading",
-        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
-      },
-      {
-        "path": "docs/page-designs/V4/scores/screenshots/p01/1536-saving.png",
-        "sha256": "DC791AF6E0C43AA81D4B44C1BEC76B36F7CE5A9A8FA18EEF024B5CE21EE00BE9",
-        "viewport": "1536x1024",
-        "kind": "desktop",
-        "stateId": "saving",
-        "fixtureId": "scores-p01-saving",
-        "fixtureSha256": "E00D01D4AD6103C08F2FC0E3ED10A60AC0D867B7D4DBD08DC6240AF07D85B5C2",
-        "capturedAt": "2026-09-15T07:06:51.075Z",
-        "browser": "Chrome/152.0.7977.82",
-        "font": "Microsoft YaHei",
-        "dpr": 1,
-        "url": "http://127.0.0.1:4218/scores.html?state=saving",
-        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
-      },
-      {
-        "path": "docs/page-designs/V4/scores/screenshots/p01/1536-save-failure.png",
-        "sha256": "35687CBF83B2ECA0C1B8093174C36A9BD00741E897D9A8F95A1051E76BCB6E62",
-        "viewport": "1536x1024",
-        "kind": "desktop",
-        "stateId": "save-failure",
-        "fixtureId": "scores-p01-save-failure",
-        "fixtureSha256": "E00D01D4AD6103C08F2FC0E3ED10A60AC0D867B7D4DBD08DC6240AF07D85B5C2",
-        "capturedAt": "2026-09-15T07:06:51.075Z",
-        "browser": "Chrome/152.0.7977.82",
-        "font": "Microsoft YaHei",
-        "dpr": 1,
-        "url": "http://127.0.0.1:4218/scores.html?state=save-failure",
-        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
-      },
-      {
-        "path": "docs/page-designs/V4/scores/screenshots/p01/1536-save-throw.png",
-        "sha256": "D67C79FE56DC9BBE0CF2DACF1074CEE197AC6382B2E6E32656F7401F1B64B21F",
-        "viewport": "1536x1024",
-        "kind": "desktop",
-        "stateId": "save-throw",
-        "fixtureId": "scores-p01-save-throw",
-        "fixtureSha256": "E00D01D4AD6103C08F2FC0E3ED10A60AC0D867B7D4DBD08DC6240AF07D85B5C2",
-        "capturedAt": "2026-09-15T07:06:51.075Z",
-        "browser": "Chrome/152.0.7977.82",
-        "font": "Microsoft YaHei",
-        "dpr": 1,
-        "url": "http://127.0.0.1:4218/scores.html?state=save-throw",
-        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
-      },
-      {
-        "path": "docs/page-designs/V4/scores/screenshots/p01/1536-conflict-409.png",
-        "sha256": "13F0DBB5CE8B6B644E520A445A8A46FA7724EC2D9A04D15F367DDBA1AA9B7671",
-        "viewport": "1536x1024",
-        "kind": "desktop",
-        "stateId": "conflict-409",
-        "fixtureId": "scores-p01-conflict-409",
-        "fixtureSha256": "E00D01D4AD6103C08F2FC0E3ED10A60AC0D867B7D4DBD08DC6240AF07D85B5C2",
-        "capturedAt": "2026-09-15T07:06:51.075Z",
-        "browser": "Chrome/152.0.7977.82",
-        "font": "Microsoft YaHei",
-        "dpr": 1,
-        "url": "http://127.0.0.1:4218/scores.html?state=conflict-409",
-        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
-      },
-      {
-        "path": "docs/page-designs/V4/scores/screenshots/p01/1536-dirty-close.png",
-        "sha256": "5AE2C45C7833EA3263E4BC02CF440E0D3FC2DB103D472BC9A6B506D4CD037507",
-        "viewport": "1536x1024",
-        "kind": "desktop",
-        "stateId": "dirty-close",
-        "fixtureId": "scores-p01-dirty-close",
-        "fixtureSha256": "E00D01D4AD6103C08F2FC0E3ED10A60AC0D867B7D4DBD08DC6240AF07D85B5C2",
-        "capturedAt": "2026-09-15T07:06:51.075Z",
-        "browser": "Chrome/152.0.7977.82",
-        "font": "Microsoft YaHei",
-        "dpr": 1,
-        "url": "http://127.0.0.1:4218/scores.html?state=dirty-close",
-        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
-      },
-      {
-        "path": "docs/page-designs/V4/scores/screenshots/reviewer-fix/1536-trends.png",
-        "sha256": "90BF213557A7858601F72999D3AE1E0635F61344E6D35C16212D07509B0081B4",
-        "viewport": "1536x1024",
-        "kind": "desktop",
         "stateId": "trends",
-        "fixtureId": "scores-p01-trends",
-        "fixtureSha256": "B03699049A19A104EBE9BB1A1D38C7C7F6F10C4B57D031407622627F45FAD101",
-        "capturedAt": "2026-09-15T07:11:07.652Z",
-        "browser": "Chrome/152.0.7977.82",
-        "font": "Microsoft YaHei",
-        "dpr": 1,
         "url": "http://127.0.0.1:4218/scores.html?state=trends",
-        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
-      },
-      {
-        "path": "docs/page-designs/V4/scores/screenshots/reviewer-fix/1536-long-history.png",
-        "sha256": "2966E53316EB23F7EC7DFF2C224F6D84BCEF5EB018D44995D4FE583133D3E74C",
-        "viewport": "1536x1024",
+        "fixtureSha256": "367CADAC522477C8FB98FCBB53A0A6C0A4411DB81D522F8409BC93F131A4E8FE",
+        "info": {
+          "ready": true,
+          "scrollWidth": 1521,
+          "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+          "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具",
+          "state": {
+            "busy": false,
+            "dirty": false,
+            "pending": false,
+            "sync": "normal",
+            "selected": "history-0"
+          },
+          "squeezed": [],
+          "images": [
+            1536
+          ]
+        },
         "kind": "desktop",
-        "stateId": "long-history",
-        "fixtureId": "scores-p01-long-history",
-        "fixtureSha256": "520C691B42603950AC1A7A04660038A95540D200B2521FCCBE7F326505F3FE07",
-        "capturedAt": "2026-09-15T07:11:07.652Z",
+        "fixtureId": "scores-p02-trends",
+        "capturedAt": "2026-09-15T07:59:38.975Z",
         "browser": "Chrome/152.0.7977.82",
         "font": "Microsoft YaHei",
         "dpr": 1,
-        "url": "http://127.0.0.1:4218/scores.html?state=long-history",
-        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
+        "commit": null
       },
       {
-        "path": "docs/page-designs/V4/scores/screenshots/p01/1536-analysis.png",
-        "sha256": "81138B26632794BD29E4D62CD8DEBE7A86F1400CB45927627217DF0BDC99AB07",
+        "path": "docs/page-designs/V4/scores/screenshots/p02-final/1536-student-trends.png",
+        "sha256": "BBDECDD7D9B498ED771482FAF42265B756EBBA33023A38C35CA807EF3232DD46",
         "viewport": "1536x1024",
+        "stateId": "student-trends",
+        "url": "http://127.0.0.1:4218/scores.html?state=student-trends",
+        "fixtureSha256": "367CADAC522477C8FB98FCBB53A0A6C0A4411DB81D522F8409BC93F131A4E8FE",
+        "info": {
+          "ready": true,
+          "scrollWidth": 1521,
+          "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+          "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具",
+          "state": {
+            "busy": false,
+            "dirty": false,
+            "pending": false,
+            "sync": "normal",
+            "selected": "history-0"
+          },
+          "squeezed": [],
+          "images": [
+            1536
+          ]
+        },
         "kind": "desktop",
-        "stateId": "analysis",
-        "fixtureId": "scores-p01-analysis",
-        "fixtureSha256": "3123D11927EAA7469AD2F996C2F7B30975573FF5582776C16BC80B880EBE85F5",
-        "capturedAt": "2026-09-15T07:06:51.075Z",
+        "fixtureId": "scores-p02-student-trends",
+        "capturedAt": "2026-09-15T07:59:38.975Z",
         "browser": "Chrome/152.0.7977.82",
         "font": "Microsoft YaHei",
         "dpr": 1,
-        "url": "http://127.0.0.1:4218/scores.html?state=analysis",
-        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
+        "commit": null
       },
       {
-        "path": "docs/page-designs/V4/scores/screenshots/p01/1536-paper-review.png",
-        "sha256": "BAD7791A9B3AF4CAE9CC2BE982800040E0B8B778D1327262154A33C20743D76D",
+        "path": "docs/page-designs/V4/scores/screenshots/p02-final/1536-trend-single.png",
+        "sha256": "B922D4FE692128248D1E5F24F807A8D8E54EA23B92CA0E592EECA5419D6DE8FC",
         "viewport": "1536x1024",
-        "kind": "desktop",
-        "stateId": "paper-review",
-        "fixtureId": "scores-p01-paper-review",
-        "fixtureSha256": "3123D11927EAA7469AD2F996C2F7B30975573FF5582776C16BC80B880EBE85F5",
-        "capturedAt": "2026-09-15T07:06:51.075Z",
-        "browser": "Chrome/152.0.7977.82",
-        "font": "Microsoft YaHei",
-        "dpr": 1,
-        "url": "http://127.0.0.1:4218/scores.html?state=paper-review",
-        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
-      },
-      {
-        "path": "docs/page-designs/V4/scores/screenshots/p01/1536-ai-failure.png",
-        "sha256": "837A4AA35993B23602E797668FB5B906A8915A71B57A66AE675D7D3ABCC464F5",
-        "viewport": "1536x1024",
-        "kind": "desktop",
-        "stateId": "ai-failure",
-        "fixtureId": "scores-p01-ai-failure",
-        "fixtureSha256": "67AF4B82164F5FCA84C5DD9CDD8F355A6A0FAB272DA45016FFC8E3D9E5DDFF90",
-        "capturedAt": "2026-09-15T07:06:51.075Z",
-        "browser": "Chrome/152.0.7977.82",
-        "font": "Microsoft YaHei",
-        "dpr": 1,
-        "url": "http://127.0.0.1:4218/scores.html?state=ai-failure",
-        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
-      },
-      {
-        "path": "docs/page-designs/V4/scores/screenshots/p01/1536-item-editor.png",
-        "sha256": "6064518F35C79738681DB2FF1080A915F80BC06C1AFFA8C6C404923441CA1C81",
-        "viewport": "1536x1024",
-        "kind": "desktop",
-        "stateId": "item-editor",
-        "fixtureId": "scores-p01-item-editor",
+        "stateId": "trend-single",
+        "url": "http://127.0.0.1:4218/scores.html?state=trend-single",
         "fixtureSha256": "E00D01D4AD6103C08F2FC0E3ED10A60AC0D867B7D4DBD08DC6240AF07D85B5C2",
-        "capturedAt": "2026-09-15T07:06:51.075Z",
-        "browser": "Chrome/152.0.7977.82",
-        "font": "Microsoft YaHei",
-        "dpr": 1,
-        "url": "http://127.0.0.1:4218/scores.html?state=item-editor",
-        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
-      },
-      {
-        "path": "docs/page-designs/V4/scores/screenshots/p01/1536-item-scores.png",
-        "sha256": "A4FB9755D616351199B6CA4CCF4150928B2054A582A225D0AB54EA2DD4512748",
-        "viewport": "1536x1024",
+        "info": {
+          "ready": true,
+          "scrollWidth": 1521,
+          "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+          "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具",
+          "state": {
+            "busy": false,
+            "dirty": false,
+            "pending": false,
+            "sync": "normal",
+            "selected": "synthetic-score-1"
+          },
+          "squeezed": [],
+          "images": [
+            1536
+          ]
+        },
         "kind": "desktop",
-        "stateId": "item-scores",
-        "fixtureId": "scores-p01-item-scores",
-        "fixtureSha256": "3123D11927EAA7469AD2F996C2F7B30975573FF5582776C16BC80B880EBE85F5",
-        "capturedAt": "2026-09-15T07:06:51.075Z",
+        "fixtureId": "scores-p02-trend-single",
+        "capturedAt": "2026-09-15T07:59:38.975Z",
         "browser": "Chrome/152.0.7977.82",
         "font": "Microsoft YaHei",
         "dpr": 1,
-        "url": "http://127.0.0.1:4218/scores.html?state=item-scores",
-        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
+        "commit": null
       },
       {
-        "path": "docs/page-designs/V4/scores/screenshots/p01/390-normal.png",
+        "path": "docs/page-designs/V4/scores/screenshots/p02-final/1536-trend-empty.png",
+        "sha256": "2056214DD88769DB429C383263E262ECAB9CB96D271AFEBDE5F0C5583F80B716",
+        "viewport": "1536x1024",
+        "stateId": "trend-empty",
+        "url": "http://127.0.0.1:4218/scores.html?state=trend-empty",
+        "fixtureSha256": "D7C6686396A6E77634770FC0E22FD432126FE9A7FCE81BBB1A89AC7C78F40BAD",
+        "info": {
+          "ready": true,
+          "scrollWidth": 1536,
+          "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+          "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具",
+          "state": {
+            "busy": false,
+            "dirty": false,
+            "pending": false,
+            "sync": "normal",
+            "selected": "synthetic-score-1"
+          },
+          "squeezed": [],
+          "images": [
+            1536
+          ]
+        },
+        "kind": "desktop",
+        "fixtureId": "scores-p02-trend-empty",
+        "capturedAt": "2026-09-15T07:59:38.975Z",
+        "browser": "Chrome/152.0.7977.82",
+        "font": "Microsoft YaHei",
+        "dpr": 1,
+        "commit": null
+      },
+      {
+        "path": "docs/page-designs/V4/scores/screenshots/p02-final/1536-trend-no-exams.png",
+        "sha256": "CF5A595C777E9E3FA3E5096FF10B39DEB03061E303354705F831B2133B8A8B2E",
+        "viewport": "1536x1024",
+        "stateId": "trend-no-exams",
+        "url": "http://127.0.0.1:4218/scores.html?state=trend-no-exams",
+        "fixtureSha256": "30803CD1B461CE2DE05B4F236B577F9D2A1A059340FACB064CCB19A5A36B41BC",
+        "info": {
+          "ready": true,
+          "scrollWidth": 1536,
+          "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+          "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具",
+          "state": {
+            "busy": false,
+            "dirty": false,
+            "pending": false,
+            "sync": "normal"
+          },
+          "squeezed": [],
+          "images": [
+            1536
+          ]
+        },
+        "kind": "desktop",
+        "fixtureId": "scores-p02-trend-no-exams",
+        "capturedAt": "2026-09-15T07:59:38.975Z",
+        "browser": "Chrome/152.0.7977.82",
+        "font": "Microsoft YaHei",
+        "dpr": 1,
+        "commit": null
+      },
+      {
+        "path": "docs/page-designs/V4/scores/screenshots/p02-final/1536-long-history.png",
+        "sha256": "4635770988817C120784D1D46D706F1478D81C749E4468B59B5429A52FB4620C",
+        "viewport": "1536x1024",
+        "stateId": "long-history",
+        "url": "http://127.0.0.1:4218/scores.html?state=long-history",
+        "fixtureSha256": "520C691B42603950AC1A7A04660038A95540D200B2521FCCBE7F326505F3FE07",
+        "info": {
+          "ready": true,
+          "scrollWidth": 1521,
+          "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+          "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具",
+          "state": {
+            "busy": false,
+            "dirty": false,
+            "pending": false,
+            "sync": "normal",
+            "selected": "history-0"
+          },
+          "squeezed": [],
+          "images": [
+            1536
+          ]
+        },
+        "kind": "desktop",
+        "fixtureId": "scores-p02-long-history",
+        "capturedAt": "2026-09-15T07:59:38.975Z",
+        "browser": "Chrome/152.0.7977.82",
+        "font": "Microsoft YaHei",
+        "dpr": 1,
+        "commit": null
+      },
+      {
+        "path": "docs/page-designs/V4/scores/screenshots/p02-final/1536-analysis.png",
+        "sha256": "BACC05485AEBECC3C65E975D614667693AB553338AEB95CDF1CC3FD5B952973B",
+        "viewport": "1536x1024",
+        "stateId": "analysis",
+        "url": "http://127.0.0.1:4218/scores.html?state=analysis",
+        "fixtureSha256": "546C6A901857EE8347D83BE7D19FEC74EF71B57C19006128F795EFC98C7C027A",
+        "info": {
+          "ready": true,
+          "scrollWidth": 1521,
+          "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+          "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具",
+          "state": {
+            "busy": false,
+            "dirty": false,
+            "pending": false,
+            "sync": "normal",
+            "selected": "synthetic-score-1"
+          },
+          "squeezed": [],
+          "images": [
+            1536
+          ]
+        },
+        "kind": "desktop",
+        "fixtureId": "scores-p02-analysis",
+        "capturedAt": "2026-09-15T07:59:38.975Z",
+        "browser": "Chrome/152.0.7977.82",
+        "font": "Microsoft YaHei",
+        "dpr": 1,
+        "commit": null
+      },
+      {
+        "path": "docs/page-designs/V4/scores/screenshots/p02-final/1536-analysis-empty.png",
+        "sha256": "9425366F807695D443F969B94DBDDE0012E5D7AC8BA8955B077954230BA5D6A1",
+        "viewport": "1536x1024",
+        "stateId": "analysis-empty",
+        "url": "http://127.0.0.1:4218/scores.html?state=analysis-empty",
+        "fixtureSha256": "E00D01D4AD6103C08F2FC0E3ED10A60AC0D867B7D4DBD08DC6240AF07D85B5C2",
+        "info": {
+          "ready": true,
+          "scrollWidth": 1536,
+          "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+          "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具",
+          "state": {
+            "busy": false,
+            "dirty": false,
+            "pending": false,
+            "sync": "normal",
+            "selected": "synthetic-score-1"
+          },
+          "squeezed": [],
+          "images": [
+            1536
+          ]
+        },
+        "kind": "desktop",
+        "fixtureId": "scores-p02-analysis-empty",
+        "capturedAt": "2026-09-15T07:59:38.975Z",
+        "browser": "Chrome/152.0.7977.82",
+        "font": "Microsoft YaHei",
+        "dpr": 1,
+        "commit": null
+      },
+      {
+        "path": "docs/page-designs/V4/scores/screenshots/p02-final/1536-analysis-readonly.png",
+        "sha256": "509317ABCBFFD481ECFD9CBAA11CDB11030C1DEBEAE52309F82D81D9F9DE8CCF",
+        "viewport": "1536x1024",
+        "stateId": "analysis-readonly",
+        "url": "http://127.0.0.1:4218/scores.html?state=analysis-readonly",
+        "fixtureSha256": "546C6A901857EE8347D83BE7D19FEC74EF71B57C19006128F795EFC98C7C027A",
+        "info": {
+          "ready": true,
+          "scrollWidth": 1521,
+          "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+          "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n只读\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具\n",
+          "state": {
+            "busy": false,
+            "dirty": false,
+            "pending": false,
+            "sync": "normal",
+            "selected": "synthetic-score-1"
+          },
+          "squeezed": [],
+          "images": [
+            1536
+          ]
+        },
+        "kind": "desktop",
+        "fixtureId": "scores-p02-analysis-readonly",
+        "capturedAt": "2026-09-15T07:59:38.975Z",
+        "browser": "Chrome/152.0.7977.82",
+        "font": "Microsoft YaHei",
+        "dpr": 1,
+        "commit": null
+      },
+      {
+        "path": "docs/page-designs/V4/scores/screenshots/p02-final/1536-paper-review.png",
+        "sha256": "09FBD8F3A8A7AA5D0CF204024A133C91985FAF7A76BCDA7035EE346666F5AEB3",
+        "viewport": "1536x1024",
+        "stateId": "paper-review",
+        "url": "http://127.0.0.1:4218/scores.html?state=paper-review",
+        "fixtureSha256": "3123D11927EAA7469AD2F996C2F7B30975573FF5582776C16BC80B880EBE85F5",
+        "info": {
+          "ready": true,
+          "scrollWidth": 1536,
+          "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+          "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具",
+          "state": {
+            "busy": false,
+            "dirty": false,
+            "pending": false,
+            "sync": "normal",
+            "editor": "paper",
+            "selected": "synthetic-score-1"
+          },
+          "squeezed": [],
+          "images": [
+            1536
+          ]
+        },
+        "kind": "desktop",
+        "fixtureId": "scores-p02-paper-review",
+        "capturedAt": "2026-09-15T07:59:38.975Z",
+        "browser": "Chrome/152.0.7977.82",
+        "font": "Microsoft YaHei",
+        "dpr": 1,
+        "commit": null
+      },
+      {
+        "path": "docs/page-designs/V4/scores/screenshots/p02-final/1536-ai-failure.png",
+        "sha256": "9519F3FF0F927137E9303A14DA04E911F3746B31718B06DAE0FE3DFF300B3456",
+        "viewport": "1536x1024",
+        "stateId": "ai-failure",
+        "url": "http://127.0.0.1:4218/scores.html?state=ai-failure",
+        "fixtureSha256": "67AF4B82164F5FCA84C5DD9CDD8F355A6A0FAB272DA45016FFC8E3D9E5DDFF90",
+        "info": {
+          "ready": true,
+          "scrollWidth": 1536,
+          "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+          "body": "班主任工作台\n当前班级\n三年级2班（32人）\n班级教学\n家庭学习\n已保存\n账户与班级\n今日\n今日工作台\n作业追踪\n听写与复习\n考勤与请假\n学生\n学生名单\n成长档案\n积分评价\n健康与照护\n家校沟通\n教学\n成绩分析\n考试反思\n课程日程\n课堂工具",
+          "state": {
+            "busy": false,
+            "dirty": false,
+            "pending": false,
+            "sync": "normal",
+            "selected": "synthetic-score-1"
+          },
+          "squeezed": [],
+          "images": [
+            1536
+          ]
+        },
+        "kind": "desktop",
+        "fixtureId": "scores-p02-ai-failure",
+        "capturedAt": "2026-09-15T07:59:38.975Z",
+        "browser": "Chrome/152.0.7977.82",
+        "font": "Microsoft YaHei",
+        "dpr": 1,
+        "commit": null
+      },
+      {
+        "path": "docs/page-designs/V4/scores/screenshots/p02-final/390-normal.png",
         "sha256": "9ABC77852536215A69015E8BDABBE8CC09B58DBA082DBA77D4DE1965FBB0C05F",
         "viewport": "390x844",
-        "kind": "mobile",
         "stateId": "normal",
-        "fixtureId": "scores-p01-normal",
-        "fixtureSha256": "E00D01D4AD6103C08F2FC0E3ED10A60AC0D867B7D4DBD08DC6240AF07D85B5C2",
-        "capturedAt": "2026-09-15T07:06:51.075Z",
-        "browser": "Chrome/152.0.7977.82",
-        "font": "Microsoft YaHei",
-        "dpr": 1,
         "url": "http://127.0.0.1:4218/scores.html?state=normal",
-        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
-      },
-      {
-        "path": "docs/page-designs/V4/scores/screenshots/p01/390-mobile-detail.png",
-        "sha256": "08A1429826E6579B321D8645A89992FA30DB9C7A0B3AB9EDDB8A7D18F116C72D",
-        "viewport": "390x844",
-        "kind": "mobile",
-        "stateId": "mobile-detail",
-        "fixtureId": "scores-p01-mobile-detail",
         "fixtureSha256": "E00D01D4AD6103C08F2FC0E3ED10A60AC0D867B7D4DBD08DC6240AF07D85B5C2",
-        "capturedAt": "2026-09-15T07:06:51.075Z",
+        "info": {
+          "ready": true,
+          "scrollWidth": 390,
+          "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+          "body": "成绩分析\n\n三年级 · 32人\n\n已保存\n成绩分析\n\n按考试记录分数，结合录入情况分析。\n\n9月综合练习\n\n2026-09-15 · 语文 100分 / 数学 100分 / 英语 100分\n\n切换考试\n编辑\n新增考试\n录分\n趋势\n试卷分析\n",
+          "state": {
+            "busy": false,
+            "dirty": false,
+            "pending": false,
+            "sync": "normal",
+            "selected": "synthetic-score-1"
+          },
+          "squeezed": [],
+          "images": [
+            1536
+          ]
+        },
+        "kind": "mobile",
+        "fixtureId": "scores-p02-normal",
+        "capturedAt": "2026-09-15T07:59:38.975Z",
         "browser": "Chrome/152.0.7977.82",
         "font": "Microsoft YaHei",
         "dpr": 1,
-        "url": "http://127.0.0.1:4218/scores.html?state=mobile-detail",
-        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
+        "commit": null
       },
       {
-        "path": "docs/page-designs/V4/scores/screenshots/p01/390-empty-class.png",
-        "sha256": "9FE6F171551DC470AE2AEC9ABC75162A864E1F3103796F0A1BDFFD7E0295DE5F",
+        "path": "docs/page-designs/V4/scores/screenshots/p02-final/390-trends.png",
+        "sha256": "E50F4304875C21B1FABA1618D21C42EA3326B995DA5A10DCD1BE60DA0AFF2CE9",
         "viewport": "390x844",
-        "kind": "mobile",
-        "stateId": "empty-class",
-        "fixtureId": "scores-p01-empty-class",
-        "fixtureSha256": "49EBC23CDFF5134AF07C1DA1A51DD9B12CAABF8A5C79B12D3076D6C81A71D5BF",
-        "capturedAt": "2026-09-15T07:06:51.075Z",
-        "browser": "Chrome/152.0.7977.82",
-        "font": "Microsoft YaHei",
-        "dpr": 1,
-        "url": "http://127.0.0.1:4218/scores.html?state=empty-class",
-        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
-      },
-      {
-        "path": "docs/page-designs/V4/scores/screenshots/p01/390-no-exams.png",
-        "sha256": "6852EBBB90DEA092D3CABB8A7278B45888B97FEADD48AFB5D3CB3E3FE630240A",
-        "viewport": "390x844",
-        "kind": "mobile",
-        "stateId": "no-exams",
-        "fixtureId": "scores-p01-no-exams",
-        "fixtureSha256": "30803CD1B461CE2DE05B4F236B577F9D2A1A059340FACB064CCB19A5A36B41BC",
-        "capturedAt": "2026-09-15T07:06:51.075Z",
-        "browser": "Chrome/152.0.7977.82",
-        "font": "Microsoft YaHei",
-        "dpr": 1,
-        "url": "http://127.0.0.1:4218/scores.html?state=no-exams",
-        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
-      },
-      {
-        "path": "docs/page-designs/V4/scores/screenshots/p01/390-search-empty.png",
-        "sha256": "4EAE159E9EC27D04BBA777D91D08499566A6D84793274AFE5709815C4490D3E9",
-        "viewport": "390x844",
-        "kind": "mobile",
-        "stateId": "search-empty",
-        "fixtureId": "scores-p01-search-empty",
-        "fixtureSha256": "E00D01D4AD6103C08F2FC0E3ED10A60AC0D867B7D4DBD08DC6240AF07D85B5C2",
-        "capturedAt": "2026-09-15T07:06:51.075Z",
-        "browser": "Chrome/152.0.7977.82",
-        "font": "Microsoft YaHei",
-        "dpr": 1,
-        "url": "http://127.0.0.1:4218/scores.html?state=search-empty",
-        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
-      },
-      {
-        "path": "docs/page-designs/V4/scores/screenshots/p01/390-students-105.png",
-        "sha256": "B8E7D3BDA3646B55A699B3E60663D8426474393A63E6FD508ABD6992480F9536",
-        "viewport": "390x844",
-        "kind": "mobile",
-        "stateId": "students-105",
-        "fixtureId": "scores-p01-students-105",
-        "fixtureSha256": "A32F10EAA9F32E0DBCC91B8E67739B7B22E75E1667F946178B3C729F565C6395",
-        "capturedAt": "2026-09-15T07:06:51.075Z",
-        "browser": "Chrome/152.0.7977.82",
-        "font": "Microsoft YaHei",
-        "dpr": 1,
-        "url": "http://127.0.0.1:4218/scores.html?state=students-105",
-        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
-      },
-      {
-        "path": "docs/page-designs/V4/scores/screenshots/p01/390-long-subjects.png",
-        "sha256": "97D89CC70933671B93ECCB7814C5E4217C244476209CBDD52C85998456652825",
-        "viewport": "390x844",
-        "kind": "mobile",
-        "stateId": "long-subjects",
-        "fixtureId": "scores-p01-long-subjects",
-        "fixtureSha256": "1FB739B97AE0A08F4B3F909EAC2B217867680362D955CF30E44702EFBE56BF64",
-        "capturedAt": "2026-09-15T07:06:51.075Z",
-        "browser": "Chrome/152.0.7977.82",
-        "font": "Microsoft YaHei",
-        "dpr": 1,
-        "url": "http://127.0.0.1:4218/scores.html?state=long-subjects",
-        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
-      },
-      {
-        "path": "docs/page-designs/V4/scores/screenshots/p01/390-mixed-max.png",
-        "sha256": "5F6F7CEE712552D19D0A1CDB3A87C5347DEA29B5E2044BB3737798C2F7E3FBC7",
-        "viewport": "390x844",
-        "kind": "mobile",
-        "stateId": "mixed-max",
-        "fixtureId": "scores-p01-mixed-max",
-        "fixtureSha256": "ADC2405C46363E478BC14855A316406578C28B6F44866F97E94371260D09C145",
-        "capturedAt": "2026-09-15T07:06:51.075Z",
-        "browser": "Chrome/152.0.7977.82",
-        "font": "Microsoft YaHei",
-        "dpr": 1,
-        "url": "http://127.0.0.1:4218/scores.html?state=mixed-max",
-        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
-      },
-      {
-        "path": "docs/page-designs/V4/scores/screenshots/p01/390-composer.png",
-        "sha256": "284DA0F19CD37144B9F153FC4373BDF9333A0D33816D39B6F4B2F3C38305573D",
-        "viewport": "390x844",
-        "kind": "mobile",
-        "stateId": "composer",
-        "fixtureId": "scores-p01-composer",
-        "fixtureSha256": "E00D01D4AD6103C08F2FC0E3ED10A60AC0D867B7D4DBD08DC6240AF07D85B5C2",
-        "capturedAt": "2026-09-15T07:06:51.075Z",
-        "browser": "Chrome/152.0.7977.82",
-        "font": "Microsoft YaHei",
-        "dpr": 1,
-        "url": "http://127.0.0.1:4218/scores.html?state=composer",
-        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
-      },
-      {
-        "path": "docs/page-designs/V4/scores/screenshots/p01/390-student-editor.png",
-        "sha256": "08A1429826E6579B321D8645A89992FA30DB9C7A0B3AB9EDDB8A7D18F116C72D",
-        "viewport": "390x844",
-        "kind": "mobile",
-        "stateId": "student-editor",
-        "fixtureId": "scores-p01-student-editor",
-        "fixtureSha256": "E00D01D4AD6103C08F2FC0E3ED10A60AC0D867B7D4DBD08DC6240AF07D85B5C2",
-        "capturedAt": "2026-09-15T07:06:51.075Z",
-        "browser": "Chrome/152.0.7977.82",
-        "font": "Microsoft YaHei",
-        "dpr": 1,
-        "url": "http://127.0.0.1:4218/scores.html?state=student-editor",
-        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
-      },
-      {
-        "path": "docs/page-designs/V4/scores/screenshots/p01/390-batch.png",
-        "sha256": "8E82C6C2FCFF07A3AB95B074D0F0C7571C8774565200502ED4578FE96AB4A02C",
-        "viewport": "390x844",
-        "kind": "mobile",
-        "stateId": "batch",
-        "fixtureId": "scores-p01-batch",
-        "fixtureSha256": "E00D01D4AD6103C08F2FC0E3ED10A60AC0D867B7D4DBD08DC6240AF07D85B5C2",
-        "capturedAt": "2026-09-15T07:06:51.075Z",
-        "browser": "Chrome/152.0.7977.82",
-        "font": "Microsoft YaHei",
-        "dpr": 1,
-        "url": "http://127.0.0.1:4218/scores.html?state=batch",
-        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
-      },
-      {
-        "path": "docs/page-designs/V4/scores/screenshots/p01/390-ranges.png",
-        "sha256": "8EFF6D9F5C35A71D2AF527309EB4F3614B7B4291783F81F027AB20394BACDBC4",
-        "viewport": "390x844",
-        "kind": "mobile",
-        "stateId": "ranges",
-        "fixtureId": "scores-p01-ranges",
-        "fixtureSha256": "E00D01D4AD6103C08F2FC0E3ED10A60AC0D867B7D4DBD08DC6240AF07D85B5C2",
-        "capturedAt": "2026-09-15T07:06:51.075Z",
-        "browser": "Chrome/152.0.7977.82",
-        "font": "Microsoft YaHei",
-        "dpr": 1,
-        "url": "http://127.0.0.1:4218/scores.html?state=ranges",
-        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
-      },
-      {
-        "path": "docs/page-designs/V4/scores/screenshots/p01/390-readonly.png",
-        "sha256": "B3FB1A8D6752F80C360839BC576FB23EF0963F8516B3963004A7C55594C79658",
-        "viewport": "390x844",
-        "kind": "mobile",
-        "stateId": "readonly",
-        "fixtureId": "scores-p01-readonly",
-        "fixtureSha256": "E00D01D4AD6103C08F2FC0E3ED10A60AC0D867B7D4DBD08DC6240AF07D85B5C2",
-        "capturedAt": "2026-09-15T07:06:51.075Z",
-        "browser": "Chrome/152.0.7977.82",
-        "font": "Microsoft YaHei",
-        "dpr": 1,
-        "url": "http://127.0.0.1:4218/scores.html?state=readonly",
-        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
-      },
-      {
-        "path": "docs/page-designs/V4/scores/screenshots/p01/390-loading.png",
-        "sha256": "160D539D6A5426B96BA2195246874BE4967C943B356C32D76AF62C08E6190827",
-        "viewport": "390x844",
-        "kind": "mobile",
-        "stateId": "loading",
-        "fixtureId": "scores-p01-loading",
-        "fixtureSha256": "E00D01D4AD6103C08F2FC0E3ED10A60AC0D867B7D4DBD08DC6240AF07D85B5C2",
-        "capturedAt": "2026-09-15T07:06:51.075Z",
-        "browser": "Chrome/152.0.7977.82",
-        "font": "Microsoft YaHei",
-        "dpr": 1,
-        "url": "http://127.0.0.1:4218/scores.html?state=loading",
-        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
-      },
-      {
-        "path": "docs/page-designs/V4/scores/screenshots/p01/390-saving.png",
-        "sha256": "A9CDECE4B20C0D28CE9E8BB23C43FDE7A9A1E7711D8054893FA5180C4D6CB0B2",
-        "viewport": "390x844",
-        "kind": "mobile",
-        "stateId": "saving",
-        "fixtureId": "scores-p01-saving",
-        "fixtureSha256": "E00D01D4AD6103C08F2FC0E3ED10A60AC0D867B7D4DBD08DC6240AF07D85B5C2",
-        "capturedAt": "2026-09-15T07:06:51.075Z",
-        "browser": "Chrome/152.0.7977.82",
-        "font": "Microsoft YaHei",
-        "dpr": 1,
-        "url": "http://127.0.0.1:4218/scores.html?state=saving",
-        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
-      },
-      {
-        "path": "docs/page-designs/V4/scores/screenshots/p01/390-save-failure.png",
-        "sha256": "0F000A7A8A8BB961725B164C068D116B73D66F0D4F77A31312270EBA83D256C4",
-        "viewport": "390x844",
-        "kind": "mobile",
-        "stateId": "save-failure",
-        "fixtureId": "scores-p01-save-failure",
-        "fixtureSha256": "E00D01D4AD6103C08F2FC0E3ED10A60AC0D867B7D4DBD08DC6240AF07D85B5C2",
-        "capturedAt": "2026-09-15T07:06:51.075Z",
-        "browser": "Chrome/152.0.7977.82",
-        "font": "Microsoft YaHei",
-        "dpr": 1,
-        "url": "http://127.0.0.1:4218/scores.html?state=save-failure",
-        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
-      },
-      {
-        "path": "docs/page-designs/V4/scores/screenshots/p01/390-save-throw.png",
-        "sha256": "565CFD3DAC95FD60415B87429CCA0A719E0B5B23B84BC1ADB525A5D76DC81A68",
-        "viewport": "390x844",
-        "kind": "mobile",
-        "stateId": "save-throw",
-        "fixtureId": "scores-p01-save-throw",
-        "fixtureSha256": "E00D01D4AD6103C08F2FC0E3ED10A60AC0D867B7D4DBD08DC6240AF07D85B5C2",
-        "capturedAt": "2026-09-15T07:06:51.075Z",
-        "browser": "Chrome/152.0.7977.82",
-        "font": "Microsoft YaHei",
-        "dpr": 1,
-        "url": "http://127.0.0.1:4218/scores.html?state=save-throw",
-        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
-      },
-      {
-        "path": "docs/page-designs/V4/scores/screenshots/p01/390-conflict-409.png",
-        "sha256": "AAB4414DD51969B21A572C30C0F46ABFC748944EF122866AB66B1E5AE2D5DD7A",
-        "viewport": "390x844",
-        "kind": "mobile",
-        "stateId": "conflict-409",
-        "fixtureId": "scores-p01-conflict-409",
-        "fixtureSha256": "E00D01D4AD6103C08F2FC0E3ED10A60AC0D867B7D4DBD08DC6240AF07D85B5C2",
-        "capturedAt": "2026-09-15T07:06:51.075Z",
-        "browser": "Chrome/152.0.7977.82",
-        "font": "Microsoft YaHei",
-        "dpr": 1,
-        "url": "http://127.0.0.1:4218/scores.html?state=conflict-409",
-        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
-      },
-      {
-        "path": "docs/page-designs/V4/scores/screenshots/p01/390-dirty-close.png",
-        "sha256": "77BEBA52FE1422D19E1005BC0F3400D623DE8F2785ED75D1A02F0F5B3D6A47FD",
-        "viewport": "390x844",
-        "kind": "mobile",
-        "stateId": "dirty-close",
-        "fixtureId": "scores-p01-dirty-close",
-        "fixtureSha256": "E00D01D4AD6103C08F2FC0E3ED10A60AC0D867B7D4DBD08DC6240AF07D85B5C2",
-        "capturedAt": "2026-09-15T07:06:51.075Z",
-        "browser": "Chrome/152.0.7977.82",
-        "font": "Microsoft YaHei",
-        "dpr": 1,
-        "url": "http://127.0.0.1:4218/scores.html?state=dirty-close",
-        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
-      },
-      {
-        "path": "docs/page-designs/V4/scores/screenshots/reviewer-fix/390-trends.png",
-        "sha256": "298D562891A9E6D9322A306237F4B7CBFBCFAC4280149A82F6DF6CEE8DAB8A61",
-        "viewport": "390x844",
-        "kind": "mobile",
         "stateId": "trends",
-        "fixtureId": "scores-p01-trends",
-        "fixtureSha256": "B03699049A19A104EBE9BB1A1D38C7C7F6F10C4B57D031407622627F45FAD101",
-        "capturedAt": "2026-09-15T07:11:07.652Z",
-        "browser": "Chrome/152.0.7977.82",
-        "font": "Microsoft YaHei",
-        "dpr": 1,
         "url": "http://127.0.0.1:4218/scores.html?state=trends",
-        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
-      },
-      {
-        "path": "docs/page-designs/V4/scores/screenshots/reviewer-fix/390-long-history.png",
-        "sha256": "C6D0F3E24D3E079F799E46762F0D426C5BF64A2CB51298BC6E38C9A2811D5162",
-        "viewport": "390x844",
+        "fixtureSha256": "367CADAC522477C8FB98FCBB53A0A6C0A4411DB81D522F8409BC93F131A4E8FE",
+        "info": {
+          "ready": true,
+          "scrollWidth": 390,
+          "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+          "body": "成绩分析\n\n三年级 · 32人\n\n已保存\n成绩分析\n\n按考试记录分数，结合录入情况分析。\n\n录分\n趋势\n试卷分析\n班级整体趋势\n32名学生 · 5/6场有录入\n查看学生\n考试范围\n最近12场\n最近24场\n全部考试\n更多筛选\n班级得分率变化\n",
+          "state": {
+            "busy": false,
+            "dirty": false,
+            "pending": false,
+            "sync": "normal",
+            "selected": "history-0"
+          },
+          "squeezed": [],
+          "images": [
+            1536
+          ]
+        },
         "kind": "mobile",
-        "stateId": "long-history",
-        "fixtureId": "scores-p01-long-history",
-        "fixtureSha256": "520C691B42603950AC1A7A04660038A95540D200B2521FCCBE7F326505F3FE07",
-        "capturedAt": "2026-09-15T07:11:07.652Z",
+        "fixtureId": "scores-p02-trends",
+        "capturedAt": "2026-09-15T07:59:38.975Z",
         "browser": "Chrome/152.0.7977.82",
         "font": "Microsoft YaHei",
         "dpr": 1,
-        "url": "http://127.0.0.1:4218/scores.html?state=long-history",
-        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
+        "commit": null
       },
       {
-        "path": "docs/page-designs/V4/scores/screenshots/p01/390-analysis.png",
-        "sha256": "48F198C9E3F1217A07E2A79D8C10BB5F28CA1473CA794414EF470060D1C72ACB",
+        "path": "docs/page-designs/V4/scores/screenshots/p02-final/390-student-trends.png",
+        "sha256": "F56D6BE658A91FDC82703FC4DA738CFAF1D6489ECA8F99F7DB9C619D83ABC0E7",
         "viewport": "390x844",
+        "stateId": "student-trends",
+        "url": "http://127.0.0.1:4218/scores.html?state=student-trends",
+        "fixtureSha256": "367CADAC522477C8FB98FCBB53A0A6C0A4411DB81D522F8409BC93F131A4E8FE",
+        "info": {
+          "ready": true,
+          "scrollWidth": 390,
+          "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+          "body": "成绩分析\n\n三年级 · 32人\n\n已保存\n成绩分析\n\n按考试记录分数，结合录入情况分析。\n\n录分\n趋势\n试卷分析\n学生01\n学号01 · 三年级2班\n切换学生\n返回班级趋势\n考试范围\n最近12场\n最近24场\n全部考试\n更多筛选\n个人得分率变",
+          "state": {
+            "busy": false,
+            "dirty": false,
+            "pending": false,
+            "sync": "normal",
+            "selected": "history-0"
+          },
+          "squeezed": [],
+          "images": [
+            1536
+          ]
+        },
         "kind": "mobile",
-        "stateId": "analysis",
-        "fixtureId": "scores-p01-analysis",
-        "fixtureSha256": "3123D11927EAA7469AD2F996C2F7B30975573FF5582776C16BC80B880EBE85F5",
-        "capturedAt": "2026-09-15T07:06:51.075Z",
+        "fixtureId": "scores-p02-student-trends",
+        "capturedAt": "2026-09-15T07:59:38.975Z",
         "browser": "Chrome/152.0.7977.82",
         "font": "Microsoft YaHei",
         "dpr": 1,
-        "url": "http://127.0.0.1:4218/scores.html?state=analysis",
-        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
+        "commit": null
       },
       {
-        "path": "docs/page-designs/V4/scores/screenshots/p01/390-paper-review.png",
-        "sha256": "0273F2EF4A6320AE1FEBF478256651153BFC51BE835A5ED85EC5A24AF1452053",
+        "path": "docs/page-designs/V4/scores/screenshots/p02-final/390-trend-single.png",
+        "sha256": "A1A3BB81BA6AD009A2543C2BBECD2F6CA301337E94B01BDDF0E03E6CE24241EF",
         "viewport": "390x844",
-        "kind": "mobile",
-        "stateId": "paper-review",
-        "fixtureId": "scores-p01-paper-review",
-        "fixtureSha256": "3123D11927EAA7469AD2F996C2F7B30975573FF5582776C16BC80B880EBE85F5",
-        "capturedAt": "2026-09-15T07:06:51.075Z",
-        "browser": "Chrome/152.0.7977.82",
-        "font": "Microsoft YaHei",
-        "dpr": 1,
-        "url": "http://127.0.0.1:4218/scores.html?state=paper-review",
-        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
-      },
-      {
-        "path": "docs/page-designs/V4/scores/screenshots/p01/390-ai-failure.png",
-        "sha256": "ACB486B538502B56BCDDC79318509D116FA47D4A3048AA320614E4860FEE9097",
-        "viewport": "390x844",
-        "kind": "mobile",
-        "stateId": "ai-failure",
-        "fixtureId": "scores-p01-ai-failure",
-        "fixtureSha256": "67AF4B82164F5FCA84C5DD9CDD8F355A6A0FAB272DA45016FFC8E3D9E5DDFF90",
-        "capturedAt": "2026-09-15T07:06:51.075Z",
-        "browser": "Chrome/152.0.7977.82",
-        "font": "Microsoft YaHei",
-        "dpr": 1,
-        "url": "http://127.0.0.1:4218/scores.html?state=ai-failure",
-        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
-      },
-      {
-        "path": "docs/page-designs/V4/scores/screenshots/p01/390-item-editor.png",
-        "sha256": "2FEAD171A304C15BFB8B5190B5A3050072FAA056F42F0430EE8487681CE44E5D",
-        "viewport": "390x844",
-        "kind": "mobile",
-        "stateId": "item-editor",
-        "fixtureId": "scores-p01-item-editor",
+        "stateId": "trend-single",
+        "url": "http://127.0.0.1:4218/scores.html?state=trend-single",
         "fixtureSha256": "E00D01D4AD6103C08F2FC0E3ED10A60AC0D867B7D4DBD08DC6240AF07D85B5C2",
-        "capturedAt": "2026-09-15T07:06:51.075Z",
+        "info": {
+          "ready": true,
+          "scrollWidth": 390,
+          "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+          "body": "成绩分析\n\n三年级 · 32人\n\n已保存\n成绩分析\n\n按考试记录分数，结合录入情况分析。\n\n录分\n趋势\n试卷分析\n班级整体趋势\n32名学生 · 1/1场有录入\n查看学生\n考试范围\n最近12场\n最近24场\n全部考试\n更多筛选\n班级得分率变化\n",
+          "state": {
+            "busy": false,
+            "dirty": false,
+            "pending": false,
+            "sync": "normal",
+            "selected": "synthetic-score-1"
+          },
+          "squeezed": [],
+          "images": [
+            1536
+          ]
+        },
+        "kind": "mobile",
+        "fixtureId": "scores-p02-trend-single",
+        "capturedAt": "2026-09-15T07:59:38.975Z",
         "browser": "Chrome/152.0.7977.82",
         "font": "Microsoft YaHei",
         "dpr": 1,
-        "url": "http://127.0.0.1:4218/scores.html?state=item-editor",
-        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
+        "commit": null
       },
       {
-        "path": "docs/page-designs/V4/scores/screenshots/p01/390-item-scores.png",
-        "sha256": "02EDE691B6E7FB94600812CDB69F9DE6C6D10F822E5B9DB06DC34F80D321C8A4",
+        "path": "docs/page-designs/V4/scores/screenshots/p02-final/390-trend-empty.png",
+        "sha256": "DA793C426430989E1F7B8C11B37A47EA305F09D89FF2F02F84522E14BF502800",
         "viewport": "390x844",
+        "stateId": "trend-empty",
+        "url": "http://127.0.0.1:4218/scores.html?state=trend-empty",
+        "fixtureSha256": "D7C6686396A6E77634770FC0E22FD432126FE9A7FCE81BBB1A89AC7C78F40BAD",
+        "info": {
+          "ready": true,
+          "scrollWidth": 390,
+          "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+          "body": "成绩分析\n\n三年级 · 32人\n\n已保存\n成绩分析\n\n按考试记录分数，结合录入情况分析。\n\n录分\n趋势\n试卷分析\n班级整体趋势\n32名学生 · 0/1场有录入\n查看学生\n考试范围\n最近12场\n最近24场\n全部考试\n更多筛选\n班级得分率变化\n",
+          "state": {
+            "busy": false,
+            "dirty": false,
+            "pending": false,
+            "sync": "normal",
+            "selected": "synthetic-score-1"
+          },
+          "squeezed": [],
+          "images": [
+            1536
+          ]
+        },
         "kind": "mobile",
-        "stateId": "item-scores",
-        "fixtureId": "scores-p01-item-scores",
-        "fixtureSha256": "3123D11927EAA7469AD2F996C2F7B30975573FF5582776C16BC80B880EBE85F5",
-        "capturedAt": "2026-09-15T07:06:51.075Z",
+        "fixtureId": "scores-p02-trend-empty",
+        "capturedAt": "2026-09-15T07:59:38.975Z",
         "browser": "Chrome/152.0.7977.82",
         "font": "Microsoft YaHei",
         "dpr": 1,
-        "url": "http://127.0.0.1:4218/scores.html?state=item-scores",
-        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
+        "commit": null
+      },
+      {
+        "path": "docs/page-designs/V4/scores/screenshots/p02-final/390-trend-no-exams.png",
+        "sha256": "E88E92E77237165C802791591294156420CEA1EE3DB8190DFA7E90208700B63F",
+        "viewport": "390x844",
+        "stateId": "trend-no-exams",
+        "url": "http://127.0.0.1:4218/scores.html?state=trend-no-exams",
+        "fixtureSha256": "30803CD1B461CE2DE05B4F236B577F9D2A1A059340FACB064CCB19A5A36B41BC",
+        "info": {
+          "ready": true,
+          "scrollWidth": 390,
+          "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+          "body": "成绩分析\n\n三年级 · 32人\n\n已保存\n成绩分析\n\n按考试记录分数，结合录入情况分析。\n\n录分\n趋势\n试卷分析\n班级整体趋势\n32名学生 · 0/0场有录入\n查看学生\n考试范围\n最近12场\n最近24场\n全部考试\n更多筛选\n班级得分率变化\n",
+          "state": {
+            "busy": false,
+            "dirty": false,
+            "pending": false,
+            "sync": "normal"
+          },
+          "squeezed": [],
+          "images": [
+            1536
+          ]
+        },
+        "kind": "mobile",
+        "fixtureId": "scores-p02-trend-no-exams",
+        "capturedAt": "2026-09-15T07:59:38.975Z",
+        "browser": "Chrome/152.0.7977.82",
+        "font": "Microsoft YaHei",
+        "dpr": 1,
+        "commit": null
+      },
+      {
+        "path": "docs/page-designs/V4/scores/screenshots/p02-final/390-long-history.png",
+        "sha256": "141658127E00513924C9A2EA979B8D9F1BD2EAA0491CEE26DEC77F74A301FE9F",
+        "viewport": "390x844",
+        "stateId": "long-history",
+        "url": "http://127.0.0.1:4218/scores.html?state=long-history",
+        "fixtureSha256": "520C691B42603950AC1A7A04660038A95540D200B2521FCCBE7F326505F3FE07",
+        "info": {
+          "ready": true,
+          "scrollWidth": 390,
+          "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+          "body": "成绩分析\n\n三年级 · 32人\n\n已保存\n成绩分析\n\n按考试记录分数，结合录入情况分析。\n\n录分\n趋势\n试卷分析\n班级整体趋势\n32名学生 · 12/12场有录入\n查看学生\n考试范围\n最近12场\n最近24场\n全部考试\n更多筛选\n班级得分率变",
+          "state": {
+            "busy": false,
+            "dirty": false,
+            "pending": false,
+            "sync": "normal",
+            "selected": "history-0"
+          },
+          "squeezed": [],
+          "images": [
+            1536
+          ]
+        },
+        "kind": "mobile",
+        "fixtureId": "scores-p02-long-history",
+        "capturedAt": "2026-09-15T07:59:38.975Z",
+        "browser": "Chrome/152.0.7977.82",
+        "font": "Microsoft YaHei",
+        "dpr": 1,
+        "commit": null
+      },
+      {
+        "path": "docs/page-designs/V4/scores/screenshots/p02-final/390-analysis.png",
+        "sha256": "E50576120FBE6DCCF7F4CB9D97378E850DE63BD26AD8EA4DC484CE1B296A2264",
+        "viewport": "390x844",
+        "stateId": "analysis",
+        "url": "http://127.0.0.1:4218/scores.html?state=analysis",
+        "fixtureSha256": "546C6A901857EE8347D83BE7D19FEC74EF71B57C19006128F795EFC98C7C027A",
+        "info": {
+          "ready": true,
+          "scrollWidth": 390,
+          "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+          "body": "成绩分析\n\n三年级 · 32人\n\n已保存\n成绩分析\n\n按考试记录分数，结合录入情况分析。\n\n9月综合练习\n\n2026-09-15 · 语文 100分 / 数学 100分 / 英语 100分\n\n切换考试\n编辑\n新增考试\n录分\n趋势\n试卷分析\n",
+          "state": {
+            "busy": false,
+            "dirty": false,
+            "pending": false,
+            "sync": "normal",
+            "selected": "synthetic-score-1"
+          },
+          "squeezed": [],
+          "images": [
+            1536
+          ]
+        },
+        "kind": "mobile",
+        "fixtureId": "scores-p02-analysis",
+        "capturedAt": "2026-09-15T07:59:38.975Z",
+        "browser": "Chrome/152.0.7977.82",
+        "font": "Microsoft YaHei",
+        "dpr": 1,
+        "commit": null
+      },
+      {
+        "path": "docs/page-designs/V4/scores/screenshots/p02-final/390-analysis-empty.png",
+        "sha256": "B64108912FF75C2EA354CC6CBAF084B20FF9FDEE58B5301886886FD6E7298D6F",
+        "viewport": "390x844",
+        "stateId": "analysis-empty",
+        "url": "http://127.0.0.1:4218/scores.html?state=analysis-empty",
+        "fixtureSha256": "E00D01D4AD6103C08F2FC0E3ED10A60AC0D867B7D4DBD08DC6240AF07D85B5C2",
+        "info": {
+          "ready": true,
+          "scrollWidth": 390,
+          "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+          "body": "成绩分析\n\n三年级 · 32人\n\n已保存\n成绩分析\n\n按考试记录分数，结合录入情况分析。\n\n9月综合练习\n\n2026-09-15 · 语文 100分 / 数学 100分 / 英语 100分\n\n切换考试\n编辑\n新增考试\n录分\n趋势\n试卷分析\n",
+          "state": {
+            "busy": false,
+            "dirty": false,
+            "pending": false,
+            "sync": "normal",
+            "selected": "synthetic-score-1"
+          },
+          "squeezed": [],
+          "images": [
+            1536
+          ]
+        },
+        "kind": "mobile",
+        "fixtureId": "scores-p02-analysis-empty",
+        "capturedAt": "2026-09-15T07:59:38.975Z",
+        "browser": "Chrome/152.0.7977.82",
+        "font": "Microsoft YaHei",
+        "dpr": 1,
+        "commit": null
+      },
+      {
+        "path": "docs/page-designs/V4/scores/screenshots/p02-final/390-analysis-readonly.png",
+        "sha256": "59F668B212BCD0ABF984A47D1A95CD5104559EBD096E72A70A5CFE978855AED7",
+        "viewport": "390x844",
+        "stateId": "analysis-readonly",
+        "url": "http://127.0.0.1:4218/scores.html?state=analysis-readonly",
+        "fixtureSha256": "546C6A901857EE8347D83BE7D19FEC74EF71B57C19006128F795EFC98C7C027A",
+        "info": {
+          "ready": true,
+          "scrollWidth": 390,
+          "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+          "body": "成绩分析\n\n三年级 · 32人\n\n只读\n只读宽限期\n可以查看和导出，续期后恢复编辑。\n成绩分析\n\n按考试记录分数，结合录入情况分析。\n\n9月综合练习\n\n2026-09-15 · 语文 100分 / 数学 100分 / 英语 100分\n\n切换",
+          "state": {
+            "busy": false,
+            "dirty": false,
+            "pending": false,
+            "sync": "normal",
+            "selected": "synthetic-score-1"
+          },
+          "squeezed": [],
+          "images": [
+            1536
+          ]
+        },
+        "kind": "mobile",
+        "fixtureId": "scores-p02-analysis-readonly",
+        "capturedAt": "2026-09-15T07:59:38.975Z",
+        "browser": "Chrome/152.0.7977.82",
+        "font": "Microsoft YaHei",
+        "dpr": 1,
+        "commit": null
+      },
+      {
+        "path": "docs/page-designs/V4/scores/screenshots/p02-final/390-paper-review.png",
+        "sha256": "F024BCED8795161C4ED2979CC2250725FC49C6AD2EDABC629AF0FC4934DCA242",
+        "viewport": "390x844",
+        "stateId": "paper-review",
+        "url": "http://127.0.0.1:4218/scores.html?state=paper-review",
+        "fixtureSha256": "3123D11927EAA7469AD2F996C2F7B30975573FF5582776C16BC80B880EBE85F5",
+        "info": {
+          "ready": true,
+          "scrollWidth": 390,
+          "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+          "body": "成绩分析\n\n三年级 · 32人\n\n已保存\n成绩分析\n\n按考试记录分数，结合录入情况分析。\n\n9月综合练习\n\n2026-09-15 · 语文 100分 / 数学 100分 / 英语 100分\n\n切换考试\n编辑\n新增考试\n录分\n趋势\n试卷分析\n",
+          "state": {
+            "busy": false,
+            "dirty": false,
+            "pending": false,
+            "sync": "normal",
+            "editor": "paper",
+            "selected": "synthetic-score-1"
+          },
+          "squeezed": [],
+          "images": [
+            1536
+          ]
+        },
+        "kind": "mobile",
+        "fixtureId": "scores-p02-paper-review",
+        "capturedAt": "2026-09-15T07:59:38.975Z",
+        "browser": "Chrome/152.0.7977.82",
+        "font": "Microsoft YaHei",
+        "dpr": 1,
+        "commit": null
+      },
+      {
+        "path": "docs/page-designs/V4/scores/screenshots/p02-final/390-ai-failure.png",
+        "sha256": "1E5A30A7A77FDF272A0F6434B9F4D22B4B2861E8F6A80016FADCC07FE701DCAA",
+        "viewport": "390x844",
+        "stateId": "ai-failure",
+        "url": "http://127.0.0.1:4218/scores.html?state=ai-failure",
+        "fixtureSha256": "67AF4B82164F5FCA84C5DD9CDD8F355A6A0FAB272DA45016FFC8E3D9E5DDFF90",
+        "info": {
+          "ready": true,
+          "scrollWidth": 390,
+          "font": "\"Microsoft YaHei\", system-ui, sans-serif",
+          "body": "成绩分析\n\n三年级 · 32人\n\n已保存\n成绩分析\n\n按考试记录分数，结合录入情况分析。\n\n9月综合练习\n\n2026-09-15 · 语文 100分 / 数学 100分 / 英语 100分\n\n切换考试\n编辑\n新增考试\n录分\n趋势\n试卷分析\n",
+          "state": {
+            "busy": false,
+            "dirty": false,
+            "pending": false,
+            "sync": "normal",
+            "selected": "synthetic-score-1"
+          },
+          "squeezed": [],
+          "images": [
+            1536
+          ]
+        },
+        "kind": "mobile",
+        "fixtureId": "scores-p02-ai-failure",
+        "capturedAt": "2026-09-15T07:59:38.975Z",
+        "browser": "Chrome/152.0.7977.82",
+        "font": "Microsoft YaHei",
+        "dpr": 1,
+        "commit": null
       }
     ],
-    "checks": {
-      "path": "docs/page-designs/V4/scores/checks-P01.json",
-      "sha256": "D71C9BB69FCF5A9D794A13AF1FCBEDF57B966DF9D0EBC5C444C10983999B672F",
-      "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
-    },
     "sourceHashes": [
       {
         "path": "app/designs/scores/ScoresDesign.tsx",
-        "sha256": "A7A190702E187E036FB9C776267332171119792284A805C8A0CBEAFB3496B770"
+        "sha256": "E22FA7C2FAC54CA9BF0F6F2811BF8B61AE932D9F416CF83DF9CFD077777A610A"
       },
       {
         "path": "app/designs/scores/ScoresDesign.module.css",
-        "sha256": "5AD0D334121F3B20551DB4A22D6A54F6DB8A02E1EB3C594BF012F554A85ECE90"
+        "sha256": "43909189470F7780700885A033EFB20C7F2AA29663CC6F23F0A560BA8F50F045"
+      },
+      {
+        "path": "app/designs/scores/ScoreTrendsDesign.tsx",
+        "sha256": "F38953F3C7F6273CB3E2373296B6E79012A7E29911F263F6A4B6D6F080A9033F"
+      },
+      {
+        "path": "app/designs/scores/ScoreAnalysisDesign.tsx",
+        "sha256": "211A4A54B2743EDE6BB931CED15D29732BC990DCC35B8124B658BD5C1B4CF431"
+      },
+      {
+        "path": "app/designs/scores/ScoreWorkspaces.module.css",
+        "sha256": "CAD54350D9782E7C97984F8BE550CC211F61BFF8B85DD620A553DF114513F43A"
       },
       {
         "path": "app/designs/scores/useScoresDesignController.ts",
         "sha256": "834CDE89593D4A87CEB524B9C8629B3CE3C9EA88CF622B8EF26BE40E27B1C2D6"
-      },
-      {
-        "path": "app/designs/scores/ScoreTrendsDesign.tsx",
-        "sha256": "D3283C7968E9FB45516BE3E0AC48795B81C4B07C478BD78CB3F72F87876F01E0"
       },
       {
         "path": "app/designs/scores/stationery-p01.png",
@@ -965,11 +965,11 @@
       },
       {
         "path": "tools/ui-preview/scores.tsx",
-        "sha256": "0680FA182D0E16C4038F3C6DECA832C45B40DAB8A395A09581098A1A11866EE1"
+        "sha256": "886753BDE96E9E4B2A0F8651835AEC62BB7061C1E2A903B4AF2A1CD563ED665A"
       },
       {
         "path": "tools/ui-preview/scores-fixture.ts",
-        "sha256": "F0DE1BF2248406D8FE09E6218C27354A0AB18FFFA22B6D457273A06B47256B70"
+        "sha256": "13F98E11B48A8E12D418DA1B845FE8FAE0941679947B6592C17EEF72FDBFF376"
       },
       {
         "path": "tools/ui-preview/scores.html",
@@ -979,7 +979,12 @@
         "path": "tools/ui-preview/scores.vite.config.ts",
         "sha256": "82CC148C3FA28713582553A536202B24227226E8AEBB93059923AC7E417CF643"
       }
-    ]
+    ],
+    "checks": {
+      "path": "docs/page-designs/V4/scores/checks-P02.json",
+      "sha256": "06A7E3D3A59EEDC81AB4CB0A8762150B2BB26EF3C3D8066208CDE5473BD3F1E0",
+      "commit": null
+    }
   },
   "designApproval": {
     "approved": false,
@@ -1060,15 +1065,27 @@
     },
     {
       "id": "SUBVIEW-DESIGN-REJECTED",
-      "blocking": true,
-      "resolved": false,
-      "description": "用户指出历次趋势和试卷分析缺独立设计；P01两主标签页退回设计。非可延后弹窗；C02四候选待方向确认，P02未制作。"
+      "blocking": false,
+      "resolved": true,
+      "description": "用户指出历次趋势和试卷分析缺独立设计；P01两主标签页退回设计。非可延后弹窗；C02四候选待方向确认，P02未制作。 用户本轮批准候选继续，P02已实现，实际页面仍待审。"
     },
     {
       "id": "STUDENT-TRENDS-DESIGN",
-      "blocking": true,
+      "blocking": false,
+      "resolved": true,
+      "description": "班级/个人对象切换需要独立信息结构和指标；原个人视角沿用班级覆盖文案。C03双端待用户方向，不算修复实现。 用户本轮批准候选继续，P02已实现，实际页面仍待审。"
+    },
+    {
+      "id": "P02-USER-REVIEW",
+      "blocking": false,
       "resolved": false,
-      "description": "班级/个人对象切换需要独立信息结构和指标；原个人视角沿用班级覆盖文案。C03双端待用户方向，不算修复实现。"
+      "description": "等待P02实际页面审核；候选确认不能代替实际审美/完整D/R。"
+    },
+    {
+      "id": "TREND-DELTA-FOLLOWUP",
+      "blocking": false,
+      "resolved": false,
+      "description": "原P01数值差未纳入C03指标，若需恢复仅作带比较场次/录入范围的事实明细，不能作能力进退KPI。"
     }
   ],
   "sourceState": {
@@ -1113,7 +1130,7 @@
     "mode": "read-only synthetic current-source recovery without shared shell",
     "recoveryHarnessCommit": "4455d7054f5bed720193eff2eaaa2d4202d8141a"
   },
-  "nextAllowedAction": "等待学生个人趋势C03双端方向确认；班级趋势C02仍未明确批准。试卷分析C02暂保留，未获可运行稿/D/R批准；方向补齐后制作P02，不开始反思、不正式接入或部署。",
+  "nextAllowedAction": "展示P02班级/个人趋势及试卷分析实际网页，等待用户审核。反思不自动开始；不正式接入或部署。",
   "candidateChecks": {
     "path": "docs/page-designs/V4/scores/checks-C01.json",
     "sha256": "F7276144B9D70F318172133050C60B63189D54357335E55F39CB9E8C2710B219"
@@ -1127,38 +1144,57 @@
     "evidenceHashes": []
   },
   "finishReview": {
-    "path": "docs/page-designs/V4/scores/finish-review.md",
-    "sha256": "A85C2CF2F0426CACE1A7E92EC267842C8791A4D9149BF3F84B8A9FC0A8534D55",
-    "currentScope": "历史技术复核保留；用户本轮退回两主标签页，不能用该PASS作为审美批准或当前设计完成依据"
+    "path": "docs/page-designs/V4/scores/finish-review-P02.md",
+    "sha256": "0AE14D54BF3498C701A1E05BF55C9600AB7AA1F88C3B44D69B8040C1558E2E84"
   },
   "latestUserFeedback": {
-    "date": "2026-09-15",
-    "source": "用户：试卷分析先这样  历史趋势那里只有班级为对象的 如果对象换成某一个学生的话界面应该完全不一样的吧 包括指标什么的 这个也缺失"
+    "approved": true,
+    "approvedAt": "2026-09-15",
+    "source": "用户：可以 先这样吧 开始做网页",
+    "scope": "C02班级趋势/试卷分析与C03个人趋势方向；允许P02隔离实现，不是实际页面批准"
   },
   "subviewDesigns": {
     "trends": {
-      "phase": "concept-review",
+      "phase": "prototype-review",
       "version": "C02",
-      "approved": false,
+      "approved": true,
       "candidateCommit": "a781f2679eb906854622fd83c92c5ed926a0cd36",
       "student": {
-        "phase": "concept-review",
+        "phase": "prototype-review",
         "version": "C03",
-        "approved": false,
-        "candidateCommit": "33843915584ad082886dc6f71b8e339b4af610a2"
+        "approved": true,
+        "candidateCommit": "33843915584ad082886dc6f71b8e339b4af610a2",
+        "approval": {
+          "approved": true,
+          "approvedAt": "2026-09-15",
+          "source": "用户：可以 先这样吧 开始做网页",
+          "scope": "C02班级趋势/试卷分析与C03个人趋势方向；允许P02隔离实现，不是实际页面批准"
+        }
       },
-      "classApproval": false
+      "classApproval": true,
+      "approval": {
+        "approved": true,
+        "approvedAt": "2026-09-15",
+        "source": "用户：可以 先这样吧 开始做网页",
+        "scope": "C02班级趋势/试卷分析与C03个人趋势方向；允许P02隔离实现，不是实际页面批准"
+      }
     },
     "analysis": {
-      "phase": "concept-review",
+      "phase": "prototype-review",
       "version": "C02",
-      "approved": false,
+      "approved": true,
       "candidateCommit": "a781f2679eb906854622fd83c92c5ed926a0cd36",
       "disposition": {
         "status": "retain-current-direction",
         "source": "用户：试卷分析先这样  历史趋势那里只有班级为对象的 如果对象换成某一个学生的话界面应该完全不一样的吧 包括指标什么的 这个也缺失",
         "date": "2026-09-15",
         "scope": "先这样仅保留C02方向，不作为完整设计或实际结果批准"
+      },
+      "approval": {
+        "approved": true,
+        "approvedAt": "2026-09-15",
+        "source": "用户：可以 先这样吧 开始做网页",
+        "scope": "C02班级趋势/试卷分析与C03个人趋势方向；允许P02隔离实现，不是实际页面批准"
       }
     }
   },
@@ -1182,6 +1218,861 @@
           "sha256": "5700DA4AC4F6D38CA20937210F10BFADBB9EDEEBD33564C783BFF44BDA25A0AB"
         }
       ]
+    }
+  ],
+  "history": [
+    {
+      "version": "P01",
+      "prototype": {
+        "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3",
+        "previewUrl": "http://127.0.0.1:4218/scores.html",
+        "sourceFiles": [
+          "app/designs/scores/ScoresDesign.tsx",
+          "app/designs/scores/ScoresDesign.module.css",
+          "app/designs/scores/useScoresDesignController.ts",
+          "app/designs/scores/ScoreTrendsDesign.tsx",
+          "app/designs/scores/stationery-p01.png",
+          "tools/ui-preview/scores.tsx",
+          "tools/ui-preview/scores-fixture.ts",
+          "tools/ui-preview/scores.html",
+          "tools/ui-preview/scores.vite.config.ts"
+        ],
+        "evidence": [
+          {
+            "path": "docs/page-designs/V4/scores/screenshots/p01/1536-normal.png",
+            "sha256": "F6850FCFDA56D9604B6D4E4E96397DCE37A85C67433CD2DA4E1C31D1133DF7F0",
+            "viewport": "1536x1024",
+            "kind": "desktop",
+            "stateId": "normal",
+            "fixtureId": "scores-p01-normal",
+            "fixtureSha256": "E00D01D4AD6103C08F2FC0E3ED10A60AC0D867B7D4DBD08DC6240AF07D85B5C2",
+            "capturedAt": "2026-09-15T07:06:51.075Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "Microsoft YaHei",
+            "dpr": 1,
+            "url": "http://127.0.0.1:4218/scores.html?state=normal",
+            "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
+          },
+          {
+            "path": "docs/page-designs/V4/scores/screenshots/p01/1536-mobile-detail.png",
+            "sha256": "50C14EC61BF6F4BA88E3EFC1A20ABEC74D3D3E5FF60EB60FA01BA931EA92787B",
+            "viewport": "1536x1024",
+            "kind": "desktop",
+            "stateId": "mobile-detail",
+            "fixtureId": "scores-p01-mobile-detail",
+            "fixtureSha256": "E00D01D4AD6103C08F2FC0E3ED10A60AC0D867B7D4DBD08DC6240AF07D85B5C2",
+            "capturedAt": "2026-09-15T07:06:51.075Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "Microsoft YaHei",
+            "dpr": 1,
+            "url": "http://127.0.0.1:4218/scores.html?state=mobile-detail",
+            "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
+          },
+          {
+            "path": "docs/page-designs/V4/scores/screenshots/p01/1536-empty-class.png",
+            "sha256": "DF1634E194821F46952ED0E4326E8C30505EC198C8033833F2F6E081107B7BDF",
+            "viewport": "1536x1024",
+            "kind": "desktop",
+            "stateId": "empty-class",
+            "fixtureId": "scores-p01-empty-class",
+            "fixtureSha256": "49EBC23CDFF5134AF07C1DA1A51DD9B12CAABF8A5C79B12D3076D6C81A71D5BF",
+            "capturedAt": "2026-09-15T07:06:51.075Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "Microsoft YaHei",
+            "dpr": 1,
+            "url": "http://127.0.0.1:4218/scores.html?state=empty-class",
+            "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
+          },
+          {
+            "path": "docs/page-designs/V4/scores/screenshots/p01/1536-no-exams.png",
+            "sha256": "56C123D4AB1BF80615CEE7218BC45D3117CC72ACBCF7AC6293EB4E48D2CA8175",
+            "viewport": "1536x1024",
+            "kind": "desktop",
+            "stateId": "no-exams",
+            "fixtureId": "scores-p01-no-exams",
+            "fixtureSha256": "30803CD1B461CE2DE05B4F236B577F9D2A1A059340FACB064CCB19A5A36B41BC",
+            "capturedAt": "2026-09-15T07:06:51.075Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "Microsoft YaHei",
+            "dpr": 1,
+            "url": "http://127.0.0.1:4218/scores.html?state=no-exams",
+            "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
+          },
+          {
+            "path": "docs/page-designs/V4/scores/screenshots/p01/1536-search-empty.png",
+            "sha256": "E98D1486B4A8EEE86B7F6A8FE2F2BF3DD64D1EE738EE1E75C0FFF27641195AEE",
+            "viewport": "1536x1024",
+            "kind": "desktop",
+            "stateId": "search-empty",
+            "fixtureId": "scores-p01-search-empty",
+            "fixtureSha256": "E00D01D4AD6103C08F2FC0E3ED10A60AC0D867B7D4DBD08DC6240AF07D85B5C2",
+            "capturedAt": "2026-09-15T07:06:51.075Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "Microsoft YaHei",
+            "dpr": 1,
+            "url": "http://127.0.0.1:4218/scores.html?state=search-empty",
+            "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
+          },
+          {
+            "path": "docs/page-designs/V4/scores/screenshots/p01/1536-students-105.png",
+            "sha256": "ABB8350D66D5BDDE1CF96E2286B792D1D201D1B7997270F6E0AAD1B7B46DC5A8",
+            "viewport": "1536x1024",
+            "kind": "desktop",
+            "stateId": "students-105",
+            "fixtureId": "scores-p01-students-105",
+            "fixtureSha256": "A32F10EAA9F32E0DBCC91B8E67739B7B22E75E1667F946178B3C729F565C6395",
+            "capturedAt": "2026-09-15T07:06:51.075Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "Microsoft YaHei",
+            "dpr": 1,
+            "url": "http://127.0.0.1:4218/scores.html?state=students-105",
+            "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
+          },
+          {
+            "path": "docs/page-designs/V4/scores/screenshots/p01/1536-long-subjects.png",
+            "sha256": "405B82A5A3DAA50200C7FDCD76E8A0AE6EE8F29D969BD3034B0AD30A3113E842",
+            "viewport": "1536x1024",
+            "kind": "desktop",
+            "stateId": "long-subjects",
+            "fixtureId": "scores-p01-long-subjects",
+            "fixtureSha256": "1FB739B97AE0A08F4B3F909EAC2B217867680362D955CF30E44702EFBE56BF64",
+            "capturedAt": "2026-09-15T07:06:51.075Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "Microsoft YaHei",
+            "dpr": 1,
+            "url": "http://127.0.0.1:4218/scores.html?state=long-subjects",
+            "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
+          },
+          {
+            "path": "docs/page-designs/V4/scores/screenshots/p01/1536-mixed-max.png",
+            "sha256": "48B74E7615A2C888F75CFB0A9B014E7D7490128331B0FE88B224ACB314515612",
+            "viewport": "1536x1024",
+            "kind": "desktop",
+            "stateId": "mixed-max",
+            "fixtureId": "scores-p01-mixed-max",
+            "fixtureSha256": "ADC2405C46363E478BC14855A316406578C28B6F44866F97E94371260D09C145",
+            "capturedAt": "2026-09-15T07:06:51.075Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "Microsoft YaHei",
+            "dpr": 1,
+            "url": "http://127.0.0.1:4218/scores.html?state=mixed-max",
+            "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
+          },
+          {
+            "path": "docs/page-designs/V4/scores/screenshots/p01/1536-composer.png",
+            "sha256": "0C15190BA5078CEDD7A06A7DAE8636A6019EF6AAAB44F9DA61EFEC9E345F5565",
+            "viewport": "1536x1024",
+            "kind": "desktop",
+            "stateId": "composer",
+            "fixtureId": "scores-p01-composer",
+            "fixtureSha256": "E00D01D4AD6103C08F2FC0E3ED10A60AC0D867B7D4DBD08DC6240AF07D85B5C2",
+            "capturedAt": "2026-09-15T07:06:51.075Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "Microsoft YaHei",
+            "dpr": 1,
+            "url": "http://127.0.0.1:4218/scores.html?state=composer",
+            "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
+          },
+          {
+            "path": "docs/page-designs/V4/scores/screenshots/p01/1536-student-editor.png",
+            "sha256": "50C14EC61BF6F4BA88E3EFC1A20ABEC74D3D3E5FF60EB60FA01BA931EA92787B",
+            "viewport": "1536x1024",
+            "kind": "desktop",
+            "stateId": "student-editor",
+            "fixtureId": "scores-p01-student-editor",
+            "fixtureSha256": "E00D01D4AD6103C08F2FC0E3ED10A60AC0D867B7D4DBD08DC6240AF07D85B5C2",
+            "capturedAt": "2026-09-15T07:06:51.075Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "Microsoft YaHei",
+            "dpr": 1,
+            "url": "http://127.0.0.1:4218/scores.html?state=student-editor",
+            "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
+          },
+          {
+            "path": "docs/page-designs/V4/scores/screenshots/p01/1536-batch.png",
+            "sha256": "A201ED14D5F760A797EDF48F3A233A7AF04174CA4C6304674A056387B13857A8",
+            "viewport": "1536x1024",
+            "kind": "desktop",
+            "stateId": "batch",
+            "fixtureId": "scores-p01-batch",
+            "fixtureSha256": "E00D01D4AD6103C08F2FC0E3ED10A60AC0D867B7D4DBD08DC6240AF07D85B5C2",
+            "capturedAt": "2026-09-15T07:06:51.075Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "Microsoft YaHei",
+            "dpr": 1,
+            "url": "http://127.0.0.1:4218/scores.html?state=batch",
+            "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
+          },
+          {
+            "path": "docs/page-designs/V4/scores/screenshots/p01/1536-ranges.png",
+            "sha256": "13F4424CAE981EEF104CC5AE22DAEBF1F5D5B20B20E655A0C11EC89ABA54A761",
+            "viewport": "1536x1024",
+            "kind": "desktop",
+            "stateId": "ranges",
+            "fixtureId": "scores-p01-ranges",
+            "fixtureSha256": "E00D01D4AD6103C08F2FC0E3ED10A60AC0D867B7D4DBD08DC6240AF07D85B5C2",
+            "capturedAt": "2026-09-15T07:06:51.075Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "Microsoft YaHei",
+            "dpr": 1,
+            "url": "http://127.0.0.1:4218/scores.html?state=ranges",
+            "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
+          },
+          {
+            "path": "docs/page-designs/V4/scores/screenshots/p01/1536-readonly.png",
+            "sha256": "85AE229E3926FB28DD2E96D2ED96CDF20BD6EB0348B7198A888FE89DAFA8EBDB",
+            "viewport": "1536x1024",
+            "kind": "desktop",
+            "stateId": "readonly",
+            "fixtureId": "scores-p01-readonly",
+            "fixtureSha256": "E00D01D4AD6103C08F2FC0E3ED10A60AC0D867B7D4DBD08DC6240AF07D85B5C2",
+            "capturedAt": "2026-09-15T07:06:51.075Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "Microsoft YaHei",
+            "dpr": 1,
+            "url": "http://127.0.0.1:4218/scores.html?state=readonly",
+            "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
+          },
+          {
+            "path": "docs/page-designs/V4/scores/screenshots/p01/1536-loading.png",
+            "sha256": "3B2077BCC4E4AEDA8942B637ED8E0C5DF90CB677BC9DED755F27073BE7CE43C8",
+            "viewport": "1536x1024",
+            "kind": "desktop",
+            "stateId": "loading",
+            "fixtureId": "scores-p01-loading",
+            "fixtureSha256": "E00D01D4AD6103C08F2FC0E3ED10A60AC0D867B7D4DBD08DC6240AF07D85B5C2",
+            "capturedAt": "2026-09-15T07:06:51.075Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "Microsoft YaHei",
+            "dpr": 1,
+            "url": "http://127.0.0.1:4218/scores.html?state=loading",
+            "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
+          },
+          {
+            "path": "docs/page-designs/V4/scores/screenshots/p01/1536-saving.png",
+            "sha256": "DC791AF6E0C43AA81D4B44C1BEC76B36F7CE5A9A8FA18EEF024B5CE21EE00BE9",
+            "viewport": "1536x1024",
+            "kind": "desktop",
+            "stateId": "saving",
+            "fixtureId": "scores-p01-saving",
+            "fixtureSha256": "E00D01D4AD6103C08F2FC0E3ED10A60AC0D867B7D4DBD08DC6240AF07D85B5C2",
+            "capturedAt": "2026-09-15T07:06:51.075Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "Microsoft YaHei",
+            "dpr": 1,
+            "url": "http://127.0.0.1:4218/scores.html?state=saving",
+            "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
+          },
+          {
+            "path": "docs/page-designs/V4/scores/screenshots/p01/1536-save-failure.png",
+            "sha256": "35687CBF83B2ECA0C1B8093174C36A9BD00741E897D9A8F95A1051E76BCB6E62",
+            "viewport": "1536x1024",
+            "kind": "desktop",
+            "stateId": "save-failure",
+            "fixtureId": "scores-p01-save-failure",
+            "fixtureSha256": "E00D01D4AD6103C08F2FC0E3ED10A60AC0D867B7D4DBD08DC6240AF07D85B5C2",
+            "capturedAt": "2026-09-15T07:06:51.075Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "Microsoft YaHei",
+            "dpr": 1,
+            "url": "http://127.0.0.1:4218/scores.html?state=save-failure",
+            "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
+          },
+          {
+            "path": "docs/page-designs/V4/scores/screenshots/p01/1536-save-throw.png",
+            "sha256": "D67C79FE56DC9BBE0CF2DACF1074CEE197AC6382B2E6E32656F7401F1B64B21F",
+            "viewport": "1536x1024",
+            "kind": "desktop",
+            "stateId": "save-throw",
+            "fixtureId": "scores-p01-save-throw",
+            "fixtureSha256": "E00D01D4AD6103C08F2FC0E3ED10A60AC0D867B7D4DBD08DC6240AF07D85B5C2",
+            "capturedAt": "2026-09-15T07:06:51.075Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "Microsoft YaHei",
+            "dpr": 1,
+            "url": "http://127.0.0.1:4218/scores.html?state=save-throw",
+            "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
+          },
+          {
+            "path": "docs/page-designs/V4/scores/screenshots/p01/1536-conflict-409.png",
+            "sha256": "13F0DBB5CE8B6B644E520A445A8A46FA7724EC2D9A04D15F367DDBA1AA9B7671",
+            "viewport": "1536x1024",
+            "kind": "desktop",
+            "stateId": "conflict-409",
+            "fixtureId": "scores-p01-conflict-409",
+            "fixtureSha256": "E00D01D4AD6103C08F2FC0E3ED10A60AC0D867B7D4DBD08DC6240AF07D85B5C2",
+            "capturedAt": "2026-09-15T07:06:51.075Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "Microsoft YaHei",
+            "dpr": 1,
+            "url": "http://127.0.0.1:4218/scores.html?state=conflict-409",
+            "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
+          },
+          {
+            "path": "docs/page-designs/V4/scores/screenshots/p01/1536-dirty-close.png",
+            "sha256": "5AE2C45C7833EA3263E4BC02CF440E0D3FC2DB103D472BC9A6B506D4CD037507",
+            "viewport": "1536x1024",
+            "kind": "desktop",
+            "stateId": "dirty-close",
+            "fixtureId": "scores-p01-dirty-close",
+            "fixtureSha256": "E00D01D4AD6103C08F2FC0E3ED10A60AC0D867B7D4DBD08DC6240AF07D85B5C2",
+            "capturedAt": "2026-09-15T07:06:51.075Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "Microsoft YaHei",
+            "dpr": 1,
+            "url": "http://127.0.0.1:4218/scores.html?state=dirty-close",
+            "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
+          },
+          {
+            "path": "docs/page-designs/V4/scores/screenshots/reviewer-fix/1536-trends.png",
+            "sha256": "90BF213557A7858601F72999D3AE1E0635F61344E6D35C16212D07509B0081B4",
+            "viewport": "1536x1024",
+            "kind": "desktop",
+            "stateId": "trends",
+            "fixtureId": "scores-p01-trends",
+            "fixtureSha256": "B03699049A19A104EBE9BB1A1D38C7C7F6F10C4B57D031407622627F45FAD101",
+            "capturedAt": "2026-09-15T07:11:07.652Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "Microsoft YaHei",
+            "dpr": 1,
+            "url": "http://127.0.0.1:4218/scores.html?state=trends",
+            "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
+          },
+          {
+            "path": "docs/page-designs/V4/scores/screenshots/reviewer-fix/1536-long-history.png",
+            "sha256": "2966E53316EB23F7EC7DFF2C224F6D84BCEF5EB018D44995D4FE583133D3E74C",
+            "viewport": "1536x1024",
+            "kind": "desktop",
+            "stateId": "long-history",
+            "fixtureId": "scores-p01-long-history",
+            "fixtureSha256": "520C691B42603950AC1A7A04660038A95540D200B2521FCCBE7F326505F3FE07",
+            "capturedAt": "2026-09-15T07:11:07.652Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "Microsoft YaHei",
+            "dpr": 1,
+            "url": "http://127.0.0.1:4218/scores.html?state=long-history",
+            "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
+          },
+          {
+            "path": "docs/page-designs/V4/scores/screenshots/p01/1536-analysis.png",
+            "sha256": "81138B26632794BD29E4D62CD8DEBE7A86F1400CB45927627217DF0BDC99AB07",
+            "viewport": "1536x1024",
+            "kind": "desktop",
+            "stateId": "analysis",
+            "fixtureId": "scores-p01-analysis",
+            "fixtureSha256": "3123D11927EAA7469AD2F996C2F7B30975573FF5582776C16BC80B880EBE85F5",
+            "capturedAt": "2026-09-15T07:06:51.075Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "Microsoft YaHei",
+            "dpr": 1,
+            "url": "http://127.0.0.1:4218/scores.html?state=analysis",
+            "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
+          },
+          {
+            "path": "docs/page-designs/V4/scores/screenshots/p01/1536-paper-review.png",
+            "sha256": "BAD7791A9B3AF4CAE9CC2BE982800040E0B8B778D1327262154A33C20743D76D",
+            "viewport": "1536x1024",
+            "kind": "desktop",
+            "stateId": "paper-review",
+            "fixtureId": "scores-p01-paper-review",
+            "fixtureSha256": "3123D11927EAA7469AD2F996C2F7B30975573FF5582776C16BC80B880EBE85F5",
+            "capturedAt": "2026-09-15T07:06:51.075Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "Microsoft YaHei",
+            "dpr": 1,
+            "url": "http://127.0.0.1:4218/scores.html?state=paper-review",
+            "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
+          },
+          {
+            "path": "docs/page-designs/V4/scores/screenshots/p01/1536-ai-failure.png",
+            "sha256": "837A4AA35993B23602E797668FB5B906A8915A71B57A66AE675D7D3ABCC464F5",
+            "viewport": "1536x1024",
+            "kind": "desktop",
+            "stateId": "ai-failure",
+            "fixtureId": "scores-p01-ai-failure",
+            "fixtureSha256": "67AF4B82164F5FCA84C5DD9CDD8F355A6A0FAB272DA45016FFC8E3D9E5DDFF90",
+            "capturedAt": "2026-09-15T07:06:51.075Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "Microsoft YaHei",
+            "dpr": 1,
+            "url": "http://127.0.0.1:4218/scores.html?state=ai-failure",
+            "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
+          },
+          {
+            "path": "docs/page-designs/V4/scores/screenshots/p01/1536-item-editor.png",
+            "sha256": "6064518F35C79738681DB2FF1080A915F80BC06C1AFFA8C6C404923441CA1C81",
+            "viewport": "1536x1024",
+            "kind": "desktop",
+            "stateId": "item-editor",
+            "fixtureId": "scores-p01-item-editor",
+            "fixtureSha256": "E00D01D4AD6103C08F2FC0E3ED10A60AC0D867B7D4DBD08DC6240AF07D85B5C2",
+            "capturedAt": "2026-09-15T07:06:51.075Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "Microsoft YaHei",
+            "dpr": 1,
+            "url": "http://127.0.0.1:4218/scores.html?state=item-editor",
+            "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
+          },
+          {
+            "path": "docs/page-designs/V4/scores/screenshots/p01/1536-item-scores.png",
+            "sha256": "A4FB9755D616351199B6CA4CCF4150928B2054A582A225D0AB54EA2DD4512748",
+            "viewport": "1536x1024",
+            "kind": "desktop",
+            "stateId": "item-scores",
+            "fixtureId": "scores-p01-item-scores",
+            "fixtureSha256": "3123D11927EAA7469AD2F996C2F7B30975573FF5582776C16BC80B880EBE85F5",
+            "capturedAt": "2026-09-15T07:06:51.075Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "Microsoft YaHei",
+            "dpr": 1,
+            "url": "http://127.0.0.1:4218/scores.html?state=item-scores",
+            "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
+          },
+          {
+            "path": "docs/page-designs/V4/scores/screenshots/p01/390-normal.png",
+            "sha256": "9ABC77852536215A69015E8BDABBE8CC09B58DBA082DBA77D4DE1965FBB0C05F",
+            "viewport": "390x844",
+            "kind": "mobile",
+            "stateId": "normal",
+            "fixtureId": "scores-p01-normal",
+            "fixtureSha256": "E00D01D4AD6103C08F2FC0E3ED10A60AC0D867B7D4DBD08DC6240AF07D85B5C2",
+            "capturedAt": "2026-09-15T07:06:51.075Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "Microsoft YaHei",
+            "dpr": 1,
+            "url": "http://127.0.0.1:4218/scores.html?state=normal",
+            "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
+          },
+          {
+            "path": "docs/page-designs/V4/scores/screenshots/p01/390-mobile-detail.png",
+            "sha256": "08A1429826E6579B321D8645A89992FA30DB9C7A0B3AB9EDDB8A7D18F116C72D",
+            "viewport": "390x844",
+            "kind": "mobile",
+            "stateId": "mobile-detail",
+            "fixtureId": "scores-p01-mobile-detail",
+            "fixtureSha256": "E00D01D4AD6103C08F2FC0E3ED10A60AC0D867B7D4DBD08DC6240AF07D85B5C2",
+            "capturedAt": "2026-09-15T07:06:51.075Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "Microsoft YaHei",
+            "dpr": 1,
+            "url": "http://127.0.0.1:4218/scores.html?state=mobile-detail",
+            "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
+          },
+          {
+            "path": "docs/page-designs/V4/scores/screenshots/p01/390-empty-class.png",
+            "sha256": "9FE6F171551DC470AE2AEC9ABC75162A864E1F3103796F0A1BDFFD7E0295DE5F",
+            "viewport": "390x844",
+            "kind": "mobile",
+            "stateId": "empty-class",
+            "fixtureId": "scores-p01-empty-class",
+            "fixtureSha256": "49EBC23CDFF5134AF07C1DA1A51DD9B12CAABF8A5C79B12D3076D6C81A71D5BF",
+            "capturedAt": "2026-09-15T07:06:51.075Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "Microsoft YaHei",
+            "dpr": 1,
+            "url": "http://127.0.0.1:4218/scores.html?state=empty-class",
+            "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
+          },
+          {
+            "path": "docs/page-designs/V4/scores/screenshots/p01/390-no-exams.png",
+            "sha256": "6852EBBB90DEA092D3CABB8A7278B45888B97FEADD48AFB5D3CB3E3FE630240A",
+            "viewport": "390x844",
+            "kind": "mobile",
+            "stateId": "no-exams",
+            "fixtureId": "scores-p01-no-exams",
+            "fixtureSha256": "30803CD1B461CE2DE05B4F236B577F9D2A1A059340FACB064CCB19A5A36B41BC",
+            "capturedAt": "2026-09-15T07:06:51.075Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "Microsoft YaHei",
+            "dpr": 1,
+            "url": "http://127.0.0.1:4218/scores.html?state=no-exams",
+            "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
+          },
+          {
+            "path": "docs/page-designs/V4/scores/screenshots/p01/390-search-empty.png",
+            "sha256": "4EAE159E9EC27D04BBA777D91D08499566A6D84793274AFE5709815C4490D3E9",
+            "viewport": "390x844",
+            "kind": "mobile",
+            "stateId": "search-empty",
+            "fixtureId": "scores-p01-search-empty",
+            "fixtureSha256": "E00D01D4AD6103C08F2FC0E3ED10A60AC0D867B7D4DBD08DC6240AF07D85B5C2",
+            "capturedAt": "2026-09-15T07:06:51.075Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "Microsoft YaHei",
+            "dpr": 1,
+            "url": "http://127.0.0.1:4218/scores.html?state=search-empty",
+            "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
+          },
+          {
+            "path": "docs/page-designs/V4/scores/screenshots/p01/390-students-105.png",
+            "sha256": "B8E7D3BDA3646B55A699B3E60663D8426474393A63E6FD508ABD6992480F9536",
+            "viewport": "390x844",
+            "kind": "mobile",
+            "stateId": "students-105",
+            "fixtureId": "scores-p01-students-105",
+            "fixtureSha256": "A32F10EAA9F32E0DBCC91B8E67739B7B22E75E1667F946178B3C729F565C6395",
+            "capturedAt": "2026-09-15T07:06:51.075Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "Microsoft YaHei",
+            "dpr": 1,
+            "url": "http://127.0.0.1:4218/scores.html?state=students-105",
+            "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
+          },
+          {
+            "path": "docs/page-designs/V4/scores/screenshots/p01/390-long-subjects.png",
+            "sha256": "97D89CC70933671B93ECCB7814C5E4217C244476209CBDD52C85998456652825",
+            "viewport": "390x844",
+            "kind": "mobile",
+            "stateId": "long-subjects",
+            "fixtureId": "scores-p01-long-subjects",
+            "fixtureSha256": "1FB739B97AE0A08F4B3F909EAC2B217867680362D955CF30E44702EFBE56BF64",
+            "capturedAt": "2026-09-15T07:06:51.075Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "Microsoft YaHei",
+            "dpr": 1,
+            "url": "http://127.0.0.1:4218/scores.html?state=long-subjects",
+            "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
+          },
+          {
+            "path": "docs/page-designs/V4/scores/screenshots/p01/390-mixed-max.png",
+            "sha256": "5F6F7CEE712552D19D0A1CDB3A87C5347DEA29B5E2044BB3737798C2F7E3FBC7",
+            "viewport": "390x844",
+            "kind": "mobile",
+            "stateId": "mixed-max",
+            "fixtureId": "scores-p01-mixed-max",
+            "fixtureSha256": "ADC2405C46363E478BC14855A316406578C28B6F44866F97E94371260D09C145",
+            "capturedAt": "2026-09-15T07:06:51.075Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "Microsoft YaHei",
+            "dpr": 1,
+            "url": "http://127.0.0.1:4218/scores.html?state=mixed-max",
+            "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
+          },
+          {
+            "path": "docs/page-designs/V4/scores/screenshots/p01/390-composer.png",
+            "sha256": "284DA0F19CD37144B9F153FC4373BDF9333A0D33816D39B6F4B2F3C38305573D",
+            "viewport": "390x844",
+            "kind": "mobile",
+            "stateId": "composer",
+            "fixtureId": "scores-p01-composer",
+            "fixtureSha256": "E00D01D4AD6103C08F2FC0E3ED10A60AC0D867B7D4DBD08DC6240AF07D85B5C2",
+            "capturedAt": "2026-09-15T07:06:51.075Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "Microsoft YaHei",
+            "dpr": 1,
+            "url": "http://127.0.0.1:4218/scores.html?state=composer",
+            "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
+          },
+          {
+            "path": "docs/page-designs/V4/scores/screenshots/p01/390-student-editor.png",
+            "sha256": "08A1429826E6579B321D8645A89992FA30DB9C7A0B3AB9EDDB8A7D18F116C72D",
+            "viewport": "390x844",
+            "kind": "mobile",
+            "stateId": "student-editor",
+            "fixtureId": "scores-p01-student-editor",
+            "fixtureSha256": "E00D01D4AD6103C08F2FC0E3ED10A60AC0D867B7D4DBD08DC6240AF07D85B5C2",
+            "capturedAt": "2026-09-15T07:06:51.075Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "Microsoft YaHei",
+            "dpr": 1,
+            "url": "http://127.0.0.1:4218/scores.html?state=student-editor",
+            "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
+          },
+          {
+            "path": "docs/page-designs/V4/scores/screenshots/p01/390-batch.png",
+            "sha256": "8E82C6C2FCFF07A3AB95B074D0F0C7571C8774565200502ED4578FE96AB4A02C",
+            "viewport": "390x844",
+            "kind": "mobile",
+            "stateId": "batch",
+            "fixtureId": "scores-p01-batch",
+            "fixtureSha256": "E00D01D4AD6103C08F2FC0E3ED10A60AC0D867B7D4DBD08DC6240AF07D85B5C2",
+            "capturedAt": "2026-09-15T07:06:51.075Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "Microsoft YaHei",
+            "dpr": 1,
+            "url": "http://127.0.0.1:4218/scores.html?state=batch",
+            "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
+          },
+          {
+            "path": "docs/page-designs/V4/scores/screenshots/p01/390-ranges.png",
+            "sha256": "8EFF6D9F5C35A71D2AF527309EB4F3614B7B4291783F81F027AB20394BACDBC4",
+            "viewport": "390x844",
+            "kind": "mobile",
+            "stateId": "ranges",
+            "fixtureId": "scores-p01-ranges",
+            "fixtureSha256": "E00D01D4AD6103C08F2FC0E3ED10A60AC0D867B7D4DBD08DC6240AF07D85B5C2",
+            "capturedAt": "2026-09-15T07:06:51.075Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "Microsoft YaHei",
+            "dpr": 1,
+            "url": "http://127.0.0.1:4218/scores.html?state=ranges",
+            "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
+          },
+          {
+            "path": "docs/page-designs/V4/scores/screenshots/p01/390-readonly.png",
+            "sha256": "B3FB1A8D6752F80C360839BC576FB23EF0963F8516B3963004A7C55594C79658",
+            "viewport": "390x844",
+            "kind": "mobile",
+            "stateId": "readonly",
+            "fixtureId": "scores-p01-readonly",
+            "fixtureSha256": "E00D01D4AD6103C08F2FC0E3ED10A60AC0D867B7D4DBD08DC6240AF07D85B5C2",
+            "capturedAt": "2026-09-15T07:06:51.075Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "Microsoft YaHei",
+            "dpr": 1,
+            "url": "http://127.0.0.1:4218/scores.html?state=readonly",
+            "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
+          },
+          {
+            "path": "docs/page-designs/V4/scores/screenshots/p01/390-loading.png",
+            "sha256": "160D539D6A5426B96BA2195246874BE4967C943B356C32D76AF62C08E6190827",
+            "viewport": "390x844",
+            "kind": "mobile",
+            "stateId": "loading",
+            "fixtureId": "scores-p01-loading",
+            "fixtureSha256": "E00D01D4AD6103C08F2FC0E3ED10A60AC0D867B7D4DBD08DC6240AF07D85B5C2",
+            "capturedAt": "2026-09-15T07:06:51.075Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "Microsoft YaHei",
+            "dpr": 1,
+            "url": "http://127.0.0.1:4218/scores.html?state=loading",
+            "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
+          },
+          {
+            "path": "docs/page-designs/V4/scores/screenshots/p01/390-saving.png",
+            "sha256": "A9CDECE4B20C0D28CE9E8BB23C43FDE7A9A1E7711D8054893FA5180C4D6CB0B2",
+            "viewport": "390x844",
+            "kind": "mobile",
+            "stateId": "saving",
+            "fixtureId": "scores-p01-saving",
+            "fixtureSha256": "E00D01D4AD6103C08F2FC0E3ED10A60AC0D867B7D4DBD08DC6240AF07D85B5C2",
+            "capturedAt": "2026-09-15T07:06:51.075Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "Microsoft YaHei",
+            "dpr": 1,
+            "url": "http://127.0.0.1:4218/scores.html?state=saving",
+            "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
+          },
+          {
+            "path": "docs/page-designs/V4/scores/screenshots/p01/390-save-failure.png",
+            "sha256": "0F000A7A8A8BB961725B164C068D116B73D66F0D4F77A31312270EBA83D256C4",
+            "viewport": "390x844",
+            "kind": "mobile",
+            "stateId": "save-failure",
+            "fixtureId": "scores-p01-save-failure",
+            "fixtureSha256": "E00D01D4AD6103C08F2FC0E3ED10A60AC0D867B7D4DBD08DC6240AF07D85B5C2",
+            "capturedAt": "2026-09-15T07:06:51.075Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "Microsoft YaHei",
+            "dpr": 1,
+            "url": "http://127.0.0.1:4218/scores.html?state=save-failure",
+            "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
+          },
+          {
+            "path": "docs/page-designs/V4/scores/screenshots/p01/390-save-throw.png",
+            "sha256": "565CFD3DAC95FD60415B87429CCA0A719E0B5B23B84BC1ADB525A5D76DC81A68",
+            "viewport": "390x844",
+            "kind": "mobile",
+            "stateId": "save-throw",
+            "fixtureId": "scores-p01-save-throw",
+            "fixtureSha256": "E00D01D4AD6103C08F2FC0E3ED10A60AC0D867B7D4DBD08DC6240AF07D85B5C2",
+            "capturedAt": "2026-09-15T07:06:51.075Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "Microsoft YaHei",
+            "dpr": 1,
+            "url": "http://127.0.0.1:4218/scores.html?state=save-throw",
+            "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
+          },
+          {
+            "path": "docs/page-designs/V4/scores/screenshots/p01/390-conflict-409.png",
+            "sha256": "AAB4414DD51969B21A572C30C0F46ABFC748944EF122866AB66B1E5AE2D5DD7A",
+            "viewport": "390x844",
+            "kind": "mobile",
+            "stateId": "conflict-409",
+            "fixtureId": "scores-p01-conflict-409",
+            "fixtureSha256": "E00D01D4AD6103C08F2FC0E3ED10A60AC0D867B7D4DBD08DC6240AF07D85B5C2",
+            "capturedAt": "2026-09-15T07:06:51.075Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "Microsoft YaHei",
+            "dpr": 1,
+            "url": "http://127.0.0.1:4218/scores.html?state=conflict-409",
+            "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
+          },
+          {
+            "path": "docs/page-designs/V4/scores/screenshots/p01/390-dirty-close.png",
+            "sha256": "77BEBA52FE1422D19E1005BC0F3400D623DE8F2785ED75D1A02F0F5B3D6A47FD",
+            "viewport": "390x844",
+            "kind": "mobile",
+            "stateId": "dirty-close",
+            "fixtureId": "scores-p01-dirty-close",
+            "fixtureSha256": "E00D01D4AD6103C08F2FC0E3ED10A60AC0D867B7D4DBD08DC6240AF07D85B5C2",
+            "capturedAt": "2026-09-15T07:06:51.075Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "Microsoft YaHei",
+            "dpr": 1,
+            "url": "http://127.0.0.1:4218/scores.html?state=dirty-close",
+            "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
+          },
+          {
+            "path": "docs/page-designs/V4/scores/screenshots/reviewer-fix/390-trends.png",
+            "sha256": "298D562891A9E6D9322A306237F4B7CBFBCFAC4280149A82F6DF6CEE8DAB8A61",
+            "viewport": "390x844",
+            "kind": "mobile",
+            "stateId": "trends",
+            "fixtureId": "scores-p01-trends",
+            "fixtureSha256": "B03699049A19A104EBE9BB1A1D38C7C7F6F10C4B57D031407622627F45FAD101",
+            "capturedAt": "2026-09-15T07:11:07.652Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "Microsoft YaHei",
+            "dpr": 1,
+            "url": "http://127.0.0.1:4218/scores.html?state=trends",
+            "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
+          },
+          {
+            "path": "docs/page-designs/V4/scores/screenshots/reviewer-fix/390-long-history.png",
+            "sha256": "C6D0F3E24D3E079F799E46762F0D426C5BF64A2CB51298BC6E38C9A2811D5162",
+            "viewport": "390x844",
+            "kind": "mobile",
+            "stateId": "long-history",
+            "fixtureId": "scores-p01-long-history",
+            "fixtureSha256": "520C691B42603950AC1A7A04660038A95540D200B2521FCCBE7F326505F3FE07",
+            "capturedAt": "2026-09-15T07:11:07.652Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "Microsoft YaHei",
+            "dpr": 1,
+            "url": "http://127.0.0.1:4218/scores.html?state=long-history",
+            "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
+          },
+          {
+            "path": "docs/page-designs/V4/scores/screenshots/p01/390-analysis.png",
+            "sha256": "48F198C9E3F1217A07E2A79D8C10BB5F28CA1473CA794414EF470060D1C72ACB",
+            "viewport": "390x844",
+            "kind": "mobile",
+            "stateId": "analysis",
+            "fixtureId": "scores-p01-analysis",
+            "fixtureSha256": "3123D11927EAA7469AD2F996C2F7B30975573FF5582776C16BC80B880EBE85F5",
+            "capturedAt": "2026-09-15T07:06:51.075Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "Microsoft YaHei",
+            "dpr": 1,
+            "url": "http://127.0.0.1:4218/scores.html?state=analysis",
+            "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
+          },
+          {
+            "path": "docs/page-designs/V4/scores/screenshots/p01/390-paper-review.png",
+            "sha256": "0273F2EF4A6320AE1FEBF478256651153BFC51BE835A5ED85EC5A24AF1452053",
+            "viewport": "390x844",
+            "kind": "mobile",
+            "stateId": "paper-review",
+            "fixtureId": "scores-p01-paper-review",
+            "fixtureSha256": "3123D11927EAA7469AD2F996C2F7B30975573FF5582776C16BC80B880EBE85F5",
+            "capturedAt": "2026-09-15T07:06:51.075Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "Microsoft YaHei",
+            "dpr": 1,
+            "url": "http://127.0.0.1:4218/scores.html?state=paper-review",
+            "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
+          },
+          {
+            "path": "docs/page-designs/V4/scores/screenshots/p01/390-ai-failure.png",
+            "sha256": "ACB486B538502B56BCDDC79318509D116FA47D4A3048AA320614E4860FEE9097",
+            "viewport": "390x844",
+            "kind": "mobile",
+            "stateId": "ai-failure",
+            "fixtureId": "scores-p01-ai-failure",
+            "fixtureSha256": "67AF4B82164F5FCA84C5DD9CDD8F355A6A0FAB272DA45016FFC8E3D9E5DDFF90",
+            "capturedAt": "2026-09-15T07:06:51.075Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "Microsoft YaHei",
+            "dpr": 1,
+            "url": "http://127.0.0.1:4218/scores.html?state=ai-failure",
+            "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
+          },
+          {
+            "path": "docs/page-designs/V4/scores/screenshots/p01/390-item-editor.png",
+            "sha256": "2FEAD171A304C15BFB8B5190B5A3050072FAA056F42F0430EE8487681CE44E5D",
+            "viewport": "390x844",
+            "kind": "mobile",
+            "stateId": "item-editor",
+            "fixtureId": "scores-p01-item-editor",
+            "fixtureSha256": "E00D01D4AD6103C08F2FC0E3ED10A60AC0D867B7D4DBD08DC6240AF07D85B5C2",
+            "capturedAt": "2026-09-15T07:06:51.075Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "Microsoft YaHei",
+            "dpr": 1,
+            "url": "http://127.0.0.1:4218/scores.html?state=item-editor",
+            "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
+          },
+          {
+            "path": "docs/page-designs/V4/scores/screenshots/p01/390-item-scores.png",
+            "sha256": "02EDE691B6E7FB94600812CDB69F9DE6C6D10F822E5B9DB06DC34F80D321C8A4",
+            "viewport": "390x844",
+            "kind": "mobile",
+            "stateId": "item-scores",
+            "fixtureId": "scores-p01-item-scores",
+            "fixtureSha256": "3123D11927EAA7469AD2F996C2F7B30975573FF5582776C16BC80B880EBE85F5",
+            "capturedAt": "2026-09-15T07:06:51.075Z",
+            "browser": "Chrome/152.0.7977.82",
+            "font": "Microsoft YaHei",
+            "dpr": 1,
+            "url": "http://127.0.0.1:4218/scores.html?state=item-scores",
+            "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
+          }
+        ],
+        "checks": {
+          "path": "docs/page-designs/V4/scores/checks-P01.json",
+          "sha256": "D71C9BB69FCF5A9D794A13AF1FCBEDF57B966DF9D0EBC5C444C10983999B672F",
+          "commit": "f28545f9dc8ccc11a3fda134fdabc429419919a3"
+        },
+        "sourceHashes": [
+          {
+            "path": "app/designs/scores/ScoresDesign.tsx",
+            "sha256": "A7A190702E187E036FB9C776267332171119792284A805C8A0CBEAFB3496B770"
+          },
+          {
+            "path": "app/designs/scores/ScoresDesign.module.css",
+            "sha256": "5AD0D334121F3B20551DB4A22D6A54F6DB8A02E1EB3C594BF012F554A85ECE90"
+          },
+          {
+            "path": "app/designs/scores/useScoresDesignController.ts",
+            "sha256": "834CDE89593D4A87CEB524B9C8629B3CE3C9EA88CF622B8EF26BE40E27B1C2D6"
+          },
+          {
+            "path": "app/designs/scores/ScoreTrendsDesign.tsx",
+            "sha256": "D3283C7968E9FB45516BE3E0AC48795B81C4B07C478BD78CB3F72F87876F01E0"
+          },
+          {
+            "path": "app/designs/scores/stationery-p01.png",
+            "sha256": "1ADDF8C35AD2D9DB2718E0AA8FAFEC0FE7B4CAFCFA58E0163CC6BEC89E6FB401"
+          },
+          {
+            "path": "tools/ui-preview/scores.tsx",
+            "sha256": "0680FA182D0E16C4038F3C6DECA832C45B40DAB8A395A09581098A1A11866EE1"
+          },
+          {
+            "path": "tools/ui-preview/scores-fixture.ts",
+            "sha256": "F0DE1BF2248406D8FE09E6218C27354A0AB18FFFA22B6D457273A06B47256B70"
+          },
+          {
+            "path": "tools/ui-preview/scores.html",
+            "sha256": "82E99EF4C5538EF3FA6C94D8B1A32BBAB555F28878F65B5CE9439366501D4FA5"
+          },
+          {
+            "path": "tools/ui-preview/scores.vite.config.ts",
+            "sha256": "82CC148C3FA28713582553A536202B24227226E8AEBB93059923AC7E417CF643"
+          }
+        ]
+      },
+      "finishReview": {
+        "path": "docs/page-designs/V4/scores/finish-review.md",
+        "sha256": "A85C2CF2F0426CACE1A7E92EC267842C8791A4D9149BF3F84B8A9FC0A8534D55",
+        "currentScope": "历史技术复核保留；用户本轮退回两主标签页，不能用该PASS作为审美批准或当前设计完成依据"
+      },
+      "phaseBeforeP02": "needs-design-changes",
+      "feedback": {
+        "date": "2026-09-15",
+        "source": "用户：试卷分析先这样  历史趋势那里只有班级为对象的 如果对象换成某一个学生的话界面应该完全不一样的吧 包括指标什么的 这个也缺失"
+      }
     }
   ]
 }

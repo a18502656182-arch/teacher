@@ -1,5 +1,5 @@
 {
-  "version": "P01",
+  "version": "P02",
   "fixture": "tools/ui-preview/scores-fixture.ts",
   "mode": "Memory-only synthetic, frozen2026-09-15T09:00+08",
   "states": [
@@ -11,133 +11,35 @@
       "status": "isolated-rendered"
     },
     {
-      "id": "mobile-detail",
-      "desktop": true,
-      "mobile": true,
-      "userApproval": false,
-      "status": "isolated-rendered"
-    },
-    {
-      "id": "empty-class",
-      "desktop": true,
-      "mobile": true,
-      "userApproval": false,
-      "status": "isolated-rendered"
-    },
-    {
-      "id": "no-exams",
-      "desktop": true,
-      "mobile": true,
-      "userApproval": false,
-      "status": "isolated-rendered"
-    },
-    {
-      "id": "search-empty",
-      "desktop": true,
-      "mobile": true,
-      "userApproval": false,
-      "status": "isolated-rendered"
-    },
-    {
-      "id": "students-105",
-      "desktop": true,
-      "mobile": true,
-      "userApproval": false,
-      "status": "isolated-rendered"
-    },
-    {
-      "id": "long-subjects",
-      "desktop": true,
-      "mobile": true,
-      "userApproval": false,
-      "status": "isolated-rendered"
-    },
-    {
-      "id": "mixed-max",
-      "desktop": true,
-      "mobile": true,
-      "userApproval": false,
-      "status": "isolated-rendered"
-    },
-    {
-      "id": "composer",
-      "desktop": true,
-      "mobile": true,
-      "userApproval": false,
-      "status": "isolated-rendered"
-    },
-    {
-      "id": "student-editor",
-      "desktop": true,
-      "mobile": true,
-      "userApproval": false,
-      "status": "isolated-rendered"
-    },
-    {
-      "id": "batch",
-      "desktop": true,
-      "mobile": true,
-      "userApproval": false,
-      "status": "isolated-rendered"
-    },
-    {
-      "id": "ranges",
-      "desktop": true,
-      "mobile": true,
-      "userApproval": false,
-      "status": "isolated-rendered"
-    },
-    {
-      "id": "readonly",
-      "desktop": true,
-      "mobile": true,
-      "userApproval": false,
-      "status": "isolated-rendered"
-    },
-    {
-      "id": "loading",
-      "desktop": true,
-      "mobile": true,
-      "userApproval": false,
-      "status": "isolated-rendered"
-    },
-    {
-      "id": "saving",
-      "desktop": true,
-      "mobile": true,
-      "userApproval": false,
-      "status": "isolated-rendered"
-    },
-    {
-      "id": "save-failure",
-      "desktop": true,
-      "mobile": true,
-      "userApproval": false,
-      "status": "isolated-rendered"
-    },
-    {
-      "id": "save-throw",
-      "desktop": true,
-      "mobile": true,
-      "userApproval": false,
-      "status": "isolated-rendered"
-    },
-    {
-      "id": "conflict-409",
-      "desktop": true,
-      "mobile": true,
-      "userApproval": false,
-      "status": "isolated-rendered"
-    },
-    {
-      "id": "dirty-close",
-      "desktop": true,
-      "mobile": true,
-      "userApproval": false,
-      "status": "isolated-rendered"
-    },
-    {
       "id": "trends",
+      "desktop": true,
+      "mobile": true,
+      "userApproval": false,
+      "status": "isolated-rendered"
+    },
+    {
+      "id": "student-trends",
+      "desktop": true,
+      "mobile": true,
+      "userApproval": false,
+      "status": "isolated-rendered"
+    },
+    {
+      "id": "trend-single",
+      "desktop": true,
+      "mobile": true,
+      "userApproval": false,
+      "status": "isolated-rendered"
+    },
+    {
+      "id": "trend-empty",
+      "desktop": true,
+      "mobile": true,
+      "userApproval": false,
+      "status": "isolated-rendered"
+    },
+    {
+      "id": "trend-no-exams",
       "desktop": true,
       "mobile": true,
       "userApproval": false,
@@ -158,6 +60,20 @@
       "status": "isolated-rendered"
     },
     {
+      "id": "analysis-empty",
+      "desktop": true,
+      "mobile": true,
+      "userApproval": false,
+      "status": "isolated-rendered"
+    },
+    {
+      "id": "analysis-readonly",
+      "desktop": true,
+      "mobile": true,
+      "userApproval": false,
+      "status": "isolated-rendered"
+    },
+    {
       "id": "paper-review",
       "desktop": true,
       "mobile": true,
@@ -166,20 +82,6 @@
     },
     {
       "id": "ai-failure",
-      "desktop": true,
-      "mobile": true,
-      "userApproval": false,
-      "status": "isolated-rendered"
-    },
-    {
-      "id": "item-editor",
-      "desktop": true,
-      "mobile": true,
-      "userApproval": false,
-      "status": "isolated-rendered"
-    },
-    {
-      "id": "item-scores",
       "desktop": true,
       "mobile": true,
       "userApproval": false,
@@ -196,5 +98,200 @@
     "AI processing/service-consent/network and real persistence remain integration verification",
     "All dialogs/uncovered states pending supplemental user review",
     "Full keyboard/screenreader and real touch hardware not audited"
+  ],
+  "history": [
+    {
+      "version": "P01",
+      "states": [
+        {
+          "id": "normal",
+          "desktop": true,
+          "mobile": true,
+          "userApproval": false,
+          "status": "isolated-rendered"
+        },
+        {
+          "id": "mobile-detail",
+          "desktop": true,
+          "mobile": true,
+          "userApproval": false,
+          "status": "isolated-rendered"
+        },
+        {
+          "id": "empty-class",
+          "desktop": true,
+          "mobile": true,
+          "userApproval": false,
+          "status": "isolated-rendered"
+        },
+        {
+          "id": "no-exams",
+          "desktop": true,
+          "mobile": true,
+          "userApproval": false,
+          "status": "isolated-rendered"
+        },
+        {
+          "id": "search-empty",
+          "desktop": true,
+          "mobile": true,
+          "userApproval": false,
+          "status": "isolated-rendered"
+        },
+        {
+          "id": "students-105",
+          "desktop": true,
+          "mobile": true,
+          "userApproval": false,
+          "status": "isolated-rendered"
+        },
+        {
+          "id": "long-subjects",
+          "desktop": true,
+          "mobile": true,
+          "userApproval": false,
+          "status": "isolated-rendered"
+        },
+        {
+          "id": "mixed-max",
+          "desktop": true,
+          "mobile": true,
+          "userApproval": false,
+          "status": "isolated-rendered"
+        },
+        {
+          "id": "composer",
+          "desktop": true,
+          "mobile": true,
+          "userApproval": false,
+          "status": "isolated-rendered"
+        },
+        {
+          "id": "student-editor",
+          "desktop": true,
+          "mobile": true,
+          "userApproval": false,
+          "status": "isolated-rendered"
+        },
+        {
+          "id": "batch",
+          "desktop": true,
+          "mobile": true,
+          "userApproval": false,
+          "status": "isolated-rendered"
+        },
+        {
+          "id": "ranges",
+          "desktop": true,
+          "mobile": true,
+          "userApproval": false,
+          "status": "isolated-rendered"
+        },
+        {
+          "id": "readonly",
+          "desktop": true,
+          "mobile": true,
+          "userApproval": false,
+          "status": "isolated-rendered"
+        },
+        {
+          "id": "loading",
+          "desktop": true,
+          "mobile": true,
+          "userApproval": false,
+          "status": "isolated-rendered"
+        },
+        {
+          "id": "saving",
+          "desktop": true,
+          "mobile": true,
+          "userApproval": false,
+          "status": "isolated-rendered"
+        },
+        {
+          "id": "save-failure",
+          "desktop": true,
+          "mobile": true,
+          "userApproval": false,
+          "status": "isolated-rendered"
+        },
+        {
+          "id": "save-throw",
+          "desktop": true,
+          "mobile": true,
+          "userApproval": false,
+          "status": "isolated-rendered"
+        },
+        {
+          "id": "conflict-409",
+          "desktop": true,
+          "mobile": true,
+          "userApproval": false,
+          "status": "isolated-rendered"
+        },
+        {
+          "id": "dirty-close",
+          "desktop": true,
+          "mobile": true,
+          "userApproval": false,
+          "status": "isolated-rendered"
+        },
+        {
+          "id": "trends",
+          "desktop": true,
+          "mobile": true,
+          "userApproval": false,
+          "status": "isolated-rendered"
+        },
+        {
+          "id": "long-history",
+          "desktop": true,
+          "mobile": true,
+          "userApproval": false,
+          "status": "isolated-rendered"
+        },
+        {
+          "id": "analysis",
+          "desktop": true,
+          "mobile": true,
+          "userApproval": false,
+          "status": "isolated-rendered"
+        },
+        {
+          "id": "paper-review",
+          "desktop": true,
+          "mobile": true,
+          "userApproval": false,
+          "status": "isolated-rendered"
+        },
+        {
+          "id": "ai-failure",
+          "desktop": true,
+          "mobile": true,
+          "userApproval": false,
+          "status": "isolated-rendered"
+        },
+        {
+          "id": "item-editor",
+          "desktop": true,
+          "mobile": true,
+          "userApproval": false,
+          "status": "isolated-rendered"
+        },
+        {
+          "id": "item-scores",
+          "desktop": true,
+          "mobile": true,
+          "userApproval": false,
+          "status": "isolated-rendered"
+        }
+      ]
+    }
+  ],
+  "additionalEvidence": [
+    "docs/page-designs/V4/scores/screenshots/p02/capture.json",
+    "docs/page-designs/V4/scores/screenshots/p02-final/capture.json",
+    "docs/page-designs/V4/scores/screenshots/p02-extra/capture.json",
+    "docs/page-designs/V4/scores/screenshots/p02-review-fixes/review-fixes.json"
   ]
 }

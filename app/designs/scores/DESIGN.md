@@ -1,6 +1,6 @@
 ---
-name: 成绩分析 · 隔离 P01
-description: 浅绿考试上下文与连续录分台账的局部实现记录
+name: 成绩分析 · 隔离 P02
+description: 班级与个人趋势、试卷核对工作区的源码实现记录；P01历史保留
 colors:
   primary: "#087e7e"
   primary-hover: "#076a6a"
@@ -24,7 +24,20 @@ colors:
   success: "#edf7ee"
   success-ink: "#275e49"
   danger: "#a33324"
+  chart-note: "#415f76"
+  chart-grid: "#ccdae5"
+  subject-line: "#d3e2d6"
+  selected-row: "#f4f9f6"
+  meter-track: "#e0e8ed"
 typography:
+  selected-rate:
+    fontSize: "32px"
+    fontWeight: 700
+    lineHeight: 1.5
+  mobile-selected-rate:
+    fontSize: "28px"
+    fontWeight: 700
+    lineHeight: 1.5
   body:
     fontFamily: "Microsoft YaHei, sans-serif"
     fontSize: "15px"
@@ -65,6 +78,8 @@ typography:
   mobile-badge:
     fontSize: "11px"
 rounded:
+  workspace: "6px"
+  meter: "3px"
   control: "5px"
   exam: "7px"
 spacing:
@@ -104,6 +119,101 @@ components:
     rounded: "{rounded.control}"
     padding: "2px 8px"
 ---
+
+# Design System: 成绩分析 · 隔离 P02
+
+## Overview
+
+**Creative North Star: "浅绿考试笺与白纸录分簿"**
+
+延续录分簿的白纸、青绿命令与文具情境，趋势工作区以浅蓝图面和浅绿所选考试建立证据关系，试卷工作区以任务、人工核对、已确认台账组织操作。名称延续 P01 的描述性归纳，不是新品牌批准。
+
+**当前权威：2026-09-15 P02 源码实现。** 仅覆盖 app/designs/scores，不替换根 DESIGN.md；下方 P01 章节完整保留为历史，凡趋势结构、图表尺寸、试卷编辑方式与此节冲突，均以当前源码及本节为准。用户“可以 先这样吧 开始做网页”批准将班级趋势/试卷分析 C02、个人趋势 C03 制作为隔离页面；没有批准实际 P02 审美结果、正式接入、完整 D/R 或部署。新增 token 是登记已存在的实现值，不是改造全站设计系统。
+
+源码依据：ScoreTrendsDesign.tsx、ScoreAnalysisDesign.tsx、ScoresDesign.tsx、ScoresDesign.module.css、ScoreWorkspaces.module.css。截图依据为 docs/page-designs/V4/scores/screenshots/p02-final 与 p02-extra；本文作者直接查看 1536-trends 和 extra/390-paper-review，其余视觉判断引用 finish-review-P02.md。实际首屏台账密度低于候选、手机内容更长，不能写成完全复刻或代替用户审美确认。
+
+**Key Characteristics:**
+
+- 班级与个人分别使用人数覆盖和已录科目，保持指标对象明确。
+- 浅蓝图面、浅绿考试详情、连续考试台账由所选考试关联。
+- 试卷任务、待核对候选、已确认分析项分开，核对在页内展开。
+- 缺录断线、零分保留；统计解释紧邻图表和台账。
+
+## Colors
+
+### Primary
+
+沿用 primary 命令青绿，承担按钮、图线图点及已录得分率条。它表示操作与数值，不表示学生优劣。
+
+### Secondary
+
+table-head 复用于浅蓝图面，exam 复用于浅绿所选考试与选中试卷。chart-note 是图表说明文字；subject-line 分隔个人逐科明细；selected-row 标记台账当前考试。missing 与 missing-ink 标识未确认候选或部分录入，始终保留文字。
+
+### Neutral
+
+chart-grid 绘制参照横线，meter-track 是已确认分析项得分率条轨道。其余沿用 P01 的正文、元信息、白面和细分隔。精确色值以前置 token 为准。
+
+**The Meaning Rule.** 班级人数、个人科目、缺录、零分、待核对和已确认各自保留明确文字，不通过颜色扩大统计或业务含义。
+
+原 detector-P02.json 为 7 项 advisory：三色、两圆角、两字号，未含 warning/error。此次已登记对应值，并补登记实际图网格与进度轨道色；登记本身不等于重跑检测或无障碍验收。
+
+## Typography
+
+正文继承 Microsoft YaHei、sans-serif，桌面15px、手机14px；页头与共享壳层沿用现有规则。工作区标题桌面21px、手机20px，身份标题手机19px。所选考试主得分率使用 selected-rate / mobile-selected-rate，覆盖数字22px，辅助文案13px，日期12px。SVG 坐标系内标签桌面13px、手机12px，随 viewBox 整体缩放，不应将源码字号写成最终屏幕实测字号。
+
+## Layout
+
+桌面趋势为 2:1 两列，右列最低260px、间距20px；≤1100px 改为1.5:1、右列最低240px。图面与详情内距20px。≤900px 按图表、所选考试、台账纵排，面内距16px，间距16px；手机筛选默认收起科目与关键词。趋势不再显示录分用顶部考试带，试卷分析保留较紧凑的当前考试带。
+
+图表自适应 viewBox，桌面820×280、手机340×250；手机最多6场、桌面最多36场，完整筛选范围仍在每页10场的倒序台账。场次按日期排序后等距，并非连续时间轴。选中台账更新考试详情与可见范围内的图点强调；选中考试在图窗之外时，不虚构对应可见点。查看本次录分经 guard 返回对应考试。
+
+试卷分析桌面为250px任务列与核对区，≤1100px任务列210px，间距24px；手机纵排。候选桌面四列、手机两列。手机未进入核对时不展开候选字段，已确认分析项每页10项。试卷任务双端每页5份，翻页也经过 dirty guard；不把早期截图的单份任务样本当长期密度验证。
+
+1536趋势实际首屏只露出首条台账，候选曾显示更多记录；手机详情与多行台账增加滚动成本。全页截图中的固定底栏不能证明滚动后的确认按钮可达；补充读取 p02-review-fixes/review-fixes.json：1536/390/360 三视口共15项记录通过，包括试卷分页、翻页、滚动后确认按钮可达、UI确认及行操作名称；failures/consoleErrors为空。这是主执行者提供的验证日志，本文未独立重跑，也不扩大为真实数据或读屏通过。
+
+## Elevation & Depth
+
+工作区没有新增阴影、动画或过渡。浅蓝与浅绿面承担分区，白色连续行承担记录；细线标明字段及条目关系。共享门户弹窗的层级仍属自身实现，不能由本页的无阴影结论代替弹窗验收。
+
+## Shapes
+
+图表与考试详情使用 workspace 小圆角，得分率条使用 meter 圆角；按钮沿用 control。趋势台账保持直边细分隔，工作区标签仍以直角下划线表示选中。stationery-p01.png 沿用原素材，无新增装饰资产。
+
+## Components
+
+### 趋势与考试明细
+
+个人得分率为本场全部已录科目分数之和除以这些科目的满分之和，先四舍五入；班级值为有录入学生的个人得分率平均后再取整。班级覆盖为至少一科有录入的人数，个人覆盖为已录科目数。科目条件仅筛选包含该科的考试，不能称为该科单独走势。覆盖和科目差异、舍入影响都限制跨次比较，不据此给学生能力下结论。
+
+未录入使用 null、文字和断线，0分正常统计绘图；仅一场有记录提示不判断变化。SVG 提供标题与台账文本入口，台账按钮采用 aria-pressed 表示选中。最终源码给得分率、人数/科目覆盖补 aria-label，明细按钮名称包含考试名与日期；日志验证行操作名称，不声称已完成读屏、软键盘或全部触控目标验证。
+
+### 试卷任务与核对
+
+核对使用 controller 的 paper editor 在页内展开，取消、切换试卷/考试/工作区继续遵守 dirty/busy/pending 保护。待核对数据属于 paperAnalyses；确认并加入统计后才进入 knowledgeItems，已确认项按已录学生计算得分率，空白不当零分。合成候选不上传文件、不调用真实 AI，隔离页面也不证明真实服务器保存成功。人工新增和分析项录分仍通过既有对话框。
+
+### 共享命令与导航
+
+按钮、字段、focus-visible、禁用态及桌面侧栏/手机底栏沿用 P01 实现。工作区用 aria-pressed 按钮，没有冒称 ARIA tablist 键盘模式。页内核对的恢复提示保持可见，待同步不能呈现为服务器已确认保存。
+
+## Do's and Don'ts
+
+### Do:
+
+- **Do** 保持班级人数覆盖与个人已录科目各自明确，并关联所选考试、台账与图点。
+- **Do** 在趋势附近保留统计口径、科目筛选含义、缺录与零分说明。
+- **Do** 将实际首屏密度与候选差异交用户判断，按最终源码和验证记录区分事实与待验项。
+
+### Don't:
+
+- **Don't** 将隔离实现授权或 finish 结论写成实际 P02 审美批准、正式接入或部署许可。
+- **Don't** 将合成候选写成真实上传、真实 AI 或真实保存验证。
+- **Don't** 把 P01 历史趋势尺寸与结构用于覆盖当前 P02，或将登记 token 当检测全通过。
+
+---
+
+# 历史归档：P01 实现记录（原文保留）
+
+以下记录保留当时证据、限制与结论，不代表 P02 当前布局；冲突处以上方 P02 为准。
 
 # Design System: 成绩分析 · 隔离 P01
 
